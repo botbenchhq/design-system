@@ -17,10 +17,13 @@
     font-size: var(--gw-text-lg);
     font-weight: var(--gw-weight-semibold);
     line-height: var(--gw-leading-lg);
+    /* As wide as its text, so a long word must be allowed to break for it to fit. */
+    overflow-wrap: anywhere;
   }
 
   .gw-empty-state__body {
     color: var(--gw-color-muted);
+    overflow-wrap: anywhere;
   }
 
   .gw-empty-state__action {

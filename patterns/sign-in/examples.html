@@ -12,7 +12,13 @@
       </div>
       <div class="gw-field">
         <label class="gw-field__label" for="sign-in-default-password">Password</label>
-        <input class="gw-field__control" id="sign-in-default-password" type="password" name="password" required autocomplete="current-password">
+        <div class="gw-password-field">
+          <input class="gw-field__control gw-password-field__input" id="sign-in-default-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false">
+          <button type="button" class="gw-password-field__toggle" aria-controls="sign-in-default-password">
+            <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the password</span></span>
+            <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the password</span></span>
+          </button>
+        </div>
       </div>
       <button type="submit" class="gw-button gw-button--primary">Sign in</button>
     </form>
@@ -41,7 +47,13 @@
       </div>
       <div class="gw-field">
         <label class="gw-field__label" for="sign-in-rejected-password">Password</label>
-        <input class="gw-field__control" id="sign-in-rejected-password" type="password" name="password" required autocomplete="current-password" aria-describedby="sign-in-rejected-alert">
+        <div class="gw-password-field">
+          <input class="gw-field__control gw-password-field__input" id="sign-in-rejected-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false" aria-describedby="sign-in-rejected-alert">
+          <button type="button" class="gw-password-field__toggle" aria-controls="sign-in-rejected-password">
+            <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the password</span></span>
+            <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the password</span></span>
+          </button>
+        </div>
       </div>
       <button type="submit" class="gw-button gw-button--primary">Sign in</button>
     </form>
@@ -63,7 +75,13 @@
       </div>
       <div class="gw-field">
         <label class="gw-field__label" for="sign-in-busy-password">Password</label>
-        <input class="gw-field__control" id="sign-in-busy-password" type="password" name="password" required autocomplete="current-password" value="correct-horse-battery" readonly>
+        <div class="gw-password-field">
+          <input class="gw-field__control gw-password-field__input" id="sign-in-busy-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse-battery" readonly>
+          <button type="button" class="gw-password-field__toggle" aria-controls="sign-in-busy-password" disabled>
+            <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the password</span></span>
+            <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the password</span></span>
+          </button>
+        </div>
       </div>
       <button type="submit" class="gw-button gw-button--primary" aria-busy="true">Signing in</button>
     </form>
@@ -82,7 +100,13 @@
       </div>
       <div class="gw-field">
         <label class="gw-field__label" for="sign-in-two-password">Password</label>
-        <input class="gw-field__control" id="sign-in-two-password" type="password" name="password" required autocomplete="current-password">
+        <div class="gw-password-field">
+          <input class="gw-field__control gw-password-field__input" id="sign-in-two-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false">
+          <button type="button" class="gw-password-field__toggle" aria-controls="sign-in-two-password">
+            <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the password</span></span>
+            <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the password</span></span>
+          </button>
+        </div>
       </div>
       <div class="gw-button-group">
         <a class="gw-button gw-button--primary" href="/accounts/new">Create an account</a>

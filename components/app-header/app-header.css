@@ -9,7 +9,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    column-gap: var(--gw-space-xs);
+    /* The row gap keeps the pointer target of a control in the tray clear of the controls in the bar above it. */
+    gap: var(--gw-space-xs);
     padding: var(--gw-space-xs) var(--gw-space-sm);
     border-bottom-width: var(--gw-border-width);
     background-color: var(--gw-color-surface);

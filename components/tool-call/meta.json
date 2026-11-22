@@ -20,7 +20,7 @@
   "sizes": [],
   "states": ["default", "open", "busy"],
   "accessibility": [
-    "Use an article with aria-labelledby pointing at gw-tool-call__title, a heading at the level the view needs. The title holds the tool name and then the target, both as text.",
+    "Use an article with aria-labelledby pointing at gw-tool-call__title, a heading. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2. In a queue or a list every title takes the same level. The class sets the size, so the level changes nothing on screen. The title holds the tool name and then the target, both as text.",
     "Several calls are li elements of a ul or ol, one article in each.",
     "gw-tool-call__status always holds the status as a word: Running, Succeeded, Failed or Denied. The stylesheet draws the icon from the variant class, so the status is never colour alone.",
     "While the call runs, set aria-busy=\"true\" on the article and leave the variant class off. When it ends, remove aria-busy, add the variant class and change the word. Announce the change from a role=\"status\" element in the view when the reader is waiting on it.",

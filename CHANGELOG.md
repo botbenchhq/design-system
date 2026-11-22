@@ -2,6 +2,38 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.4.0
+
+What the first app to adopt the system reported, and what a blind trial of two agents reported.
+
+- **Fixes.**
+  - Long unbroken words. Text now inherits `overflow-wrap: break-word` from the base layer, and the field error, the alert title and body, the empty state title and body and the diff note also break anywhere, so a path or a hash in a message no longer makes the page scroll sideways at 390px. An app that added its own wrapping class for this can drop it.
+  - Headings. The page header's title is 24px at every width, the size of a plain `h1`. It was 20px below 768px, the size of a plain `h2`. `h1`, `h2` and `h3` are unchanged at 24px, 20px and 16px.
+  - Run status. The facts line has block padding, so facts that wrap beside the badge keep clear of the title and the row's edge.
+  - Approval. The note for the agent is one optional field before the actions, and the one Decline button sends whatever was typed. The earlier guidance had a second button, Decline and send note, so the plain Decline dropped a typed note. Update markup copied from the old example.
+  - Approval. The risk line is optional, and an example shows a card without it.
+  - Sign in. The pattern uses the catalogue's password field in place of a plain password input.
+  - Gallery. A wide popover drawn open in an example ends where the example's content ends at 390px. The popover component already kept its 16px margin from the screen edge and is unchanged.
+  - `dist/` carries the system's `LICENSE` and `NOTICE`.
+- **Additions.**
+  - Page pattern `app-shell`: the app header with the pending tray, the sidebar nav from 768px and the tab bar below it, and a main column whose page header holds the view's one `h1`. It brings the patterns to seven.
+  - Message: four more kinds of row, each with its label in words. `gw-message--session-start`, `gw-message--question` for a question the run waits on, `gw-message--decision` for a permission request that was resolved, saying how in its label beside an icon (allowed, declined, pre-approved or allowed by a standing permission) and by whom in its text, and `gw-message--error` for something that failed, apart from a denial. A new part, `gw-message__icon`, holds the icon in that label.
+  - Message: the tool-call row has a documented structured shape and an example of it: the tool name, the command or target in mono, an optional plain sentence saying why, and the full arguments behind the details element. It adds no class.
+  - Check list: a timed-out result, `gw-check-list__result--timed-out`, in words with the limit that was hit and a warning triangle, apart from failed.
+  - Activity feed: a documented newest-first form for a paged log, by markup order alone, with the order stated in words and Show older activity at the end.
+  - App header and page header: the metadata says which carries the `h1`, and the app header has an example with the pending tray in its tray.
+  - Dialog: an example of the closed dialog with its opener button, and where the `showModal()` fallback goes.
+  - Heading levels: approval, card, tool call, error state and activity feed say which level a title takes in a queue or a section.
+  - Undo toast: its metadata and `rules/choosing-components.md` say that an action with no real undo, such as revoking a standing permission, takes a confirm dialog.
+  - `components-index.json`: name, kind, title, purpose, status and classes of every component and pattern, under a twentieth of the size of `components.json`. `rules/core.md` and the consumer guide point to it first.
+  - Sync prints the patterns that were added, changed or removed, beside the components and rules.
+  - The consumer guide shows how an app wires `@axe-core/playwright` into its end-to-end tests. The system bundles no scanner.
+- **Checker.** 40 rules.
+  - New rule `unstyled-controls`: a view with buttons or form controls fails, once, when none of them carries or sits inside an element with a `gw-` class or a class with the app's prefix. It runs in the static scan on HTML files and in the rendered check. A screen that ignores the system no longer passes the rendered check with nothing to report.
+  - `gwCheckDom(root, { appPrefix })` takes the app's class prefix as an option, which the new rule needs on a rendered page. `gwCheckDom()` and `gwCheckDom(root)` work as before.
+  - A sprite reference such as `` `${sprite}#gw-icon-${name}` `` or `"icons.svg#gw-icon-check"` in script is no longer reported as `dynamic-class` or `unknown-class`. A `gw-icon-` name directly after `#` is a fragment, not a class. Remove any waiver written for it: an unused waiver is a finding.
+  - The summary line ends with the number of rules, as in `0 findings, 0 waivers, 0 declared gaps, 3 files scanned, 40 rules`, and the JSON report has the same number as `rules`. A script that matches the whole summary line needs updating.
+
 ## 0.3.0
 
 - **Components.** 29 more, which brings the catalogue to 93. All have the status `draft`.

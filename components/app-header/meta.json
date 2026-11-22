@@ -24,7 +24,9 @@
   "states": ["default", "hover", "focus-visible", "active", "disabled", "empty"],
   "accessibility": [
     "Use a header element. Outside main it is the page's banner landmark, so a page has one.",
-    "The product name is a link to the first screen. The view title is the page's h1 when the header shows one.",
+    "The product name is a link to the first screen. It is not a heading.",
+    "A view has one h1. When the view has a page header, the page header's title is the h1 and the app header shows the product name. Only a view with no page header, such as a detail screen with a back link, puts its title in gw-app-header__title as the h1. Never write the title as an h1 in both.",
+    "The tray, gw-app-header__tray, is where the pending tray goes: put the pending tray's div inside it, on every signed-in screen.",
     "The back link names where it goes: visible text such as Tasks, or aria-label=\"Back to tasks\" when it is only the icon.",
     "An icon-only action has an aria-label that says what it does and to what, such as Search tasks. Its icon carries aria-hidden=\"true\".",
     "Use a link for an action that goes to another view and a button for one that acts on this view.",

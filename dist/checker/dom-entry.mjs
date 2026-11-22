@@ -27,8 +27,9 @@ function adapt(element, parent, readingColumn) {
 }
 
 // Findings as { rule, message, fix, snippet }, where snippet is the start of the element's markup.
-export function checkDom(rootElement, readingColumn) {
+// options.appPrefix is the prefix of the app's own classes, which the page itself cannot tell.
+export function checkDom(rootElement, readingColumn, options = {}) {
   const root = { tag: "#document", attrs: {}, children: [], parent: null };
   root.children.push(adapt(rootElement, root, readingColumn));
-  return runRules(root).map(({ node, ...finding }) => ({ ...finding, snippet: node.snippet }));
+  return runRules(root, options).map(({ node, ...finding }) => ({ ...finding, snippet: node.snippet }));
 }

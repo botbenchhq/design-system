@@ -2,7 +2,7 @@
 
 Every rule the checker can report, what it means and how to fix it. The finding itself names the file and line, and often the nearest token or class.
 
-The static scan reads CSS, HTML, JSX, TSX and class names in script. The structural rules read a static HTML file as a tree, and the rendered page through `gwCheckDom()`.
+The static scan reads CSS, HTML, JSX, TSX and class names in script. The structural rules read a static HTML file as a tree, and the rendered page through `gwCheckDom()`. The summary line of the static scan ends with the number of rules the checker holds.
 
 No setting switches a rule off. The one exception to a rule is an inline waiver: a comment holding `gw-waive <rule-id>: <reason>`, on the line of the finding or the line before it. Every run prints each waiver.
 
@@ -49,6 +49,7 @@ No setting switches a rule off. The one exception to a rule is an inline waiver:
 | `disclosure-depth` | A disclosure is nested three levels deep. | Nest at most two levels. Move the deeper content to its own view. |
 | `summary-without-text` | A summary has no text. | Write what the disclosure holds as text in its summary. |
 | `hidden-critical-action` | A critical action is reachable only inside collapsed content. | Show the action outside the collapsed content as well, or open the disclosure by default. |
+| `unstyled-controls` | A view has buttons or form controls, and none of them carries or sits inside an element with a system class or a class with the app's prefix. It is reported once for the view. A link and a hidden input are not counted. | Build the view from catalogue components. Look each control up in the component index and copy its example. |
 
 ## Visual tells and copy
 

@@ -525,3 +525,69 @@ test("loading the command palette module a second time is harmless", async ({ pa
   await page.keyboard.type("copy");
   expect((await paletteState(page)).shown).toEqual(["Copy the transcript of run 4182"]);
 });
+
+test("at 390px every popover drawn open in the gallery ends inside its example, 16px or more from the screen edge", async ({ page }) => {
+  await open(page, "popover", { width: 390 });
+  const boxes = await page.locator("[data-example] [popover]").evaluateAll((popovers) =>
+    popovers.map((popover) => {
+      const example = popover.closest("[data-example]");
+      const inner = example.getBoundingClientRect().right - parseFloat(getComputedStyle(example).paddingRight);
+      return { id: popover.id, open: popover.matches(":popover-open"), right: popover.getBoundingClientRect().right, inner, screen: document.documentElement.clientWidth };
+    }),
+  );
+  expect(boxes.map((box) => box.id)).toEqual(expect.arrayContaining(["popover-text", "popover-error", "popover-only-way"]));
+  for (const box of boxes) {
+    expect(box.open, box.id).toBe(true);
+    expect(box.right, box.id).toBeLessThanOrEqual(box.inner + 0.5);
+    expect(box.right, box.id).toBeLessThanOrEqual(box.screen - 16);
+  }
+});
+
+test("on a page of its own at 390px a wide popover keeps a 16px margin from the trailing edge", async ({ page }) => {
+  const popover = index.components.find((component) => component.name === "popover").examples.find((example) => example.id === "text");
+  await page.setViewportSize({ width: 390, height: 900 });
+  await page.goto(`${origin}/gallery/popover.html`);
+  // The gallery's own rules for an example do not reach this markup: it replaces the page.
+  await page.evaluate((markup) => {
+    document.body.innerHTML = `<main class="gw-container">${markup}</main>`;
+  }, popover.markup);
+  await page.locator("button[popovertarget]").click();
+  const box = await page.locator("[popover]").boundingBox();
+  expect(await page.locator("[popover]").evaluate((element) => element.matches(":popover-open"))).toBe(true);
+  expect(box.x).toBeGreaterThanOrEqual(16);
+  expect(box.x + box.width).toBeLessThanOrEqual(390 - 16);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBe(0);
+});
+
+test("the closed dialog example opens as a modal from its command button, and Cancel closes it", async ({ page }) => {
+  await open(page, "dialog");
+  const example = page.locator('[data-example="closed"]');
+  const dialog = example.locator("dialog");
+  await expect(dialog).not.toHaveAttribute("open");
+  await expect(dialog).toBeHidden();
+  const opener = example.locator("> button");
+  await expect(opener).toHaveAttribute("command", "show-modal");
+  expect(await opener.getAttribute("commandfor")).toBe(await dialog.getAttribute("id"));
+  await opener.click();
+  expect(await dialog.evaluate((element) => element.open && element.matches(":modal"))).toBe(true);
+  await dialog.getByRole("button", { name: "Cancel" }).click();
+  await expect(dialog).toBeHidden();
+  await expect(opener).toBeFocused();
+});
+
+test("the app shell shows the sidebar nav at 1280px and the tab bar at 390px, with one h1 and no sideways scroll", async ({ page }) => {
+  for (const [width, shown, hidden] of [[1280, ".gw-sidebar-nav", ".gw-tab-bar"], [390, ".gw-tab-bar", ".gw-sidebar-nav"]]) {
+    await open(page, "app-shell", { width });
+    for (const id of ["list", "empty"]) {
+      const example = page.locator(`[data-example="${id}"]`);
+      await expect(example.locator(shown), `${id} at ${width}`).toBeVisible();
+      await expect(example.locator(hidden), `${id} at ${width}`).toBeHidden();
+      await expect(example.locator("h1")).toHaveCount(1);
+      await expect(example.locator(".gw-app-header__tray .gw-pending-tray")).toBeVisible();
+      // The tab bar is the last thing in the shell, at its bottom edge.
+      const edges = await example.locator(".gw-app-shell").evaluate((shell) => [shell.getBoundingClientRect().bottom, shell.lastElementChild.getBoundingClientRect().bottom, shell.scrollWidth - shell.clientWidth]);
+      if (width === 390) expect(Math.abs(edges[0] - edges[1])).toBeLessThan(1);
+      expect(edges[2]).toBe(0);
+    }
+  }
+});

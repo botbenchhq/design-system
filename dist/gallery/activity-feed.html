@@ -94,6 +94,55 @@
 </figure>
 <figure data-gallery="specimen">
 <figcaption>
+<h3>A paged log, newest first</h3>
+</figcaption>
+<div data-example="newest-first" data-title="A paged log, newest first">
+  <section class="gw-activity-feed" aria-label="Action log">
+    <p class="gw-visually-hidden">The newest entry is first.</p>
+    <div class="gw-activity-feed__day">
+      <h4 class="gw-activity-feed__heading">Today, 22 November</h4>
+      <ol class="gw-activity-feed__entries" reversed>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T10:41">10:41</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">You</span> revoked the standing permission to run npm install</p>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T09:16">09:16</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">Claude Code</span> ran a command under a standing permission</p>
+          <div class="gw-activity-feed__evidence">
+            <code class="gw-activity-feed__excerpt">npm install --save-dev @acme/session-fixtures</code>
+          </div>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T09:02">09:02</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">You</span> allowed a request to read docs/runbooks/session-store.md</p>
+        </li>
+      </ol>
+    </div>
+    <div class="gw-activity-feed__day">
+      <h4 class="gw-activity-feed__heading">Yesterday, 21 November</h4>
+      <ol class="gw-activity-feed__entries" reversed>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-21T17:55">17:55</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">You</span> declined a request to delete ../shared-config/.cache</p>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-21T17:48">17:48</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">You</span> granted a standing permission to run npm install in acme/api</p>
+        </li>
+      </ol>
+    </div>
+    <div class="gw-activity-feed__more">
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+        Show older activity
+      </button>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
 <h3>A feed that grows while the reader watches</h3>
 </figcaption>
 <div data-example="live" data-title="A feed that grows while the reader watches">
@@ -251,9 +300,10 @@
 <section>
 <h2>When to use it</h2>
 <ul>
-<li>For the history of a task, a run or a repository, read from the oldest entry shown to the newest.</li>
+<li>For the history of a task, a run or a repository, read from the oldest entry shown to the newest. This is the default order.</li>
 <li>When each event fits one line: who did what, and when.</li>
 <li>With role=&quot;log&quot; when entries are added while the reader watches.</li>
+<li>Newest first, for a log the reader pages back through, such as an audit log of actions and permissions. The order of the markup alone does it.</li>
 </ul>
 </section>
 <section>
@@ -269,14 +319,15 @@
 <h2>Accessibility</h2>
 <ul>
 <li>Use a section with an aria-label that names what the activity belongs to, such as Activity for task 41. Each label is unique in the view.</li>
-<li>Inside it, each day is a div with the class gw-activity-feed__day: a heading, at the level the view needs, that names the day in words such as Today, 22 November, then an ol of entries, oldest first.</li>
+<li>Inside it, each day is a div with the class gw-activity-feed__day: a heading, at the level under the heading the feed sits beneath (h2 directly under the view's h1, h3 inside a section headed by an h2), that names the day in words such as Today, 22 November, then an ol of entries, oldest first.</li>
 <li>An entry is an li holding a time element with a datetime attribute, then a p with the actor in gw-activity-feed__actor followed by a verb phrase that names the thing acted on, then optionally one gw-activity-feed__evidence holding a source chip or a short gw-activity-feed__excerpt.</li>
 <li>When entries are appended while the reader watches, put role=&quot;log&quot; on the section. A log is announced politely, entry by entry, and needs no script beyond adding the li. Keep role=&quot;log&quot; off a feed that only changes when the reader asks.</li>
 <li>Use role=&quot;feed&quot; only when the app loads entries as the reader scrolls and implements the feed keyboard contract itself: each entry an article with aria-posinset and aria-setsize, and Page Down and Page Up moving between entries. The component does not provide that behaviour.</li>
 <li>A long feed shows the latest entries. Earlier ones come in through one quiet small button, Show earlier activity, with a chevron-up icon, in gw-activity-feed__more above the first day. While they are fetched, set aria-busy=&quot;true&quot; on the button and on the section, and change the button's words to Loading earlier activity. Afterwards move focus to the first entry that was added, so the reader continues from there.</li>
+<li>For a paged log, write the feed newest first: the latest day first, and inside each day the latest entry first, in an ol with the reversed attribute. Say the order in words, in the heading above the feed or in a first child p with the class gw-visually-hidden reading The newest entry is first. Older entries come in through the same quiet small button, now reading Show older activity with a chevron-down icon, in gw-activity-feed__more after the last day. Afterwards move focus to the first entry that was added. Do not put role=&quot;log&quot; on a newest-first feed: a log is announced as entries are added at its end.</li>
 <li>For the first fetch, an empty feed and a failed fetch, the section holds a spinner, a compact empty state or an error state in place of the days.</li>
 <li>An excerpt is text, never markup, and is short: one command or one line of output. Longer output belongs in a tool call.</li>
-<li>Tab reaches the Show earlier activity button and any source chips, in order. Entries themselves take no focus.</li>
+<li>Tab reaches the Show earlier activity or Show older activity button and any source chips, in order. Entries themselves take no focus.</li>
 </ul>
 </section>
 <section>

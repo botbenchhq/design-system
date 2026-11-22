@@ -34,7 +34,7 @@ const SYMBOL_ATTRIBUTES = ["viewBox", "fill", "stroke", "stroke-width", "stroke-
 
 // The rendered check is these checker files joined in this order, each after the ones it imports from.
 const DOM_BUNDLE = [
-  "rules/stock-phrases.mjs", "rules/tree.mjs", "rules/disclosure.mjs", "rules/tells.mjs", "rules/copy.mjs",
+  "rules/stock-phrases.mjs", "rules/tree.mjs", "rules/disclosure.mjs", "rules/tells.mjs", "rules/copy.mjs", "rules/adoption.mjs",
   "rules/index.mjs", "dom-entry.mjs",
 ];
 
@@ -376,11 +376,11 @@ function domBundle(checker, readingColumn) {
     return `// ${name}\n${source.replace(/^import [^;]+;\n/gm, "").replace(/^export /gm, "").trim()}\n`;
   });
   return [
-    "// Generated from checker/. Defines gwCheckDom(root), which returns the structural findings of the rendered page.",
+    "// Generated from checker/. Defines gwCheckDom(root, { appPrefix }), which returns the structural findings of the rendered page.",
     "(() => {",
     '"use strict";',
     ...modules,
-    `globalThis.gwCheckDom = (root = document.documentElement) => checkDom(root, ${parseFloat(readingColumn)});`,
+    `globalThis.gwCheckDom = (root = document.documentElement, options = {}) => checkDom(root, ${parseFloat(readingColumn)}, options ?? {});`,
     "})();",
     "",
   ].join("\n");
@@ -556,6 +556,19 @@ function componentIndex(components, patterns) {
   return { components: components.map(entry), patterns: patterns.map(entry) };
 }
 
+// The short index: enough of each component and pattern to choose one, without the markup.
+// An agent reads this first, then opens the one entry it needs in components.json.
+function shortIndex(folders) {
+  return folders.map(({ meta }) => ({
+    name: meta.name,
+    kind: meta.kind === "pattern" ? "pattern" : "component",
+    title: meta.title,
+    purpose: meta.purpose,
+    status: meta.status,
+    classes: meta.classes,
+  }));
+}
+
 const galleryIcon = (name) => `<svg aria-hidden="true"><use href="../icons.svg#gw-icon-${name}"></use></svg>`;
 
 // Every gallery page loads each behaviour module, so an example wrapped in one of their elements works.
@@ -715,7 +728,11 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
     "manifest.json": json(manifest(groups, tokens, classes, ruleIds(checker))),
     "components.json": json(componentIndex(components, patterns)),
     "gallery/index.html": galleryIndex(components, patterns, modules),
+    "components-index.json": json(shortIndex(folders)),
     VERSION: `${version}\n`,
+    // A vendored copy carries the licence and the notice with it.
+    LICENSE: readFileSync(join(root, "LICENSE")),
+    NOTICE: readFileSync(join(root, "NOTICE")),
   };
   for (const folder of folders) files[`gallery/${folder.name}.html`] = galleryComponent(folder, modules);
   for (const name of GALLERY_FILES) files[`gallery/${name}`] = readFileSync(join(root, "gallery", name));

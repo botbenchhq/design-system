@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App shell - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>App shell</h1>
+<p>The frame of a signed-in screen: the app header with the pending tray, the sidebar nav from 768px and the tab bar below it, and a main column that starts with the view's page header.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A list view in the shell</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The app header holds the product name and the pending tray, and the page header inside the main column holds the view's one h1 and its one primary action. The sidebar nav and the tab bar list the same destinations, and the reader meets whichever fits the width.</p>
+</figcaption>
+<div data-example="list" data-title="A list view in the shell" data-state="default" data-gallery-frame data-reason="The app header holds the product name and the pending tray, and the page header inside the main column holds the view's one h1 and its one primary action. The sidebar nav and the tab bar list the same destinations, and the reader meets whichever fits the width.">
+  <div class="gw-app-shell">
+    <header class="gw-app-header gw-app-header--sticky">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+      <div class="gw-app-header__tray">
+        <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+          <a class="gw-pending-tray__link" href="/approvals"><span class="gw-pending-tray__count">2</span> approvals waiting</a>
+        </div>
+      </div>
+    </header>
+    <div class="gw-sidebar-layout gw-app-shell__body">
+      <nav class="gw-sidebar-nav" aria-label="Main">
+        <ul class="gw-sidebar-nav__items">
+          <li>
+            <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+              <span class="gw-sidebar-nav__label">Runs</span>
+            </a>
+          </li>
+          <li>
+            <a class="gw-sidebar-nav__item" href="/tasks">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+              <span class="gw-sidebar-nav__label">Tasks</span>
+            </a>
+          </li>
+          <li>
+            <a class="gw-sidebar-nav__item" href="/branches">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+              <span class="gw-sidebar-nav__label">Branches</span>
+            </a>
+          </li>
+          <li>
+            <a class="gw-sidebar-nav__item" href="/approvals">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+              <span class="gw-sidebar-nav__label">Approvals</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="gw-container gw-app-shell__main">
+        <header class="gw-page-header">
+          <div class="gw-page-header__text">
+            <h1 class="gw-page-header__title">Runs</h1>
+            <p class="gw-page-header__description">4 runs in acme/api, the ones that need you first.</p>
+          </div>
+          <div class="gw-page-header__action">
+            <a class="gw-button gw-button--primary" href="/tasks/new">
+              <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+              New task
+            </a>
+          </div>
+        </header>
+        <ul class="gw-list">
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2295">
+              <span class="gw-run-status">
+                <span class="gw-run-status__title">Add rate limiting to the webhook endpoint</span>
+                <span class="gw-run-status__station">
+                  <span class="gw-badge gw-badge--info">
+                    <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-loader"></use></svg>
+                    Building
+                  </span>
+                </span>
+                <span class="gw-run-status__facts">Claude Code, implementer · <time class="gw-run-status__elapsed" datetime="PT4M12S">4 min 12 s</time></span>
+              </span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2292">
+              <span class="gw-run-status">
+                <span class="gw-run-status__title">Remove the legacy invoice exporter</span>
+                <span class="gw-run-status__station">
+                  <span class="gw-badge gw-badge--warning">
+                    <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-alert"></use></svg>
+                    Awaiting decision
+                  </span>
+                </span>
+                <span class="gw-run-status__facts">Waiting on you · <time class="gw-run-status__elapsed" datetime="PT1H8M">1 h 8 min</time></span>
+              </span>
+            </a>
+            <div class="gw-list__action">
+              <button type="button" class="gw-button gw-button--small" aria-label="Review Remove the legacy invoice exporter">Review</button>
+            </div>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2294">
+              <span class="gw-run-status">
+                <span class="gw-run-status__title">Upgrade Postgres client to 8.13</span>
+                <span class="gw-run-status__station">
+                  <span class="gw-badge gw-badge--info">
+                    <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+                    Verifying
+                  </span>
+                </span>
+                <span class="gw-run-status__facts">Test runner · <time class="gw-run-status__elapsed" datetime="PT11M">11 min</time></span>
+              </span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2289">
+              <span class="gw-run-status">
+                <span class="gw-run-status__title">Fix the off-by-one in the retry counter</span>
+                <span class="gw-run-status__station">
+                  <span class="gw-badge gw-badge--success">
+                    <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+                    Decided
+                  </span>
+                </span>
+                <span class="gw-run-status__facts">Accepted by you · <time class="gw-run-status__elapsed" datetime="PT35M">35 min</time></span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <nav class="gw-tab-bar" aria-label="Main">
+      <a class="gw-tab-bar__item" href="/runs" aria-current="page">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+        <span class="gw-tab-bar__label">Runs</span>
+      </a>
+      <a class="gw-tab-bar__item" href="/tasks">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-tab-bar__label">Tasks</span>
+      </a>
+      <a class="gw-tab-bar__item" href="/branches">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+        <span class="gw-tab-bar__label">Branches</span>
+      </a>
+      <a class="gw-tab-bar__item" href="/approvals">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+        <span class="gw-tab-bar__label">Approvals</span>
+      </a>
+    </nav>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>An empty view in the shell</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="An empty view in the shell" data-state="empty" data-gallery-frame>
+  <div class="gw-app-shell">
+    <header class="gw-app-header gw-app-header--sticky">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+      <div class="gw-app-header__tray">
+        <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+          <span class="gw-pending-tray__text">No approvals waiting</span>
+        </div>
+      </div>
+    </header>
+    <div class="gw-sidebar-layout gw-app-shell__body">
+      <nav class="gw-sidebar-nav" aria-label="Smelt">
+        <ul class="gw-sidebar-nav__items">
+          <li>
+            <a class="gw-sidebar-nav__item" href="/runs">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+              <span class="gw-sidebar-nav__label">Runs</span>
+            </a>
+          </li>
+          <li>
+            <a class="gw-sidebar-nav__item" href="/tasks" aria-current="page">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+              <span class="gw-sidebar-nav__label">Tasks</span>
+            </a>
+          </li>
+          <li>
+            <a class="gw-sidebar-nav__item" href="/branches">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+              <span class="gw-sidebar-nav__label">Branches</span>
+            </a>
+          </li>
+          <li>
+            <a class="gw-sidebar-nav__item" href="/approvals">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+              <span class="gw-sidebar-nav__label">Approvals</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="gw-container gw-app-shell__main">
+        <header class="gw-page-header">
+          <div class="gw-page-header__text">
+            <h1 class="gw-page-header__title">Tasks</h1>
+            <p class="gw-page-header__description">Work queued for the agent in acme/api.</p>
+          </div>
+        </header>
+        <div class="gw-empty-state">
+          <h2 class="gw-empty-state__title">No tasks yet</h2>
+          <p class="gw-empty-state__body">A task is one piece of work for the agent, such as a bug to fix. Each task you add shows up here with its runs.</p>
+          <div class="gw-empty-state__action">
+            <a class="gw-button gw-button--primary" href="/tasks/new">
+              <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+              New task
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="gw-tab-bar" aria-label="Smelt">
+      <a class="gw-tab-bar__item" href="/runs">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+        <span class="gw-tab-bar__label">Runs</span>
+      </a>
+      <a class="gw-tab-bar__item" href="/tasks" aria-current="page">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-tab-bar__label">Tasks</span>
+      </a>
+      <a class="gw-tab-bar__item" href="/branches">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+        <span class="gw-tab-bar__label">Branches</span>
+      </a>
+      <a class="gw-tab-bar__item" href="/approvals">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+        <span class="gw-tab-bar__label">Approvals</span>
+      </a>
+    </nav>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> The view's title as an h1 in both headers</h3>
+<p>A view has one h1. Here the app header and the page header each carry one, so a screen reader announces two page titles and the outline has two tops. With a page header in the view, the app header shows the product name, which is a link and not a heading.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="two-h1" data-title="The view's title as an h1 in both headers" data-dont="review" data-gallery-frame data-reason="A view has one h1. Here the app header and the page header each carry one, so a screen reader announces two page titles and the outline has two tops. With a page header in the view, the app header shows the product name, which is a link and not a heading.">
+  <div class="gw-app-shell">
+    <header class="gw-app-header gw-app-header--sticky">
+      <h1 class="gw-app-header__title">Runs</h1>
+    </header>
+    <div class="gw-sidebar-layout gw-app-shell__body">
+      <nav class="gw-sidebar-nav" aria-label="Screens">
+        <ul class="gw-sidebar-nav__items">
+          <li>
+            <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+              <span class="gw-sidebar-nav__label">Runs</span>
+            </a>
+          </li>
+          <li>
+            <a class="gw-sidebar-nav__item" href="/tasks">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+              <span class="gw-sidebar-nav__label">Tasks</span>
+            </a>
+          </li>
+          <li>
+            <a class="gw-sidebar-nav__item" href="/branches">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+              <span class="gw-sidebar-nav__label">Branches</span>
+            </a>
+          </li>
+          <li>
+            <a class="gw-sidebar-nav__item" href="/approvals">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+              <span class="gw-sidebar-nav__label">Approvals</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="gw-container gw-app-shell__main">
+        <header class="gw-page-header">
+          <div class="gw-page-header__text">
+            <h1 class="gw-page-header__title">Runs</h1>
+            <p class="gw-page-header__description">4 runs in acme/api, the ones that need you first.</p>
+          </div>
+        </header>
+        <ul class="gw-list">
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2295">
+              <span class="gw-run-status">
+                <span class="gw-run-status__title">Add rate limiting to the webhook endpoint</span>
+                <span class="gw-run-status__station">
+                  <span class="gw-badge gw-badge--info">
+                    <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-loader"></use></svg>
+                    Building
+                  </span>
+                </span>
+                <span class="gw-run-status__facts">Claude Code, implementer · <time class="gw-run-status__elapsed" datetime="PT4M12S">4 min 12 s</time></span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <nav class="gw-tab-bar" aria-label="Screens">
+      <a class="gw-tab-bar__item" href="/runs" aria-current="page">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+        <span class="gw-tab-bar__label">Runs</span>
+      </a>
+      <a class="gw-tab-bar__item" href="/tasks">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-tab-bar__label">Tasks</span>
+      </a>
+      <a class="gw-tab-bar__item" href="/branches">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+        <span class="gw-tab-bar__label">Branches</span>
+      </a>
+      <a class="gw-tab-bar__item" href="/approvals">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+        <span class="gw-tab-bar__label">Approvals</span>
+      </a>
+    </nav>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>As the starting point of every signed-in screen that has the app's navigation around it. Build the shell once and change only what the main column holds.</li>
+<li>When a screen needs the header, the navigation and the main column together and you are unsure which element carries what.</li>
+<li>With any other page pattern in the main column, such as the settings page or filter and results.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a screen outside the app's navigation, such as signing in. Use the sign-in pattern.</li>
+<li>For a detail screen that takes the whole width on a phone and has a back link in the app header. Keep the app header and leave the tab bar out, as the app header's back-and-title example shows.</li>
+<li>For a list beside its detail. Use master and detail inside the main column.</li>
+<li>To add a second bar or a second column of navigation. The shell has one header, one sidebar nav and one tab bar.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>The element with gw-app-shell holds three things in this order: the app header, an element with gw-sidebar-layout and gw-app-shell__body, and the tab bar. In an app it is the body or the app's root element. Do not put it inside a container.</li>
+<li>The app header is the page's banner. It holds the product name, a link to the first screen that is not a heading, and gw-app-header__tray with the pending tray inside it. Keep the pending tray's live region in the page on every screen and change only what it holds.</li>
+<li>The element with gw-sidebar-layout holds the sidebar nav first and the main column second. The main column is the page's main element, with gw-container and gw-app-shell__main. The examples use a div for it only because a gallery page already has a main element.</li>
+<li>The main column starts with a page header, which holds the view's one h1. Nothing else in the shell is an h1. Sections of the view are headed by h2, or by the titles of the components they hold.</li>
+<li>The view's one primary action is in the page header, or in the empty state when the view has no data. The headers and the navigation never hold a primary button.</li>
+<li>The sidebar nav and the tab bar are both in the markup and list the same destinations in the same order, with aria-current=&quot;page&quot; on the same one. The sidebar nav is rendered from 768px and the tab bar below it, so only one is in the accessibility tree and both may carry the same aria-label.</li>
+<li>The tab bar is the last element in the shell. It sticks to the bottom of the screen, and the shell is at least as tall as the screen so that it does so on a short view too. Keep it to five destinations at most; the sidebar nav may list more.</li>
+<li>Give the app a skip link before the shell that moves focus to the main column, so a keyboard reader does not pass the navigation on every screen.</li>
+<li>Tab moves through the app header, the sidebar nav when it is shown, the main column, then the tab bar when it is shown. The shell needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-app-shell</code></li>
+<li><code>gw-app-shell__body</code></li>
+<li><code>gw-app-shell__main</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

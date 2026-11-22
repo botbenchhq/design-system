@@ -1,0 +1,49 @@
+Groundwork
+Copyright 2026 Jon Lange
+
+Files copied from other projects are listed here with their source and
+licence notice.
+
+The default theme's values for accent, surface, on-surface, border, muted,
+spacing and radius come from the DESIGN.md of Smelt, a project by the same
+author under the Apache License 2.0.
+
+Copied files (stored in this repository and shipped in dist/)
+-------------------------------------------------------------
+
+- IBM Plex Sans, variable weight, Latin subset.
+  Copyright 2019 IBM Corp. All rights reserved.
+  SIL Open Font License, Version 1.1.
+  File: base/fonts/ibm-plex-sans-latin-wght-normal.woff2, unmodified, from
+  the npm package @fontsource-variable/ibm-plex-sans 5.3.0.
+  Licence text: base/fonts/OFL-IBM-Plex-Sans.txt.
+- IBM Plex Mono, weights 400, 500 and 600, Latin subset.
+  Copyright 2017 IBM Corp. All rights reserved.
+  SIL Open Font License, Version 1.1.
+  Files: base/fonts/ibm-plex-mono-latin-*-normal.woff2, unmodified, from the
+  npm package @fontsource/ibm-plex-mono 5.3.0.
+  Licence text: base/fonts/OFL-IBM-Plex-Mono.txt.
+- Lucide icons, the subset named in base/icons.json.
+  Copyright (c) 2026 Lucide Icons and Contributors. ISC License.
+  Some of these icons derive from Feather.
+  Copyright (c) 2013-present Cole Bemis. MIT License.
+  Files: base/icons/*.svg, unmodified, from the npm package lucide-static
+  1.77.0. dist/icons.svg is generated from them.
+  Licence text: base/icons/LICENSE.
+
+base/reset.css is written for this project. It keeps the same element
+defaults as the preflight stylesheet of Tailwind CSS (Copyright (c) Tailwind
+Labs, Inc., MIT License), so that Tailwind utilities behave the same with
+preflight turned off.
+
+Development tools (not stored in this repository, not shipped in dist/)
+----------------------------------------------------------------------
+
+- Tailwind CSS 3.4.19. Copyright (c) Tailwind Labs, Inc. MIT License.
+  Used by the test suite to build a fixture against the generated preset.
+- TypeScript. Copyright (c) Microsoft Corporation. Apache License 2.0.
+  Used by the test suite to typecheck a fixture that imports the preset.
+- Playwright. Copyright (c) Microsoft Corporation. Apache License 2.0.
+  Used by the browser tests, with the Chrome installed on the machine.
+- Fontsource packages and lucide-static. Used by `npm run vendor` as the
+  source of the copied font and icon files listed above.

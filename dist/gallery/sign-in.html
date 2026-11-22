@@ -45,7 +45,13 @@
       </div>
       <div class="gw-field">
         <label class="gw-field__label" for="sign-in-default-password">Password</label>
-        <input class="gw-field__control" id="sign-in-default-password" type="password" name="password" required autocomplete="current-password">
+        <div class="gw-password-field">
+          <input class="gw-field__control gw-password-field__input" id="sign-in-default-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false">
+          <button type="button" class="gw-password-field__toggle" aria-controls="sign-in-default-password">
+            <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the password</span></span>
+            <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the password</span></span>
+          </button>
+        </div>
       </div>
       <button type="submit" class="gw-button gw-button--primary">Sign in</button>
     </form>
@@ -80,7 +86,13 @@
       </div>
       <div class="gw-field">
         <label class="gw-field__label" for="sign-in-rejected-password">Password</label>
-        <input class="gw-field__control" id="sign-in-rejected-password" type="password" name="password" required autocomplete="current-password" aria-describedby="sign-in-rejected-alert">
+        <div class="gw-password-field">
+          <input class="gw-field__control gw-password-field__input" id="sign-in-rejected-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false" aria-describedby="sign-in-rejected-alert">
+          <button type="button" class="gw-password-field__toggle" aria-controls="sign-in-rejected-password">
+            <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the password</span></span>
+            <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the password</span></span>
+          </button>
+        </div>
       </div>
       <button type="submit" class="gw-button gw-button--primary">Sign in</button>
     </form>
@@ -107,7 +119,13 @@
       </div>
       <div class="gw-field">
         <label class="gw-field__label" for="sign-in-busy-password">Password</label>
-        <input class="gw-field__control" id="sign-in-busy-password" type="password" name="password" required autocomplete="current-password" value="correct-horse-battery" readonly>
+        <div class="gw-password-field">
+          <input class="gw-field__control gw-password-field__input" id="sign-in-busy-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse-battery" readonly>
+          <button type="button" class="gw-password-field__toggle" aria-controls="sign-in-busy-password" disabled>
+            <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the password</span></span>
+            <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the password</span></span>
+          </button>
+        </div>
       </div>
       <button type="submit" class="gw-button gw-button--primary" aria-busy="true">Signing in</button>
     </form>
@@ -132,7 +150,13 @@
       </div>
       <div class="gw-field">
         <label class="gw-field__label" for="sign-in-two-password">Password</label>
-        <input class="gw-field__control" id="sign-in-two-password" type="password" name="password" required autocomplete="current-password">
+        <div class="gw-password-field">
+          <input class="gw-field__control gw-password-field__input" id="sign-in-two-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false">
+          <button type="button" class="gw-password-field__toggle" aria-controls="sign-in-two-password">
+            <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the password</span></span>
+            <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the password</span></span>
+          </button>
+        </div>
       </div>
       <div class="gw-button-group">
         <a class="gw-button gw-button--primary" href="/accounts/new">Create an account</a>
@@ -166,11 +190,11 @@
 <ul>
 <li>In an app the element with gw-sign-in is the main element, and it is the only landmark on the page. The column starts at the leading edge of the page and is never centred.</li>
 <li>gw-sign-in__product is a p holding the product's name. The h1 after it reads Sign in, and one sentence under it says which account to use. There is no other copy.</li>
-<li>The fields are in one form. The email input has type=&quot;email&quot; and autocomplete=&quot;username&quot;, and the password input has type=&quot;password&quot; and autocomplete=&quot;current-password&quot;, so a password manager can fill both. Neither uses a placeholder as its label.</li>
+<li>The fields are in one form. The email input has type=&quot;email&quot; and autocomplete=&quot;username&quot;. The password is the catalogue's password field, with autocomplete=&quot;current-password&quot;, so a password manager can fill both and the reader can show what they typed before sending it. Neither uses a placeholder as its label.</li>
 <li>Sign in is the form's submit button and the screen's one primary action. The link for trouble signing in is a quiet link after the form, and it names what it does.</li>
 <li>When the sign-in is refused, keep the email, clear the password, and add an alert with role=&quot;alert&quot; as the first thing in the form. Its title says what happened and its body says what to do. Link it from both inputs with aria-describedby, and move focus to the password input. Do not say which field was wrong.</li>
-<li>While the form is sent, set aria-busy=&quot;true&quot; on the button, change its label to Signing in, make the inputs read-only and ignore further presses.</li>
-<li>Tab moves through Email, Password, Sign in, then the help link. Enter in either input sends the form. The pattern needs no script of its own.</li>
+<li>While the form is sent, set aria-busy=&quot;true&quot; on the button, change its label to Signing in, make the inputs read-only, set disabled on the password field's Show button and ignore further presses.</li>
+<li>Tab moves through Email, Password, the Show button, Sign in, then the help link. Enter in either input sends the form. The pattern needs no script of its own.</li>
 </ul>
 </section>
 <section>

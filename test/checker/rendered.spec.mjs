@@ -114,6 +114,25 @@ test("a critical action stops being hidden once its disclosure is opened on the 
   expect(await page.evaluate(() => gwCheckDom())).toEqual([]);
 });
 
+test("a rendered page of plain controls fails, and passes once the app's prefix is given", async ({ page }) => {
+  await page.goto(`${origin}/slop/plain-controls.html`);
+  await page.addScriptTag({ path: bundle });
+  const findings = await page.evaluate(() => gwCheckDom());
+  expect(findings).toEqual([
+    { rule: "unstyled-controls", message: expect.stringContaining("none of its 3 controls"), fix: expect.any(String), snippet: '<input id="title" name="title" type="text">' },
+  ]);
+  // The call forms that existed before the options argument give the same result.
+  expect(await page.evaluate(() => [gwCheckDom(document.documentElement), gwCheckDom(document.body), gwCheckDom(undefined, undefined), gwCheckDom(document.body, {})].map((found) => found.map((finding) => finding.rule)))).toEqual(
+    Array.from({ length: 4 }, () => ["unstyled-controls"]),
+  );
+
+  // The same page as an app with its own components would render it.
+  await page.evaluate(() => document.querySelector("form").classList.add("sm-task-form"));
+  expect(await page.evaluate(() => gwCheckDom().map((finding) => finding.rule))).toEqual(["unstyled-controls"]);
+  expect(await page.evaluate(() => gwCheckDom(document.documentElement, { appPrefix: "sm" }))).toEqual([]);
+  expect(await page.evaluate(() => gwCheckDom(document.documentElement, { appPrefix: "s" }).length)).toBe(1);
+});
+
 test("centred long text narrower than the reading column passes on the rendered page", async ({ page }) => {
   await page.setViewportSize({ width: 400, height: 800 });
   expect(await renderedFindings(page, "/slop/centred-copy.html")).toEqual([]);

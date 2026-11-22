@@ -90,9 +90,10 @@
       "purpose": "A chronological record of what agents and people did, grouped by day, each entry with its time, its actor, a verb phrase and an optional source or excerpt.",
       "status": "draft",
       "whenToUse": [
-        "For the history of a task, a run or a repository, read from the oldest entry shown to the newest.",
+        "For the history of a task, a run or a repository, read from the oldest entry shown to the newest. This is the default order.",
         "When each event fits one line: who did what, and when.",
-        "With role=\"log\" when entries are added while the reader watches."
+        "With role=\"log\" when entries are added while the reader watches.",
+        "Newest first, for a log the reader pages back through, such as an audit log of actions and permissions. The order of the markup alone does it."
       ],
       "whenNotToUse": [
         "For the full exchange with an agent, with prompts, tool output and answers. Use a transcript of messages.",
@@ -111,16 +112,18 @@
       ],
       "accessibility": [
         "Use a section with an aria-label that names what the activity belongs to, such as Activity for task 41. Each label is unique in the view.",
-        "Inside it, each day is a div with the class gw-activity-feed__day: a heading, at the level the view needs, that names the day in words such as Today, 22 November, then an ol of entries, oldest first.",
+        "Inside it, each day is a div with the class gw-activity-feed__day: a heading, at the level under the heading the feed sits beneath (h2 directly under the view's h1, h3 inside a section headed by an h2), that names the day in words such as Today, 22 November, then an ol of entries, oldest first.",
         "An entry is an li holding a time element with a datetime attribute, then a p with the actor in gw-activity-feed__actor followed by a verb phrase that names the thing acted on, then optionally one gw-activity-feed__evidence holding a source chip or a short gw-activity-feed__excerpt.",
         "When entries are appended while the reader watches, put role=\"log\" on the section. A log is announced politely, entry by entry, and needs no script beyond adding the li. Keep role=\"log\" off a feed that only changes when the reader asks.",
         "Use role=\"feed\" only when the app loads entries as the reader scrolls and implements the feed keyboard contract itself: each entry an article with aria-posinset and aria-setsize, and Page Down and Page Up moving between entries. The component does not provide that behaviour.",
         "A long feed shows the latest entries. Earlier ones come in through one quiet small button, Show earlier activity, with a chevron-up icon, in gw-activity-feed__more above the first day. While they are fetched, set aria-busy=\"true\" on the button and on the section, and change the button's words to Loading earlier activity. Afterwards move focus to the first entry that was added, so the reader continues from there.",
+        "For a paged log, write the feed newest first: the latest day first, and inside each day the latest entry first, in an ol with the reversed attribute. Say the order in words, in the heading above the feed or in a first child p with the class gw-visually-hidden reading The newest entry is first. Older entries come in through the same quiet small button, now reading Show older activity with a chevron-down icon, in gw-activity-feed__more after the last day. Afterwards move focus to the first entry that was added. Do not put role=\"log\" on a newest-first feed: a log is announced as entries are added at its end.",
         "For the first fetch, an empty feed and a failed fetch, the section holds a spinner, a compact empty state or an error state in place of the days.",
         "An excerpt is text, never markup, and is short: one command or one line of output. Longer output belongs in a tool call.",
-        "Tab reaches the Show earlier activity button and any source chips, in order. Entries themselves take no focus."
+        "Tab reaches the Show earlier activity or Show older activity button and any source chips, in order. Entries themselves take no focus."
       ],
       "icons": [
+        "chevron-down",
         "chevron-up",
         "file",
         "git-commit-horizontal"
@@ -145,6 +148,11 @@
           "state": "default",
           "reason": "Each entry says when, who and what in one line, with the file or the output that backs it. Older days stay behind one quiet control, so the reader starts at what just happened.",
           "markup": "<section class=\"gw-activity-feed\" aria-label=\"Activity for task 41\">\n  <div class=\"gw-activity-feed__more\">\n    <button type=\"button\" class=\"gw-button gw-button--quiet gw-button--small\">\n      <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-chevron-up\"></use></svg>\n      Show earlier activity\n    </button>\n  </div>\n  <div class=\"gw-activity-feed__day\">\n    <h4 class=\"gw-activity-feed__heading\">Yesterday, 21 November</h4>\n    <ol class=\"gw-activity-feed__entries\">\n      <li class=\"gw-activity-feed__entry\">\n        <time class=\"gw-activity-feed__time\" datetime=\"2026-11-21T17:48\">17:48</time>\n        <p class=\"gw-activity-feed__text\"><span class=\"gw-activity-feed__actor\">Claude Code</span> created the worktree from main</p>\n        <div class=\"gw-activity-feed__evidence\">\n          <a class=\"gw-source-chip\" href=\"/repositories/acme/api/commits/9f2c1ab\">\n            <svg class=\"gw-source-chip__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-commit-horizontal\"></use></svg>\n            <span class=\"gw-source-chip__text\"><span class=\"gw-visually-hidden\">Commit </span><span class=\"gw-source-chip__end\">9f2c1ab</span></span>\n          </a>\n        </div>\n      </li>\n      <li class=\"gw-activity-feed__entry\">\n        <time class=\"gw-activity-feed__time\" datetime=\"2026-11-21T17:55\">17:55</time>\n        <p class=\"gw-activity-feed__text\"><span class=\"gw-activity-feed__actor\">You</span> stopped the run</p>\n      </li>\n    </ol>\n  </div>\n  <div class=\"gw-activity-feed__day\">\n    <h4 class=\"gw-activity-feed__heading\">Today, 22 November</h4>\n    <ol class=\"gw-activity-feed__entries\">\n      <li class=\"gw-activity-feed__entry\">\n        <time class=\"gw-activity-feed__time\" datetime=\"2026-11-22T09:02\">09:02</time>\n        <p class=\"gw-activity-feed__text\"><span class=\"gw-activity-feed__actor\">You</span> resumed the run</p>\n      </li>\n      <li class=\"gw-activity-feed__entry\">\n        <time class=\"gw-activity-feed__time\" datetime=\"2026-11-22T09:04\">09:04</time>\n        <p class=\"gw-activity-feed__text\"><span class=\"gw-activity-feed__actor\">Claude Code</span> edited the session loader</p>\n        <div class=\"gw-activity-feed__evidence\">\n          <a class=\"gw-source-chip\" href=\"/repositories/acme/api/files/src/auth/session.ts#L42-L58\">\n            <svg class=\"gw-source-chip__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n            <span class=\"gw-source-chip__text\"><span class=\"gw-source-chip__start\">src/auth/</span><span class=\"gw-source-chip__end\">session.ts</span></span>\n            <span class=\"gw-source-chip__detail\">lines 42–58</span>\n          </a>\n        </div>\n      </li>\n      <li class=\"gw-activity-feed__entry\">\n        <time class=\"gw-activity-feed__time\" datetime=\"2026-11-22T09:09\">09:09</time>\n        <p class=\"gw-activity-feed__text\"><span class=\"gw-activity-feed__actor\">Claude Code</span> ran the auth tests, and 1 of 30 failed</p>\n        <div class=\"gw-activity-feed__evidence\">\n          <code class=\"gw-activity-feed__excerpt\">✗ src/auth/session.test.ts > keeps the session after a reload</code>\n        </div>\n      </li>\n      <li class=\"gw-activity-feed__entry\">\n        <time class=\"gw-activity-feed__time\" datetime=\"2026-11-22T09:16\">09:16</time>\n        <p class=\"gw-activity-feed__text\"><span class=\"gw-activity-feed__actor\">Reviewer agent</span> asked for a test of the reload case</p>\n      </li>\n    </ol>\n  </div>\n</section>"
+        },
+        {
+          "id": "newest-first",
+          "title": "A paged log, newest first",
+          "markup": "<section class=\"gw-activity-feed\" aria-label=\"Action log\">\n  <p class=\"gw-visually-hidden\">The newest entry is first.</p>\n  <div class=\"gw-activity-feed__day\">\n    <h4 class=\"gw-activity-feed__heading\">Today, 22 November</h4>\n    <ol class=\"gw-activity-feed__entries\" reversed>\n      <li class=\"gw-activity-feed__entry\">\n        <time class=\"gw-activity-feed__time\" datetime=\"2026-11-22T10:41\">10:41</time>\n        <p class=\"gw-activity-feed__text\"><span class=\"gw-activity-feed__actor\">You</span> revoked the standing permission to run npm install</p>\n      </li>\n      <li class=\"gw-activity-feed__entry\">\n        <time class=\"gw-activity-feed__time\" datetime=\"2026-11-22T09:16\">09:16</time>\n        <p class=\"gw-activity-feed__text\"><span class=\"gw-activity-feed__actor\">Claude Code</span> ran a command under a standing permission</p>\n        <div class=\"gw-activity-feed__evidence\">\n          <code class=\"gw-activity-feed__excerpt\">npm install --save-dev @acme/session-fixtures</code>\n        </div>\n      </li>\n      <li class=\"gw-activity-feed__entry\">\n        <time class=\"gw-activity-feed__time\" datetime=\"2026-11-22T09:02\">09:02</time>\n        <p class=\"gw-activity-feed__text\"><span class=\"gw-activity-feed__actor\">You</span> allowed a request to read docs/runbooks/session-store.md</p>\n      </li>\n    </ol>\n  </div>\n  <div class=\"gw-activity-feed__day\">\n    <h4 class=\"gw-activity-feed__heading\">Yesterday, 21 November</h4>\n    <ol class=\"gw-activity-feed__entries\" reversed>\n      <li class=\"gw-activity-feed__entry\">\n        <time class=\"gw-activity-feed__time\" datetime=\"2026-11-21T17:55\">17:55</time>\n        <p class=\"gw-activity-feed__text\"><span class=\"gw-activity-feed__actor\">You</span> declined a request to delete ../shared-config/.cache</p>\n      </li>\n      <li class=\"gw-activity-feed__entry\">\n        <time class=\"gw-activity-feed__time\" datetime=\"2026-11-21T17:48\">17:48</time>\n        <p class=\"gw-activity-feed__text\"><span class=\"gw-activity-feed__actor\">You</span> granted a standing permission to run npm install in acme/api</p>\n      </li>\n    </ol>\n  </div>\n  <div class=\"gw-activity-feed__more\">\n    <button type=\"button\" class=\"gw-button gw-button--quiet gw-button--small\">\n      <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-chevron-down\"></use></svg>\n      Show older activity\n    </button>\n  </div>\n</section>"
         },
         {
           "id": "live",
@@ -318,7 +326,9 @@
       ],
       "accessibility": [
         "Use a header element. Outside main it is the page's banner landmark, so a page has one.",
-        "The product name is a link to the first screen. The view title is the page's h1 when the header shows one.",
+        "The product name is a link to the first screen. It is not a heading.",
+        "A view has one h1. When the view has a page header, the page header's title is the h1 and the app header shows the product name. Only a view with no page header, such as a detail screen with a back link, puts its title in gw-app-header__title as the h1. Never write the title as an h1 in both.",
+        "The tray, gw-app-header__tray, is where the pending tray goes: put the pending tray's div inside it, on every signed-in screen.",
         "The back link names where it goes: visible text such as Tasks, or aria-label=\"Back to tasks\" when it is only the icon.",
         "An icon-only action has an aria-label that says what it does and to what, such as Search tasks. Its icon carries aria-hidden=\"true\".",
         "Use a link for an action that goes to another view and a button for one that acts on this view.",
@@ -371,6 +381,11 @@
           "id": "tray",
           "title": "With the approvals tray",
           "markup": "<header class=\"gw-app-header\">\n  <a class=\"gw-app-header__name\" href=\"/\">Smelt</a>\n  <div class=\"gw-app-header__actions\">\n    <a class=\"gw-app-header__action\" href=\"/search\" aria-label=\"Search tasks\">\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-search\"></use></svg>\n    </a>\n  </div>\n  <div class=\"gw-app-header__tray\">\n    <div class=\"gw-split\">\n      <p>2 approvals waiting. The oldest is 6 minutes old.</p>\n      <a class=\"gw-button gw-button--small\" href=\"/approvals\">Review approvals</a>\n    </div>\n  </div>\n</header>"
+        },
+        {
+          "id": "pending-tray",
+          "title": "With the pending tray in the tray",
+          "markup": "<header class=\"gw-app-header\">\n  <a class=\"gw-app-header__name\" href=\"/\">Smelt</a>\n  <div class=\"gw-app-header__actions\">\n    <a class=\"gw-app-header__action\" href=\"/search\" aria-label=\"Search tasks\">\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-search\"></use></svg>\n    </a>\n  </div>\n  <div class=\"gw-app-header__tray\">\n    <div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n      <a class=\"gw-pending-tray__link\" href=\"/approvals\"><span class=\"gw-pending-tray__count\">2</span> approvals waiting</a>\n    </div>\n  </div>\n</header>"
         },
         {
           "id": "empty",
@@ -426,7 +441,7 @@
       "variants": [
         {
           "name": "normal",
-          "use": "The default, with no modifier class. The risk line reads Normal risk and what keeps it so, beside an info icon."
+          "use": "The default, with no modifier class. The risk line is optional. When it is shown it reads Normal risk and what keeps it so, beside an info icon."
         },
         {
           "name": "elevated",
@@ -442,15 +457,15 @@
         "error"
       ],
       "accessibility": [
-        "Use an article with aria-labelledby pointing at gw-approval__title, a heading at the level the view needs. The title says who asks and for what.",
+        "Use an article with aria-labelledby pointing at gw-approval__title, a heading. The title says who asks and for what. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2. In a queue or a list every title takes the same level. The class sets the size, so the level changes nothing on screen. The examples use h4 only because of where they sit on the gallery page.",
         "Emphasis: when a view shows a single approval, Allow may be the view's primary action, gw-button gw-button--primary. When approvals are listed, each card sits in its own li of a ul and Allow is a plain gw-button, never primary, so a queue has no competing primary actions.",
         "Allow comes first and Decline sits at the far end of gw-approval__actions. Both are always visible, carry data-gw-critical so the checker can see they are never hidden, and are never placed inside a details element.",
-        "The risk line always starts with the words Normal risk or Elevated risk and then says why. Its icon is drawn by the stylesheet, so the tone is never colour alone.",
+        "The risk line, gw-approval__risk, is optional. Leave it out when the app does not grade requests, and never write one the app cannot back with a reason. When it is shown, it comes first in the card, starts with the words Normal risk or Elevated risk and then says why. Its icon is drawn by the stylesheet, so the tone is never colour alone. An elevated request always has its risk line.",
         "gw-approval__command holds exactly what would run, as text, with characters that cannot be seen written out. It wraps, and never scrolls sideways.",
         "Supporting detail goes in a details element with a text summary, such as Show the full request. It holds no control the reader needs in order to answer.",
-        "A note on declining is optional. Under the actions, add a details element whose summary reads Decline with a note, holding a labelled field and its own button, Decline and send note. It starts closed, without the open attribute, and the plain Decline above it still declines with no note.",
+        "A note on declining is optional. Before the actions, add a details element whose summary reads Add a note for the agent, holding gw-approval__note with one labelled field and no button. It starts closed, without the open attribute. The card has one Decline button, and it sends whatever note has been typed: nothing when the field is empty or was never opened. Never add a second decline button, because a reader who types a note and presses the plain Decline would lose it. Allow does not send the note, and the field's label says so.",
         "While the answer is sent, set aria-busy=\"true\" on the pressed button, change its label to Allowing or Declining, and disable the other. If sending fails, restore both and add gw-approval__error with role=\"alert\", saying that nothing was allowed.",
-        "Tab reaches the summary, then Allow, then Decline. Enter and Space activate each. The component needs no script: the app sets aria-busy and disabled, and removes the card once the request is answered. Move focus to the next card or the view's heading when it goes."
+        "Tab reaches each summary, the note field when it is open, then Allow, then Decline. Enter and Space activate each. The component needs no script: the app sets aria-busy and disabled, and removes the card once the request is answered. Move focus to the next card or the view's heading when it goes."
       ],
       "icons": [
         "chevron-down",
@@ -497,7 +512,13 @@
         {
           "id": "decline-note",
           "title": "Declining with a note",
-          "markup": "<article class=\"gw-approval gw-approval--elevated\" aria-labelledby=\"approval-decline-note-title\">\n  <p class=\"gw-approval__risk\">Elevated risk: deletes files outside the task's worktree</p>\n  <h4 class=\"gw-approval__title\" id=\"approval-decline-note-title\">Claude Code asks to run a command</h4>\n  <pre class=\"gw-approval__command\">rm -rf ../shared-config/.cache</pre>\n  <ul class=\"gw-approval__facts\">\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Directory</span> <span class=\"gw-approval__value\">../shared-config (outside the task's worktree)</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Role</span> <span class=\"gw-approval__value\">Implementer</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Task</span> <span class=\"gw-approval__value\">Task 41 · Fix the session refresh</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Its reason</span> <span class=\"gw-approval__value\">The old cache holds a stale session-store build that makes the tests fail.</span></li>\n  </ul>\n  <div class=\"gw-approval__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--primary\" data-gw-critical>Allow</button>\n    <button type=\"button\" class=\"gw-button\" data-gw-critical>Decline</button>\n  </div>\n  <details class=\"gw-approval__details\" open>\n    <summary class=\"gw-approval__summary\">Decline with a note</summary>\n    <div class=\"gw-approval__note\">\n      <div class=\"gw-field\">\n        <label class=\"gw-field__label\" for=\"approval-decline-note-note\">Note to the agent</label>\n        <input class=\"gw-field__control\" id=\"approval-decline-note-note\" type=\"text\" name=\"note\" autocomplete=\"off\" maxlength=\"2000\" value=\"Clear web/.cache only.\">\n      </div>\n      <div class=\"gw-cluster\">\n        <button type=\"button\" class=\"gw-button\">Decline and send note</button>\n      </div>\n    </div>\n  </details>\n</article>"
+          "reason": "The note is typed before the answer, and the one Decline button sends it. With a second button for declining with the note, a reader who typed one and pressed the plain Decline would lose it.",
+          "markup": "<article class=\"gw-approval gw-approval--elevated\" aria-labelledby=\"approval-decline-note-title\">\n  <p class=\"gw-approval__risk\">Elevated risk: deletes files outside the task's worktree</p>\n  <h4 class=\"gw-approval__title\" id=\"approval-decline-note-title\">Claude Code asks to run a command</h4>\n  <pre class=\"gw-approval__command\">rm -rf ../shared-config/.cache</pre>\n  <ul class=\"gw-approval__facts\">\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Directory</span> <span class=\"gw-approval__value\">../shared-config (outside the task's worktree)</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Role</span> <span class=\"gw-approval__value\">Implementer</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Task</span> <span class=\"gw-approval__value\">Task 41 · Fix the session refresh</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Its reason</span> <span class=\"gw-approval__value\">The old cache holds a stale session-store build that makes the tests fail.</span></li>\n  </ul>\n  <details class=\"gw-approval__details\" open>\n    <summary class=\"gw-approval__summary\">Add a note for the agent</summary>\n    <div class=\"gw-approval__note\">\n      <div class=\"gw-field\">\n        <label class=\"gw-field__label\" for=\"approval-decline-note-note\">Note to the agent</label>\n        <input class=\"gw-field__control\" id=\"approval-decline-note-note\" type=\"text\" name=\"note\" autocomplete=\"off\" maxlength=\"2000\" value=\"Clear web/.cache only.\" aria-describedby=\"approval-decline-note-description\">\n        <p class=\"gw-field__description\" id=\"approval-decline-note-description\">Sent when you decline. Allow does not send it.</p>\n      </div>\n    </div>\n  </details>\n  <div class=\"gw-approval__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--primary\" data-gw-critical>Allow</button>\n    <button type=\"button\" class=\"gw-button\" data-gw-critical>Decline</button>\n  </div>\n</article>"
+        },
+        {
+          "id": "no-risk-line",
+          "title": "Without a risk line",
+          "markup": "<article class=\"gw-approval\" aria-labelledby=\"approval-no-risk-line-title\">\n  <h4 class=\"gw-approval__title\" id=\"approval-no-risk-line-title\">Claude Code asks to read a file</h4>\n  <pre class=\"gw-approval__command\">docs/runbooks/session-store.md</pre>\n  <ul class=\"gw-approval__facts\">\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Directory</span> <span class=\"gw-approval__value\">The top of the task's worktree</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Role</span> <span class=\"gw-approval__value\">Implementer</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Task</span> <span class=\"gw-approval__value\">Task 41 · Fix the session refresh</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Its reason</span> <span class=\"gw-approval__value\">To check how the session store is restarted before I change its timeout.</span></li>\n  </ul>\n  <div class=\"gw-approval__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--primary\" data-gw-critical>Allow</button>\n    <button type=\"button\" class=\"gw-button\" data-gw-critical>Decline</button>\n  </div>\n</article>"
         },
         {
           "id": "queue",
@@ -1391,7 +1412,7 @@
       ],
       "accessibility": [
         "Use a section with aria-labelledby pointing at gw-card__title when the card has a title, so it is a named region. Give each card on a view a different title. Use a div for a card with no title.",
-        "gw-card__title is a heading at the level the view's outline needs. It is drawn at the size of body text whatever its level.",
+        "gw-card__title is a heading. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2. In a queue or a list every title takes the same level. The class sets the size, so the level changes nothing on screen. It is drawn at the size of body text whatever its level.",
         "The header holds at most one action, in gw-card__action: a small quiet button or a link with the same classes. It is never primary. When several cards carry the same words, add an aria-label that starts with those words and names the card.",
         "The header is 44px tall, so the small button's padded pointer target stays inside it.",
         "A card is not focusable and takes no press. To make something pressable, put a link or a button inside it.",
@@ -1459,6 +1480,11 @@
           "use": "The check ran and failed. The word is Failed, or says how much failed, beside an alert mark. Its row holds the output."
         },
         {
+          "name": "timed out",
+          "class": "gw-check-list__result--timed-out",
+          "use": "The check was stopped because it ran past its time limit. It says nothing about whether the code is right, so it is not Failed. The words are Timed out after and the limit that was hit, such as Timed out after 10 min, beside a warning triangle."
+        },
+        {
           "name": "running",
           "class": "gw-check-list__result--running",
           "use": "The check has started and not finished. The word is Running, beside a turning mark."
@@ -1485,11 +1511,11 @@
       "accessibility": [
         "Use a ul with the class gw-check-list__items and one li with gw-check-list__item for each check, inside a div with gw-check-list. A screen reader then says how many checks there are.",
         "Start with gw-check-list__summary, a p that counts in words: 7 of 12 checks passed, then how many failed, are running and were skipped. Give it role=\"status\" when results arrive while the reader watches, so the new count is announced.",
-        "Each row holds, in this order, gw-check-list__name, gw-check-list__result and gw-check-list__duration, all spans. The result is always a word, Passed, Failed, Running, Skipped or Not started, and the stylesheet draws its icon from the modifier class, so no result is an icon or a colour alone.",
+        "Each row holds, in this order, gw-check-list__name, gw-check-list__result and gw-check-list__duration, all spans. The result is always a word, Passed, Failed, Timed out, Running, Skipped or Not started, and the stylesheet draws its icon from the modifier class, so no result is an icon or a colour alone.",
         "Write the duration with its unit inside a time element with a datetime duration: 1 min 48 s. A check that has not finished or did not run has an empty gw-check-list__duration, or says what it waits for.",
         "Output goes in a details element with gw-check-list__output after the three spans. Its summary, gw-check-list__toggle, has text that names the check: Output, with the check's name in a gw-visually-hidden span. The pre with gw-check-list__log holds the output as text and wraps, so it never scrolls sideways.",
         "A failed check's output starts closed unless the view is about that failure. Trim it to the lines that explain the failure and link to the full log.",
-        "Put failed checks first, then running, then passed and skipped, so what needs the reader is at the top.",
+        "Put failed checks first, then timed out, then running, then passed and skipped, so what needs the reader is at the top. Count a timed-out check by itself in the summary, as in 1 timed out, and not among the failed.",
         "Tab reaches each summary, and Enter and Space open and close it. The component needs no script.",
         "While the results are fetched, show a spinner with its text in place of the list. If they cannot be read, show an error state. If no checks are set up, show an empty state that says so."
       ],
@@ -1500,7 +1526,8 @@
         "circle-alert",
         "circle-check",
         "ellipsis",
-        "loader"
+        "loader",
+        "triangle-alert"
       ],
       "classes": [
         "gw-check-list",
@@ -1515,6 +1542,7 @@
         "gw-check-list__result--passed",
         "gw-check-list__result--running",
         "gw-check-list__result--skipped",
+        "gw-check-list__result--timed-out",
         "gw-check-list__summary",
         "gw-check-list__toggle"
       ],
@@ -1537,6 +1565,11 @@
           "title": "While checks are still running",
           "state": "running",
           "markup": "<div class=\"gw-check-list\">\n  <p class=\"gw-check-list__summary\" role=\"status\">2 of 5 checks passed so far. 1 is running and 2 have not started.</p>\n  <ul class=\"gw-check-list__items\">\n    <li class=\"gw-check-list__item\">\n      <span class=\"gw-check-list__name\">Unit tests</span>\n      <span class=\"gw-check-list__result gw-check-list__result--running\">Running</span>\n      <span class=\"gw-check-list__duration\"><time datetime=\"PT52S\">52 s so far</time></span>\n    </li>\n    <li class=\"gw-check-list__item\">\n      <span class=\"gw-check-list__name\">Lint</span>\n      <span class=\"gw-check-list__result gw-check-list__result--passed\">Passed</span>\n      <span class=\"gw-check-list__duration\"><time datetime=\"PT9S\">9 s</time></span>\n    </li>\n    <li class=\"gw-check-list__item\">\n      <span class=\"gw-check-list__name\">Type check</span>\n      <span class=\"gw-check-list__result gw-check-list__result--passed\">Passed</span>\n      <span class=\"gw-check-list__duration\"><time datetime=\"PT19S\">19 s</time></span>\n    </li>\n    <li class=\"gw-check-list__item\">\n      <span class=\"gw-check-list__name\">Build</span>\n      <span class=\"gw-check-list__result\">Not started</span>\n      <span class=\"gw-check-list__duration\">After unit tests</span>\n    </li>\n    <li class=\"gw-check-list__item\">\n      <span class=\"gw-check-list__name\">Integration tests</span>\n      <span class=\"gw-check-list__result\">Not started</span>\n      <span class=\"gw-check-list__duration\">After build</span>\n    </li>\n  </ul>\n</div>"
+        },
+        {
+          "id": "timed-out",
+          "title": "A check that ran out of time",
+          "markup": "  <div class=\"gw-check-list\">\n    <p class=\"gw-check-list__summary\">2 of 3 checks passed. 1 timed out.</p>\n    <ul class=\"gw-check-list__items\">\n      <li class=\"gw-check-list__item\">\n        <span class=\"gw-check-list__name\">Integration tests</span>\n        <span class=\"gw-check-list__result gw-check-list__result--timed-out\">Timed out after 10 min</span>\n        <span class=\"gw-check-list__duration\"><time datetime=\"PT10M\">10 min</time></span>\n        <details class=\"gw-check-list__output\" open>\n          <summary class=\"gw-check-list__toggle\">Output<span class=\"gw-visually-hidden\"> of Integration tests</span></summary>\n          <pre class=\"gw-check-list__log\">PASS src/auth/session.integration.test.ts\nRUNS src/billing/export.integration.test.ts\n  stopped at the 10 minute limit for a check</pre>\n        </details>\n      </li>\n      <li class=\"gw-check-list__item\">\n        <span class=\"gw-check-list__name\">Unit tests</span>\n        <span class=\"gw-check-list__result gw-check-list__result--passed\">Passed</span>\n        <span class=\"gw-check-list__duration\"><time datetime=\"PT1M48S\">1 min 48 s</time></span>\n      </li>\n      <li class=\"gw-check-list__item\">\n        <span class=\"gw-check-list__name\">Lint</span>\n        <span class=\"gw-check-list__result gw-check-list__result--passed\">Passed</span>\n        <span class=\"gw-check-list__duration\"><time datetime=\"PT9S\">9 s</time></span>\n      </li>\n    </ul>\n  </div>"
         },
         {
           "id": "all-passed",
@@ -2819,8 +2852,9 @@
       ],
       "accessibility": [
         "Use a dialog element with aria-labelledby pointing at gw-dialog__title, an h2. When the body is one short text, point aria-describedby at it.",
-        "Open it with the one line document.getElementById(\"dialog-id\").showModal(). That call traps focus, makes the page behind inert, closes on Escape and returns focus to the opener when the dialog closes. Do not write the open attribute yourself, which shows the dialog without any of that: the examples carry it only so they are drawn in the gallery.",
-        "As progressive enhancement, the opener may carry command=\"show-modal\" and commandfor=\"dialog-id\", and then needs no script where invoker commands are supported. Keep the showModal() call for browsers without them.",
+        "Open it with the one line document.getElementById(\"dialog-id\").showModal(). That call traps focus, makes the page behind inert, closes on Escape and returns focus to the opener when the dialog closes. Do not write the open attribute yourself, which shows the dialog without any of that: the open examples carry it only so they are drawn in the gallery. The closed example is the markup an app ships: the dialog without the open attribute, and its opener.",
+        "The opener is a button with command=\"show-modal\" and commandfor=\"dialog-id\", as in the closed example. Where the browser supports invoker commands it opens the dialog with no script.",
+        "The showModal() fallback goes in the app's own script file, never in an onclick attribute or an inline script: one click listener on the opener that calls showModal() on the dialog its commandfor names, added only when \"command\" in HTMLButtonElement.prototype is false, so a browser with invoker commands does not open the dialog twice. A framework app calls showModal() from the button's click handler through a ref and leaves the two attributes out.",
         "Wrap the content in a form with method=\"dialog\" and the class gw-dialog__panel. Each footer button is a submit button with a value. Pressing one closes the dialog with no script, and the app reads dialog.returnValue in a close event listener. To validate or save before closing, handle the form's submit event and call preventDefault().",
         "The primary button comes first in the footer and Cancel second, so Enter in a field takes the primary action. Cancel carries formnovalidate so it closes a form with an empty required field.",
         "showModal() moves focus to the first focusable element, or to the one that has the autofocus attribute. Tab stays inside the dialog.",
@@ -2844,6 +2878,11 @@
           "state": "open",
           "reason": "The dialog holds one task with one primary action. The primary button comes first, so Enter in the field renames the branch, and Cancel and Escape both close the dialog and return focus to the button that opened it.",
           "markup": "<button type=\"button\" class=\"gw-button\" command=\"show-modal\" commandfor=\"dialog-default\">Rename branch</button>\n<dialog class=\"gw-dialog\" id=\"dialog-default\" aria-labelledby=\"dialog-default-title\" open>\n  <form class=\"gw-dialog__panel\" method=\"dialog\">\n    <h2 class=\"gw-dialog__title\" id=\"dialog-default-title\">Rename the branch</h2>\n    <div class=\"gw-dialog__body\">\n      <div class=\"gw-field\">\n        <label class=\"gw-field__label\" for=\"dialog-default-name\">Branch name</label>\n        <input class=\"gw-field__control\" id=\"dialog-default-name\" type=\"text\" name=\"branch\" required autocomplete=\"off\" value=\"fix/login-timeout\" aria-describedby=\"dialog-default-description\">\n        <p class=\"gw-field__description\" id=\"dialog-default-description\">The open pull request follows the new name.</p>\n      </div>\n    </div>\n    <div class=\"gw-dialog__footer\">\n      <button type=\"submit\" class=\"gw-button gw-button--primary\" value=\"rename\">Rename branch</button>\n      <button type=\"submit\" class=\"gw-button\" value=\"cancel\" formnovalidate>Cancel</button>\n    </div>\n  </form>\n</dialog>"
+        },
+        {
+          "id": "closed",
+          "title": "Closed, with the button that opens it",
+          "markup": "<button type=\"button\" class=\"gw-button\" command=\"show-modal\" commandfor=\"dialog-closed\">Rename branch</button>\n<dialog class=\"gw-dialog\" id=\"dialog-closed\" aria-labelledby=\"dialog-closed-title\">\n  <form class=\"gw-dialog__panel\" method=\"dialog\">\n    <h2 class=\"gw-dialog__title\" id=\"dialog-closed-title\">Rename the branch</h2>\n    <div class=\"gw-dialog__body\">\n      <div class=\"gw-field\">\n        <label class=\"gw-field__label\" for=\"dialog-closed-name\">Branch name</label>\n        <input class=\"gw-field__control\" id=\"dialog-closed-name\" type=\"text\" name=\"branch\" required autocomplete=\"off\" value=\"fix/login-timeout\">\n      </div>\n    </div>\n    <div class=\"gw-dialog__footer\">\n      <button type=\"submit\" class=\"gw-button gw-button--primary\" value=\"rename\">Rename branch</button>\n      <button type=\"submit\" class=\"gw-button\" value=\"cancel\" formnovalidate>Cancel</button>\n    </div>\n  </form>\n</dialog>"
         },
         {
           "id": "text",
@@ -3292,7 +3331,7 @@
       ],
       "accessibility": [
         "Set role=\"alert\" on the error state when it replaces content after a failed load, so a screen reader announces it. Leave the role off while a retry is running, so the same failure is not announced twice.",
-        "The title is a heading at the level that fits the view's outline, and says what failed in the reader's terms: The runs could not be loaded.",
+        "The title is a heading, and says what failed in the reader's terms: The runs could not be loaded. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2.",
         "The sentence after the title is a plain paragraph with no class. It says what to do next. Never show only a status code or a stack trace.",
         "The Retry action is a gw-button inside gw-error-state__action. While it runs, set aria-busy=\"true\" on it and change its label to Retrying.",
         "Technical detail goes in a native details element with a text summary, closed by default. Enter or Space on the summary opens and closes it.",
@@ -4686,7 +4725,7 @@
     {
       "name": "message",
       "title": "Message",
-      "purpose": "One row of an agent transcript: a prompt, the agent's text, a tool call, its result, a denial, usage or the end of a turn.",
+      "purpose": "One row of an agent transcript: the start of the session, a prompt, the agent's text, a question to the reader, a tool call, its result, an answered permission request, a denial, an error, usage or the end of a turn.",
       "status": "draft",
       "whenToUse": [
         "For each event of an agent's turn, as a list item in the transcript's ol or ul, oldest first.",
@@ -4703,14 +4742,24 @@
           "use": "The default, with no modifier class. Text the agent wrote. Label it with the agent's name."
         },
         {
+          "name": "session-start",
+          "class": "gw-message--session-start",
+          "use": "A quiet first row saying that the session started, and where: the branch, the directory, the agent. Label it Session."
+        },
+        {
           "name": "user",
           "class": "gw-message--user",
           "use": "A prompt the reader sent. Label it You."
         },
         {
+          "name": "question",
+          "class": "gw-message--question",
+          "use": "A question the agent asks the reader, when the run waits on the answer. Label it Question, waiting on you, and once it is answered label it Question and show the answer as the next user row. A request for permission to run something is not a question: use an approval."
+        },
+        {
           "name": "tool-call",
           "class": "gw-message--tool-call",
-          "use": "A tool the agent ran: the tool name, then the command or path. Put long arguments in a details element whose summary keeps the label, the tool name and a short command."
+          "use": "A tool the agent ran, written as what it did and not as raw JSON: the tool name in gw-message__tool, then the command or the target in mono in gw-message__command, then optionally one plain sentence saying why in gw-message__body, taken from the call's description when it has one. Keep the full arguments behind a details element whose summary reads Show the full arguments, or, when the row has no sentence, whose summary keeps the label, the tool name and a short command."
         },
         {
           "name": "tool-result",
@@ -4718,9 +4767,19 @@
           "use": "What a tool returned. Show the first lines, and put the rest in a details element whose summary reads Show full output."
         },
         {
+          "name": "decision",
+          "class": "gw-message--decision",
+          "use": "A permission request that was resolved. The label says how, in words beside an icon from the sprite in gw-message__icon: Allowed with check, Declined with x, Pre-approved with circle-check for a command on the task's approved list, or Allowed by a standing permission with circle-check. Then the tool and the command, then one sentence saying by whom and when: who allowed or declined it and their note, who set the approved list, or who granted the standing permission. For the last two, say that nobody was asked."
+        },
+        {
           "name": "denied",
           "class": "gw-message--denied",
-          "use": "A call that was refused. Say what was not run and why."
+          "use": "A call the permission rules refused without asking. Say what was not run and why. For a request a person declined, use the decision row."
+        },
+        {
+          "name": "error",
+          "class": "gw-message--error",
+          "use": "Something that failed: a tool that crashed, a lost connection, a limit reached. Say what failed, what state the work is in and what to do next. It is not for a refused call, which is the denied row."
         },
         {
           "name": "usage",
@@ -4740,20 +4799,29 @@
       ],
       "accessibility": [
         "Each row is an li in an ol or ul. Put role=\"log\" and an accessible name on the list when rows are added while the reader watches, so new rows are announced.",
-        "Every row starts with gw-message__label, which says the kind in words: You, Claude Code, Tool call, Tool result, Denied, Usage, End. The kind is never the colour alone, and the denied row's icon is drawn by the stylesheet.",
+        "Every row starts with gw-message__label, which says the kind in words: Session, You, Claude Code, Question, Tool call, Tool result, Allowed, Declined, Pre-approved, Allowed by a standing permission, Denied, Error, Usage, End. The kind is never the colour or an icon alone. The icons of the denied and error rows are drawn by the stylesheet, and the icon of an answered request is an svg with gw-message__icon and aria-hidden=\"true\" inside the label.",
+        "A question row that waits says so in its label, Question, waiting on you. Once it is answered the label reads Question alone.",
         "Write transcript text as text, never as markup, and write out characters that cannot be seen.",
         "Collapsed arguments and long output use a native details element, with no script. Its summary holds text that says what is inside. Enter and Space open and close it, and its pointer target is 44px tall.",
         "When output is cut short, the lines after the preview go in the details element, so opened text continues where the preview stopped.",
         "The app sets nothing but the open attribute, which the browser manages."
       ],
       "icons": [
+        "check",
         "chevron-down",
         "chevron-right",
-        "circle-alert"
+        "circle-alert",
+        "circle-check",
+        "triangle-alert",
+        "x"
       ],
       "classes": [
         "gw-message",
+        "gw-message--decision",
         "gw-message--denied",
+        "gw-message--error",
+        "gw-message--question",
+        "gw-message--session-start",
         "gw-message--tool-call",
         "gw-message--tool-result",
         "gw-message--turn-end",
@@ -4763,6 +4831,7 @@
         "gw-message__code",
         "gw-message__command",
         "gw-message__details",
+        "gw-message__icon",
         "gw-message__label",
         "gw-message__summary",
         "gw-message__tool"
@@ -4783,6 +4852,12 @@
           "id": "tool-call",
           "title": "Tool call",
           "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--tool-call\">\n    <span class=\"gw-message__label\">Tool call</span>\n    <span class=\"gw-message__tool\">Bash</span>\n    <code class=\"gw-message__command\">npm run test -- --run src/auth/session.test.ts</code>\n  </li>\n  <li class=\"gw-message gw-message--tool-call\">\n    <span class=\"gw-message__label\">Tool call</span>\n    <span class=\"gw-message__tool\">Read</span>\n    <code class=\"gw-message__command\">src/auth/session.ts</code>\n  </li>\n</ol>"
+        },
+        {
+          "id": "tool-call-described",
+          "title": "Tool call with a reason, and the full arguments behind a disclosure",
+          "reason": "The row reads as what the agent did and why: the tool, its target in mono, then one plain sentence. The raw arguments are one press away for the reader who wants them, and are never the row itself.",
+          "markup": "  <ol class=\"gw-stack gw-gap-sm\">\n    <li class=\"gw-message gw-message--tool-call\">\n      <span class=\"gw-message__label\">Tool call</span>\n      <span class=\"gw-message__tool\">Bash</span>\n      <code class=\"gw-message__command\">npm run test -- --run src/auth/session.test.ts</code>\n      <p class=\"gw-message__body\">Run the session tests to confirm the reload case passes.</p>\n      <details class=\"gw-message__details\">\n        <summary class=\"gw-message__summary\">Show the full arguments</summary>\n        <pre class=\"gw-message__code\">{\n  \"command\": \"npm run test -- --run src/auth/session.test.ts\",\n  \"description\": \"Run the session tests to confirm the reload case passes.\",\n  \"timeout\": 120000\n}</pre>\n      </details>\n    </li>\n  </ol>"
         },
         {
           "id": "tool-call-collapsed",
@@ -4816,6 +4891,28 @@
           "title": "Permission denied",
           "reason": "The label and its icon say the call was denied, and the text says what was not run and why. The colour only adds to that.",
           "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--denied\">\n    <span class=\"gw-message__label\">Denied</span>\n    <span class=\"gw-message__tool\">Bash</span>\n    <code class=\"gw-message__command\">git push --force origin main</code>\n    <p class=\"gw-message__body\">This command was not run. Force pushes to main are blocked by the project's permission rules.</p>\n  </li>\n</ol>"
+        },
+        {
+          "id": "session-start",
+          "title": "Session started",
+          "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--session-start\">\n    <span class=\"gw-message__label\">Session</span>\n    <p class=\"gw-message__body\">Started on the branch fix/login-timeout in /srv/workspaces/acme-api, with Claude Code.</p>\n  </li>\n</ol>"
+        },
+        {
+          "id": "question",
+          "title": "A question to the reader, waiting on an answer",
+          "reason": "The label says in words that this is a question and that the run waits on the reader. The question is whole, so it can be answered from the composer without scrolling back.",
+          "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--question\">\n    <span class=\"gw-message__label\">Question, waiting on you</span>\n    <p class=\"gw-message__body\">The reload test needs a signed-in session. Should I add a fixture user to the test database, or reuse the one the sign-in tests create?</p>\n  </li>\n</ol>"
+        },
+        {
+          "id": "decision",
+          "title": "A permission request that was resolved, in each of the four ways",
+          "reason": "The label says how the request was resolved and the text says by whom, so a reader can tell a call somebody allowed from one that ran without anybody being asked.",
+          "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--decision\">\n    <span class=\"gw-message__label\"><svg class=\"gw-message__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-check\"></use></svg>Allowed</span>\n    <span class=\"gw-message__tool\">Bash</span>\n    <code class=\"gw-message__command\">npm install --save-dev @acme/session-fixtures</code>\n    <p class=\"gw-message__body\">Allowed by you at 09:12, for this call only.</p>\n  </li>\n  <li class=\"gw-message gw-message--decision\">\n    <span class=\"gw-message__label\"><svg class=\"gw-message__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-x\"></use></svg>Declined</span>\n    <span class=\"gw-message__tool\">Bash</span>\n    <code class=\"gw-message__command\">psql $DATABASE_URL -f seed/users.sql</code>\n    <p class=\"gw-message__body\">Declined by Dana Okafor at 09:14, with a note: Seed the test database, not the shared one.</p>\n  </li>\n  <li class=\"gw-message gw-message--decision\">\n    <span class=\"gw-message__label\"><svg class=\"gw-message__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>Pre-approved</span>\n    <span class=\"gw-message__tool\">Bash</span>\n    <code class=\"gw-message__command\">npm run test -- --run src/auth</code>\n    <p class=\"gw-message__body\">On this task's approved list, which you set when you started the task. Nobody was asked.</p>\n  </li>\n  <li class=\"gw-message gw-message--decision\">\n    <span class=\"gw-message__label\"><svg class=\"gw-message__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>Allowed by a standing permission</span>\n    <span class=\"gw-message__tool\">Bash</span>\n    <code class=\"gw-message__command\">git fetch origin main</code>\n    <p class=\"gw-message__body\">Dana Okafor granted git fetch in acme/api on 14 November. Nobody was asked.</p>\n  </li>\n</ol>"
+        },
+        {
+          "id": "error",
+          "title": "Something failed",
+          "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--error\">\n    <span class=\"gw-message__label\">Error</span>\n    <p class=\"gw-message__body\">The runner lost its connection to the workspace, so the test run did not finish. The edits so far are saved on fix/login-timeout. Resume the run to carry on from there.</p>\n  </li>\n</ol>"
         },
         {
           "id": "usage",
@@ -5114,12 +5211,12 @@
       "variants": [
         {
           "name": "default",
-          "use": "The title at 20px on a phone and 24px from 768px. Use it on most views."
+          "use": "The title at 24px at every width, the size of a plain h1. Use it on most views."
         },
         {
           "name": "compact",
           "class": "gw-page-header--compact",
-          "use": "The title at 16px with a 12px description, for a dense screen. Pair it with a small button."
+          "use": "The title at 16px with a 12px description, for a dense screen. Pair it with a small button. A plain h2 is drawn larger than this title, so under a compact header head sections with h3 or with component titles, which are no larger than it."
         }
       ],
       "sizes": [],
@@ -5127,7 +5224,8 @@
         "default"
       ],
       "accessibility": [
-        "Use a header element, with the title as the page's h1. When the app header already shows the view title as the h1, leave the page header out.",
+        "Use a header element, with the title as the view's one h1. The app header above it shows the product name, which is a link and not a heading. When the app header shows the view title in gw-app-header__title instead, that title is the h1 and the page header is left out. Never write both.",
+        "Head the sections under it with h2, which the base layer draws a step smaller than the title, or with the titles of the components they hold.",
         "The description is a p directly after the title, one sentence long.",
         "The action is one button, or one link styled as a button when it goes to another view. It may be the view's primary button, and then no other button in the view is primary.",
         "In the compact variant use gw-button--small, which keeps a 44px pointer target.",
@@ -8613,7 +8711,7 @@
         "busy"
       ],
       "accessibility": [
-        "Use an article with aria-labelledby pointing at gw-tool-call__title, a heading at the level the view needs. The title holds the tool name and then the target, both as text.",
+        "Use an article with aria-labelledby pointing at gw-tool-call__title, a heading. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2. In a queue or a list every title takes the same level. The class sets the size, so the level changes nothing on screen. The title holds the tool name and then the target, both as text.",
         "Several calls are li elements of a ul or ol, one article in each.",
         "gw-tool-call__status always holds the status as a word: Running, Succeeded, Failed or Denied. The stylesheet draws the icon from the variant class, so the status is never colour alone.",
         "While the call runs, set aria-busy=\"true\" on the article and leave the variant class off. When it ends, remove aria-busy, add the variant class and change the word. Announce the change from a role=\"status\" element in the view when the reader is waiting on it.",
@@ -9020,6 +9118,7 @@
       ],
       "whenNotToUse": [
         "After an action the app cannot fully reverse, such as deleting a workspace from disk. Ask first with the confirm dialog.",
+        "After an action with no real undo, such as revoking a standing permission: granting it again is a new decision, not the old state restored, and an agent may have been refused in between. Ask first with the confirm dialog.",
         "For a message with nothing to take back. Use a toast.",
         "When Undo is the only way back. The reader must also be able to restore the thing elsewhere, such as from an Archived list."
       ],
@@ -9168,6 +9267,71 @@
     }
   ],
   "patterns": [
+    {
+      "name": "app-shell",
+      "title": "App shell",
+      "purpose": "The frame of a signed-in screen: the app header with the pending tray, the sidebar nav from 768px and the tab bar below it, and a main column that starts with the view's page header.",
+      "status": "draft",
+      "whenToUse": [
+        "As the starting point of every signed-in screen that has the app's navigation around it. Build the shell once and change only what the main column holds.",
+        "When a screen needs the header, the navigation and the main column together and you are unsure which element carries what.",
+        "With any other page pattern in the main column, such as the settings page or filter and results."
+      ],
+      "whenNotToUse": [
+        "For a screen outside the app's navigation, such as signing in. Use the sign-in pattern.",
+        "For a detail screen that takes the whole width on a phone and has a back link in the app header. Keep the app header and leave the tab bar out, as the app header's back-and-title example shows.",
+        "For a list beside its detail. Use master and detail inside the main column.",
+        "To add a second bar or a second column of navigation. The shell has one header, one sidebar nav and one tab bar."
+      ],
+      "variants": [],
+      "sizes": [],
+      "states": [
+        "default",
+        "empty"
+      ],
+      "accessibility": [
+        "The element with gw-app-shell holds three things in this order: the app header, an element with gw-sidebar-layout and gw-app-shell__body, and the tab bar. In an app it is the body or the app's root element. Do not put it inside a container.",
+        "The app header is the page's banner. It holds the product name, a link to the first screen that is not a heading, and gw-app-header__tray with the pending tray inside it. Keep the pending tray's live region in the page on every screen and change only what it holds.",
+        "The element with gw-sidebar-layout holds the sidebar nav first and the main column second. The main column is the page's main element, with gw-container and gw-app-shell__main. The examples use a div for it only because a gallery page already has a main element.",
+        "The main column starts with a page header, which holds the view's one h1. Nothing else in the shell is an h1. Sections of the view are headed by h2, or by the titles of the components they hold.",
+        "The view's one primary action is in the page header, or in the empty state when the view has no data. The headers and the navigation never hold a primary button.",
+        "The sidebar nav and the tab bar are both in the markup and list the same destinations in the same order, with aria-current=\"page\" on the same one. The sidebar nav is rendered from 768px and the tab bar below it, so only one is in the accessibility tree and both may carry the same aria-label.",
+        "The tab bar is the last element in the shell. It sticks to the bottom of the screen, and the shell is at least as tall as the screen so that it does so on a short view too. Keep it to five destinations at most; the sidebar nav may list more.",
+        "Give the app a skip link before the shell that moves focus to the main column, so a keyboard reader does not pass the navigation on every screen.",
+        "Tab moves through the app header, the sidebar nav when it is shown, the main column, then the tab bar when it is shown. The shell needs no script."
+      ],
+      "icons": [
+        "circle-alert",
+        "circle-check",
+        "file",
+        "git-branch",
+        "loader",
+        "plus",
+        "search",
+        "terminal"
+      ],
+      "classes": [
+        "gw-app-shell",
+        "gw-app-shell__body",
+        "gw-app-shell__main"
+      ],
+      "kind": "pattern",
+      "examples": [
+        {
+          "id": "list",
+          "title": "A list view in the shell",
+          "state": "default",
+          "reason": "The app header holds the product name and the pending tray, and the page header inside the main column holds the view's one h1 and its one primary action. The sidebar nav and the tab bar list the same destinations, and the reader meets whichever fits the width.",
+          "markup": "<div class=\"gw-app-shell\">\n  <header class=\"gw-app-header gw-app-header--sticky\">\n    <a class=\"gw-app-header__name\" href=\"/\">Smelt</a>\n    <div class=\"gw-app-header__tray\">\n      <div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n        <a class=\"gw-pending-tray__link\" href=\"/approvals\"><span class=\"gw-pending-tray__count\">2</span> approvals waiting</a>\n      </div>\n    </div>\n  </header>\n  <div class=\"gw-sidebar-layout gw-app-shell__body\">\n    <nav class=\"gw-sidebar-nav\" aria-label=\"Main\">\n      <ul class=\"gw-sidebar-nav__items\">\n        <li>\n          <a class=\"gw-sidebar-nav__item\" href=\"/runs\" aria-current=\"page\">\n            <svg class=\"gw-sidebar-nav__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n            <span class=\"gw-sidebar-nav__label\">Runs</span>\n          </a>\n        </li>\n        <li>\n          <a class=\"gw-sidebar-nav__item\" href=\"/tasks\">\n            <svg class=\"gw-sidebar-nav__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n            <span class=\"gw-sidebar-nav__label\">Tasks</span>\n          </a>\n        </li>\n        <li>\n          <a class=\"gw-sidebar-nav__item\" href=\"/branches\">\n            <svg class=\"gw-sidebar-nav__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n            <span class=\"gw-sidebar-nav__label\">Branches</span>\n          </a>\n        </li>\n        <li>\n          <a class=\"gw-sidebar-nav__item\" href=\"/approvals\">\n            <svg class=\"gw-sidebar-nav__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>\n            <span class=\"gw-sidebar-nav__label\">Approvals</span>\n          </a>\n        </li>\n      </ul>\n    </nav>\n    <div class=\"gw-container gw-app-shell__main\">\n      <header class=\"gw-page-header\">\n        <div class=\"gw-page-header__text\">\n          <h1 class=\"gw-page-header__title\">Runs</h1>\n          <p class=\"gw-page-header__description\">4 runs in acme/api, the ones that need you first.</p>\n        </div>\n        <div class=\"gw-page-header__action\">\n          <a class=\"gw-button gw-button--primary\" href=\"/tasks/new\">\n            <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-plus\"></use></svg>\n            New task\n          </a>\n        </div>\n      </header>\n      <ul class=\"gw-list\">\n        <li class=\"gw-list__row\">\n          <a class=\"gw-list__link\" href=\"/runs/2295\">\n            <span class=\"gw-run-status\">\n              <span class=\"gw-run-status__title\">Add rate limiting to the webhook endpoint</span>\n              <span class=\"gw-run-status__station\">\n                <span class=\"gw-badge gw-badge--info\">\n                  <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-loader\"></use></svg>\n                  Building\n                </span>\n              </span>\n              <span class=\"gw-run-status__facts\">Claude Code, implementer · <time class=\"gw-run-status__elapsed\" datetime=\"PT4M12S\">4 min 12 s</time></span>\n            </span>\n          </a>\n        </li>\n        <li class=\"gw-list__row\">\n          <a class=\"gw-list__link\" href=\"/runs/2292\">\n            <span class=\"gw-run-status\">\n              <span class=\"gw-run-status__title\">Remove the legacy invoice exporter</span>\n              <span class=\"gw-run-status__station\">\n                <span class=\"gw-badge gw-badge--warning\">\n                  <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-alert\"></use></svg>\n                  Awaiting decision\n                </span>\n              </span>\n              <span class=\"gw-run-status__facts\">Waiting on you · <time class=\"gw-run-status__elapsed\" datetime=\"PT1H8M\">1 h 8 min</time></span>\n            </span>\n          </a>\n          <div class=\"gw-list__action\">\n            <button type=\"button\" class=\"gw-button gw-button--small\" aria-label=\"Review Remove the legacy invoice exporter\">Review</button>\n          </div>\n        </li>\n        <li class=\"gw-list__row\">\n          <a class=\"gw-list__link\" href=\"/runs/2294\">\n            <span class=\"gw-run-status\">\n              <span class=\"gw-run-status__title\">Upgrade Postgres client to 8.13</span>\n              <span class=\"gw-run-status__station\">\n                <span class=\"gw-badge gw-badge--info\">\n                  <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-search\"></use></svg>\n                  Verifying\n                </span>\n              </span>\n              <span class=\"gw-run-status__facts\">Test runner · <time class=\"gw-run-status__elapsed\" datetime=\"PT11M\">11 min</time></span>\n            </span>\n          </a>\n        </li>\n        <li class=\"gw-list__row\">\n          <a class=\"gw-list__link\" href=\"/runs/2289\">\n            <span class=\"gw-run-status\">\n              <span class=\"gw-run-status__title\">Fix the off-by-one in the retry counter</span>\n              <span class=\"gw-run-status__station\">\n                <span class=\"gw-badge gw-badge--success\">\n                  <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>\n                  Decided\n                </span>\n              </span>\n              <span class=\"gw-run-status__facts\">Accepted by you · <time class=\"gw-run-status__elapsed\" datetime=\"PT35M\">35 min</time></span>\n            </span>\n          </a>\n        </li>\n      </ul>\n    </div>\n  </div>\n  <nav class=\"gw-tab-bar\" aria-label=\"Main\">\n    <a class=\"gw-tab-bar__item\" href=\"/runs\" aria-current=\"page\">\n      <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n      <span class=\"gw-tab-bar__label\">Runs</span>\n    </a>\n    <a class=\"gw-tab-bar__item\" href=\"/tasks\">\n      <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n      <span class=\"gw-tab-bar__label\">Tasks</span>\n    </a>\n    <a class=\"gw-tab-bar__item\" href=\"/branches\">\n      <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n      <span class=\"gw-tab-bar__label\">Branches</span>\n    </a>\n    <a class=\"gw-tab-bar__item\" href=\"/approvals\">\n      <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>\n      <span class=\"gw-tab-bar__label\">Approvals</span>\n    </a>\n  </nav>\n</div>"
+        },
+        {
+          "id": "empty",
+          "title": "An empty view in the shell",
+          "state": "empty",
+          "markup": "<div class=\"gw-app-shell\">\n  <header class=\"gw-app-header gw-app-header--sticky\">\n    <a class=\"gw-app-header__name\" href=\"/\">Smelt</a>\n    <div class=\"gw-app-header__tray\">\n      <div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n        <span class=\"gw-pending-tray__text\">No approvals waiting</span>\n      </div>\n    </div>\n  </header>\n  <div class=\"gw-sidebar-layout gw-app-shell__body\">\n    <nav class=\"gw-sidebar-nav\" aria-label=\"Smelt\">\n      <ul class=\"gw-sidebar-nav__items\">\n        <li>\n          <a class=\"gw-sidebar-nav__item\" href=\"/runs\">\n            <svg class=\"gw-sidebar-nav__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n            <span class=\"gw-sidebar-nav__label\">Runs</span>\n          </a>\n        </li>\n        <li>\n          <a class=\"gw-sidebar-nav__item\" href=\"/tasks\" aria-current=\"page\">\n            <svg class=\"gw-sidebar-nav__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n            <span class=\"gw-sidebar-nav__label\">Tasks</span>\n          </a>\n        </li>\n        <li>\n          <a class=\"gw-sidebar-nav__item\" href=\"/branches\">\n            <svg class=\"gw-sidebar-nav__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n            <span class=\"gw-sidebar-nav__label\">Branches</span>\n          </a>\n        </li>\n        <li>\n          <a class=\"gw-sidebar-nav__item\" href=\"/approvals\">\n            <svg class=\"gw-sidebar-nav__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>\n            <span class=\"gw-sidebar-nav__label\">Approvals</span>\n          </a>\n        </li>\n      </ul>\n    </nav>\n    <div class=\"gw-container gw-app-shell__main\">\n      <header class=\"gw-page-header\">\n        <div class=\"gw-page-header__text\">\n          <h1 class=\"gw-page-header__title\">Tasks</h1>\n          <p class=\"gw-page-header__description\">Work queued for the agent in acme/api.</p>\n        </div>\n      </header>\n      <div class=\"gw-empty-state\">\n        <h2 class=\"gw-empty-state__title\">No tasks yet</h2>\n        <p class=\"gw-empty-state__body\">A task is one piece of work for the agent, such as a bug to fix. Each task you add shows up here with its runs.</p>\n        <div class=\"gw-empty-state__action\">\n          <a class=\"gw-button gw-button--primary\" href=\"/tasks/new\">\n            <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-plus\"></use></svg>\n            New task\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n  <nav class=\"gw-tab-bar\" aria-label=\"Smelt\">\n    <a class=\"gw-tab-bar__item\" href=\"/runs\">\n      <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n      <span class=\"gw-tab-bar__label\">Runs</span>\n    </a>\n    <a class=\"gw-tab-bar__item\" href=\"/tasks\" aria-current=\"page\">\n      <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n      <span class=\"gw-tab-bar__label\">Tasks</span>\n    </a>\n    <a class=\"gw-tab-bar__item\" href=\"/branches\">\n      <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n      <span class=\"gw-tab-bar__label\">Branches</span>\n    </a>\n    <a class=\"gw-tab-bar__item\" href=\"/approvals\">\n      <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>\n      <span class=\"gw-tab-bar__label\">Approvals</span>\n    </a>\n  </nav>\n</div>"
+        }
+      ]
+    },
     {
       "name": "filter-results",
       "title": "Filter and results",
@@ -9539,11 +9703,11 @@
       "accessibility": [
         "In an app the element with gw-sign-in is the main element, and it is the only landmark on the page. The column starts at the leading edge of the page and is never centred.",
         "gw-sign-in__product is a p holding the product's name. The h1 after it reads Sign in, and one sentence under it says which account to use. There is no other copy.",
-        "The fields are in one form. The email input has type=\"email\" and autocomplete=\"username\", and the password input has type=\"password\" and autocomplete=\"current-password\", so a password manager can fill both. Neither uses a placeholder as its label.",
+        "The fields are in one form. The email input has type=\"email\" and autocomplete=\"username\". The password is the catalogue's password field, with autocomplete=\"current-password\", so a password manager can fill both and the reader can show what they typed before sending it. Neither uses a placeholder as its label.",
         "Sign in is the form's submit button and the screen's one primary action. The link for trouble signing in is a quiet link after the form, and it names what it does.",
         "When the sign-in is refused, keep the email, clear the password, and add an alert with role=\"alert\" as the first thing in the form. Its title says what happened and its body says what to do. Link it from both inputs with aria-describedby, and move focus to the password input. Do not say which field was wrong.",
-        "While the form is sent, set aria-busy=\"true\" on the button, change its label to Signing in, make the inputs read-only and ignore further presses.",
-        "Tab moves through Email, Password, Sign in, then the help link. Enter in either input sends the form. The pattern needs no script of its own."
+        "While the form is sent, set aria-busy=\"true\" on the button, change its label to Signing in, make the inputs read-only, set disabled on the password field's Show button and ignore further presses.",
+        "Tab moves through Email, Password, the Show button, Sign in, then the help link. Enter in either input sends the form. The pattern needs no script of its own."
       ],
       "icons": [],
       "classes": [
@@ -9557,20 +9721,20 @@
           "title": "Sign in",
           "state": "default",
           "reason": "The screen does one thing. It names the product, says in one sentence which account to use, and asks for two fields. Sign in is the only primary action, and help is a quiet link after it. Nothing else is on the page to read first.",
-          "markup": "<div class=\"gw-sign-in\">\n  <p class=\"gw-sign-in__product\">Smelt</p>\n  <div class=\"gw-stack gw-gap-sm\">\n    <h1>Sign in</h1>\n    <p>Use the account your administrator created for you on this server.</p>\n  </div>\n  <form class=\"gw-stack gw-gap-lg\" action=\"/sign-in\" method=\"post\">\n    <div class=\"gw-field\">\n      <label class=\"gw-field__label\" for=\"sign-in-default-email\">Email</label>\n      <input class=\"gw-field__control\" id=\"sign-in-default-email\" type=\"email\" name=\"email\" required autocomplete=\"username\">\n    </div>\n    <div class=\"gw-field\">\n      <label class=\"gw-field__label\" for=\"sign-in-default-password\">Password</label>\n      <input class=\"gw-field__control\" id=\"sign-in-default-password\" type=\"password\" name=\"password\" required autocomplete=\"current-password\">\n    </div>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\">Sign in</button>\n  </form>\n  <p><a class=\"gw-link gw-link--quiet\" href=\"/sign-in/help\">Get help signing in</a></p>\n</div>"
+          "markup": "<div class=\"gw-sign-in\">\n  <p class=\"gw-sign-in__product\">Smelt</p>\n  <div class=\"gw-stack gw-gap-sm\">\n    <h1>Sign in</h1>\n    <p>Use the account your administrator created for you on this server.</p>\n  </div>\n  <form class=\"gw-stack gw-gap-lg\" action=\"/sign-in\" method=\"post\">\n    <div class=\"gw-field\">\n      <label class=\"gw-field__label\" for=\"sign-in-default-email\">Email</label>\n      <input class=\"gw-field__control\" id=\"sign-in-default-email\" type=\"email\" name=\"email\" required autocomplete=\"username\">\n    </div>\n    <div class=\"gw-field\">\n      <label class=\"gw-field__label\" for=\"sign-in-default-password\">Password</label>\n      <div class=\"gw-password-field\">\n        <input class=\"gw-field__control gw-password-field__input\" id=\"sign-in-default-password\" type=\"password\" name=\"password\" required autocomplete=\"current-password\" autocapitalize=\"none\" spellcheck=\"false\">\n        <button type=\"button\" class=\"gw-password-field__toggle\" aria-controls=\"sign-in-default-password\">\n          <span class=\"gw-password-field__show\">Show<span class=\"gw-visually-hidden\"> the password</span></span>\n          <span class=\"gw-password-field__hide\">Hide<span class=\"gw-visually-hidden\"> the password</span></span>\n        </button>\n      </div>\n    </div>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\">Sign in</button>\n  </form>\n  <p><a class=\"gw-link gw-link--quiet\" href=\"/sign-in/help\">Get help signing in</a></p>\n</div>"
         },
         {
           "id": "rejected",
           "title": "The sign-in was refused",
           "state": "error",
           "reason": "The alert says what happened and the two things the reader can do about it, and the email they typed is kept. It does not say which of the two fields was wrong, so the screen gives nothing away about which accounts exist.",
-          "markup": "<div class=\"gw-sign-in\">\n  <p class=\"gw-sign-in__product\">Smelt</p>\n  <div class=\"gw-stack gw-gap-sm\">\n    <h1>Sign in</h1>\n    <p>Use the account your administrator created for you on this server.</p>\n  </div>\n  <form class=\"gw-stack gw-gap-lg\" action=\"/sign-in\" method=\"post\">\n    <div class=\"gw-alert gw-alert--danger\" role=\"alert\" id=\"sign-in-rejected-alert\">\n      <div class=\"gw-alert__content\">\n        <p class=\"gw-alert__label\">Error</p>\n        <p class=\"gw-alert__title\">That email and password do not match an account</p>\n        <p class=\"gw-alert__body\">Check both and try again. If you have forgotten the password, your administrator can reset it. 3 tries are left before sign-in pauses for 15 minutes.</p>\n      </div>\n    </div>\n    <div class=\"gw-field\">\n      <label class=\"gw-field__label\" for=\"sign-in-rejected-email\">Email</label>\n      <input class=\"gw-field__control\" id=\"sign-in-rejected-email\" type=\"email\" name=\"email\" required autocomplete=\"username\" value=\"maya.okafor@acme.example\" aria-describedby=\"sign-in-rejected-alert\">\n    </div>\n    <div class=\"gw-field\">\n      <label class=\"gw-field__label\" for=\"sign-in-rejected-password\">Password</label>\n      <input class=\"gw-field__control\" id=\"sign-in-rejected-password\" type=\"password\" name=\"password\" required autocomplete=\"current-password\" aria-describedby=\"sign-in-rejected-alert\">\n    </div>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\">Sign in</button>\n  </form>\n  <p><a class=\"gw-link gw-link--quiet\" href=\"/sign-in/help?email=maya.okafor%40acme.example\">Get help signing in</a></p>\n</div>"
+          "markup": "<div class=\"gw-sign-in\">\n  <p class=\"gw-sign-in__product\">Smelt</p>\n  <div class=\"gw-stack gw-gap-sm\">\n    <h1>Sign in</h1>\n    <p>Use the account your administrator created for you on this server.</p>\n  </div>\n  <form class=\"gw-stack gw-gap-lg\" action=\"/sign-in\" method=\"post\">\n    <div class=\"gw-alert gw-alert--danger\" role=\"alert\" id=\"sign-in-rejected-alert\">\n      <div class=\"gw-alert__content\">\n        <p class=\"gw-alert__label\">Error</p>\n        <p class=\"gw-alert__title\">That email and password do not match an account</p>\n        <p class=\"gw-alert__body\">Check both and try again. If you have forgotten the password, your administrator can reset it. 3 tries are left before sign-in pauses for 15 minutes.</p>\n      </div>\n    </div>\n    <div class=\"gw-field\">\n      <label class=\"gw-field__label\" for=\"sign-in-rejected-email\">Email</label>\n      <input class=\"gw-field__control\" id=\"sign-in-rejected-email\" type=\"email\" name=\"email\" required autocomplete=\"username\" value=\"maya.okafor@acme.example\" aria-describedby=\"sign-in-rejected-alert\">\n    </div>\n    <div class=\"gw-field\">\n      <label class=\"gw-field__label\" for=\"sign-in-rejected-password\">Password</label>\n      <div class=\"gw-password-field\">\n        <input class=\"gw-field__control gw-password-field__input\" id=\"sign-in-rejected-password\" type=\"password\" name=\"password\" required autocomplete=\"current-password\" autocapitalize=\"none\" spellcheck=\"false\" aria-describedby=\"sign-in-rejected-alert\">\n        <button type=\"button\" class=\"gw-password-field__toggle\" aria-controls=\"sign-in-rejected-password\">\n          <span class=\"gw-password-field__show\">Show<span class=\"gw-visually-hidden\"> the password</span></span>\n          <span class=\"gw-password-field__hide\">Hide<span class=\"gw-visually-hidden\"> the password</span></span>\n        </button>\n      </div>\n    </div>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\">Sign in</button>\n  </form>\n  <p><a class=\"gw-link gw-link--quiet\" href=\"/sign-in/help?email=maya.okafor%40acme.example\">Get help signing in</a></p>\n</div>"
         },
         {
           "id": "signing-in",
           "title": "Signing in",
           "state": "busy",
-          "markup": "<div class=\"gw-sign-in\">\n  <p class=\"gw-sign-in__product\">Smelt</p>\n  <div class=\"gw-stack gw-gap-sm\">\n    <h1>Sign in</h1>\n    <p>Use the account your administrator created for you on this server.</p>\n  </div>\n  <form class=\"gw-stack gw-gap-lg\" action=\"/sign-in\" method=\"post\">\n    <div class=\"gw-field\">\n      <label class=\"gw-field__label\" for=\"sign-in-busy-email\">Email</label>\n      <input class=\"gw-field__control\" id=\"sign-in-busy-email\" type=\"email\" name=\"email\" required autocomplete=\"username\" value=\"maya.okafor@acme.example\" readonly>\n    </div>\n    <div class=\"gw-field\">\n      <label class=\"gw-field__label\" for=\"sign-in-busy-password\">Password</label>\n      <input class=\"gw-field__control\" id=\"sign-in-busy-password\" type=\"password\" name=\"password\" required autocomplete=\"current-password\" value=\"correct-horse-battery\" readonly>\n    </div>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\" aria-busy=\"true\">Signing in</button>\n  </form>\n  <p><a class=\"gw-link gw-link--quiet\" href=\"/sign-in/help\">Get help signing in</a></p>\n</div>"
+          "markup": "<div class=\"gw-sign-in\">\n  <p class=\"gw-sign-in__product\">Smelt</p>\n  <div class=\"gw-stack gw-gap-sm\">\n    <h1>Sign in</h1>\n    <p>Use the account your administrator created for you on this server.</p>\n  </div>\n  <form class=\"gw-stack gw-gap-lg\" action=\"/sign-in\" method=\"post\">\n    <div class=\"gw-field\">\n      <label class=\"gw-field__label\" for=\"sign-in-busy-email\">Email</label>\n      <input class=\"gw-field__control\" id=\"sign-in-busy-email\" type=\"email\" name=\"email\" required autocomplete=\"username\" value=\"maya.okafor@acme.example\" readonly>\n    </div>\n    <div class=\"gw-field\">\n      <label class=\"gw-field__label\" for=\"sign-in-busy-password\">Password</label>\n      <div class=\"gw-password-field\">\n        <input class=\"gw-field__control gw-password-field__input\" id=\"sign-in-busy-password\" type=\"password\" name=\"password\" required autocomplete=\"current-password\" autocapitalize=\"none\" spellcheck=\"false\" value=\"correct-horse-battery\" readonly>\n        <button type=\"button\" class=\"gw-password-field__toggle\" aria-controls=\"sign-in-busy-password\" disabled>\n          <span class=\"gw-password-field__show\">Show<span class=\"gw-visually-hidden\"> the password</span></span>\n          <span class=\"gw-password-field__hide\">Hide<span class=\"gw-visually-hidden\"> the password</span></span>\n        </button>\n      </div>\n    </div>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\" aria-busy=\"true\">Signing in</button>\n  </form>\n  <p><a class=\"gw-link gw-link--quiet\" href=\"/sign-in/help\">Get help signing in</a></p>\n</div>"
         }
       ]
     }

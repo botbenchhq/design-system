@@ -211,8 +211,23 @@
  * and measures in one step would find it where it was. Placed in the page instead, it scrolls
  * with its button. It also keeps its first position: a popover whose button is below the fold
  * has no room in a viewport it is not in, and would flip above its button and cover the caption.
+ *
  */
 [data-example][data-gallery-open] [popover] {
   position: absolute;
   position-try-fallbacks: none;
+}
+
+/*
+ * A popover is placed against the page, not against its example, so the margin that keeps it
+ * off the edge of the screen would end a wide one on the frame's border. The gallery's script
+ * marks the side that margin is on. The wider margin here is the page's padding, the frame's
+ * border and the example's padding, which ends the popover where the example's content ends.
+ */
+[data-example][data-gallery-open] [popover][data-gallery-edge~="end"] {
+  margin-inline-end: calc(var(--gw-space-lg) * 2 + var(--gw-border-width));
+}
+
+[data-example][data-gallery-open] [popover][data-gallery-edge~="start"] {
+  margin-inline-start: calc(var(--gw-space-lg) * 2 + var(--gw-border-width));
 }

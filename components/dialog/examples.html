@@ -18,6 +18,25 @@
   </dialog>
 </div>
 
+<div data-example="closed" data-title="Closed, with the button that opens it">
+  <button type="button" class="gw-button" command="show-modal" commandfor="dialog-closed">Rename branch</button>
+  <dialog class="gw-dialog" id="dialog-closed" aria-labelledby="dialog-closed-title">
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="dialog-closed-title">Rename the branch</h2>
+      <div class="gw-dialog__body">
+        <div class="gw-field">
+          <label class="gw-field__label" for="dialog-closed-name">Branch name</label>
+          <input class="gw-field__control" id="dialog-closed-name" type="text" name="branch" required autocomplete="off" value="fix/login-timeout">
+        </div>
+      </div>
+      <div class="gw-dialog__footer">
+        <button type="submit" class="gw-button gw-button--primary" value="rename">Rename branch</button>
+        <button type="submit" class="gw-button" value="cancel" formnovalidate>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+
 <div data-example="text" data-title="Text only" data-gallery-frame>
   <dialog class="gw-dialog" id="dialog-text" aria-labelledby="dialog-text-title" aria-describedby="dialog-text-body" open>
     <form class="gw-dialog__panel" method="dialog">

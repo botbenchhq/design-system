@@ -21,10 +21,11 @@
     min-width: min(100%, calc(var(--gw-space-2xl) * 5));
   }
 
+  /* The size of a plain h1 at every width, so an h2 in the view is never as large as the title. */
   .gw-page-header__title {
-    font-size: var(--gw-text-xl);
+    font-size: var(--gw-text-2xl);
     font-weight: var(--gw-weight-semibold);
-    line-height: var(--gw-leading-xl);
+    line-height: var(--gw-leading-2xl);
     overflow-wrap: anywhere;
   }
 
@@ -37,13 +38,6 @@
     display: flex;
     flex: none;
     align-items: center;
-  }
-
-  @media (min-width: 768px) {
-    .gw-page-header__title {
-      font-size: var(--gw-text-2xl);
-      line-height: var(--gw-leading-2xl);
-    }
   }
 
   /* For a dense screen, where the list or the transcript below is what the reader came for. */

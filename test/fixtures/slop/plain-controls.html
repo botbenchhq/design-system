@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>New task</title>
+    <link rel="stylesheet" href="/groundwork.css">
+  </head>
+  <body>
+    <main>
+      <h1>New task</h1>
+      <form action="/tasks" method="post">
+        <input type="hidden" name="repository" value="acme/api">
+        <label for="title">Title</label>
+        <input id="title" name="title" type="text">
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes"></textarea>
+        <button type="submit">Add task</button>
+      </form>
+      <p><a href="/tasks">Back to tasks</a></p>
+    </main>
+  </body>
+</html>

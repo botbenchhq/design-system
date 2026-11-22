@@ -38,6 +38,9 @@
     "nested-cards",
     "nested-cards"
   ],
+  "plain-controls.html": [
+    "unstyled-controls"
+  ],
   "row-primaries.html": [
     "repeated-item-primary",
     "repeated-item-primary",

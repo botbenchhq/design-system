@@ -141,6 +141,40 @@ test("long body text centred across the page fails; a short centred line and lon
   assert.deepEqual(rulesFor(`<p>${words(30)}</p>`), []);
 });
 
+test("a view whose controls use no system component fails once; one control in or on a system class passes", () => {
+  const form = `<form><input type="hidden" name="id" value="4"><label for="t">Title</label><input id="t" type="text"><select><option>One</option></select><textarea></textarea><button type="submit">Save</button></form>`;
+  const findings = findingsFor(form);
+  assert.deepEqual(findings.map((finding) => `${finding.file}:${finding.line} ${finding.rule}`), ["page.html:4 unstyled-controls"]);
+  assert.match(findings[0].message, /none of its 4 controls/);
+  assert.ok(findings[0].fix);
+  assert.deepEqual(rulesFor(`<button type="button">Save</button>`), ["unstyled-controls"]);
+
+  // On the control, or on anything it sits inside.
+  assert.deepEqual(rulesFor(`${form}\n${secondary("Cancel")}`), []);
+  assert.deepEqual(rulesFor(`<main class="gw-container">${form}</main>`), []);
+  // A view with no control, only links, or only a hidden input has nothing to report.
+  assert.deepEqual(rulesFor(`<h1>Runs</h1><p>Nothing here yet.</p>`), []);
+  assert.deepEqual(rulesFor(`<a href="/runs">Runs</a> <a role="button" href="/new">New</a>`), []);
+  assert.deepEqual(rulesFor(`<form><input type="hidden" name="id" value="4"></form>`), []);
+});
+
+test("each view is judged by itself: a dialog of plain controls fails beside a page built from the system", () => {
+  const page = `<main>${secondary("Rename")}</main>`;
+  assert.deepEqual(rulesFor(`${page}\n<dialog><input type="text"><button>Save</button></dialog>`), ["unstyled-controls"]);
+  assert.deepEqual(rulesFor(`${page}\n<dialog class="gw-stack"><input type="text"><button>Save</button></dialog>`), []);
+  assert.deepEqual(rulesFor(`<button>Open</button>\n<dialog><button>Save</button></dialog>`), ["unstyled-controls", "unstyled-controls"]);
+});
+
+test("a class with the app's declared prefix counts as the system's, and without the prefix it does not", () => {
+  const dir = tempDir();
+  writeFileSync(join(dir, "page.html"), `<!doctype html>\n<html lang="en">\n<body>\n<form class="sm-ledger-form"><input type="text"><button>Save</button></form>\n</body>\n</html>\n`);
+  writeFileSync(join(dir, "gaps.json"), JSON.stringify({ gaps: [{ name: "Ledger form", reason: "No component fits.", classes: ["sm-ledger-form"] }] }));
+  writeFileSync(join(dir, "groundwork.config.json"), JSON.stringify({ paths: ["page.html"], appPrefix: "sm", gaps: "gaps.json" }));
+  assert.deepEqual(check(["--config", "groundwork.config.json"], dir).findings, []);
+  writeFileSync(join(dir, "groundwork.config.json"), JSON.stringify({ paths: ["page.html"], appPrefix: "other" }));
+  assert.deepEqual(check(["--config", "groundwork.config.json"], dir).findings.map((finding) => finding.rule), ["unlisted-class", "unstyled-controls"]);
+});
+
 test("a structural finding is covered by an inline waiver on the line before it", () => {
   const body = `<!-- gw-waive nested-cards: the inner panel is a quoted record -->\n<div class="gw-card"><div class="gw-card">Inner</div></div>`;
   assert.deepEqual(rulesFor(body), []);

@@ -16,6 +16,7 @@
   "variants": [
     { "name": "passed", "class": "gw-check-list__result--passed", "use": "The check ran and passed. The word is Passed, beside a check mark in a circle." },
     { "name": "failed", "class": "gw-check-list__result--failed", "use": "The check ran and failed. The word is Failed, or says how much failed, beside an alert mark. Its row holds the output." },
+    { "name": "timed out", "class": "gw-check-list__result--timed-out", "use": "The check was stopped because it ran past its time limit. It says nothing about whether the code is right, so it is not Failed. The words are Timed out after and the limit that was hit, such as Timed out after 10 min, beside a warning triangle." },
     { "name": "running", "class": "gw-check-list__result--running", "use": "The check has started and not finished. The word is Running, beside a turning mark." },
     { "name": "skipped", "class": "gw-check-list__result--skipped", "use": "The check did not run and will not. The words say Skipped and why, beside a barred circle." },
     { "name": "not started", "use": "The default, with no modifier class. The check is waiting for its turn. The words are Not started, beside three dots." }
@@ -25,15 +26,15 @@
   "accessibility": [
     "Use a ul with the class gw-check-list__items and one li with gw-check-list__item for each check, inside a div with gw-check-list. A screen reader then says how many checks there are.",
     "Start with gw-check-list__summary, a p that counts in words: 7 of 12 checks passed, then how many failed, are running and were skipped. Give it role=\"status\" when results arrive while the reader watches, so the new count is announced.",
-    "Each row holds, in this order, gw-check-list__name, gw-check-list__result and gw-check-list__duration, all spans. The result is always a word, Passed, Failed, Running, Skipped or Not started, and the stylesheet draws its icon from the modifier class, so no result is an icon or a colour alone.",
+    "Each row holds, in this order, gw-check-list__name, gw-check-list__result and gw-check-list__duration, all spans. The result is always a word, Passed, Failed, Timed out, Running, Skipped or Not started, and the stylesheet draws its icon from the modifier class, so no result is an icon or a colour alone.",
     "Write the duration with its unit inside a time element with a datetime duration: 1 min 48 s. A check that has not finished or did not run has an empty gw-check-list__duration, or says what it waits for.",
     "Output goes in a details element with gw-check-list__output after the three spans. Its summary, gw-check-list__toggle, has text that names the check: Output, with the check's name in a gw-visually-hidden span. The pre with gw-check-list__log holds the output as text and wraps, so it never scrolls sideways.",
     "A failed check's output starts closed unless the view is about that failure. Trim it to the lines that explain the failure and link to the full log.",
-    "Put failed checks first, then running, then passed and skipped, so what needs the reader is at the top.",
+    "Put failed checks first, then timed out, then running, then passed and skipped, so what needs the reader is at the top. Count a timed-out check by itself in the summary, as in 1 timed out, and not among the failed.",
     "Tab reaches each summary, and Enter and Space open and close it. The component needs no script.",
     "While the results are fetched, show a spinner with its text in place of the list. If they cannot be read, show an error state. If no checks are set up, show an empty state that says so."
   ],
-  "icons": ["ban", "chevron-down", "chevron-right", "circle-alert", "circle-check", "ellipsis", "loader"],
+  "icons": ["ban", "chevron-down", "chevron-right", "circle-alert", "circle-check", "ellipsis", "loader", "triangle-alert"],
   "classes": [
     "gw-check-list",
     "gw-check-list__duration",
@@ -47,6 +48,7 @@
     "gw-check-list__result--passed",
     "gw-check-list__result--running",
     "gw-check-list__result--skipped",
+    "gw-check-list__result--timed-out",
     "gw-check-list__summary",
     "gw-check-list__toggle"
   ]

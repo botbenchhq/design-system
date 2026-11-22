@@ -27,6 +27,7 @@ export function loadVocabulary(manifestPath) {
     tokenNames: new Set(Object.values(manifest.tokens).flat()),
     tokenValues,
     classes: new Set(manifest.classes ?? []),
+    rules: manifest.rules ?? [],
     utilities: {
       exact: new Set(layout.exact),
       prefixes,

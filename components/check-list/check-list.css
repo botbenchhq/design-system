@@ -84,6 +84,16 @@
     mask-image: url("icons/circle-alert.svg");
   }
 
+  /* Not a failure of the code under test: the check ran out of time. The word and the mark differ from a failed check's. */
+  .gw-check-list__result--timed-out {
+    color: var(--gw-color-warning);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  .gw-check-list__result--timed-out::before {
+    mask-image: url("icons/triangle-alert.svg");
+  }
+
   .gw-check-list__result--running {
     color: var(--gw-color-info);
   }

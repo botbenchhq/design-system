@@ -165,6 +165,39 @@ Found 1 error in src/auth/session.ts:88</pre>
 </figure>
 <figure data-gallery="specimen">
 <figcaption>
+<h3>A check that ran out of time</h3>
+</figcaption>
+<div data-example="timed-out" data-title="A check that ran out of time">
+  <div class="gw-check-list">
+    <p class="gw-check-list__summary">2 of 3 checks passed. 1 timed out.</p>
+    <ul class="gw-check-list__items">
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Integration tests</span>
+        <span class="gw-check-list__result gw-check-list__result--timed-out">Timed out after 10 min</span>
+        <span class="gw-check-list__duration"><time datetime="PT10M">10 min</time></span>
+        <details class="gw-check-list__output" open>
+          <summary class="gw-check-list__toggle">Output<span class="gw-visually-hidden"> of Integration tests</span></summary>
+          <pre class="gw-check-list__log">PASS src/auth/session.integration.test.ts
+RUNS src/billing/export.integration.test.ts
+  stopped at the 10 minute limit for a check</pre>
+        </details>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Unit tests</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT1M48S">1 min 48 s</time></span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Lint</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT9S">9 s</time></span>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
 <h3>Every check passed</h3>
 </figcaption>
 <div data-example="all-passed" data-title="Every check passed">
@@ -309,6 +342,8 @@ Found 1 error in src/auth/session.ts:88</pre>
 <dd>The check ran and passed. The word is Passed, beside a check mark in a circle.</dd>
 <dt>failed <code>gw-check-list__result--failed</code></dt>
 <dd>The check ran and failed. The word is Failed, or says how much failed, beside an alert mark. Its row holds the output.</dd>
+<dt>timed out <code>gw-check-list__result--timed-out</code></dt>
+<dd>The check was stopped because it ran past its time limit. It says nothing about whether the code is right, so it is not Failed. The words are Timed out after and the limit that was hit, such as Timed out after 10 min, beside a warning triangle.</dd>
 <dt>running <code>gw-check-list__result--running</code></dt>
 <dd>The check has started and not finished. The word is Running, beside a turning mark.</dd>
 <dt>skipped <code>gw-check-list__result--skipped</code></dt>
@@ -322,11 +357,11 @@ Found 1 error in src/auth/session.ts:88</pre>
 <ul>
 <li>Use a ul with the class gw-check-list__items and one li with gw-check-list__item for each check, inside a div with gw-check-list. A screen reader then says how many checks there are.</li>
 <li>Start with gw-check-list__summary, a p that counts in words: 7 of 12 checks passed, then how many failed, are running and were skipped. Give it role=&quot;status&quot; when results arrive while the reader watches, so the new count is announced.</li>
-<li>Each row holds, in this order, gw-check-list__name, gw-check-list__result and gw-check-list__duration, all spans. The result is always a word, Passed, Failed, Running, Skipped or Not started, and the stylesheet draws its icon from the modifier class, so no result is an icon or a colour alone.</li>
+<li>Each row holds, in this order, gw-check-list__name, gw-check-list__result and gw-check-list__duration, all spans. The result is always a word, Passed, Failed, Timed out, Running, Skipped or Not started, and the stylesheet draws its icon from the modifier class, so no result is an icon or a colour alone.</li>
 <li>Write the duration with its unit inside a time element with a datetime duration: 1 min 48 s. A check that has not finished or did not run has an empty gw-check-list__duration, or says what it waits for.</li>
 <li>Output goes in a details element with gw-check-list__output after the three spans. Its summary, gw-check-list__toggle, has text that names the check: Output, with the check's name in a gw-visually-hidden span. The pre with gw-check-list__log holds the output as text and wraps, so it never scrolls sideways.</li>
 <li>A failed check's output starts closed unless the view is about that failure. Trim it to the lines that explain the failure and link to the full log.</li>
-<li>Put failed checks first, then running, then passed and skipped, so what needs the reader is at the top.</li>
+<li>Put failed checks first, then timed out, then running, then passed and skipped, so what needs the reader is at the top. Count a timed-out check by itself in the summary, as in 1 timed out, and not among the failed.</li>
 <li>Tab reaches each summary, and Enter and Space open and close it. The component needs no script.</li>
 <li>While the results are fetched, show a spinner with its text in place of the list. If they cannot be read, show an error state. If no checks are set up, show an empty state that says so.</li>
 </ul>
@@ -346,6 +381,7 @@ Found 1 error in src/auth/session.ts:88</pre>
 <li><code>gw-check-list__result--passed</code></li>
 <li><code>gw-check-list__result--running</code></li>
 <li><code>gw-check-list__result--skipped</code></li>
+<li><code>gw-check-list__result--timed-out</code></li>
 <li><code>gw-check-list__summary</code></li>
 <li><code>gw-check-list__toggle</code></li>
 </ul>

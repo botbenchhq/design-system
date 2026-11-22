@@ -134,6 +134,7 @@
     gap: var(--gw-space-xs);
     padding: var(--gw-space-md);
     color: var(--gw-color-muted);
+    overflow-wrap: anywhere;
   }
 
   .gw-diff__body + .gw-diff__note {

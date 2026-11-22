@@ -173,15 +173,16 @@
 <h2>Variants</h2>
 <dl>
 <dt>default</dt>
-<dd>The title at 20px on a phone and 24px from 768px. Use it on most views.</dd>
+<dd>The title at 24px at every width, the size of a plain h1. Use it on most views.</dd>
 <dt>compact <code>gw-page-header--compact</code></dt>
-<dd>The title at 16px with a 12px description, for a dense screen. Pair it with a small button.</dd>
+<dd>The title at 16px with a 12px description, for a dense screen. Pair it with a small button. A plain h2 is drawn larger than this title, so under a compact header head sections with h3 or with component titles, which are no larger than it.</dd>
 </dl>
 </section>
 <section>
 <h2>Accessibility</h2>
 <ul>
-<li>Use a header element, with the title as the page's h1. When the app header already shows the view title as the h1, leave the page header out.</li>
+<li>Use a header element, with the title as the view's one h1. The app header above it shows the product name, which is a link and not a heading. When the app header shows the view title in gw-app-header__title instead, that title is the h1 and the page header is left out. Never write both.</li>
+<li>Head the sections under it with h2, which the base layer draws a step smaller than the title, or with the titles of the components they hold.</li>
 <li>The description is a p directly after the title, one sentence long.</li>
 <li>The action is one button, or one link styled as a button when it goes to another view. It may be the view's primary button, and then no other button in the view is primary.</li>
 <li>In the compact variant use gw-button--small, which keeps a 44px pointer target.</li>

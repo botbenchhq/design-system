@@ -112,11 +112,12 @@
   </article>
 </div>
 </figure>
-<figure data-gallery="specimen">
+<figure data-gallery="do">
 <figcaption>
-<h3>Declining with a note</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Declining with a note</h3>
+<p>The note is typed before the answer, and the one Decline button sends it. With a second button for declining with the note, a reader who typed one and pressed the plain Decline would lose it.</p>
 </figcaption>
-<div data-example="decline-note" data-title="Declining with a note">
+<div data-example="decline-note" data-title="Declining with a note" data-reason="The note is typed before the answer, and the one Decline button sends it. With a second button for declining with the note, a reader who typed one and pressed the plain Decline would lose it.">
   <article class="gw-approval gw-approval--elevated" aria-labelledby="approval-decline-note-title">
     <p class="gw-approval__risk">Elevated risk: deletes files outside the task's worktree</p>
     <h4 class="gw-approval__title" id="approval-decline-note-title">Claude Code asks to run a command</h4>
@@ -127,22 +128,41 @@
       <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
       <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">The old cache holds a stale session-store build that makes the tests fail.</span></li>
     </ul>
+    <details class="gw-approval__details" open>
+      <summary class="gw-approval__summary">Add a note for the agent</summary>
+      <div class="gw-approval__note">
+        <div class="gw-field">
+          <label class="gw-field__label" for="approval-decline-note-note">Note to the agent</label>
+          <input class="gw-field__control" id="approval-decline-note-note" type="text" name="note" autocomplete="off" maxlength="2000" value="Clear web/.cache only." aria-describedby="approval-decline-note-description">
+          <p class="gw-field__description" id="approval-decline-note-description">Sent when you decline. Allow does not send it.</p>
+        </div>
+      </div>
+    </details>
     <div class="gw-approval__actions">
       <button type="button" class="gw-button gw-button--primary" data-gw-critical>Allow</button>
       <button type="button" class="gw-button" data-gw-critical>Decline</button>
     </div>
-    <details class="gw-approval__details" open>
-      <summary class="gw-approval__summary">Decline with a note</summary>
-      <div class="gw-approval__note">
-        <div class="gw-field">
-          <label class="gw-field__label" for="approval-decline-note-note">Note to the agent</label>
-          <input class="gw-field__control" id="approval-decline-note-note" type="text" name="note" autocomplete="off" maxlength="2000" value="Clear web/.cache only.">
-        </div>
-        <div class="gw-cluster">
-          <button type="button" class="gw-button">Decline and send note</button>
-        </div>
-      </div>
-    </details>
+  </article>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Without a risk line</h3>
+</figcaption>
+<div data-example="no-risk-line" data-title="Without a risk line">
+  <article class="gw-approval" aria-labelledby="approval-no-risk-line-title">
+    <h4 class="gw-approval__title" id="approval-no-risk-line-title">Claude Code asks to read a file</h4>
+    <pre class="gw-approval__command">docs/runbooks/session-store.md</pre>
+    <ul class="gw-approval__facts">
+      <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">The top of the task's worktree</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Implementer</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To check how the session store is restarted before I change its timeout.</span></li>
+    </ul>
+    <div class="gw-approval__actions">
+      <button type="button" class="gw-button gw-button--primary" data-gw-critical>Allow</button>
+      <button type="button" class="gw-button" data-gw-critical>Decline</button>
+    </div>
   </article>
 </div>
 </figure>
@@ -348,7 +368,7 @@
 <h2>Variants</h2>
 <dl>
 <dt>normal</dt>
-<dd>The default, with no modifier class. The risk line reads Normal risk and what keeps it so, beside an info icon.</dd>
+<dd>The default, with no modifier class. The risk line is optional. When it is shown it reads Normal risk and what keeps it so, beside an info icon.</dd>
 <dt>elevated <code>gw-approval--elevated</code></dt>
 <dd>A request that reaches outside the task's worktree, deletes, or cannot be undone. The risk line reads Elevated risk and why, beside a warning icon, on a tinted band.</dd>
 </dl>
@@ -356,15 +376,15 @@
 <section>
 <h2>Accessibility</h2>
 <ul>
-<li>Use an article with aria-labelledby pointing at gw-approval__title, a heading at the level the view needs. The title says who asks and for what.</li>
+<li>Use an article with aria-labelledby pointing at gw-approval__title, a heading. The title says who asks and for what. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2. In a queue or a list every title takes the same level. The class sets the size, so the level changes nothing on screen. The examples use h4 only because of where they sit on the gallery page.</li>
 <li>Emphasis: when a view shows a single approval, Allow may be the view's primary action, gw-button gw-button--primary. When approvals are listed, each card sits in its own li of a ul and Allow is a plain gw-button, never primary, so a queue has no competing primary actions.</li>
 <li>Allow comes first and Decline sits at the far end of gw-approval__actions. Both are always visible, carry data-gw-critical so the checker can see they are never hidden, and are never placed inside a details element.</li>
-<li>The risk line always starts with the words Normal risk or Elevated risk and then says why. Its icon is drawn by the stylesheet, so the tone is never colour alone.</li>
+<li>The risk line, gw-approval__risk, is optional. Leave it out when the app does not grade requests, and never write one the app cannot back with a reason. When it is shown, it comes first in the card, starts with the words Normal risk or Elevated risk and then says why. Its icon is drawn by the stylesheet, so the tone is never colour alone. An elevated request always has its risk line.</li>
 <li>gw-approval__command holds exactly what would run, as text, with characters that cannot be seen written out. It wraps, and never scrolls sideways.</li>
 <li>Supporting detail goes in a details element with a text summary, such as Show the full request. It holds no control the reader needs in order to answer.</li>
-<li>A note on declining is optional. Under the actions, add a details element whose summary reads Decline with a note, holding a labelled field and its own button, Decline and send note. It starts closed, without the open attribute, and the plain Decline above it still declines with no note.</li>
+<li>A note on declining is optional. Before the actions, add a details element whose summary reads Add a note for the agent, holding gw-approval__note with one labelled field and no button. It starts closed, without the open attribute. The card has one Decline button, and it sends whatever note has been typed: nothing when the field is empty or was never opened. Never add a second decline button, because a reader who types a note and presses the plain Decline would lose it. Allow does not send the note, and the field's label says so.</li>
 <li>While the answer is sent, set aria-busy=&quot;true&quot; on the pressed button, change its label to Allowing or Declining, and disable the other. If sending fails, restore both and add gw-approval__error with role=&quot;alert&quot;, saying that nothing was allowed.</li>
-<li>Tab reaches the summary, then Allow, then Decline. Enter and Space activate each. The component needs no script: the app sets aria-busy and disabled, and removes the card once the request is answered. Move focus to the next card or the view's heading when it goes.</li>
+<li>Tab reaches each summary, the note field when it is open, then Allow, then Decline. Enter and Space activate each. The component needs no script: the app sets aria-busy and disabled, and removes the card once the request is answered. Move focus to the next card or the view's heading when it goes.</li>
 </ul>
 </section>
 <section>

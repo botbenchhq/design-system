@@ -70,7 +70,7 @@
   </article>
 </div>
 
-<div data-example="decline-note" data-title="Declining with a note">
+<div data-example="decline-note" data-title="Declining with a note" data-reason="The note is typed before the answer, and the one Decline button sends it. With a second button for declining with the note, a reader who typed one and pressed the plain Decline would lose it.">
   <article class="gw-approval gw-approval--elevated" aria-labelledby="approval-decline-note-title">
     <p class="gw-approval__risk">Elevated risk: deletes files outside the task's worktree</p>
     <h4 class="gw-approval__title" id="approval-decline-note-title">Claude Code asks to run a command</h4>
@@ -81,22 +81,37 @@
       <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
       <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">The old cache holds a stale session-store build that makes the tests fail.</span></li>
     </ul>
+    <details class="gw-approval__details" open>
+      <summary class="gw-approval__summary">Add a note for the agent</summary>
+      <div class="gw-approval__note">
+        <div class="gw-field">
+          <label class="gw-field__label" for="approval-decline-note-note">Note to the agent</label>
+          <input class="gw-field__control" id="approval-decline-note-note" type="text" name="note" autocomplete="off" maxlength="2000" value="Clear web/.cache only." aria-describedby="approval-decline-note-description">
+          <p class="gw-field__description" id="approval-decline-note-description">Sent when you decline. Allow does not send it.</p>
+        </div>
+      </div>
+    </details>
     <div class="gw-approval__actions">
       <button type="button" class="gw-button gw-button--primary" data-gw-critical>Allow</button>
       <button type="button" class="gw-button" data-gw-critical>Decline</button>
     </div>
-    <details class="gw-approval__details" open>
-      <summary class="gw-approval__summary">Decline with a note</summary>
-      <div class="gw-approval__note">
-        <div class="gw-field">
-          <label class="gw-field__label" for="approval-decline-note-note">Note to the agent</label>
-          <input class="gw-field__control" id="approval-decline-note-note" type="text" name="note" autocomplete="off" maxlength="2000" value="Clear web/.cache only.">
-        </div>
-        <div class="gw-cluster">
-          <button type="button" class="gw-button">Decline and send note</button>
-        </div>
-      </div>
-    </details>
+  </article>
+</div>
+
+<div data-example="no-risk-line" data-title="Without a risk line">
+  <article class="gw-approval" aria-labelledby="approval-no-risk-line-title">
+    <h4 class="gw-approval__title" id="approval-no-risk-line-title">Claude Code asks to read a file</h4>
+    <pre class="gw-approval__command">docs/runbooks/session-store.md</pre>
+    <ul class="gw-approval__facts">
+      <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">The top of the task's worktree</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Implementer</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To check how the session store is restarted before I change its timeout.</span></li>
+    </ul>
+    <div class="gw-approval__actions">
+      <button type="button" class="gw-button gw-button--primary" data-gw-critical>Allow</button>
+      <button type="button" class="gw-button" data-gw-critical>Decline</button>
+    </div>
   </article>
 </div>
 

@@ -1,0 +1,28 @@
+/*
+ * App shell: the frame every signed-in screen sits in. The app header across the top, then
+ * gw-sidebar-layout holding the sidebar nav and the main column, then the tab bar as the last element.
+ * The sidebar nav shows from 768px and the tab bar below it, each by its own styles, so the same markup serves both widths.
+ * This file holds only what the frame needs: its height, and the room around the main column.
+ */
+
+@layer gw.components {
+  /* At least as tall as the screen, so the tab bar sits at the bottom of a short view too. */
+  .gw-app-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+
+  /* On the element with gw-sidebar-layout. It takes the height the header and the tab bar leave. */
+  .gw-app-shell__body {
+    flex: 1;
+  }
+
+  /* On the element with gw-container: the view's page header, then its content. */
+  .gw-app-shell__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xl);
+    padding-block: var(--gw-space-xl);
+  }
+}

@@ -19,6 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // because showing one auto or hint popover closes the others on the page.
   for (const popover of document.querySelectorAll("[data-example][data-gallery-open] [popover]")) {
     const source = document.querySelector(`[popovertarget="${popover.id}"], [interestfor="${popover.id}"]`);
+    // The side on which the popover's own margin keeps it off the edge of the screen. The stylesheet
+    // widens that margin, so a wide popover also stays inside the frame of its example.
+    const { marginInlineStart, marginInlineEnd } = getComputedStyle(popover);
+    const edges = [parseFloat(marginInlineStart) > 0 && "start", parseFloat(marginInlineEnd) > 0 && "end"].filter(Boolean);
+    if (edges.length > 0) popover.dataset.galleryEdge = edges.join(" ");
     popover.popover = "manual";
     popover.showPopover({ source });
   }
