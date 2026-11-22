@@ -10,6 +10,7 @@
   "tokens": {
     "color": [
       "--gw-color-accent",
+      "--gw-color-accent-hover",
       "--gw-color-on-accent",
       "--gw-color-surface",
       "--gw-color-surface-raised",
@@ -98,6 +99,8 @@
     "color": [
       "#1A1A1A",
       "#EDEDEB",
+      "#3D3D3A",
+      "#CFCFCB",
       "#FAFAF9",
       "#171717",
       "#141413",
@@ -293,5 +296,35 @@
       "screen",
       "none"
     ]
-  }
+  },
+  "classes": [
+    "gw-button",
+    "gw-button--danger",
+    "gw-button--primary",
+    "gw-button--quiet",
+    "gw-button--small",
+    "gw-button__icon",
+    "gw-cluster",
+    "gw-container",
+    "gw-container-narrow",
+    "gw-field",
+    "gw-field__control",
+    "gw-field__description",
+    "gw-field__error",
+    "gw-field__label",
+    "gw-field__required",
+    "gw-gap-2xl",
+    "gw-gap-lg",
+    "gw-gap-md",
+    "gw-gap-sm",
+    "gw-gap-xl",
+    "gw-gap-xs",
+    "gw-grid",
+    "gw-grid-2",
+    "gw-grid-3",
+    "gw-grid-4",
+    "gw-sidebar-layout",
+    "gw-split",
+    "gw-stack"
+  ]
 }

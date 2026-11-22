@@ -53,7 +53,7 @@ test("every selector in base/ sits inside a gw. layer: the reset in gw.reset, th
 test("every selector in the bundled stylesheet sits inside a gw. layer", () => {
   for (const rule of rulesIn(bundle)) {
     const [layer] = enclosing(rule, "layer");
-    assert.match(layer ?? "", /^gw\.(reset|tokens|base)$/, rule.selector);
+    assert.match(layer ?? "", /^gw\.(reset|tokens|base|components)$/, rule.selector);
   }
 });
 
@@ -93,8 +93,10 @@ test("the reset sets border-box sizing and a zero-width solid border on every el
 });
 
 test("under prefers-reduced-motion the reset forces every transition duration to zero", () => {
-  const guards = rulesIn(bundle).filter((rule) =>
-    enclosing(rule, "media").some((params) => /prefers-reduced-motion:\s*reduce/.test(params)),
+  const guards = rulesIn(bundle).filter(
+    (rule) =>
+      enclosing(rule, "layer").includes("gw.reset") &&
+      enclosing(rule, "media").some((params) => /prefers-reduced-motion:\s*reduce/.test(params)),
   );
   assert.equal(guards.length, 1);
   const [guard] = guards;

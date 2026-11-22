@@ -5,6 +5,7 @@
   {"foreground":"--gw-color-muted","background":"--gw-color-surface","kind":"text"},
   {"foreground":"--gw-color-muted","background":"--gw-color-surface-raised","kind":"text"},
   {"foreground":"--gw-color-on-accent","background":"--gw-color-accent","kind":"text"},
+  {"foreground":"--gw-color-on-accent","background":"--gw-color-accent-hover","kind":"text"},
   {"foreground":"--gw-color-accent","background":"--gw-color-surface","kind":"text"},
   {"foreground":"--gw-color-accent","background":"--gw-color-surface-raised","kind":"text"},
   {"foreground":"--gw-color-success","background":"--gw-color-success-subtle","kind":"text"},

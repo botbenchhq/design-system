@@ -1,0 +1,60 @@
+<div data-example="default" data-title="Label, control and description" data-state="default" data-reason="The label stays above the control while the reader types, and the description says what a valid value looks like before they start.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="field-default-repository">Repository <span class="gw-field__required">required</span></label>
+    <input class="gw-field__control" id="field-default-repository" type="text" name="repository" required autocomplete="off" aria-describedby="field-default-description">
+    <p class="gw-field__description" id="field-default-description">The owner and the name, such as acme/api.</p>
+  </div>
+</div>
+
+<div data-example="optional" data-title="Optional, with no description">
+  <div class="gw-field">
+    <label class="gw-field__label" for="field-optional-branch">Branch name</label>
+    <input class="gw-field__control" id="field-optional-branch" type="text" name="branch" autocomplete="off" value="fix/login-timeout">
+  </div>
+</div>
+
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="field-focus-title">Task title <span class="gw-field__required">required</span></label>
+    <input class="gw-field__control" id="field-focus-title" type="text" name="title" required autocomplete="off" value="Fix the login timeout">
+  </div>
+</div>
+
+<div data-example="invalid" data-title="Invalid" data-state="invalid" data-reason="aria-invalid on the control sets the state, aria-describedby links the message so a screen reader announces it, and the message says how to fix the value. An icon marks it as well as the colour.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="field-invalid-repository">Repository <span class="gw-field__required">required</span></label>
+    <input class="gw-field__control" id="field-invalid-repository" type="text" name="repository" required autocomplete="off" value="acme api" aria-invalid="true" aria-describedby="field-invalid-description field-invalid-error">
+    <p class="gw-field__description" id="field-invalid-description">The owner and the name, such as acme/api.</p>
+    <p class="gw-field__error" id="field-invalid-error">Put a slash between the owner and the name.</p>
+  </div>
+</div>
+
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="field-disabled-base">Base branch</label>
+    <input class="gw-field__control" id="field-disabled-base" type="text" name="base" value="main" disabled aria-describedby="field-disabled-description">
+    <p class="gw-field__description" id="field-disabled-description">Choose a repository first.</p>
+  </div>
+</div>
+
+<div data-example="read-only" data-title="Read-only" data-state="read-only">
+  <div class="gw-field">
+    <label class="gw-field__label" for="field-read-only-workspace">Workspace path</label>
+    <input class="gw-field__control" id="field-read-only-workspace" type="text" name="workspace" value="/srv/workspaces/acme-api" readonly aria-describedby="field-read-only-description">
+    <p class="gw-field__description" id="field-read-only-description">Set when the workspace was created.</p>
+  </div>
+</div>
+
+<div data-example="state-class" data-title="A class for the invalid state" data-dont="unknown-class" data-reason="State comes from aria-invalid on the control, which a screen reader also reads. A state class does nothing here, and it leaves the error unannounced.">
+  <div class="gw-field gw-field--invalid">
+    <label class="gw-field__label" for="field-state-class-repository">Repository</label>
+    <input class="gw-field__control" id="field-state-class-repository" type="text" name="repository" autocomplete="off" value="acme api">
+    <p class="gw-field__error">Put a slash between the owner and the name.</p>
+  </div>
+</div>
+
+<div data-example="placeholder-label" data-title="A placeholder as the label" data-dont="review" data-reason="The placeholder disappears with the first character, so the reader can no longer see what the field is for, and a screen reader may not announce it at all.">
+  <div class="gw-field">
+    <input class="gw-field__control" type="text" name="repository" autocomplete="off" placeholder="Repository (owner/name)">
+  </div>
+</div>

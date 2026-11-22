@@ -1,0 +1,221 @@
+{
+  "components": [
+    {
+      "name": "button",
+      "title": "Button",
+      "purpose": "An action the reader takes on the current view.",
+      "status": "draft",
+      "whenToUse": [
+        "To start, save, confirm or cancel something on the current view.",
+        "To submit a form."
+      ],
+      "whenNotToUse": [
+        "To go to another view or another site. Use a link.",
+        "For an action repeated on every row of a list. Give that one secondary or quiet emphasis, never primary.",
+        "As a second primary action in the same view. A view has one."
+      ],
+      "variants": [
+        {
+          "name": "secondary",
+          "use": "The default, with no modifier class. Any action that is not the main one."
+        },
+        {
+          "name": "primary",
+          "class": "gw-button--primary",
+          "use": "The one main action of a view, dialog or popover."
+        },
+        {
+          "name": "quiet",
+          "class": "gw-button--quiet",
+          "use": "A minor action that should not draw the eye, such as Cancel or View log."
+        },
+        {
+          "name": "danger",
+          "class": "gw-button--danger",
+          "use": "An action that deletes or cannot be undone. The label names what is lost."
+        }
+      ],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "44px tall. Use it unless the button sits in a dense row."
+        },
+        {
+          "name": "small",
+          "class": "gw-button--small",
+          "use": "Drawn 32px tall for dense rows and toolbars. Its pointer target is still 44px."
+        }
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active",
+        "disabled",
+        "busy"
+      ],
+      "accessibility": [
+        "Use a button element, with type=\"button\" unless it submits a form.",
+        "The label is a verb and what it acts on, such as Start task. An icon is decoration and carries aria-hidden=\"true\".",
+        "Set the disabled attribute when the action is unavailable. A disabled button leaves the tab order.",
+        "Use aria-disabled=\"true\" instead only when the button must stay focusable so its reason can be read. The app then ignores presses.",
+        "Set aria-busy=\"true\" while the action runs, change the label to say what is happening, and ignore further presses.",
+        "Enter and Space activate it. Both come from the button element."
+      ],
+      "icons": [
+        "copy",
+        "git-branch",
+        "loader",
+        "plus"
+      ],
+      "classes": [
+        "gw-button",
+        "gw-button--danger",
+        "gw-button--primary",
+        "gw-button--quiet",
+        "gw-button--small",
+        "gw-button__icon"
+      ],
+      "examples": [
+        {
+          "id": "variants",
+          "title": "Variants",
+          "state": "default",
+          "markup": "<button type=\"button\" class=\"gw-button gw-button--primary\">Start task</button>\n<button type=\"button\" class=\"gw-button\">Save draft</button>\n<button type=\"button\" class=\"gw-button gw-button--quiet\">View log</button>\n<button type=\"button\" class=\"gw-button gw-button--danger\">Delete workspace</button>"
+        },
+        {
+          "id": "sizes",
+          "title": "Default and small",
+          "markup": "<button type=\"button\" class=\"gw-button\">Open pull request</button>\n<button type=\"button\" class=\"gw-button gw-button--small\">Copy path</button>\n<button type=\"button\" class=\"gw-button gw-button--quiet gw-button--small\">Dismiss</button>"
+        },
+        {
+          "id": "with-icon",
+          "title": "With a leading icon",
+          "markup": "<button type=\"button\" class=\"gw-button gw-button--primary\">\n  <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-plus\"></use></svg>\n  New task\n</button>\n<button type=\"button\" class=\"gw-button\">\n  <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n  Create branch\n</button>\n<button type=\"button\" class=\"gw-button gw-button--quiet gw-button--small\">\n  <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-copy\"></use></svg>\n  Copy\n</button>"
+        },
+        {
+          "id": "hover",
+          "title": "Hover",
+          "state": "hover",
+          "markup": "<button type=\"button\" class=\"gw-button gw-button--primary\">Start task</button>\n<button type=\"button\" class=\"gw-button\">Save draft</button>\n<button type=\"button\" class=\"gw-button gw-button--quiet\">View log</button>\n<button type=\"button\" class=\"gw-button gw-button--danger\">Delete workspace</button>"
+        },
+        {
+          "id": "focus-visible",
+          "title": "Keyboard focus",
+          "state": "focus-visible",
+          "markup": "<button type=\"button\" class=\"gw-button gw-button--primary\">Start task</button>\n<button type=\"button\" class=\"gw-button\">Save draft</button>"
+        },
+        {
+          "id": "active",
+          "title": "Pressed",
+          "state": "active",
+          "markup": "<button type=\"button\" class=\"gw-button gw-button--primary\">Start task</button>\n<button type=\"button\" class=\"gw-button\">Save draft</button>\n<button type=\"button\" class=\"gw-button gw-button--quiet\">View log</button>\n<button type=\"button\" class=\"gw-button gw-button--danger\">Delete workspace</button>"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled",
+          "state": "disabled",
+          "markup": "<button type=\"button\" class=\"gw-button gw-button--primary\" disabled>Start task</button>\n<button type=\"button\" class=\"gw-button\" disabled>Save draft</button>\n<button type=\"button\" class=\"gw-button gw-button--quiet\" disabled>View log</button>\n<button type=\"button\" class=\"gw-button gw-button--danger\" disabled>Delete workspace</button>"
+        },
+        {
+          "id": "busy",
+          "title": "Busy",
+          "state": "busy",
+          "markup": "<button type=\"button\" class=\"gw-button gw-button--primary\" aria-busy=\"true\">Starting task</button>\n<button type=\"button\" class=\"gw-button\" aria-busy=\"true\">Saving draft</button>"
+        },
+        {
+          "id": "one-primary",
+          "title": "One primary action",
+          "reason": "The view has one main action, and the primary button marks it. Everything else is secondary or quiet.",
+          "markup": "<button type=\"button\" class=\"gw-button gw-button--primary\">Start task</button>\n<button type=\"button\" class=\"gw-button\">Save as template</button>\n<button type=\"button\" class=\"gw-button gw-button--quiet\">Cancel</button>"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "title": "Field",
+      "purpose": "One labelled text input, with its description and its error message.",
+      "status": "draft",
+      "whenToUse": [
+        "For one line of text the reader types: a name, a path, a branch, a search term.",
+        "Whenever a text input needs a label, which is always."
+      ],
+      "whenNotToUse": [
+        "For a choice from a fixed list. Use a select, radio group or checkbox.",
+        "For a value the reader cannot change and never needs to copy. Write it as plain text."
+      ],
+      "variants": [],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "The control is 44px tall and as wide as the field. Limit the width on the field's container."
+        }
+      ],
+      "states": [
+        "default",
+        "focus",
+        "invalid",
+        "disabled",
+        "read-only"
+      ],
+      "accessibility": [
+        "Every control has a label element whose for attribute matches the control's id. A placeholder is not a label.",
+        "Mark a required control with the required attribute and the word required in the label. Never use colour or an asterisk alone.",
+        "Link the description, and the error while there is one, by listing their ids in aria-describedby on the control.",
+        "For an invalid value, set aria-invalid=\"true\" on the control and add the error element. Remove both when the value is fixed.",
+        "The error message says how to fix the value. Its icon is drawn by the stylesheet, so it needs no markup.",
+        "A read-only control stays focusable and its text can be copied. A disabled one leaves the tab order."
+      ],
+      "icons": [
+        "circle-alert"
+      ],
+      "classes": [
+        "gw-field",
+        "gw-field__control",
+        "gw-field__description",
+        "gw-field__error",
+        "gw-field__label",
+        "gw-field__required"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "Label, control and description",
+          "state": "default",
+          "reason": "The label stays above the control while the reader types, and the description says what a valid value looks like before they start.",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"field-default-repository\">Repository <span class=\"gw-field__required\">required</span></label>\n  <input class=\"gw-field__control\" id=\"field-default-repository\" type=\"text\" name=\"repository\" required autocomplete=\"off\" aria-describedby=\"field-default-description\">\n  <p class=\"gw-field__description\" id=\"field-default-description\">The owner and the name, such as acme/api.</p>\n</div>"
+        },
+        {
+          "id": "optional",
+          "title": "Optional, with no description",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"field-optional-branch\">Branch name</label>\n  <input class=\"gw-field__control\" id=\"field-optional-branch\" type=\"text\" name=\"branch\" autocomplete=\"off\" value=\"fix/login-timeout\">\n</div>"
+        },
+        {
+          "id": "focus",
+          "title": "Focus",
+          "state": "focus",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"field-focus-title\">Task title <span class=\"gw-field__required\">required</span></label>\n  <input class=\"gw-field__control\" id=\"field-focus-title\" type=\"text\" name=\"title\" required autocomplete=\"off\" value=\"Fix the login timeout\">\n</div>"
+        },
+        {
+          "id": "invalid",
+          "title": "Invalid",
+          "state": "invalid",
+          "reason": "aria-invalid on the control sets the state, aria-describedby links the message so a screen reader announces it, and the message says how to fix the value. An icon marks it as well as the colour.",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"field-invalid-repository\">Repository <span class=\"gw-field__required\">required</span></label>\n  <input class=\"gw-field__control\" id=\"field-invalid-repository\" type=\"text\" name=\"repository\" required autocomplete=\"off\" value=\"acme api\" aria-invalid=\"true\" aria-describedby=\"field-invalid-description field-invalid-error\">\n  <p class=\"gw-field__description\" id=\"field-invalid-description\">The owner and the name, such as acme/api.</p>\n  <p class=\"gw-field__error\" id=\"field-invalid-error\">Put a slash between the owner and the name.</p>\n</div>"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled",
+          "state": "disabled",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"field-disabled-base\">Base branch</label>\n  <input class=\"gw-field__control\" id=\"field-disabled-base\" type=\"text\" name=\"base\" value=\"main\" disabled aria-describedby=\"field-disabled-description\">\n  <p class=\"gw-field__description\" id=\"field-disabled-description\">Choose a repository first.</p>\n</div>"
+        },
+        {
+          "id": "read-only",
+          "title": "Read-only",
+          "state": "read-only",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"field-read-only-workspace\">Workspace path</label>\n  <input class=\"gw-field__control\" id=\"field-read-only-workspace\" type=\"text\" name=\"workspace\" value=\"/srv/workspaces/acme-api\" readonly aria-describedby=\"field-read-only-description\">\n  <p class=\"gw-field__description\" id=\"field-read-only-description\">Set when the workspace was created.</p>\n</div>"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+/*
+ * Button: an action the reader takes on the current view.
+ * The plain class is the secondary button. A modifier changes its emphasis or its size.
+ */
+
+@layer gw.components {
+  .gw-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gw-space-sm);
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-xs) var(--gw-space-lg);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-on-surface);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-ui);
+    text-align: center;
+    transition-property: background-color, border-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  .gw-button--primary {
+    border-color: var(--gw-color-accent);
+    background-color: var(--gw-color-accent);
+    color: var(--gw-color-on-accent);
+  }
+
+  .gw-button--quiet {
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  .gw-button--danger {
+    border-color: var(--gw-color-danger);
+    color: var(--gw-color-danger);
+  }
+
+  .gw-button--small {
+    min-height: var(--gw-space-2xl);
+    padding-inline: var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+  }
+
+  /*
+   * The small button is drawn 32px tall. This invisible box, centred on it,
+   * keeps its pointer target at the touch size without making a dense row taller.
+   */
+  .gw-button--small::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: var(--gw-size-touch);
+    translate: 0 -50%;
+  }
+
+  .gw-button__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-button:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-button--primary:hover {
+      border-color: var(--gw-color-accent-hover);
+      background-color: var(--gw-color-accent-hover);
+    }
+
+    .gw-button--danger:hover {
+      background-color: var(--gw-color-danger-subtle);
+    }
+  }
+
+  .gw-button:active {
+    border-color: var(--gw-color-border-strong);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-button--primary:active {
+    border-color: var(--gw-color-accent-hover);
+    background-color: var(--gw-color-accent-hover);
+  }
+
+  .gw-button--danger:active {
+    border-color: var(--gw-color-danger);
+    background-color: var(--gw-color-danger-subtle);
+  }
+
+  /* After hover and active, so an unavailable button never answers the pointer. */
+  .gw-button:disabled,
+  .gw-button[aria-disabled="true"] {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+    cursor: default;
+  }
+
+  /* The border colour as a fill keeps an unavailable primary button recognisable as the main action. */
+  .gw-button--primary:disabled,
+  .gw-button--primary[aria-disabled="true"] {
+    background-color: var(--gw-color-border);
+  }
+
+  .gw-button--quiet:disabled,
+  .gw-button--quiet[aria-disabled="true"] {
+    border-color: transparent;
+  }
+
+  .gw-button[aria-busy="true"] {
+    cursor: progress;
+  }
+
+  /* The spinner is drawn here, so setting aria-busy is all an app does. It takes the place of a leading icon. */
+  .gw-button[aria-busy="true"]::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/loader.svg") center / contain no-repeat;
+    animation: gw-button-spin calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  .gw-button[aria-busy="true"] > .gw-button__icon {
+    display: none;
+  }
+
+  @keyframes gw-button-spin {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gw-button[aria-busy="true"]::before {
+      animation: none;
+    }
+  }
+}

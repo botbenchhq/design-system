@@ -1,0 +1,36 @@
+{
+  "name": "field",
+  "title": "Field",
+  "purpose": "One labelled text input, with its description and its error message.",
+  "status": "draft",
+  "whenToUse": [
+    "For one line of text the reader types: a name, a path, a branch, a search term.",
+    "Whenever a text input needs a label, which is always."
+  ],
+  "whenNotToUse": [
+    "For a choice from a fixed list. Use a select, radio group or checkbox.",
+    "For a value the reader cannot change and never needs to copy. Write it as plain text."
+  ],
+  "variants": [],
+  "sizes": [
+    { "name": "default", "use": "The control is 44px tall and as wide as the field. Limit the width on the field's container." }
+  ],
+  "states": ["default", "focus", "invalid", "disabled", "read-only"],
+  "accessibility": [
+    "Every control has a label element whose for attribute matches the control's id. A placeholder is not a label.",
+    "Mark a required control with the required attribute and the word required in the label. Never use colour or an asterisk alone.",
+    "Link the description, and the error while there is one, by listing their ids in aria-describedby on the control.",
+    "For an invalid value, set aria-invalid=\"true\" on the control and add the error element. Remove both when the value is fixed.",
+    "The error message says how to fix the value. Its icon is drawn by the stylesheet, so it needs no markup.",
+    "A read-only control stays focusable and its text can be copied. A disabled one leaves the tab order."
+  ],
+  "icons": ["circle-alert"],
+  "classes": [
+    "gw-field",
+    "gw-field__control",
+    "gw-field__description",
+    "gw-field__error",
+    "gw-field__label",
+    "gw-field__required"
+  ]
+}

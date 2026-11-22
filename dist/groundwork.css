@@ -11,6 +11,8 @@
 @layer gw.tokens {
   :root {
     --gw-color-accent: #1A1A1A;
+    /* The accent while hovered or pressed. */
+    --gw-color-accent-hover: #3D3D3A;
     --gw-color-on-accent: #FAFAF9;
     --gw-color-surface: #FAFAF9;
     --gw-color-surface-raised: #FFFFFF;
@@ -85,6 +87,7 @@
 
   [data-theme="dark"] {
     --gw-color-accent: #EDEDEB;
+    --gw-color-accent-hover: #CFCFCB;
     --gw-color-on-accent: #171717;
     --gw-color-surface: #141413;
     --gw-color-surface-raised: #1C1C1A;
@@ -108,6 +111,7 @@
   @media (prefers-color-scheme: dark) {
     [data-theme="auto"] {
       --gw-color-accent: #EDEDEB;
+      --gw-color-accent-hover: #CFCFCB;
       --gw-color-on-accent: #171717;
       --gw-color-surface: #141413;
       --gw-color-surface-raised: #1C1C1A;
@@ -509,4 +513,241 @@
   font-weight: 600;
   font-display: swap;
   src: url("./fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2");
+}
+
+/*
+ * Button: an action the reader takes on the current view.
+ * The plain class is the secondary button. A modifier changes its emphasis or its size.
+ */
+
+@layer gw.components {
+  .gw-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gw-space-sm);
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-xs) var(--gw-space-lg);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-on-surface);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-ui);
+    text-align: center;
+    transition-property: background-color, border-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  .gw-button--primary {
+    border-color: var(--gw-color-accent);
+    background-color: var(--gw-color-accent);
+    color: var(--gw-color-on-accent);
+  }
+
+  .gw-button--quiet {
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  .gw-button--danger {
+    border-color: var(--gw-color-danger);
+    color: var(--gw-color-danger);
+  }
+
+  .gw-button--small {
+    min-height: var(--gw-space-2xl);
+    padding-inline: var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+  }
+
+  /*
+   * The small button is drawn 32px tall. This invisible box, centred on it,
+   * keeps its pointer target at the touch size without making a dense row taller.
+   */
+  .gw-button--small::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: var(--gw-size-touch);
+    translate: 0 -50%;
+  }
+
+  .gw-button__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-button:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-button--primary:hover {
+      border-color: var(--gw-color-accent-hover);
+      background-color: var(--gw-color-accent-hover);
+    }
+
+    .gw-button--danger:hover {
+      background-color: var(--gw-color-danger-subtle);
+    }
+  }
+
+  .gw-button:active {
+    border-color: var(--gw-color-border-strong);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-button--primary:active {
+    border-color: var(--gw-color-accent-hover);
+    background-color: var(--gw-color-accent-hover);
+  }
+
+  .gw-button--danger:active {
+    border-color: var(--gw-color-danger);
+    background-color: var(--gw-color-danger-subtle);
+  }
+
+  /* After hover and active, so an unavailable button never answers the pointer. */
+  .gw-button:disabled,
+  .gw-button[aria-disabled="true"] {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+    cursor: default;
+  }
+
+  /* The border colour as a fill keeps an unavailable primary button recognisable as the main action. */
+  .gw-button--primary:disabled,
+  .gw-button--primary[aria-disabled="true"] {
+    background-color: var(--gw-color-border);
+  }
+
+  .gw-button--quiet:disabled,
+  .gw-button--quiet[aria-disabled="true"] {
+    border-color: transparent;
+  }
+
+  .gw-button[aria-busy="true"] {
+    cursor: progress;
+  }
+
+  /* The spinner is drawn here, so setting aria-busy is all an app does. It takes the place of a leading icon. */
+  .gw-button[aria-busy="true"]::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/loader.svg") center / contain no-repeat;
+    animation: gw-button-spin calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  .gw-button[aria-busy="true"] > .gw-button__icon {
+    display: none;
+  }
+
+  @keyframes gw-button-spin {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gw-button[aria-busy="true"]::before {
+      animation: none;
+    }
+  }
+}
+
+/*
+ * Field: one labelled text input with its description and its error message.
+ * The label, the control, the description and the error are siblings, in that order.
+ */
+
+@layer gw.components {
+  .gw-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+  }
+
+  .gw-field__label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--gw-space-sm);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* The word itself marks the field as required. Its colour only makes it quieter than the label. */
+  .gw-field__required {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-normal);
+  }
+
+  /* 16px at compact widths, because iOS zooms the page when a smaller input takes focus. */
+  .gw-field__control {
+    width: 100%;
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+    transition: border-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  @media (min-width: 768px) {
+    .gw-field__control {
+      font-size: var(--gw-text-ui);
+      line-height: var(--gw-leading-ui);
+    }
+  }
+
+  .gw-field__control[aria-invalid="true"] {
+    border-color: var(--gw-color-danger);
+  }
+
+  .gw-field__control[readonly] {
+    border-color: var(--gw-color-border);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-field__control:disabled {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+  }
+
+  .gw-field__description {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  .gw-field__error {
+    display: flex;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-danger);
+  }
+
+  /* The icon is drawn here, so an error is never marked by colour alone, whatever the markup holds. */
+  .gw-field__error::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
 }

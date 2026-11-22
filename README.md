@@ -2,7 +2,7 @@
 
 A shared design system for a small set of apps. It holds one closed vocabulary of design tokens, a default theme, a base layer of styles, fonts and icons, and the files generated from them. An app copies `dist/` into its own repo.
 
-This repo currently contains the tokens, the base layer, the checker with its static scan and structural rules, and their derived files. Components and the sync script are not built yet.
+This repo currently contains the tokens, the base layer, the checker with its static scan and structural rules, the contract every component follows, two components built to it (button and field), the gallery, and their derived files. The rest of the catalogue and the sync script are not built yet.
 
 To check a frontend against the vocabulary, run `node dist/checker/check.mjs <paths>`. It exits 0 when clean, 1 on findings and 2 when it could not run.
 
@@ -20,7 +20,9 @@ Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start 
 
 | File | Use |
 |---|---|
-| `groundwork.css` | The whole system in one stylesheet: layer order, tokens, reset, base styles and font faces. This is the file a page links. |
+| `groundwork.css` | The whole system in one stylesheet: layer order, tokens, reset, base styles, font faces and components. This is the file a page links. |
+| `components.json` | Every component: its purpose, when to use it and when not to, its variants, sizes, states, accessibility notes, classes, and the markup of each example. Read it before writing markup. |
+| `gallery/` | A static page per component showing every variant and state, with a do and a don't. Serve `dist/` and open `/gallery/`. |
 | `fonts/` | IBM Plex Sans and IBM Plex Mono, with their licence. `groundwork.css` loads them by relative URL, so keep the folder beside it. |
 | `icons.svg` | The icon sprite. Each icon is a `<symbol>` with the id `gw-icon-` and its name. |
 | `icons/` | The same icons as single files, for CSS that needs one as a mask or background, with their licence. |
@@ -28,7 +30,7 @@ Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start 
 | `tokens.json` | The same tokens as data, in the Design Tokens Community Group format. Dark values are under `$extensions.groundwork.dark`. |
 | `tailwind-preset.js`, `tailwind-preset.d.ts` | A Tailwind 3 preset whose values are references to the custom properties. |
 | `design-tokens.md` | The token block for the front matter of an app's `DESIGN.md`. |
-| `manifest.json` | Token names and allowed values by category, the breakpoint, and the utility classes a screen may use. |
+| `manifest.json` | Token names and allowed values by category, the breakpoint, the utility classes a screen may use, and every class of the system. |
 | `checker/` | The checker. It has no dependencies and reads `manifest.json` beside it. |
 | `check-dom.js` | The structural rules as one classic script for a browser test to inject. It defines `gwCheckDom()`. |
 
@@ -87,6 +89,20 @@ When the system asks for reduced motion, every transition runs for zero seconds.
 
 Each has a default gap. Add `gw-gap-xs`, `gw-gap-sm`, `gw-gap-md`, `gw-gap-lg`, `gw-gap-xl` or `gw-gap-2xl` to change it.
 
+## Components
+
+A component is class names on plain HTML: `gw-button`, a part such as `gw-button__icon`, a variant such as `gw-button--primary`. State comes from the element itself (`disabled`, `aria-busy="true"`, `aria-invalid="true"`), never from a class.
+
+```html
+<button type="button" class="gw-button gw-button--primary">Start task</button>
+```
+
+`dist/components.json` lists each component with markup to copy. An example names the icon sprite as `icons.svg#gw-icon-…`; put the path the app serves the system from in front of it. A component marked `draft` may still change, and an app may use it.
+
+The gallery switches theme with `?theme=dark`. Its pages carry no inline style and no inline script.
+
+To add a component, follow `docs/authoring.md`.
+
 ## Fonts
 
 The fonts are IBM Plex Sans, as one variable file covering weights 100 to 700, and IBM Plex Mono at 400, 500 and 600. Both are the Latin subset and upright only, under the SIL Open Font License. An app serves them from its own host. Nothing is loaded from another site.
@@ -144,9 +160,9 @@ npm test
 npm run test:visual
 ```
 
-`npm run build` regenerates `dist/` from `tokens/`, `base/` and `checker/` and prints the contrast report. It reads nothing from `node_modules`. `npm test` includes a check that the committed `dist/` matches a fresh build.
+`npm run build` regenerates `dist/` from `tokens/`, `base/`, `components/`, `gallery/` and `checker/` and prints the contrast report. It fails, naming the folder, when a component breaks the authoring contract. It reads nothing from `node_modules`. `npm test` includes a check that the committed `dist/` matches a fresh build.
 
-`npm run test:visual` opens a bare page that links `dist/groundwork.css` in the Chrome installed on the machine and checks the fonts, the focus ring and the spacing. It needs Google Chrome and downloads no browser. It also runs `dist/check-dom.js` on the fixture pages and on a small React app, and checks that the rendered and static results agree.
+`npm run test:visual` opens a bare page that links `dist/groundwork.css` in the Chrome installed on the machine and checks the fonts, the focus ring and the spacing. It needs Google Chrome and downloads no browser. It also runs `dist/check-dom.js` on the fixture pages and on a small React app, and checks that the rendered and static results agree. For each component's gallery page, at 390px and 1280px in light and dark, it runs axe and the structural rules on the do examples, measures the pointer targets, and writes a screenshot to `test/visual/screenshots/` for review.
 
 `npm run vendor` copies the font files and the icons named in `base/icons.json` from the development dependencies into `base/`. Run it after changing the icon list or a package version.
 

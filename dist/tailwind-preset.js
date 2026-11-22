@@ -5,6 +5,7 @@ export default {
     },
     "colors": {
       "accent": "var(--gw-color-accent)",
+      "accent-hover": "var(--gw-color-accent-hover)",
       "on-accent": "var(--gw-color-on-accent)",
       "surface": "var(--gw-color-surface)",
       "surface-raised": "var(--gw-color-surface-raised)",

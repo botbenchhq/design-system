@@ -1,7 +1,7 @@
-// Generates everything in dist/ from tokens/ and base/. Run with `npm run build`.
+// Generates everything in dist/ from tokens/, base/, components/, gallery/ and checker/. Run with `npm run build`.
 // `npm run vendor` refreshes the font and icon files under base/ from node_modules.
 
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -39,6 +39,17 @@ const DOM_BUNDLE = [
 ];
 
 const MINIMUM_CONTRAST = { text: 4.5, ui: 3 };
+
+// What meta.json holds, in the order components.json lists it. The contract is docs/authoring.md.
+const COMPONENT_FIELDS = {
+  name: "text", title: "text", purpose: "text", status: "text",
+  whenToUse: "list", whenNotToUse: "list", variants: "list", sizes: "list", states: "list",
+  accessibility: "list", icons: "list", classes: "list",
+};
+const STATUSES = ["draft", "stable"];
+
+// The gallery's own stylesheet and script, copied from gallery/ beside the generated pages.
+const GALLERY_FILES = ["gallery.css", "gallery.js"];
 
 // Utility classes a screen may use: layout, spacing and sizing only.
 const UTILITIES = {
@@ -300,7 +311,7 @@ function designTokens(groups, tokens) {
   return `---\n${yaml(block)}---\n`;
 }
 
-function manifest(groups, tokens) {
+function manifest(groups, tokens, classes) {
   const names = {};
   const values = {};
   for (const [category, keys] of Object.entries(groups)) {
@@ -319,6 +330,7 @@ function manifest(groups, tokens) {
       spacingKeys: ["0", ...Object.keys(groups.space)],
       sizeKeys: [...Object.keys(groups.size), "auto", "full", "screen", "none"],
     },
+    classes,
   };
 }
 
@@ -354,6 +366,235 @@ function domBundle(checker, readingColumn) {
     "})();",
     "",
   ].join("\n");
+}
+
+const withoutComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
+const classesIn = (css) => [...new Set([...withoutComments(css).matchAll(/\.(gw-[\w-]+)/g)].map(([, name]) => name))].sort();
+
+const ENTITIES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
+const escapeHtml = (text) => text.replace(/[&<>"]/g, (character) => ENTITIES[character]);
+const unescapeHtml = (text) =>
+  text.replace(/&(?:amp|lt|gt|quot);/g, (entity) => Object.keys(ENTITIES).find((character) => ENTITIES[character] === entity));
+
+function dedent(markup) {
+  const lines = markup.replace(/^\s*\n|\s+$/g, "").split("\n");
+  const indent = Math.min(...lines.filter((line) => line.trim() !== "").map((line) => line.match(/^\s*/)[0].length));
+  return lines.map((line) => line.slice(indent)).join("\n");
+}
+
+// The examples in one examples.html. Each is a top-level element carrying data-example:
+//   { id, title, state, dont, reason, markup, html }
+// where markup is what the element holds and html is the element itself.
+function parseExamples(source) {
+  const examples = [];
+  const opening = /\s*(?:<!--[\s\S]*?-->\s*)*<([a-z][\w-]*)\b([^>]*)>/y;
+  let at = 0;
+  for (;;) {
+    opening.lastIndex = at;
+    const match = opening.exec(source);
+    if (!match) break;
+    const [whole, tag, attributeText] = match;
+    const attrs = Object.fromEntries(
+      [...attributeText.matchAll(/([\w-]+)="([^"]*)"/g)].map(([, name, value]) => [name, unescapeHtml(value)]),
+    );
+    const id = attrs["data-example"];
+    if (!id) throw new Error(`examples.html has a top-level <${tag}> without data-example`);
+    const bodyStart = at + whole.length;
+    // The matching end tag, counting elements of the same name nested inside.
+    const edge = new RegExp(`<(/?)${tag}\\b[^>]*>`, "g");
+    edge.lastIndex = bodyStart;
+    let closing;
+    for (let depth = 1; depth > 0; depth += closing[1] ? -1 : 1) {
+      closing = edge.exec(source);
+      if (!closing) throw new Error(`the example "${id}" has no end tag`);
+    }
+    examples.push({
+      id,
+      title: attrs["data-title"] ?? null,
+      state: attrs["data-state"] ?? null,
+      dont: attrs["data-dont"] ?? null,
+      reason: attrs["data-reason"] ?? null,
+      markup: dedent(source.slice(bodyStart, closing.index)),
+      html: source.slice(at, edge.lastIndex).trim(),
+    });
+    at = edge.lastIndex;
+  }
+  if (source.slice(at).replace(/<!--[\s\S]*?-->/g, "").trim() !== "") {
+    throw new Error("examples.html holds markup outside an element with data-example");
+  }
+  return examples;
+}
+
+// Icons a component draws: sprite references in its examples and single files its stylesheet uses as masks.
+function iconsIn(css, examples) {
+  const names = [
+    ...[...withoutComments(css).matchAll(/url\("icons\/([\w-]+)\.svg"\)/g)].map(([, name]) => name),
+    ...examples.flatMap((example) => [...example.html.matchAll(/icons\.svg#gw-icon-([\w-]+)/g)].map(([, name]) => name)),
+  ];
+  return [...new Set(names)].sort();
+}
+
+const same = (a, b) => JSON.stringify([...a].sort()) === JSON.stringify([...b].sort());
+
+function checkComponent(name, { meta, css, examples }, iconNames) {
+  for (const [field, type] of Object.entries(COMPONENT_FIELDS)) {
+    const present = type === "list" ? Array.isArray(meta[field]) : typeof meta[field] === "string" && meta[field] !== "";
+    if (!present) throw new Error(`meta.json needs ${field} as ${type === "list" ? "a list" : "text"}`);
+  }
+  if (meta.name !== name) throw new Error(`meta.json has the name "${meta.name}", which is not the folder name`);
+  if (!STATUSES.includes(meta.status)) throw new Error(`meta.json has the status "${meta.status}". It is ${STATUSES.join(" or ")}`);
+
+  if (!withoutComments(css).includes("@layer gw.components")) throw new Error(`${name}.css must put its rules in @layer gw.components`);
+  const defined = classesIn(css);
+  const foreign = defined.filter((item) => item !== `gw-${name}` && !/^(?:__|--)/.test(item.slice(`gw-${name}`.length)));
+  if (foreign.length > 0) {
+    throw new Error(`${name}.css defines ${foreign.join(", ")}. Its classes are gw-${name}, gw-${name}__part and gw-${name}--variant`);
+  }
+  const unlisted = defined.filter((item) => !meta.classes.includes(item));
+  const undefinedClasses = meta.classes.filter((item) => !defined.includes(item));
+  if (unlisted.length > 0) throw new Error(`${name}.css defines ${unlisted.join(", ")}, which the classes list in meta.json leaves out`);
+  if (undefinedClasses.length > 0) throw new Error(`meta.json lists ${undefinedClasses.join(", ")}, which ${name}.css does not define`);
+
+  const ids = examples.map((example) => example.id);
+  const repeated = ids.find((id, index) => ids.indexOf(id) !== index);
+  if (repeated) throw new Error(`examples.html has two examples named "${repeated}"`);
+  for (const example of examples) {
+    if (!example.title) throw new Error(`the example "${example.id}" needs data-title`);
+    if (example.dont && !example.reason) throw new Error(`the don't example "${example.id}" needs data-reason`);
+  }
+  const dos = examples.filter((example) => !example.dont);
+  if (dos.length === 0) throw new Error("examples.html needs at least one do example");
+  if (dos.length === examples.length) throw new Error("examples.html needs at least one don't example, marked with data-dont");
+  if (!dos.some((example) => example.reason)) throw new Error("one do example needs data-reason, to pair with the don't example");
+  for (const state of meta.states) {
+    if (!dos.some((example) => example.state === state)) {
+      throw new Error(`the state "${state}" in meta.json has no do example with data-state="${state}"`);
+    }
+  }
+
+  const used = iconsIn(css, examples);
+  const unknown = used.filter((icon) => !iconNames.includes(icon));
+  if (unknown.length > 0) throw new Error(`uses the icon ${unknown.join(", ")}, which base/icons.json does not list`);
+  if (!same(used, meta.icons)) throw new Error(`meta.json lists the icons [${meta.icons.join(", ")}], and the stylesheet and examples use [${used.join(", ")}]`);
+}
+
+// Every component folder, read and checked against the authoring contract: [{ name, meta, css, examples }].
+// An error names the folder.
+export function readComponents(root = repoRoot) {
+  const iconNames = JSON.parse(readFileSync(join(root, "base", "icons.json"), "utf8"));
+  const folders = readdirSync(join(root, "components"), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort();
+  return folders.map((name) => {
+    try {
+      const read = (file) => {
+        const path = join(root, "components", name, file);
+        if (!existsSync(path)) throw new Error(`${file} is missing. A component is ${name}.css, examples.html and meta.json`);
+        return readFileSync(path, "utf8");
+      };
+      const component = { name, meta: JSON.parse(read("meta.json")), css: read(`${name}.css`), examples: parseExamples(read("examples.html")) };
+      checkComponent(name, component, iconNames);
+      return component;
+    } catch (error) {
+      throw new Error(`components/${name}: ${error.message}`);
+    }
+  });
+}
+
+// One entry per component: its metadata and the markup of each do example, for an agent to copy.
+function componentIndex(components) {
+  return {
+    components: components.map(({ meta, examples }) => ({
+      ...Object.fromEntries(Object.keys(COMPONENT_FIELDS).map((field) => [field, meta[field]])),
+      examples: examples
+        .filter((example) => !example.dont)
+        .map(({ id, title, state, reason, markup }) => ({ id, title, ...(state && { state }), ...(reason && { reason }), markup })),
+    })),
+  };
+}
+
+const galleryIcon = (name) => `<svg aria-hidden="true"><use href="../icons.svg#gw-icon-${name}"></use></svg>`;
+
+function galleryPage(title, body) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${escapeHtml(title)}</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+${body}
+</main>
+</body>
+</html>
+`;
+}
+
+const galleryList = (items) => `<ul>\n${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n")}\n</ul>`;
+
+// A do example with a reason and a don't example each get a verdict. Any other example is a plain specimen.
+function galleryExample(example) {
+  const kind = example.dont ? "dont" : example.reason ? "do" : "specimen";
+  const verdict = { do: `${galleryIcon("check")}Do`, dont: `${galleryIcon("x")}Don't` }[kind];
+  const caught = example.dont === "review" ? "Caught in review, not by the checker." : `Checker rule: <code>${escapeHtml(example.dont ?? "")}</code>`;
+  return [
+    `<figure data-gallery="${kind}">`,
+    "<figcaption>",
+    `<h3>${verdict ? `<span data-gallery="verdict">${verdict}</span> ` : ""}${escapeHtml(example.title)}</h3>`,
+    ...(example.state ? [`<p data-gallery="state">State: <code>${escapeHtml(example.state)}</code></p>`] : []),
+    ...(example.reason ? [`<p>${escapeHtml(example.reason)}</p>`] : []),
+    ...(example.dont ? [`<p>${caught}</p>`] : []),
+    "</figcaption>",
+    // An example names the sprite as it sits in dist/. A gallery page is one directory down.
+    example.html.replaceAll('"icons.svg#', '"../icons.svg#'),
+    "</figure>",
+  ].join("\n");
+}
+
+function galleryComponent({ meta, examples }) {
+  const options = (heading, items) =>
+    items.length === 0
+      ? []
+      : [
+          `<section>\n<h2>${heading}</h2>\n<dl>`,
+          ...items.map(
+            (item) => `<dt>${escapeHtml(item.name)}${item.class ? ` <code>${escapeHtml(item.class)}</code>` : ""}</dt>\n<dd>${escapeHtml(item.use)}</dd>`,
+          ),
+          "</dl>\n</section>",
+        ];
+  return galleryPage(`${meta.title} - Groundwork gallery`, [
+    `<header>\n<h1>${escapeHtml(meta.title)}</h1>\n<p>${escapeHtml(meta.purpose)}</p>\n<p data-gallery="status">Status: ${meta.status}</p>\n</header>`,
+    `<section>\n<h2>Examples</h2>\n<div class="gw-grid gw-grid-2">\n${examples.map(galleryExample).join("\n")}\n</div>\n</section>`,
+    `<div class="gw-grid gw-grid-2">`,
+    `<section>\n<h2>When to use it</h2>\n${galleryList(meta.whenToUse)}\n</section>`,
+    `<section>\n<h2>When not to use it</h2>\n${galleryList(meta.whenNotToUse)}\n</section>`,
+    ...options("Variants", meta.variants),
+    ...options("Sizes", meta.sizes),
+    `<section>\n<h2>Accessibility</h2>\n${galleryList(meta.accessibility)}\n</section>`,
+    `<section>\n<h2>Classes</h2>\n<ul>\n${meta.classes.map((item) => `<li><code>${escapeHtml(item)}</code></li>`).join("\n")}\n</ul>\n</section>`,
+    "</div>",
+  ].join("\n"));
+}
+
+function galleryIndex(components) {
+  const rows = components.map(
+    ({ name, meta }) =>
+      `<li><a href="${name}.html">${escapeHtml(meta.title)}</a> <span>${escapeHtml(meta.purpose)}</span> <span data-gallery="status">${meta.status}</span></li>`,
+  );
+  return galleryPage("Groundwork gallery", [
+    "<header>\n<h1>Components</h1>\n<p>Each page shows a component in every variant and state, with a do and a don't.</p>\n</header>",
+    `<ul data-gallery="index">\n${rows.join("\n")}\n</ul>`,
+  ].join("\n"));
 }
 
 // Every file under dir, as a path relative to it with forward slashes.
@@ -395,18 +636,24 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   const baseStyles = BASE_STYLES.map((name) => readFileSync(join(base, name), "utf8"));
   const iconNames = JSON.parse(readFileSync(join(base, "icons.json"), "utf8"));
   const icons = Object.fromEntries(iconNames.map((name) => [name, readFileSync(join(base, "icons", `${name}.svg`))]));
+  const components = readComponents(root);
+  const classes = [...new Set([...classesIn(readFileSync(join(base, "layout.css"), "utf8")), ...components.flatMap(({ meta }) => meta.classes)])].sort();
 
   const files = {
     "tokens.css": source,
-    "groundwork.css": [source, ...baseStyles].join("\n"),
+    "groundwork.css": [source, ...baseStyles, ...components.map(({ css }) => css)].join("\n"),
     "icons.svg": sprite(icons),
     "icons/LICENSE": readFileSync(join(base, "icons", "LICENSE")),
     "tokens.json": json(tokenData(groups, tokens)),
     "tailwind-preset.js": `export default ${JSON.stringify(preset, null, 2)};\n`,
     "tailwind-preset.d.ts": presetTypes(preset),
     "design-tokens.md": designTokens(groups, tokens),
-    "manifest.json": json(manifest(groups, tokens)),
+    "manifest.json": json(manifest(groups, tokens, classes)),
+    "components.json": json(componentIndex(components)),
+    "gallery/index.html": galleryIndex(components),
   };
+  for (const component of components) files[`gallery/${component.name}.html`] = galleryComponent(component);
+  for (const name of GALLERY_FILES) files[`gallery/${name}`] = readFileSync(join(root, "gallery", name));
   for (const [name, svg] of Object.entries(icons)) files[`icons/${name}.svg`] = svg;
   for (const name of Object.keys(FONT_SOURCES)) files[`fonts/${name}`] = readFileSync(join(base, "fonts", name));
   // The checker ships as source: it has no dependencies and reads the manifest one directory up.

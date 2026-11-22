@@ -13,6 +13,10 @@ Groundwork is a shared design system. Apps copy `dist/` into their own repo and 
 - A new text and background combination needs an entry in `tokens/pairs.json`. The build fails when a text pair is below 4.5:1 or a `ui` pair is below 3:1, in either theme.
 - The one breakpoint is 768px. A custom property cannot be used in a media query, so write the number there.
 - `base/` holds the reset, typography, layout primitives, focus ring, fonts and icons. The build bundles them with the tokens into `dist/groundwork.css` and copies fonts and icons into `dist/`.
+- `components/<name>/` is one component: `<name>.css`, `examples.html` and `meta.json`, all written by hand. `docs/authoring.md` is the contract for them. Read it before adding or changing a component.
+- To add a component, add its folder and nothing else. The build puts it in `dist/groundwork.css`, `dist/components.json`, the manifest's class list and the gallery, and fails, naming the folder, if the folder breaks the contract.
+- Component styles key off native state and ARIA attributes, never off a class a script would toggle. No component uses an inline `style` attribute.
+- `gallery/` holds the gallery's own stylesheet and script. They select by element and `data-gallery` attribute, use token values only, and are not part of the system.
 - `checker/` is the checker, shipped as source in `dist/checker/`. It has no dependencies.
 - A structural rule is a function over a document tree in `checker/rules/`. It must run unchanged on a parsed HTML file and in a browser, so it uses only the tree helpers in `checker/rules/tree.mjs`, never `node:` modules or the DOM. The build joins the files listed in `DOM_BUNDLE` in `scripts/build.mjs` into `dist/check-dom.js`: add a new rule file to that list, and keep top-level names unique across those files.
 - No runtime dependencies. Development dependencies are for tests (React and esbuild only build a test fixture) and for `npm run vendor`, which copies font and icon files from `node_modules` into `base/`. The build never reads `node_modules`.
@@ -21,7 +25,7 @@ Groundwork is a shared design system. Apps copy `dist/` into their own repo and 
 ## Commands
 
 - `npm run build` regenerates `dist/` and prints the contrast report.
-- `npm run test:visual` runs the browser tests in the installed Chrome, including the structural rules on rendered pages.
+- `npm run test:visual` runs the browser tests in the installed Chrome, including the structural rules on rendered pages. For the gallery it runs axe, measures pointer targets and rewrites the screenshots in `test/visual/screenshots/`, which are committed for review.
 - `npm test` runs the tests. One of them rebuilds into a temporary directory and fails, naming the file, if the committed `dist/` is stale.
 
-Before finishing, run `npm run build` and then `npm test`. `git status` must show no change in `dist/` that you have not accounted for.
+Before finishing, run `npm run build` and then `npm test`. After changing a component or the gallery, run `npm run test:visual` too and look at the screenshots. `git status` must show no change in `dist/` that you have not accounted for.
