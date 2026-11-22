@@ -9,7 +9,9 @@
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/elapsed.js"></script>
 <script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
@@ -23,6 +25,7 @@
 </header>
 <ul data-gallery="index">
 <li><a href="accordion.html">Accordion</a> <span>A set of disclosures of which one is open at a time, built on details elements that share a name.</span> <span data-gallery="status">draft</span></li>
+<li><a href="activity-announcer.html">Activity announcer</a> <span>The one status region of a view that tells a screen reader what an agent's run is doing: always in the page, never drawn, and written to only when the run starts, needs approval, finishes, stops or fails.</span> <span data-gallery="status">draft</span></li>
 <li><a href="activity-feed.html">Activity feed</a> <span>A chronological record of what agents and people did, grouped by day, each entry with its time, its actor, a verb phrase and an optional source or excerpt.</span> <span data-gallery="status">draft</span></li>
 <li><a href="alert.html">Alert</a> <span>A message inside a view about the state of what the view shows.</span> <span data-gallery="status">draft</span></li>
 <li><a href="app-header.html">App header</a> <span>The top bar of an app: the product name or the current view's title, with an optional back link, actions and a tray for approvals that are waiting.</span> <span data-gallery="status">draft</span></li>
@@ -62,6 +65,7 @@
 <li><a href="hover-card.html">Hover card</a> <span>A preview of a linked item, such as a run, a branch or a person, shown beside its link so the reader can decide whether to follow it.</span> <span data-gallery="status">draft</span></li>
 <li><a href="icon-button.html">Icon button</a> <span>A button that shows only an icon, for a familiar action where a text label has no room.</span> <span data-gallery="status">draft</span></li>
 <li><a href="inspector.html">Inspector</a> <span>A panel for the details of the item selected in the content beside it, with a title, a close button and sections of labelled values.</span> <span data-gallery="status">draft</span></li>
+<li><a href="jump-to-latest.html">Jump to latest</a> <span>A small button that shows while the reader has scrolled up in a transcript and new rows have arrived, saying how many in words and taking them to the newest.</span> <span data-gallery="status">draft</span></li>
 <li><a href="kbd.html">Kbd</a> <span>A keyboard key or shortcut named in text, such as Ctrl + K.</span> <span data-gallery="status">draft</span></li>
 <li><a href="key-value.html">Key-value</a> <span>Facts about one thing as label and value pairs: stacked on a phone, in two columns at 768px and wider.</span> <span data-gallery="status">draft</span></li>
 <li><a href="link.html">Link</a> <span>A text link to another view or another site: in running text, standing alone, external or quiet.</span> <span data-gallery="status">draft</span></li>
@@ -70,6 +74,7 @@
 <li><a href="menu.html">Menu</a> <span>A list of actions on one thing, opened from a button.</span> <span data-gallery="status">draft</span></li>
 <li><a href="message.html">Message</a> <span>One row of an agent transcript: the start of the session, a prompt, the agent's text, a question to the reader, a tool call, its result, an answered permission request, a denial, an error, usage or the end of a turn.</span> <span data-gallery="status">draft</span></li>
 <li><a href="notification-list.html">Notification list</a> <span>What happened while the reader was away, grouped as unread and earlier: each entry says what happened, where and when, and offers at most one action.</span> <span data-gallery="status">draft</span></li>
+<li><a href="now-doing.html">Now doing</a> <span>One line under a transcript that says in words what the agent is doing right now and for how long, with Stop beside it, or what the run is waiting on the reader for, with a link to it.</span> <span data-gallery="status">draft</span></li>
 <li><a href="number-field.html">Number field</a> <span>A numeric input as the control of a field, with an optional unit written beside it and optional stepper buttons.</span> <span data-gallery="status">draft</span></li>
 <li><a href="otp-input.html">One-time-code input</a> <span>A single input for a short one-time code, drawn with wide letter spacing so each digit can be checked.</span> <span data-gallery="status">draft</span></li>
 <li><a href="page-header.html">Page header</a> <span>The top of a view: its title, an optional one-line description and the view's one optional primary action.</span> <span data-gallery="status">draft</span></li>
@@ -81,6 +86,7 @@
 <li><a href="radio.html">Radio</a> <span>A native radio group: exactly one of a few options, each with room for a full label and a description, sent with a form.</span> <span data-gallery="status">draft</span></li>
 <li><a href="reasoning.html">Reasoning</a> <span>A closed disclosure holding an agent's reasoning or plan notes, drawn quietly so it defers to the answer.</span> <span data-gallery="status">draft</span></li>
 <li><a href="run-status.html">Run status</a> <span>The content of one list row that summarises a run or a task: its title, its station as a badge in words, who or what is acting and the elapsed time.</span> <span data-gallery="status">draft</span></li>
+<li><a href="run-timeline.html">Run timeline</a> <span>The stations a run passes through, in order, each with its state in words: done with how long it took, running with the time so far, waiting on the owner, failed or not started.</span> <span data-gallery="status">draft</span></li>
 <li><a href="search-field.html">Search field</a> <span>A search input with a search icon, an optional clear button and a line that counts the results.</span> <span data-gallery="status">draft</span></li>
 <li><a href="segmented-control.html">Segmented control</a> <span>Two to five short options of which exactly one is chosen, shown side by side.</span> <span data-gallery="status">draft</span></li>
 <li><a href="select.html">Select</a> <span>A native select as the control of a field, for one choice from a short fixed list.</span> <span data-gallery="status">draft</span></li>
@@ -97,6 +103,7 @@
 <li><a href="split-button.html">Split button</a> <span>A main action joined to a menu button that holds other ways to do the same thing.</span> <span data-gallery="status">draft</span></li>
 <li><a href="split-panel.html">Split panel</a> <span>Two labelled regions, a list and the detail of the row chosen in it, side by side at 768px and up and stacked below, each scrolling by itself.</span> <span data-gallery="status">draft</span></li>
 <li><a href="stat.html">Stat</a> <span>One number in context: a label that says what it counts, the value in tabular figures, and a line that gives its comparison, its period or its scope.</span> <span data-gallery="status">draft</span></li>
+<li><a href="step-group.html">Step group</a> <span>A run of consecutive steps in a long turn folded under one line: counts by kind in plain words, how long they took, and any failure, running step or pending approval called out in words in the summary itself.</span> <span data-gallery="status">draft</span></li>
 <li><a href="stepper.html">Stepper</a> <span>Where the reader is in a short, fixed sequence of named steps: which are completed, which is current and which are still to come.</span> <span data-gallery="status">draft</span></li>
 <li><a href="streaming.html">Streaming</a> <span>The note that the agent is still producing output: a small turning mark and words that say what is happening.</span> <span data-gallery="status">draft</span></li>
 <li><a href="suggestion-chips.html">Suggestion chips</a> <span>Two to four suggested next prompts, as quiet buttons under a composer or an empty transcript.</span> <span data-gallery="status">draft</span></li>
@@ -109,7 +116,7 @@
 <li><a href="timeline.html">Timeline</a> <span>Events in the order they happened, each with its time, who acted and what happened, joined by a rail.</span> <span data-gallery="status">draft</span></li>
 <li><a href="toast.html">Toast</a> <span>A brief status message that appears at the edge of the screen without taking focus and leaves by itself.</span> <span data-gallery="status">draft</span></li>
 <li><a href="toggle-button.html">Toggle button</a> <span>A button that turns one view option on or off, such as Wrap lines, and says which with aria-pressed.</span> <span data-gallery="status">draft</span></li>
-<li><a href="tool-call.html">Tool call</a> <span>A summary of one tool call outside a transcript: the tool, its target, how it ended and how long it took, with the arguments and output behind disclosures.</span> <span data-gallery="status">draft</span></li>
+<li><a href="tool-call.html">Tool call</a> <span>One call a tool was asked to make, through its whole life: a line that is always in view with the status in words, a plain summary and the time, the arguments and output behind one disclosure, and Allow and Decline while it waits for approval.</span> <span data-gallery="status">draft</span></li>
 <li><a href="toolbar.html">Toolbar</a> <span>A row of related controls for one view, grouped and labelled, that wraps or scrolls on a narrow screen.</span> <span data-gallery="status">draft</span></li>
 <li><a href="tooltip.html">Tooltip</a> <span>A line of supplementary text for a control that already has a visible label or an accessible name.</span> <span data-gallery="status">draft</span></li>
 <li><a href="tree.html">Tree</a> <span>A file tree or an outline whose folders open and close with no script, built on nested details elements.</span> <span data-gallery="status">draft</span></li>
@@ -121,6 +128,7 @@
 <p>Each page shows a whole screen composed from the components, in every state, with a do and a don't.</p>
 </header>
 <ul data-gallery="index">
+<li><a href="agent-run.html">Agent run</a> <span>The screen of one agent run inside the app shell: the run's title and its stations at the top, the transcript as a log of messages and step groups, and a dock at the bottom with the jump-to-latest control, the now-doing line and the composer.</span> <span data-gallery="status">draft</span></li>
 <li><a href="app-shell.html">App shell</a> <span>The frame of a signed-in screen: the app header with the pending tray, the sidebar nav from 768px and the tab bar below it, and a main column that starts with the view's page header.</span> <span data-gallery="status">draft</span></li>
 <li><a href="filter-results.html">Filter and results</a> <span>A screen that narrows a long list or table: a search field and a few filters above it, the filters in force as removable tags, a count in words, then the results.</span> <span data-gallery="status">draft</span></li>
 <li><a href="master-detail.html">Master and detail</a> <span>A screen with a list of items and the selected item's detail: side by side from 768px, and on a phone the list alone, with the detail as a view of its own.</span> <span data-gallery="status">draft</span></li>

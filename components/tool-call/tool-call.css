@@ -1,7 +1,14 @@
 /*
- * Tool call: a summary of one tool call on its own, outside a transcript.
- * It names the tool and its target, says how the call ended in words beside an icon,
- * and keeps the arguments and the output in native details elements.
+ * Tool call: one call a tool was asked to make, through its whole life.
+ * The root carries data-state, set by the app: requested, awaiting-approval, running, succeeded, failed,
+ * declined, timed-out or cancelled. One line is always in view: an icon the stylesheet draws from the state,
+ * the status in words, a plain summary with the command or target in mono, and the time.
+ * That line is the summary of a native details element, which holds the arguments and then the output.
+ * A request that waits shows Allow and Decline under the line, outside the details.
+ *
+ * The first rules are the earlier form, which has no data-state: a card with a heading, a status line and a
+ * details element each for the arguments and the output, with the outcome as a modifier class.
+ * Markup written that way is drawn as it always was.
  */
 
 @layer gw.components {
@@ -181,6 +188,214 @@
     overflow-wrap: anywhere;
   }
 
+  /*
+   * The lifecycle form: every rule below needs data-state on the root.
+   * A card when it stands alone.
+   */
+  .gw-tool-call[data-state] {
+    gap: 0;
+    padding-block: var(--gw-space-sm);
+  }
+
+  /* As the content of a transcript row or of a step in a group: no frame, and the row's own width. */
+  .gw-tool-call--row,
+  .gw-tool-call--row[data-state] {
+    flex: 1 1 100%;
+    padding: 0;
+    border-width: 0;
+    border-radius: 0;
+    background-color: transparent;
+  }
+
+  /*
+   * The line: the status and the summary run on as text, then the time, then the chevron.
+   * A long command wraps under the status, and the time and the chevron stay on the first line.
+   */
+  .gw-tool-call[data-state] .gw-tool-call__summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: start;
+    column-gap: var(--gw-space-sm);
+    position: relative;
+    min-height: 0;
+    padding-block: var(--gw-space-sm);
+    color: var(--gw-color-on-surface);
+  }
+
+  /*
+   * The line is drawn 36px tall, so a long run of calls stays dense. This invisible box, centred on it,
+   * keeps its pointer target at the touch size, as the small button does.
+   */
+  .gw-tool-call[data-state] .gw-tool-call__summary::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: max(100%, var(--gw-size-touch));
+    translate: 0 -50%;
+  }
+
+  .gw-tool-call[data-state] .gw-tool-call__summary::before {
+    grid-row: 1;
+    grid-column: 3;
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    color: var(--gw-color-muted);
+  }
+
+  .gw-tool-call[data-state] .gw-tool-call__title {
+    display: block;
+    grid-row: 1;
+    grid-column: 1;
+    overflow-wrap: anywhere;
+  }
+
+  /* The status is the first words of the line, never apart from what it describes. */
+  .gw-tool-call[data-state] .gw-tool-call__status {
+    display: inline;
+    margin-inline-end: var(--gw-space-xs);
+    color: var(--gw-color-muted);
+    white-space: nowrap;
+  }
+
+  /* Muted text is too faint on the shaded summary, so the quiet parts of the line take the main text colour there. */
+  @media (hover: hover) {
+    .gw-tool-call[data-state] :where(.gw-tool-call__summary:hover) .gw-tool-call__status,
+    .gw-tool-call[data-state] .gw-tool-call__summary:hover > .gw-tool-call__duration,
+    .gw-tool-call[data-state] .gw-tool-call__summary:hover::before {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  /* Drawn from the state, so no markup can leave the icon out. Each state has a shape of its own. */
+  .gw-tool-call[data-state] .gw-tool-call__status::before {
+    content: "";
+    display: inline-block;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    margin-inline-end: var(--gw-space-xs);
+    background-color: currentColor;
+    vertical-align: text-bottom;
+    mask: url("icons/circle-dashed.svg") center / contain no-repeat;
+  }
+
+  .gw-tool-call[data-state="awaiting-approval"] .gw-tool-call__status {
+    color: var(--gw-color-warning);
+  }
+
+  .gw-tool-call[data-state="awaiting-approval"] .gw-tool-call__status::before {
+    mask-image: url("icons/circle-pause.svg");
+  }
+
+  .gw-tool-call[data-state="running"] .gw-tool-call__status {
+    color: var(--gw-color-info);
+  }
+
+  /* The one state that moves: the stepped loader a busy button shows. */
+  .gw-tool-call[data-state="running"] .gw-tool-call__status::before {
+    mask-image: url("icons/loader.svg");
+    animation: gw-tool-call-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  /* A call that went as expected is the quiet one, so a failure stands out in a long list. */
+  .gw-tool-call[data-state="succeeded"] .gw-tool-call__status::before {
+    mask-image: url("icons/circle-check.svg");
+  }
+
+  .gw-tool-call[data-state="failed"] .gw-tool-call__status,
+  .gw-tool-call[data-state="timed-out"] .gw-tool-call__status {
+    color: var(--gw-color-danger);
+  }
+
+  .gw-tool-call[data-state="failed"] .gw-tool-call__status::before {
+    mask-image: url("icons/circle-alert.svg");
+  }
+
+  .gw-tool-call[data-state="timed-out"] .gw-tool-call__status::before {
+    mask-image: url("icons/clock.svg");
+  }
+
+  .gw-tool-call[data-state="declined"] .gw-tool-call__status::before {
+    mask-image: url("icons/ban.svg");
+  }
+
+  .gw-tool-call[data-state="cancelled"] .gw-tool-call__status::before {
+    mask-image: url("icons/circle-slash.svg");
+  }
+
+  .gw-tool-call[data-state] .gw-tool-call__target {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* Elapsed while it runs, the total once it has ended. On the first line, level with the status. */
+  .gw-tool-call[data-state] .gw-tool-call__duration {
+    grid-row: 1;
+    grid-column: 2;
+    line-height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Why it failed, was declined or did not run: a second line of the summary, so closing the details never hides it. */
+  .gw-tool-call[data-state] .gw-tool-call__summary > .gw-tool-call__note {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    padding-top: var(--gw-space-xs);
+    color: var(--gw-color-on-surface);
+  }
+
+  /* What the details element holds: the arguments, then the output, each under a label. */
+  .gw-tool-call__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+    min-width: 0;
+    padding-bottom: var(--gw-space-md);
+  }
+
+  .gw-tool-call__body > .gw-tool-call__code {
+    margin-bottom: var(--gw-space-xs);
+  }
+
+  .gw-tool-call__label {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+  }
+
+  /*
+   * The output: its last lines, in a block that scrolls inside itself once it is taller than this.
+   * The block is laid out from its end, so it opens on the last line and stays there as lines are added.
+   * It is at least a pointer target tall, because it takes focus so the keyboard can scroll it.
+   */
+  .gw-tool-call__output {
+    display: flex;
+    flex-direction: column-reverse;
+    min-width: 0;
+    min-height: var(--gw-size-touch);
+    max-height: calc(var(--gw-size-column) / 2);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    overflow-y: auto;
+  }
+
+  .gw-tool-call__output > .gw-tool-call__code {
+    flex: none;
+    margin-bottom: 0;
+  }
+
+  /* While the call runs the block keeps one height, so a new line moves nothing around it. */
+  .gw-tool-call[data-state="running"] .gw-tool-call__output {
+    height: calc(var(--gw-size-column) / 2);
+  }
+
+  /* Allow and Decline for a request that waits. Outside the details, so they show whether it is open or closed. */
+  .gw-tool-call__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gw-space-md);
+    padding-block: var(--gw-space-md);
+  }
+
   @keyframes gw-tool-call-turn {
     to {
       rotate: 1turn;
@@ -189,7 +404,8 @@
 
   /* The mark stays, still, and the word Running carries the meaning. */
   @media (prefers-reduced-motion: reduce) {
-    .gw-tool-call[aria-busy="true"] .gw-tool-call__status::before {
+    .gw-tool-call[aria-busy="true"] .gw-tool-call__status::before,
+    .gw-tool-call[data-state="running"] .gw-tool-call__status::before {
       animation: none;
     }
   }

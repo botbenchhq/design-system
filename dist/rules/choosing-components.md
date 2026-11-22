@@ -123,16 +123,21 @@ For a whole screen, start from a page pattern. They are listed under "Page patte
 
 | Need | Use |
 |---|---|
-| One event in a transcript: the start of the session, a prompt, the agent's text, a question to the reader, a tool call, its result, an answered permission request, a denial, an error, usage, the end of a turn | `message` |
-| The agent is still producing output | `streaming`, as the last row of the transcript |
-| A request that waits for the reader to allow or decline it | `approval` |
+| One event in a transcript: the start of the session, a prompt, the agent's text while it arrives and once it has ended, a question to the reader, an answered permission request, a denial, an error, usage, the end of a turn | `message` |
+| One tool call, from the request to its result: the status in words, a plain summary and the time on one line, with the arguments and output behind it | `tool-call`, as the content of a tool-call row of `message` in a transcript, or as a card by itself |
+| Three or more consecutive steps of a long run, folded under one line that counts them | `step-group`, holding `tool-call` rows |
+| What the agent is doing right now, with Stop, or what the run waits on the reader for | `now-doing`, under the transcript |
+| New rows arrived while the reader was scrolled up | `jump-to-latest`, above the composer or the now-doing line |
+| The stations of a run and the state of each: done, running, waiting, failed, not started | `run-timeline`, at the top of the run's screen |
+| Telling a screen reader that a run started, needs approval, finished, stopped or failed | `activity-announcer`, once in the view |
+| A note that work is going on, where there is no transcript and no Stop | `streaming` |
+| A request that waits for the reader to allow or decline it, with its risk, where it runs and room for a note | `approval`. A request the reader can judge from one line is a `tool-call` row that awaits approval. |
 | How many approvals are waiting, visible from every screen | `pending-tray`, in the trailing slot of `app-header` |
 | The reader's next prompt | `composer` |
 | Suggested next prompts under the composer or an empty transcript | `suggestion-chips` |
 | A file or image attached to a prompt, which can be removed | `attachment-chip` |
 | A link to where something came from: a file, a page or a commit | `source-chip` |
 | The agent's reasoning or plan notes, closed by default | `reasoning` |
-| One tool call outside a transcript, with its arguments and output behind disclosures | `tool-call` |
 | A run or a task as one row of a `list` | `run-status` |
 | What agents and people did, day by day, oldest first, or newest first for a log the reader pages back through | `activity-feed` |
 | Rating an answer as helpful or not | `feedback` |
@@ -150,18 +155,19 @@ A pattern is a whole screen composed from the components above, with a little la
 | The settings of one thing: the few most people change, one advanced disclosure and a danger area | `settings-page`. Write each setting as a `settings-row`. |
 | The screen a signed-out reader meets, or another single task outside the app's navigation | `sign-in` |
 | An address that matches no screen, or a screen whose item does not exist | `not-found` |
+| The screen of one agent run: its stations, the transcript with step groups, the now-doing line and the composer, and the same run once it has finished | `agent-run`, inside the main column of `app-shell` |
 
 - `app-shell` and the other patterns: the app shell is the frame, and another pattern goes inside its main column. The page header in the main column holds the view's one h1. Sign in and not found for a signed-out reader stand outside it.
 - `master-detail` or `split-panel`: master and detail is a screen, and on a phone it shows the list or the detail, never both. A split panel is a region of a view whose two parts each scroll, stacked below 768px.
 - `multi-step-form` or `stepper`: the pattern is the whole flow, one step to an address. The stepper is the component that shows where the reader is in it.
 - `not-found`, `error-state` or `empty-state`: not found when the item does not exist, an error state when loading it failed, an empty state when a list or search has no results.
+- `agent-run` or `master-detail`: an agent run is one run and its transcript. Master and detail is a list of runs with a short detail beside it.
 - `filter-results` or `search-field`: a search field alone for text over one list. The pattern when there are other filters and the reader must see which are in force.
 
 ## Telling similar components apart
 
 - `banner` or `alert`: a banner is about the whole app and sits under the app header. An alert is about this view and sits in it.
 - `empty-state` or `error-state`: empty means the load worked and found nothing. Error means the load failed. Never show empty when the load failed.
-- `spinner` or `streaming`: a spinner stands in for content that has not arrived. Streaming sits beside content that is still arriving.
 - `approval` or `message`: an approval still waits for an answer. Once answered, it is a message row in the transcript.
 - `code-block` or `diff`: a diff shows a change. A code block shows text with no change.
 - `app-header` or `page-header`: the app header is the app's bar. The page header is the view's title inside the page, and it holds the view's one h1. The product name in the app header is a link, not a heading.
@@ -184,7 +190,13 @@ A pattern is a whole screen composed from the components above, with a little la
 - `list` or `data-table`: a list for things to scan and open. A table when the reader compares them across columns.
 - `key-value`, `stat` or `data-table`: key-value for several facts about one thing, a stat for one number that matters, a table for the same facts about many things.
 - `timeline` or `activity-feed`: a timeline is the events of one thing, joined by a rail. An activity feed is what agents and people did across the app, grouped by day.
-- `message` or `tool-call`: a message is a row of a transcript. A tool call summarises one call outside a transcript.
+- `message` or `tool-call`: a message is a row of a transcript. A tool call is one call through its whole life, and in a transcript it is the content of a message row of the tool-call kind. There is no other way to show a tool call there.
+- `tool-call` or `approval`: a tool-call row that awaits approval carries Allow and Decline for a request that one line and its arguments explain. An approval is a card for a request that needs its risk, its place and a note read first, and for a queue of requests.
+- `step-group`, `disclosure` or `reasoning`: a step group folds steps and counts them. A disclosure names any other detail. Reasoning holds the agent's notes, and inside a group it is a row beside the steps.
+- `now-doing`, `streaming` or `spinner`: the now-doing line says what the agent does at this moment and holds Stop, under a transcript. Streaming is a note that work goes on, anywhere else. A spinner stands in for content that has not arrived.
+- `run-timeline`, `stepper` or `timeline`: a run timeline gives each station of a run its state in words and its time. A stepper is the reader's own place in a form, with links back. A timeline is what already happened, with times and who acted.
+- `jump-to-latest` or `show-more`: jump to latest goes to the newest row of a transcript that kept growing. Show more reveals the rest of content already begun.
+- `activity-announcer`, `toast` or `alert`: the activity announcer is heard and never seen. A toast and an alert are seen, and announce themselves.
 - `source-chip` or `attachment-chip`: a source chip is a link to where something came from. An attachment chip is a file the reader attached and can remove.
 - `inspector` or `sheet`: an inspector sits beside the content it describes. A sheet covers the page until it is closed.
 - `select`, `combobox` or `listbox`: a select for a short fixed list, a combobox when typing is faster than scrolling, from about fifteen options up, a listbox when the options stay in view. A listbox and a combobox need script. A select does not.

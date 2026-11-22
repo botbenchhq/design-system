@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Run timeline - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/elapsed.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/transcript.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Run timeline</h1>
+<p>The stations a run passes through, in order, each with its state in words: done with how long it took, running with the time so far, waiting on the owner, failed or not started.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A run at its second station</h3>
+<p data-gallery="state">State: <code>running</code></p>
+<p>Every station says its state in words beside a mark of its own shape, so the line reads without colour: done with how long it took, running with the time so far, not started. The station the run is at carries aria-current.</p>
+</figcaption>
+<div data-example="running" data-title="A run at its second station" data-state="running" data-reason="Every station says its state in words beside a mark of its own shape, so the line reads without colour: done with how long it took, running with the time so far, not started. The station the run is at carries aria-current.">
+  <ol class="gw-run-timeline" aria-label="Stations of run 4182">
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Plan</span>
+      <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">1 min 4 s</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="running" aria-current="step">
+      <span class="gw-run-timeline__name">Build</span>
+      <span class="gw-run-timeline__status">Running · <gw-elapsed class="gw-run-timeline__time" datetime="2026-11-22T09:55:48Z">4 min 12 s</gw-elapsed></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="not-started">
+      <span class="gw-run-timeline__name">Verify</span>
+      <span class="gw-run-timeline__status">Not started</span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="not-started">
+      <span class="gw-run-timeline__name">Review</span>
+      <span class="gw-run-timeline__status">Not started</span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="not-started">
+      <span class="gw-run-timeline__name">Decide</span>
+      <span class="gw-run-timeline__status">Not started</span>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Waiting on the owner</h3>
+<p data-gallery="state">State: <code>waiting</code></p>
+</figcaption>
+<div data-example="waiting" data-title="Waiting on the owner" data-state="waiting">
+  <ol class="gw-run-timeline" aria-label="Stations of run 4180">
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Plan</span>
+      <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">48 s</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Build</span>
+      <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">6 min 30 s</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Verify</span>
+      <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">2 min 2 s</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Review</span>
+      <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">1 min 15 s</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="waiting" aria-current="step">
+      <span class="gw-run-timeline__name">Decide</span>
+      <span class="gw-run-timeline__status">Waiting on you · <gw-elapsed class="gw-run-timeline__time" datetime="2026-11-22T09:52:00Z">8 min 0 s</gw-elapsed></span>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A station failed</h3>
+<p data-gallery="state">State: <code>failed</code></p>
+</figcaption>
+<div data-example="failed" data-title="A station failed" data-state="failed">
+  <ol class="gw-run-timeline" aria-label="Stations of run 4177">
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Plan</span>
+      <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">1 min 20 s</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Build</span>
+      <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">9 min 41 s</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="failed" aria-current="step">
+      <span class="gw-run-timeline__name">Verify</span>
+      <span class="gw-run-timeline__status">Failed · <span class="gw-run-timeline__time">2 min 10 s</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="not-started">
+      <span class="gw-run-timeline__name">Review</span>
+      <span class="gw-run-timeline__status">Not started</span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="not-started">
+      <span class="gw-run-timeline__name">Decide</span>
+      <span class="gw-run-timeline__status">Not started</span>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A run that has not started</h3>
+<p data-gallery="state">State: <code>not-started</code></p>
+</figcaption>
+<div data-example="not-started" data-title="A run that has not started" data-state="not-started">
+  <ol class="gw-run-timeline" aria-label="Stations of run 4183, not started">
+    <li class="gw-run-timeline__station" data-state="not-started">
+      <span class="gw-run-timeline__name">Plan</span>
+      <span class="gw-run-timeline__status">Not started</span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="not-started">
+      <span class="gw-run-timeline__name">Build</span>
+      <span class="gw-run-timeline__status">Not started</span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="not-started">
+      <span class="gw-run-timeline__name">Verify</span>
+      <span class="gw-run-timeline__status">Not started</span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="not-started">
+      <span class="gw-run-timeline__name">Review</span>
+      <span class="gw-run-timeline__status">Not started</span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="not-started">
+      <span class="gw-run-timeline__name">Decide</span>
+      <span class="gw-run-timeline__status">Not started</span>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Every station done</h3>
+<p data-gallery="state">State: <code>done</code></p>
+</figcaption>
+<div data-example="done" data-title="Every station done" data-state="done">
+  <ol class="gw-run-timeline" aria-label="Stations of run 4171, all done">
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Plan</span>
+      <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">52 s</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Build</span>
+      <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">7 min 8 s</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Verify</span>
+      <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">1 min 49 s</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Review</span>
+      <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">3 min</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Decide</span>
+      <span class="gw-run-timeline__status">Accepted by you</span>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Three stations, with other names</h3>
+</figcaption>
+<div data-example="three" data-title="Three stations, with other names">
+  <ol class="gw-run-timeline" aria-label="Stations of the import">
+    <li class="gw-run-timeline__station" data-state="done">
+      <span class="gw-run-timeline__name">Fetch</span>
+      <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">12 s</span></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="running" aria-current="step">
+      <span class="gw-run-timeline__name">Convert</span>
+      <span class="gw-run-timeline__status">Running · <gw-elapsed class="gw-run-timeline__time" datetime="2026-11-22T09:59:22Z">38 s</gw-elapsed></span>
+    </li>
+    <li class="gw-run-timeline__station" data-state="not-started">
+      <span class="gw-run-timeline__name">Publish</span>
+      <span class="gw-run-timeline__status">Not started</span>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Marks with no state in words</h3>
+<p>The marks differ in shape, but a reader has to learn what each means, and nothing says how long a station took or whether the run waits on them. Write the state under every name.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="marks-only" data-title="Marks with no state in words" data-dont="review" data-reason="The marks differ in shape, but a reader has to learn what each means, and nothing says how long a station took or whether the run waits on them. Write the state under every name.">
+  <ol class="gw-run-timeline" aria-label="Stations of run 4182">
+    <li class="gw-run-timeline__station" data-state="done"><span class="gw-run-timeline__name">Plan</span></li>
+    <li class="gw-run-timeline__station" data-state="running" aria-current="step"><span class="gw-run-timeline__name">Build</span></li>
+    <li class="gw-run-timeline__station" data-state="waiting"><span class="gw-run-timeline__name">Verify</span></li>
+    <li class="gw-run-timeline__station" data-state="not-started"><span class="gw-run-timeline__name">Review</span></li>
+  </ol>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>At the top of a run's screen, to show which station the run is at and how the earlier ones went.</li>
+<li>For any job that passes through three to six named stages, where the reader wants the state and the time of each.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For the steps of a form the reader fills in. Use a stepper, whose completed steps are links back.</li>
+<li>For events in the order they happened, with who acted. Use a timeline.</li>
+<li>For the status of a run as one row of a list. Use run status.</li>
+<li>For the tool calls of a run. They are rows and step groups in the transcript.</li>
+<li>For more than six stations. Group them, or show the current one in words in the page header.</li>
+</ul>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>Below 768px the stations run down the page, one line each, with the state at the end of the line. At 768px and up they run across it, joined by lines, with the state under the name.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use an ol with the class gw-run-timeline and an aria-label that names the run. Each station is an li with gw-run-timeline__station. A screen reader announces the count and each station's place.</li>
+<li>The app sets data-state on each li: done, running, waiting, failed or not-started. The stylesheet draws a mark of its own shape for each, and nothing else decides how a station looks.</li>
+<li>Set aria-current=&quot;step&quot; on the li of the station the run is at, whatever its state: running, waiting or failed. A run that has not started, or has passed its last station, has none.</li>
+<li>gw-run-timeline__name holds the name of the station. The names are the app's own: Plan, Build, Verify, Review and Decide are only an example.</li>
+<li>gw-run-timeline__status holds the state in words, written by the app, with a time where there is one: Done · 1 min 4 s, Running · 4 min 12 s, Waiting on you, Failed · 2 min 10 s, Not started. The mark and the colour only add to those words.</li>
+<li>Put the time in a span with gw-run-timeline__time, or give the gw-elapsed element that class, so a narrow station wraps its status before the time and never inside it.</li>
+<li>A time that counts up is not announced: use the gw-elapsed element from behaviors/elapsed.js, or a span with aria-live=&quot;off&quot;. The timeline is not a live region. The view's one status region says when the run moves on.</li>
+<li>Only the running mark moves, and under prefers-reduced-motion it is still.</li>
+<li>It holds no control and takes no focus. The component needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-run-timeline</code></li>
+<li><code>gw-run-timeline__name</code></li>
+<li><code>gw-run-timeline__station</code></li>
+<li><code>gw-run-timeline__status</code></li>
+<li><code>gw-run-timeline__time</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

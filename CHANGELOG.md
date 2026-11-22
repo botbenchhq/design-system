@@ -2,6 +2,29 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.5.0
+
+Agent activity: what an agent is doing, step by step, with the detail one press away.
+
+- **Tool call.** One component for a call through its whole life, driven by `data-state` on its root: `requested`, `awaiting-approval`, `running`, `succeeded`, `failed`, `declined`, `timed-out`, `cancelled`. One line is always in view: an icon drawn from the state, the status in words, a plain summary with the command or target in mono, and the time. The arguments and then the output sit behind one native details element. Long output shows its last lines in a block that scrolls inside itself, with Show all N lines, and keeps its height while a call runs. A call that awaits approval shows Allow and Decline in the row, outside the details. A retry is a new row.
+  - It is the one way to show a tool call in a transcript: the content of a `gw-message gw-message--tool-call` row, with the new modifier `gw-tool-call--row`. The examples of message, streaming and tool call are written that way.
+  - Markup written for 0.4.0 keeps working and looks as it did: a tool call with an outcome class and no `data-state`, and a tool-call message row built from `gw-message__tool` and `gw-message__command`. No class was renamed or removed. Move to the new markup when convenient.
+  - New parts: `gw-tool-call__body`, `gw-tool-call__label`, `gw-tool-call__output`, `gw-tool-call__actions`.
+- **Message.** The agent's text row takes `data-state`: `streaming` with a caret hidden from assistive technology, `stopped` and `interrupted` with the partial text kept and the state in words on a `gw-message__state` line, `reconnecting`, and `done`. An interrupted row has a Retry button. New parts: `gw-message__caret`, `gw-message__state`. Examples for a transcript that is loading and one that is empty.
+- **Components.** Five more, which brings the catalogue to 98.
+  - Step group: consecutive steps folded under one line that counts them by kind, with a failure, a running step or a pending approval said in words in the summary.
+  - Now doing: one line under a transcript that says what the agent is doing right now, with Stop, or what the run waits on the reader for, with a link to it.
+  - Jump to latest: a small button with the count of new rows, shown while the reader has scrolled up.
+  - Run timeline: the stations of a run, each with its state in words, across the page from 768px and down it below. The time of a station goes in `gw-run-timeline__time`, which keeps it on one line.
+  - Activity announcer: the one status region that tells a screen reader a run started, needs approval, finished, stopped or failed, beside a transcript that is a named log with `aria-live="off"`.
+- **Page pattern** `agent-run`: the screen of one run inside the app shell, in progress, loading, empty and finished. It brings the patterns to eight.
+- **Behaviours.** Two more optional modules. `behaviors/transcript.js` defines `<gw-transcript>`, which follows the newest row while the reader is within 60px of the bottom, stops when they scroll up, counts the rows added since, shows the jump-to-latest control and never moves focus. `behaviors/elapsed.js` defines `<gw-elapsed>`, which shows the time since its `datetime` attribute once a second, stops on a final `data-state` or a `duration` attribute, and carries `aria-live="off"`. Nothing opens or closes a step group: the app does, by the rule in the step group's metadata.
+- **Icons.** `arrow-down`, `circle-dashed`, `circle-pause`, `circle-slash` and `clock`.
+- **Tokens.** No new token. `tokens/pairs.json` checks the danger, warning and info text colours on the sunken surface, which a hovered summary line uses.
+- **Rules for agents.** `rules/disclosure.md` has a section on agent activity: what stays in view, what is one and two levels down, and what is never hidden. `rules/content.md` says how to word a step summary. `rules/choosing-components.md` covers the new components and the pattern.
+- **Docs.** The consumer guide has the `data-state` contract of each component in one table, for an app that renders with a framework.
+- **Checker.** 40 rules, unchanged.
+
 ## 0.4.0
 
 What the first app to adopt the system reported, and what a blind trial of two agents reported.

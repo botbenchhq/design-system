@@ -1,0 +1,159 @@
+/*
+ * Run timeline: the stations a run passes through, in order, on an ol. Each station says its state in words.
+ * Each li carries data-state, set by the app: done, running, waiting, failed or not-started, and the stylesheet
+ * draws a mark of its own shape for each. The station the run is at carries aria-current="step".
+ * The stations run down the page, and across it at 768px and up.
+ */
+
+@layer gw.components {
+  .gw-run-timeline {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  /* A station that has not started, which is what a station is until the markup says otherwise. */
+  .gw-run-timeline__station {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: var(--gw-space-sm);
+    min-width: 0;
+    padding-block: var(--gw-space-xs);
+    color: var(--gw-color-muted);
+  }
+
+  /* The mark, centred on the first line. */
+  .gw-run-timeline__station::before {
+    content: "";
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-dashed.svg") center / contain no-repeat;
+  }
+
+  /* The line to the next station, from under this mark to above the next one. */
+  .gw-run-timeline__station:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    inset-block: calc(var(--gw-space-xs) + (var(--gw-text-ui) * var(--gw-leading-ui) + var(--gw-space-lg)) / 2) calc((var(--gw-space-lg) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2 - var(--gw-space-xs));
+    inset-inline-start: calc((var(--gw-space-lg) - var(--gw-border-width)) / 2);
+    width: var(--gw-border-width);
+    background-color: var(--gw-color-border-strong);
+  }
+
+  .gw-run-timeline__name {
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  /* The state in words, with the time it took or has taken so far. */
+  .gw-run-timeline__status {
+    font-size: var(--gw-text-xs);
+    line-height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+    overflow-wrap: anywhere;
+  }
+
+  /* The time, kept on one line: where the room runs out the status wraps before it, never inside it. */
+  .gw-run-timeline__time {
+    white-space: nowrap;
+  }
+
+  .gw-run-timeline__station[data-state="done"] > .gw-run-timeline__name,
+  .gw-run-timeline__station[data-state="running"] > .gw-run-timeline__name,
+  .gw-run-timeline__station[data-state="waiting"] > .gw-run-timeline__name,
+  .gw-run-timeline__station[data-state="failed"] > .gw-run-timeline__name {
+    color: var(--gw-color-on-surface);
+  }
+
+  .gw-run-timeline__station[data-state="done"]::before {
+    background-color: var(--gw-color-on-surface);
+    mask-image: url("icons/circle-check.svg");
+  }
+
+  .gw-run-timeline__station[data-state="running"]::before,
+  .gw-run-timeline__station[data-state="running"] > .gw-run-timeline__status {
+    color: var(--gw-color-info);
+  }
+
+  /* The one mark that moves: the stepped loader of every running state. */
+  .gw-run-timeline__station[data-state="running"]::before {
+    mask-image: url("icons/loader.svg");
+    animation: gw-run-timeline-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  .gw-run-timeline__station[data-state="waiting"]::before,
+  .gw-run-timeline__station[data-state="waiting"] > .gw-run-timeline__status {
+    color: var(--gw-color-warning);
+  }
+
+  .gw-run-timeline__station[data-state="waiting"]::before {
+    mask-image: url("icons/circle-pause.svg");
+  }
+
+  .gw-run-timeline__station[data-state="failed"]::before,
+  .gw-run-timeline__station[data-state="failed"] > .gw-run-timeline__status {
+    color: var(--gw-color-danger);
+  }
+
+  .gw-run-timeline__station[data-state="failed"]::before {
+    mask-image: url("icons/circle-alert.svg");
+  }
+
+  /* The station the run is at has a heavier name, whatever its state. */
+  .gw-run-timeline__station[aria-current]:not([aria-current="false"]) > .gw-run-timeline__name {
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  @keyframes gw-run-timeline-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  /* The mark stays, still, and the word Running carries the meaning. */
+  @media (prefers-reduced-motion: reduce) {
+    .gw-run-timeline__station[data-state="running"]::before {
+      animation: none;
+    }
+  }
+
+  /* Across the page: each station is its mark, its name and the line to the next one, with its state under the name. */
+  @media (min-width: 768px) {
+    .gw-run-timeline {
+      flex-direction: row;
+      gap: var(--gw-space-sm);
+    }
+
+    /* Each station takes the room its words need, and the lines between them share what is left. */
+    .gw-run-timeline__station {
+      flex: 1 1 auto;
+      grid-template-columns: auto auto minmax(var(--gw-space-md), 1fr);
+      padding-block: 0;
+    }
+
+    .gw-run-timeline__station:last-child {
+      flex: 0 1 auto;
+      grid-template-columns: auto auto;
+    }
+
+    .gw-run-timeline__station:not(:last-child)::after {
+      position: static;
+      grid-row: 1;
+      grid-column: 3;
+      width: auto;
+      height: var(--gw-border-width);
+      margin-block-start: calc((var(--gw-text-ui) * var(--gw-leading-ui) - var(--gw-border-width)) / 2);
+    }
+
+    .gw-run-timeline__status {
+      grid-row: 2;
+      grid-column: 2 / -1;
+      line-height: var(--gw-leading-xs);
+      text-align: start;
+    }
+  }
+}

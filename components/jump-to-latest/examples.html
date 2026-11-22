@@ -1,0 +1,164 @@
+<div data-example="default" data-title="Above the composer, with the count in words" data-state="default" data-reason="The button appears only when the reader has scrolled up and rows have arrived since. It says how many in words and what a press does, and it hangs over the last rows, so nothing moves when it comes and goes.">
+  <div class="gw-stack gw-gap-2xl">
+    <ol class="gw-stack gw-gap-xs">
+      <li class="gw-message gw-message--user">
+        <span class="gw-message__label">You</span>
+        <p class="gw-message__body">Run the auth tests and tell me what fails.</p>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+          <details class="gw-tool-call__details">
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Explored 5 files in <code class="gw-tool-call__target">src/auth</code></span>
+              <span class="gw-tool-call__duration">0.4 s</span>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Files read</p>
+              <pre class="gw-tool-call__code">src/auth/session.ts</pre>
+            </div>
+          </details>
+        </div>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+          <details class="gw-tool-call__details">
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
+              <span class="gw-tool-call__duration">38 ms</span>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Arguments</p>
+              <pre class="gw-tool-call__code">{ "file_path": "src/auth/session.ts" }</pre>
+            </div>
+          </details>
+        </div>
+      </li>
+      <li class="gw-message" data-state="done">
+        <span class="gw-message__label">Claude Code</span>
+        <p class="gw-message__body">The timer now starts on every load.</p>
+      </li>
+    </ol>
+    <div class="gw-jump-to-latest" data-gw-jump>
+      <button type="button" class="gw-jump-to-latest__button"><span class="gw-jump-to-latest__count" data-gw-count="{count} new steps" data-gw-count-one="1 new step">3 new steps</span> Jump to latest</button>
+    </div>
+    <form class="gw-composer">
+      <label class="gw-composer__label" for="jump-to-latest-default-prompt">Message Claude Code</label>
+      <div class="gw-composer__row">
+        <textarea class="gw-composer__input" id="jump-to-latest-default-prompt" name="prompt" rows="1"></textarea>
+        <button type="submit" class="gw-button gw-button--primary">Send</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div data-example="one" data-title="One new step, and no new step: the reader scrolled up while the last row was still growing">
+  <div class="gw-stack gw-gap-2xl">
+    <ol class="gw-stack">
+      <li class="gw-message" data-state="done">
+        <span class="gw-message__label">Claude Code</span>
+        <p class="gw-message__body">The auth tests pass. Next I will open a pull request against main.</p>
+      </li>
+    </ol>
+    <div class="gw-jump-to-latest" data-gw-jump>
+      <button type="button" class="gw-jump-to-latest__button"><span class="gw-jump-to-latest__count" data-gw-count="{count} new steps" data-gw-count-one="1 new step">1 new step</span> Jump to latest</button>
+    </div>
+    <ol class="gw-stack">
+      <li class="gw-message" data-state="done">
+        <span class="gw-message__label">Claude Code</span>
+        <p class="gw-message__body">The pull request is open against main.</p>
+      </li>
+    </ol>
+    <div class="gw-jump-to-latest" data-gw-jump>
+      <button type="button" class="gw-jump-to-latest__button"><span class="gw-jump-to-latest__count" data-gw-count="{count} new steps" data-gw-count-one="1 new step"></span> Jump to latest</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="above-now-doing" data-title="Above the now-doing line">
+  <div class="gw-stack gw-gap-2xl">
+    <ol class="gw-stack">
+      <li class="gw-message" data-state="done">
+        <span class="gw-message__label">Claude Code</span>
+        <p class="gw-message__body">The auth tests pass. Next I will open a pull request against main.</p>
+      </li>
+    </ol>
+    <div>
+      <div class="gw-jump-to-latest" data-gw-jump>
+        <button type="button" class="gw-jump-to-latest__button"><span class="gw-jump-to-latest__count" data-gw-count="{count} new steps" data-gw-count-one="1 new step">12 new steps</span> Jump to latest</button>
+      </div>
+      <div class="gw-now-doing" data-state="running">
+        <p class="gw-now-doing__text">Running <code class="gw-now-doing__target">npm test -- --run src/auth</code>&nbsp;·&nbsp;<gw-elapsed class="gw-now-doing__elapsed" datetime="2026-11-22T09:59:18Z">42 s</gw-elapsed></p>
+        <button type="button" class="gw-button gw-button--small" data-gw-critical>Stop</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-stack gw-gap-2xl">
+    <ol class="gw-stack">
+      <li class="gw-message" data-state="done">
+        <span class="gw-message__label">Claude Code</span>
+        <p class="gw-message__body">The auth tests pass. Next I will open a pull request against main.</p>
+      </li>
+    </ol>
+    <div class="gw-jump-to-latest" data-gw-jump>
+      <button type="button" class="gw-jump-to-latest__button"><span class="gw-jump-to-latest__count" data-gw-count="{count} new steps" data-gw-count-one="1 new step">3 new steps</span> Jump to latest</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-stack gw-gap-2xl">
+    <ol class="gw-stack">
+      <li class="gw-message" data-state="done">
+        <span class="gw-message__label">Claude Code</span>
+        <p class="gw-message__body">The auth tests pass. Next I will open a pull request against main.</p>
+      </li>
+    </ol>
+    <div class="gw-jump-to-latest" data-gw-jump>
+      <button type="button" class="gw-jump-to-latest__button"><span class="gw-jump-to-latest__count" data-gw-count="{count} new steps" data-gw-count-one="1 new step">3 new steps</span> Jump to latest</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="active" data-title="Pressed" data-state="active">
+  <div class="gw-stack gw-gap-2xl">
+    <ol class="gw-stack">
+      <li class="gw-message" data-state="done">
+        <span class="gw-message__label">Claude Code</span>
+        <p class="gw-message__body">The auth tests pass. Next I will open a pull request against main.</p>
+      </li>
+    </ol>
+    <div class="gw-jump-to-latest" data-gw-jump>
+      <button type="button" class="gw-jump-to-latest__button"><span class="gw-jump-to-latest__count" data-gw-count="{count} new steps" data-gw-count-one="1 new step">3 new steps</span> Jump to latest</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="arrow-only" data-title="An arrow with no words" data-dont="review" data-reason="An arrow alone does not say that anything new arrived, or how much. A screen reader announces a button with no name. Write the count and the label as text.">
+  <div class="gw-stack gw-gap-2xl">
+    <ol class="gw-stack">
+      <li class="gw-message" data-state="done">
+        <span class="gw-message__label">Claude Code</span>
+        <p class="gw-message__body">The auth tests pass. Next I will open a pull request against main.</p>
+      </li>
+    </ol>
+    <div class="gw-jump-to-latest">
+      <button type="button" class="gw-jump-to-latest__button"></button>
+    </div>
+  </div>
+</div>
+
+<div data-example="scrolls-by-itself" data-title="No button: the view pulls the reader down on every new row" data-dont="review" data-reason="A reader who scrolled up is reading something. Moving them to the bottom each time a row arrives takes it away mid-sentence. Stop following when they scroll up, count what arrives, and let them jump when they are ready.">
+  <ol class="gw-stack">
+    <li class="gw-message gw-message--user">
+      <span class="gw-message__label">You</span>
+      <p class="gw-message__body">Find out why the session cookie expires after 15 minutes.</p>
+    </li>
+    <li class="gw-message" data-state="streaming">
+      <span class="gw-message__label">Claude Code</span>
+      <p class="gw-message__body">The refresh timer is only started on sign-in<span class="gw-message__caret" aria-hidden="true"></span></p>
+    </li>
+  </ol>
+</div>

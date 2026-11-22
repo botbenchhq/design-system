@@ -11,6 +11,16 @@
     ]
   },
   {
+    "name": "activity-announcer",
+    "kind": "component",
+    "title": "Activity announcer",
+    "purpose": "The one status region of a view that tells a screen reader what an agent's run is doing: always in the page, never drawn, and written to only when the run starts, needs approval, finishes, stops or fails.",
+    "status": "draft",
+    "classes": [
+      "gw-activity-announcer"
+    ]
+  },
+  {
     "name": "activity-feed",
     "kind": "component",
     "title": "Activity feed",
@@ -637,6 +647,18 @@
     ]
   },
   {
+    "name": "jump-to-latest",
+    "kind": "component",
+    "title": "Jump to latest",
+    "purpose": "A small button that shows while the reader has scrolled up in a transcript and new rows have arrived, saying how many in words and taking them to the newest.",
+    "status": "draft",
+    "classes": [
+      "gw-jump-to-latest",
+      "gw-jump-to-latest__button",
+      "gw-jump-to-latest__count"
+    ]
+  },
+  {
     "name": "kbd",
     "kind": "component",
     "title": "Kbd",
@@ -745,11 +767,13 @@
       "gw-message--usage",
       "gw-message--user",
       "gw-message__body",
+      "gw-message__caret",
       "gw-message__code",
       "gw-message__command",
       "gw-message__details",
       "gw-message__icon",
       "gw-message__label",
+      "gw-message__state",
       "gw-message__summary",
       "gw-message__tool"
     ]
@@ -770,6 +794,21 @@
       "gw-notification-list__item",
       "gw-notification-list__title",
       "gw-notification-list__unread"
+    ]
+  },
+  {
+    "name": "now-doing",
+    "kind": "component",
+    "title": "Now doing",
+    "purpose": "One line under a transcript that says in words what the agent is doing right now and for how long, with Stop beside it, or what the run is waiting on the reader for, with a link to it.",
+    "status": "draft",
+    "classes": [
+      "gw-now-doing",
+      "gw-now-doing--sticky",
+      "gw-now-doing__elapsed",
+      "gw-now-doing__link",
+      "gw-now-doing__target",
+      "gw-now-doing__text"
     ]
   },
   {
@@ -922,6 +961,20 @@
       "gw-run-status__facts",
       "gw-run-status__station",
       "gw-run-status__title"
+    ]
+  },
+  {
+    "name": "run-timeline",
+    "kind": "component",
+    "title": "Run timeline",
+    "purpose": "The stations a run passes through, in order, each with its state in words: done with how long it took, running with the time so far, waiting on the owner, failed or not started.",
+    "status": "draft",
+    "classes": [
+      "gw-run-timeline",
+      "gw-run-timeline__name",
+      "gw-run-timeline__station",
+      "gw-run-timeline__status",
+      "gw-run-timeline__time"
     ]
   },
   {
@@ -1160,6 +1213,21 @@
     ]
   },
   {
+    "name": "step-group",
+    "kind": "component",
+    "title": "Step group",
+    "purpose": "A run of consecutive steps in a long turn folded under one line: counts by kind in plain words, how long they took, and any failure, running step or pending approval called out in words in the summary itself.",
+    "status": "draft",
+    "classes": [
+      "gw-step-group",
+      "gw-step-group__callout",
+      "gw-step-group__duration",
+      "gw-step-group__steps",
+      "gw-step-group__summary",
+      "gw-step-group__title"
+    ]
+  },
+  {
     "name": "stepper",
     "kind": "component",
     "title": "Stepper",
@@ -1319,19 +1387,24 @@
     "name": "tool-call",
     "kind": "component",
     "title": "Tool call",
-    "purpose": "A summary of one tool call outside a transcript: the tool, its target, how it ended and how long it took, with the arguments and output behind disclosures.",
+    "purpose": "One call a tool was asked to make, through its whole life: a line that is always in view with the status in words, a plain summary and the time, the arguments and output behind one disclosure, and Allow and Decline while it waits for approval.",
     "status": "draft",
     "classes": [
       "gw-tool-call",
       "gw-tool-call--denied",
       "gw-tool-call--failed",
+      "gw-tool-call--row",
       "gw-tool-call--succeeded",
+      "gw-tool-call__actions",
+      "gw-tool-call__body",
       "gw-tool-call__code",
       "gw-tool-call__details",
       "gw-tool-call__duration",
+      "gw-tool-call__label",
       "gw-tool-call__meta",
       "gw-tool-call__name",
       "gw-tool-call__note",
+      "gw-tool-call__output",
       "gw-tool-call__status",
       "gw-tool-call__summary",
       "gw-tool-call__target",
@@ -1411,6 +1484,21 @@
       "gw-usage-meter__header",
       "gw-usage-meter__label",
       "gw-usage-meter__state"
+    ]
+  },
+  {
+    "name": "agent-run",
+    "kind": "pattern",
+    "title": "Agent run",
+    "purpose": "The screen of one agent run inside the app shell: the run's title and its stations at the top, the transcript as a log of messages and step groups, and a dock at the bottom with the jump-to-latest control, the now-doing line and the composer.",
+    "status": "draft",
+    "classes": [
+      "gw-agent-run",
+      "gw-agent-run__dock",
+      "gw-agent-run__header",
+      "gw-agent-run__log",
+      "gw-agent-run__outcome",
+      "gw-agent-run__transcript"
     ]
   },
   {

@@ -21,6 +21,21 @@ How to write the words in an interface.
 - A confirmation names the thing: "Delete the workspace api-refactor?" The confirming button repeats the verb: "Delete workspace".
 - Text for assistive technology that is not drawn, such as the label of an icon-only control, goes in an element with the `gw-visually-hidden` class.
 
+## Step summaries
+
+The line for a step an agent took, in `tool-call`, and the line for a group of steps, in `step-group`. The app writes these words, so they can change without the stylesheet changing.
+
+- **A plain verb in the past tense for what was done.** "Ran", "Edited", "Read", "Searched for", "Opened". Not the tool's name, and not "Executed Bash" or "Called Edit".
+- **The object in mono.** The command, the file or the pattern goes in a code element: "Ran `npm test`", "Edited `src/auth/session.ts` +12 −1", "Searched for `startRefreshTimer`". Give a file its lines added and removed, joined by a no-break space so the two counts stay on one line.
+- **Reads count as one.** Several files read or searched in a row are one line: "Explored 5 files in `src/auth`".
+- **The plain verb before it runs, and when it never ran.** A step that waits, was declined or was cancelled did not happen, so it is not in the past tense: "Run `npm install`".
+- **The status word is separate, and the system's.** Preparing, Awaiting approval, Running, Succeeded, Failed, Declined, Timed out, Cancelled. It comes first on the line. After the word Running, write the command alone, not "Running Run".
+- **A group counts by kind, in the same verbs.** "Ran 4 commands, edited 2 files", "Explored 5 files, edited 1 file, ran 1 command". Largest or first kind first, a comma between, no "and 3 more". While steps are still arriving, end with "so far".
+- **A failure or a wait is said in words, after the counts.** "1 command failed", "Awaiting your approval". Never "5 of 6 done".
+- **A duration has a unit and two parts at most.** "380 ms", "2.4 s", "42 s", "4 min 12 s", "1 h 4 min". The total once the step has ended, the time so far while it runs.
+- **What the agent is doing now is a present participle.** "Running `npm test` · 42 s", "Editing `src/auth/session.ts`", "Writing a reply". A wait names what is waited for: "Waiting for your approval to run `npm install`".
+- **A reason is one sentence.** Why the agent made the call, or why it failed or did not run: "The command exited with code 1. 1 of 30 tests failed." Say what happened, not "Something went wrong".
+
 ## What the checker sees
 
 The checker catches an emoji in interface text and the same stock phrase on three controls in one view. Everything else on this page is checked in review, with `review-rubric.md`.

@@ -187,13 +187,65 @@ test("a message has a row for the start of a session, a question, an answered re
   assert.deepEqual([...decision.matchAll(/<p class="gw-message__body">([^<]+)</g)].map(([, text]) => /\b(you|Dana Okafor)\b/.test(text)), [true, true, true, true]);
   assert.equal(message.meta.classes.filter((name) => /allowed|declined|approved|standing/.test(name)).length, 0);
 
-  // A tool call reads as the tool, its target and one plain sentence, with the raw arguments behind the disclosure.
+  // A tool call is the tool call component in its row form: the status, a plain summary and one plain sentence, with the raw arguments behind the disclosure.
   const described = message.examples.find((candidate) => candidate.id === "tool-call-described").html;
-  assert.match(described, /<span class="gw-message__tool">[^<]+<\/span>\s*<code class="gw-message__command">[^<]+<\/code>\s*<p class="gw-message__body">[^<{]+<\/p>\s*<details class="gw-message__details">\s*<summary class="gw-message__summary">Show the full arguments<\/summary>\s*<pre class="gw-message__code">\{/);
+  assert.match(described, /<li class="gw-message gw-message--tool-call">\s*<div class="gw-tool-call gw-tool-call--row" data-state="succeeded">\s*<details class="gw-tool-call__details">\s*<summary class="gw-tool-call__summary">\s*<span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded<\/span> Ran <code class="gw-tool-call__target">[^<]+<\/code><\/span>\s*<span class="gw-tool-call__duration">[^<]+<\/span>\s*<span class="gw-tool-call__note">[^<{]+<\/span>\s*<\/summary>\s*<div class="gw-tool-call__body">\s*<p class="gw-tool-call__label">Arguments<\/p>\s*<pre class="gw-tool-call__code">\{/);
   assert.match(message.meta.variants.find((variant) => variant.name === "tool-call").use, /not as raw JSON/);
+  // One way to show a tool call in a transcript: no do example writes a tool-call row the earlier way.
+  for (const component of readComponents(repoRoot)) {
+    for (const example of component.examples.filter((candidate) => !candidate.dont)) {
+      const rows = example.html.match(/<li class="gw-message gw-message--tool-call">\s*<[a-z]+ class="[^"]*"/g) ?? [];
+      for (const row of rows) assert.match(row, /class="gw-tool-call gw-tool-call--row"$/, `${component.name} ${example.id}`);
+    }
+  }
 
   // An error is told from a denial by its word and by its icon.
   assert.match(message.css, /\.gw-message--error > \.gw-message__label::before \{\s*mask-image: url\("icons\/triangle-alert\.svg"\)/);
+});
+
+test("the data-state contract in the consumer guide matches the metadata and every example, and failed or waiting tool calls are shown open", () => {
+  const guide = readFileSync(join(repoRoot, "docs", "consumer-guide.md"), "utf8");
+  const section = guide.split("### Agent activity, from a framework")[1].split("\n### ")[0];
+  const contract = {};
+  for (const [, name, values] of section.matchAll(/^\| `([a-z-]+)`[^|]*\| [^|]+\| ([^|]*)\|/gm)) {
+    contract[name] = [...values.matchAll(/`([a-z-]+)`/g)].map(([, value]) => value);
+  }
+  assert.deepEqual(Object.keys(contract).sort(), ["activity-announcer", "jump-to-latest", "message", "now-doing", "run-timeline", "step-group", "tool-call"]);
+  assert.deepEqual(contract["tool-call"], ["requested", "awaiting-approval", "running", "succeeded", "failed", "declined", "timed-out", "cancelled"]);
+
+  const components = readComponents(repoRoot);
+  for (const [name, values] of Object.entries(contract)) {
+    const meta = components.find((component) => component.name === name).meta;
+    for (const value of values) assert.ok(meta.states.includes(value), `${name} metadata lists ${value}`);
+  }
+
+  // The element that carries data-state in an example, by its class, and the component whose contract applies.
+  const carrier = (classes) =>
+    classes.includes("gw-tool-call") ? "tool-call"
+    : classes.includes("gw-step-group__callout") ? "step-group"
+    : classes.includes("gw-now-doing") ? "now-doing"
+    : classes.includes("gw-run-timeline__station") ? "run-timeline"
+    : classes.includes("gw-message") && !classes.some((name) => name.startsWith("gw-message--")) ? "message"
+    : null;
+  for (const folder of [...components, ...readPatterns(repoRoot)]) {
+    for (const example of folder.examples) {
+      for (const [element, classList, value] of example.html.matchAll(/<[a-z-]+ class="([^"]*)"[^>]*? data-state="([^"]+)"[^>]*>/g)) {
+        const name = carrier(classList.split(" "));
+        assert.ok(name, `${folder.name} ${example.id}: data-state on an element no contract covers: ${element}`);
+        assert.ok(contract[name].includes(value), `${folder.name} ${example.id}: ${name} has no data-state ${value}`);
+      }
+      if (example.dont) continue;
+      // In a do example a tool call that failed or awaits approval is drawn open, except where the reader closed it.
+      for (const [, state, details] of example.html.matchAll(/class="gw-tool-call[^"]*" data-state="(failed|awaiting-approval)"[^>]*>\s*(<details[^>]*>)/g)) {
+        if (example.id === "approval-closed") continue;
+        assert.match(details, / open>$/, `${folder.name} ${example.id}: a ${state} tool call is closed`);
+      }
+      // One way to show a tool call in a transcript, in the patterns too.
+      for (const row of example.html.match(/<li class="gw-message gw-message--tool-call">\s*<[a-z]+ class="[^"]*"/g) ?? []) {
+        assert.match(row, /class="gw-tool-call gw-tool-call--row"$/, `${folder.name} ${example.id}`);
+      }
+    }
+  }
 });
 
 test("the check list has a timed-out result, in words with the limit and its own icon, apart from failed", () => {
@@ -283,7 +335,7 @@ test("a pattern folder that breaks the contract fails the build and is named", (
 
 test("every gallery page loads each behaviour module, in order", () => {
   const modules = readdirSync(join(repoRoot, "behaviors")).filter((name) => name.endsWith(".js")).sort();
-  assert.deepEqual(modules, ["combobox.js", "command-palette.js", "groundwork.js"]);
+  assert.deepEqual(modules, ["combobox.js", "command-palette.js", "elapsed.js", "groundwork.js", "transcript.js"]);
   const tags = modules.map((name) => `<script type="module" src="../behaviors/${name}"></script>`).join("\n");
   for (const name of readdirSync(join(dist, "gallery")).filter((file) => file.endsWith(".html"))) {
     assert.ok(readFileSync(join(dist, "gallery", name), "utf8").includes(tags), name);

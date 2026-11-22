@@ -1,0 +1,94 @@
+<div data-example="running" data-title="Running a command" data-state="running" data-reason="The line says in words what the agent is doing right now and for how long, so the reader never has to guess from a spinner whether the run is alive. Stop is beside it, in view and one press away, at every moment of the run.">
+  <div class="gw-now-doing" data-state="running">
+    <p class="gw-now-doing__text">Running <code class="gw-now-doing__target">npm test -- --run src/auth</code>&nbsp;·&nbsp;<gw-elapsed class="gw-now-doing__elapsed" datetime="2026-11-22T09:59:18Z">42 s</gw-elapsed></p>
+    <button type="button" class="gw-button gw-button--small" data-gw-critical>Stop</button>
+  </div>
+</div>
+
+<div data-example="writing" data-title="Writing a reply, and editing a file">
+  <div class="gw-stack gw-gap-sm">
+    <div class="gw-now-doing" data-state="running">
+      <p class="gw-now-doing__text">Writing a reply&nbsp;·&nbsp;<gw-elapsed class="gw-now-doing__elapsed" datetime="2026-11-22T09:59:52Z">8 s</gw-elapsed></p>
+      <button type="button" class="gw-button gw-button--small" data-gw-critical>Stop</button>
+    </div>
+    <div class="gw-now-doing" data-state="running">
+      <p class="gw-now-doing__text">Editing <code class="gw-now-doing__target">src/auth/session.ts</code>&nbsp;·&nbsp;<gw-elapsed class="gw-now-doing__elapsed" datetime="2026-11-22T09:59:57Z">3 s</gw-elapsed></p>
+      <button type="button" class="gw-button gw-button--small" data-gw-critical>Stop</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="waiting" data-title="Waiting on the reader" data-state="waiting">
+  <div class="gw-now-doing" data-state="waiting">
+    <p class="gw-now-doing__text">Waiting for your approval to run <code class="gw-now-doing__target">npm install --save-dev @acme/session-fixtures</code>&nbsp;·&nbsp;<gw-elapsed class="gw-now-doing__elapsed" datetime="2026-11-22T09:58:52Z">1 min 8 s</gw-elapsed></p>
+    <a class="gw-now-doing__link" href="#now-doing-waiting-request">Go to the request</a>
+    <button type="button" class="gw-button gw-button--small" data-gw-critical>Stop</button>
+  </div>
+  <p id="now-doing-waiting-request" class="gw-visually-hidden">The request the link goes to</p>
+</div>
+
+<div data-example="waiting-answer" data-title="Waiting for an answer to a question">
+  <div class="gw-now-doing" data-state="waiting">
+    <p class="gw-now-doing__text">Waiting for your answer about the fixture user&nbsp;·&nbsp;<gw-elapsed class="gw-now-doing__elapsed" datetime="2026-11-22T09:56:00Z">4 min 0 s</gw-elapsed></p>
+    <a class="gw-now-doing__link" href="#now-doing-waiting-answer-question">Go to the question</a>
+    <button type="button" class="gw-button gw-button--small" data-gw-critical>Stop</button>
+  </div>
+  <p id="now-doing-waiting-answer-question" class="gw-visually-hidden">The question the link goes to</p>
+</div>
+
+<div data-example="stopping" data-title="After Stop is pressed">
+  <div class="gw-now-doing" data-state="running">
+    <p class="gw-now-doing__text">Stopping after <code class="gw-now-doing__target">npm test -- --run src/auth</code>&nbsp;·&nbsp;<gw-elapsed class="gw-now-doing__elapsed" datetime="2026-11-22T09:59:13Z">47 s</gw-elapsed></p>
+    <button type="button" class="gw-button gw-button--small" data-gw-critical aria-busy="true">Stopping</button>
+  </div>
+</div>
+
+<div data-example="sticky" data-title="Fixed under a transcript, above the composer">
+  <div class="gw-stack gw-gap-sm">
+    <ol class="gw-stack gw-gap-sm">
+      <li class="gw-message gw-message--user">
+        <span class="gw-message__label">You</span>
+        <p class="gw-message__body">Run the auth tests and tell me what fails.</p>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="running">
+          <details class="gw-tool-call__details">
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Running</span> <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
+              <gw-elapsed class="gw-tool-call__duration" datetime="2026-11-22T09:59:18Z">42 s</gw-elapsed>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Arguments</p>
+              <pre class="gw-tool-call__code">{ "command": "npm test -- --run src/auth" }</pre>
+            </div>
+          </details>
+        </div>
+      </li>
+    </ol>
+    <div class="gw-now-doing gw-now-doing--sticky" data-state="running">
+      <p class="gw-now-doing__text">Running <code class="gw-now-doing__target">npm test -- --run src/auth</code>&nbsp;·&nbsp;<gw-elapsed class="gw-now-doing__elapsed" datetime="2026-11-22T09:59:18Z">42 s</gw-elapsed></p>
+      <button type="button" class="gw-button gw-button--small" data-gw-critical>Stop</button>
+    </div>
+    <form class="gw-composer">
+      <label class="gw-composer__label" for="now-doing-sticky-prompt">Message Claude Code</label>
+      <div class="gw-composer__row">
+        <textarea class="gw-composer__input" id="now-doing-sticky-prompt" name="prompt" rows="1"></textarea>
+        <button type="submit" class="gw-button gw-button--primary">Send</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div data-example="mark-only" data-title="A mark and a time with no words" data-dont="review" data-reason="A turning mark says that something is happening and not what. The reader cannot tell a test run from a stuck process, and once motion is reduced the line says nothing at all.">
+  <div class="gw-now-doing" data-state="running">
+    <p class="gw-now-doing__text"><span class="gw-now-doing__elapsed">42 s</span></p>
+    <button type="button" class="gw-button gw-button--small" data-gw-critical>Stop</button>
+  </div>
+</div>
+
+<div data-example="live-line" data-title="The line as a live region" data-dont="review" data-reason="The line changes with every step and its time changes every second, so a screen reader would talk without pause. Leave it silent and announce the few moments that matter from the view's one status region.">
+  <div class="gw-now-doing" data-state="running" role="status">
+    <p class="gw-now-doing__text">Running <code class="gw-now-doing__target">npm test -- --run src/auth</code>&nbsp;·&nbsp;<span class="gw-now-doing__elapsed">42 s</span></p>
+    <button type="button" class="gw-button gw-button--small" data-gw-critical>Stop</button>
+  </div>
+</div>

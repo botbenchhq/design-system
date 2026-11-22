@@ -49,21 +49,46 @@ Serve `vendor/groundwork/` as static files and link the stylesheet.
 
 ### Behaviours, for an app without a framework
 
-The components are CSS, and nearly all of them work from native elements alone. Three need script to move ARIA attributes as the reader acts: tabs, the combobox and the command palette. `behaviors/` holds three optional ES modules with no dependencies, each defining one element. Load the ones the app uses, once each, and wrap the component's markup from `components.json` in the module's element.
+The components are CSS, and nearly all of them work from native elements alone. A few need script: tabs, the combobox and the command palette move ARIA attributes as the reader acts, a time that counts up is written again each second, and a transcript that grows follows its newest row. `behaviors/` holds five optional ES modules with no dependencies, each defining one element. Load the ones the app uses, once each, and wrap the component's markup from `components.json` in the module's element.
 
 | Module | Element | What it does |
 |---|---|---|
 | `behaviors/groundwork.js` | `<gw-tabs>` | For the tabs component: sets `aria-selected`, `tabindex` and `hidden`, and handles click, Left, Right, Home and End. |
 | `behaviors/combobox.js` | `<gw-combobox>` | For the combobox component: as the reader types it sets `hidden` on the options that do not match, `aria-expanded` and `aria-activedescendant` on the input and `aria-selected` on the active option, and writes the count into the `role="status"` line. It handles Down, Up, Home, End, Enter, Escape and a press on an option. |
 | `behaviors/command-palette.js` | `<gw-command-palette>` | For the command palette component: filters the commands as the reader types, hides a group left with no match, sets `aria-selected` and `aria-activedescendant` as Down and Up move the selection, presses the selected command on Enter and closes the dialog. With `shortcut="k"` it opens the dialog on Ctrl+K and Cmd+K. |
+| `behaviors/elapsed.js` | `<gw-elapsed>` | A time that counts up, for a tool call, a step group, the now-doing line and the run timeline: it shows the time since its `datetime` attribute and writes it again once a second, stops when its `data-state` is anything but `running`, and shows a fixed length when it has a `duration` attribute. It carries `aria-live="off"`, so no tick is announced. |
+| `behaviors/transcript.js` | `<gw-transcript>` | For a transcript that grows: it keeps the newest row in view while the reader is within 60px of the bottom, stops when they scroll up, counts the rows added since and shows the jump-to-latest control, and follows again when they press it or reach the bottom. It sets `hidden` and the count, and never moves focus. |
 
 ```html
 <script type="module" src="/vendor/groundwork/behaviors/groundwork.js"></script>
 <script type="module" src="/vendor/groundwork/behaviors/combobox.js"></script>
 <script type="module" src="/vendor/groundwork/behaviors/command-palette.js"></script>
+<script type="module" src="/vendor/groundwork/behaviors/elapsed.js"></script>
+<script type="module" src="/vendor/groundwork/behaviors/transcript.js"></script>
 ```
 
 Each is an external script from the app's own host, so a content security policy that allows no inline script lets it run. Each sets attributes only, never a class or an inline style. An app that renders with a framework loads none of them: its own components set the same ARIA attributes and handle the same keys, and the stylesheet draws the same result.
+
+### Agent activity, from a framework
+
+The components that show an agent working take their state from one attribute, `data-state`, which the app's own components set on the element named below as the run moves on. The stylesheet draws each state's icon and colour from that attribute. Nothing toggles a class, and every word on the screen is the app's own text. Start from the `agent-run` pattern in `components.json`, which shows them together.
+
+| Component | Element that carries `data-state` | Values | What else the app sets |
+|---|---|---|---|
+| `tool-call` | The root, `gw-tool-call` | `requested`, `awaiting-approval`, `running`, then one final value: `succeeded`, `failed`, `declined`, `timed-out` or `cancelled` | `open` on its details element while it awaits approval and when it has failed. The actions part, with Allow and Decline, only while it awaits approval. A retry is a new row. |
+| `message`, the agent's text | The row, `gw-message` | `streaming`, `stopped`, `interrupted`, `reconnecting`, `done` | `aria-busy="true"` and the caret element while streaming. A `gw-message__state` line for stopped, interrupted and reconnecting, and a Retry button for interrupted. |
+| `step-group` | Each callout in the summary, `gw-step-group__callout` | `running`, `awaiting-approval`, `failed` | `open` on the group: set while a step in it is running or awaits approval and when one has failed, removed when all have ended well, unless the reader has toggled the group. The summary sentence, counted from the steps. |
+| `now-doing` | The root, `gw-now-doing` | `running`, `waiting` | `hidden` when nothing runs and nothing waits. The link to the request, in the waiting form. |
+| `run-timeline` | Each station, `gw-run-timeline__station` | `done`, `running`, `waiting`, `failed`, `not-started` | `aria-current="step"` on the station the run is at. |
+| `jump-to-latest` | None | | `hidden` on the block while the reader is at the bottom, and the count as text. |
+| `activity-announcer` | None | | One sentence of text, when the run starts, needs approval, finishes, stops or fails. |
+
+What the two modules do, a framework app does in its own components:
+
+- **Following the transcript.** Keep the newest row in view only while the reader is within about 60px of the bottom. Stop when they scroll up, count the rows added since, and show `jump-to-latest` with that count. Follow again when they press it or reach the bottom. Never move focus.
+- **Times that count up.** Render the time as text in a span with `aria-live="off"`, update it once a second, and stop at the total when the step ends.
+- **Opening groups.** No module does this. Set `open` by the rule in the table, and listen for the `toggle` event so a group the reader opened or closed is left alone.
+- **Announcing.** The transcript is an element with `role="log"`, `aria-live="off"` and a name. The only thing that speaks is the one `activity-announcer` region, at the five moments in the table. Never put `aria-live` on text that is arriving.
 
 ### Tailwind 3
 

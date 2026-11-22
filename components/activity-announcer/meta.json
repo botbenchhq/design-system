@@ -1,0 +1,33 @@
+{
+  "name": "activity-announcer",
+  "title": "Activity announcer",
+  "purpose": "The one status region of a view that tells a screen reader what an agent's run is doing: always in the page, never drawn, and written to only when the run starts, needs approval, finishes, stops or fails.",
+  "status": "draft",
+  "whenToUse": [
+    "Once in every view that shows an agent working: beside the transcript, in the page from the first render.",
+    "Together with a transcript that is a named log with aria-live off, so the transcript itself never speaks."
+  ],
+  "whenNotToUse": [
+    "For a message the reader also needs to see. Show it in the view, as an alert, a toast or a row, and write the same words here only if that element is not itself announced.",
+    "For how many approvals wait across the app. The pending tray has its own region.",
+    "More than once in a view. Two regions talk over each other."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "started", "needs-approval", "finished", "stopped", "failed"],
+  "accessibility": [
+    "Use one p with the class gw-activity-announcer and role=\"status\". It is in the page from the first render and stays there, empty, for as long as the view does. A region added at the moment it is needed is often not announced, and one hidden with the hidden attribute or display none never is.",
+    "The transcript is a div with role=\"log\", aria-live=\"off\" and an aria-label that names it, around the ol of rows. The role says what the region is, the name lets the reader find it, and aria-live=\"off\" stops it speaking each row and each word as it lands.",
+    "Write one short sentence into the region at each of five moments, and at no other. Started: Claude Code started working. Needs approval: Approval needed: run npm install. Finished: Claude Code finished: ran 4 commands, edited 2 files. Stopped: Stopped. The work so far is kept. Failed: A step failed: npm test exited with code 1. The words are the app's own.",
+    "The finished sentence carries the counts for the whole turn, in the same plain words as a step group's summary. That one sentence stands in for every step that was not announced.",
+    "Never announce a time that counts up, a word or a token of text as it arrives, a row that is added, or each step of a run of steps that needed no approval. Never put aria-live on the growing text of a message.",
+    "To say the same sentence twice in a row, empty the region and write the sentence again a moment later. Leave a second or two between sentences, and when several things happen at once say the one the reader must act on.",
+    "A request for approval is announced and nothing more: focus stays where the reader is, which is usually the composer. They reach the request from the now-doing line's link or by reading the log.",
+    "For a failure that stops the whole run and needs the reader now, a visible error row or alert with role=\"alert\" may speak for itself. Then leave this region alone for that moment.",
+    "The stylesheet only keeps the region out of sight. The component needs no script of its own: the app sets the text."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-activity-announcer"
+  ]
+}

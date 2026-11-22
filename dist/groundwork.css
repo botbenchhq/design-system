@@ -564,6 +564,24 @@
 }
 
 /*
+ * Activity announcer: the one region of a view that tells assistive technology what an agent's run is doing.
+ * It is always in the page and never drawn. The app writes one short sentence into it at each milestone.
+ */
+
+@layer gw.components {
+  /* One pixel square and clipped: an element with no size, or one that is not rendered, is not announced. */
+  .gw-activity-announcer {
+    position: absolute;
+    width: var(--gw-border-width);
+    height: var(--gw-border-width);
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/*
  * Activity feed: what agents did, oldest first, grouped by day under a heading.
  * Each entry gives the time, who acted and what they did, with an optional source or short excerpt.
  */
@@ -4541,6 +4559,95 @@
 }
 
 /*
+ * Jump to latest: a small button that shows while the reader has scrolled up in a transcript and new rows
+ * have arrived below. It says how many, in words, and takes the reader to the newest one.
+ * The block is a line of no height directly above the composer or the now-doing line. The button hangs
+ * above that line, over the last rows, so showing and hiding it moves nothing. The app sets hidden on the block.
+ */
+
+@layer gw.components {
+  .gw-jump-to-latest {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 0;
+  }
+
+  /* Drawn 32px tall, as a small button is, and it floats over rows, so it has a firm edge and no shadow. */
+  .gw-jump-to-latest__button {
+    position: absolute;
+    bottom: var(--gw-space-xs);
+    z-index: var(--gw-z-sticky);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    max-width: 100%;
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-space-2xl);
+    padding-inline: var(--gw-space-md) var(--gw-space-lg);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-full);
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-on-surface);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-ui);
+    white-space: nowrap;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /* An arrow that points where the press goes. */
+  .gw-jump-to-latest__button::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/arrow-down.svg") center / contain no-repeat;
+  }
+
+  /* The pointer target: an invisible box a touch target tall, centred on the button. */
+  .gw-jump-to-latest__button::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: var(--gw-size-touch);
+    translate: 0 -50%;
+  }
+
+  /* With nothing to count, the span takes no room and the label stands alone. */
+  .gw-jump-to-latest__count:empty {
+    display: none;
+  }
+
+  /* How many rows arrived, in words. A dot parts it from the label, and is drawn only when there is a count. */
+  .gw-jump-to-latest__count:not(:empty)::after {
+    content: "·" / "";
+    margin-inline-start: var(--gw-space-sm);
+    color: var(--gw-color-muted);
+  }
+
+  @media (hover: hover) {
+    .gw-jump-to-latest__button:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-jump-to-latest__button:hover > .gw-jump-to-latest__count::after {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-jump-to-latest__button:active {
+    background-color: var(--gw-color-border);
+  }
+
+  .gw-jump-to-latest__button:active > .gw-jump-to-latest__count::after {
+    color: var(--gw-color-on-surface);
+  }
+}
+
+/*
  * Kbd: a keyboard key named in text, on a kbd element.
  * A combination is an outer kbd holding one key per kbd, joined by a plus sign written as text.
  */
@@ -5093,6 +5200,8 @@
  * Message: one row of an agent transcript. It is a list item in the transcript's ol or ul.
  * The plain class is the agent's text. A modifier sets any other kind of row, and the
  * label inside the row says the kind in words.
+ * While the agent's text arrives the row carries data-state, set by the app: streaming, stopped,
+ * interrupted, reconnecting or done.
  */
 
 @layer gw.components {
@@ -5297,6 +5406,84 @@
     border-top-width: var(--gw-border-width);
     border-radius: 0;
   }
+
+  /*
+   * Where the text is arriving. In the markup only while the row streams, at the end of the body, and hidden from
+   * assistive technology there. It is not drawn in any other state, so a row that has ended never shows it.
+   */
+  .gw-message__caret {
+    display: none;
+    width: calc(var(--gw-border-width) * 2);
+    height: var(--gw-text-ui);
+    margin-inline-start: calc(var(--gw-border-width) * 2);
+    background-color: currentColor;
+    vertical-align: text-bottom;
+  }
+
+  .gw-message[data-state="streaming"] .gw-message__caret {
+    display: inline-block;
+    animation: gw-message-caret calc(var(--gw-duration-slow) * 4) step-end infinite;
+  }
+
+  /* How a row that did not finish stands, in words, on a line under the text that was kept. */
+  .gw-message__state {
+    display: flex;
+    flex: 1 1 100%;
+    gap: var(--gw-space-xs);
+    min-width: 0;
+    color: var(--gw-color-muted);
+    overflow-wrap: anywhere;
+  }
+
+  /* Each of the three has an icon of its own, drawn here, beside the words. */
+  .gw-message[data-state="stopped"] > .gw-message__state::before,
+  .gw-message[data-state="interrupted"] > .gw-message__state::before,
+  .gw-message[data-state="reconnecting"] > .gw-message__state::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-slash.svg") center / contain no-repeat;
+  }
+
+  .gw-message[data-state="interrupted"] > .gw-message__state {
+    color: var(--gw-color-danger);
+  }
+
+  .gw-message[data-state="interrupted"] > .gw-message__state::before {
+    mask-image: url("icons/triangle-alert.svg");
+  }
+
+  .gw-message[data-state="reconnecting"] > .gw-message__state {
+    color: var(--gw-color-info);
+  }
+
+  /* Still working, so the same stepped loader as every other running mark. */
+  .gw-message[data-state="reconnecting"] > .gw-message__state::before {
+    mask-image: url("icons/loader.svg");
+    animation: gw-message-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  @keyframes gw-message-caret {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes gw-message-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  /* The caret and the mark stay, still, and the words carry the meaning. */
+  @media (prefers-reduced-motion: reduce) {
+    .gw-message[data-state="streaming"] .gw-message__caret,
+    .gw-message[data-state="reconnecting"] > .gw-message__state::before {
+      animation: none;
+    }
+  }
 }
 
 /*
@@ -5382,6 +5569,111 @@
     .gw-notification-list__action {
       flex-basis: auto;
       padding: 0;
+    }
+  }
+}
+
+/*
+ * Now doing: one line under a transcript that says what the agent is doing at this moment, with Stop.
+ * The root carries data-state, set by the app: running, or waiting when the run waits on the reader.
+ * The stylesheet draws the mark from the state. When nothing is running the app sets hidden.
+ */
+
+@layer gw.components {
+  .gw-now-doing {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-md);
+    min-width: 0;
+    min-height: var(--gw-size-touch);
+    padding-inline: var(--gw-space-md);
+  }
+
+  /* Fixed to the bottom of the scrolling area, over the rows, when no bar around it does that already. */
+  .gw-now-doing--sticky {
+    position: sticky;
+    bottom: 0;
+    z-index: var(--gw-z-sticky);
+    padding-inline: var(--gw-space-lg);
+    padding-bottom: env(safe-area-inset-bottom);
+    border-top-width: var(--gw-border-width);
+    background-color: var(--gw-color-surface);
+  }
+
+  /*
+   * What is happening, as a sentence: the verb, the command or target in mono, then the time.
+   * The mark is drawn before the first word, from the state, so it wraps with the text and never stands alone.
+   */
+  .gw-now-doing__text {
+    flex: 1 1 calc(var(--gw-size-touch) * 5);
+    min-width: 0;
+    padding-block: var(--gw-space-sm);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-now-doing__text::before {
+    content: "";
+    display: inline-block;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    margin-inline-end: var(--gw-space-sm);
+    background-color: var(--gw-color-info);
+    vertical-align: text-bottom;
+    mask: url("icons/loader.svg") center / contain no-repeat;
+  }
+
+  /* The one mark that moves: the stepped loader of every running state. */
+  .gw-now-doing[data-state="running"] > .gw-now-doing__text::before {
+    animation: gw-now-doing-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  .gw-now-doing[data-state="waiting"] > .gw-now-doing__text::before {
+    background-color: var(--gw-color-warning);
+    mask-image: url("icons/circle-pause.svg");
+  }
+
+  .gw-now-doing__target {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* The time so far. It counts up, and is never announced. */
+  .gw-now-doing__elapsed {
+    color: var(--gw-color-muted);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-xs);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* To the thing the run waits on. A pointer target tall, and underlined, as a link is. */
+  .gw-now-doing__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--gw-size-touch);
+    border-radius: var(--gw-radius-sm);
+    font-weight: var(--gw-weight-medium);
+    text-decoration-line: underline;
+    text-underline-offset: var(--gw-space-xs);
+    white-space: nowrap;
+  }
+
+  @media (hover: hover) {
+    .gw-now-doing__link:hover {
+      text-decoration-thickness: calc(var(--gw-border-width) * 2);
+    }
+  }
+
+  @keyframes gw-now-doing-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  /* The mark stays, still, and the words carry the meaning. */
+  @media (prefers-reduced-motion: reduce) {
+    .gw-now-doing[data-state="running"] > .gw-now-doing__text::before {
+      animation: none;
     }
   }
 }
@@ -6243,6 +6535,166 @@
   a:active > .gw-run-status > .gw-run-status__facts,
   a[aria-current]:not([aria-current="false"]) > .gw-run-status > .gw-run-status__facts {
     color: var(--gw-color-on-surface);
+  }
+}
+
+/*
+ * Run timeline: the stations a run passes through, in order, on an ol. Each station says its state in words.
+ * Each li carries data-state, set by the app: done, running, waiting, failed or not-started, and the stylesheet
+ * draws a mark of its own shape for each. The station the run is at carries aria-current="step".
+ * The stations run down the page, and across it at 768px and up.
+ */
+
+@layer gw.components {
+  .gw-run-timeline {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  /* A station that has not started, which is what a station is until the markup says otherwise. */
+  .gw-run-timeline__station {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: var(--gw-space-sm);
+    min-width: 0;
+    padding-block: var(--gw-space-xs);
+    color: var(--gw-color-muted);
+  }
+
+  /* The mark, centred on the first line. */
+  .gw-run-timeline__station::before {
+    content: "";
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-dashed.svg") center / contain no-repeat;
+  }
+
+  /* The line to the next station, from under this mark to above the next one. */
+  .gw-run-timeline__station:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    inset-block: calc(var(--gw-space-xs) + (var(--gw-text-ui) * var(--gw-leading-ui) + var(--gw-space-lg)) / 2) calc((var(--gw-space-lg) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2 - var(--gw-space-xs));
+    inset-inline-start: calc((var(--gw-space-lg) - var(--gw-border-width)) / 2);
+    width: var(--gw-border-width);
+    background-color: var(--gw-color-border-strong);
+  }
+
+  .gw-run-timeline__name {
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  /* The state in words, with the time it took or has taken so far. */
+  .gw-run-timeline__status {
+    font-size: var(--gw-text-xs);
+    line-height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+    overflow-wrap: anywhere;
+  }
+
+  /* The time, kept on one line: where the room runs out the status wraps before it, never inside it. */
+  .gw-run-timeline__time {
+    white-space: nowrap;
+  }
+
+  .gw-run-timeline__station[data-state="done"] > .gw-run-timeline__name,
+  .gw-run-timeline__station[data-state="running"] > .gw-run-timeline__name,
+  .gw-run-timeline__station[data-state="waiting"] > .gw-run-timeline__name,
+  .gw-run-timeline__station[data-state="failed"] > .gw-run-timeline__name {
+    color: var(--gw-color-on-surface);
+  }
+
+  .gw-run-timeline__station[data-state="done"]::before {
+    background-color: var(--gw-color-on-surface);
+    mask-image: url("icons/circle-check.svg");
+  }
+
+  .gw-run-timeline__station[data-state="running"]::before,
+  .gw-run-timeline__station[data-state="running"] > .gw-run-timeline__status {
+    color: var(--gw-color-info);
+  }
+
+  /* The one mark that moves: the stepped loader of every running state. */
+  .gw-run-timeline__station[data-state="running"]::before {
+    mask-image: url("icons/loader.svg");
+    animation: gw-run-timeline-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  .gw-run-timeline__station[data-state="waiting"]::before,
+  .gw-run-timeline__station[data-state="waiting"] > .gw-run-timeline__status {
+    color: var(--gw-color-warning);
+  }
+
+  .gw-run-timeline__station[data-state="waiting"]::before {
+    mask-image: url("icons/circle-pause.svg");
+  }
+
+  .gw-run-timeline__station[data-state="failed"]::before,
+  .gw-run-timeline__station[data-state="failed"] > .gw-run-timeline__status {
+    color: var(--gw-color-danger);
+  }
+
+  .gw-run-timeline__station[data-state="failed"]::before {
+    mask-image: url("icons/circle-alert.svg");
+  }
+
+  /* The station the run is at has a heavier name, whatever its state. */
+  .gw-run-timeline__station[aria-current]:not([aria-current="false"]) > .gw-run-timeline__name {
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  @keyframes gw-run-timeline-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  /* The mark stays, still, and the word Running carries the meaning. */
+  @media (prefers-reduced-motion: reduce) {
+    .gw-run-timeline__station[data-state="running"]::before {
+      animation: none;
+    }
+  }
+
+  /* Across the page: each station is its mark, its name and the line to the next one, with its state under the name. */
+  @media (min-width: 768px) {
+    .gw-run-timeline {
+      flex-direction: row;
+      gap: var(--gw-space-sm);
+    }
+
+    /* Each station takes the room its words need, and the lines between them share what is left. */
+    .gw-run-timeline__station {
+      flex: 1 1 auto;
+      grid-template-columns: auto auto minmax(var(--gw-space-md), 1fr);
+      padding-block: 0;
+    }
+
+    .gw-run-timeline__station:last-child {
+      flex: 0 1 auto;
+      grid-template-columns: auto auto;
+    }
+
+    .gw-run-timeline__station:not(:last-child)::after {
+      position: static;
+      grid-row: 1;
+      grid-column: 3;
+      width: auto;
+      height: var(--gw-border-width);
+      margin-block-start: calc((var(--gw-text-ui) * var(--gw-leading-ui) - var(--gw-border-width)) / 2);
+    }
+
+    .gw-run-timeline__status {
+      grid-row: 2;
+      grid-column: 2 / -1;
+      line-height: var(--gw-leading-xs);
+      text-align: start;
+    }
   }
 }
 
@@ -7666,6 +8118,144 @@
 }
 
 /*
+ * Step group: a run of consecutive steps in a long turn, folded under one line, on a native details element.
+ * The summary says what the steps were in plain words and how long they took. A step that failed, one that
+ * is running and one that waits for approval are each called out in words in the summary itself.
+ * The steps are tool-call rows. The app sets the open attribute, and nothing here opens or closes the group.
+ */
+
+@layer gw.components {
+  .gw-step-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  /* The chevron, then the words, then the time. The words wrap, and the chevron and the time stay on the first line. */
+  .gw-step-group__summary {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: var(--gw-space-sm);
+    min-height: var(--gw-size-touch);
+    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
+    padding-inline: var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .gw-step-group__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .gw-step-group__summary::before {
+    content: "";
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+  }
+
+  .gw-step-group[open] > .gw-step-group__summary::before {
+    mask-image: url("icons/chevron-down.svg");
+  }
+
+  /* The counts by kind, as a sentence. Heavier than a step, so a folded run still reads as the heading of its steps. */
+  .gw-step-group__title {
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  /*
+   * What the reader must not miss, in words after the counts: a step that failed, one that is running,
+   * one that waits for approval. Each carries data-state, and the stylesheet draws its icon from that.
+   */
+  .gw-step-group__callout {
+    margin-inline-start: var(--gw-space-xs);
+    white-space: nowrap;
+  }
+
+  .gw-step-group__callout::before {
+    content: "";
+    display: inline-block;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    margin-inline-end: var(--gw-space-xs);
+    background-color: currentColor;
+    vertical-align: text-bottom;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  .gw-step-group__callout[data-state="failed"] {
+    color: var(--gw-color-danger);
+  }
+
+  .gw-step-group__callout[data-state="awaiting-approval"] {
+    color: var(--gw-color-warning);
+  }
+
+  .gw-step-group__callout[data-state="awaiting-approval"]::before {
+    mask-image: url("icons/circle-pause.svg");
+  }
+
+  .gw-step-group__callout[data-state="running"] {
+    color: var(--gw-color-info);
+  }
+
+  /* The one mark that moves: the stepped loader of every running state. */
+  .gw-step-group__callout[data-state="running"]::before {
+    mask-image: url("icons/loader.svg");
+    animation: gw-step-group-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  /* How long the steps took together, or have taken so far. */
+  .gw-step-group__duration {
+    color: var(--gw-color-muted);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-xs);
+    line-height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* The steps, on a rule that drops from the chevron, so they read as belonging to the line above. */
+  .gw-step-group__steps {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    margin-inline-start: calc(var(--gw-space-md) + var(--gw-space-sm) - var(--gw-border-width));
+    margin-bottom: var(--gw-space-sm);
+    padding-inline-start: var(--gw-space-xs);
+    border-inline-start-width: var(--gw-border-width);
+  }
+
+  /* The muted time turns to the main text colour on the shaded summary, so it keeps its contrast. */
+  @media (hover: hover) {
+    .gw-step-group__summary:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-step-group__summary:hover > .gw-step-group__duration {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  @keyframes gw-step-group-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  /* The mark stays, still, and the word Running carries the meaning. */
+  @media (prefers-reduced-motion: reduce) {
+    .gw-step-group__callout[data-state="running"]::before {
+      animation: none;
+    }
+  }
+}
+
+/*
  * Stepper: where the reader is in a few named steps, on an ol.
  * The step that carries aria-current is the current one. The steps before it are completed and the steps
  * after it are upcoming, read from their position, so the markup needs no class for either.
@@ -8653,9 +9243,16 @@
 }
 
 /*
- * Tool call: a summary of one tool call on its own, outside a transcript.
- * It names the tool and its target, says how the call ended in words beside an icon,
- * and keeps the arguments and the output in native details elements.
+ * Tool call: one call a tool was asked to make, through its whole life.
+ * The root carries data-state, set by the app: requested, awaiting-approval, running, succeeded, failed,
+ * declined, timed-out or cancelled. One line is always in view: an icon the stylesheet draws from the state,
+ * the status in words, a plain summary with the command or target in mono, and the time.
+ * That line is the summary of a native details element, which holds the arguments and then the output.
+ * A request that waits shows Allow and Decline under the line, outside the details.
+ *
+ * The first rules are the earlier form, which has no data-state: a card with a heading, a status line and a
+ * details element each for the arguments and the output, with the outcome as a modifier class.
+ * Markup written that way is drawn as it always was.
  */
 
 @layer gw.components {
@@ -8835,6 +9432,214 @@
     overflow-wrap: anywhere;
   }
 
+  /*
+   * The lifecycle form: every rule below needs data-state on the root.
+   * A card when it stands alone.
+   */
+  .gw-tool-call[data-state] {
+    gap: 0;
+    padding-block: var(--gw-space-sm);
+  }
+
+  /* As the content of a transcript row or of a step in a group: no frame, and the row's own width. */
+  .gw-tool-call--row,
+  .gw-tool-call--row[data-state] {
+    flex: 1 1 100%;
+    padding: 0;
+    border-width: 0;
+    border-radius: 0;
+    background-color: transparent;
+  }
+
+  /*
+   * The line: the status and the summary run on as text, then the time, then the chevron.
+   * A long command wraps under the status, and the time and the chevron stay on the first line.
+   */
+  .gw-tool-call[data-state] .gw-tool-call__summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: start;
+    column-gap: var(--gw-space-sm);
+    position: relative;
+    min-height: 0;
+    padding-block: var(--gw-space-sm);
+    color: var(--gw-color-on-surface);
+  }
+
+  /*
+   * The line is drawn 36px tall, so a long run of calls stays dense. This invisible box, centred on it,
+   * keeps its pointer target at the touch size, as the small button does.
+   */
+  .gw-tool-call[data-state] .gw-tool-call__summary::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: max(100%, var(--gw-size-touch));
+    translate: 0 -50%;
+  }
+
+  .gw-tool-call[data-state] .gw-tool-call__summary::before {
+    grid-row: 1;
+    grid-column: 3;
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    color: var(--gw-color-muted);
+  }
+
+  .gw-tool-call[data-state] .gw-tool-call__title {
+    display: block;
+    grid-row: 1;
+    grid-column: 1;
+    overflow-wrap: anywhere;
+  }
+
+  /* The status is the first words of the line, never apart from what it describes. */
+  .gw-tool-call[data-state] .gw-tool-call__status {
+    display: inline;
+    margin-inline-end: var(--gw-space-xs);
+    color: var(--gw-color-muted);
+    white-space: nowrap;
+  }
+
+  /* Muted text is too faint on the shaded summary, so the quiet parts of the line take the main text colour there. */
+  @media (hover: hover) {
+    .gw-tool-call[data-state] :where(.gw-tool-call__summary:hover) .gw-tool-call__status,
+    .gw-tool-call[data-state] .gw-tool-call__summary:hover > .gw-tool-call__duration,
+    .gw-tool-call[data-state] .gw-tool-call__summary:hover::before {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  /* Drawn from the state, so no markup can leave the icon out. Each state has a shape of its own. */
+  .gw-tool-call[data-state] .gw-tool-call__status::before {
+    content: "";
+    display: inline-block;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    margin-inline-end: var(--gw-space-xs);
+    background-color: currentColor;
+    vertical-align: text-bottom;
+    mask: url("icons/circle-dashed.svg") center / contain no-repeat;
+  }
+
+  .gw-tool-call[data-state="awaiting-approval"] .gw-tool-call__status {
+    color: var(--gw-color-warning);
+  }
+
+  .gw-tool-call[data-state="awaiting-approval"] .gw-tool-call__status::before {
+    mask-image: url("icons/circle-pause.svg");
+  }
+
+  .gw-tool-call[data-state="running"] .gw-tool-call__status {
+    color: var(--gw-color-info);
+  }
+
+  /* The one state that moves: the stepped loader a busy button shows. */
+  .gw-tool-call[data-state="running"] .gw-tool-call__status::before {
+    mask-image: url("icons/loader.svg");
+    animation: gw-tool-call-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  /* A call that went as expected is the quiet one, so a failure stands out in a long list. */
+  .gw-tool-call[data-state="succeeded"] .gw-tool-call__status::before {
+    mask-image: url("icons/circle-check.svg");
+  }
+
+  .gw-tool-call[data-state="failed"] .gw-tool-call__status,
+  .gw-tool-call[data-state="timed-out"] .gw-tool-call__status {
+    color: var(--gw-color-danger);
+  }
+
+  .gw-tool-call[data-state="failed"] .gw-tool-call__status::before {
+    mask-image: url("icons/circle-alert.svg");
+  }
+
+  .gw-tool-call[data-state="timed-out"] .gw-tool-call__status::before {
+    mask-image: url("icons/clock.svg");
+  }
+
+  .gw-tool-call[data-state="declined"] .gw-tool-call__status::before {
+    mask-image: url("icons/ban.svg");
+  }
+
+  .gw-tool-call[data-state="cancelled"] .gw-tool-call__status::before {
+    mask-image: url("icons/circle-slash.svg");
+  }
+
+  .gw-tool-call[data-state] .gw-tool-call__target {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* Elapsed while it runs, the total once it has ended. On the first line, level with the status. */
+  .gw-tool-call[data-state] .gw-tool-call__duration {
+    grid-row: 1;
+    grid-column: 2;
+    line-height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Why it failed, was declined or did not run: a second line of the summary, so closing the details never hides it. */
+  .gw-tool-call[data-state] .gw-tool-call__summary > .gw-tool-call__note {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    padding-top: var(--gw-space-xs);
+    color: var(--gw-color-on-surface);
+  }
+
+  /* What the details element holds: the arguments, then the output, each under a label. */
+  .gw-tool-call__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+    min-width: 0;
+    padding-bottom: var(--gw-space-md);
+  }
+
+  .gw-tool-call__body > .gw-tool-call__code {
+    margin-bottom: var(--gw-space-xs);
+  }
+
+  .gw-tool-call__label {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+  }
+
+  /*
+   * The output: its last lines, in a block that scrolls inside itself once it is taller than this.
+   * The block is laid out from its end, so it opens on the last line and stays there as lines are added.
+   * It is at least a pointer target tall, because it takes focus so the keyboard can scroll it.
+   */
+  .gw-tool-call__output {
+    display: flex;
+    flex-direction: column-reverse;
+    min-width: 0;
+    min-height: var(--gw-size-touch);
+    max-height: calc(var(--gw-size-column) / 2);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    overflow-y: auto;
+  }
+
+  .gw-tool-call__output > .gw-tool-call__code {
+    flex: none;
+    margin-bottom: 0;
+  }
+
+  /* While the call runs the block keeps one height, so a new line moves nothing around it. */
+  .gw-tool-call[data-state="running"] .gw-tool-call__output {
+    height: calc(var(--gw-size-column) / 2);
+  }
+
+  /* Allow and Decline for a request that waits. Outside the details, so they show whether it is open or closed. */
+  .gw-tool-call__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gw-space-md);
+    padding-block: var(--gw-space-md);
+  }
+
   @keyframes gw-tool-call-turn {
     to {
       rotate: 1turn;
@@ -8843,7 +9648,8 @@
 
   /* The mark stays, still, and the word Running carries the meaning. */
   @media (prefers-reduced-motion: reduce) {
-    .gw-tool-call[aria-busy="true"] .gw-tool-call__status::before {
+    .gw-tool-call[aria-busy="true"] .gw-tool-call__status::before,
+    .gw-tool-call[data-state="running"] .gw-tool-call__status::before {
       animation: none;
     }
   }
@@ -9315,6 +10121,77 @@
     flex: none;
     width: calc(var(--gw-space-2xl) * 4);
     max-width: 100%;
+  }
+}
+
+/*
+ * Agent run: the screen of one run, inside the main column of the app shell.
+ * The run's title and its stations at the top, the transcript as a log under them, and a dock fixed to the
+ * bottom of the screen that holds the jump-to-latest control, the now-doing line and the composer.
+ * The page scrolls, and the dock stays in view. This file holds only that arrangement.
+ */
+
+@layer gw.components {
+  /* The child of the main column. It takes the column's height, so the dock sits at the bottom under a short transcript too. */
+  .gw-agent-run {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+    min-width: 0;
+    /* The dock ends where the screen does, past the room the main column leaves under its content. */
+    margin-bottom: calc(var(--gw-space-xl) * -1);
+  }
+
+  /* The page header, then the run timeline. A rule under them parts what the run is from what it did. */
+  .gw-agent-run__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+    padding-bottom: var(--gw-space-lg);
+    border-bottom-width: var(--gw-border-width);
+  }
+
+  /* The log and the dock. On the gw-transcript element, or on a div in an app that follows the newest row itself. */
+  .gw-agent-run__transcript {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+    min-width: 0;
+  }
+
+  /*
+   * On the element with role="log". It grows, so the dock is pushed to the bottom of the column.
+   * The room under the last row is where the jump control hangs, so it never covers the newest text.
+   */
+  .gw-agent-run__log {
+    flex: 1;
+    min-width: 0;
+    padding-bottom: var(--gw-space-2xl);
+  }
+
+  /* Fixed to the bottom of the screen: the jump control hangs above it, then the now-doing line, then the composer. */
+  .gw-agent-run__dock {
+    position: sticky;
+    bottom: 0;
+    z-index: var(--gw-z-sticky);
+    display: flex;
+    flex-direction: column;
+    /* Room between the now-doing line and the composer's label, so each reads as its own line. */
+    gap: var(--gw-space-sm);
+    padding-bottom: calc(var(--gw-space-md) + env(safe-area-inset-bottom));
+    border-top-width: var(--gw-border-width);
+    background-color: var(--gw-color-surface);
+  }
+
+  /* What a finished run leaves: its one next action, and any lesser ones beside it. */
+  .gw-agent-run__outcome {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gw-space-md);
+    padding-block: var(--gw-space-lg) var(--gw-space-2xl);
+    border-top-width: var(--gw-border-width);
   }
 }
 

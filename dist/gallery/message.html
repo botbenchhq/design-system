@@ -9,7 +9,9 @@
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/elapsed.js"></script>
 <script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
@@ -52,93 +54,197 @@
   </ol>
 </div>
 </figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Agent text arriving</h3>
+<p data-gallery="state">State: <code>streaming</code></p>
+<p>The caret marks where the text is growing and is hidden from assistive technology. The row is not a live region, so a screen reader is not read every word as it lands: the view's one status region says that the agent started and, later, that it finished.</p>
+</figcaption>
+<div data-example="streaming" data-title="Agent text arriving" data-state="streaming" data-reason="The caret marks where the text is growing and is hidden from assistive technology. The row is not a live region, so a screen reader is not read every word as it lands: the view's one status region says that the agent started and, later, that it finished.">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message" data-state="streaming" aria-busy="true">
+      <span class="gw-message__label">Claude Code</span>
+      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid<span class="gw-message__caret" aria-hidden="true"></span></p>
+    </li>
+  </ol>
+</div>
+</figure>
 <figure data-gallery="specimen">
 <figcaption>
-<h3>Tool call</h3>
+<h3>Stopped by the reader: the text so far is kept</h3>
+<p data-gallery="state">State: <code>stopped</code></p>
 </figcaption>
-<div data-example="tool-call" data-title="Tool call">
+<div data-example="stopped" data-title="Stopped by the reader: the text so far is kept" data-state="stopped">
   <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--tool-call">
-      <span class="gw-message__label">Tool call</span>
-      <span class="gw-message__tool">Bash</span>
-      <code class="gw-message__command">npm run test -- --run src/auth/session.test.ts</code>
+    <li class="gw-message" data-state="stopped">
+      <span class="gw-message__label">Claude Code</span>
+      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid</p>
+      <p class="gw-message__state">Stopped. You stopped this reply before it was finished.</p>
     </li>
-    <li class="gw-message gw-message--tool-call">
-      <span class="gw-message__label">Tool call</span>
-      <span class="gw-message__tool">Read</span>
-      <code class="gw-message__command">src/auth/session.ts</code>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Interrupted: the connection or the process was lost</h3>
+<p data-gallery="state">State: <code>interrupted</code></p>
+</figcaption>
+<div data-example="interrupted" data-title="Interrupted: the connection or the process was lost" data-state="interrupted">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message" data-state="interrupted">
+      <span class="gw-message__label">Claude Code</span>
+      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid</p>
+      <p class="gw-message__state">Interrupted. The connection to the runner was lost, so this reply is not finished.</p>
+      <button type="button" class="gw-button gw-button--small">Retry</button>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Reconnecting: the text so far stays where it is</h3>
+<p data-gallery="state">State: <code>reconnecting</code></p>
+</figcaption>
+<div data-example="reconnecting" data-title="Reconnecting: the text so far stays where it is" data-state="reconnecting">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message" data-state="reconnecting">
+      <span class="gw-message__label">Claude Code</span>
+      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid</p>
+      <p class="gw-message__state">Reconnecting to the runner. The reply will carry on from here.</p>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Done: no mark</h3>
+<p data-gallery="state">State: <code>done</code></p>
+</figcaption>
+<div data-example="done" data-title="Done: no mark" data-state="done">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message" data-state="done">
+      <span class="gw-message__label">Claude Code</span>
+      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid session is loaded and add a test for the reload case.</p>
     </li>
   </ol>
 </div>
 </figure>
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Tool call with a reason, and the full arguments behind a disclosure</h3>
-<p>The row reads as what the agent did and why: the tool, its target in mono, then one plain sentence. The raw arguments are one press away for the reader who wants them, and are never the row itself.</p>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Tool calls</h3>
+<p>A tool call in a transcript is always this: a row of the tool-call kind whose content is the tool call component with its row modifier. The line says what was done in plain words, and the arguments and the output are behind the row's one disclosure.</p>
 </figcaption>
-<div data-example="tool-call-described" data-title="Tool call with a reason, and the full arguments behind a disclosure" data-reason="The row reads as what the agent did and why: the tool, its target in mono, then one plain sentence. The raw arguments are one press away for the reader who wants them, and are never the row itself.">
-  <ol class="gw-stack gw-gap-sm">
+<div data-example="tool-call" data-title="Tool calls" data-reason="A tool call in a transcript is always this: a row of the tool-call kind whose content is the tool call component with its row modifier. The line says what was done in plain words, and the arguments and the output are behind the row's one disclosure.">
+  <ol class="gw-stack gw-gap-xs">
     <li class="gw-message gw-message--tool-call">
-      <span class="gw-message__label">Tool call</span>
-      <span class="gw-message__tool">Bash</span>
-      <code class="gw-message__command">npm run test -- --run src/auth/session.test.ts</code>
-      <p class="gw-message__body">Run the session tests to confirm the reload case passes.</p>
-      <details class="gw-message__details">
-        <summary class="gw-message__summary">Show the full arguments</summary>
-        <pre class="gw-message__code">{
-  "command": "npm run test -- --run src/auth/session.test.ts",
+      <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+        <details class="gw-tool-call__details">
+          <summary class="gw-tool-call__summary">
+            <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth/session.test.ts</code></span>
+            <span class="gw-tool-call__duration">2.4 s</span>
+          </summary>
+          <div class="gw-tool-call__body">
+            <p class="gw-tool-call__label">Arguments</p>
+            <pre class="gw-tool-call__code">{
+  "command": "npm test -- --run src/auth/session.test.ts",
   "description": "Run the session tests to confirm the reload case passes.",
   "timeout": 120000
 }</pre>
-      </details>
+            <p class="gw-tool-call__label">Output, 6 lines</p>
+            <pre class="gw-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
+
+ ✓ src/auth/session.test.ts (14 tests) 212ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)</pre>
+          </div>
+        </details>
+      </div>
+    </li>
+    <li class="gw-message gw-message--tool-call">
+      <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+        <details class="gw-tool-call__details">
+          <summary class="gw-tool-call__summary">
+            <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Read <code class="gw-tool-call__target">src/auth/session.ts</code></span>
+            <span class="gw-tool-call__duration">12 ms</span>
+          </summary>
+          <div class="gw-tool-call__body">
+            <p class="gw-tool-call__label">Arguments</p>
+            <pre class="gw-tool-call__code">{ "file_path": "src/auth/session.ts" }</pre>
+            <p class="gw-tool-call__label">Output, first 2 of 184 lines</p>
+            <pre class="gw-tool-call__code">import { readCookie } from "./cookie.ts";
+import { startRefreshTimer } from "./refresh.ts";</pre>
+          </div>
+        </details>
+      </div>
     </li>
   </ol>
 </div>
 </figure>
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Tool call with collapsed arguments</h3>
-<p>The summary names the tool and the file in text, so the row can be read without opening it. The arguments stay one press away.</p>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Tool call with the agent's reason under the line</h3>
+<p>The row reads as what the agent did and why: the status, a plain summary with the command in mono, then one plain sentence. The raw arguments are one press away for the reader who wants them, and are never the row itself.</p>
 </figcaption>
-<div data-example="tool-call-collapsed" data-title="Tool call with collapsed arguments" data-reason="The summary names the tool and the file in text, so the row can be read without opening it. The arguments stay one press away.">
-  <ol class="gw-stack gw-gap-sm">
+<div data-example="tool-call-described" data-title="Tool call with the agent's reason under the line" data-reason="The row reads as what the agent did and why: the status, a plain summary with the command in mono, then one plain sentence. The raw arguments are one press away for the reader who wants them, and are never the row itself.">
+  <ol class="gw-stack gw-gap-xs">
     <li class="gw-message gw-message--tool-call">
-      <details class="gw-message__details">
-        <summary class="gw-message__summary">
-          <span class="gw-message__label">Tool call</span>
-          <span class="gw-message__tool">Edit</span>
-          <code class="gw-message__command">src/auth/session.ts</code>
-        </summary>
-        <pre class="gw-message__code">{
-  "file_path": "src/auth/session.ts",
-  "old_string": "if (justSignedIn) startRefreshTimer(session);",
-  "new_string": "if (session.expiresAt > Date.now()) startRefreshTimer(session);"
+      <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+        <details class="gw-tool-call__details">
+          <summary class="gw-tool-call__summary">
+            <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth/session.test.ts</code></span>
+            <span class="gw-tool-call__duration">2.4 s</span>
+            <span class="gw-tool-call__note">Run the session tests to confirm the reload case passes.</span>
+          </summary>
+          <div class="gw-tool-call__body">
+            <p class="gw-tool-call__label">Arguments</p>
+            <pre class="gw-tool-call__code">{
+  "command": "npm test -- --run src/auth/session.test.ts",
+  "description": "Run the session tests to confirm the reload case passes.",
+  "timeout": 120000
 }</pre>
-      </details>
+            <p class="gw-tool-call__label">Output, 6 lines</p>
+            <pre class="gw-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
+
+ ✓ src/auth/session.test.ts (14 tests) 212ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)</pre>
+          </div>
+        </details>
+      </div>
     </li>
   </ol>
 </div>
 </figure>
 <figure data-gallery="specimen">
 <figcaption>
-<h3>Tool call with its arguments open</h3>
+<h3>Tool call with its details open</h3>
 <p data-gallery="state">State: <code>open</code></p>
 </figcaption>
-<div data-example="tool-call-open" data-title="Tool call with its arguments open" data-state="open">
-  <ol class="gw-stack gw-gap-sm">
+<div data-example="tool-call-open" data-title="Tool call with its details open" data-state="open">
+  <ol class="gw-stack gw-gap-xs">
     <li class="gw-message gw-message--tool-call">
-      <details class="gw-message__details" open>
-        <summary class="gw-message__summary">
-          <span class="gw-message__label">Tool call</span>
-          <span class="gw-message__tool">Grep</span>
-          <code class="gw-message__command">startRefreshTimer</code>
-        </summary>
-        <pre class="gw-message__code">{
+      <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+        <details class="gw-tool-call__details" open>
+          <summary class="gw-tool-call__summary">
+            <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Searched for <code class="gw-tool-call__target">startRefreshTimer</code> in <code class="gw-tool-call__target">src</code></span>
+            <span class="gw-tool-call__duration">41 ms</span>
+          </summary>
+          <div class="gw-tool-call__body">
+            <p class="gw-tool-call__label">Arguments</p>
+            <pre class="gw-tool-call__code">{
   "pattern": "startRefreshTimer",
   "path": "src",
   "output_mode": "files_with_matches"
 }</pre>
-      </details>
+            <p class="gw-tool-call__label">Output, 3 lines</p>
+            <pre class="gw-tool-call__code">src/auth/session.ts
+src/auth/session.test.ts
+src/routes/sign-in.tsx</pre>
+          </div>
+        </details>
+      </div>
     </li>
   </ol>
 </div>
@@ -188,15 +294,20 @@ src/routes/sign-in.tsx</pre>
 <h3>A long line wraps</h3>
 </figcaption>
 <div data-example="long-line" data-title="A long line wraps">
-  <ol class="gw-stack gw-gap-sm">
+  <ol class="gw-stack gw-gap-xs">
     <li class="gw-message gw-message--tool-call">
-      <span class="gw-message__label">Tool call</span>
-      <span class="gw-message__tool">Bash</span>
-      <code class="gw-message__command">curl --silent --fail https://registry.npmjs.org/@acme%2Fsession-store/-/session-store-4.12.0-rc.3.tgz --output /srv/workspaces/acme-api/.cache/session-store-4.12.0-rc.3.tgz</code>
-    </li>
-    <li class="gw-message gw-message--tool-result">
-      <span class="gw-message__label">Tool result</span>
-      <pre class="gw-message__code">sha512-Zk3mJ9cQpXr7vT2bN8sLhW4yGdA6fUeR1oKiC5xMtPqVnBwS0aHjYlDg3EuFzOI7rTmXc2Nb9QsKvLpW8yAhJd== /srv/workspaces/acme-api/.cache/session-store-4.12.0-rc.3.tgz</pre>
+      <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+        <details class="gw-tool-call__details" open>
+          <summary class="gw-tool-call__summary">
+            <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">curl --silent --fail https://registry.npmjs.org/@acme%2Fsession-store/-/session-store-4.12.0-rc.3.tgz --output /srv/workspaces/acme-api/.cache/session-store-4.12.0-rc.3.tgz</code></span>
+            <span class="gw-tool-call__duration">1.2 s</span>
+          </summary>
+          <div class="gw-tool-call__body">
+            <p class="gw-tool-call__label">Output, 1 line</p>
+            <pre class="gw-tool-call__code">sha512-Zk3mJ9cQpXr7vT2bN8sLhW4yGdA6fUeR1oKiC5xMtPqVnBwS0aHjYlDg3EuFzOI7rTmXc2Nb9QsKvLpW8yAhJd== /srv/workspaces/acme-api/.cache/session-store-4.12.0-rc.3.tgz</pre>
+          </div>
+        </details>
+      </div>
     </li>
   </ol>
 </div>
@@ -336,18 +447,29 @@ src/routes/sign-in.tsx</pre>
       <p class="gw-message__body">Run the auth tests and tell me what fails.</p>
     </li>
     <li class="gw-message gw-message--tool-call">
-      <span class="gw-message__label">Tool call</span>
-      <span class="gw-message__tool">Bash</span>
-      <code class="gw-message__command">npm run test -- --run src/auth</code>
-    </li>
-    <li class="gw-message gw-message--tool-result">
-      <span class="gw-message__label">Tool result</span>
-      <pre class="gw-message__code"> ✗ src/auth/session.test.ts > keeps the session after a reload
+      <div class="gw-tool-call gw-tool-call--row" data-state="failed">
+        <details class="gw-tool-call__details" open>
+          <summary class="gw-tool-call__summary">
+            <span class="gw-tool-call__title"><span class="gw-tool-call__status">Failed</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
+            <span class="gw-tool-call__duration">3.1 s</span>
+            <span class="gw-tool-call__note">The command exited with code 1. 1 of 30 tests failed.</span>
+          </summary>
+          <div class="gw-tool-call__body">
+            <p class="gw-tool-call__label">Arguments</p>
+            <pre class="gw-tool-call__code">{
+  "command": "npm test -- --run src/auth",
+  "description": "Run the auth tests"
+}</pre>
+            <p class="gw-tool-call__label">Output, 4 lines</p>
+            <pre class="gw-tool-call__code"> ✗ src/auth/session.test.ts > keeps the session after a reload
    AssertionError: expected null to be truthy
 
  Test Files  1 failed | 2 passed (3)</pre>
+          </div>
+        </details>
+      </div>
     </li>
-    <li class="gw-message">
+    <li class="gw-message" data-state="done">
       <span class="gw-message__label">Claude Code</span>
       <p class="gw-message__body">One test fails: the session is lost after a reload, because the refresh timer is not restarted. The other 29 tests pass.</p>
     </li>
@@ -360,6 +482,51 @@ src/routes/sign-in.tsx</pre>
       <p class="gw-message__body">Turn completed.</p>
     </li>
   </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A transcript that is loading</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="A transcript that is loading" data-state="loading">
+  <div class="gw-skeleton gw-skeleton--rows" aria-busy="true">
+    <span class="gw-visually-hidden">Loading the transcript of run 4182</span>
+    <span class="gw-skeleton__row">
+      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+      <span class="gw-skeleton__line"></span>
+    </span>
+    <span class="gw-skeleton__row">
+      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+    </span>
+    <span class="gw-skeleton__row">
+      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+    </span>
+    <span class="gw-skeleton__row">
+      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+      <span class="gw-skeleton__line"></span>
+      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+    </span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A transcript with nothing in it yet</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="A transcript with nothing in it yet" data-state="empty">
+  <div class="gw-stack">
+    <div class="gw-empty-state gw-empty-state--compact">
+      <h4 class="gw-empty-state__title">No messages yet</h4>
+      <p class="gw-empty-state__body">Ask Claude Code about acme/api, or start from one of these prompts.</p>
+    </div>
+    <ul class="gw-suggestion-chips" aria-label="Suggested first prompts">
+      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Explain how sessions are refreshed in src/auth</button></li>
+      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Find out why the session cookie expires after 15 minutes</button></li>
+      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Run the auth tests</button></li>
+    </ul>
+  </div>
 </div>
 </figure>
 <figure data-gallery="dont">
@@ -379,17 +546,33 @@ src/routes/sign-in.tsx</pre>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A collapsed call with an empty summary</h3>
-<p>The summary is all a reader sees until they open the row. With no text they cannot tell which tool ran, and a screen reader announces an unnamed disclosure.</p>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A collapsed result with an empty summary</h3>
+<p>The summary is all a reader sees until they open the row. With no text they cannot tell what is inside, and a screen reader announces an unnamed disclosure.</p>
 <p>Checker rule: <code>summary-without-text</code></p>
 </figcaption>
-<div data-example="summary-without-words" data-title="A collapsed call with an empty summary" data-dont="summary-without-text" data-reason="The summary is all a reader sees until they open the row. With no text they cannot tell which tool ran, and a screen reader announces an unnamed disclosure.">
+<div data-example="summary-without-words" data-title="A collapsed result with an empty summary" data-dont="summary-without-text" data-reason="The summary is all a reader sees until they open the row. With no text they cannot tell what is inside, and a screen reader announces an unnamed disclosure.">
   <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--tool-call">
+    <li class="gw-message gw-message--tool-result">
+      <span class="gw-message__label">Tool result</span>
       <details class="gw-message__details">
         <summary class="gw-message__summary"></summary>
         <pre class="gw-message__code">{ "file_path": "src/auth/session.ts" }</pre>
       </details>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A live region on the text that is arriving</h3>
+<p>With aria-live on the growing text a screen reader starts over, or reads fragments, every time a few words land, and the reader cannot do anything else meanwhile. Leave the row silent and announce the start and the end of the reply from the view's one status region.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="live-text" data-title="A live region on the text that is arriving" data-dont="review" data-reason="With aria-live on the growing text a screen reader starts over, or reads fragments, every time a few words land, and the reader cannot do anything else meanwhile. Leave the row silent and announce the start and the end of the reply from the view's one status region.">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message" data-state="streaming">
+      <span class="gw-message__label">Claude Code</span>
+      <p class="gw-message__body" aria-live="polite" aria-atomic="true">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid<span class="gw-message__caret" aria-hidden="true"></span></p>
     </li>
   </ol>
 </div>
@@ -408,7 +591,7 @@ src/routes/sign-in.tsx</pre>
 <h2>When not to use it</h2>
 <ul>
 <li>For a request that still waits for the reader's answer. Use an approval, which carries Allow and Decline.</li>
-<li>For the note that the agent is still working. Use streaming as the last row.</li>
+<li>For what the agent is doing right now, with Stop. Use the now-doing line under the transcript. For a note that work is going on somewhere else in a view, use streaming.</li>
 <li>For a message about the app itself, such as a lost connection. Use an alert or a banner.</li>
 </ul>
 </section>
@@ -416,7 +599,7 @@ src/routes/sign-in.tsx</pre>
 <h2>Variants</h2>
 <dl>
 <dt>agent</dt>
-<dd>The default, with no modifier class. Text the agent wrote. Label it with the agent's name.</dd>
+<dd>The default, with no modifier class. Text the agent wrote. Label it with the agent's name. While the text arrives the row carries data-state: streaming, stopped, interrupted, reconnecting or done.</dd>
 <dt>session-start <code>gw-message--session-start</code></dt>
 <dd>A quiet first row saying that the session started, and where: the branch, the directory, the agent. Label it Session.</dd>
 <dt>user <code>gw-message--user</code></dt>
@@ -424,9 +607,9 @@ src/routes/sign-in.tsx</pre>
 <dt>question <code>gw-message--question</code></dt>
 <dd>A question the agent asks the reader, when the run waits on the answer. Label it Question, waiting on you, and once it is answered label it Question and show the answer as the next user row. A request for permission to run something is not a question: use an approval.</dd>
 <dt>tool-call <code>gw-message--tool-call</code></dt>
-<dd>A tool the agent ran, written as what it did and not as raw JSON: the tool name in gw-message__tool, then the command or the target in mono in gw-message__command, then optionally one plain sentence saying why in gw-message__body, taken from the call's description when it has one. Keep the full arguments behind a details element whose summary reads Show the full arguments, or, when the row has no sentence, whose summary keeps the label, the tool name and a short command.</dd>
+<dd>A tool the agent was asked to run. The row holds one thing: the tool call component with its row modifier, gw-tool-call gw-tool-call--row, and its data-state. That component draws the status, the plain summary written as what was done and not as raw JSON, the time, the agent's reason and the disclosure with the arguments and the output. This is the one way to show a tool call in a transcript. A row written the earlier way, with gw-message__label, gw-message__tool, gw-message__command and a gw-message__details element, is still drawn.</dd>
 <dt>tool-result <code>gw-message--tool-result</code></dt>
-<dd>What a tool returned. Show the first lines, and put the rest in a details element whose summary reads Show full output.</dd>
+<dd>What a tool returned, as a row of its own. A call shown with the tool call component keeps its output inside its own details, so a new transcript does not need this row. It stays for a result shown apart from its call: show the first lines, and put the rest in a details element whose summary reads Show full output.</dd>
 <dt>decision <code>gw-message--decision</code></dt>
 <dd>A permission request that was resolved. The label says how, in words beside an icon from the sprite in gw-message__icon: Allowed with check, Declined with x, Pre-approved with circle-check for a command on the task's approved list, or Allowed by a standing permission with circle-check. Then the tool and the command, then one sentence saying by whom and when: who allowed or declined it and their note, who set the approved list, or who granted the standing permission. For the last two, say that nobody was asked.</dd>
 <dt>denied <code>gw-message--denied</code></dt>
@@ -442,13 +625,17 @@ src/routes/sign-in.tsx</pre>
 <section>
 <h2>Accessibility</h2>
 <ul>
-<li>Each row is an li in an ol or ul. Put role=&quot;log&quot; and an accessible name on the list when rows are added while the reader watches, so new rows are announced.</li>
-<li>Every row starts with gw-message__label, which says the kind in words: Session, You, Claude Code, Question, Tool call, Tool result, Allowed, Declined, Pre-approved, Allowed by a standing permission, Denied, Error, Usage, End. The kind is never the colour or an icon alone. The icons of the denied and error rows are drawn by the stylesheet, and the icon of an answered request is an svg with gw-message__icon and aria-hidden=&quot;true&quot; inside the label.</li>
+<li>Each row is an li in an ol or ul. When rows are added while the reader watches, wrap the list in an element with role=&quot;log&quot;, aria-live=&quot;off&quot; and an accessible name. The log role tells assistive technology what the region is, and aria-live=&quot;off&quot; keeps it from reading every row and every word as it lands. What matters is announced from the view's one status region: see the activity announcer.</li>
+<li>Every row but a tool call starts with gw-message__label, which says the kind in words: Session, You, Claude Code, Question, Tool result, Allowed, Declined, Pre-approved, Allowed by a standing permission, Denied, Error, Usage, End. A tool-call row holds the tool call component, whose line starts with its status in words. The kind is never the colour or an icon alone. The icons of the denied and error rows are drawn by the stylesheet, and the icon of an answered request is an svg with gw-message__icon and aria-hidden=&quot;true&quot; inside the label.</li>
 <li>A question row that waits says so in its label, Question, waiting on you. Once it is answered the label reads Question alone.</li>
+<li>While the agent's text arrives, set data-state=&quot;streaming&quot; and aria-busy=&quot;true&quot; on the row, append to the text of gw-message__body without rebuilding it, and keep a span with gw-message__caret and aria-hidden=&quot;true&quot; as its last child. Never put aria-live on the growing text. When the reply ends set data-state=&quot;done&quot; and remove the caret and aria-busy.</li>
+<li>When the reader stops the reply, keep the text that arrived, set data-state=&quot;stopped&quot; and add a p with gw-message__state after the body that starts with the word Stopped. When the connection or the process is lost, set data-state=&quot;interrupted&quot;, say so in gw-message__state starting with the word Interrupted, and put a Retry button with gw-button gw-button--small after it. While the app tries to resume, set data-state=&quot;reconnecting&quot; and say Reconnecting in gw-message__state: the text stays, and nothing is added twice. The stylesheet draws an icon beside each of the three from data-state.</li>
+<li>Only the caret and the reconnecting mark move, and under prefers-reduced-motion both are still.</li>
 <li>Write transcript text as text, never as markup, and write out characters that cannot be seen.</li>
 <li>Collapsed arguments and long output use a native details element, with no script. Its summary holds text that says what is inside. Enter and Space open and close it, and its pointer target is 44px tall.</li>
 <li>When output is cut short, the lines after the preview go in the details element, so opened text continues where the preview stopped.</li>
-<li>The app sets nothing but the open attribute, which the browser manages.</li>
+<li>A transcript that is loading is a skeleton with aria-busy and a sentence for screen readers. An empty one is a compact empty state, with suggestion chips when there are prompts to offer.</li>
+<li>The component needs no script. The app sets data-state and aria-busy on a row that streams, and the browser manages the open attribute.</li>
 </ul>
 </section>
 <section>
@@ -466,11 +653,13 @@ src/routes/sign-in.tsx</pre>
 <li><code>gw-message--usage</code></li>
 <li><code>gw-message--user</code></li>
 <li><code>gw-message__body</code></li>
+<li><code>gw-message__caret</code></li>
 <li><code>gw-message__code</code></li>
 <li><code>gw-message__command</code></li>
 <li><code>gw-message__details</code></li>
 <li><code>gw-message__icon</code></li>
 <li><code>gw-message__label</code></li>
+<li><code>gw-message__state</code></li>
 <li><code>gw-message__summary</code></li>
 <li><code>gw-message__tool</code></li>
 </ul>
