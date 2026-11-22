@@ -20,24 +20,24 @@
   "states": ["default", "loading", "empty"],
   "accessibility": [
     "The screen sits in the main column of the app shell. It is a detail screen, so the app header holds a back link to the list of runs and the pending tray, and there is no tab bar. The page header holds the view's one h1, the title of the run.",
-    "gw-agent-run is the one child of the main column. It holds gw-agent-run__header, with the page header and then the run timeline, then the activity announcer, then gw-agent-run__transcript.",
-    "The activity announcer is the view's one status region for the run, in the page from the first render. The transcript is a div with gw-agent-run__log, role=\"log\", aria-live=\"off\" and a name, around the ol of rows. Nothing else on the screen announces the run: not the now-doing line, not a time that counts up, not the text that is arriving.",
+    "ds-agent-run is the one child of the main column. It holds ds-agent-run__header, with the page header and then the run timeline, then the activity announcer, then ds-agent-run__transcript.",
+    "The activity announcer is the view's one status region for the run, in the page from the first render. The transcript is a div with ds-agent-run__log, role=\"log\", aria-live=\"off\" and a name, around the ol of rows. Nothing else on the screen announces the run: not the now-doing line, not a time that counts up, not the text that is arriving.",
     "What is always in view: the agent's text, a question to the reader, the final answer, and one line for every step or group of steps. One level down, behind a step group's summary: the steps of a finished stretch. Two levels down, behind a step's own summary: its arguments and its output. There is no third level.",
     "Three or more consecutive tool calls go in a step group. The app sets open on a group while a step in it runs or awaits approval and when one has failed, and closes a finished group only if the reader has not opened or closed it themselves. The final answer is never inside a group.",
-    "A step that waits for approval shows Allow and Decline in its row, with secondary emphasis and data-gw-critical. Its group is open and says Awaiting your approval in its summary, and the now-doing line names the wait and links to the row. A wait on the reader takes the now-doing line even while another step runs: that step says Running in its own row and in its group's summary.",
-    "gw-agent-run__dock is fixed to the bottom of the screen. It holds the jump-to-latest block, the now-doing line and the composer, in that order. Stop is on the now-doing line, so the composer keeps Send, which is the view's one primary action while the run is open. Text sent while the agent works is queued by the app.",
-    "The transcript follows its newest row only while the reader is at the bottom. In an app without a framework, gw-agent-run__transcript is the gw-transcript element from behaviors/transcript.js and the times are gw-elapsed elements from behaviors/elapsed.js. A framework app uses a div and does both itself.",
-    "A finished run has no dock. Its groups are closed, its final answer is the last message row, and gw-agent-run__outcome under the log holds the one primary action that moves the work on, with any lesser action beside it at secondary emphasis.",
+    "A step that waits for approval shows Allow and Decline in its row, with secondary emphasis and data-ds-critical. Its group is open and says Awaiting your approval in its summary, and the now-doing line names the wait and links to the row. A wait on the reader takes the now-doing line even while another step runs: that step says Running in its own row and in its group's summary.",
+    "ds-agent-run__dock is fixed to the bottom of the screen. It holds the jump-to-latest block, the now-doing line and the composer, in that order. Stop is on the now-doing line, so the composer keeps Send, which is the view's one primary action while the run is open. Text sent while the agent works is queued by the app.",
+    "The transcript follows its newest row only while the reader is at the bottom. In an app without a framework, ds-agent-run__transcript is the ds-transcript element from behaviors/transcript.js and the times are ds-elapsed elements from behaviors/elapsed.js. A framework app uses a div and does both itself.",
+    "A finished run has no dock. Its groups are closed, its final answer is the last message row, and ds-agent-run__outcome under the log holds the one primary action that moves the work on, with any lesser action beside it at secondary emphasis.",
     "While the transcript loads, the header and the timeline are already there and a skeleton with aria-busy stands in for the rows. A run with nothing in it shows a compact empty state under an h2, with suggestion chips, and a timeline whose stations all read Not started.",
     "Tab goes through the header, the rows and their summaries in order, then the jump control when it is shown, the link and Stop on the now-doing line, and the composer. Nothing on the screen moves focus by itself."
   ],
   "icons": ["chevron-left", "circle-check", "file", "git-branch", "terminal"],
   "classes": [
-    "gw-agent-run",
-    "gw-agent-run__dock",
-    "gw-agent-run__header",
-    "gw-agent-run__log",
-    "gw-agent-run__outcome",
-    "gw-agent-run__transcript"
+    "ds-agent-run",
+    "ds-agent-run__dock",
+    "ds-agent-run__header",
+    "ds-agent-run__log",
+    "ds-agent-run__outcome",
+    "ds-agent-run__transcript"
   ]
 }

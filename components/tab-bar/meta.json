@@ -32,9 +32,9 @@
   ],
   "icons": ["circle-check", "file", "folder", "git-branch", "search", "terminal"],
   "classes": [
-    "gw-tab-bar",
-    "gw-tab-bar__icon",
-    "gw-tab-bar__item",
-    "gw-tab-bar__label"
+    "ds-tab-bar",
+    "ds-tab-bar__icon",
+    "ds-tab-bar__item",
+    "ds-tab-bar__label"
   ]
 }

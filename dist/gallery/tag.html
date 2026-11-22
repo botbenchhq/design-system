@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tag - Groundwork gallery</title>
-<link rel="stylesheet" href="../groundwork.css">
+<title>Tag - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -26,32 +26,32 @@
 </header>
 <section>
 <h2>Examples</h2>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Categories on an item</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Categories on an item</h3>
 <p data-gallery="state">State: <code>default</code></p>
 <p>Each tag names a category the task belongs to, in one neutral tone. They are facts to scan, not statuses to act on, so none of them competes with the task's badge.</p>
 </figcaption>
 <div data-example="default" data-title="Categories on an item" data-state="default" data-reason="Each tag names a category the task belongs to, in one neutral tone. They are facts to scan, not statuses to act on, so none of them competes with the task's badge.">
-  <div class="gw-cluster">
-    <span class="gw-tag">backend</span>
-    <span class="gw-tag">auth</span>
-    <span class="gw-tag">needs migration</span>
+  <div class="ds-cluster">
+    <span class="ds-tag">backend</span>
+    <span class="ds-tag">auth</span>
+    <span class="ds-tag">needs migration</span>
   </div>
 </div>
 </figure>
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Filter values, each with a remove button</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Filter values, each with a remove button</h3>
 <p>Each button is named for the filter it removes, so a screen reader hears Remove filter: main and not a row of identical buttons. The button is drawn small, with a 44px pointer target around it.</p>
 </figcaption>
 <div data-example="removable" data-title="Filter values, each with a remove button" data-reason="Each button is named for the filter it removes, so a screen reader hears Remove filter: main and not a row of identical buttons. The button is drawn small, with a 44px pointer target around it.">
-  <ul class="gw-cluster" aria-label="Filters applied to the runs">
-    <li class="gw-tag">Branch: main <button type="button" class="gw-tag__remove" aria-label="Remove filter: Branch: main"></button></li>
-    <li class="gw-tag">Status: failed <button type="button" class="gw-tag__remove" aria-label="Remove filter: Status: failed"></button></li>
-    <li class="gw-tag">Repository: acme/api <button type="button" class="gw-tag__remove" aria-label="Remove filter: Repository: acme/api"></button></li>
-    <li class="gw-tag">Started by: Maya Okafor <button type="button" class="gw-tag__remove" aria-label="Remove filter: Started by: Maya Okafor"></button></li>
+  <ul class="ds-cluster" aria-label="Filters applied to the runs">
+    <li class="ds-tag">Branch: main <button type="button" class="ds-tag__remove" aria-label="Remove filter: Branch: main"></button></li>
+    <li class="ds-tag">Status: failed <button type="button" class="ds-tag__remove" aria-label="Remove filter: Status: failed"></button></li>
+    <li class="ds-tag">Repository: acme/api <button type="button" class="ds-tag__remove" aria-label="Remove filter: Repository: acme/api"></button></li>
+    <li class="ds-tag">Started by: Maya Okafor <button type="button" class="ds-tag__remove" aria-label="Remove filter: Started by: Maya Okafor"></button></li>
   </ul>
 </div>
 </figure>
@@ -60,8 +60,8 @@
 <h3>A long value wraps inside the tag</h3>
 </figcaption>
 <div data-example="long-value" data-title="A long value wraps inside the tag">
-  <ul class="gw-cluster" aria-label="Filters applied to the changed files">
-    <li class="gw-tag">Path: web/src/components/settings/notifications/notification-preferences-form.tsx <button type="button" class="gw-tag__remove" aria-label="Remove filter: Path: web/src/components/settings/notifications/notification-preferences-form.tsx"></button></li>
+  <ul class="ds-cluster" aria-label="Filters applied to the changed files">
+    <li class="ds-tag">Path: web/src/components/settings/notifications/notification-preferences-form.tsx <button type="button" class="ds-tag__remove" aria-label="Remove filter: Path: web/src/components/settings/notifications/notification-preferences-form.tsx"></button></li>
   </ul>
 </div>
 </figure>
@@ -71,7 +71,7 @@
 <p data-gallery="state">State: <code>hover</code></p>
 </figcaption>
 <div data-example="hover" data-title="Hover on the remove button" data-state="hover">
-  <span class="gw-tag">Branch: main <button type="button" class="gw-tag__remove" aria-label="Remove filter: Branch: main"></button></span>
+  <span class="ds-tag">Branch: main <button type="button" class="ds-tag__remove" aria-label="Remove filter: Branch: main"></button></span>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -80,7 +80,7 @@
 <p data-gallery="state">State: <code>focus-visible</code></p>
 </figcaption>
 <div data-example="focus-visible" data-title="Keyboard focus on the remove button" data-state="focus-visible">
-  <span class="gw-tag">Branch: main <button type="button" class="gw-tag__remove" aria-label="Remove filter: Branch: main"></button></span>
+  <span class="ds-tag">Branch: main <button type="button" class="ds-tag__remove" aria-label="Remove filter: Branch: main"></button></span>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -89,7 +89,7 @@
 <p data-gallery="state">State: <code>active</code></p>
 </figcaption>
 <div data-example="active" data-title="The remove button being pressed" data-state="active">
-  <span class="gw-tag">Branch: main <button type="button" class="gw-tag__remove" aria-label="Remove filter: Branch: main"></button></span>
+  <span class="ds-tag">Branch: main <button type="button" class="ds-tag__remove" aria-label="Remove filter: Branch: main"></button></span>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -98,32 +98,32 @@
 <p data-gallery="state">State: <code>disabled</code></p>
 </figcaption>
 <div data-example="disabled" data-title="A filter that cannot be removed while the runs reload" data-state="disabled">
-  <span class="gw-tag">Branch: main <button type="button" class="gw-tag__remove" aria-label="Remove filter: Branch: main" disabled></button></span>
+  <span class="ds-tag">Branch: main <button type="button" class="ds-tag__remove" aria-label="Remove filter: Branch: main" disabled></button></span>
 </div>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A status written as a tag</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> A status written as a tag</h3>
 <p>Failed and Awaiting decision are statuses the reader acts on. A tag has one neutral tone and no icon, so they look the same as backend. Use a badge for the one status of an item, and tags for its categories.</p>
 <p>Caught in review, not by the checker.</p>
 </figcaption>
 <div data-example="status-as-tag" data-title="A status written as a tag" data-dont="review" data-reason="Failed and Awaiting decision are statuses the reader acts on. A tag has one neutral tone and no icon, so they look the same as backend. Use a badge for the one status of an item, and tags for its categories.">
-  <div class="gw-cluster">
-    <span class="gw-tag">Failed</span>
-    <span class="gw-tag">Awaiting decision</span>
-    <span class="gw-tag">backend</span>
+  <div class="ds-cluster">
+    <span class="ds-tag">Failed</span>
+    <span class="ds-tag">Awaiting decision</span>
+    <span class="ds-tag">backend</span>
   </div>
 </div>
 </figure>
 </div>
 </section>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
 <li>For the categories an item belongs to: labels on a task, the language of a repository.</li>
 <li>For each filter applied to a list or a table, with a remove button, in a row above it.</li>
-<li>Several at once, in a gw-cluster. Tags are scanned, and no one of them is more important than the next.</li>
+<li>Several at once, in a ds-cluster. Tags are scanned, and no one of them is more important than the next.</li>
 </ul>
 </section>
 <section>
@@ -141,7 +141,7 @@
 <dt>default</dt>
 <dd>Text only, on a span, or on an li when the tags are a list.</dd>
 <dt>removable</dt>
-<dd>The same tag with a button of the class gw-tag__remove after the text. No modifier class is needed.</dd>
+<dd>The same tag with a button of the class ds-tag__remove after the text. No modifier class is needed.</dd>
 </dl>
 </section>
 <section>
@@ -154,10 +154,10 @@
 <section>
 <h2>Accessibility</h2>
 <ul>
-<li>Use a span. When the tags are a set, such as the filters in force, use a ul with an aria-label that says what they are and an li with the class gw-tag for each.</li>
+<li>Use a span. When the tags are a set, such as the filters in force, use a ul with an aria-label that says what they are and an li with the class ds-tag for each.</li>
 <li>Write a filter as its name and its value, such as Branch: main, so the tag makes sense out of context.</li>
-<li>The remove button is a button element with the class gw-tag__remove and no content. The stylesheet draws its cross. Its aria-label says what it removes and repeats the tag's text: Remove filter: Branch: main.</li>
-<li>The button is drawn 22px square, inside the tag's border, and its pointer target is 44px square. Lay removable tags out with gw-cluster so the targets of neighbouring buttons do not overlap.</li>
+<li>The remove button is a button element with the class ds-tag__remove and no content. The stylesheet draws its cross. Its aria-label says what it removes and repeats the tag's text: Remove filter: Branch: main.</li>
+<li>The button is drawn 22px square, inside the tag's border, and its pointer target is 44px square. Lay removable tags out with ds-cluster so the targets of neighbouring buttons do not overlap.</li>
 <li>Tab reaches each remove button in order, and Enter and Space activate it. After a tag is removed, the app moves focus to the next tag's button, or to the control that adds filters when none is left, and says what changed in a role=&quot;status&quot; element.</li>
 <li>Set the disabled attribute on the button while its filter cannot be removed. A tag with no button at all cannot be removed.</li>
 <li>A tag has one tone and never carries meaning by colour.</li>
@@ -166,8 +166,8 @@
 <section>
 <h2>Classes</h2>
 <ul>
-<li><code>gw-tag</code></li>
-<li><code>gw-tag__remove</code></li>
+<li><code>ds-tag</code></li>
+<li><code>ds-tag__remove</code></li>
 </ul>
 </section>
 </div>

@@ -1,100 +1,100 @@
 <div data-example="default" data-title="An existing password, hidden" data-state="default" data-reason="autocomplete names which password this is, so a password manager can fill it. The button says in words what it will do, and the reader can check what they typed before sending it.">
-  <div class="gw-field">
-    <label class="gw-field__label" for="password-field-default-input">Registry password</label>
-    <div class="gw-password-field">
-      <input class="gw-field__control gw-password-field__input" id="password-field-default-input" type="password" name="registry-password" autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse-battery" aria-describedby="password-field-default-description">
-      <button type="button" class="gw-password-field__toggle" aria-controls="password-field-default-input">
-        <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the registry password</span></span>
-        <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the registry password</span></span>
+  <div class="ds-field">
+    <label class="ds-field__label" for="password-field-default-input">Registry password</label>
+    <div class="ds-password-field">
+      <input class="ds-field__control ds-password-field__input" id="password-field-default-input" type="password" name="registry-password" autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse-battery" aria-describedby="password-field-default-description">
+      <button type="button" class="ds-password-field__toggle" aria-controls="password-field-default-input">
+        <span class="ds-password-field__show">Show<span class="ds-visually-hidden"> the registry password</span></span>
+        <span class="ds-password-field__hide">Hide<span class="ds-visually-hidden"> the registry password</span></span>
       </button>
     </div>
-    <p class="gw-field__description" id="password-field-default-description">For npm.acme.dev. It is stored encrypted and used only to install packages during a run.</p>
+    <p class="ds-field__description" id="password-field-default-description">For npm.acme.dev. It is stored encrypted and used only to install packages during a run.</p>
   </div>
 </div>
 
 <div data-example="shown" data-title="Shown" data-state="shown">
-  <div class="gw-field">
-    <label class="gw-field__label" for="password-field-shown-input">Registry password</label>
-    <div class="gw-password-field">
-      <input class="gw-field__control gw-password-field__input" id="password-field-shown-input" type="text" name="registry-password" autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse-battery">
-      <button type="button" class="gw-password-field__toggle" aria-controls="password-field-shown-input">
-        <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the registry password</span></span>
-        <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the registry password</span></span>
+  <div class="ds-field">
+    <label class="ds-field__label" for="password-field-shown-input">Registry password</label>
+    <div class="ds-password-field">
+      <input class="ds-field__control ds-password-field__input" id="password-field-shown-input" type="text" name="registry-password" autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse-battery">
+      <button type="button" class="ds-password-field__toggle" aria-controls="password-field-shown-input">
+        <span class="ds-password-field__show">Show<span class="ds-visually-hidden"> the registry password</span></span>
+        <span class="ds-password-field__hide">Hide<span class="ds-visually-hidden"> the registry password</span></span>
       </button>
     </div>
   </div>
 </div>
 
 <div data-example="new" data-title="A new password, with its rule and the app's own messages">
-  <div class="gw-field">
-    <label class="gw-field__label" for="password-field-new-input">New passphrase for the deploy key <span class="gw-field__required">required</span></label>
-    <div class="gw-password-field">
-      <input class="gw-field__control gw-password-field__input" id="password-field-new-input" type="password" name="passphrase" required autocomplete="new-password" autocapitalize="none" spellcheck="false" minlength="16" aria-describedby="password-field-new-description password-field-new-status">
-      <button type="button" class="gw-password-field__toggle" aria-controls="password-field-new-input">
-        <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the passphrase</span></span>
-        <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the passphrase</span></span>
+  <div class="ds-field">
+    <label class="ds-field__label" for="password-field-new-input">New passphrase for the deploy key <span class="ds-field__required">required</span></label>
+    <div class="ds-password-field">
+      <input class="ds-field__control ds-password-field__input" id="password-field-new-input" type="password" name="passphrase" required autocomplete="new-password" autocapitalize="none" spellcheck="false" minlength="16" aria-describedby="password-field-new-description password-field-new-status">
+      <button type="button" class="ds-password-field__toggle" aria-controls="password-field-new-input">
+        <span class="ds-password-field__show">Show<span class="ds-visually-hidden"> the passphrase</span></span>
+        <span class="ds-password-field__hide">Hide<span class="ds-visually-hidden"> the passphrase</span></span>
       </button>
     </div>
-    <p class="gw-field__description" id="password-field-new-description">At least 16 characters. Four unrelated words are enough.</p>
-    <p class="gw-field__description" id="password-field-new-status" aria-live="polite">Caps Lock is on.</p>
+    <p class="ds-field__description" id="password-field-new-description">At least 16 characters. Four unrelated words are enough.</p>
+    <p class="ds-field__description" id="password-field-new-status" aria-live="polite">Caps Lock is on.</p>
   </div>
 </div>
 
 <div data-example="hover" data-title="Hover on the button" data-state="hover">
-  <div class="gw-field">
-    <label class="gw-field__label" for="password-field-hover-input">Registry password</label>
-    <div class="gw-password-field">
-      <input class="gw-field__control gw-password-field__input" id="password-field-hover-input" type="password" name="registry-password" autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse-battery">
-      <button type="button" class="gw-password-field__toggle" aria-controls="password-field-hover-input">
-        <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the registry password</span></span>
-        <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the registry password</span></span>
+  <div class="ds-field">
+    <label class="ds-field__label" for="password-field-hover-input">Registry password</label>
+    <div class="ds-password-field">
+      <input class="ds-field__control ds-password-field__input" id="password-field-hover-input" type="password" name="registry-password" autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse-battery">
+      <button type="button" class="ds-password-field__toggle" aria-controls="password-field-hover-input">
+        <span class="ds-password-field__show">Show<span class="ds-visually-hidden"> the registry password</span></span>
+        <span class="ds-password-field__hide">Hide<span class="ds-visually-hidden"> the registry password</span></span>
       </button>
     </div>
   </div>
 </div>
 
 <div data-example="focus" data-title="Focus" data-state="focus">
-  <div class="gw-field">
-    <label class="gw-field__label" for="password-field-focus-input">Registry password</label>
-    <div class="gw-password-field">
-      <input class="gw-field__control gw-password-field__input" id="password-field-focus-input" type="password" name="registry-password" autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse">
+  <div class="ds-field">
+    <label class="ds-field__label" for="password-field-focus-input">Registry password</label>
+    <div class="ds-password-field">
+      <input class="ds-field__control ds-password-field__input" id="password-field-focus-input" type="password" name="registry-password" autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse">
     </div>
   </div>
 </div>
 
 <div data-example="invalid" data-title="Invalid" data-state="invalid">
-  <div class="gw-field">
-    <label class="gw-field__label" for="password-field-invalid-input">Registry password</label>
-    <div class="gw-password-field">
-      <input class="gw-field__control gw-password-field__input" id="password-field-invalid-input" type="password" name="registry-password" autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse-batery" aria-invalid="true" aria-describedby="password-field-invalid-error">
-      <button type="button" class="gw-password-field__toggle" aria-controls="password-field-invalid-input">
-        <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the registry password</span></span>
-        <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the registry password</span></span>
+  <div class="ds-field">
+    <label class="ds-field__label" for="password-field-invalid-input">Registry password</label>
+    <div class="ds-password-field">
+      <input class="ds-field__control ds-password-field__input" id="password-field-invalid-input" type="password" name="registry-password" autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse-batery" aria-invalid="true" aria-describedby="password-field-invalid-error">
+      <button type="button" class="ds-password-field__toggle" aria-controls="password-field-invalid-input">
+        <span class="ds-password-field__show">Show<span class="ds-visually-hidden"> the registry password</span></span>
+        <span class="ds-password-field__hide">Hide<span class="ds-visually-hidden"> the registry password</span></span>
       </button>
     </div>
-    <p class="gw-field__error" id="password-field-invalid-error">npm.acme.dev did not accept this password. Show it to check for a typing mistake, or create a new one in the registry's settings.</p>
+    <p class="ds-field__error" id="password-field-invalid-error">npm.acme.dev did not accept this password. Show it to check for a typing mistake, or create a new one in the registry's settings.</p>
   </div>
 </div>
 
 <div data-example="disabled" data-title="Disabled" data-state="disabled">
-  <div class="gw-field">
-    <label class="gw-field__label" for="password-field-disabled-input">Registry password</label>
-    <div class="gw-password-field">
-      <input class="gw-field__control gw-password-field__input" id="password-field-disabled-input" type="password" name="registry-password" autocomplete="current-password" value="correct-horse-battery" disabled aria-describedby="password-field-disabled-description">
-      <button type="button" class="gw-password-field__toggle" aria-controls="password-field-disabled-input" disabled>
-        <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the registry password</span></span>
-        <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the registry password</span></span>
+  <div class="ds-field">
+    <label class="ds-field__label" for="password-field-disabled-input">Registry password</label>
+    <div class="ds-password-field">
+      <input class="ds-field__control ds-password-field__input" id="password-field-disabled-input" type="password" name="registry-password" autocomplete="current-password" value="correct-horse-battery" disabled aria-describedby="password-field-disabled-description">
+      <button type="button" class="ds-password-field__toggle" aria-controls="password-field-disabled-input" disabled>
+        <span class="ds-password-field__show">Show<span class="ds-visually-hidden"> the registry password</span></span>
+        <span class="ds-password-field__hide">Hide<span class="ds-visually-hidden"> the registry password</span></span>
       </button>
     </div>
-    <p class="gw-field__description" id="password-field-disabled-description">Only the workspace owner can change it.</p>
+    <p class="ds-field__description" id="password-field-disabled-description">Only the workspace owner can change it.</p>
   </div>
 </div>
 
 <div data-example="autocomplete-off" data-title="Autocomplete switched off, and no way to see the password" data-dont="review" data-reason="autocomplete off stops a password manager from filling or saving the password, which pushes people towards short ones they can type. With no show button, a mistake is found only after the form fails. Name the password with current-password or new-password and keep the button.">
-  <div class="gw-field">
-    <label class="gw-field__label" for="password-field-autocomplete-off-input">Registry password</label>
-    <div class="gw-password-field">
-      <input class="gw-field__control gw-password-field__input" id="password-field-autocomplete-off-input" type="password" name="registry-password" autocomplete="off">
+  <div class="ds-field">
+    <label class="ds-field__label" for="password-field-autocomplete-off-input">Registry password</label>
+    <div class="ds-password-field">
+      <input class="ds-field__control ds-password-field__input" id="password-field-autocomplete-off-input" type="password" name="registry-password" autocomplete="off">
     </div>
   </div>
 </div>

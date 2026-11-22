@@ -17,15 +17,15 @@
   ],
   "variants": [
     { "name": "default", "use": "Time and actor on one line, what happened on the next, 16px between events." },
-    { "name": "dense", "class": "gw-timeline--dense", "use": "8px between events, with what happened on the same line as the time and actor where there is room." }
+    { "name": "dense", "class": "ds-timeline--dense", "use": "8px between events, with what happened on the same line as the time and actor where there is room." }
   ],
   "sizes": [],
   "states": ["default", "current"],
   "accessibility": [
-    "Use an ol with one li, gw-timeline__item, for each event, oldest first unless the view says otherwise. A screen reader announces the count and the position.",
-    "Each item holds a p with the class gw-timeline__meta and then a p with the class gw-timeline__event. The meta line holds a time element, gw-timeline__time, with a datetime attribute, and the actor, gw-timeline__actor, in words. The event line says what happened as a sentence fragment that starts with a verb.",
+    "Use an ol with one li, ds-timeline__item, for each event, oldest first unless the view says otherwise. A screen reader announces the count and the position.",
+    "Each item holds a p with the class ds-timeline__meta and then a p with the class ds-timeline__event. The meta line holds a time element, ds-timeline__time, with a datetime attribute, and the actor, ds-timeline__actor, in words. The event line says what happened as a sentence fragment that starts with a verb.",
     "Write the time so it cannot be misread: the clock time for events of one day, the date as well when the list spans days.",
-    "Mark the current step with aria-current=\"step\" on its li and with words in a span of the class gw-timeline__current at the end of the meta line, such as Current step. The filled mark only supports the words.",
+    "Mark the current step with aria-current=\"step\" on its li and with words in a span of the class ds-timeline__current at the end of the meta line, such as Current step. The filled mark only supports the words.",
     "The rail and the marks are drawn by the stylesheet and are decoration. Nothing is said by them alone.",
     "A long timeline pairs with show-more: render the most recent events, twenty or so, and put one secondary button after the list whose label gives the count, such as Show 34 earlier events. On press the app adds the items to the same ol and moves focus to the first one added. The button is outside the ol.",
     "When an event is added while the reader watches, announce it from a role=\"status\" element in the view, not from the list.",
@@ -33,13 +33,13 @@
   ],
   "icons": [],
   "classes": [
-    "gw-timeline",
-    "gw-timeline--dense",
-    "gw-timeline__actor",
-    "gw-timeline__current",
-    "gw-timeline__event",
-    "gw-timeline__item",
-    "gw-timeline__meta",
-    "gw-timeline__time"
+    "ds-timeline",
+    "ds-timeline--dense",
+    "ds-timeline__actor",
+    "ds-timeline__current",
+    "ds-timeline__event",
+    "ds-timeline__item",
+    "ds-timeline__meta",
+    "ds-timeline__time"
   ]
 }

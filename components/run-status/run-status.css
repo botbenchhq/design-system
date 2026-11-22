@@ -4,8 +4,8 @@
  * It goes inside a list row's link or content, and the row's one action comes from the list.
  */
 
-@layer gw.components {
-  .gw-run-status {
+@layer ds.components {
+  .ds-run-status {
     display: grid;
     flex: 1;
     grid-template-columns: auto minmax(0, 1fr);
@@ -13,57 +13,57 @@
       "title title"
       "station facts";
     align-items: center;
-    column-gap: var(--gw-space-sm);
-    row-gap: var(--gw-space-xs);
+    column-gap: var(--ds-space-sm);
+    row-gap: var(--ds-space-xs);
     min-width: 0;
   }
 
-  .gw-run-status__title {
+  .ds-run-status__title {
     grid-area: title;
-    font-weight: var(--gw-weight-medium);
+    font-weight: var(--ds-weight-medium);
     overflow-wrap: anywhere;
   }
 
   /* Holds the badge that says the station in words. */
-  .gw-run-status__station {
+  .ds-run-status__station {
     display: flex;
     grid-area: station;
   }
 
   /* Who or what is acting, then the elapsed time. The padding keeps facts that wrap beside the badge clear of the title and the row's edge. */
-  .gw-run-status__facts {
+  .ds-run-status__facts {
     grid-area: facts;
     min-width: 0;
-    padding-block: var(--gw-space-xs);
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+    padding-block: var(--ds-space-xs);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
     overflow-wrap: anywhere;
   }
 
-  .gw-run-status__elapsed {
+  .ds-run-status__elapsed {
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
   /* At the regular width the row is one line, with the station at its end. */
   @media (min-width: 768px) {
-    .gw-run-status {
+    .ds-run-status {
       grid-template-columns: minmax(0, 1fr) auto auto;
       grid-template-areas: "title facts station";
-      column-gap: var(--gw-space-md);
+      column-gap: var(--ds-space-md);
     }
   }
 
   /* The quiet text turns to the main text colour wherever the row's link is shaded, so it keeps its contrast. */
   @media (hover: hover) {
-    a:hover > .gw-run-status > .gw-run-status__facts {
-      color: var(--gw-color-on-surface);
+    a:hover > .ds-run-status > .ds-run-status__facts {
+      color: var(--ds-color-on-surface);
     }
   }
 
-  a:active > .gw-run-status > .gw-run-status__facts,
-  a[aria-current]:not([aria-current="false"]) > .gw-run-status > .gw-run-status__facts {
-    color: var(--gw-color-on-surface);
+  a:active > .ds-run-status > .ds-run-status__facts,
+  a[aria-current]:not([aria-current="false"]) > .ds-run-status > .ds-run-status__facts {
+    color: var(--ds-color-on-surface);
   }
 }

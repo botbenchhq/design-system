@@ -14,7 +14,7 @@
     "To choose a value in a form. Use a select or a listbox."
   ],
   "variants": [
-    { "name": "grouped", "use": "The default. Commands sit in gw-command-palette__group elements under a gw-command-palette__label that names their subject." },
+    { "name": "grouped", "use": "The default. Commands sit in ds-command-palette__group elements under a ds-command-palette__label that names their subject." },
     { "name": "flat", "use": "For a handful of commands on one subject, the options sit straight inside the list with no group." }
   ],
   "sizes": [
@@ -22,29 +22,29 @@
   ],
   "states": ["default", "open", "empty", "disabled", "loading"],
   "accessibility": [
-    "The palette is the dialog component: a dialog element with gw-dialog and an aria-label, opened with showModal(), which traps focus, closes on Escape and returns focus to what opened it. The examples carry the open attribute only so the gallery draws them. Inside it is one div with gw-command-palette.",
-    "gw-command-palette__search holds the search field's markup with gw-command-palette__field added, and a form with method=\"dialog\" holding an icon button named Close the command palette, because a touch screen has no Escape key. The label of the input is visually hidden, never missing.",
+    "The palette is the dialog component: a dialog element with ds-dialog and an aria-label, opened with showModal(), which traps focus, closes on Escape and returns focus to what opened it. The examples carry the open attribute only so the gallery draws them. Inside it is one div with ds-command-palette.",
+    "ds-command-palette__search holds the search field's markup with ds-command-palette__field added, and a form with method=\"dialog\" holding an icon button named Close the command palette, because a touch screen has no Escape key. The label of the input is visually hidden, never missing.",
     "The input is type=\"text\" with role=\"combobox\", aria-expanded, aria-controls pointing at the list, aria-autocomplete=\"list\" and aria-activedescendant holding the id of the command Enter would run. Focus never leaves the input while the reader types and moves.",
-    "The list is a div with gw-command-palette__list, role=\"listbox\" and an aria-label. A group is a div with gw-command-palette__group, role=\"group\" and aria-labelledby pointing at its gw-command-palette__label, which carries role=\"presentation\".",
-    "Each command is a button with type=\"button\", gw-command-palette__option, role=\"option\", an id and aria-selected. It holds an optional icon with aria-hidden=\"true\", its name in a span with gw-command-palette__name, a verb and what it acts on, and optionally a kbd with gw-command-palette__shortcut. Because it is a button, a press runs it and, with no script, Tab reaches it and Enter runs it.",
+    "The list is a div with ds-command-palette__list, role=\"listbox\" and an aria-label. A group is a div with ds-command-palette__group, role=\"group\" and aria-labelledby pointing at its ds-command-palette__label, which carries role=\"presentation\".",
+    "Each command is a button with type=\"button\", ds-command-palette__option, role=\"option\", an id and aria-selected. It holds an optional icon with aria-hidden=\"true\", its name in a span with ds-command-palette__name, a verb and what it acts on, and optionally a kbd with ds-command-palette__shortcut. Because it is a button, a press runs it and, with no script, Tab reaches it and Enter runs it.",
     "A command that cannot run now carries aria-disabled=\"true\" and says why in its name. It stays in the arrow-key order, and neither Enter nor a press runs it.",
-    "The message is a p with gw-command-palette__message, role=\"status\" and the hidden attribute. When nothing matches it is shown, the list is hidden and aria-expanded is \"false\". It says what to try. While commands load, a div with gw-command-palette__message holds a spinner with its text in place of the list.",
-    "The behaviour is script. Wrap the dialog in the gw-command-palette element from behaviors/command-palette.js, or set the same attributes from a framework: typing hides the options and the groups that do not match by setting hidden on them, Down and Up move aria-selected=\"true\" and aria-activedescendant through the options that are shown and wrap at the ends, and Enter presses the selected option. A press on an option closes the dialog after the app's own click listener has run.",
+    "The message is a p with ds-command-palette__message, role=\"status\" and the hidden attribute. When nothing matches it is shown, the list is hidden and aria-expanded is \"false\". It says what to try. While commands load, a div with ds-command-palette__message holds a spinner with its text in place of the list.",
+    "The behaviour is script. Wrap the dialog in the ds-command-palette element from behaviors/command-palette.js, or set the same attributes from a framework: typing hides the options and the groups that do not match by setting hidden on them, Down and Up move aria-selected=\"true\" and aria-activedescendant through the options that are shown and wrap at the ends, and Enter presses the selected option. A press on an option closes the dialog after the app's own click listener has run.",
     "The element's shortcut attribute names one key: shortcut=\"k\" opens the dialog on Ctrl with K and on Cmd with K. Say so on the opener with aria-keyshortcuts=\"Control+K Meta+K\". Closing the dialog empties the input, so the palette opens on the full list.",
     "The opener is a button that calls showModal() on the dialog, or carries command=\"show-modal\" and commandfor with the dialog's id where invoker commands are supported."
   ],
   "icons": ["copy", "external-link", "file", "git-branch", "plus", "search", "terminal", "x"],
   "classes": [
-    "gw-command-palette",
-    "gw-command-palette__field",
-    "gw-command-palette__group",
-    "gw-command-palette__icon",
-    "gw-command-palette__label",
-    "gw-command-palette__list",
-    "gw-command-palette__message",
-    "gw-command-palette__name",
-    "gw-command-palette__option",
-    "gw-command-palette__search",
-    "gw-command-palette__shortcut"
+    "ds-command-palette",
+    "ds-command-palette__field",
+    "ds-command-palette__group",
+    "ds-command-palette__icon",
+    "ds-command-palette__label",
+    "ds-command-palette__list",
+    "ds-command-palette__message",
+    "ds-command-palette__name",
+    "ds-command-palette__option",
+    "ds-command-palette__search",
+    "ds-command-palette__shortcut"
   ]
 }

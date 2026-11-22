@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Empty state - Groundwork gallery</title>
-<link rel="stylesheet" href="../groundwork.css">
+<title>Empty state - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -26,20 +26,20 @@
 </header>
 <section>
 <h2>Examples</h2>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A view with no data yet</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> A view with no data yet</h3>
 <p data-gallery="state">State: <code>empty</code></p>
 <p>The title says what is missing, the sentence says what will appear and how to get it, and the one action starts that. It is left-aligned, where the list will be.</p>
 </figcaption>
 <div data-example="default" data-title="A view with no data yet" data-state="empty" data-reason="The title says what is missing, the sentence says what will appear and how to get it, and the one action starts that. It is left-aligned, where the list will be.">
-  <div class="gw-empty-state">
-    <h2 class="gw-empty-state__title">No runs yet</h2>
-    <p class="gw-empty-state__body">Each task you start shows up here as a run, with its status and its branch.</p>
-    <div class="gw-empty-state__action">
-      <a class="gw-button gw-button--primary" href="#new-task">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+  <div class="ds-empty-state">
+    <h2 class="ds-empty-state__title">No runs yet</h2>
+    <p class="ds-empty-state__body">Each task you start shows up here as a run, with its status and its branch.</p>
+    <div class="ds-empty-state__action">
+      <a class="ds-button ds-button--primary" href="#new-task">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-plus"></use></svg>
         New task
       </a>
     </div>
@@ -51,9 +51,9 @@
 <h3>Nothing the reader can do here</h3>
 </figcaption>
 <div data-example="no-action" data-title="Nothing the reader can do here">
-  <div class="gw-empty-state">
-    <h2 class="gw-empty-state__title">No pull requests waiting for review</h2>
-    <p class="gw-empty-state__body">A pull request appears here when a run finishes and asks for your review.</p>
+  <div class="ds-empty-state">
+    <h2 class="ds-empty-state__title">No pull requests waiting for review</h2>
+    <p class="ds-empty-state__body">A pull request appears here when a run finishes and asks for your review.</p>
   </div>
 </div>
 </figure>
@@ -62,11 +62,11 @@
 <h3>A filter that matches nothing</h3>
 </figcaption>
 <div data-example="filtered" data-title="A filter that matches nothing">
-  <div class="gw-empty-state">
-    <h2 class="gw-empty-state__title">No runs match "status: failed"</h2>
-    <p class="gw-empty-state__body">All 38 runs in acme/api passed or are still running. Clear the filter to see them.</p>
-    <div class="gw-empty-state__action">
-      <button type="button" class="gw-button">Clear filter</button>
+  <div class="ds-empty-state">
+    <h2 class="ds-empty-state__title">No runs match "status: failed"</h2>
+    <p class="ds-empty-state__body">All 38 runs in acme/api passed or are still running. Clear the filter to see them.</p>
+    <div class="ds-empty-state__action">
+      <button type="button" class="ds-button">Clear filter</button>
     </div>
   </div>
 </div>
@@ -76,9 +76,9 @@
 <h3>Compact, inside a list or a panel</h3>
 </figcaption>
 <div data-example="compact" data-title="Compact, inside a list or a panel">
-  <div class="gw-empty-state gw-empty-state--compact">
-    <h3 class="gw-empty-state__title">No branches yet</h3>
-    <p class="gw-empty-state__body">A branch is created when a task in this repository starts.</p>
+  <div class="ds-empty-state ds-empty-state--compact">
+    <h3 class="ds-empty-state__title">No branches yet</h3>
+    <p class="ds-empty-state__body">A branch is created when a task in this repository starts.</p>
   </div>
 </div>
 </figure>
@@ -87,35 +87,35 @@
 <h3>Compact, with an action</h3>
 </figcaption>
 <div data-example="compact-action" data-title="Compact, with an action">
-  <div class="gw-empty-state gw-empty-state--compact">
-    <h3 class="gw-empty-state__title">No setup commands</h3>
-    <p class="gw-empty-state__body">Commands saved here run in the workspace before each task.</p>
-    <div class="gw-empty-state__action">
-      <button type="button" class="gw-button gw-button--small">Add command</button>
+  <div class="ds-empty-state ds-empty-state--compact">
+    <h3 class="ds-empty-state__title">No setup commands</h3>
+    <p class="ds-empty-state__body">Commands saved here run in the workspace before each task.</p>
+    <div class="ds-empty-state__action">
+      <button type="button" class="ds-button ds-button--small">Add command</button>
     </div>
   </div>
 </div>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Two main actions</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Two main actions</h3>
 <p>An empty view should point one way. Two primary buttons leave the reader to work out which one gets them started. Keep the one that produces the missing data.</p>
 <p>Checker rule: <code>one-primary-action</code></p>
 </figcaption>
 <div data-example="two-actions" data-title="Two main actions" data-dont="one-primary-action" data-reason="An empty view should point one way. Two primary buttons leave the reader to work out which one gets them started. Keep the one that produces the missing data.">
-  <div class="gw-empty-state">
-    <h2 class="gw-empty-state__title">No runs yet</h2>
-    <p class="gw-empty-state__body">Each task you start shows up here as a run, with its status and its branch.</p>
-    <div class="gw-empty-state__action gw-cluster">
-      <a class="gw-button gw-button--primary" href="#new-task">New task</a>
-      <a class="gw-button gw-button--primary" href="#connect">Connect repository</a>
+  <div class="ds-empty-state">
+    <h2 class="ds-empty-state__title">No runs yet</h2>
+    <p class="ds-empty-state__body">Each task you start shows up here as a run, with its status and its branch.</p>
+    <div class="ds-empty-state__action ds-cluster">
+      <a class="ds-button ds-button--primary" href="#new-task">New task</a>
+      <a class="ds-button ds-button--primary" href="#connect">Connect repository</a>
     </div>
   </div>
 </div>
 </figure>
 </div>
 </section>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
@@ -137,7 +137,7 @@
 <dl>
 <dt>default</dt>
 <dd>For a whole view. A 16px title, and room above and below.</dd>
-<dt>compact <code>gw-empty-state--compact</code></dt>
+<dt>compact <code>ds-empty-state--compact</code></dt>
 <dd>For a section inside a list or a panel. The title is the size of a row's text and the action is a small button.</dd>
 </dl>
 </section>
@@ -146,7 +146,7 @@
 <ul>
 <li>The title is a heading at the level that fits the view's outline, usually h2, or h3 for the compact size inside a section.</li>
 <li>The body is one sentence saying what will appear here and how to get it.</li>
-<li>At most one action, inside gw-empty-state__action. It is the primary button only when it is the view's main action. Use a link element when it goes to another view.</li>
+<li>At most one action, inside ds-empty-state__action. It is the primary button only when it is the view's main action. Use a link element when it goes to another view.</li>
 <li>It is left-aligned and sits where the data will be. Do not centre it.</li>
 <li>When the empty state replaces content after a search or filter, announce the result count in a separate role=&quot;status&quot; element, such as 0 runs. The empty state itself takes no role.</li>
 </ul>
@@ -154,11 +154,11 @@
 <section>
 <h2>Classes</h2>
 <ul>
-<li><code>gw-empty-state</code></li>
-<li><code>gw-empty-state--compact</code></li>
-<li><code>gw-empty-state__action</code></li>
-<li><code>gw-empty-state__body</code></li>
-<li><code>gw-empty-state__title</code></li>
+<li><code>ds-empty-state</code></li>
+<li><code>ds-empty-state--compact</code></li>
+<li><code>ds-empty-state__action</code></li>
+<li><code>ds-empty-state__body</code></li>
+<li><code>ds-empty-state__title</code></li>
 </ul>
 </section>
 </div>

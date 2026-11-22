@@ -6,37 +6,37 @@
  * interrupted, reconnecting or done.
  */
 
-@layer gw.components {
-  .gw-message {
+@layer ds.components {
+  .ds-message {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    column-gap: var(--gw-space-sm);
-    row-gap: var(--gw-space-xs);
+    column-gap: var(--ds-space-sm);
+    row-gap: var(--ds-space-xs);
     min-width: 0;
-    padding: var(--gw-space-sm) var(--gw-space-md);
-    border-radius: var(--gw-radius-md);
+    padding: var(--ds-space-sm) var(--ds-space-md);
+    border-radius: var(--ds-radius-md);
   }
 
   /* The kind of row, in words. It takes the line height of the text beside it, so the two share a baseline. */
-  .gw-message__label {
+  .ds-message__label {
     flex: none;
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-medium);
-    line-height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-medium);
+    line-height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
   }
 
-  .gw-message__tool {
+  .ds-message__tool {
     flex: none;
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-mono);
-    font-weight: var(--gw-weight-medium);
-    line-height: var(--gw-leading-mono);
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-mono);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-mono);
   }
 
   /* Prose, on its own line under the label. Line breaks in the text are kept. */
-  .gw-message__body {
+  .ds-message__body {
     flex: 1 1 100%;
     min-width: 0;
     white-space: pre-wrap;
@@ -44,31 +44,31 @@
   }
 
   /* A short command or path beside the tool name. It wraps anywhere, so a long one never widens the page. */
-  .gw-message__command {
+  .ds-message__command {
     flex: 1 1 0;
     min-width: 0;
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-mono);
-    line-height: var(--gw-leading-mono);
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-mono);
+    line-height: var(--ds-leading-mono);
     white-space: pre-wrap;
     overflow-wrap: anywhere;
   }
 
   /* A block of arguments or output. */
-  .gw-message__code {
+  .ds-message__code {
     flex: 1 1 100%;
     min-width: 0;
-    padding: var(--gw-space-sm) var(--gw-space-md);
-    border-radius: var(--gw-radius-sm);
-    background-color: var(--gw-color-surface-sunken);
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-mono);
-    line-height: var(--gw-leading-mono);
+    padding: var(--ds-space-sm) var(--ds-space-md);
+    border-radius: var(--ds-radius-sm);
+    background-color: var(--ds-color-surface-sunken);
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-mono);
+    line-height: var(--ds-leading-mono);
     white-space: pre-wrap;
     overflow-wrap: anywhere;
   }
 
-  .gw-message__details {
+  .ds-message__details {
     display: flex;
     flex: 1 1 100%;
     flex-direction: column;
@@ -76,81 +76,81 @@
   }
 
   /* The summary is as tall as a pointer target, and its text sits in the middle of that height. */
-  .gw-message__summary {
+  .ds-message__summary {
     display: flex;
     align-items: baseline;
-    column-gap: var(--gw-space-sm);
-    min-height: var(--gw-size-touch);
-    padding-block: var(--gw-space-md);
-    border-radius: var(--gw-radius-sm);
-    font-weight: var(--gw-weight-medium);
+    column-gap: var(--ds-space-sm);
+    min-height: var(--ds-size-touch);
+    padding-block: var(--ds-space-md);
+    border-radius: var(--ds-radius-sm);
+    font-weight: var(--ds-weight-medium);
     cursor: pointer;
   }
 
-  .gw-message__summary::-webkit-details-marker {
+  .ds-message__summary::-webkit-details-marker {
     display: none;
   }
 
-  .gw-message__summary::before {
+  .ds-message__summary::before {
     content: "";
     flex: none;
     align-self: flex-start;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
     background-color: currentColor;
     mask: url("icons/chevron-right.svg") center / contain no-repeat;
   }
 
-  .gw-message__details[open] > .gw-message__summary::before {
+  .ds-message__details[open] > .ds-message__summary::before {
     mask-image: url("icons/chevron-down.svg");
   }
 
-  .gw-message__details[open] > .gw-message__summary {
-    padding-bottom: var(--gw-space-sm);
+  .ds-message__details[open] > .ds-message__summary {
+    padding-bottom: var(--ds-space-sm);
   }
 
   @media (hover: hover) {
-    .gw-message__summary:hover {
-      background-color: var(--gw-color-surface-sunken);
+    .ds-message__summary:hover {
+      background-color: var(--ds-color-surface-sunken);
     }
   }
 
   /* The label is not muted here: muted text on the sunken surface is too faint. */
-  .gw-message--user {
-    padding-block: var(--gw-space-md);
-    background-color: var(--gw-color-surface-sunken);
+  .ds-message--user {
+    padding-block: var(--ds-space-md);
+    background-color: var(--ds-color-surface-sunken);
   }
 
-  .gw-message--user > .gw-message__label {
-    color: var(--gw-color-on-surface);
+  .ds-message--user > .ds-message__label {
+    color: var(--ds-color-on-surface);
   }
 
   /* A call the rules refused, and something that failed. The label's word and its icon tell the two apart. */
-  .gw-message--denied,
-  .gw-message--error {
-    padding-block: var(--gw-space-md);
-    background-color: var(--gw-color-danger-subtle);
+  .ds-message--denied,
+  .ds-message--error {
+    padding-block: var(--ds-space-md);
+    background-color: var(--ds-color-danger-subtle);
   }
 
-  .gw-message--denied > .gw-message__label,
-  .gw-message--error > .gw-message__label {
+  .ds-message--denied > .ds-message__label,
+  .ds-message--error > .ds-message__label {
     display: flex;
-    gap: var(--gw-space-xs);
-    color: var(--gw-color-danger);
+    gap: var(--ds-space-xs);
+    color: var(--ds-color-danger);
   }
 
   /* Drawn here, so a denial or an error is never marked by colour alone, whatever the markup holds. */
-  .gw-message--denied > .gw-message__label::before,
-  .gw-message--error > .gw-message__label::before {
+  .ds-message--denied > .ds-message__label::before,
+  .ds-message--error > .ds-message__label::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
     background-color: currentColor;
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }
 
-  .gw-message--error > .gw-message__label::before {
+  .ds-message--error > .ds-message__label::before {
     mask-image: url("icons/triangle-alert.svg");
   }
 
@@ -158,54 +158,54 @@
    * An answered request says how it was answered in its label: a few words and an icon from the sprite.
    * The label has a line to itself, so the longest of them leaves the command its width.
    */
-  .gw-message--decision > .gw-message__label {
+  .ds-message--decision > .ds-message__label {
     display: flex;
     flex: 1 1 100%;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
   }
 
-  .gw-message__icon {
+  .ds-message__icon {
     flex: none;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
   }
 
   /* A question to the reader. The run waits on the answer, so the row stands out from the agent's other text. */
-  .gw-message--question {
-    padding-block: var(--gw-space-md);
-    background-color: var(--gw-color-info-subtle);
+  .ds-message--question {
+    padding-block: var(--ds-space-md);
+    background-color: var(--ds-color-info-subtle);
   }
 
-  .gw-message--question > .gw-message__label {
-    color: var(--gw-color-info);
+  .ds-message--question > .ds-message__label {
+    color: var(--ds-color-info);
   }
 
   /* Tool rows are the bulk of a transcript, so they sit closer together. An answered request sits with them. */
-  .gw-message--tool-call,
-  .gw-message--tool-result,
-  .gw-message--decision {
-    padding-block: var(--gw-space-xs);
+  .ds-message--tool-call,
+  .ds-message--tool-result,
+  .ds-message--decision {
+    padding-block: var(--ds-space-xs);
   }
 
   /* Quiet rows: the label and the text share one line. */
-  .gw-message--session-start,
-  .gw-message--usage,
-  .gw-message--turn-end {
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+  .ds-message--session-start,
+  .ds-message--usage,
+  .ds-message--turn-end {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
   }
 
-  .gw-message--session-start > .gw-message__body,
-  .gw-message--usage > .gw-message__body,
-  .gw-message--turn-end > .gw-message__body {
+  .ds-message--session-start > .ds-message__body,
+  .ds-message--usage > .ds-message__body,
+  .ds-message--turn-end > .ds-message__body {
     flex: 1 1 0;
   }
 
   /* The rule above the row is what closes the turn. */
-  .gw-message--turn-end {
-    padding-top: var(--gw-space-md);
-    border-top-width: var(--gw-border-width);
+  .ds-message--turn-end {
+    padding-top: var(--ds-space-md);
+    border-top-width: var(--ds-border-width);
     border-radius: 0;
   }
 
@@ -213,67 +213,67 @@
    * Where the text is arriving. In the markup only while the row streams, at the end of the body, and hidden from
    * assistive technology there. It is not drawn in any other state, so a row that has ended never shows it.
    */
-  .gw-message__caret {
+  .ds-message__caret {
     display: none;
-    width: calc(var(--gw-border-width) * 2);
-    height: var(--gw-text-ui);
-    margin-inline-start: calc(var(--gw-border-width) * 2);
+    width: calc(var(--ds-border-width) * 2);
+    height: var(--ds-text-ui);
+    margin-inline-start: calc(var(--ds-border-width) * 2);
     background-color: currentColor;
     vertical-align: text-bottom;
   }
 
-  .gw-message[data-state="streaming"] .gw-message__caret {
+  .ds-message[data-state="streaming"] .ds-message__caret {
     display: inline-block;
-    animation: gw-message-caret calc(var(--gw-duration-slow) * 4) step-end infinite;
+    animation: ds-message-caret calc(var(--ds-duration-slow) * 4) step-end infinite;
   }
 
   /* How a row that did not finish stands, in words, on a line under the text that was kept. */
-  .gw-message__state {
+  .ds-message__state {
     display: flex;
     flex: 1 1 100%;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
     min-width: 0;
-    color: var(--gw-color-muted);
+    color: var(--ds-color-muted);
     overflow-wrap: anywhere;
   }
 
   /* Each of the three has an icon of its own, drawn here, beside the words. */
-  .gw-message[data-state="stopped"] > .gw-message__state::before,
-  .gw-message[data-state="interrupted"] > .gw-message__state::before,
-  .gw-message[data-state="reconnecting"] > .gw-message__state::before {
+  .ds-message[data-state="stopped"] > .ds-message__state::before,
+  .ds-message[data-state="interrupted"] > .ds-message__state::before,
+  .ds-message[data-state="reconnecting"] > .ds-message__state::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     background-color: currentColor;
     mask: url("icons/circle-slash.svg") center / contain no-repeat;
   }
 
-  .gw-message[data-state="interrupted"] > .gw-message__state {
-    color: var(--gw-color-danger);
+  .ds-message[data-state="interrupted"] > .ds-message__state {
+    color: var(--ds-color-danger);
   }
 
-  .gw-message[data-state="interrupted"] > .gw-message__state::before {
+  .ds-message[data-state="interrupted"] > .ds-message__state::before {
     mask-image: url("icons/triangle-alert.svg");
   }
 
-  .gw-message[data-state="reconnecting"] > .gw-message__state {
-    color: var(--gw-color-info);
+  .ds-message[data-state="reconnecting"] > .ds-message__state {
+    color: var(--ds-color-info);
   }
 
   /* Still working, so the same stepped loader as every other running mark. */
-  .gw-message[data-state="reconnecting"] > .gw-message__state::before {
+  .ds-message[data-state="reconnecting"] > .ds-message__state::before {
     mask-image: url("icons/loader.svg");
-    animation: gw-message-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+    animation: ds-message-turn calc(var(--ds-duration-slow) * 4) steps(8) infinite;
   }
 
-  @keyframes gw-message-caret {
+  @keyframes ds-message-caret {
     50% {
       opacity: 0;
     }
   }
 
-  @keyframes gw-message-turn {
+  @keyframes ds-message-turn {
     to {
       rotate: 1turn;
     }
@@ -281,8 +281,8 @@
 
   /* The caret and the mark stay, still, and the words carry the meaning. */
   @media (prefers-reduced-motion: reduce) {
-    .gw-message[data-state="streaming"] .gw-message__caret,
-    .gw-message[data-state="reconnecting"] > .gw-message__state::before {
+    .ds-message[data-state="streaming"] .ds-message__caret,
+    .ds-message[data-state="reconnecting"] > .ds-message__state::before {
       animation: none;
     }
   }

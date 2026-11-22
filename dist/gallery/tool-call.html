@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tool call - Groundwork gallery</title>
-<link rel="stylesheet" href="../groundwork.css">
+<title>Tool call - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -26,29 +26,29 @@
 </header>
 <section>
 <h2>Examples</h2>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Succeeded, closed</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Succeeded, closed</h3>
 <p data-gallery="state">State: <code>succeeded</code></p>
 <p>The line says what happened without opening anything: the status in words beside its icon, what was run in mono, and how long it took. The arguments and the output are one press away.</p>
 </figcaption>
 <div data-example="succeeded" data-title="Succeeded, closed" data-state="succeeded" data-reason="The line says what happened without opening anything: the status in words beside its icon, what was run in mono, and how long it took. The arguments and the output are one press away.">
-  <article class="gw-tool-call" data-state="succeeded" aria-labelledby="tool-call-succeeded-title">
-    <details class="gw-tool-call__details">
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-succeeded-title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth/session.test.ts</code></span>
-        <span class="gw-tool-call__duration">2.4 s</span>
+  <article class="ds-tool-call" data-state="succeeded" aria-labelledby="tool-call-succeeded-title">
+    <details class="ds-tool-call__details">
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-succeeded-title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">npm test -- --run src/auth/session.test.ts</code></span>
+        <span class="ds-tool-call__duration">2.4 s</span>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments</p>
+        <pre class="ds-tool-call__code">{
   "command": "npm test -- --run src/auth/session.test.ts",
   "description": "Run the session tests",
   "timeout": 120000
 }</pre>
-        <p class="gw-tool-call__label">Output, 6 lines</p>
-        <pre class="gw-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
+        <p class="ds-tool-call__label">Output, 6 lines</p>
+        <pre class="ds-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
 
  ✓ src/auth/session.test.ts (14 tests) 212ms
 
@@ -65,14 +65,14 @@
 <p data-gallery="state">State: <code>requested</code></p>
 </figcaption>
 <div data-example="requested" data-title="Requested: the arguments are still arriving" data-state="requested">
-  <article class="gw-tool-call" data-state="requested" aria-labelledby="tool-call-requested-title">
-    <details class="gw-tool-call__details">
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-requested-title"><span class="gw-tool-call__status">Preparing</span> Edit <code class="gw-tool-call__target">src/auth/session.ts</code></span>
+  <article class="ds-tool-call" data-state="requested" aria-labelledby="tool-call-requested-title">
+    <details class="ds-tool-call__details">
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-requested-title"><span class="ds-tool-call__status">Preparing</span> Edit <code class="ds-tool-call__target">src/auth/session.ts</code></span>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments, still arriving</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments, still arriving</p>
+        <pre class="ds-tool-call__code">{
   "file_path": "src/auth/session.ts",
   "old_string": "if (justSignedIn) startRefresh</pre>
       </div>
@@ -82,28 +82,28 @@
 </figure>
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Awaiting approval, shown open</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Awaiting approval, shown open</h3>
 <p data-gallery="state">State: <code>awaiting-approval</code></p>
 <p>The request waits on the reader, so the app sets open and the arguments can be read before deciding. Allow and Decline sit under the line, outside the details, so closing it never hides them. Both have secondary emphasis: a transcript may hold several requests, and none of them is the view's primary action.</p>
 </figcaption>
 <div data-example="awaiting-approval" data-title="Awaiting approval, shown open" data-state="awaiting-approval" data-reason="The request waits on the reader, so the app sets open and the arguments can be read before deciding. Allow and Decline sit under the line, outside the details, so closing it never hides them. Both have secondary emphasis: a transcript may hold several requests, and none of them is the view's primary action.">
-  <article class="gw-tool-call" data-state="awaiting-approval" aria-labelledby="tool-call-awaiting-approval-title">
-    <details class="gw-tool-call__details" open>
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-awaiting-approval-title"><span class="gw-tool-call__status">Awaiting approval</span> Run <code class="gw-tool-call__target">npm install --save-dev @acme/session-fixtures</code></span>
-        <gw-elapsed class="gw-tool-call__duration" datetime="2026-11-22T09:58:52Z">1 min 8 s</gw-elapsed>
+  <article class="ds-tool-call" data-state="awaiting-approval" aria-labelledby="tool-call-awaiting-approval-title">
+    <details class="ds-tool-call__details" open>
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-awaiting-approval-title"><span class="ds-tool-call__status">Awaiting approval</span> Run <code class="ds-tool-call__target">npm install --save-dev @acme/session-fixtures</code></span>
+        <ds-elapsed class="ds-tool-call__duration" datetime="2026-11-22T09:58:52Z">1 min 8 s</ds-elapsed>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments</p>
+        <pre class="ds-tool-call__code">{
   "command": "npm install --save-dev @acme/session-fixtures",
   "description": "Add the fixture user the reload test needs"
 }</pre>
       </div>
     </details>
-    <div class="gw-tool-call__actions">
-      <button type="button" class="gw-button gw-button--small" data-gw-critical aria-describedby="tool-call-awaiting-approval-title">Allow</button>
-      <button type="button" class="gw-button gw-button--small" data-gw-critical aria-describedby="tool-call-awaiting-approval-title">Decline</button>
+    <div class="ds-tool-call__actions">
+      <button type="button" class="ds-button ds-button--small" data-ds-critical aria-describedby="tool-call-awaiting-approval-title">Allow</button>
+      <button type="button" class="ds-button ds-button--small" data-ds-critical aria-describedby="tool-call-awaiting-approval-title">Decline</button>
     </div>
   </article>
 </div>
@@ -113,23 +113,23 @@
 <h3>Awaiting approval, after the reader closed the details</h3>
 </figcaption>
 <div data-example="approval-closed" data-title="Awaiting approval, after the reader closed the details">
-  <article class="gw-tool-call" data-state="awaiting-approval" aria-labelledby="tool-call-approval-closed-title">
-    <details class="gw-tool-call__details">
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-approval-closed-title"><span class="gw-tool-call__status">Awaiting approval</span> Run <code class="gw-tool-call__target">git push origin fix/login-timeout</code></span>
-        <gw-elapsed class="gw-tool-call__duration" datetime="2026-11-22T09:59:46Z">14 s</gw-elapsed>
+  <article class="ds-tool-call" data-state="awaiting-approval" aria-labelledby="tool-call-approval-closed-title">
+    <details class="ds-tool-call__details">
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-approval-closed-title"><span class="ds-tool-call__status">Awaiting approval</span> Run <code class="ds-tool-call__target">git push origin fix/login-timeout</code></span>
+        <ds-elapsed class="ds-tool-call__duration" datetime="2026-11-22T09:59:46Z">14 s</ds-elapsed>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments</p>
+        <pre class="ds-tool-call__code">{
   "command": "git push origin fix/login-timeout",
   "description": "Publish the branch so the pull request can be opened"
 }</pre>
       </div>
     </details>
-    <div class="gw-tool-call__actions">
-      <button type="button" class="gw-button gw-button--small" data-gw-critical aria-describedby="tool-call-approval-closed-title">Allow</button>
-      <button type="button" class="gw-button gw-button--small" data-gw-critical aria-describedby="tool-call-approval-closed-title">Decline</button>
+    <div class="ds-tool-call__actions">
+      <button type="button" class="ds-button ds-button--small" data-ds-critical aria-describedby="tool-call-approval-closed-title">Allow</button>
+      <button type="button" class="ds-button ds-button--small" data-ds-critical aria-describedby="tool-call-approval-closed-title">Decline</button>
     </div>
   </article>
 </div>
@@ -140,15 +140,15 @@
 <p data-gallery="state">State: <code>running</code></p>
 </figcaption>
 <div data-example="running" data-title="Running, with the time counting up" data-state="running">
-  <article class="gw-tool-call" data-state="running" aria-labelledby="tool-call-running-title">
-    <details class="gw-tool-call__details">
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-running-title"><span class="gw-tool-call__status">Running</span> <code class="gw-tool-call__target">docker compose --file infra/docker-compose.test.yml run --rm api npm run test:integration</code></span>
-        <gw-elapsed class="gw-tool-call__duration" datetime="2026-11-22T09:59:12Z">48 s</gw-elapsed>
+  <article class="ds-tool-call" data-state="running" aria-labelledby="tool-call-running-title">
+    <details class="ds-tool-call__details">
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-running-title"><span class="ds-tool-call__status">Running</span> <code class="ds-tool-call__target">docker compose --file infra/docker-compose.test.yml run --rm api npm run test:integration</code></span>
+        <ds-elapsed class="ds-tool-call__duration" datetime="2026-11-22T09:59:12Z">48 s</ds-elapsed>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments</p>
+        <pre class="ds-tool-call__code">{
   "command": "docker compose --file infra/docker-compose.test.yml run --rm api npm run test:integration",
   "description": "Run the integration tests in the test stack",
   "timeout": 600000
@@ -163,21 +163,21 @@
 <h3>Running, opened by the reader: output arrives in a block that keeps its height</h3>
 </figcaption>
 <div data-example="running-output" data-title="Running, opened by the reader: output arrives in a block that keeps its height">
-  <article class="gw-tool-call" data-state="running" aria-labelledby="tool-call-running-output-title">
-    <details class="gw-tool-call__details" open>
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-running-output-title"><span class="gw-tool-call__status">Running</span> <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
-        <gw-elapsed class="gw-tool-call__duration" datetime="2026-11-22T09:59:54Z">6 s</gw-elapsed>
+  <article class="ds-tool-call" data-state="running" aria-labelledby="tool-call-running-output-title">
+    <details class="ds-tool-call__details" open>
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-running-output-title"><span class="ds-tool-call__status">Running</span> <code class="ds-tool-call__target">npm test -- --run src/auth</code></span>
+        <ds-elapsed class="ds-tool-call__duration" datetime="2026-11-22T09:59:54Z">6 s</ds-elapsed>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments</p>
+        <pre class="ds-tool-call__code">{
   "command": "npm test -- --run src/auth",
   "description": "Run the auth tests"
 }</pre>
-        <p class="gw-tool-call__label" id="tool-call-running-output-label">Output so far, 4 lines</p>
-        <div class="gw-tool-call__output" role="region" aria-labelledby="tool-call-running-output-label" tabindex="0">
-          <pre class="gw-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
+        <p class="ds-tool-call__label" id="tool-call-running-output-label">Output so far, 4 lines</p>
+        <div class="ds-tool-call__output" role="region" aria-labelledby="tool-call-running-output-label" tabindex="0">
+          <pre class="ds-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
 
  ✓ src/auth/cookie.test.ts (6 tests) 41ms
  ✓ src/auth/refresh.test.ts (9 tests) 87ms</pre>
@@ -193,21 +193,21 @@
 <p data-gallery="state">State: <code>open</code></p>
 </figcaption>
 <div data-example="open" data-title="Open: the arguments, then the last lines of a long output" data-state="open">
-  <article class="gw-tool-call" data-state="succeeded" aria-labelledby="tool-call-open-title">
-    <details class="gw-tool-call__details" open>
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-open-title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm test</code></span>
-        <span class="gw-tool-call__duration">48 s</span>
+  <article class="ds-tool-call" data-state="succeeded" aria-labelledby="tool-call-open-title">
+    <details class="ds-tool-call__details" open>
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-open-title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">npm test</code></span>
+        <span class="ds-tool-call__duration">48 s</span>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments</p>
+        <pre class="ds-tool-call__code">{
   "command": "npm test",
   "description": "Run every test before opening the pull request"
 }</pre>
-        <p class="gw-tool-call__label" id="tool-call-open-output-label">Output, last 12 of 214 lines</p>
-        <div class="gw-tool-call__output" role="region" aria-labelledby="tool-call-open-output-label" tabindex="0">
-          <pre class="gw-tool-call__code"> ✓ src/routes/sign-in.test.tsx (11 tests) 398ms
+        <p class="ds-tool-call__label" id="tool-call-open-output-label">Output, last 12 of 214 lines</p>
+        <div class="ds-tool-call__output" role="region" aria-labelledby="tool-call-open-output-label" tabindex="0">
+          <pre class="ds-tool-call__code"> ✓ src/routes/sign-in.test.tsx (11 tests) 398ms
  ✓ src/routes/settings.test.tsx (8 tests) 276ms
  ✓ src/webhooks/limit.test.ts (5 tests) 1012ms
  ✓ src/webhooks/retry.test.ts (7 tests) 64ms
@@ -220,7 +220,7 @@
       Tests  213 passed (213)
    Duration  47.92s (transform 1.31s, setup 0ms, collect 9.04s, tests 31.7s)</pre>
         </div>
-        <button type="button" class="gw-button gw-button--quiet gw-show-more__all">Show all 214 lines</button>
+        <button type="button" class="ds-button ds-button--quiet ds-show-more__all">Show all 214 lines</button>
       </div>
     </details>
   </article>
@@ -232,21 +232,21 @@
 <p data-gallery="state">State: <code>failed</code></p>
 </figcaption>
 <div data-example="failed" data-title="Failed, shown open" data-state="failed">
-  <article class="gw-tool-call" data-state="failed" aria-labelledby="tool-call-failed-title">
-    <details class="gw-tool-call__details" open>
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-failed-title"><span class="gw-tool-call__status">Failed</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
-        <span class="gw-tool-call__duration">3.1 s</span>
-        <span class="gw-tool-call__note">The command exited with code 1. 1 of 30 tests failed.</span>
+  <article class="ds-tool-call" data-state="failed" aria-labelledby="tool-call-failed-title">
+    <details class="ds-tool-call__details" open>
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-failed-title"><span class="ds-tool-call__status">Failed</span> Ran <code class="ds-tool-call__target">npm test -- --run src/auth</code></span>
+        <span class="ds-tool-call__duration">3.1 s</span>
+        <span class="ds-tool-call__note">The command exited with code 1. 1 of 30 tests failed.</span>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments</p>
+        <pre class="ds-tool-call__code">{
   "command": "npm test -- --run src/auth",
   "description": "Run the auth tests"
 }</pre>
-        <p class="gw-tool-call__label">Output, 4 lines</p>
-        <pre class="gw-tool-call__code"> ✗ src/auth/session.test.ts > keeps the session after a reload
+        <p class="ds-tool-call__label">Output, 4 lines</p>
+        <pre class="ds-tool-call__code"> ✗ src/auth/session.test.ts > keeps the session after a reload
    AssertionError: expected null to be truthy
 
  Test Files  1 failed | 2 passed (3)</pre>
@@ -261,15 +261,15 @@
 <p data-gallery="state">State: <code>declined</code></p>
 </figcaption>
 <div data-example="declined" data-title="Declined: it did not run" data-state="declined">
-  <article class="gw-tool-call" data-state="declined" aria-labelledby="tool-call-declined-title">
-    <details class="gw-tool-call__details">
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-declined-title"><span class="gw-tool-call__status">Declined</span> Run <code class="gw-tool-call__target">psql $DATABASE_URL -f seed/users.sql</code></span>
-        <span class="gw-tool-call__note">Not run. Declined by Dana Okafor at 09:14, with a note: Seed the test database, not the shared one.</span>
+  <article class="ds-tool-call" data-state="declined" aria-labelledby="tool-call-declined-title">
+    <details class="ds-tool-call__details">
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-declined-title"><span class="ds-tool-call__status">Declined</span> Run <code class="ds-tool-call__target">psql $DATABASE_URL -f seed/users.sql</code></span>
+        <span class="ds-tool-call__note">Not run. Declined by Dana Okafor at 09:14, with a note: Seed the test database, not the shared one.</span>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments</p>
+        <pre class="ds-tool-call__code">{
   "command": "psql $DATABASE_URL -f seed/users.sql",
   "description": "Seed the fixture user"
 }</pre>
@@ -284,16 +284,16 @@
 <p data-gallery="state">State: <code>timed-out</code></p>
 </figcaption>
 <div data-example="timed-out" data-title="Timed out" data-state="timed-out">
-  <article class="gw-tool-call" data-state="timed-out" aria-labelledby="tool-call-timed-out-title">
-    <details class="gw-tool-call__details">
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-timed-out-title"><span class="gw-tool-call__status">Timed out</span> Ran <code class="gw-tool-call__target">npm run test:integration</code></span>
-        <span class="gw-tool-call__duration">10 min</span>
-        <span class="gw-tool-call__note">Stopped at the 10 minute limit. 214 of 252 tests had finished.</span>
+  <article class="ds-tool-call" data-state="timed-out" aria-labelledby="tool-call-timed-out-title">
+    <details class="ds-tool-call__details">
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-timed-out-title"><span class="ds-tool-call__status">Timed out</span> Ran <code class="ds-tool-call__target">npm run test:integration</code></span>
+        <span class="ds-tool-call__duration">10 min</span>
+        <span class="ds-tool-call__note">Stopped at the 10 minute limit. 214 of 252 tests had finished.</span>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments</p>
+        <pre class="ds-tool-call__code">{
   "command": "npm run test:integration",
   "timeout": 600000
 }</pre>
@@ -308,15 +308,15 @@
 <p data-gallery="state">State: <code>cancelled</code></p>
 </figcaption>
 <div data-example="cancelled" data-title="Cancelled before it ran" data-state="cancelled">
-  <article class="gw-tool-call" data-state="cancelled" aria-labelledby="tool-call-cancelled-title">
-    <details class="gw-tool-call__details">
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-cancelled-title"><span class="gw-tool-call__status">Cancelled</span> Run <code class="gw-tool-call__target">npm run lint</code></span>
-        <span class="gw-tool-call__note">Not run. You sent a new message before this request was answered.</span>
+  <article class="ds-tool-call" data-state="cancelled" aria-labelledby="tool-call-cancelled-title">
+    <details class="ds-tool-call__details">
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-cancelled-title"><span class="ds-tool-call__status">Cancelled</span> Run <code class="ds-tool-call__target">npm run lint</code></span>
+        <span class="ds-tool-call__note">Not run. You sent a new message before this request was answered.</span>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments</p>
+        <pre class="ds-tool-call__code">{
   "command": "npm run lint"
 }</pre>
       </div>
@@ -326,36 +326,36 @@
 </figure>
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A retry is a new row under the failed one</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> A retry is a new row under the failed one</h3>
 <p>The failed call stays as it ended, with its output, and the second attempt is a row of its own. The reader can see that there were two attempts and what each returned.</p>
 </figcaption>
 <div data-example="retry" data-title="A retry is a new row under the failed one" data-reason="The failed call stays as it ended, with its output, and the second attempt is a row of its own. The reader can see that there were two attempts and what each returned.">
-  <ul class="gw-stack gw-gap-sm">
+  <ul class="ds-stack ds-gap-sm">
     <li>
-      <article class="gw-tool-call" data-state="failed" aria-labelledby="tool-call-retry-first-title">
-        <details class="gw-tool-call__details" open>
-          <summary class="gw-tool-call__summary">
-            <span class="gw-tool-call__title" id="tool-call-retry-first-title"><span class="gw-tool-call__status">Failed</span> Ran <code class="gw-tool-call__target">git fetch origin main</code></span>
-            <span class="gw-tool-call__duration">30 s</span>
-            <span class="gw-tool-call__note">The remote did not answer. Tried again below.</span>
+      <article class="ds-tool-call" data-state="failed" aria-labelledby="tool-call-retry-first-title">
+        <details class="ds-tool-call__details" open>
+          <summary class="ds-tool-call__summary">
+            <span class="ds-tool-call__title" id="tool-call-retry-first-title"><span class="ds-tool-call__status">Failed</span> Ran <code class="ds-tool-call__target">git fetch origin main</code></span>
+            <span class="ds-tool-call__duration">30 s</span>
+            <span class="ds-tool-call__note">The remote did not answer. Tried again below.</span>
           </summary>
-          <div class="gw-tool-call__body">
-            <p class="gw-tool-call__label">Output, 1 line</p>
-            <pre class="gw-tool-call__code">fatal: unable to access 'https://git.acme.example/acme/api.git/': Operation timed out</pre>
+          <div class="ds-tool-call__body">
+            <p class="ds-tool-call__label">Output, 1 line</p>
+            <pre class="ds-tool-call__code">fatal: unable to access 'https://git.acme.example/acme/api.git/': Operation timed out</pre>
           </div>
         </details>
       </article>
     </li>
     <li>
-      <article class="gw-tool-call" data-state="succeeded" aria-labelledby="tool-call-retry-second-title">
-        <details class="gw-tool-call__details">
-          <summary class="gw-tool-call__summary">
-            <span class="gw-tool-call__title" id="tool-call-retry-second-title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">git fetch origin main</code>, second attempt</span>
-            <span class="gw-tool-call__duration">1.8 s</span>
+      <article class="ds-tool-call" data-state="succeeded" aria-labelledby="tool-call-retry-second-title">
+        <details class="ds-tool-call__details">
+          <summary class="ds-tool-call__summary">
+            <span class="ds-tool-call__title" id="tool-call-retry-second-title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">git fetch origin main</code>, second attempt</span>
+            <span class="ds-tool-call__duration">1.8 s</span>
           </summary>
-          <div class="gw-tool-call__body">
-            <p class="gw-tool-call__label">Output, 2 lines</p>
-            <pre class="gw-tool-call__code">From https://git.acme.example/acme/api
+          <div class="ds-tool-call__body">
+            <p class="ds-tool-call__label">Output, 2 lines</p>
+            <pre class="ds-tool-call__code">From https://git.acme.example/acme/api
  * branch            main       -> FETCH_HEAD</pre>
           </div>
         </details>
@@ -366,22 +366,22 @@
 </figure>
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> As rows of a transcript</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> As rows of a transcript</h3>
 <p>In a transcript a call is the content of a tool-call message row, with the row modifier taking the card away. The same markup and the same states serve a step group.</p>
 </figcaption>
 <div data-example="in-transcript" data-title="As rows of a transcript" data-reason="In a transcript a call is the content of a tool-call message row, with the row modifier taking the card away. The same markup and the same states serve a step group.">
   <div role="log" aria-live="off" aria-label="Transcript of run 4182">
-    <ol class="gw-stack gw-gap-xs">
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Explored 5 files in <code class="gw-tool-call__target">src/auth</code></span>
-              <span class="gw-tool-call__duration">0.4 s</span>
+    <ol class="ds-stack ds-gap-xs">
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Explored 5 files in <code class="ds-tool-call__target">src/auth</code></span>
+              <span class="ds-tool-call__duration">0.4 s</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Files read</p>
-              <pre class="gw-tool-call__code">src/auth/session.ts
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Files read</p>
+              <pre class="ds-tool-call__code">src/auth/session.ts
 src/auth/session.test.ts
 src/auth/refresh.ts
 src/auth/cookie.ts
@@ -390,16 +390,16 @@ src/routes/sign-in.tsx</pre>
           </details>
         </div>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
-              <span class="gw-tool-call__duration">38 ms</span>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
+              <span class="ds-tool-call__duration">38 ms</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{
   "file_path": "src/auth/session.ts",
   "old_string": "if (justSignedIn) startRefreshTimer(session);",
   "new_string": "if (session.expiresAt > Date.now()) startRefreshTimer(session);"
@@ -408,16 +408,16 @@ src/routes/sign-in.tsx</pre>
           </details>
         </div>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="running">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Running</span> <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
-              <gw-elapsed class="gw-tool-call__duration" datetime="2026-11-22T09:59:18Z">42 s</gw-elapsed>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="running">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Running</span> <code class="ds-tool-call__target">npm test -- --run src/auth</code></span>
+              <ds-elapsed class="ds-tool-call__duration" datetime="2026-11-22T09:59:18Z">42 s</ds-elapsed>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{
   "command": "npm test -- --run src/auth",
   "description": "Run the auth tests"
 }</pre>
@@ -434,26 +434,26 @@ src/routes/sign-in.tsx</pre>
 <h3>The earlier form, still drawn: a heading, a status line and two disclosures</h3>
 </figcaption>
 <div data-example="earlier-form" data-title="The earlier form, still drawn: a heading, a status line and two disclosures">
-  <article class="gw-tool-call gw-tool-call--succeeded" aria-labelledby="tool-call-earlier-form-title">
-    <h4 class="gw-tool-call__title" id="tool-call-earlier-form-title">
-      <span class="gw-tool-call__name">Bash</span>
-      <code class="gw-tool-call__target">npm run test -- --run src/auth/session.test.ts</code>
+  <article class="ds-tool-call ds-tool-call--succeeded" aria-labelledby="tool-call-earlier-form-title">
+    <h4 class="ds-tool-call__title" id="tool-call-earlier-form-title">
+      <span class="ds-tool-call__name">Bash</span>
+      <code class="ds-tool-call__target">npm run test -- --run src/auth/session.test.ts</code>
     </h4>
-    <p class="gw-tool-call__meta">
-      <span class="gw-tool-call__status">Succeeded</span>
-      <span class="gw-tool-call__duration">2.4 s</span>
+    <p class="ds-tool-call__meta">
+      <span class="ds-tool-call__status">Succeeded</span>
+      <span class="ds-tool-call__duration">2.4 s</span>
     </p>
-    <details class="gw-tool-call__details">
-      <summary class="gw-tool-call__summary">Arguments, 5 lines</summary>
-      <pre class="gw-tool-call__code">{
+    <details class="ds-tool-call__details">
+      <summary class="ds-tool-call__summary">Arguments, 5 lines</summary>
+      <pre class="ds-tool-call__code">{
   "command": "npm run test -- --run src/auth/session.test.ts",
   "description": "Run the session tests",
   "timeout": 120000
 }</pre>
     </details>
-    <details class="gw-tool-call__details">
-      <summary class="gw-tool-call__summary">Output, 6 lines</summary>
-      <pre class="gw-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
+    <details class="ds-tool-call__details">
+      <summary class="ds-tool-call__summary">Output, 6 lines</summary>
+      <pre class="ds-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
 
  ✓ src/auth/session.test.ts (14 tests) 212ms
 
@@ -465,20 +465,20 @@ src/routes/sign-in.tsx</pre>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A status with no word</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> A status with no word</h3>
 <p>An icon and a colour alone leave the reader to guess between failed and timed out, and a screen reader announces nothing. Write the status as a word in every state.</p>
 <p>Caught in review, not by the checker.</p>
 </figcaption>
 <div data-example="colour-only" data-title="A status with no word" data-dont="review" data-reason="An icon and a colour alone leave the reader to guess between failed and timed out, and a screen reader announces nothing. Write the status as a word in every state.">
-  <article class="gw-tool-call" data-state="failed" aria-labelledby="tool-call-colour-only-title">
-    <details class="gw-tool-call__details">
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-colour-only-title"><span class="gw-tool-call__status"></span> <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
-        <span class="gw-tool-call__duration">3.1 s</span>
+  <article class="ds-tool-call" data-state="failed" aria-labelledby="tool-call-colour-only-title">
+    <details class="ds-tool-call__details">
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-colour-only-title"><span class="ds-tool-call__status"></span> <code class="ds-tool-call__target">npm test -- --run src/auth</code></span>
+        <span class="ds-tool-call__duration">3.1 s</span>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Output, 1 line</p>
-        <pre class="gw-tool-call__code"> Test Files  1 failed | 2 passed (3)</pre>
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Output, 1 line</p>
+        <pre class="ds-tool-call__code"> Test Files  1 failed | 2 passed (3)</pre>
       </div>
     </details>
   </article>
@@ -486,24 +486,24 @@ src/routes/sign-in.tsx</pre>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Allow and Decline inside the closed details</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Allow and Decline inside the closed details</h3>
 <p>The run waits on these two buttons, and a reader who has not opened the row cannot see them. Put them in the actions part, after the details element.</p>
 <p>Checker rule: <code>hidden-critical-action</code></p>
 </figcaption>
 <div data-example="approval-in-details" data-title="Allow and Decline inside the closed details" data-dont="hidden-critical-action" data-reason="The run waits on these two buttons, and a reader who has not opened the row cannot see them. Put them in the actions part, after the details element.">
-  <article class="gw-tool-call" data-state="awaiting-approval" aria-labelledby="tool-call-approval-in-details-title">
-    <details class="gw-tool-call__details">
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-approval-in-details-title"><span class="gw-tool-call__status">Awaiting approval</span> Run <code class="gw-tool-call__target">git push origin fix/login-timeout</code></span>
+  <article class="ds-tool-call" data-state="awaiting-approval" aria-labelledby="tool-call-approval-in-details-title">
+    <details class="ds-tool-call__details">
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-approval-in-details-title"><span class="ds-tool-call__status">Awaiting approval</span> Run <code class="ds-tool-call__target">git push origin fix/login-timeout</code></span>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments</p>
+        <pre class="ds-tool-call__code">{
   "command": "git push origin fix/login-timeout"
 }</pre>
-        <div class="gw-tool-call__actions">
-          <button type="button" class="gw-button gw-button--small" data-gw-critical>Allow</button>
-          <button type="button" class="gw-button gw-button--small" data-gw-critical>Decline</button>
+        <div class="ds-tool-call__actions">
+          <button type="button" class="ds-button ds-button--small" data-ds-critical>Allow</button>
+          <button type="button" class="ds-button ds-button--small" data-ds-critical>Decline</button>
         </div>
       </div>
     </details>
@@ -512,20 +512,20 @@ src/routes/sign-in.tsx</pre>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A retry written over the failed row</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> A retry written over the failed row</h3>
 <p>The row now says Running, and the failure and its output are gone. The reader cannot tell that the first attempt failed, or why. Leave the failed row as it ended and add a row for the new attempt.</p>
 <p>Caught in review, not by the checker.</p>
 </figcaption>
 <div data-example="retry-in-place" data-title="A retry written over the failed row" data-dont="review" data-reason="The row now says Running, and the failure and its output are gone. The reader cannot tell that the first attempt failed, or why. Leave the failed row as it ended and add a row for the new attempt.">
-  <article class="gw-tool-call" data-state="running" aria-labelledby="tool-call-retry-in-place-title">
-    <details class="gw-tool-call__details">
-      <summary class="gw-tool-call__summary">
-        <span class="gw-tool-call__title" id="tool-call-retry-in-place-title"><span class="gw-tool-call__status">Running</span> <code class="gw-tool-call__target">git fetch origin main</code></span>
-        <span class="gw-tool-call__duration">2 s</span>
+  <article class="ds-tool-call" data-state="running" aria-labelledby="tool-call-retry-in-place-title">
+    <details class="ds-tool-call__details">
+      <summary class="ds-tool-call__summary">
+        <span class="ds-tool-call__title" id="tool-call-retry-in-place-title"><span class="ds-tool-call__status">Running</span> <code class="ds-tool-call__target">git fetch origin main</code></span>
+        <span class="ds-tool-call__duration">2 s</span>
       </summary>
-      <div class="gw-tool-call__body">
-        <p class="gw-tool-call__label">Arguments</p>
-        <pre class="gw-tool-call__code">{
+      <div class="ds-tool-call__body">
+        <p class="ds-tool-call__label">Arguments</p>
+        <pre class="ds-tool-call__code">{
   "command": "git fetch origin main"
 }</pre>
       </div>
@@ -535,7 +535,7 @@ src/routes/sign-in.tsx</pre>
 </figure>
 </div>
 </section>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
@@ -558,13 +558,13 @@ src/routes/sign-in.tsx</pre>
 <dl>
 <dt>card</dt>
 <dd>The default: a framed card, for a call that stands alone.</dd>
-<dt>row <code>gw-tool-call--row</code></dt>
-<dd>No frame. For the content of a gw-message gw-message--tool-call row in a transcript, and for a step in a step group. This is the one way to show a tool call in a transcript.</dd>
-<dt>succeeded, earlier form <code>gw-tool-call--succeeded</code></dt>
-<dd>Markup written before data-state existed: an outcome class on a root with no data-state, a heading in gw-tool-call__title holding gw-tool-call__name, a status line in gw-tool-call__meta and a details element each for arguments and output. It is drawn as before. New markup sets data-state=&quot;succeeded&quot; instead.</dd>
-<dt>failed, earlier form <code>gw-tool-call--failed</code></dt>
+<dt>row <code>ds-tool-call--row</code></dt>
+<dd>No frame. For the content of a ds-message ds-message--tool-call row in a transcript, and for a step in a step group. This is the one way to show a tool call in a transcript.</dd>
+<dt>succeeded, earlier form <code>ds-tool-call--succeeded</code></dt>
+<dd>Markup written before data-state existed: an outcome class on a root with no data-state, a heading in ds-tool-call__title holding ds-tool-call__name, a status line in ds-tool-call__meta and a details element each for arguments and output. It is drawn as before. New markup sets data-state=&quot;succeeded&quot; instead.</dd>
+<dt>failed, earlier form <code>ds-tool-call--failed</code></dt>
 <dd>The earlier form of data-state=&quot;failed&quot;.</dd>
-<dt>denied, earlier form <code>gw-tool-call--denied</code></dt>
+<dt>denied, earlier form <code>ds-tool-call--denied</code></dt>
 <dd>The earlier form of data-state=&quot;declined&quot;. Its running state was aria-busy=&quot;true&quot; on the root.</dd>
 </dl>
 </section>
@@ -573,42 +573,42 @@ src/routes/sign-in.tsx</pre>
 <ul>
 <li>The app sets data-state on the root and changes it as the call moves on: requested while the arguments are still arriving, awaiting-approval, running, then one final state: succeeded, failed, declined when a person or a rule refused it, timed-out, or cancelled when it was superseded or stopped before it ran. A final state never changes again. The stylesheet draws the icon from data-state and nothing else, so no class is toggled.</li>
 <li>A retry is a new row after the failed one. Never set a failed row back to running: the reader would lose the failure and its output.</li>
-<li>The root is an article with aria-labelledby pointing at gw-tool-call__title when it stands alone, and a div with the row modifier inside the li of a transcript or a step group.</li>
-<li>The line is the summary of one native details element, gw-tool-call__details. It holds gw-tool-call__title, which starts with gw-tool-call__status and goes on with the summary, then gw-tool-call__duration. Enter and Space open and close it. It is drawn 36px tall, to keep a long run dense, and its pointer target is 44px tall.</li>
-<li>gw-tool-call__status always holds a word, written by the app: Preparing, Awaiting approval, Running, Succeeded, Failed, Declined (or Denied when a permission rule refused it), Timed out, Cancelled. The icon is never the only sign. Only the running icon moves, and under prefers-reduced-motion it is still.</li>
-<li>The summary is app text in plain words with the command or the target in a code element with gw-tool-call__target: Ran npm test, Edited auth.ts +12 −1, Explored 5 files. Use the past tense once the call has run and the plain verb before it runs or when it never ran: Run npm install. After the word Running, write the command alone. rules/content.md has the wording.</li>
-<li>gw-tool-call__duration is the time elapsed while the call waits or runs, and the total once it has ended, with its unit: 42 s, 2.4 s. A time that counts up is not announced: use the gw-elapsed element from behaviors/elapsed.js, or a span with aria-live=&quot;off&quot; that the app updates.</li>
-<li>A failed, declined, timed-out or cancelled call says why in one or two sentences in a span with gw-tool-call__note, the last element of the summary. It is part of the line, so it stays in view when the details are closed.</li>
-<li>gw-tool-call__body holds the arguments and then the output, each under a p with gw-tool-call__label that says what it is and how long: Arguments, then Output, last 12 of 214 lines. Write both as text in a pre with gw-tool-call__code, never as markup.</li>
-<li>Long output goes in gw-tool-call__output: a block that shows the last lines and scrolls inside itself. Give it role=&quot;region&quot;, aria-labelledby pointing at its label and tabindex=&quot;0&quot;, so the keyboard can scroll it. Render only the last lines, and after the block put a button with gw-button gw-button--quiet gw-show-more__all reading Show all 214 lines. When it is pressed, put every line in the same block and remove the button.</li>
-<li>While a call runs, append new lines to the pre inside gw-tool-call__output. The block keeps one height and stays on its last line, so nothing around it moves. Do not make it a live region.</li>
+<li>The root is an article with aria-labelledby pointing at ds-tool-call__title when it stands alone, and a div with the row modifier inside the li of a transcript or a step group.</li>
+<li>The line is the summary of one native details element, ds-tool-call__details. It holds ds-tool-call__title, which starts with ds-tool-call__status and goes on with the summary, then ds-tool-call__duration. Enter and Space open and close it. It is drawn 36px tall, to keep a long run dense, and its pointer target is 44px tall.</li>
+<li>ds-tool-call__status always holds a word, written by the app: Preparing, Awaiting approval, Running, Succeeded, Failed, Declined (or Denied when a permission rule refused it), Timed out, Cancelled. The icon is never the only sign. Only the running icon moves, and under prefers-reduced-motion it is still.</li>
+<li>The summary is app text in plain words with the command or the target in a code element with ds-tool-call__target: Ran npm test, Edited auth.ts +12 −1, Explored 5 files. Use the past tense once the call has run and the plain verb before it runs or when it never ran: Run npm install. After the word Running, write the command alone. rules/content.md has the wording.</li>
+<li>ds-tool-call__duration is the time elapsed while the call waits or runs, and the total once it has ended, with its unit: 42 s, 2.4 s. A time that counts up is not announced: use the ds-elapsed element from behaviors/elapsed.js, or a span with aria-live=&quot;off&quot; that the app updates.</li>
+<li>A failed, declined, timed-out or cancelled call says why in one or two sentences in a span with ds-tool-call__note, the last element of the summary. It is part of the line, so it stays in view when the details are closed.</li>
+<li>ds-tool-call__body holds the arguments and then the output, each under a p with ds-tool-call__label that says what it is and how long: Arguments, then Output, last 12 of 214 lines. Write both as text in a pre with ds-tool-call__code, never as markup.</li>
+<li>Long output goes in ds-tool-call__output: a block that shows the last lines and scrolls inside itself. Give it role=&quot;region&quot;, aria-labelledby pointing at its label and tabindex=&quot;0&quot;, so the keyboard can scroll it. Render only the last lines, and after the block put a button with ds-button ds-button--quiet ds-show-more__all reading Show all 214 lines. When it is pressed, put every line in the same block and remove the button.</li>
+<li>While a call runs, append new lines to the pre inside ds-tool-call__output. The block keeps one height and stays on its last line, so nothing around it moves. Do not make it a live region.</li>
 <li>The app sets the open attribute on the details element while the call awaits approval and when it has failed, so the arguments or the error output are in view. Every other state starts closed. Leave the attribute alone once the reader has opened or closed the row.</li>
-<li>While the call awaits approval, gw-tool-call__actions comes after the details element and holds Allow and Decline: two buttons with gw-button gw-button--small, secondary emphasis, each marked data-gw-critical and each with aria-describedby pointing at the title. Never put them inside the details element. When the reader answers, remove the actions, set the next state and move focus to the row's summary.</li>
+<li>While the call awaits approval, ds-tool-call__actions comes after the details element and holds Allow and Decline: two buttons with ds-button ds-button--small, secondary emphasis, each marked data-ds-critical and each with aria-describedby pointing at the title. Never put them inside the details element. When the reader answers, remove the actions, set the next state and move focus to the row's summary.</li>
 <li>Announce a request for approval, a failure and the end of the run from the one status region of the view, as the activity announcer describes. The row itself is not a live region.</li>
 </ul>
 </section>
 <section>
 <h2>Classes</h2>
 <ul>
-<li><code>gw-tool-call</code></li>
-<li><code>gw-tool-call--denied</code></li>
-<li><code>gw-tool-call--failed</code></li>
-<li><code>gw-tool-call--row</code></li>
-<li><code>gw-tool-call--succeeded</code></li>
-<li><code>gw-tool-call__actions</code></li>
-<li><code>gw-tool-call__body</code></li>
-<li><code>gw-tool-call__code</code></li>
-<li><code>gw-tool-call__details</code></li>
-<li><code>gw-tool-call__duration</code></li>
-<li><code>gw-tool-call__label</code></li>
-<li><code>gw-tool-call__meta</code></li>
-<li><code>gw-tool-call__name</code></li>
-<li><code>gw-tool-call__note</code></li>
-<li><code>gw-tool-call__output</code></li>
-<li><code>gw-tool-call__status</code></li>
-<li><code>gw-tool-call__summary</code></li>
-<li><code>gw-tool-call__target</code></li>
-<li><code>gw-tool-call__title</code></li>
+<li><code>ds-tool-call</code></li>
+<li><code>ds-tool-call--denied</code></li>
+<li><code>ds-tool-call--failed</code></li>
+<li><code>ds-tool-call--row</code></li>
+<li><code>ds-tool-call--succeeded</code></li>
+<li><code>ds-tool-call__actions</code></li>
+<li><code>ds-tool-call__body</code></li>
+<li><code>ds-tool-call__code</code></li>
+<li><code>ds-tool-call__details</code></li>
+<li><code>ds-tool-call__duration</code></li>
+<li><code>ds-tool-call__label</code></li>
+<li><code>ds-tool-call__meta</code></li>
+<li><code>ds-tool-call__name</code></li>
+<li><code>ds-tool-call__note</code></li>
+<li><code>ds-tool-call__output</code></li>
+<li><code>ds-tool-call__status</code></li>
+<li><code>ds-tool-call__summary</code></li>
+<li><code>ds-tool-call__target</code></li>
+<li><code>ds-tool-call__title</code></li>
 </ul>
 </section>
 </div>

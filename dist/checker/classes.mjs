@@ -11,6 +11,28 @@ const VISUAL_EXACT = new Set([
 
 const COMPONENT_FIX = "Use a catalogue component, or declare an app-local component in the gap file.";
 
+// The prefix the system used before 0.6.0. A name that still carries it no longer matches the stylesheet,
+// so it is reported until the app has run the codemod over its source.
+export const OLD_PREFIX = "gw";
+// A class, element, icon id or keyframe name, a data attribute, a custom property or a cascade layer with the old prefix.
+export const OLD_NAME = /(?<![\w-])(?:data-|--)?gw-[\w-]+|(?<![\w$.-])gw\.(?:reset|tokens|base|components)\b/g;
+
+export function oldPrefix(name, vocabulary) {
+  const renamed = name.replace(/^(data-|--)?gw(?=[-.])/, (_, lead = "") => `${lead}${vocabulary.classPrefix.slice(0, -1)}`);
+  return {
+    rule: "old-prefix",
+    message: `${name} has the prefix from before 0.6.0, so nothing in the system matches it. Run the codemod migrate-prefix.mjs over the app's source.`,
+    fix: `Run node <vendored copy>/migrate-prefix.mjs <paths…> from the app's root. The new name is ${renamed}.`,
+  };
+}
+
+// The findings for every old-prefix name in a piece of text. An app whose own prefix is gw keeps its classes.
+export function oldNames(text, vocabulary, appPrefix = null) {
+  return [...text.matchAll(OLD_NAME)]
+    .filter(([name]) => appPrefix !== OLD_PREFIX || !name.startsWith(`${OLD_PREFIX}-`))
+    .map(([name]) => oldPrefix(name, vocabulary));
+}
+
 // Findings for a whitespace-separated class list.
 //   appLocalFile: the file is a declared app-local component, which may style itself with utilities.
 //   only: report these rules and no others.
@@ -53,6 +75,10 @@ function classify(name, { vocabulary, appPrefix, gapClasses, appLocalFile }) {
     }
   }
 
+  if (base.startsWith(`${OLD_PREFIX}-`) && appPrefix !== OLD_PREFIX) {
+    findings.push(oldPrefix(base, vocabulary));
+    return findings;
+  }
   if (base.startsWith(vocabulary.classPrefix)) {
     if (!vocabulary.classes.has(base)) findings.push(unknownSystemClass(base, vocabulary));
     return findings;

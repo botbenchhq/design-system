@@ -3,12 +3,12 @@
  * It is always in the page and never drawn. The app writes one short sentence into it at each milestone.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* One pixel square and clipped: an element with no size, or one that is not rendered, is not announced. */
-  .gw-activity-announcer {
+  .ds-activity-announcer {
     position: absolute;
-    width: var(--gw-border-width);
-    height: var(--gw-border-width);
+    width: var(--ds-border-width);
+    height: var(--ds-border-width);
     padding: 0;
     overflow: hidden;
     clip-path: inset(50%);

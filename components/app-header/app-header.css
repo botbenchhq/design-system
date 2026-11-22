@@ -4,112 +4,112 @@
  * row holds what must stay in sight on every screen, such as approvals waiting for an answer.
  */
 
-@layer gw.components {
-  .gw-app-header {
+@layer ds.components {
+  .ds-app-header {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     /* The row gap keeps the pointer target of a control in the tray clear of the controls in the bar above it. */
-    gap: var(--gw-space-xs);
-    padding: var(--gw-space-xs) var(--gw-space-sm);
-    border-bottom-width: var(--gw-border-width);
-    background-color: var(--gw-color-surface);
+    gap: var(--ds-space-xs);
+    padding: var(--ds-space-xs) var(--ds-space-sm);
+    border-bottom-width: var(--ds-border-width);
+    background-color: var(--ds-color-surface);
   }
 
   /* Stays at the top of the page while the content scrolls beneath it. */
-  .gw-app-header--sticky {
+  .ds-app-header--sticky {
     position: sticky;
     top: 0;
-    z-index: var(--gw-z-sticky);
+    z-index: var(--ds-z-sticky);
   }
 
-  .gw-app-header__name,
-  .gw-app-header__back,
-  .gw-app-header__action {
+  .ds-app-header__name,
+  .ds-app-header__back,
+  .ds-app-header__action {
     display: inline-flex;
     flex: none;
     align-items: center;
-    gap: var(--gw-space-xs);
-    min-width: var(--gw-size-touch);
-    min-height: var(--gw-size-touch);
-    padding-inline: var(--gw-space-sm);
-    border-radius: var(--gw-radius-md);
+    gap: var(--ds-space-xs);
+    min-width: var(--ds-size-touch);
+    min-height: var(--ds-size-touch);
+    padding-inline: var(--ds-space-sm);
+    border-radius: var(--ds-radius-md);
     transition-property: background-color, color;
-    transition-duration: var(--gw-duration-fast);
-    transition-timing-function: var(--gw-ease);
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
   }
 
-  .gw-app-header__name {
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-mono);
-    font-weight: var(--gw-weight-semibold);
-    line-height: var(--gw-leading-mono);
+  .ds-app-header__name {
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-mono);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-mono);
   }
 
-  .gw-app-header__back {
-    font-weight: var(--gw-weight-medium);
+  .ds-app-header__back {
+    font-weight: var(--ds-weight-medium);
   }
 
   /* One line. A title too long for the row is cut with an ellipsis, so the actions never leave the row. */
-  .gw-app-header__title {
+  .ds-app-header__title {
     flex: 1;
     min-width: 0;
-    padding-inline: var(--gw-space-sm);
+    padding-inline: var(--ds-space-sm);
     overflow: hidden;
-    font-size: var(--gw-text-lg);
-    font-weight: var(--gw-weight-semibold);
-    line-height: var(--gw-leading-lg);
+    font-size: var(--ds-text-lg);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-lg);
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  .gw-app-header__actions {
+  .ds-app-header__actions {
     display: flex;
     flex: none;
     align-items: center;
     margin-inline-start: auto;
   }
 
-  .gw-app-header__action {
+  .ds-app-header__action {
     justify-content: center;
   }
 
-  .gw-app-header__icon {
+  .ds-app-header__icon {
     flex: none;
-    width: calc(var(--gw-space-lg) + var(--gw-space-xs));
-    height: calc(var(--gw-space-lg) + var(--gw-space-xs));
+    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
   }
 
   /* A row of its own under the bar. With nothing in it, it takes no space. */
-  .gw-app-header__tray {
+  .ds-app-header__tray {
     flex: 1 0 100%;
-    padding: var(--gw-space-xs) var(--gw-space-sm);
+    padding: var(--ds-space-xs) var(--ds-space-sm);
   }
 
-  .gw-app-header__tray:empty {
+  .ds-app-header__tray:empty {
     display: none;
   }
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   @media (hover: hover) {
-    .gw-app-header__name:hover,
-    .gw-app-header__back:hover,
-    .gw-app-header__action:hover {
-      background-color: var(--gw-color-surface-sunken);
+    .ds-app-header__name:hover,
+    .ds-app-header__back:hover,
+    .ds-app-header__action:hover {
+      background-color: var(--ds-color-surface-sunken);
     }
   }
 
-  .gw-app-header__name:active,
-  .gw-app-header__back:active,
-  .gw-app-header__action:active {
-    background-color: var(--gw-color-border);
+  .ds-app-header__name:active,
+  .ds-app-header__back:active,
+  .ds-app-header__action:active {
+    background-color: var(--ds-color-border);
   }
 
   /* After hover and active, so an unavailable action never answers the pointer. */
-  .gw-app-header__action:disabled,
-  .gw-app-header__action[aria-disabled="true"] {
+  .ds-app-header__action:disabled,
+  .ds-app-header__action[aria-disabled="true"] {
     background-color: transparent;
-    color: var(--gw-color-muted);
+    color: var(--ds-color-muted);
     cursor: default;
   }
 }

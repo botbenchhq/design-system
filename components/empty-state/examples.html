@@ -1,10 +1,10 @@
 <div data-example="default" data-title="A view with no data yet" data-state="empty" data-reason="The title says what is missing, the sentence says what will appear and how to get it, and the one action starts that. It is left-aligned, where the list will be.">
-  <div class="gw-empty-state">
-    <h2 class="gw-empty-state__title">No runs yet</h2>
-    <p class="gw-empty-state__body">Each task you start shows up here as a run, with its status and its branch.</p>
-    <div class="gw-empty-state__action">
-      <a class="gw-button gw-button--primary" href="#new-task">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-plus"></use></svg>
+  <div class="ds-empty-state">
+    <h2 class="ds-empty-state__title">No runs yet</h2>
+    <p class="ds-empty-state__body">Each task you start shows up here as a run, with its status and its branch.</p>
+    <div class="ds-empty-state__action">
+      <a class="ds-button ds-button--primary" href="#new-task">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
         New task
       </a>
     </div>
@@ -12,46 +12,46 @@
 </div>
 
 <div data-example="no-action" data-title="Nothing the reader can do here">
-  <div class="gw-empty-state">
-    <h2 class="gw-empty-state__title">No pull requests waiting for review</h2>
-    <p class="gw-empty-state__body">A pull request appears here when a run finishes and asks for your review.</p>
+  <div class="ds-empty-state">
+    <h2 class="ds-empty-state__title">No pull requests waiting for review</h2>
+    <p class="ds-empty-state__body">A pull request appears here when a run finishes and asks for your review.</p>
   </div>
 </div>
 
 <div data-example="filtered" data-title="A filter that matches nothing">
-  <div class="gw-empty-state">
-    <h2 class="gw-empty-state__title">No runs match "status: failed"</h2>
-    <p class="gw-empty-state__body">All 38 runs in acme/api passed or are still running. Clear the filter to see them.</p>
-    <div class="gw-empty-state__action">
-      <button type="button" class="gw-button">Clear filter</button>
+  <div class="ds-empty-state">
+    <h2 class="ds-empty-state__title">No runs match "status: failed"</h2>
+    <p class="ds-empty-state__body">All 38 runs in acme/api passed or are still running. Clear the filter to see them.</p>
+    <div class="ds-empty-state__action">
+      <button type="button" class="ds-button">Clear filter</button>
     </div>
   </div>
 </div>
 
 <div data-example="compact" data-title="Compact, inside a list or a panel">
-  <div class="gw-empty-state gw-empty-state--compact">
-    <h3 class="gw-empty-state__title">No branches yet</h3>
-    <p class="gw-empty-state__body">A branch is created when a task in this repository starts.</p>
+  <div class="ds-empty-state ds-empty-state--compact">
+    <h3 class="ds-empty-state__title">No branches yet</h3>
+    <p class="ds-empty-state__body">A branch is created when a task in this repository starts.</p>
   </div>
 </div>
 
 <div data-example="compact-action" data-title="Compact, with an action">
-  <div class="gw-empty-state gw-empty-state--compact">
-    <h3 class="gw-empty-state__title">No setup commands</h3>
-    <p class="gw-empty-state__body">Commands saved here run in the workspace before each task.</p>
-    <div class="gw-empty-state__action">
-      <button type="button" class="gw-button gw-button--small">Add command</button>
+  <div class="ds-empty-state ds-empty-state--compact">
+    <h3 class="ds-empty-state__title">No setup commands</h3>
+    <p class="ds-empty-state__body">Commands saved here run in the workspace before each task.</p>
+    <div class="ds-empty-state__action">
+      <button type="button" class="ds-button ds-button--small">Add command</button>
     </div>
   </div>
 </div>
 
 <div data-example="two-actions" data-title="Two main actions" data-dont="one-primary-action" data-reason="An empty view should point one way. Two primary buttons leave the reader to work out which one gets them started. Keep the one that produces the missing data.">
-  <div class="gw-empty-state">
-    <h2 class="gw-empty-state__title">No runs yet</h2>
-    <p class="gw-empty-state__body">Each task you start shows up here as a run, with its status and its branch.</p>
-    <div class="gw-empty-state__action gw-cluster">
-      <a class="gw-button gw-button--primary" href="#new-task">New task</a>
-      <a class="gw-button gw-button--primary" href="#connect">Connect repository</a>
+  <div class="ds-empty-state">
+    <h2 class="ds-empty-state__title">No runs yet</h2>
+    <p class="ds-empty-state__body">Each task you start shows up here as a run, with its status and its branch.</p>
+    <div class="ds-empty-state__action ds-cluster">
+      <a class="ds-button ds-button--primary" href="#new-task">New task</a>
+      <a class="ds-button ds-button--primary" href="#connect">Connect repository</a>
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 // Class and inline-style rules on JavaScript, TypeScript and JSX.
 
-import { classFindings, unknownSystemClass } from "./classes.mjs";
+import { OLD_PREFIX, classFindings, oldNames, unknownSystemClass } from "./classes.mjs";
 import { ScriptSyntaxError, lexScript, tokenLists } from "./lex-script.mjs";
 
 // Functions whose arguments are class names.
@@ -11,7 +11,7 @@ const CONDITION = new Set([...COMPARISON, "&&", "?", "<", ">", "<=", ">="]);
 const STATEMENT_START = new Set(["const", "let", "var", "function", "export", "import", "return", "if", "for", "while", "class", "type", "interface"]);
 const CLOSER = { "(": ")", "[": "]", "{": "}" };
 
-const INLINE_STYLE_FIX = "Use a catalogue component or a class. Only a --gw- custom property may be set from script.";
+const INLINE_STYLE_FIX = "Use a catalogue component or a class. Only a --ds- custom property may be set from script.";
 
 const isPunct = (token, value) => token?.type === "p" && token.value === value;
 
@@ -30,8 +30,13 @@ export function scanScript(text, { file, jsx, vocabulary, appPrefix, gapClasses,
   const findings = [];
   const add = (line, { rule, message, fix }) => findings.push({ file, line: line + lineOffset, rule, message, fix });
   const classOptions = { vocabulary, appPrefix, gapClasses, appLocalFile };
-  // A system name after "#" is the fragment of a link to the icon sprite, such as icons.svg#gw-icon-check, not a class.
+  // A system name after "#" is the fragment of a link to the icon sprite, such as icons.svg#ds-icon-check, not a class.
   const systemClass = new RegExp(`(?<![\\w-])(?!(?<=#)${vocabulary.classPrefix}icon-)${vocabulary.classPrefix}[\\w-]*`, "g");
+  // A custom property the app may set inline: a system one, or one with the old prefix, which is reported as old-prefix instead.
+  const settable = (name) => name.startsWith(`--${vocabulary.classPrefix}`) || name.startsWith(`--${OLD_PREFIX}-`);
+  const addOld = (line, text) => {
+    for (const finding of oldNames(text, vocabulary, appPrefix)) add(line, finding);
+  };
 
   let tokens;
   try {
@@ -79,6 +84,7 @@ export function scanScript(text, { file, jsx, vocabulary, appPrefix, gapClasses,
 
   // A string anywhere may hold a system class: in a selector, a constant or a class list.
   function looseString(token, next) {
+    addOld(token.line, token.value);
     for (const [name] of token.value.matchAll(systemClass)) {
       if (token.value.endsWith(name) && isPunct(next, "+")) {
         add(token.line, dynamicClass(`"${name}" + …`));
@@ -110,6 +116,7 @@ export function scanScript(text, { file, jsx, vocabulary, appPrefix, gapClasses,
         } else if (asClasses) {
           for (const finding of classFindings(word, classOptions)) add(line, finding);
         } else {
+          addOld(line, word);
           for (const [name] of word.matchAll(systemClass)) {
             if (!vocabulary.classes.has(name)) add(line, unknownSystemClass(name, vocabulary));
           }
@@ -120,7 +127,10 @@ export function scanScript(text, { file, jsx, vocabulary, appPrefix, gapClasses,
   }
 
   function element(token) {
+    if (token.name?.startsWith(`${OLD_PREFIX}-`)) addOld(token.line, token.name);
     for (const attr of token.attrs) {
+      if (attr.name.startsWith(`data-${OLD_PREFIX}-`)) addOld(attr.line, attr.name);
+      if (attr.value?.str !== undefined && attr.name !== "className" && attr.name !== "class") addOld(attr.value.line, attr.value.str);
       if (attr.name === "className" || attr.name === "class") {
         if (attr.value?.str !== undefined) classList(attr.value.str, attr.value.line);
         else if (attr.value?.expr) classExpression(attr.value.expr, {});
@@ -131,7 +141,7 @@ export function scanScript(text, { file, jsx, vocabulary, appPrefix, gapClasses,
     }
   }
 
-  // True for style={{ "--gw-progress": value }}: an object literal whose every key is a system custom property.
+  // True for style={{ "--ds-progress": value }}: an object literal whose every key is a system custom property.
   function setsOnlySystemProperties(expr) {
     if (!expr || !isPunct(expr[0], "{")) return false;
     const end = groupEnd(expr, 0) - 1;
@@ -143,7 +153,7 @@ export function scanScript(text, { file, jsx, vocabulary, appPrefix, gapClasses,
       if (token.type === "p" && Object.values(CLOSER).includes(token.value)) depth--;
       const startsEntry = depth === 0 && (at === 1 || isPunct(expr[at - 1], ","));
       if (!startsEntry) continue;
-      if (token.type !== "str" || !token.value.startsWith(`--${vocabulary.classPrefix}`) || !isPunct(expr[at + 1], ":")) return false;
+      if (token.type !== "str" || !settable(token.value) || !isPunct(expr[at + 1], ":")) return false;
       keys++;
     }
     return keys > 0;
@@ -154,7 +164,7 @@ export function scanScript(text, { file, jsx, vocabulary, appPrefix, gapClasses,
     const member = isPunct(list[at + 1], ".") ? list[at + 2] : null;
     if (member?.value === "setProperty" && isPunct(list[at + 3], "(")) {
       const name = list[at + 4];
-      if (name?.type !== "str" || !name.value.startsWith(`--${vocabulary.classPrefix}`)) {
+      if (name?.type !== "str" || !settable(name.value)) {
         add(line, { rule: "inline-style", message: "This sets an inline style from script.", fix: INLINE_STYLE_FIX });
       }
     } else if (isPunct(list[at + 1], "=") || (member && isPunct(list[at + 3], "="))) {

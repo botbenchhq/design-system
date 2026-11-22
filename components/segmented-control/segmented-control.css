@@ -4,78 +4,78 @@
  * and its text. The radio fills its segment and draws the fill of the chosen one, and the text sits over it.
  */
 
-@layer gw.components {
-  .gw-segmented-control {
+@layer ds.components {
+  .ds-segmented-control {
     min-width: 0;
   }
 
-  .gw-segmented-control__legend {
-    margin-bottom: var(--gw-space-xs);
-    font-weight: var(--gw-weight-medium);
+  .ds-segmented-control__legend {
+    margin-bottom: var(--ds-space-xs);
+    font-weight: var(--ds-weight-medium);
   }
 
   /* The track. Equal columns, as wide as the row allows on a phone and as wide as the longest label from the regular width. */
-  .gw-segmented-control__options {
+  .ds-segmented-control__options {
     display: grid;
     grid-auto-columns: minmax(0, 1fr);
     grid-auto-flow: column;
-    padding: var(--gw-space-xs);
-    border-width: var(--gw-border-width);
-    border-radius: var(--gw-radius-md);
-    background-color: var(--gw-color-surface-sunken);
+    padding: var(--ds-space-xs);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-sunken);
   }
 
   @media (min-width: 768px) {
-    .gw-segmented-control__options {
+    .ds-segmented-control__options {
       display: inline-grid;
-      gap: var(--gw-space-xs);
+      gap: var(--ds-space-xs);
       max-width: 100%;
     }
   }
 
   /* With the track's padding and border, the row is one target tall. The padding is narrow on a phone so five short labels fit, and a longer label wraps inside its segment. */
-  .gw-segmented-control__option {
+  .ds-segmented-control__option {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--gw-size-touch);
-    min-height: calc(var(--gw-size-touch) - var(--gw-space-xs) * 2 - var(--gw-border-width) * 2);
-    padding: var(--gw-space-xs);
+    min-width: var(--ds-size-touch);
+    min-height: calc(var(--ds-size-touch) - var(--ds-space-xs) * 2 - var(--ds-border-width) * 2);
+    padding: var(--ds-space-xs);
     text-align: center;
   }
 
   @media (min-width: 768px) {
-    .gw-segmented-control__option {
-      padding-inline: var(--gw-space-md);
+    .ds-segmented-control__option {
+      padding-inline: var(--ds-space-md);
     }
   }
 
-  .gw-segmented-control__input {
+  .ds-segmented-control__input {
     position: absolute;
     inset: 0;
     appearance: none;
     width: 100%;
     height: 100%;
-    border-width: var(--gw-border-width);
+    border-width: var(--ds-border-width);
     border-color: transparent;
-    border-radius: var(--gw-radius-sm);
+    border-radius: var(--ds-radius-sm);
     cursor: pointer;
     transition-property: background-color, border-color;
-    transition-duration: var(--gw-duration-fast);
-    transition-timing-function: var(--gw-ease);
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
   }
 
   /* The segment is drawn shorter than a target. This invisible box reaches the track's outer edge, above and below. */
-  .gw-segmented-control__input::after {
+  .ds-segmented-control__input::after {
     content: "";
     position: absolute;
-    inset-block: calc(var(--gw-space-xs) * -1 - var(--gw-border-width) * 2);
-    inset-inline: calc(var(--gw-border-width) * -1);
+    inset-block: calc(var(--ds-space-xs) * -1 - var(--ds-border-width) * 2);
+    inset-inline: calc(var(--ds-border-width) * -1);
   }
 
   /* Over the radio, and never in the way of a press on it. */
-  .gw-segmented-control__label {
+  .ds-segmented-control__label {
     position: relative;
     min-width: 0;
     overflow-wrap: anywhere;
@@ -84,32 +84,32 @@
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   @media (hover: hover) {
-    .gw-segmented-control__input:hover {
-      border-color: var(--gw-color-border-strong);
+    .ds-segmented-control__input:hover {
+      border-color: var(--ds-color-border-strong);
     }
   }
 
   /* The chosen option: a raised, bordered segment and heavier text, so it never rests on colour. */
-  .gw-segmented-control__input:checked {
-    border-color: var(--gw-color-border-strong);
-    background-color: var(--gw-color-surface-raised);
+  .ds-segmented-control__input:checked {
+    border-color: var(--ds-color-border-strong);
+    background-color: var(--ds-color-surface-raised);
   }
 
-  .gw-segmented-control__input:checked + .gw-segmented-control__label {
-    font-weight: var(--gw-weight-semibold);
+  .ds-segmented-control__input:checked + .ds-segmented-control__label {
+    font-weight: var(--ds-weight-semibold);
   }
 
   /* After hover, so an unavailable option never answers the pointer. It also matches every option of a disabled fieldset. */
-  .gw-segmented-control__input:disabled {
+  .ds-segmented-control__input:disabled {
     border-color: transparent;
     cursor: default;
   }
 
-  .gw-segmented-control__input:disabled:checked {
-    border-color: var(--gw-color-border);
+  .ds-segmented-control__input:disabled:checked {
+    border-color: var(--ds-color-border);
   }
 
-  .gw-segmented-control__input:disabled + .gw-segmented-control__label {
-    color: var(--gw-color-muted);
+  .ds-segmented-control__input:disabled + .ds-segmented-control__label {
+    color: var(--ds-color-muted);
   }
 }

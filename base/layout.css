@@ -1,99 +1,99 @@
 /*
  * Layout primitives. Each sets its own default gap from the spacing scale, and
- * a gw-gap- class on the same element changes it.
+ * a ds-gap- class on the same element changes it.
  */
 
-@layer gw.base {
+@layer ds.base {
   /* Children one above the other. */
-  .gw-stack {
+  .ds-stack {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-md);
+    gap: var(--ds-space-md);
   }
 
   /* Children in a row that wraps, such as buttons or tags. */
-  .gw-cluster {
+  .ds-cluster {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
   }
 
   /* Two groups pushed to opposite ends, such as a title and its actions. */
-  .gw-split {
+  .ds-split {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--gw-space-md);
+    gap: var(--ds-space-md);
   }
 
   /* Equal columns at the regular width, one column below it. */
-  .gw-grid {
+  .ds-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--gw-space-lg);
+    gap: var(--ds-space-lg);
   }
 
   /* A sidebar beside the main content at the regular width, above it below that. */
-  .gw-sidebar-layout {
+  .ds-sidebar-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--gw-space-xl);
+    gap: var(--ds-space-xl);
   }
 
   @media (min-width: 768px) {
-    .gw-grid-2 {
+    .ds-grid-2 {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .gw-grid-3 {
+    .ds-grid-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .gw-grid-4 {
+    .ds-grid-4 {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    .gw-sidebar-layout {
+    .ds-sidebar-layout {
       grid-template-columns: auto minmax(0, 1fr);
     }
   }
 
   /* A centred column no wider than the transcript width. */
-  .gw-container {
+  .ds-container {
     width: 100%;
-    max-width: var(--gw-size-transcript);
+    max-width: var(--ds-size-transcript);
     margin-inline: auto;
-    padding-inline: var(--gw-space-lg);
+    padding-inline: var(--ds-space-lg);
   }
 
-  .gw-container-narrow {
-    max-width: var(--gw-size-column);
+  .ds-container-narrow {
+    max-width: var(--ds-size-column);
   }
 
   /* After the primitives, so a gap class wins over a primitive's default. */
-  .gw-gap-xs {
-    gap: var(--gw-space-xs);
+  .ds-gap-xs {
+    gap: var(--ds-space-xs);
   }
 
-  .gw-gap-sm {
-    gap: var(--gw-space-sm);
+  .ds-gap-sm {
+    gap: var(--ds-space-sm);
   }
 
-  .gw-gap-md {
-    gap: var(--gw-space-md);
+  .ds-gap-md {
+    gap: var(--ds-space-md);
   }
 
-  .gw-gap-lg {
-    gap: var(--gw-space-lg);
+  .ds-gap-lg {
+    gap: var(--ds-space-lg);
   }
 
-  .gw-gap-xl {
-    gap: var(--gw-space-xl);
+  .ds-gap-xl {
+    gap: var(--ds-space-xl);
   }
 
-  .gw-gap-2xl {
-    gap: var(--gw-space-2xl);
+  .ds-gap-2xl {
+    gap: var(--ds-space-2xl);
   }
 }

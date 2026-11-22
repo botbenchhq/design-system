@@ -7,17 +7,17 @@ import { repoRoot } from "./helpers.mjs";
 
 const base = join(repoRoot, "base");
 const dist = join(repoRoot, "dist");
-const bundle = join(dist, "groundwork.css");
+const bundle = join(dist, "design-system.css");
 
 const require = createRequire(import.meta.url);
 const postcss = createRequire(require.resolve("tailwindcss"))("postcss");
 
 const LAYER_OF = {
-  "reset.css": "gw.reset",
-  "typography.css": "gw.base",
-  "layout.css": "gw.base",
-  "focus.css": "gw.base",
-  "visually-hidden.css": "gw.base",
+  "reset.css": "ds.reset",
+  "typography.css": "ds.base",
+  "layout.css": "ds.base",
+  "focus.css": "ds.base",
+  "visually-hidden.css": "ds.base",
 };
 
 // The names of the at-rules of one kind that enclose a node, innermost first.
@@ -38,7 +38,7 @@ function rulesIn(file) {
 const baseStylesheets = () => readdirSync(base).filter((name) => name.endsWith(".css")).sort();
 const iconList = () => JSON.parse(readFileSync(join(base, "icons.json"), "utf8"));
 
-test("every selector in base/ sits inside a gw. layer: the reset in gw.reset, the rest in gw.base", () => {
+test("every selector in base/ sits inside a ds. layer: the reset in ds.reset, the rest in ds.base", () => {
   assert.deepEqual(baseStylesheets(), ["focus.css", "fonts.css", "layout.css", "reset.css", "typography.css", "visually-hidden.css"]);
   for (const name of baseStylesheets()) {
     const rules = rulesIn(join(base, name));
@@ -51,21 +51,21 @@ test("every selector in base/ sits inside a gw. layer: the reset in gw.reset, th
   }
 });
 
-test("every selector in the bundled stylesheet sits inside a gw. layer", () => {
+test("every selector in the bundled stylesheet sits inside a ds. layer", () => {
   for (const rule of rulesIn(bundle)) {
     const [layer] = enclosing(rule, "layer");
-    assert.match(layer ?? "", /^gw\.(reset|tokens|base|components)$/, rule.selector);
+    assert.match(layer ?? "", /^ds\.(reset|tokens|base|components)$/, rule.selector);
   }
 });
 
-test("every class in base/ starts with gw-", () => {
+test("every class in base/ starts with ds-", () => {
   const classes = baseStylesheets()
     .flatMap((name) => rulesIn(join(base, name)))
     .flatMap((rule) => rule.selector.match(/\.[A-Za-z_][\w-]*/g) ?? []);
   for (const name of ["stack", "cluster", "grid", "split", "sidebar-layout", "container"]) {
-    assert.ok(classes.includes(`.gw-${name}`), `no .gw-${name}`);
+    assert.ok(classes.includes(`.ds-${name}`), `no .ds-${name}`);
   }
-  for (const name of classes) assert.match(name, /^\.gw-/);
+  for (const name of classes) assert.match(name, /^\.ds-/);
 });
 
 test("base styles take colours, sizes and durations from tokens, and the only media-query width is 768px", () => {
@@ -90,18 +90,18 @@ test("the reset sets border-box sizing and a zero-width solid border on every el
   const declared = Object.fromEntries(rule.nodes.filter((node) => node.type === "decl").map((decl) => [decl.prop, decl.value]));
   assert.deepEqual(rule.selectors.slice(0, 3), ["*", "::before", "::after"]);
   assert.equal(declared["box-sizing"], "border-box");
-  assert.equal(declared.border, "0 solid var(--gw-color-border)");
+  assert.equal(declared.border, "0 solid var(--ds-color-border)");
 });
 
 test("under prefers-reduced-motion the reset forces every transition duration to zero", () => {
   const guards = rulesIn(bundle).filter(
     (rule) =>
-      enclosing(rule, "layer").includes("gw.reset") &&
+      enclosing(rule, "layer").includes("ds.reset") &&
       enclosing(rule, "media").some((params) => /prefers-reduced-motion:\s*reduce/.test(params)),
   );
   assert.equal(guards.length, 1);
   const [guard] = guards;
-  assert.deepEqual(enclosing(guard, "layer"), ["gw.reset"]);
+  assert.deepEqual(enclosing(guard, "layer"), ["ds.reset"]);
   for (const selector of ["*", "::before", "::after"]) assert.ok(guard.selectors.includes(selector), selector);
   const duration = guard.nodes.find((node) => node.prop === "transition-duration");
   assert.equal(duration.value, "0s");
@@ -112,19 +112,19 @@ test("under prefers-reduced-motion the reset forces every transition duration to
 test("the bundled stylesheet is the layer order, tokens, reset, base and fonts, in that order", () => {
   const css = readFileSync(bundle, "utf8");
   const order = [
-    "@layer gw.reset, gw.tokens, gw.base, gw.components;",
-    "@layer gw.tokens {",
-    "@layer gw.reset {",
-    "@layer gw.base {",
+    "@layer ds.reset, ds.tokens, ds.base, ds.components;",
+    "@layer ds.tokens {",
+    "@layer ds.reset {",
+    "@layer ds.base {",
     "@font-face {",
   ].map((marker) => css.indexOf(marker));
   assert.ok(order.every((at) => at >= 0), JSON.stringify(order));
   assert.deepEqual(order, order.toSorted((a, b) => a - b));
   assert.ok(css.startsWith(readFileSync(join(dist, "tokens.css"), "utf8")));
-  assert.equal(css.split("@layer gw.reset, gw.tokens, gw.base, gw.components;").length, 2);
+  assert.equal(css.split("@layer ds.reset, ds.tokens, ds.base, ds.components;").length, 2);
 });
 
-test("every font and icon URL in dist/groundwork.css resolves to a file inside dist/", () => {
+test("every font and icon URL in dist/design-system.css resolves to a file inside dist/", () => {
   const urls = [];
   postcss.parse(readFileSync(bundle, "utf8")).walkDecls((decl) => {
     for (const [, url] of decl.value.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)/g)) urls.push(url);
@@ -163,7 +163,7 @@ test("the sprite and the single icon files contain exactly the icons in the base
 
   const sprite = readFileSync(join(dist, "icons.svg"), "utf8");
   const symbols = [...sprite.matchAll(/<symbol id="([^"]+)" viewBox="0 0 24 24"[^>]*>([\s\S]*?)<\/symbol>/g)];
-  assert.deepEqual(symbols.map(([, id]) => id), icons.map((name) => `gw-icon-${name}`));
+  assert.deepEqual(symbols.map(([, id]) => id), icons.map((name) => `ds-icon-${name}`));
   assert.equal(sprite.match(/<symbol\b/g).length, icons.length);
   for (const [, id, body] of symbols) assert.match(body, /<(path|circle|rect|line|polyline|polygon|ellipse)\b/, id);
 

@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Disclosure - Groundwork gallery</title>
-<link rel="stylesheet" href="../groundwork.css">
+<title>Disclosure - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -26,20 +26,20 @@
 </header>
 <section>
 <h2>Examples</h2>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Closed</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Closed</h3>
 <p data-gallery="state">State: <code>default</code></p>
 <p>The summary says in words what is inside, so the reader can decide whether to open it, and nothing they must act on is hidden: the content is detail they can do without.</p>
 </figcaption>
 <div data-example="default" data-title="Closed" data-state="default" data-reason="The summary says in words what is inside, so the reader can decide whether to open it, and nothing they must act on is hidden: the content is detail they can do without.">
-  <details class="gw-disclosure">
-    <summary class="gw-disclosure__summary">Environment for this task</summary>
-    <div class="gw-disclosure__content gw-stack gw-gap-sm">
+  <details class="ds-disclosure">
+    <summary class="ds-disclosure__summary">Environment for this task</summary>
+    <div class="ds-disclosure__content ds-stack ds-gap-sm">
       <p>The task runs in <code>/srv/workspaces/acme-api</code> on Node 24 with these variables set.</p>
-      <figure class="gw-code-block">
-        <pre class="gw-code-block__body"><code>SESSION_TTL_SECONDS=1800
+      <figure class="ds-code-block">
+        <pre class="ds-code-block__body"><code>SESSION_TTL_SECONDS=1800
 LOG_LEVEL=info</code></pre>
       </figure>
     </div>
@@ -52,12 +52,12 @@ LOG_LEVEL=info</code></pre>
 <p data-gallery="state">State: <code>open</code></p>
 </figcaption>
 <div data-example="open" data-title="Open" data-state="open">
-  <details class="gw-disclosure" open>
-    <summary class="gw-disclosure__summary">Environment for this task</summary>
-    <div class="gw-disclosure__content gw-stack gw-gap-sm">
+  <details class="ds-disclosure" open>
+    <summary class="ds-disclosure__summary">Environment for this task</summary>
+    <div class="ds-disclosure__content ds-stack ds-gap-sm">
       <p>The task runs in <code>/srv/workspaces/acme-api</code> on Node 24 with these variables set.</p>
-      <figure class="gw-code-block">
-        <pre class="gw-code-block__body"><code>SESSION_TTL_SECONDS=1800
+      <figure class="ds-code-block">
+        <pre class="ds-code-block__body"><code>SESSION_TTL_SECONDS=1800
 LOG_LEVEL=info</code></pre>
       </figure>
     </div>
@@ -69,14 +69,14 @@ LOG_LEVEL=info</code></pre>
 <h3>With trailing text in the summary</h3>
 </figcaption>
 <div data-example="with-meta" data-title="With trailing text in the summary">
-  <details class="gw-disclosure">
-    <summary class="gw-disclosure__summary">
+  <details class="ds-disclosure">
+    <summary class="ds-disclosure__summary">
       Commands the task ran
-      <span class="gw-disclosure__meta">4 commands</span>
+      <span class="ds-disclosure__meta">4 commands</span>
     </summary>
-    <div class="gw-disclosure__content">
-      <figure class="gw-code-block">
-        <pre class="gw-code-block__body"><code>npm ci
+    <div class="ds-disclosure__content">
+      <figure class="ds-code-block">
+        <pre class="ds-code-block__body"><code>npm ci
 npm test
 git add src/session/verify.mjs .env.example
 git commit --message "Refuse a session token older than 30 minutes"</code></pre>
@@ -91,12 +91,12 @@ git commit --message "Refuse a session token older than 30 minutes"</code></pre>
 <p data-gallery="state">State: <code>hover</code></p>
 </figcaption>
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <details class="gw-disclosure">
-    <summary class="gw-disclosure__summary">
+  <details class="ds-disclosure">
+    <summary class="ds-disclosure__summary">
       Commands the task ran
-      <span class="gw-disclosure__meta">4 commands</span>
+      <span class="ds-disclosure__meta">4 commands</span>
     </summary>
-    <div class="gw-disclosure__content">
+    <div class="ds-disclosure__content">
       <p>npm ci, npm test, git add and git commit.</p>
     </div>
   </details>
@@ -108,12 +108,12 @@ git commit --message "Refuse a session token older than 30 minutes"</code></pre>
 <p data-gallery="state">State: <code>focus-visible</code></p>
 </figcaption>
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <details class="gw-disclosure">
-    <summary class="gw-disclosure__summary">
+  <details class="ds-disclosure">
+    <summary class="ds-disclosure__summary">
       Commands the task ran
-      <span class="gw-disclosure__meta">4 commands</span>
+      <span class="ds-disclosure__meta">4 commands</span>
     </summary>
-    <div class="gw-disclosure__content">
+    <div class="ds-disclosure__content">
       <p>npm ci, npm test, git add and git commit.</p>
     </div>
   </details>
@@ -125,12 +125,12 @@ git commit --message "Refuse a session token older than 30 minutes"</code></pre>
 <p data-gallery="state">State: <code>active</code></p>
 </figcaption>
 <div data-example="active" data-title="Pressed" data-state="active">
-  <details class="gw-disclosure">
-    <summary class="gw-disclosure__summary">
+  <details class="ds-disclosure">
+    <summary class="ds-disclosure__summary">
       Commands the task ran
-      <span class="gw-disclosure__meta">4 commands</span>
+      <span class="ds-disclosure__meta">4 commands</span>
     </summary>
-    <div class="gw-disclosure__content">
+    <div class="ds-disclosure__content">
       <p>npm ci, npm test, git add and git commit.</p>
     </div>
   </details>
@@ -138,67 +138,67 @@ git commit --message "Refuse a session token older than 30 minutes"</code></pre>
 </figure>
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> As list rows: changed files that open to their diff</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> As list rows: changed files that open to their diff</h3>
 <p>Each row's summary gives the file's path and its counts, so the list reads on its own while every row is closed. The diff is fetched when a row opens, and a row being fetched says so.</p>
 </figcaption>
 <div data-example="file-rows" data-title="As list rows: changed files that open to their diff" data-reason="Each row's summary gives the file's path and its counts, so the list reads on its own while every row is closed. The diff is fetched when a row opens, and a row being fetched says so.">
-  <ul class="gw-list">
-    <li class="gw-list__row">
-      <details class="gw-disclosure gw-disclosure--row" open>
-        <summary class="gw-disclosure__summary">
+  <ul class="ds-list">
+    <li class="ds-list__row">
+      <details class="ds-disclosure ds-disclosure--row" open>
+        <summary class="ds-disclosure__summary">
           <code>.env.example</code>
-          <span class="gw-disclosure__meta">
-            <span class="gw-diff__counts">
-              <span class="gw-diff__added">+1<span class="gw-diff__label"> line added</span></span>
-              <span class="gw-diff__removed">−0<span class="gw-diff__label"> lines removed</span></span>
+          <span class="ds-disclosure__meta">
+            <span class="ds-diff__counts">
+              <span class="ds-diff__added">+1<span class="ds-diff__label"> line added</span></span>
+              <span class="ds-diff__removed">−0<span class="ds-diff__label"> lines removed</span></span>
             </span>
           </span>
         </summary>
-        <div class="gw-disclosure__content">
-          <figure class="gw-diff">
-            <pre class="gw-diff__body" tabindex="0" role="group" aria-label="Diff of .env.example"><code class="gw-diff__lines">
-              <span class="gw-diff__line gw-diff__line--hunk"><span class="gw-diff__sign"> </span><span class="gw-diff__text">@@ -4,3 +4,4 @@</span></span>
-              <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">DATABASE_URL=postgres://acme:local@localhost:5432/acme_api</span></span>
-              <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">WEBHOOK_SECRET=</span></span>
-              <ins class="gw-diff__line gw-diff__line--added"><span class="gw-diff__sign">+</span><span class="gw-diff__text">SESSION_TTL_SECONDS=1800</span></ins>
-              <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">LOG_LEVEL=info</span></span>
+        <div class="ds-disclosure__content">
+          <figure class="ds-diff">
+            <pre class="ds-diff__body" tabindex="0" role="group" aria-label="Diff of .env.example"><code class="ds-diff__lines">
+              <span class="ds-diff__line ds-diff__line--hunk"><span class="ds-diff__sign"> </span><span class="ds-diff__text">@@ -4,3 +4,4 @@</span></span>
+              <span class="ds-diff__line"><span class="ds-diff__sign"> </span><span class="ds-diff__text">DATABASE_URL=postgres://acme:local@localhost:5432/acme_api</span></span>
+              <span class="ds-diff__line"><span class="ds-diff__sign"> </span><span class="ds-diff__text">WEBHOOK_SECRET=</span></span>
+              <ins class="ds-diff__line ds-diff__line--added"><span class="ds-diff__sign">+</span><span class="ds-diff__text">SESSION_TTL_SECONDS=1800</span></ins>
+              <span class="ds-diff__line"><span class="ds-diff__sign"> </span><span class="ds-diff__text">LOG_LEVEL=info</span></span>
             </code></pre>
           </figure>
         </div>
       </details>
     </li>
-    <li class="gw-list__row">
-      <details class="gw-disclosure gw-disclosure--row">
-        <summary class="gw-disclosure__summary">
+    <li class="ds-list__row">
+      <details class="ds-disclosure ds-disclosure--row">
+        <summary class="ds-disclosure__summary">
           <code>src/session/verify.mjs</code>
-          <span class="gw-disclosure__meta">
-            <span class="gw-diff__counts">
-              <span class="gw-diff__added">+7<span class="gw-diff__label"> lines added</span></span>
-              <span class="gw-diff__removed">−3<span class="gw-diff__label"> lines removed</span></span>
+          <span class="ds-disclosure__meta">
+            <span class="ds-diff__counts">
+              <span class="ds-diff__added">+7<span class="ds-diff__label"> lines added</span></span>
+              <span class="ds-diff__removed">−3<span class="ds-diff__label"> lines removed</span></span>
             </span>
           </span>
         </summary>
-        <div class="gw-disclosure__content">
-          <figure class="gw-diff" aria-busy="true">
-            <p class="gw-diff__note" role="status">Reading the diff.</p>
+        <div class="ds-disclosure__content">
+          <figure class="ds-diff" aria-busy="true">
+            <p class="ds-diff__note" role="status">Reading the diff.</p>
           </figure>
         </div>
       </details>
     </li>
-    <li class="gw-list__row">
-      <details class="gw-disclosure gw-disclosure--row">
-        <summary class="gw-disclosure__summary">
+    <li class="ds-list__row">
+      <details class="ds-disclosure ds-disclosure--row">
+        <summary class="ds-disclosure__summary">
           <code>test/session.test.mjs</code>
-          <span class="gw-disclosure__meta">
-            <span class="gw-diff__counts">
-              <span class="gw-diff__added">+24<span class="gw-diff__label"> lines added</span></span>
-              <span class="gw-diff__removed">−2<span class="gw-diff__label"> lines removed</span></span>
+          <span class="ds-disclosure__meta">
+            <span class="ds-diff__counts">
+              <span class="ds-diff__added">+24<span class="ds-diff__label"> lines added</span></span>
+              <span class="ds-diff__removed">−2<span class="ds-diff__label"> lines removed</span></span>
             </span>
           </span>
         </summary>
-        <div class="gw-disclosure__content">
-          <figure class="gw-diff" aria-busy="true">
-            <p class="gw-diff__note" role="status">Reading the diff.</p>
+        <div class="ds-disclosure__content">
+          <figure class="ds-diff" aria-busy="true">
+            <p class="ds-diff__note" role="status">Reading the diff.</p>
           </figure>
         </div>
       </details>
@@ -211,21 +211,21 @@ git commit --message "Refuse a session token older than 30 minutes"</code></pre>
 <h3>Nested two levels, the limit</h3>
 </figcaption>
 <div data-example="two-levels" data-title="Nested two levels, the limit">
-  <details class="gw-disclosure" open>
-    <summary class="gw-disclosure__summary">
+  <details class="ds-disclosure" open>
+    <summary class="ds-disclosure__summary">
       Attempt 2
-      <span class="gw-disclosure__meta">Finished at 14:16</span>
+      <span class="ds-disclosure__meta">Finished at 14:16</span>
     </summary>
-    <div class="gw-disclosure__content">
-      <details class="gw-disclosure">
-        <summary class="gw-disclosure__summary">Test output</summary>
-        <div class="gw-disclosure__content">
+    <div class="ds-disclosure__content">
+      <details class="ds-disclosure">
+        <summary class="ds-disclosure__summary">Test output</summary>
+        <div class="ds-disclosure__content">
           <p>tests 213, pass 213, fail 0</p>
         </div>
       </details>
-      <details class="gw-disclosure">
-        <summary class="gw-disclosure__summary">Commit message</summary>
-        <div class="gw-disclosure__content">
+      <details class="ds-disclosure">
+        <summary class="ds-disclosure__summary">Commit message</summary>
+        <div class="ds-disclosure__content">
           <p>Refuse a session token older than 30 minutes</p>
         </div>
       </details>
@@ -235,20 +235,20 @@ git commit --message "Refuse a session token older than 30 minutes"</code></pre>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Nested three levels</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Nested three levels</h3>
 <p>At the third level the reader has lost track of what is open and what it belongs to, and on a phone the indents leave little room. Move the deepest content to a view of its own.</p>
 <p>Checker rule: <code>disclosure-depth</code></p>
 </figcaption>
 <div data-example="three-levels" data-title="Nested three levels" data-dont="disclosure-depth" data-reason="At the third level the reader has lost track of what is open and what it belongs to, and on a phone the indents leave little room. Move the deepest content to a view of its own.">
-  <details class="gw-disclosure" open>
-    <summary class="gw-disclosure__summary">Attempt 2</summary>
-    <div class="gw-disclosure__content">
-      <details class="gw-disclosure" open>
-        <summary class="gw-disclosure__summary">Test output</summary>
-        <div class="gw-disclosure__content">
-          <details class="gw-disclosure">
-            <summary class="gw-disclosure__summary">test/session.test.mjs</summary>
-            <div class="gw-disclosure__content">
+  <details class="ds-disclosure" open>
+    <summary class="ds-disclosure__summary">Attempt 2</summary>
+    <div class="ds-disclosure__content">
+      <details class="ds-disclosure" open>
+        <summary class="ds-disclosure__summary">Test output</summary>
+        <div class="ds-disclosure__content">
+          <details class="ds-disclosure">
+            <summary class="ds-disclosure__summary">test/session.test.mjs</summary>
+            <div class="ds-disclosure__content">
               <p>tests 14, pass 14, fail 0</p>
             </div>
           </details>
@@ -260,14 +260,14 @@ git commit --message "Refuse a session token older than 30 minutes"</code></pre>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A summary with no text</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> A summary with no text</h3>
 <p>A chevron alone does not say what opening it will show, so the reader has to open it to find out, and voice control has no words to target.</p>
 <p>Checker rule: <code>summary-without-text</code></p>
 </figcaption>
 <div data-example="no-text" data-title="A summary with no text" data-dont="summary-without-text" data-reason="A chevron alone does not say what opening it will show, so the reader has to open it to find out, and voice control has no words to target.">
-  <details class="gw-disclosure">
-    <summary class="gw-disclosure__summary" aria-label="Environment for this task"></summary>
-    <div class="gw-disclosure__content">
+  <details class="ds-disclosure">
+    <summary class="ds-disclosure__summary" aria-label="Environment for this task"></summary>
+    <div class="ds-disclosure__content">
       <p>The task runs in <code>/srv/workspaces/acme-api</code> on Node 24.</p>
     </div>
   </details>
@@ -275,17 +275,17 @@ git commit --message "Refuse a session token older than 30 minutes"</code></pre>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> The only way to an action that matters</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> The only way to an action that matters</h3>
 <p>Deleting the workspace can be reached only by opening the disclosure, so a reader who never opens it does not know the action exists. Show it in the view as well, or leave the disclosure open.</p>
 <p>Checker rule: <code>hidden-critical-action</code></p>
 </figcaption>
 <div data-example="hidden-action" data-title="The only way to an action that matters" data-dont="hidden-critical-action" data-reason="Deleting the workspace can be reached only by opening the disclosure, so a reader who never opens it does not know the action exists. Show it in the view as well, or leave the disclosure open.">
-  <details class="gw-disclosure">
-    <summary class="gw-disclosure__summary">Workspace</summary>
-    <div class="gw-disclosure__content gw-stack gw-gap-sm">
+  <details class="ds-disclosure">
+    <summary class="ds-disclosure__summary">Workspace</summary>
+    <div class="ds-disclosure__content ds-stack ds-gap-sm">
       <p><code>/srv/workspaces/acme-api</code>, 214 MB on disk.</p>
-      <div class="gw-cluster">
-        <button type="button" class="gw-button gw-button--danger" data-gw-critical>Delete workspace</button>
+      <div class="ds-cluster">
+        <button type="button" class="ds-button ds-button--danger" data-ds-critical>Delete workspace</button>
       </div>
     </div>
   </details>
@@ -293,19 +293,19 @@ git commit --message "Refuse a session token older than 30 minutes"</code></pre>
 </figure>
 </div>
 </section>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
 <li>For detail most readers can do without: a log, the environment, the steps of a finished attempt.</li>
 <li>With the row variant inside a list row, for a changed file that opens to its diff. The summary holds the path and the counts.</li>
-<li>For the one group of advanced settings in a view. Mark that details element with data-gw-advanced.</li>
+<li>For the one group of advanced settings in a view. Mark that details element with data-ds-advanced.</li>
 </ul>
 </section>
 <section>
 <h2>When not to use it</h2>
 <ul>
-<li>For anything the reader must see or do in order to go on. An action marked data-gw-critical that can be reached only inside closed content fails the hidden-critical-action rule: show it in the view too, or open the disclosure by default.</li>
+<li>For anything the reader must see or do in order to go on. An action marked data-ds-critical that can be reached only inside closed content fails the hidden-critical-action rule: show it in the view too, or open the disclosure by default.</li>
 <li>Nested more than two levels. A third level fails the disclosure-depth rule: move that content to a view of its own.</li>
 <li>With a summary that is only an icon or is empty. A summary without text fails the summary-without-text rule.</li>
 <li>For a list of actions that opens over the page. Use a menu.</li>
@@ -317,8 +317,8 @@ git commit --message "Refuse a session token older than 30 minutes"</code></pre>
 <dl>
 <dt>default</dt>
 <dd>Stands alone. Its content is indented to start under the summary's text.</dd>
-<dt>row <code>gw-disclosure--row</code></dt>
-<dd>The only child of a gw-list__row. The summary is the row, and the content uses the row's full width, which a diff needs at phone width.</dd>
+<dt>row <code>ds-disclosure--row</code></dt>
+<dd>The only child of a ds-list__row. The summary is the row, and the content uses the row's full width, which a diff needs at phone width.</dd>
 </dl>
 </section>
 <section>
@@ -333,8 +333,8 @@ git commit --message "Refuse a session token older than 30 minutes"</code></pre>
 <ul>
 <li>Use a details element with a summary as its first child. The browser gives the summary its role and its expanded state, and the open attribute is the only state: never toggle a class.</li>
 <li>The summary holds text that says what is inside. The chevron is drawn by the stylesheet and needs no markup. Do not put a heading, a button or a link inside the summary.</li>
-<li>Trailing text such as a count goes in a gw-disclosure__meta span inside the summary, after the label. It is read as part of the summary's name, so write counts in words or with a hidden label, as gw-diff__counts does.</li>
-<li>Put the content in one gw-disclosure__content element after the summary.</li>
+<li>Trailing text such as a count goes in a ds-disclosure__meta span inside the summary, after the label. It is read as part of the summary's name, so write counts in words or with a hidden label, as ds-diff__counts does.</li>
+<li>Put the content in one ds-disclosure__content element after the summary.</li>
 <li>Tab reaches the summary. Enter and Space open and close it. Both come from the summary element. Closed content is out of the tab order and is skipped by a screen reader, and the browser's find-in-page opens it.</li>
 <li>Set the open attribute in markup to start open. Start open when the content holds an action the reader needs.</li>
 <li>Fetch heavy content, such as a diff, when the disclosure opens, and show the content's own loading state until it arrives.</li>
@@ -343,11 +343,11 @@ git commit --message "Refuse a session token older than 30 minutes"</code></pre>
 <section>
 <h2>Classes</h2>
 <ul>
-<li><code>gw-disclosure</code></li>
-<li><code>gw-disclosure--row</code></li>
-<li><code>gw-disclosure__content</code></li>
-<li><code>gw-disclosure__meta</code></li>
-<li><code>gw-disclosure__summary</code></li>
+<li><code>ds-disclosure</code></li>
+<li><code>ds-disclosure--row</code></li>
+<li><code>ds-disclosure__content</code></li>
+<li><code>ds-disclosure__meta</code></li>
+<li><code>ds-disclosure__summary</code></li>
 </ul>
 </section>
 </div>

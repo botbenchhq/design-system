@@ -1,10 +1,10 @@
 // What the structural rules share: the class names they look for and ways to walk the document tree.
 // A tree comes from parse-html.mjs for a static page, or from dom-entry.mjs for a rendered one.
 
-export const PRIMARY_CLASS = "gw-button--primary";
-export const CARD_CLASS = "gw-card";
-export const BADGE_CLASS = "gw-badge";
-export const CENTRE_CLASSES = ["text-center", "gw-text-center"];
+export const PRIMARY_CLASS = "ds-button--primary";
+export const CARD_CLASS = "ds-card";
+export const BADGE_CLASS = "ds-badge";
+export const CENTRE_CLASSES = ["text-center", "ds-text-center"];
 
 const ROW_TAGS = ["li", "tr"];
 const CONTROL_TAGS = ["button", "a", "input", "select", "textarea"];

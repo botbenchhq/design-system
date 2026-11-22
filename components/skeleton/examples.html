@@ -1,63 +1,63 @@
 <div data-example="rows" data-title="Rows, in place of a list of tasks" data-state="loading" data-reason="The shapes have the size and rhythm of the rows that will replace them, so the page does not jump when they arrive. The container carries aria-busy and a sentence for screen readers, so the wait is never shapes alone.">
-  <div class="gw-skeleton gw-skeleton--rows" aria-busy="true">
-    <span class="gw-visually-hidden">Loading tasks</span>
-    <span class="gw-skeleton__row">
-      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
-      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+  <div class="ds-skeleton ds-skeleton--rows" aria-busy="true">
+    <span class="ds-visually-hidden">Loading tasks</span>
+    <span class="ds-skeleton__row">
+      <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
+      <span class="ds-skeleton__line ds-skeleton__line--short"></span>
     </span>
-    <span class="gw-skeleton__row">
-      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
-      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+    <span class="ds-skeleton__row">
+      <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
+      <span class="ds-skeleton__line ds-skeleton__line--short"></span>
     </span>
-    <span class="gw-skeleton__row">
-      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
-      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+    <span class="ds-skeleton__row">
+      <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
+      <span class="ds-skeleton__line ds-skeleton__line--short"></span>
     </span>
   </div>
 </div>
 
 <div data-example="lines" data-title="Lines of text, in place of a description">
-  <div class="gw-skeleton" aria-busy="true">
-    <span class="gw-visually-hidden">Loading the description of task 861</span>
-    <span class="gw-skeleton__line"></span>
-    <span class="gw-skeleton__line"></span>
-    <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+  <div class="ds-skeleton" aria-busy="true">
+    <span class="ds-visually-hidden">Loading the description of task 861</span>
+    <span class="ds-skeleton__line"></span>
+    <span class="ds-skeleton__line"></span>
+    <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
   </div>
 </div>
 
 <div data-example="block" data-title="A block, in place of a diff">
-  <div class="gw-skeleton" aria-busy="true">
-    <span class="gw-visually-hidden">Loading the diff of src/session/verify.mjs</span>
-    <span class="gw-skeleton__line gw-skeleton__line--short"></span>
-    <span class="gw-skeleton__block"></span>
+  <div class="ds-skeleton" aria-busy="true">
+    <span class="ds-visually-hidden">Loading the diff of src/session/verify.mjs</span>
+    <span class="ds-skeleton__line ds-skeleton__line--short"></span>
+    <span class="ds-skeleton__block"></span>
   </div>
 </div>
 
 <div data-example="with-spinner" data-title="A skeleton and a spinner together" data-dont="review" data-reason="Two signs for one wait compete, and the spinner's motion beside the pulse is noise. Use a skeleton when the shape of the content is known and a spinner when it is not, never both.">
-  <div class="gw-stack">
-    <p class="gw-spinner" role="status">Loading tasks</p>
-    <div class="gw-skeleton gw-skeleton--rows" aria-busy="true">
-      <span class="gw-skeleton__row">
-        <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
-        <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+  <div class="ds-stack">
+    <p class="ds-spinner" role="status">Loading tasks</p>
+    <div class="ds-skeleton ds-skeleton--rows" aria-busy="true">
+      <span class="ds-skeleton__row">
+        <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
+        <span class="ds-skeleton__line ds-skeleton__line--short"></span>
       </span>
-      <span class="gw-skeleton__row">
-        <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
-        <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+      <span class="ds-skeleton__row">
+        <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
+        <span class="ds-skeleton__line ds-skeleton__line--short"></span>
       </span>
     </div>
   </div>
 </div>
 
 <div data-example="never-resolves" data-title="A skeleton left in place when the fetch has failed" data-dont="review" data-reason="The shapes still promise content that is not coming, and nothing tells the reader to retry. When the fetch fails or takes longer than about ten seconds, replace the skeleton with an error state that says what to do.">
-  <div class="gw-skeleton gw-skeleton--rows">
-    <span class="gw-skeleton__row">
-      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
-      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+  <div class="ds-skeleton ds-skeleton--rows">
+    <span class="ds-skeleton__row">
+      <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
+      <span class="ds-skeleton__line ds-skeleton__line--short"></span>
     </span>
-    <span class="gw-skeleton__row">
-      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
-      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+    <span class="ds-skeleton__row">
+      <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
+      <span class="ds-skeleton__line ds-skeleton__line--short"></span>
     </span>
   </div>
 </div>

@@ -4,40 +4,40 @@
  * and the icon and the hint below work inside it as well.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* Underlined at rest, so the link never depends on colour to be found. */
-  .gw-link {
+  .ds-link {
     display: inline-flex;
     align-items: center;
-    gap: var(--gw-space-xs);
-    min-width: var(--gw-size-touch);
-    min-height: var(--gw-size-touch);
-    font-weight: var(--gw-weight-medium);
+    gap: var(--ds-space-xs);
+    min-width: var(--ds-size-touch);
+    min-height: var(--ds-size-touch);
+    font-weight: var(--ds-weight-medium);
     text-decoration-line: underline;
-    text-decoration-thickness: var(--gw-border-width);
-    text-underline-offset: var(--gw-space-xs);
-    transition: color var(--gw-duration-fast) var(--gw-ease);
+    text-decoration-thickness: var(--ds-border-width);
+    text-underline-offset: var(--ds-space-xs);
+    transition: color var(--ds-duration-fast) var(--ds-ease);
   }
 
-  .gw-link--quiet {
-    color: var(--gw-color-muted);
-    font-weight: var(--gw-weight-normal);
+  .ds-link--quiet {
+    color: var(--ds-color-muted);
+    font-weight: var(--ds-weight-normal);
   }
 
   /* Inline, so it also sits on the text line of a link in running text. */
-  .gw-link__icon {
+  .ds-link__icon {
     display: inline-block;
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
     vertical-align: text-bottom;
   }
 
   /* Text for a screen reader only, such as "(opens in a new tab)". It takes no space and is not drawn. */
-  .gw-link__hint {
+  .ds-link__hint {
     position: absolute;
-    width: var(--gw-border-width);
-    height: var(--gw-border-width);
+    width: var(--ds-border-width);
+    height: var(--ds-border-width);
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
@@ -45,21 +45,21 @@
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   @media (hover: hover) {
-    .gw-link:hover {
-      text-decoration-thickness: calc(var(--gw-border-width) * 2);
+    .ds-link:hover {
+      text-decoration-thickness: calc(var(--ds-border-width) * 2);
     }
 
-    .gw-link--quiet:hover {
-      color: var(--gw-color-on-surface);
+    .ds-link--quiet:hover {
+      color: var(--ds-color-on-surface);
     }
   }
 
-  .gw-link:active {
-    color: var(--gw-color-muted);
-    text-decoration-thickness: calc(var(--gw-border-width) * 2);
+  .ds-link:active {
+    color: var(--ds-color-muted);
+    text-decoration-thickness: calc(var(--ds-border-width) * 2);
   }
 
-  .gw-link--quiet:active {
-    color: var(--gw-color-on-surface);
+  .ds-link--quiet:active {
+    color: var(--ds-color-on-surface);
   }
 }

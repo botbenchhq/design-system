@@ -1,0 +1,9 @@
+@layer gw.components {
+  [data-gw-critical] .app-row {
+    padding: var(--gw-space-md);
+  }
+}
+.app-panel {
+  animation-name: gw-streaming-turn;
+  --gw-color-accent: #000000;
+}

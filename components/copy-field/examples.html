@@ -1,91 +1,91 @@
 <div data-example="default" data-title="A value and its Copy button" data-state="default" data-reason="The value is real text in a read-only input, so it can be selected by hand as well as copied with the button. The empty status line is already in the page, ready for the app to write the result into.">
-  <div class="gw-field">
-    <label class="gw-field__label" for="copy-field-default-branch">Branch</label>
-    <div class="gw-copy-field">
-      <input class="gw-copy-field__value" id="copy-field-default-branch" type="text" readonly value="fix/login-timeout">
-      <button type="button" class="gw-button" aria-label="Copy branch name">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+  <div class="ds-field">
+    <label class="ds-field__label" for="copy-field-default-branch">Branch</label>
+    <div class="ds-copy-field">
+      <input class="ds-copy-field__value" id="copy-field-default-branch" type="text" readonly value="fix/login-timeout">
+      <button type="button" class="ds-button" aria-label="Copy branch name">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
-      <p class="gw-copy-field__status" role="status"></p>
+      <p class="ds-copy-field__status" role="status"></p>
     </div>
   </div>
 </div>
 
 <div data-example="copied" data-title="After a copy" data-state="copied">
-  <div class="gw-field">
-    <label class="gw-field__label" for="copy-field-copied-branch">Branch</label>
-    <div class="gw-copy-field">
-      <input class="gw-copy-field__value" id="copy-field-copied-branch" type="text" readonly value="fix/login-timeout">
-      <button type="button" class="gw-button" aria-label="Copy branch name">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+  <div class="ds-field">
+    <label class="ds-field__label" for="copy-field-copied-branch">Branch</label>
+    <div class="ds-copy-field">
+      <input class="ds-copy-field__value" id="copy-field-copied-branch" type="text" readonly value="fix/login-timeout">
+      <button type="button" class="ds-button" aria-label="Copy branch name">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
-      <p class="gw-copy-field__status" role="status">Branch name copied.</p>
+      <p class="ds-copy-field__status" role="status">Branch name copied.</p>
     </div>
   </div>
 </div>
 
 <div data-example="long" data-title="A value longer than the row">
-  <div class="gw-field">
-    <label class="gw-field__label" for="copy-field-long-command">Checkout command</label>
-    <div class="gw-copy-field">
-      <input class="gw-copy-field__value" id="copy-field-long-command" type="text" readonly value="git fetch origin task/raise-session-timeout-and-retry-once && git checkout task/raise-session-timeout-and-retry-once">
-      <button type="button" class="gw-button" aria-label="Copy checkout command">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+  <div class="ds-field">
+    <label class="ds-field__label" for="copy-field-long-command">Checkout command</label>
+    <div class="ds-copy-field">
+      <input class="ds-copy-field__value" id="copy-field-long-command" type="text" readonly value="git fetch origin task/raise-session-timeout-and-retry-once && git checkout task/raise-session-timeout-and-retry-once">
+      <button type="button" class="ds-button" aria-label="Copy checkout command">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
-      <p class="gw-copy-field__status" role="status"></p>
+      <p class="ds-copy-field__status" role="status"></p>
     </div>
   </div>
 </div>
 
 <div data-example="focus" data-title="Focus" data-state="focus">
-  <div class="gw-field">
-    <label class="gw-field__label" for="copy-field-focus-commit">Commit</label>
-    <div class="gw-copy-field">
-      <input class="gw-copy-field__value" id="copy-field-focus-commit" type="text" readonly value="9c41e7a2d0b5f86e3a17c4d92e6b08f1a35d7c60">
-      <button type="button" class="gw-button" aria-label="Copy commit hash">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+  <div class="ds-field">
+    <label class="ds-field__label" for="copy-field-focus-commit">Commit</label>
+    <div class="ds-copy-field">
+      <input class="ds-copy-field__value" id="copy-field-focus-commit" type="text" readonly value="9c41e7a2d0b5f86e3a17c4d92e6b08f1a35d7c60">
+      <button type="button" class="ds-button" aria-label="Copy commit hash">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
-      <p class="gw-copy-field__status" role="status"></p>
+      <p class="ds-copy-field__status" role="status"></p>
     </div>
   </div>
 </div>
 
 <div data-example="error" data-title="When the copy fails" data-state="error">
-  <div class="gw-field">
-    <label class="gw-field__label" for="copy-field-error-branch">Branch</label>
-    <div class="gw-copy-field">
-      <input class="gw-copy-field__value" id="copy-field-error-branch" type="text" readonly value="fix/login-timeout">
-      <button type="button" class="gw-button" aria-label="Copy branch name">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+  <div class="ds-field">
+    <label class="ds-field__label" for="copy-field-error-branch">Branch</label>
+    <div class="ds-copy-field">
+      <input class="ds-copy-field__value" id="copy-field-error-branch" type="text" readonly value="fix/login-timeout">
+      <button type="button" class="ds-button" aria-label="Copy branch name">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
-      <p class="gw-copy-field__status" role="status">The browser blocked the copy. Select the branch name and copy it by hand.</p>
+      <p class="ds-copy-field__status" role="status">The browser blocked the copy. Select the branch name and copy it by hand.</p>
     </div>
   </div>
 </div>
 
 <div data-example="no-visible-label" data-title="Named without a visible label">
-  <div class="gw-copy-field">
-    <input class="gw-copy-field__value" type="text" readonly value="/srv/workspaces/acme-api" aria-label="Workspace path">
-    <button type="button" class="gw-button" aria-label="Copy workspace path">
-      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+  <div class="ds-copy-field">
+    <input class="ds-copy-field__value" type="text" readonly value="/srv/workspaces/acme-api" aria-label="Workspace path">
+    <button type="button" class="ds-button" aria-label="Copy workspace path">
+      <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
       Copy
     </button>
-    <p class="gw-copy-field__status" role="status"></p>
+    <p class="ds-copy-field__status" role="status"></p>
   </div>
 </div>
 
 <div data-example="disabled-value" data-title="The value in a disabled input" data-dont="review" data-reason="A disabled input cannot take focus, so the keyboard cannot reach the value to select it, and it reads as unavailable. Use the readonly attribute, which keeps the value focusable and selectable.">
-  <div class="gw-field">
-    <label class="gw-field__label" for="copy-field-disabled-value-branch">Branch</label>
-    <div class="gw-copy-field">
-      <input class="gw-copy-field__value" id="copy-field-disabled-value-branch" type="text" disabled value="fix/login-timeout">
-      <button type="button" class="gw-button" aria-label="Copy branch name">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+  <div class="ds-field">
+    <label class="ds-field__label" for="copy-field-disabled-value-branch">Branch</label>
+    <div class="ds-copy-field">
+      <input class="ds-copy-field__value" id="copy-field-disabled-value-branch" type="text" disabled value="fix/login-timeout">
+      <button type="button" class="ds-button" aria-label="Copy branch name">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
     </div>

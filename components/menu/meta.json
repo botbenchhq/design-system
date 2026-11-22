@@ -15,15 +15,15 @@
     "For content that is not a list of actions. Use a popover."
   ],
   "variants": [
-    { "name": "item", "use": "The default item, with no modifier class. An optional gw-menu__icon comes before its text." },
-    { "name": "danger item", "class": "gw-menu__item--danger", "use": "An item that deletes or cannot be undone. It is last, below a gw-menu__divider, and its label names what is lost." }
+    { "name": "item", "use": "The default item, with no modifier class. An optional ds-menu__icon comes before its text." },
+    { "name": "danger item", "class": "ds-menu__item--danger", "use": "An item that deletes or cannot be undone. It is last, below a ds-menu__divider, and its label names what is lost." }
   ],
   "sizes": [],
   "states": ["open", "hover", "focus-visible", "active", "disabled"],
   "accessibility": [
     "Give the menu the popover attribute, an id, role=\"menu\" and an aria-label. Give the button popovertarget with that id and aria-haspopup=\"menu\". The browser opens and closes the menu, sets aria-expanded on the button, closes on Escape and on a press outside, and returns focus to the button.",
-    "Put the menu straight after its button in the markup. Each item is a button with type=\"button\", role=\"menuitem\" and the class gw-menu__item. Its label is a verb and what it acts on. An icon is decoration and carries aria-hidden=\"true\".",
-    "A section is a div with role=\"group\", the class gw-menu__section and aria-labelledby pointing at its gw-menu__label, which carries role=\"presentation\". A divider is an hr with gw-menu__divider.",
+    "Put the menu straight after its button in the markup. Each item is a button with type=\"button\", role=\"menuitem\" and the class ds-menu__item. Its label is a verb and what it acts on. An icon is decoration and carries aria-hidden=\"true\".",
+    "A section is a div with role=\"group\", the class ds-menu__section and aria-labelledby pointing at its ds-menu__label, which carries role=\"presentation\". A divider is an hr with ds-menu__divider.",
     "An unavailable item carries aria-disabled=\"true\", so it stays in the arrow-key order and a screen reader can find it, and the app ignores presses on it. Say why in its label when the reason is not obvious.",
     "Without script the menu still works: Tab moves through the items and Enter or Space activates one. The arrow keys are the one thing the app, or the system's behaviours module, adds, as a roving focus: when the menu opens (its toggle event), move focus to the first item. Give every item tabindex=\"-1\" except the one that has focus. Down and Up move focus to the next and the previous item and wrap at the ends, Home and End go to the first and the last, and a letter key goes to the next item that starts with it. Tab closes the menu.",
     "After an item's action runs, the app closes the menu with hidePopover(), and focus returns to the button.",
@@ -31,12 +31,12 @@
   ],
   "icons": ["chevron-down", "copy", "ellipsis", "external-link", "git-branch", "terminal"],
   "classes": [
-    "gw-menu",
-    "gw-menu__divider",
-    "gw-menu__icon",
-    "gw-menu__item",
-    "gw-menu__item--danger",
-    "gw-menu__label",
-    "gw-menu__section"
+    "ds-menu",
+    "ds-menu__divider",
+    "ds-menu__icon",
+    "ds-menu__item",
+    "ds-menu__item--danger",
+    "ds-menu__label",
+    "ds-menu__section"
   ]
 }

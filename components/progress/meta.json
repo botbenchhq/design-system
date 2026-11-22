@@ -22,19 +22,19 @@
   ],
   "states": ["default", "indeterminate"],
   "accessibility": [
-    "Markup, in this order: a label with the gw-progress__label class and a for attribute, a p with the gw-progress__value class, and a progress element with the gw-progress__bar class and the id the label names. The stylesheet draws the bar under the two lines of text.",
+    "Markup, in this order: a label with the ds-progress__label class and a for attribute, a p with the ds-progress__value class, and a progress element with the ds-progress__bar class and the id the label names. The stylesheet draws the bar under the two lines of text.",
     "The label says what is measured. The value is a sentence with the count, the total and the unit: 7 of 12 checks passed. Never a bare number or a bare percentage.",
     "Set value and max on the progress element to the same two numbers, and aria-valuetext to the same sentence, so a screen reader says the count in words instead of a percentage.",
-    "As work goes on, the app updates three things together: the value attribute, aria-valuetext, and the text of gw-progress__value. It sets no inline style and no class.",
+    "As work goes on, the app updates three things together: the value attribute, aria-valuetext, and the text of ds-progress__value. It sets no inline style and no class.",
     "For the indeterminate form, leave the value attribute off, and remove it with removeAttribute to go back to that form. The value text says what is happening, such as Counting objects.",
     "Do not make the value text a live region: a count that changes every second would be read out every second. When the job ends, announce the result once, in an alert or a status message.",
     "The bar has no controls and takes no focus. The component needs no script beyond those updates."
   ],
   "icons": [],
   "classes": [
-    "gw-progress",
-    "gw-progress__bar",
-    "gw-progress__label",
-    "gw-progress__value"
+    "ds-progress",
+    "ds-progress__bar",
+    "ds-progress__label",
+    "ds-progress__value"
   ]
 }

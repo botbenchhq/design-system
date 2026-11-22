@@ -1,19 +1,19 @@
 /*
  * Settings page: the settings most people change, then one advanced disclosure, then the danger area.
  * The page is one reading column that starts at the leading edge. Everything inside it is a catalogue
- * component laid out with gw-stack, so this file holds only the column and the mark of the danger area.
+ * component laid out with ds-stack, so this file holds only the column and the mark of the danger area.
  */
 
-@layer gw.components {
-  .gw-settings-page {
+@layer ds.components {
+  .ds-settings-page {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-2xl);
-    max-width: var(--gw-size-transcript);
+    gap: var(--ds-space-2xl);
+    max-width: var(--ds-size-transcript);
   }
 
   /* On the card that holds the danger area. Its title says Danger area in words, so the colour is not the only sign. */
-  .gw-settings-page__danger {
-    border-color: var(--gw-color-danger);
+  .ds-settings-page__danger {
+    border-color: var(--ds-color-danger);
   }
 }

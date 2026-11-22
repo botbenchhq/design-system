@@ -14,28 +14,28 @@
     "To choose one of many options. Use a select."
   ],
   "variants": [
-    { "name": "single", "use": "The default: a div with gw-checkbox holding the input, the label, and optionally a description and an error." },
-    { "name": "group", "class": "gw-checkbox__group", "use": "A fieldset holding a gw-checkbox__legend and one gw-checkbox per option, one above the other." }
+    { "name": "single", "use": "The default: a div with ds-checkbox holding the input, the label, and optionally a description and an error." },
+    { "name": "group", "class": "ds-checkbox__group", "use": "A fieldset holding a ds-checkbox__legend and one ds-checkbox per option, one above the other." }
   ],
   "sizes": [],
   "states": ["default", "checked", "indeterminate", "hover", "focus-visible", "disabled", "invalid"],
   "accessibility": [
-    "Use input type=\"checkbox\" with gw-checkbox__input, followed by a label with gw-checkbox__label whose for attribute is the input's id. The input comes first in the markup: the stylesheet reads its state to style the label after it.",
-    "A description is a p with gw-checkbox__description, linked from the input with aria-describedby.",
-    "Group related checkboxes in a fieldset with gw-checkbox__group, and name the group with a legend carrying gw-checkbox__legend.",
+    "Use input type=\"checkbox\" with ds-checkbox__input, followed by a label with ds-checkbox__label whose for attribute is the input's id. The input comes first in the markup: the stylesheet reads its state to style the label after it.",
+    "A description is a p with ds-checkbox__description, linked from the input with aria-describedby.",
+    "Group related checkboxes in a fieldset with ds-checkbox__group, and name the group with a legend carrying ds-checkbox__legend.",
     "Indeterminate cannot be written in markup. The app sets the property with script, input.indeterminate = true, and clears it when the box is next changed. A screen reader then announces it as mixed. Do not set aria-checked on a native checkbox.",
-    "For an error, set aria-invalid=\"true\" on the input and link a p with gw-checkbox__error through aria-describedby. The message says what to do, and its icon is drawn by the stylesheet.",
+    "For an error, set aria-invalid=\"true\" on the input and link a p with ds-checkbox__error through aria-describedby. The message says what to do, and its icon is drawn by the stylesheet.",
     "Set the disabled attribute when the choice is unavailable, and say why in the description. A disabled checkbox leaves the tab order.",
     "Tab reaches each checkbox and Space toggles it. The box is drawn 20px square and its pointer target is 44px; a press on the label toggles it too."
   ],
   "icons": ["check", "circle-alert", "minus"],
   "classes": [
-    "gw-checkbox",
-    "gw-checkbox__description",
-    "gw-checkbox__error",
-    "gw-checkbox__group",
-    "gw-checkbox__input",
-    "gw-checkbox__label",
-    "gw-checkbox__legend"
+    "ds-checkbox",
+    "ds-checkbox__description",
+    "ds-checkbox__error",
+    "ds-checkbox__group",
+    "ds-checkbox__input",
+    "ds-checkbox__label",
+    "ds-checkbox__legend"
   ]
 }

@@ -34,7 +34,7 @@ const oneAdvancedDisclosure = {
   check(root) {
     const findings = [];
     for (const nodes of views(root).values()) {
-      const extra = nodes.filter((node) => has(node, "data-gw-advanced")).slice(1);
+      const extra = nodes.filter((node) => has(node, "data-ds-advanced")).slice(1);
       for (const node of extra) findings.push({ node, message: "This view has more than one advanced-settings disclosure." });
     }
     return findings;
@@ -80,7 +80,7 @@ const hiddenCriticalAction = {
     const byView = views(root);
     const findings = [];
     for (const node of descendants(root)) {
-      if (!has(node, "data-gw-critical") || !isCollapsed(node)) continue;
+      if (!has(node, "data-ds-critical") || !isCollapsed(node)) continue;
       const name = nameOf(node);
       const shown = byView
         .get(viewOf(node))

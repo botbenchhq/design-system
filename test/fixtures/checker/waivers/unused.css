@@ -1,4 +1,4 @@
 .fine {
-  /* gw-waive raw-color: left over from an earlier version */
-  color: var(--gw-color-accent);
+  /* ds-waive raw-color: left over from an earlier version */
+  color: var(--ds-color-accent);
 }

@@ -4,92 +4,92 @@
  * The stylesheet draws the mark from the state. When nothing is running the app sets hidden.
  */
 
-@layer gw.components {
-  .gw-now-doing {
+@layer ds.components {
+  .ds-now-doing {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    column-gap: var(--gw-space-md);
+    column-gap: var(--ds-space-md);
     min-width: 0;
-    min-height: var(--gw-size-touch);
-    padding-inline: var(--gw-space-md);
+    min-height: var(--ds-size-touch);
+    padding-inline: var(--ds-space-md);
   }
 
   /* Fixed to the bottom of the scrolling area, over the rows, when no bar around it does that already. */
-  .gw-now-doing--sticky {
+  .ds-now-doing--sticky {
     position: sticky;
     bottom: 0;
-    z-index: var(--gw-z-sticky);
-    padding-inline: var(--gw-space-lg);
+    z-index: var(--ds-z-sticky);
+    padding-inline: var(--ds-space-lg);
     padding-bottom: env(safe-area-inset-bottom);
-    border-top-width: var(--gw-border-width);
-    background-color: var(--gw-color-surface);
+    border-top-width: var(--ds-border-width);
+    background-color: var(--ds-color-surface);
   }
 
   /*
    * What is happening, as a sentence: the verb, the command or target in mono, then the time.
    * The mark is drawn before the first word, from the state, so it wraps with the text and never stands alone.
    */
-  .gw-now-doing__text {
-    flex: 1 1 calc(var(--gw-size-touch) * 5);
+  .ds-now-doing__text {
+    flex: 1 1 calc(var(--ds-size-touch) * 5);
     min-width: 0;
-    padding-block: var(--gw-space-sm);
+    padding-block: var(--ds-space-sm);
     overflow-wrap: anywhere;
   }
 
-  .gw-now-doing__text::before {
+  .ds-now-doing__text::before {
     content: "";
     display: inline-block;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
-    margin-inline-end: var(--gw-space-sm);
-    background-color: var(--gw-color-info);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
+    margin-inline-end: var(--ds-space-sm);
+    background-color: var(--ds-color-info);
     vertical-align: text-bottom;
     mask: url("icons/loader.svg") center / contain no-repeat;
   }
 
   /* The one mark that moves: the stepped loader of every running state. */
-  .gw-now-doing[data-state="running"] > .gw-now-doing__text::before {
-    animation: gw-now-doing-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  .ds-now-doing[data-state="running"] > .ds-now-doing__text::before {
+    animation: ds-now-doing-turn calc(var(--ds-duration-slow) * 4) steps(8) infinite;
   }
 
-  .gw-now-doing[data-state="waiting"] > .gw-now-doing__text::before {
-    background-color: var(--gw-color-warning);
+  .ds-now-doing[data-state="waiting"] > .ds-now-doing__text::before {
+    background-color: var(--ds-color-warning);
     mask-image: url("icons/circle-pause.svg");
   }
 
-  .gw-now-doing__target {
-    font-weight: var(--gw-weight-medium);
+  .ds-now-doing__target {
+    font-weight: var(--ds-weight-medium);
   }
 
   /* The time so far. It counts up, and is never announced. */
-  .gw-now-doing__elapsed {
-    color: var(--gw-color-muted);
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-xs);
+  .ds-now-doing__elapsed {
+    color: var(--ds-color-muted);
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-xs);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
   /* To the thing the run waits on. A pointer target tall, and underlined, as a link is. */
-  .gw-now-doing__link {
+  .ds-now-doing__link {
     display: inline-flex;
     align-items: center;
-    min-height: var(--gw-size-touch);
-    border-radius: var(--gw-radius-sm);
-    font-weight: var(--gw-weight-medium);
+    min-height: var(--ds-size-touch);
+    border-radius: var(--ds-radius-sm);
+    font-weight: var(--ds-weight-medium);
     text-decoration-line: underline;
-    text-underline-offset: var(--gw-space-xs);
+    text-underline-offset: var(--ds-space-xs);
     white-space: nowrap;
   }
 
   @media (hover: hover) {
-    .gw-now-doing__link:hover {
-      text-decoration-thickness: calc(var(--gw-border-width) * 2);
+    .ds-now-doing__link:hover {
+      text-decoration-thickness: calc(var(--ds-border-width) * 2);
     }
   }
 
-  @keyframes gw-now-doing-turn {
+  @keyframes ds-now-doing-turn {
     to {
       rotate: 1turn;
     }
@@ -97,7 +97,7 @@
 
   /* The mark stays, still, and the words carry the meaning. */
   @media (prefers-reduced-motion: reduce) {
-    .gw-now-doing[data-state="running"] > .gw-now-doing__text::before {
+    .ds-now-doing[data-state="running"] > .ds-now-doing__text::before {
       animation: none;
     }
   }

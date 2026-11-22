@@ -3,60 +3,60 @@
  * and, at the end of the row, the view's one optional primary action.
  */
 
-@layer gw.components {
-  .gw-page-header {
+@layer ds.components {
+  .ds-page-header {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
-    gap: var(--gw-space-md) var(--gw-space-lg);
+    gap: var(--ds-space-md) var(--ds-space-lg);
   }
 
   /* Once the text would be narrower than this, the action moves to a row of its own below it. */
-  .gw-page-header__text {
+  .ds-page-header__text {
     display: flex;
     flex: 1 1 0;
     flex-direction: column;
-    gap: var(--gw-space-xs);
-    min-width: min(100%, calc(var(--gw-space-2xl) * 5));
+    gap: var(--ds-space-xs);
+    min-width: min(100%, calc(var(--ds-space-2xl) * 5));
   }
 
   /* The size of a plain h1 at every width, so an h2 in the view is never as large as the title. */
-  .gw-page-header__title {
-    font-size: var(--gw-text-2xl);
-    font-weight: var(--gw-weight-semibold);
-    line-height: var(--gw-leading-2xl);
+  .ds-page-header__title {
+    font-size: var(--ds-text-2xl);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-2xl);
     overflow-wrap: anywhere;
   }
 
-  .gw-page-header__description {
-    max-width: var(--gw-size-transcript);
-    color: var(--gw-color-muted);
+  .ds-page-header__description {
+    max-width: var(--ds-size-transcript);
+    color: var(--ds-color-muted);
   }
 
-  .gw-page-header__action {
+  .ds-page-header__action {
     display: flex;
     flex: none;
     align-items: center;
   }
 
   /* For a dense screen, where the list or the transcript below is what the reader came for. */
-  .gw-page-header--compact {
+  .ds-page-header--compact {
     align-items: center;
-    column-gap: var(--gw-space-md);
+    column-gap: var(--ds-space-md);
   }
 
-  .gw-page-header--compact .gw-page-header__text {
+  .ds-page-header--compact .ds-page-header__text {
     gap: 0;
   }
 
-  .gw-page-header--compact .gw-page-header__title {
-    font-size: var(--gw-text-lg);
-    line-height: var(--gw-leading-lg);
+  .ds-page-header--compact .ds-page-header__title {
+    font-size: var(--ds-text-lg);
+    line-height: var(--ds-leading-lg);
   }
 
-  .gw-page-header--compact .gw-page-header__description {
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+  .ds-page-header--compact .ds-page-header__description {
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
   }
 }

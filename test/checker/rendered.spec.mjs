@@ -18,12 +18,12 @@ const TYPES = { ".css": "text/css", ".woff2": "font/woff2", ".svg": "image/svg+x
 
 const REACT_PAGE = `<!doctype html>
 <html lang="en">
-  <head><meta charset="utf-8"><title>Draft</title><link rel="stylesheet" href="/groundwork.css"></head>
+  <head><meta charset="utf-8"><title>Draft</title><link rel="stylesheet" href="/design-system.css"></head>
   <body><div id="root"></div><script src="/react/app.js"></script></body>
 </html>`;
 
 // The fixtures name these classes; no shipped stylesheet defines them yet.
-const CENTRING = ".text-center, .gw-text-center { text-align: center; }";
+const CENTRING = ".text-center, .ds-text-center { text-align: center; }";
 
 const pagesIn = (corpus) => readdirSync(join(fixtures, corpus)).filter((name) => name.endsWith(".html")).sort();
 
@@ -44,7 +44,7 @@ async function renderedFindings(page, path) {
   await page.goto(`${origin}${path}`);
   await page.addStyleTag({ content: CENTRING });
   await page.addScriptTag({ path: bundle });
-  return page.evaluate(() => gwCheckDom());
+  return page.evaluate(() => dsCheckDom());
 }
 
 let server;
@@ -103,7 +103,7 @@ test("a rendered finding carries its rule, message, fix and a snippet of the ele
       rule: "hidden-critical-action",
       message: expect.stringContaining("collapsed"),
       fix: expect.any(String),
-      snippet: '<button type="button" class="gw-button" data-gw-critical="">Delete workspace</button>',
+      snippet: '<button type="button" class="ds-button" data-ds-critical="">Delete workspace</button>',
     },
   ]);
 });
@@ -111,26 +111,26 @@ test("a rendered finding carries its rule, message, fix and a snippet of the ele
 test("a critical action stops being hidden once its disclosure is opened on the live page", async ({ page }) => {
   await renderedFindings(page, "/slop/hidden-delete.html");
   await page.locator("summary").click();
-  expect(await page.evaluate(() => gwCheckDom())).toEqual([]);
+  expect(await page.evaluate(() => dsCheckDom())).toEqual([]);
 });
 
 test("a rendered page of plain controls fails, and passes once the app's prefix is given", async ({ page }) => {
   await page.goto(`${origin}/slop/plain-controls.html`);
   await page.addScriptTag({ path: bundle });
-  const findings = await page.evaluate(() => gwCheckDom());
+  const findings = await page.evaluate(() => dsCheckDom());
   expect(findings).toEqual([
     { rule: "unstyled-controls", message: expect.stringContaining("none of its 3 controls"), fix: expect.any(String), snippet: '<input id="title" name="title" type="text">' },
   ]);
   // The call forms that existed before the options argument give the same result.
-  expect(await page.evaluate(() => [gwCheckDom(document.documentElement), gwCheckDom(document.body), gwCheckDom(undefined, undefined), gwCheckDom(document.body, {})].map((found) => found.map((finding) => finding.rule)))).toEqual(
+  expect(await page.evaluate(() => [dsCheckDom(document.documentElement), dsCheckDom(document.body), dsCheckDom(undefined, undefined), dsCheckDom(document.body, {})].map((found) => found.map((finding) => finding.rule)))).toEqual(
     Array.from({ length: 4 }, () => ["unstyled-controls"]),
   );
 
   // The same page as an app with its own components would render it.
   await page.evaluate(() => document.querySelector("form").classList.add("sm-task-form"));
-  expect(await page.evaluate(() => gwCheckDom().map((finding) => finding.rule))).toEqual(["unstyled-controls"]);
-  expect(await page.evaluate(() => gwCheckDom(document.documentElement, { appPrefix: "sm" }))).toEqual([]);
-  expect(await page.evaluate(() => gwCheckDom(document.documentElement, { appPrefix: "s" }).length)).toBe(1);
+  expect(await page.evaluate(() => dsCheckDom().map((finding) => finding.rule))).toEqual(["unstyled-controls"]);
+  expect(await page.evaluate(() => dsCheckDom(document.documentElement, { appPrefix: "sm" }))).toEqual([]);
+  expect(await page.evaluate(() => dsCheckDom(document.documentElement, { appPrefix: "s" }).length)).toBe(1);
 });
 
 test("centred long text narrower than the reading column passes on the rendered page", async ({ page }) => {
@@ -140,12 +140,12 @@ test("centred long text narrower than the reading column passes on the rendered 
 
 test("two primary buttons composed by a React wrapper component and a mapped list fail in the rendered pass", async ({ page }) => {
   await page.goto(`${origin}/react/`);
-  await page.locator(".gw-button--primary").first().waitFor();
+  await page.locator(".ds-button--primary").first().waitFor();
   await page.addScriptTag({ path: bundle });
-  const findings = await page.evaluate(() => gwCheckDom());
+  const findings = await page.evaluate(() => dsCheckDom());
   expect(findings.map((finding) => finding.rule)).toEqual(["one-primary-action", "one-primary-action"]);
   expect(findings.map((finding) => finding.snippet)).toEqual([
-    '<button type="button" class="gw-button gw-button--primary">Save</button>',
-    '<button type="button" class="gw-button gw-button--primary">Publish</button>',
+    '<button type="button" class="ds-button ds-button--primary">Save</button>',
+    '<button type="button" class="ds-button ds-button--primary">Publish</button>',
   ]);
 });

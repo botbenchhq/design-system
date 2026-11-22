@@ -1,99 +1,99 @@
 <div data-example="default" data-title="Off, with a description" data-state="default" data-reason="The setting changes the moment the switch moves, with no Save button. The thumb's position and the word Off both show the state, so it does not rest on the colour of the track.">
-  <div class="gw-switch">
-    <label class="gw-switch__label" for="switch-default-read-only">Auto-approve read-only commands</label>
-    <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
-    <input class="gw-switch__input" type="checkbox" role="switch" id="switch-default-read-only" name="auto-approve-read-only" aria-describedby="switch-default-description">
-    <p class="gw-switch__description" id="switch-default-description">Commands such as git status and ls run without asking. Applies from the next request.</p>
+  <div class="ds-switch">
+    <label class="ds-switch__label" for="switch-default-read-only">Auto-approve read-only commands</label>
+    <span class="ds-switch__state" aria-hidden="true"><span class="ds-switch__on">On</span><span class="ds-switch__off">Off</span></span>
+    <input class="ds-switch__input" type="checkbox" role="switch" id="switch-default-read-only" name="auto-approve-read-only" aria-describedby="switch-default-description">
+    <p class="ds-switch__description" id="switch-default-description">Commands such as git status and ls run without asking. Applies from the next request.</p>
   </div>
 </div>
 
 <div data-example="on" data-title="On" data-state="on">
-  <div class="gw-switch">
-    <label class="gw-switch__label" for="switch-on-notify">Notify me when a run needs approval</label>
-    <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
-    <input class="gw-switch__input" type="checkbox" role="switch" id="switch-on-notify" name="notify-approval" checked>
+  <div class="ds-switch">
+    <label class="ds-switch__label" for="switch-on-notify">Notify me when a run needs approval</label>
+    <span class="ds-switch__state" aria-hidden="true"><span class="ds-switch__on">On</span><span class="ds-switch__off">Off</span></span>
+    <input class="ds-switch__input" type="checkbox" role="switch" id="switch-on-notify" name="notify-approval" checked>
   </div>
 </div>
 
 <div data-example="settings" data-title="Several settings">
-  <div class="gw-stack gw-gap-xs">
-    <div class="gw-switch">
-      <label class="gw-switch__label" for="switch-settings-notify">Notify me when a run needs approval</label>
-      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
-      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-settings-notify" name="notify-approval" checked>
+  <div class="ds-stack ds-gap-xs">
+    <div class="ds-switch">
+      <label class="ds-switch__label" for="switch-settings-notify">Notify me when a run needs approval</label>
+      <span class="ds-switch__state" aria-hidden="true"><span class="ds-switch__on">On</span><span class="ds-switch__off">Off</span></span>
+      <input class="ds-switch__input" type="checkbox" role="switch" id="switch-settings-notify" name="notify-approval" checked>
     </div>
-    <div class="gw-switch">
-      <label class="gw-switch__label" for="switch-settings-finished">Notify me when a run finishes</label>
-      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
-      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-settings-finished" name="notify-finished">
+    <div class="ds-switch">
+      <label class="ds-switch__label" for="switch-settings-finished">Notify me when a run finishes</label>
+      <span class="ds-switch__state" aria-hidden="true"><span class="ds-switch__on">On</span><span class="ds-switch__off">Off</span></span>
+      <input class="ds-switch__input" type="checkbox" role="switch" id="switch-settings-finished" name="notify-finished">
     </div>
-    <div class="gw-switch">
-      <label class="gw-switch__label" for="switch-settings-pause">Pause new runs on acme/api</label>
-      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
-      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-settings-pause" name="pause-runs" aria-describedby="switch-settings-pause-description">
-      <p class="gw-switch__description" id="switch-settings-pause-description">Runs already in progress carry on. Queued tasks wait.</p>
+    <div class="ds-switch">
+      <label class="ds-switch__label" for="switch-settings-pause">Pause new runs on acme/api</label>
+      <span class="ds-switch__state" aria-hidden="true"><span class="ds-switch__on">On</span><span class="ds-switch__off">Off</span></span>
+      <input class="ds-switch__input" type="checkbox" role="switch" id="switch-settings-pause" name="pause-runs" aria-describedby="switch-settings-pause-description">
+      <p class="ds-switch__description" id="switch-settings-pause-description">Runs already in progress carry on. Queued tasks wait.</p>
     </div>
   </div>
 </div>
 
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <div class="gw-stack gw-gap-xs">
-    <div class="gw-switch">
-      <label class="gw-switch__label" for="switch-hover-finished">Notify me when a run finishes</label>
-      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
-      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-hover-finished" name="notify-finished">
+  <div class="ds-stack ds-gap-xs">
+    <div class="ds-switch">
+      <label class="ds-switch__label" for="switch-hover-finished">Notify me when a run finishes</label>
+      <span class="ds-switch__state" aria-hidden="true"><span class="ds-switch__on">On</span><span class="ds-switch__off">Off</span></span>
+      <input class="ds-switch__input" type="checkbox" role="switch" id="switch-hover-finished" name="notify-finished">
     </div>
-    <div class="gw-switch">
-      <label class="gw-switch__label" for="switch-hover-notify">Notify me when a run needs approval</label>
-      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
-      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-hover-notify" name="notify-approval" checked>
+    <div class="ds-switch">
+      <label class="ds-switch__label" for="switch-hover-notify">Notify me when a run needs approval</label>
+      <span class="ds-switch__state" aria-hidden="true"><span class="ds-switch__on">On</span><span class="ds-switch__off">Off</span></span>
+      <input class="ds-switch__input" type="checkbox" role="switch" id="switch-hover-notify" name="notify-approval" checked>
     </div>
   </div>
 </div>
 
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <div class="gw-switch">
-    <label class="gw-switch__label" for="switch-focus-notify">Notify me when a run needs approval</label>
-    <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
-    <input class="gw-switch__input" type="checkbox" role="switch" id="switch-focus-notify" name="notify-approval" checked>
+  <div class="ds-switch">
+    <label class="ds-switch__label" for="switch-focus-notify">Notify me when a run needs approval</label>
+    <span class="ds-switch__state" aria-hidden="true"><span class="ds-switch__on">On</span><span class="ds-switch__off">Off</span></span>
+    <input class="ds-switch__input" type="checkbox" role="switch" id="switch-focus-notify" name="notify-approval" checked>
   </div>
 </div>
 
 <div data-example="disabled" data-title="Disabled, off and on" data-state="disabled">
-  <div class="gw-stack gw-gap-xs">
-    <div class="gw-switch">
-      <label class="gw-switch__label" for="switch-disabled-force">Allow force-push to main</label>
-      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
-      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-disabled-force" name="allow-force-push" disabled aria-describedby="switch-disabled-force-description">
-      <p class="gw-switch__description" id="switch-disabled-force-description">Only a repository owner can change this.</p>
+  <div class="ds-stack ds-gap-xs">
+    <div class="ds-switch">
+      <label class="ds-switch__label" for="switch-disabled-force">Allow force-push to main</label>
+      <span class="ds-switch__state" aria-hidden="true"><span class="ds-switch__on">On</span><span class="ds-switch__off">Off</span></span>
+      <input class="ds-switch__input" type="checkbox" role="switch" id="switch-disabled-force" name="allow-force-push" disabled aria-describedby="switch-disabled-force-description">
+      <p class="ds-switch__description" id="switch-disabled-force-description">Only a repository owner can change this.</p>
     </div>
-    <div class="gw-switch">
-      <label class="gw-switch__label" for="switch-disabled-review">Require a review before merging</label>
-      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
-      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-disabled-review" name="require-review" checked disabled aria-describedby="switch-disabled-review-description">
-      <p class="gw-switch__description" id="switch-disabled-review-description">Set for every repository in the acme organisation.</p>
+    <div class="ds-switch">
+      <label class="ds-switch__label" for="switch-disabled-review">Require a review before merging</label>
+      <span class="ds-switch__state" aria-hidden="true"><span class="ds-switch__on">On</span><span class="ds-switch__off">Off</span></span>
+      <input class="ds-switch__input" type="checkbox" role="switch" id="switch-disabled-review" name="require-review" checked disabled aria-describedby="switch-disabled-review-description">
+      <p class="ds-switch__description" id="switch-disabled-review-description">Set for every repository in the acme organisation.</p>
     </div>
   </div>
 </div>
 
 <div data-example="error" data-title="The change could not be saved" data-state="error">
-  <div class="gw-switch">
-    <label class="gw-switch__label" for="switch-error-pause">Pause new runs on acme/api</label>
-    <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
-    <input class="gw-switch__input" type="checkbox" role="switch" id="switch-error-pause" name="pause-runs" aria-describedby="switch-error-message">
-    <p class="gw-switch__error" id="switch-error-message" role="alert">New runs are not paused: the server did not answer. Check your connection, then switch it on again.</p>
+  <div class="ds-switch">
+    <label class="ds-switch__label" for="switch-error-pause">Pause new runs on acme/api</label>
+    <span class="ds-switch__state" aria-hidden="true"><span class="ds-switch__on">On</span><span class="ds-switch__off">Off</span></span>
+    <input class="ds-switch__input" type="checkbox" role="switch" id="switch-error-pause" name="pause-runs" aria-describedby="switch-error-message">
+    <p class="ds-switch__error" id="switch-error-message" role="alert">New runs are not paused: the server did not answer. Check your connection, then switch it on again.</p>
   </div>
 </div>
 
 <div data-example="with-save" data-title="A switch that waits for Save" data-dont="review" data-reason="A switch promises that the setting changes at once. In a form that is sent with a button, the reader cannot tell whether it has taken effect. Use a checkbox there.">
-  <form class="gw-stack">
-    <div class="gw-switch">
-      <label class="gw-switch__label" for="switch-with-save-draft">Open the pull request as a draft</label>
-      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
-      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-with-save-draft" name="draft" checked>
+  <form class="ds-stack">
+    <div class="ds-switch">
+      <label class="ds-switch__label" for="switch-with-save-draft">Open the pull request as a draft</label>
+      <span class="ds-switch__state" aria-hidden="true"><span class="ds-switch__on">On</span><span class="ds-switch__off">Off</span></span>
+      <input class="ds-switch__input" type="checkbox" role="switch" id="switch-with-save-draft" name="draft" checked>
     </div>
-    <div class="gw-cluster">
-      <button type="button" class="gw-button gw-button--primary">Save settings</button>
+    <div class="ds-cluster">
+      <button type="button" class="ds-button ds-button--primary">Save settings</button>
     </div>
   </form>
 </div>

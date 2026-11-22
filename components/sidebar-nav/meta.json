@@ -4,7 +4,7 @@
   "purpose": "The destinations of an app in a column beside the content at 768px and up, each with an icon and a text label, grouped into labelled sections.",
   "status": "draft",
   "whenToUse": [
-    "For moving between the screens of an app at 768px and wider, as the first child of gw-sidebar-layout.",
+    "For moving between the screens of an app at 768px and wider, as the first child of ds-sidebar-layout.",
     "Together with the tab bar: the sidebar is not shown below 768px, where the tab bar lists the two to five main destinations along the bottom. Put both in the markup, with the same destinations in the same order.",
     "When there are more destinations than a tab bar holds. The sidebar lists them all, in sections, and the tab bar keeps the five most used."
   ],
@@ -16,8 +16,8 @@
     "For a screen that does not exist yet. List only screens that exist."
   ],
   "variants": [
-    { "name": "with sections", "use": "Each gw-sidebar-nav__section holds a gw-sidebar-nav__heading and a gw-sidebar-nav__items list. Use it for six destinations or more." },
-    { "name": "flat", "use": "One gw-sidebar-nav__items list directly in the nav, with no section and no heading. Use it for five destinations or fewer." }
+    { "name": "with sections", "use": "Each ds-sidebar-nav__section holds a ds-sidebar-nav__heading and a ds-sidebar-nav__items list. Use it for six destinations or more." },
+    { "name": "flat", "use": "One ds-sidebar-nav__items list directly in the nav, with no section and no heading. Use it for five destinations or fewer." }
   ],
   "sizes": [
     { "name": "default", "use": "220px wide, with each item 44px tall. Shown only at 768px and up." }
@@ -25,24 +25,24 @@
   "states": ["default", "current", "hover", "focus-visible", "active"],
   "accessibility": [
     "Use a nav element with an aria-label, such as Main. When the tab bar is also in the markup it may carry the same label, because only one of the two is ever shown and the other is out of the accessibility tree.",
-    "Each list of items is a ul of li, each holding one link with the gw-sidebar-nav__item class. A section's heading is a p with an id, and the section's ul points at it with aria-labelledby, so the list is announced by its section name.",
+    "Each list of items is a ul of li, each holding one link with the ds-sidebar-nav__item class. A section's heading is a p with an id, and the section's ul points at it with aria-labelledby, so the list is announced by its section name.",
     "Set aria-current=\"page\" on the link for the screen that is open, and on no other. It draws the bar, the shade and the heavier label, and is what a screen reader announces. Never mark the current item with a class.",
-    "Every item has a text label in gw-sidebar-nav__label. The icon is decoration and carries aria-hidden=\"true\". A label too long for the column is cut with an ellipsis, so keep labels to one to three words.",
+    "Every item has a text label in ds-sidebar-nav__label. The icon is decoration and carries aria-hidden=\"true\". A label too long for the column is cut with an ellipsis, so keep labels to one to three words.",
     "Tab moves through the items in order and Enter follows one. Both come from the link element.",
     "Keep the items in the same order on every screen.",
-    "gw-sidebar-nav__footer is optional and comes last. It holds a gw-sidebar-nav__items list or a gw-sidebar-nav__note, such as the repository and runner in use.",
+    "ds-sidebar-nav__footer is optional and comes last. It holds a ds-sidebar-nav__items list or a ds-sidebar-nav__note, such as the repository and runner in use.",
     "The component needs no script. The app sets aria-current on the right link when the screen changes."
   ],
   "icons": ["circle-check", "file", "folder", "git-branch", "info", "search", "terminal"],
   "classes": [
-    "gw-sidebar-nav",
-    "gw-sidebar-nav__footer",
-    "gw-sidebar-nav__heading",
-    "gw-sidebar-nav__icon",
-    "gw-sidebar-nav__item",
-    "gw-sidebar-nav__items",
-    "gw-sidebar-nav__label",
-    "gw-sidebar-nav__note",
-    "gw-sidebar-nav__section"
+    "ds-sidebar-nav",
+    "ds-sidebar-nav__footer",
+    "ds-sidebar-nav__heading",
+    "ds-sidebar-nav__icon",
+    "ds-sidebar-nav__item",
+    "ds-sidebar-nav__items",
+    "ds-sidebar-nav__label",
+    "ds-sidebar-nav__note",
+    "ds-sidebar-nav__section"
   ]
 }

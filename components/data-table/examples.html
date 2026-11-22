@@ -1,13 +1,13 @@
 <div data-example="default" data-title="Runs compared across columns" data-state="default" data-reason="It is a real table with a caption, column headers and a header cell for each row, so a screen reader can read any cell with its headers. The numbers are right-aligned in tabular figures with their units, and on a phone each row becomes a block whose cells print their column label from data-label.">
-  <table class="gw-data-table">
-    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+  <table class="ds-data-table">
+    <caption class="ds-data-table__caption">Runs in acme/api today</caption>
     <thead>
       <tr>
         <th scope="col">Task</th>
         <th scope="col">Branch</th>
         <th scope="col">Status</th>
-        <th scope="col" class="gw-data-table__numeric">Duration</th>
-        <th scope="col" class="gw-data-table__numeric">Tokens</th>
+        <th scope="col" class="ds-data-table__numeric">Duration</th>
+        <th scope="col" class="ds-data-table__numeric">Tokens</th>
       </tr>
     </thead>
     <tbody>
@@ -15,37 +15,37 @@
         <th scope="row">Fix the login timeout</th>
         <td data-label="Branch">fix/login-timeout</td>
         <td data-label="Status">Building</td>
-        <td class="gw-data-table__numeric" data-label="Duration">6 min 12 s</td>
-        <td class="gw-data-table__numeric" data-label="Tokens">18,420</td>
+        <td class="ds-data-table__numeric" data-label="Duration">6 min 12 s</td>
+        <td class="ds-data-table__numeric" data-label="Tokens">18,420</td>
       </tr>
       <tr>
         <th scope="row">Add rate limiting to the webhook endpoint</th>
         <td data-label="Branch">feat/webhook-rate-limit</td>
         <td data-label="Status">Awaiting decision</td>
-        <td class="gw-data-table__numeric" data-label="Duration">21 min 40 s</td>
-        <td class="gw-data-table__numeric" data-label="Tokens">47,900</td>
+        <td class="ds-data-table__numeric" data-label="Duration">21 min 40 s</td>
+        <td class="ds-data-table__numeric" data-label="Tokens">47,900</td>
       </tr>
       <tr>
         <th scope="row">Upgrade Postgres client to 8.13</th>
         <td data-label="Branch">chore/pg-8-13</td>
         <td data-label="Status">Tests failed</td>
-        <td class="gw-data-table__numeric" data-label="Duration">2 min 5 s</td>
-        <td class="gw-data-table__numeric" data-label="Tokens">6,310</td>
+        <td class="ds-data-table__numeric" data-label="Duration">2 min 5 s</td>
+        <td class="ds-data-table__numeric" data-label="Tokens">6,310</td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <div data-example="row-action" data-title="One quiet action for each row" data-reason="The action repeats on every row, so it is small and quiet, and its label names the row for a screen reader. Its cell pads the 32px button out to 44px, so the pointer target fits inside the row and a one-line row stays 44px tall.">
-  <table class="gw-data-table">
-    <caption class="gw-data-table__caption">Running now in acme/api</caption>
+  <table class="ds-data-table">
+    <caption class="ds-data-table__caption">Running now in acme/api</caption>
     <thead>
       <tr>
         <th scope="col">Task</th>
         <th scope="col">Branch</th>
         <th scope="col">Status</th>
-        <th scope="col" class="gw-data-table__numeric">Duration</th>
-        <th scope="col"><span class="gw-visually-hidden">Actions</span></th>
+        <th scope="col" class="ds-data-table__numeric">Duration</th>
+        <th scope="col"><span class="ds-visually-hidden">Actions</span></th>
       </tr>
     </thead>
     <tbody>
@@ -53,50 +53,50 @@
         <th scope="row">Fix the login timeout</th>
         <td data-label="Branch">fix/login-timeout</td>
         <td data-label="Status">Building</td>
-        <td class="gw-data-table__numeric" data-label="Duration">6 min 12 s</td>
-        <td class="gw-data-table__action"><button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Stop run for Fix the login timeout">Stop run</button></td>
+        <td class="ds-data-table__numeric" data-label="Duration">6 min 12 s</td>
+        <td class="ds-data-table__action"><button type="button" class="ds-button ds-button--quiet ds-button--small" aria-label="Stop run for Fix the login timeout">Stop run</button></td>
       </tr>
       <tr>
         <th scope="row">Add rate limiting to the webhook endpoint</th>
         <td data-label="Branch">feat/webhook-rate-limit</td>
         <td data-label="Status">Awaiting decision</td>
-        <td class="gw-data-table__numeric" data-label="Duration">21 min 40 s</td>
-        <td class="gw-data-table__action"><button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Stop run for Add rate limiting to the webhook endpoint">Stop run</button></td>
+        <td class="ds-data-table__numeric" data-label="Duration">21 min 40 s</td>
+        <td class="ds-data-table__action"><button type="button" class="ds-button ds-button--quiet ds-button--small" aria-label="Stop run for Add rate limiting to the webhook endpoint">Stop run</button></td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <div data-example="sortable" data-title="Sortable columns, in the scroll variant" data-state="sorted" data-reason="Each sortable header is a button inside its th, and the th carries aria-sort for the one column the rows are ordered by. The table keeps its columns on a phone and scrolls sideways inside its wrapper, so the header buttons stay on screen and the page itself never scrolls.">
-  <div class="gw-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-sortable-caption">
-    <table class="gw-data-table gw-data-table--scroll">
-      <caption class="gw-data-table__caption" id="data-table-sortable-caption">Runs in acme/api, newest first</caption>
+  <div class="ds-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-sortable-caption">
+    <table class="ds-data-table ds-data-table--scroll">
+      <caption class="ds-data-table__caption" id="data-table-sortable-caption">Runs in acme/api, newest first</caption>
       <thead>
         <tr>
-          <th scope="col"><button type="button" class="gw-data-table__sort">Task</button></th>
-          <th scope="col" aria-sort="descending"><button type="button" class="gw-data-table__sort">Started</button></th>
-          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Duration</button></th>
-          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Tokens</button></th>
+          <th scope="col"><button type="button" class="ds-data-table__sort">Task</button></th>
+          <th scope="col" aria-sort="descending"><button type="button" class="ds-data-table__sort">Started</button></th>
+          <th scope="col" class="ds-data-table__numeric"><button type="button" class="ds-data-table__sort">Duration</button></th>
+          <th scope="col" class="ds-data-table__numeric"><button type="button" class="ds-data-table__sort">Tokens</button></th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th scope="row">Fix the login timeout</th>
           <td><time datetime="2026-03-14T09:30">14 March, 09:30</time></td>
-          <td class="gw-data-table__numeric">6 min 12 s</td>
-          <td class="gw-data-table__numeric">18,420</td>
+          <td class="ds-data-table__numeric">6 min 12 s</td>
+          <td class="ds-data-table__numeric">18,420</td>
         </tr>
         <tr>
           <th scope="row">Add rate limiting to the webhook endpoint</th>
           <td><time datetime="2026-03-14T09:14">14 March, 09:14</time></td>
-          <td class="gw-data-table__numeric">21 min 40 s</td>
-          <td class="gw-data-table__numeric">47,900</td>
+          <td class="ds-data-table__numeric">21 min 40 s</td>
+          <td class="ds-data-table__numeric">47,900</td>
         </tr>
         <tr>
           <th scope="row">Upgrade Postgres client to 8.13</th>
           <td><time datetime="2026-03-13T17:52">13 March, 17:52</time></td>
-          <td class="gw-data-table__numeric">2 min 5 s</td>
-          <td class="gw-data-table__numeric">6,310</td>
+          <td class="ds-data-table__numeric">2 min 5 s</td>
+          <td class="ds-data-table__numeric">6,310</td>
         </tr>
       </tbody>
     </table>
@@ -104,23 +104,23 @@
 </div>
 
 <div data-example="hover" data-title="Hover on a header button" data-state="hover">
-  <div class="gw-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-hover-caption">
-    <table class="gw-data-table gw-data-table--scroll">
-      <caption class="gw-data-table__caption" id="data-table-hover-caption">Runs in acme/billing, newest first</caption>
+  <div class="ds-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-hover-caption">
+    <table class="ds-data-table ds-data-table--scroll">
+      <caption class="ds-data-table__caption" id="data-table-hover-caption">Runs in acme/billing, newest first</caption>
       <thead>
         <tr>
-          <th scope="col"><button type="button" class="gw-data-table__sort">Task</button></th>
-          <th scope="col" aria-sort="descending"><button type="button" class="gw-data-table__sort">Started</button></th>
-          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Duration</button></th>
-          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Tokens</button></th>
+          <th scope="col"><button type="button" class="ds-data-table__sort">Task</button></th>
+          <th scope="col" aria-sort="descending"><button type="button" class="ds-data-table__sort">Started</button></th>
+          <th scope="col" class="ds-data-table__numeric"><button type="button" class="ds-data-table__sort">Duration</button></th>
+          <th scope="col" class="ds-data-table__numeric"><button type="button" class="ds-data-table__sort">Tokens</button></th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th scope="row">Fix the login timeout</th>
           <td><time datetime="2026-03-14T09:30">14 March, 09:30</time></td>
-          <td class="gw-data-table__numeric">6 min 12 s</td>
-          <td class="gw-data-table__numeric">18,420</td>
+          <td class="ds-data-table__numeric">6 min 12 s</td>
+          <td class="ds-data-table__numeric">18,420</td>
         </tr>
       </tbody>
     </table>
@@ -128,23 +128,23 @@
 </div>
 
 <div data-example="focus-visible" data-title="Keyboard focus on a header button" data-state="focus-visible">
-  <div class="gw-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-focus-visible-caption">
-    <table class="gw-data-table gw-data-table--scroll">
-      <caption class="gw-data-table__caption" id="data-table-focus-visible-caption">Runs in acme/web, newest first</caption>
+  <div class="ds-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-focus-visible-caption">
+    <table class="ds-data-table ds-data-table--scroll">
+      <caption class="ds-data-table__caption" id="data-table-focus-visible-caption">Runs in acme/web, newest first</caption>
       <thead>
         <tr>
-          <th scope="col"><button type="button" class="gw-data-table__sort">Task</button></th>
-          <th scope="col" aria-sort="descending"><button type="button" class="gw-data-table__sort">Started</button></th>
-          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Duration</button></th>
-          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Tokens</button></th>
+          <th scope="col"><button type="button" class="ds-data-table__sort">Task</button></th>
+          <th scope="col" aria-sort="descending"><button type="button" class="ds-data-table__sort">Started</button></th>
+          <th scope="col" class="ds-data-table__numeric"><button type="button" class="ds-data-table__sort">Duration</button></th>
+          <th scope="col" class="ds-data-table__numeric"><button type="button" class="ds-data-table__sort">Tokens</button></th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th scope="row">Fix the login timeout</th>
           <td><time datetime="2026-03-14T09:30">14 March, 09:30</time></td>
-          <td class="gw-data-table__numeric">6 min 12 s</td>
-          <td class="gw-data-table__numeric">18,420</td>
+          <td class="ds-data-table__numeric">6 min 12 s</td>
+          <td class="ds-data-table__numeric">18,420</td>
         </tr>
       </tbody>
     </table>
@@ -152,23 +152,23 @@
 </div>
 
 <div data-example="active" data-title="A header button being pressed" data-state="active">
-  <div class="gw-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-active-caption">
-    <table class="gw-data-table gw-data-table--scroll">
-      <caption class="gw-data-table__caption" id="data-table-active-caption">Runs in acme/docs, newest first</caption>
+  <div class="ds-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-active-caption">
+    <table class="ds-data-table ds-data-table--scroll">
+      <caption class="ds-data-table__caption" id="data-table-active-caption">Runs in acme/docs, newest first</caption>
       <thead>
         <tr>
-          <th scope="col"><button type="button" class="gw-data-table__sort">Task</button></th>
-          <th scope="col" aria-sort="descending"><button type="button" class="gw-data-table__sort">Started</button></th>
-          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Duration</button></th>
-          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Tokens</button></th>
+          <th scope="col"><button type="button" class="ds-data-table__sort">Task</button></th>
+          <th scope="col" aria-sort="descending"><button type="button" class="ds-data-table__sort">Started</button></th>
+          <th scope="col" class="ds-data-table__numeric"><button type="button" class="ds-data-table__sort">Duration</button></th>
+          <th scope="col" class="ds-data-table__numeric"><button type="button" class="ds-data-table__sort">Tokens</button></th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th scope="row">Fix the login timeout</th>
           <td><time datetime="2026-03-14T09:30">14 March, 09:30</time></td>
-          <td class="gw-data-table__numeric">6 min 12 s</td>
-          <td class="gw-data-table__numeric">18,420</td>
+          <td class="ds-data-table__numeric">6 min 12 s</td>
+          <td class="ds-data-table__numeric">18,420</td>
         </tr>
       </tbody>
     </table>
@@ -176,33 +176,33 @@
 </div>
 
 <div data-example="expandable" data-title="Rows that open a detail row beneath" data-state="open" data-reason="The button holds the words that name the row and says whether it is open through aria-expanded, which is also what the stylesheet reads to draw the chevron and to show or hide the detail row. The app changes that one attribute and nothing else.">
-  <table class="gw-data-table">
-    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+  <table class="ds-data-table">
+    <caption class="ds-data-table__caption">Runs in acme/api today</caption>
     <thead>
       <tr>
         <th scope="col">Task</th>
         <th scope="col">Branch</th>
         <th scope="col">Status</th>
-        <th scope="col" class="gw-data-table__numeric">Duration</th>
+        <th scope="col" class="ds-data-table__numeric">Duration</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <th scope="row"><button type="button" class="gw-data-table__expand" aria-expanded="true" aria-controls="data-table-expandable-detail-1">Upgrade Postgres client to 8.13</button></th>
+        <th scope="row"><button type="button" class="ds-data-table__expand" aria-expanded="true" aria-controls="data-table-expandable-detail-1">Upgrade Postgres client to 8.13</button></th>
         <td data-label="Branch">chore/pg-8-13</td>
         <td data-label="Status">Tests failed</td>
-        <td class="gw-data-table__numeric" data-label="Duration">2 min 5 s</td>
+        <td class="ds-data-table__numeric" data-label="Duration">2 min 5 s</td>
       </tr>
-      <tr class="gw-data-table__detail" id="data-table-expandable-detail-1">
+      <tr class="ds-data-table__detail" id="data-table-expandable-detail-1">
         <td colspan="4"><code>npm test</code> stopped with 1 of 213 tests failing: session.test.ts, &quot;refreshes the cookie on reload&quot;. The agent is waiting for you to decide whether it should try again.</td>
       </tr>
       <tr>
-        <th scope="row"><button type="button" class="gw-data-table__expand" aria-expanded="false" aria-controls="data-table-expandable-detail-2">Fix the login timeout</button></th>
+        <th scope="row"><button type="button" class="ds-data-table__expand" aria-expanded="false" aria-controls="data-table-expandable-detail-2">Fix the login timeout</button></th>
         <td data-label="Branch">fix/login-timeout</td>
         <td data-label="Status">Building</td>
-        <td class="gw-data-table__numeric" data-label="Duration">6 min 12 s</td>
+        <td class="ds-data-table__numeric" data-label="Duration">6 min 12 s</td>
       </tr>
-      <tr class="gw-data-table__detail" id="data-table-expandable-detail-2">
+      <tr class="ds-data-table__detail" id="data-table-expandable-detail-2">
         <td colspan="4">Step 3 of 5: running <code>npm run build</code> in /srv/workspaces/acme-api.</td>
       </tr>
     </tbody>
@@ -210,14 +210,14 @@
 </div>
 
 <div data-example="selected" data-title="A selected row" data-state="selected">
-  <table class="gw-data-table">
-    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+  <table class="ds-data-table">
+    <caption class="ds-data-table__caption">Runs in acme/api today</caption>
     <thead>
       <tr>
         <th scope="col">Task</th>
         <th scope="col">Branch</th>
         <th scope="col">Status</th>
-        <th scope="col" class="gw-data-table__numeric">Duration</th>
+        <th scope="col" class="ds-data-table__numeric">Duration</th>
       </tr>
     </thead>
     <tbody>
@@ -225,40 +225,40 @@
         <th scope="row">Fix the login timeout</th>
         <td data-label="Branch">fix/login-timeout</td>
         <td data-label="Status">Building</td>
-        <td class="gw-data-table__numeric" data-label="Duration">6 min 12 s</td>
+        <td class="ds-data-table__numeric" data-label="Duration">6 min 12 s</td>
       </tr>
       <tr aria-selected="true">
         <th scope="row">Add rate limiting to the webhook endpoint</th>
         <td data-label="Branch">feat/webhook-rate-limit</td>
         <td data-label="Status">Awaiting decision</td>
-        <td class="gw-data-table__numeric" data-label="Duration">21 min 40 s</td>
+        <td class="ds-data-table__numeric" data-label="Duration">21 min 40 s</td>
       </tr>
       <tr>
         <th scope="row">Upgrade Postgres client to 8.13</th>
         <td data-label="Branch">chore/pg-8-13</td>
         <td data-label="Status">Tests failed</td>
-        <td class="gw-data-table__numeric" data-label="Duration">2 min 5 s</td>
+        <td class="ds-data-table__numeric" data-label="Duration">2 min 5 s</td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <div data-example="empty" data-title="No rows to show" data-state="empty">
-  <table class="gw-data-table">
-    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+  <table class="ds-data-table">
+    <caption class="ds-data-table__caption">Runs in acme/api today</caption>
     <thead>
       <tr>
         <th scope="col">Task</th>
         <th scope="col">Branch</th>
         <th scope="col">Status</th>
-        <th scope="col" class="gw-data-table__numeric">Duration</th>
+        <th scope="col" class="ds-data-table__numeric">Duration</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="gw-data-table__state" colspan="4">
-          <p class="gw-data-table__message">No runs match "status: failed". All 38 runs in acme/api passed or are still running.</p>
-          <button type="button" class="gw-button gw-button--small">Clear filter</button>
+        <td class="ds-data-table__state" colspan="4">
+          <p class="ds-data-table__message">No runs match "status: failed". All 38 runs in acme/api passed or are still running.</p>
+          <button type="button" class="ds-button ds-button--small">Clear filter</button>
         </td>
       </tr>
     </tbody>
@@ -266,20 +266,20 @@
 </div>
 
 <div data-example="loading" data-title="Loading the rows" data-state="loading">
-  <table class="gw-data-table" aria-busy="true">
-    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+  <table class="ds-data-table" aria-busy="true">
+    <caption class="ds-data-table__caption">Runs in acme/api today</caption>
     <thead>
       <tr>
         <th scope="col">Task</th>
         <th scope="col">Branch</th>
         <th scope="col">Status</th>
-        <th scope="col" class="gw-data-table__numeric">Duration</th>
+        <th scope="col" class="ds-data-table__numeric">Duration</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="gw-data-table__state" colspan="4">
-          <p class="gw-spinner" role="status">Loading runs</p>
+        <td class="ds-data-table__state" colspan="4">
+          <p class="ds-spinner" role="status">Loading runs</p>
         </td>
       </tr>
     </tbody>
@@ -287,21 +287,21 @@
 </div>
 
 <div data-example="error" data-title="The rows could not be loaded" data-state="error">
-  <table class="gw-data-table">
-    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+  <table class="ds-data-table">
+    <caption class="ds-data-table__caption">Runs in acme/api today</caption>
     <thead>
       <tr>
         <th scope="col">Task</th>
         <th scope="col">Branch</th>
         <th scope="col">Status</th>
-        <th scope="col" class="gw-data-table__numeric">Duration</th>
+        <th scope="col" class="ds-data-table__numeric">Duration</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="gw-data-table__state" colspan="4">
-          <p class="gw-data-table__message" role="alert">The runs could not be loaded. The server did not answer in time. Check your connection, then retry.</p>
-          <button type="button" class="gw-button gw-button--small">Retry</button>
+        <td class="ds-data-table__state" colspan="4">
+          <p class="ds-data-table__message" role="alert">The runs could not be loaded. The server did not answer in time. Check your connection, then retry.</p>
+          <button type="button" class="ds-button ds-button--small">Retry</button>
         </td>
       </tr>
     </tbody>
@@ -309,15 +309,15 @@
 </div>
 
 <div data-example="sticky" data-title="A sticky header, for a long table that scrolls with the page">
-  <table class="gw-data-table gw-data-table--sticky">
-    <caption class="gw-data-table__caption">Runs in acme/api this week</caption>
+  <table class="ds-data-table ds-data-table--sticky">
+    <caption class="ds-data-table__caption">Runs in acme/api this week</caption>
     <thead>
       <tr>
         <th scope="col">Task</th>
         <th scope="col">Branch</th>
         <th scope="col">Status</th>
-        <th scope="col" class="gw-data-table__numeric">Duration</th>
-        <th scope="col" class="gw-data-table__numeric">Tokens</th>
+        <th scope="col" class="ds-data-table__numeric">Duration</th>
+        <th scope="col" class="ds-data-table__numeric">Tokens</th>
       </tr>
     </thead>
     <tbody>
@@ -325,37 +325,37 @@
         <th scope="row">Fix the login timeout</th>
         <td data-label="Branch">fix/login-timeout</td>
         <td data-label="Status">Building</td>
-        <td class="gw-data-table__numeric" data-label="Duration">6 min 12 s</td>
-        <td class="gw-data-table__numeric" data-label="Tokens">18,420</td>
+        <td class="ds-data-table__numeric" data-label="Duration">6 min 12 s</td>
+        <td class="ds-data-table__numeric" data-label="Tokens">18,420</td>
       </tr>
       <tr>
         <th scope="row">Add rate limiting to the webhook endpoint</th>
         <td data-label="Branch">feat/webhook-rate-limit</td>
         <td data-label="Status">Awaiting decision</td>
-        <td class="gw-data-table__numeric" data-label="Duration">21 min 40 s</td>
-        <td class="gw-data-table__numeric" data-label="Tokens">47,900</td>
+        <td class="ds-data-table__numeric" data-label="Duration">21 min 40 s</td>
+        <td class="ds-data-table__numeric" data-label="Tokens">47,900</td>
       </tr>
       <tr>
         <th scope="row">Upgrade Postgres client to 8.13</th>
         <td data-label="Branch">chore/pg-8-13</td>
         <td data-label="Status">Tests failed</td>
-        <td class="gw-data-table__numeric" data-label="Duration">2 min 5 s</td>
-        <td class="gw-data-table__numeric" data-label="Tokens">6,310</td>
+        <td class="ds-data-table__numeric" data-label="Duration">2 min 5 s</td>
+        <td class="ds-data-table__numeric" data-label="Tokens">6,310</td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <div data-example="no-labels" data-title="Stacked cells with no data-label" data-dont="review" data-reason="Below 768px the header row is not drawn, so a cell with no data-label is a bare value: nothing says that 18,420 is a count of tokens. Give every td the text of its column header in data-label, or use the scroll variant.">
-  <table class="gw-data-table">
-    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+  <table class="ds-data-table">
+    <caption class="ds-data-table__caption">Runs in acme/api today</caption>
     <thead>
       <tr>
         <th scope="col">Task</th>
         <th scope="col">Branch</th>
         <th scope="col">Status</th>
-        <th scope="col" class="gw-data-table__numeric">Duration</th>
-        <th scope="col" class="gw-data-table__numeric">Tokens</th>
+        <th scope="col" class="ds-data-table__numeric">Duration</th>
+        <th scope="col" class="ds-data-table__numeric">Tokens</th>
       </tr>
     </thead>
     <tbody>
@@ -363,40 +363,40 @@
         <th scope="row">Fix the login timeout</th>
         <td>fix/login-timeout</td>
         <td>Building</td>
-        <td class="gw-data-table__numeric">6 min 12 s</td>
-        <td class="gw-data-table__numeric">18,420</td>
+        <td class="ds-data-table__numeric">6 min 12 s</td>
+        <td class="ds-data-table__numeric">18,420</td>
       </tr>
       <tr>
         <th scope="row">Add rate limiting to the webhook endpoint</th>
         <td>feat/webhook-rate-limit</td>
         <td>Awaiting decision</td>
-        <td class="gw-data-table__numeric">21 min 40 s</td>
-        <td class="gw-data-table__numeric">47,900</td>
+        <td class="ds-data-table__numeric">21 min 40 s</td>
+        <td class="ds-data-table__numeric">47,900</td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <div data-example="primary-in-rows" data-title="A primary button on every row" data-dont="repeated-item-primary" data-reason="A primary button on each row gives the view as many main actions as it has rows. Give the repeated action quiet emphasis and a label that names its row.">
-  <table class="gw-data-table">
-    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+  <table class="ds-data-table">
+    <caption class="ds-data-table__caption">Runs in acme/api today</caption>
     <thead>
       <tr>
         <th scope="col">Task</th>
         <th scope="col">Branch</th>
-        <th scope="col"><span class="gw-visually-hidden">Actions</span></th>
+        <th scope="col"><span class="ds-visually-hidden">Actions</span></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <th scope="row">Fix the login timeout</th>
         <td data-label="Branch">fix/login-timeout</td>
-        <td class="gw-data-table__action"><button type="button" class="gw-button gw-button--primary gw-button--small">Open run</button></td>
+        <td class="ds-data-table__action"><button type="button" class="ds-button ds-button--primary ds-button--small">Open run</button></td>
       </tr>
       <tr>
         <th scope="row">Add rate limiting to the webhook endpoint</th>
         <td data-label="Branch">feat/webhook-rate-limit</td>
-        <td class="gw-data-table__action"><button type="button" class="gw-button gw-button--primary gw-button--small">Open run</button></td>
+        <td class="ds-data-table__action"><button type="button" class="ds-button ds-button--primary ds-button--small">Open run</button></td>
       </tr>
     </tbody>
   </table>

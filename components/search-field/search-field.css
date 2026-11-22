@@ -1,35 +1,35 @@
 /*
  * Search field: a search input with a search icon at its start, optionally a clear button at its end
- * and a line under it that counts the results. The input also carries gw-field__control, which draws
+ * and a line under it that counts the results. The input also carries ds-field__control, which draws
  * the border, the fill and the disabled state, so this stylesheet must load after the field's.
  */
 
-@layer gw.components {
-  .gw-search-field {
+@layer ds.components {
+  .ds-search-field {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
     min-width: 0;
   }
 
-  .gw-search-field__label {
-    font-weight: var(--gw-weight-medium);
+  .ds-search-field__label {
+    font-weight: var(--ds-weight-medium);
   }
 
   /* Holds the input, and places the icon and the clear button over it. */
-  .gw-search-field__box {
+  .ds-search-field__box {
     position: relative;
     display: block;
-    color: var(--gw-color-muted);
+    color: var(--ds-color-muted);
   }
 
-  .gw-search-field__box::before {
+  .ds-search-field__box::before {
     content: "";
     position: absolute;
     top: 50%;
-    inset-inline-start: var(--gw-space-md);
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    inset-inline-start: var(--ds-space-md);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
     background-color: currentColor;
     mask: url("icons/search.svg") center / contain no-repeat;
     translate: 0 -50%;
@@ -37,73 +37,73 @@
   }
 
   /* The browser's own search styling and clear button go. The start padding keeps the text clear of the icon. */
-  .gw-search-field__input {
+  .ds-search-field__input {
     appearance: none;
-    padding-inline-start: calc(var(--gw-space-md) + var(--gw-space-lg) + var(--gw-space-sm));
-    color: var(--gw-color-on-surface);
+    padding-inline-start: calc(var(--ds-space-md) + var(--ds-space-lg) + var(--ds-space-sm));
+    color: var(--ds-color-on-surface);
     text-overflow: ellipsis;
   }
 
-  .gw-search-field__input::-webkit-search-decoration,
-  .gw-search-field__input::-webkit-search-cancel-button {
+  .ds-search-field__input::-webkit-search-decoration,
+  .ds-search-field__input::-webkit-search-cancel-button {
     appearance: none;
   }
 
-  .gw-search-field__box:has(.gw-search-field__clear) > .gw-search-field__input {
-    padding-inline-end: var(--gw-size-touch);
+  .ds-search-field__box:has(.ds-search-field__clear) > .ds-search-field__input {
+    padding-inline-end: var(--ds-size-touch);
   }
 
   /* One target square at the end of the input. The cross is drawn here, and the button's name is text in the markup. */
-  .gw-search-field__clear {
+  .ds-search-field__clear {
     position: absolute;
     inset-block: 0;
     inset-inline-end: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--gw-size-touch);
-    min-height: var(--gw-size-touch);
-    border-radius: var(--gw-radius-md);
-    color: var(--gw-color-muted);
+    width: var(--ds-size-touch);
+    min-height: var(--ds-size-touch);
+    border-radius: var(--ds-radius-md);
+    color: var(--ds-color-muted);
     transition-property: color;
-    transition-duration: var(--gw-duration-fast);
-    transition-timing-function: var(--gw-ease);
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
   }
 
-  .gw-search-field__clear::before {
+  .ds-search-field__clear::before {
     content: "";
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
     background-color: currentColor;
     mask: url("icons/x.svg") center / contain no-repeat;
   }
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   @media (hover: hover) {
-    .gw-search-field__clear:hover {
-      color: var(--gw-color-on-surface);
+    .ds-search-field__clear:hover {
+      color: var(--ds-color-on-surface);
     }
   }
 
-  .gw-search-field__clear:active {
-    color: var(--gw-color-on-surface);
+  .ds-search-field__clear:active {
+    color: var(--ds-color-on-surface);
   }
 
   /* With nothing typed there is nothing to clear. This needs a placeholder attribute on the input, which a single space satisfies. */
-  .gw-search-field__input:placeholder-shown ~ .gw-search-field__clear,
-  .gw-search-field__input:disabled ~ .gw-search-field__clear {
+  .ds-search-field__input:placeholder-shown ~ .ds-search-field__clear,
+  .ds-search-field__input:disabled ~ .ds-search-field__clear {
     display: none;
   }
 
-  .gw-search-field__input:disabled {
-    color: var(--gw-color-muted);
+  .ds-search-field__input:disabled {
+    color: var(--ds-color-muted);
   }
 
   /* How many results there are, or that there are none and what to try. */
-  .gw-search-field__count {
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+  .ds-search-field__count {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
     overflow-wrap: anywhere;
   }
 }

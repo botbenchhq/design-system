@@ -1,4 +1,4 @@
-// Generated from checker/. Defines gwCheckDom(root, { appPrefix }), which returns the structural findings of the rendered page.
+// Generated from checker/. Defines dsCheckDom(root, { appPrefix }), which returns the structural findings of the rendered page.
 (() => {
 "use strict";
 // rules/stock-phrases.mjs
@@ -19,10 +19,10 @@ const STOCK_PHRASES = [
 // What the structural rules share: the class names they look for and ways to walk the document tree.
 // A tree comes from parse-html.mjs for a static page, or from dom-entry.mjs for a rendered one.
 
-const PRIMARY_CLASS = "gw-button--primary";
-const CARD_CLASS = "gw-card";
-const BADGE_CLASS = "gw-badge";
-const CENTRE_CLASSES = ["text-center", "gw-text-center"];
+const PRIMARY_CLASS = "ds-button--primary";
+const CARD_CLASS = "ds-card";
+const BADGE_CLASS = "ds-badge";
+const CENTRE_CLASSES = ["text-center", "ds-text-center"];
 
 const ROW_TAGS = ["li", "tr"];
 const CONTROL_TAGS = ["button", "a", "input", "select", "textarea"];
@@ -131,7 +131,7 @@ const oneAdvancedDisclosure = {
   check(root) {
     const findings = [];
     for (const nodes of views(root).values()) {
-      const extra = nodes.filter((node) => has(node, "data-gw-advanced")).slice(1);
+      const extra = nodes.filter((node) => has(node, "data-ds-advanced")).slice(1);
       for (const node of extra) findings.push({ node, message: "This view has more than one advanced-settings disclosure." });
     }
     return findings;
@@ -177,7 +177,7 @@ const hiddenCriticalAction = {
     const byView = views(root);
     const findings = [];
     for (const node of descendants(root)) {
-      if (!has(node, "data-gw-critical") || !isCollapsed(node)) continue;
+      if (!has(node, "data-ds-critical") || !isCollapsed(node)) continue;
       const name = nameOf(node);
       const shown = byView
         .get(viewOf(node))
@@ -294,7 +294,7 @@ const emojiAsIcon = {
       if (!node.children.some((child) => !isElement(child) && EMOJI.test(child.text))) continue;
       const around = [node, ...ancestors(node)];
       const label = around.find((at) => UI_TEXT_TAGS.includes(at.tag));
-      if (label && !around.some((at) => has(at, "data-gw-content"))) found.add(label);
+      if (label && !around.some((at) => has(at, "data-ds-content"))) found.add(label);
     }
     return [...found].map((node) => ({ node, message: "This interface text contains an emoji." }));
   },
@@ -326,7 +326,7 @@ const COPY_RULES = [emojiAsIcon, stockPhrase];
 // Whether a view is built from the system at all.
 
 
-const SYSTEM_PREFIX = "gw-";
+const SYSTEM_PREFIX = "ds-";
 const FORM_CONTROL_TAGS = ["button", "select", "textarea"];
 
 // A button or a form control. A link is not counted, and neither is a hidden input.
@@ -400,5 +400,5 @@ function checkDom(rootElement, readingColumn, options = {}) {
   return runRules(root, options).map(({ node, ...finding }) => ({ ...finding, snippet: node.snippet }));
 }
 
-globalThis.gwCheckDom = (root = document.documentElement, options = {}) => checkDom(root, 480, options ?? {});
+globalThis.dsCheckDom = (root = document.documentElement, options = {}) => checkDom(root, 480, options ?? {});
 })();

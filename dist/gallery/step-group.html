@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Step group - Groundwork gallery</title>
-<link rel="stylesheet" href="../groundwork.css">
+<title>Step group - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -26,30 +26,30 @@
 </header>
 <section>
 <h2>Examples</h2>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Finished and closed</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Finished and closed</h3>
 <p data-gallery="state">State: <code>default</code></p>
 <p>The line says what the six steps were, by kind and in plain words, and how long they took together. Nothing in them needs the reader, so the group is closed and the transcript stays short. Each step is one press away.</p>
 </figcaption>
 <div data-example="closed" data-title="Finished and closed" data-state="default" data-reason="The line says what the six steps were, by kind and in plain words, and how long they took together. Nothing in them needs the reader, so the group is closed and the transcript stays short. Each step is one press away.">
-  <details class="gw-step-group">
-    <summary class="gw-step-group__summary">
-      <span class="gw-step-group__title">Explored 5 files, edited 2 files, ran 1 command</span>
-      <span class="gw-step-group__duration">1 min 12 s</span>
+  <details class="ds-step-group">
+    <summary class="ds-step-group__summary">
+      <span class="ds-step-group__title">Explored 5 files, edited 2 files, ran 1 command</span>
+      <span class="ds-step-group__duration">1 min 12 s</span>
     </summary>
-    <ol class="gw-step-group__steps">
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Explored 5 files in <code class="gw-tool-call__target">src/auth</code></span>
-              <span class="gw-tool-call__duration">0.4 s</span>
+    <ol class="ds-step-group__steps">
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Explored 5 files in <code class="ds-tool-call__target">src/auth</code></span>
+              <span class="ds-tool-call__duration">0.4 s</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Files read</p>
-              <pre class="gw-tool-call__code">src/auth/session.ts
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Files read</p>
+              <pre class="ds-tool-call__code">src/auth/session.ts
 src/auth/session.test.ts
 src/auth/refresh.ts
 src/auth/cookie.ts
@@ -58,16 +58,16 @@ src/routes/sign-in.tsx</pre>
           </details>
         </div>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
-              <span class="gw-tool-call__duration">38 ms</span>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
+              <span class="ds-tool-call__duration">38 ms</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{
   "file_path": "src/auth/session.ts",
   "old_string": "if (justSignedIn) startRefreshTimer(session);",
   "new_string": "if (session.expiresAt > Date.now()) startRefreshTimer(session);"
@@ -76,16 +76,16 @@ src/routes/sign-in.tsx</pre>
           </details>
         </div>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/auth/session.test.ts</code> +31&nbsp;−0</span>
-              <span class="gw-tool-call__duration">44 ms</span>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">src/auth/session.test.ts</code> +31&nbsp;−0</span>
+              <span class="ds-tool-call__duration">44 ms</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{
   "file_path": "src/auth/session.test.ts",
   "new_string": "test(\"keeps the session after a reload\", async () => {"
 }</pre>
@@ -93,16 +93,16 @@ src/routes/sign-in.tsx</pre>
           </details>
         </div>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
-              <span class="gw-tool-call__duration">3.1 s</span>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">npm test -- --run src/auth</code></span>
+              <span class="ds-tool-call__duration">3.1 s</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Output, 2 lines</p>
-              <pre class="gw-tool-call__code"> Test Files  3 passed (3)
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Output, 2 lines</p>
+              <pre class="ds-tool-call__code"> Test Files  3 passed (3)
       Tests  31 passed (31)</pre>
             </div>
           </details>
@@ -118,22 +118,22 @@ src/routes/sign-in.tsx</pre>
 <p data-gallery="state">State: <code>open</code></p>
 </figcaption>
 <div data-example="open" data-title="Opened by the reader" data-state="open">
-  <details class="gw-step-group" open>
-    <summary class="gw-step-group__summary">
-      <span class="gw-step-group__title">Edited 1 file, ran 2 commands</span>
-      <span class="gw-step-group__duration">52 s</span>
+  <details class="ds-step-group" open>
+    <summary class="ds-step-group__summary">
+      <span class="ds-step-group__title">Edited 1 file, ran 2 commands</span>
+      <span class="ds-step-group__duration">52 s</span>
     </summary>
-    <ol class="gw-step-group__steps">
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">.env.example</code> +1&nbsp;−0</span>
-              <span class="gw-tool-call__duration">21 ms</span>
+    <ol class="ds-step-group__steps">
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">.env.example</code> +1&nbsp;−0</span>
+              <span class="ds-tool-call__duration">21 ms</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{
   "file_path": ".env.example",
   "new_string": "SESSION_TTL_SECONDS=1800"
 }</pre>
@@ -141,30 +141,30 @@ src/routes/sign-in.tsx</pre>
           </details>
         </div>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm run lint</code></span>
-              <span class="gw-tool-call__duration">4.2 s</span>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">npm run lint</code></span>
+              <span class="ds-tool-call__duration">4.2 s</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Output, 1 line</p>
-              <pre class="gw-tool-call__code">Checked 184 files, no problems found.</pre>
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Output, 1 line</p>
+              <pre class="ds-tool-call__code">Checked 184 files, no problems found.</pre>
             </div>
           </details>
         </div>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm test</code></span>
-              <span class="gw-tool-call__duration">48 s</span>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">npm test</code></span>
+              <span class="ds-tool-call__duration">48 s</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Output, last 2 of 214 lines</p>
-              <pre class="gw-tool-call__code"> Test Files  31 passed (31)
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Output, last 2 of 214 lines</p>
+              <pre class="ds-tool-call__code"> Test Files  31 passed (31)
       Tests  213 passed (213)</pre>
             </div>
           </details>
@@ -180,50 +180,50 @@ src/routes/sign-in.tsx</pre>
 <p data-gallery="state">State: <code>running</code></p>
 </figcaption>
 <div data-example="running" data-title="A step is running: the app keeps the group open" data-state="running">
-  <details class="gw-step-group" open>
-    <summary class="gw-step-group__summary">
-      <span class="gw-step-group__title">Edited 2 files, ran 1 command so far <span class="gw-step-group__callout" data-state="running">Running</span></span>
-      <gw-elapsed class="gw-step-group__duration" datetime="2026-11-22T09:58:56Z">1 min 4 s</gw-elapsed>
+  <details class="ds-step-group" open>
+    <summary class="ds-step-group__summary">
+      <span class="ds-step-group__title">Edited 2 files, ran 1 command so far <span class="ds-step-group__callout" data-state="running">Running</span></span>
+      <ds-elapsed class="ds-step-group__duration" datetime="2026-11-22T09:58:56Z">1 min 4 s</ds-elapsed>
     </summary>
-    <ol class="gw-step-group__steps">
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
-              <span class="gw-tool-call__duration">38 ms</span>
+    <ol class="ds-step-group__steps">
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
+              <span class="ds-tool-call__duration">38 ms</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{ "file_path": "src/auth/session.ts" }</pre>
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{ "file_path": "src/auth/session.ts" }</pre>
             </div>
           </details>
         </div>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/auth/session.test.ts</code> +31&nbsp;−0</span>
-              <span class="gw-tool-call__duration">44 ms</span>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">src/auth/session.test.ts</code> +31&nbsp;−0</span>
+              <span class="ds-tool-call__duration">44 ms</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{ "file_path": "src/auth/session.test.ts" }</pre>
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{ "file_path": "src/auth/session.test.ts" }</pre>
             </div>
           </details>
         </div>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="running">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Running</span> <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
-              <gw-elapsed class="gw-tool-call__duration" datetime="2026-11-22T09:59:18Z">42 s</gw-elapsed>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="running">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Running</span> <code class="ds-tool-call__target">npm test -- --run src/auth</code></span>
+              <ds-elapsed class="ds-tool-call__duration" datetime="2026-11-22T09:59:18Z">42 s</ds-elapsed>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{
   "command": "npm test -- --run src/auth",
   "description": "Run the auth tests"
 }</pre>
@@ -237,49 +237,49 @@ src/routes/sign-in.tsx</pre>
 </figure>
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A step waits for approval: said in the summary, and the group is open</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> A step waits for approval: said in the summary, and the group is open</h3>
 <p data-gallery="state">State: <code>awaiting-approval</code></p>
 <p>The summary says in words that a step waits for the reader, so it is found even in a long transcript. The app keeps the group open while it waits, so Allow and Decline are in view, two levels of disclosure at most: the group, then the row's details.</p>
 </figcaption>
 <div data-example="awaiting-approval" data-title="A step waits for approval: said in the summary, and the group is open" data-state="awaiting-approval" data-reason="The summary says in words that a step waits for the reader, so it is found even in a long transcript. The app keeps the group open while it waits, so Allow and Decline are in view, two levels of disclosure at most: the group, then the row's details.">
-  <details class="gw-step-group" open>
-    <summary class="gw-step-group__summary">
-      <span class="gw-step-group__title">Edited 1 file, 1 command to run <span class="gw-step-group__callout" data-state="awaiting-approval">Awaiting your approval</span></span>
-      <gw-elapsed class="gw-step-group__duration" datetime="2026-11-22T09:58:30Z">1 min 30 s</gw-elapsed>
+  <details class="ds-step-group" open>
+    <summary class="ds-step-group__summary">
+      <span class="ds-step-group__title">Edited 1 file, 1 command to run <span class="ds-step-group__callout" data-state="awaiting-approval">Awaiting your approval</span></span>
+      <ds-elapsed class="ds-step-group__duration" datetime="2026-11-22T09:58:30Z">1 min 30 s</ds-elapsed>
     </summary>
-    <ol class="gw-step-group__steps">
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">package.json</code> +1&nbsp;−0</span>
-              <span class="gw-tool-call__duration">19 ms</span>
+    <ol class="ds-step-group__steps">
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">package.json</code> +1&nbsp;−0</span>
+              <span class="ds-tool-call__duration">19 ms</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{ "file_path": "package.json" }</pre>
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{ "file_path": "package.json" }</pre>
             </div>
           </details>
         </div>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="awaiting-approval">
-          <details class="gw-tool-call__details" open>
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title" id="step-group-awaiting-approval-title"><span class="gw-tool-call__status">Awaiting approval</span> Run <code class="gw-tool-call__target">npm install --save-dev @acme/session-fixtures</code></span>
-              <gw-elapsed class="gw-tool-call__duration" datetime="2026-11-22T09:58:52Z">1 min 8 s</gw-elapsed>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="awaiting-approval">
+          <details class="ds-tool-call__details" open>
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title" id="step-group-awaiting-approval-title"><span class="ds-tool-call__status">Awaiting approval</span> Run <code class="ds-tool-call__target">npm install --save-dev @acme/session-fixtures</code></span>
+              <ds-elapsed class="ds-tool-call__duration" datetime="2026-11-22T09:58:52Z">1 min 8 s</ds-elapsed>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{
   "command": "npm install --save-dev @acme/session-fixtures",
   "description": "Add the fixture user the reload test needs"
 }</pre>
             </div>
           </details>
-          <div class="gw-tool-call__actions">
-            <button type="button" class="gw-button gw-button--small" data-gw-critical aria-describedby="step-group-awaiting-approval-title">Allow</button>
-            <button type="button" class="gw-button gw-button--small" data-gw-critical aria-describedby="step-group-awaiting-approval-title">Decline</button>
+          <div class="ds-tool-call__actions">
+            <button type="button" class="ds-button ds-button--small" data-ds-critical aria-describedby="step-group-awaiting-approval-title">Allow</button>
+            <button type="button" class="ds-button ds-button--small" data-ds-critical aria-describedby="step-group-awaiting-approval-title">Decline</button>
           </div>
         </div>
       </li>
@@ -293,51 +293,51 @@ src/routes/sign-in.tsx</pre>
 <p data-gallery="state">State: <code>failed</code></p>
 </figcaption>
 <div data-example="failed" data-title="A step failed: said in the summary, and the group is open" data-state="failed">
-  <details class="gw-step-group" open>
-    <summary class="gw-step-group__summary">
-      <span class="gw-step-group__title">Edited 1 file, ran 2 commands <span class="gw-step-group__callout" data-state="failed">1 command failed</span></span>
-      <span class="gw-step-group__duration">38 s</span>
+  <details class="ds-step-group" open>
+    <summary class="ds-step-group__summary">
+      <span class="ds-step-group__title">Edited 1 file, ran 2 commands <span class="ds-step-group__callout" data-state="failed">1 command failed</span></span>
+      <span class="ds-step-group__duration">38 s</span>
     </summary>
-    <ol class="gw-step-group__steps">
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/webhooks/limit.ts</code> +18&nbsp;−4</span>
-              <span class="gw-tool-call__duration">27 ms</span>
+    <ol class="ds-step-group__steps">
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">src/webhooks/limit.ts</code> +18&nbsp;−4</span>
+              <span class="ds-tool-call__duration">27 ms</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{ "file_path": "src/webhooks/limit.ts" }</pre>
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{ "file_path": "src/webhooks/limit.ts" }</pre>
             </div>
           </details>
         </div>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm run lint</code></span>
-              <span class="gw-tool-call__duration">4.2 s</span>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">npm run lint</code></span>
+              <span class="ds-tool-call__duration">4.2 s</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Output, 1 line</p>
-              <pre class="gw-tool-call__code">Checked 184 files, no problems found.</pre>
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Output, 1 line</p>
+              <pre class="ds-tool-call__code">Checked 184 files, no problems found.</pre>
             </div>
           </details>
         </div>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="failed">
-          <details class="gw-tool-call__details" open>
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Failed</span> Ran <code class="gw-tool-call__target">npm test -- --run src/webhooks</code></span>
-              <span class="gw-tool-call__duration">33 s</span>
-              <span class="gw-tool-call__note">The command exited with code 1. 1 of 12 tests failed.</span>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="failed">
+          <details class="ds-tool-call__details" open>
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Failed</span> Ran <code class="ds-tool-call__target">npm test -- --run src/webhooks</code></span>
+              <span class="ds-tool-call__duration">33 s</span>
+              <span class="ds-tool-call__note">The command exited with code 1. 1 of 12 tests failed.</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Output, 3 lines</p>
-              <pre class="gw-tool-call__code"> ✗ src/webhooks/limit.test.ts > the limit resets after one second
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Output, 3 lines</p>
+              <pre class="ds-tool-call__code"> ✗ src/webhooks/limit.test.ts > the limit resets after one second
    AssertionError: expected 429 to be 200
 
  Test Files  1 failed | 1 passed (2)</pre>
@@ -354,47 +354,47 @@ src/routes/sign-in.tsx</pre>
 <h3>Reasoning between steps: a row of the group, never inside a step</h3>
 </figcaption>
 <div data-example="with-reasoning" data-title="Reasoning between steps: a row of the group, never inside a step">
-  <details class="gw-step-group" open>
-    <summary class="gw-step-group__summary">
-      <span class="gw-step-group__title">Explored 3 files, thought for 8 s, edited 1 file</span>
-      <span class="gw-step-group__duration">19 s</span>
+  <details class="ds-step-group" open>
+    <summary class="ds-step-group__summary">
+      <span class="ds-step-group__title">Explored 3 files, thought for 8 s, edited 1 file</span>
+      <span class="ds-step-group__duration">19 s</span>
     </summary>
-    <ol class="gw-step-group__steps">
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Explored 3 files in <code class="gw-tool-call__target">src/webhooks</code></span>
-              <span class="gw-tool-call__duration">0.3 s</span>
+    <ol class="ds-step-group__steps">
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Explored 3 files in <code class="ds-tool-call__target">src/webhooks</code></span>
+              <span class="ds-tool-call__duration">0.3 s</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Files read</p>
-              <pre class="gw-tool-call__code">src/webhooks/limit.ts
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Files read</p>
+              <pre class="ds-tool-call__code">src/webhooks/limit.ts
 src/webhooks/limit.test.ts
 src/webhooks/retry.ts</pre>
             </div>
           </details>
         </div>
       </li>
-      <li class="gw-message">
-        <details class="gw-reasoning">
-          <summary class="gw-reasoning__summary">Reasoning, 2 paragraphs</summary>
-          <div class="gw-reasoning__body">
+      <li class="ds-message">
+        <details class="ds-reasoning">
+          <summary class="ds-reasoning__summary">Reasoning, 2 paragraphs</summary>
+          <div class="ds-reasoning__body">
             <p>The limiter keeps one counter for each endpoint, so one noisy sender uses up the limit for everyone.</p>
             <p>Keying the counter by sender fixes that without changing the limit itself.</p>
           </div>
         </details>
       </li>
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/webhooks/limit.ts</code> +18&nbsp;−4</span>
-              <span class="gw-tool-call__duration">27 ms</span>
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">src/webhooks/limit.ts</code> +18&nbsp;−4</span>
+              <span class="ds-tool-call__duration">27 ms</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{ "file_path": "src/webhooks/limit.ts" }</pre>
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{ "file_path": "src/webhooks/limit.ts" }</pre>
             </div>
           </details>
         </div>
@@ -405,27 +405,27 @@ src/webhooks/retry.ts</pre>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A failure left inside the count</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> A failure left inside the count</h3>
 <p>The summary reads as if all went well, and the one command that failed is behind the fold. Say it in the summary, in words, and keep the group open.</p>
 <p>Caught in review, not by the checker.</p>
 </figcaption>
 <div data-example="failure-in-a-count" data-title="A failure left inside the count" data-dont="review" data-reason="The summary reads as if all went well, and the one command that failed is behind the fold. Say it in the summary, in words, and keep the group open.">
-  <details class="gw-step-group">
-    <summary class="gw-step-group__summary">
-      <span class="gw-step-group__title">Edited 1 file, ran 2 commands</span>
-      <span class="gw-step-group__duration">38 s</span>
+  <details class="ds-step-group">
+    <summary class="ds-step-group__summary">
+      <span class="ds-step-group__title">Edited 1 file, ran 2 commands</span>
+      <span class="ds-step-group__duration">38 s</span>
     </summary>
-    <ol class="gw-step-group__steps">
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="failed">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Failed</span> Ran <code class="gw-tool-call__target">npm test -- --run src/webhooks</code></span>
-              <span class="gw-tool-call__duration">33 s</span>
+    <ol class="ds-step-group__steps">
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="failed">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Failed</span> Ran <code class="ds-tool-call__target">npm test -- --run src/webhooks</code></span>
+              <span class="ds-tool-call__duration">33 s</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Output, 1 line</p>
-              <pre class="gw-tool-call__code"> Test Files  1 failed | 1 passed (2)</pre>
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Output, 1 line</p>
+              <pre class="ds-tool-call__code"> Test Files  1 failed | 1 passed (2)</pre>
             </div>
           </details>
         </div>
@@ -436,31 +436,31 @@ src/webhooks/retry.ts</pre>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A request for approval inside a closed group</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> A request for approval inside a closed group</h3>
 <p>The run cannot go on until the reader answers, and Allow and Decline are behind the fold. The app opens a group while a step in it waits for approval.</p>
 <p>Checker rule: <code>hidden-critical-action</code></p>
 </figcaption>
 <div data-example="approval-in-a-closed-group" data-title="A request for approval inside a closed group" data-dont="hidden-critical-action" data-reason="The run cannot go on until the reader answers, and Allow and Decline are behind the fold. The app opens a group while a step in it waits for approval.">
-  <details class="gw-step-group">
-    <summary class="gw-step-group__summary">
-      <span class="gw-step-group__title">Edited 1 file, 1 command to run</span>
-      <span class="gw-step-group__duration">1 min 30 s</span>
+  <details class="ds-step-group">
+    <summary class="ds-step-group__summary">
+      <span class="ds-step-group__title">Edited 1 file, 1 command to run</span>
+      <span class="ds-step-group__duration">1 min 30 s</span>
     </summary>
-    <ol class="gw-step-group__steps">
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="awaiting-approval">
-          <details class="gw-tool-call__details">
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Awaiting approval</span> Run <code class="gw-tool-call__target">npm install --save-dev @acme/session-fixtures</code></span>
+    <ol class="ds-step-group__steps">
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="awaiting-approval">
+          <details class="ds-tool-call__details">
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Awaiting approval</span> Run <code class="ds-tool-call__target">npm install --save-dev @acme/session-fixtures</code></span>
             </summary>
-            <div class="gw-tool-call__body">
-              <p class="gw-tool-call__label">Arguments</p>
-              <pre class="gw-tool-call__code">{ "command": "npm install --save-dev @acme/session-fixtures" }</pre>
+            <div class="ds-tool-call__body">
+              <p class="ds-tool-call__label">Arguments</p>
+              <pre class="ds-tool-call__code">{ "command": "npm install --save-dev @acme/session-fixtures" }</pre>
             </div>
           </details>
-          <div class="gw-tool-call__actions">
-            <button type="button" class="gw-button gw-button--small" data-gw-critical>Allow</button>
-            <button type="button" class="gw-button gw-button--small" data-gw-critical>Decline</button>
+          <div class="ds-tool-call__actions">
+            <button type="button" class="ds-button ds-button--small" data-ds-critical>Allow</button>
+            <button type="button" class="ds-button ds-button--small" data-ds-critical>Decline</button>
           </div>
         </div>
       </li>
@@ -470,28 +470,28 @@ src/webhooks/retry.ts</pre>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Reasoning inside a step's details</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Reasoning inside a step's details</h3>
 <p>The group is one level and the step's details are the second. A third hides the reasoning where nobody will look. Put reasoning in a row of the group, beside the steps.</p>
 <p>Checker rule: <code>disclosure-depth</code></p>
 </figcaption>
 <div data-example="three-levels" data-title="Reasoning inside a step's details" data-dont="disclosure-depth" data-reason="The group is one level and the step's details are the second. A third hides the reasoning where nobody will look. Put reasoning in a row of the group, beside the steps.">
-  <details class="gw-step-group" open>
-    <summary class="gw-step-group__summary">
-      <span class="gw-step-group__title">Edited 1 file</span>
-      <span class="gw-step-group__duration">27 ms</span>
+  <details class="ds-step-group" open>
+    <summary class="ds-step-group__summary">
+      <span class="ds-step-group__title">Edited 1 file</span>
+      <span class="ds-step-group__duration">27 ms</span>
     </summary>
-    <ol class="gw-step-group__steps">
-      <li class="gw-message gw-message--tool-call">
-        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-          <details class="gw-tool-call__details" open>
-            <summary class="gw-tool-call__summary">
-              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/webhooks/limit.ts</code> +18&nbsp;−4</span>
-              <span class="gw-tool-call__duration">27 ms</span>
+    <ol class="ds-step-group__steps">
+      <li class="ds-message ds-message--tool-call">
+        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+          <details class="ds-tool-call__details" open>
+            <summary class="ds-tool-call__summary">
+              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">src/webhooks/limit.ts</code> +18&nbsp;−4</span>
+              <span class="ds-tool-call__duration">27 ms</span>
             </summary>
-            <div class="gw-tool-call__body">
-              <details class="gw-reasoning">
-                <summary class="gw-reasoning__summary">Reasoning, 1 paragraph</summary>
-                <div class="gw-reasoning__body">
+            <div class="ds-tool-call__body">
+              <details class="ds-reasoning">
+                <summary class="ds-reasoning__summary">Reasoning, 1 paragraph</summary>
+                <div class="ds-reasoning__body">
                   <p>Keying the counter by sender fixes the shared limit.</p>
                 </div>
               </details>
@@ -505,7 +505,7 @@ src/webhooks/retry.ts</pre>
 </figure>
 </div>
 </section>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
@@ -525,25 +525,25 @@ src/webhooks/retry.ts</pre>
 <section>
 <h2>Accessibility</h2>
 <ul>
-<li>Use a native details element with the class on it, in an li of the transcript. Its first child is a summary with gw-step-group__summary, and after it comes an ol with gw-step-group__steps. Enter and Space open and close the summary, and it is 44px tall.</li>
-<li>gw-step-group__title is a sentence the app writes from the steps inside, as counts by kind in plain words: Ran 4 commands, edited 2 files. Past tense for what was done, the same verbs as the rows. While steps are still arriving, end it with so far. rules/content.md has the wording.</li>
-<li>A step that failed, a step that is running and a step that waits for approval are each said in words inside the title, in a span with gw-step-group__callout and data-state=&quot;failed&quot;, data-state=&quot;running&quot; or data-state=&quot;awaiting-approval&quot;: 1 command failed, Running, Awaiting your approval. The stylesheet draws the icon from data-state. Never leave a failure or a pending approval to be found in a count.</li>
-<li>gw-step-group__duration is how long the steps took together, with its unit. While the group is still running use a time that counts up and is not announced: the gw-elapsed element from behaviors/elapsed.js, or a span with aria-live=&quot;off&quot;.</li>
+<li>Use a native details element with the class on it, in an li of the transcript. Its first child is a summary with ds-step-group__summary, and after it comes an ol with ds-step-group__steps. Enter and Space open and close the summary, and it is 44px tall.</li>
+<li>ds-step-group__title is a sentence the app writes from the steps inside, as counts by kind in plain words: Ran 4 commands, edited 2 files. Past tense for what was done, the same verbs as the rows. While steps are still arriving, end it with so far. rules/content.md has the wording.</li>
+<li>A step that failed, a step that is running and a step that waits for approval are each said in words inside the title, in a span with ds-step-group__callout and data-state=&quot;failed&quot;, data-state=&quot;running&quot; or data-state=&quot;awaiting-approval&quot;: 1 command failed, Running, Awaiting your approval. The stylesheet draws the icon from data-state. Never leave a failure or a pending approval to be found in a count.</li>
+<li>ds-step-group__duration is how long the steps took together, with its unit. While the group is still running use a time that counts up and is not announced: the ds-elapsed element from behaviors/elapsed.js, or a span with aria-live=&quot;off&quot;.</li>
 <li>Opening and closing is the app's job, through the open attribute, and the rule is exact. Set open while any step inside is running or awaits approval, and when a step has failed. When every step has ended without a failure, remove open, but only if the reader has not opened or closed this group themselves: listen for the toggle event and leave a group the reader has touched alone. A group with a failed step stays open. The system ships no script for this.</li>
-<li>Each step is an li with gw-message gw-message--tool-call holding a tool call with its row modifier. The step's own details element is the second and last level of disclosure.</li>
-<li>Reasoning the agent wrote between steps is an li with gw-message in the same list, holding a reasoning component: a second level beside the steps. Never put it inside a step's details, which would be a third level and fails the disclosure-depth rule. Reasoning that leads to the answer goes with the answer, outside the group.</li>
+<li>Each step is an li with ds-message ds-message--tool-call holding a tool call with its row modifier. The step's own details element is the second and last level of disclosure.</li>
+<li>Reasoning the agent wrote between steps is an li with ds-message in the same list, holding a reasoning component: a second level beside the steps. Never put it inside a step's details, which would be a third level and fails the disclosure-depth rule. Reasoning that leads to the answer goes with the answer, outside the group.</li>
 <li>Only the running callout moves, and under prefers-reduced-motion it is still. The group is not a live region: announce a request for approval, a failure and the end of the run from the view's one status region.</li>
 </ul>
 </section>
 <section>
 <h2>Classes</h2>
 <ul>
-<li><code>gw-step-group</code></li>
-<li><code>gw-step-group__callout</code></li>
-<li><code>gw-step-group__duration</code></li>
-<li><code>gw-step-group__steps</code></li>
-<li><code>gw-step-group__summary</code></li>
-<li><code>gw-step-group__title</code></li>
+<li><code>ds-step-group</code></li>
+<li><code>ds-step-group__callout</code></li>
+<li><code>ds-step-group__duration</code></li>
+<li><code>ds-step-group__steps</code></li>
+<li><code>ds-step-group__summary</code></li>
+<li><code>ds-step-group__title</code></li>
 </ul>
 </section>
 </div>

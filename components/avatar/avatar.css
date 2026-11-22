@@ -3,59 +3,59 @@
  * The mark holds initials, an icon or an image. It is decoration next to the name, which carries the identity.
  */
 
-@layer gw.components {
-  .gw-avatar {
+@layer ds.components {
+  .ds-avatar {
     display: inline-flex;
     align-items: center;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
     min-width: 0;
     max-width: 100%;
     vertical-align: middle;
   }
 
   /* A square with the small radius, on a flat surface. On an img it crops the picture to the square. */
-  .gw-avatar__mark {
+  .ds-avatar__mark {
     display: inline-flex;
     flex: none;
     align-items: center;
     justify-content: center;
-    width: var(--gw-space-2xl);
-    height: var(--gw-space-2xl);
-    border-width: var(--gw-border-width);
-    border-radius: var(--gw-radius-sm);
-    background-color: var(--gw-color-surface-sunken);
-    color: var(--gw-color-on-surface);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-semibold);
-    line-height: var(--gw-leading-xs);
+    width: var(--ds-space-2xl);
+    height: var(--ds-space-2xl);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-sm);
+    background-color: var(--ds-color-surface-sunken);
+    color: var(--ds-color-on-surface);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-xs);
     object-fit: cover;
     overflow: hidden;
     white-space: nowrap;
   }
 
-  .gw-avatar__icon {
+  .ds-avatar__icon {
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
   }
 
-  .gw-avatar__name {
+  .ds-avatar__name {
     min-width: 0;
-    font-weight: var(--gw-weight-medium);
+    font-weight: var(--ds-weight-medium);
     overflow-wrap: anywhere;
   }
 
-  .gw-avatar--small > .gw-avatar__mark {
-    width: var(--gw-space-xl);
-    height: var(--gw-space-xl);
+  .ds-avatar--small > .ds-avatar__mark {
+    width: var(--ds-space-xl);
+    height: var(--ds-space-xl);
   }
 
-  .gw-avatar--small .gw-avatar__icon {
-    width: var(--gw-space-md);
-    height: var(--gw-space-md);
+  .ds-avatar--small .ds-avatar__icon {
+    width: var(--ds-space-md);
+    height: var(--ds-space-md);
   }
 
-  .gw-avatar--small > .gw-avatar__name {
-    font-weight: var(--gw-weight-normal);
+  .ds-avatar--small > .ds-avatar__name {
+    font-weight: var(--ds-weight-normal);
   }
 }

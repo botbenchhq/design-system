@@ -17,24 +17,24 @@
   "sizes": [],
   "states": ["default", "on", "hover", "focus-visible", "disabled", "error"],
   "accessibility": [
-    "Use input type=\"checkbox\" with role=\"switch\" and gw-switch__input, and a label with gw-switch__label whose for attribute is the input's id. A screen reader announces the label, the switch role and on or off.",
-    "Inside the div with gw-switch the order is: the label, the state text, the input, then the description and the error if there are any.",
-    "The state text is a span with gw-switch__state and aria-hidden=\"true\", holding two spans: gw-switch__on with the word On and gw-switch__off with the word Off. The stylesheet shows the one that matches the input, so no script changes the text. It is hidden from assistive technology because the switch role already says on or off. Always include it: with the thumb's position, it is what keeps the state from resting on colour.",
+    "Use input type=\"checkbox\" with role=\"switch\" and ds-switch__input, and a label with ds-switch__label whose for attribute is the input's id. A screen reader announces the label, the switch role and on or off.",
+    "Inside the div with ds-switch the order is: the label, the state text, the input, then the description and the error if there are any.",
+    "The state text is a span with ds-switch__state and aria-hidden=\"true\", holding two spans: ds-switch__on with the word On and ds-switch__off with the word Off. The stylesheet shows the one that matches the input, so no script changes the text. It is hidden from assistive technology because the switch role already says on or off. Always include it: with the thumb's position, it is what keeps the state from resting on colour.",
     "The label names the setting and does not change with the state. Write it so that On means the thing in the label happens.",
-    "A description is a p with gw-switch__description, linked from the input with aria-describedby.",
-    "The component needs no script to move. The app listens for the change event and saves the setting. If saving fails, it sets the checked property back and adds a p with gw-switch__error and role=\"alert\", linked through aria-describedby, saying which state the setting is in and what to do.",
+    "A description is a p with ds-switch__description, linked from the input with aria-describedby.",
+    "The component needs no script to move. The app listens for the change event and saves the setting. If saving fails, it sets the checked property back and adds a p with ds-switch__error and role=\"alert\", linked through aria-describedby, saying which state the setting is in and what to do.",
     "Set the disabled attribute when the setting cannot be changed, and say why in the description.",
     "Tab reaches the switch and Space toggles it. The track is drawn 44px by 24px and its pointer target is 44px each way; a press on the label toggles it too."
   ],
   "icons": ["circle-alert"],
   "classes": [
-    "gw-switch",
-    "gw-switch__description",
-    "gw-switch__error",
-    "gw-switch__input",
-    "gw-switch__label",
-    "gw-switch__off",
-    "gw-switch__on",
-    "gw-switch__state"
+    "ds-switch",
+    "ds-switch__description",
+    "ds-switch__error",
+    "ds-switch__input",
+    "ds-switch__label",
+    "ds-switch__off",
+    "ds-switch__on",
+    "ds-switch__state"
   ]
 }

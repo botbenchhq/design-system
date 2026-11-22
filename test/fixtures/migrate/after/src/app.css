@@ -1,0 +1,16 @@
+@layer base, ds.reset, ds.tokens, ds.base, ds.components;
+
+@layer ds.components {
+  .app-panel {
+    padding: var(--ds-space-md);
+    animation-name: ds-streaming-turn;
+  }
+}
+
+[data-ds-critical] {
+  anchor-name: --ds-anchor;
+}
+
+ds-tabs .ds-visually-hidden {
+  margin: 0;
+}

@@ -19,8 +19,8 @@
   ],
   "states": ["default", "hover", "focus-visible", "active"],
   "accessibility": [
-    "Use a nav element with aria-label=\"Breadcrumb\" holding an ol with the gw-breadcrumb__list class. Each li has the gw-breadcrumb__item class, in order from the top level down.",
-    "Every page above the current one is a link with the gw-breadcrumb__link class. The current page is the last item, a span with the gw-breadcrumb__current class and aria-current=\"page\". It is text, never a link.",
+    "Use a nav element with aria-label=\"Breadcrumb\" holding an ol with the ds-breadcrumb__list class. Each li has the ds-breadcrumb__item class, in order from the top level down.",
+    "Every page above the current one is a link with the ds-breadcrumb__link class. The current page is the last item, a span with the ds-breadcrumb__current class and aria-current=\"page\". It is text, never a link.",
     "The chevrons between items are drawn by the stylesheet and are not read out. Type no separator into the markup.",
     "A link is underlined at rest and the current page is heavier, so the two never differ by colour alone.",
     "An item that is cut still has its full text in the markup, so a screen reader reads all of it. The page it links to shows the full name as its title.",
@@ -29,10 +29,10 @@
   ],
   "icons": ["chevron-right"],
   "classes": [
-    "gw-breadcrumb",
-    "gw-breadcrumb__current",
-    "gw-breadcrumb__item",
-    "gw-breadcrumb__link",
-    "gw-breadcrumb__list"
+    "ds-breadcrumb",
+    "ds-breadcrumb__current",
+    "ds-breadcrumb__item",
+    "ds-breadcrumb__link",
+    "ds-breadcrumb__list"
   ]
 }

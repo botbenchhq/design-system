@@ -4,9 +4,9 @@
  * ring stays visible beside a dark control.
  */
 
-@layer gw.base {
+@layer ds.base {
   :focus-visible {
-    outline: calc(var(--gw-border-width) * 2) solid var(--gw-color-focus);
-    outline-offset: calc(var(--gw-border-width) * 2);
+    outline: calc(var(--ds-border-width) * 2) solid var(--ds-color-focus);
+    outline-offset: calc(var(--ds-border-width) * 2);
   }
 }

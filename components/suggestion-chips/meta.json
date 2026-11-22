@@ -18,8 +18,8 @@
   "sizes": [],
   "states": ["default", "hover", "focus-visible", "active", "disabled"],
   "accessibility": [
-    "Use a ul with the class gw-suggestion-chips and an aria-label such as Suggested prompts, with one li per chip. A screen reader then announces the group and how many chips it holds.",
-    "Each chip is a button element with type=\"button\" and the classes gw-button gw-suggestion-chips__chip. It is never a link and never primary.",
+    "Use a ul with the class ds-suggestion-chips and an aria-label such as Suggested prompts, with one li per chip. A screen reader then announces the group and how many chips it holds.",
+    "Each chip is a button element with type=\"button\" and the classes ds-button ds-suggestion-chips__chip. It is never a link and never primary.",
     "The chip's text is the whole prompt it sends or places in the composer, specific to this conversation: Run the failing test again, not Tell me more. Do the same thing on every press, sending or filling, across the app.",
     "A long prompt wraps inside its chip. Do not cut it short, because the text is what the reader agrees to send.",
     "While a turn runs and a prompt cannot be sent, set the disabled attribute on every chip or remove the group.",
@@ -28,7 +28,7 @@
   ],
   "icons": [],
   "classes": [
-    "gw-suggestion-chips",
-    "gw-suggestion-chips__chip"
+    "ds-suggestion-chips",
+    "ds-suggestion-chips__chip"
   ]
 }

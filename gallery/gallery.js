@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // An example of a running time gives a start a little before the instant above. Its start is moved by the
   // time that has passed since, so it reads 42 s when the page opens, whenever that is, and counts up from there.
-  for (const elapsed of document.querySelectorAll("[data-example] gw-elapsed[datetime]")) {
+  for (const elapsed of document.querySelectorAll("[data-example] ds-elapsed[datetime]")) {
     const start = Date.parse(elapsed.getAttribute("datetime"));
     if (!Number.isNaN(start)) elapsed.setAttribute("datetime", new Date(start + Date.now() - WRITTEN_AT).toISOString());
   }

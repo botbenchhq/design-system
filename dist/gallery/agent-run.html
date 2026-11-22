@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agent run - Groundwork gallery</title>
-<link rel="stylesheet" href="../groundwork.css">
+<title>Agent run - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -26,112 +26,112 @@
 </header>
 <section>
 <h2>Examples</h2>
-<div class="gw-grid">
+<div class="ds-grid">
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A run in progress</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> A run in progress</h3>
 <p data-gallery="state">State: <code>default</code></p>
 <p>Everything the agent did is on the page as a line the reader can open: a finished group folded to one line, the group with a running command open, and the group that waits for approval open with Allow and Decline in view. The now-doing line says what the run waits for and links to it, Stop is always in reach, and Send is the one primary action.</p>
 </figcaption>
 <div data-example="running" data-title="A run in progress" data-state="default" data-gallery-frame data-reason="Everything the agent did is on the page as a line the reader can open: a finished group folded to one line, the group with a running command open, and the group that waits for approval open with Allow and Decline in view. The now-doing line says what the run waits for and links to it, Stop is always in reach, and Send is the one primary action.">
-  <div class="gw-app-shell">
-    <header class="gw-app-header gw-app-header--sticky">
-      <a class="gw-app-header__back" href="/runs">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <div class="ds-app-shell">
+    <header class="ds-app-header ds-app-header--sticky">
+      <a class="ds-app-header__back" href="/runs">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
         Runs
       </a>
-      <div class="gw-app-header__tray">
-        <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
-          <a class="gw-pending-tray__link" href="/approvals"><span class="gw-pending-tray__count">1</span> approval waiting</a>
+      <div class="ds-app-header__tray">
+        <div class="ds-pending-tray" aria-live="polite" aria-atomic="true">
+          <a class="ds-pending-tray__link" href="/approvals"><span class="ds-pending-tray__count">1</span> approval waiting</a>
         </div>
       </div>
     </header>
-    <div class="gw-sidebar-layout gw-app-shell__body">
-      <nav class="gw-sidebar-nav" aria-label="Main">
-        <ul class="gw-sidebar-nav__items">
+    <div class="ds-sidebar-layout ds-app-shell__body">
+      <nav class="ds-sidebar-nav" aria-label="Main">
+        <ul class="ds-sidebar-nav__items">
           <li>
-            <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
-              <span class="gw-sidebar-nav__label">Runs</span>
+            <a class="ds-sidebar-nav__item" href="/runs" aria-current="page">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-terminal"></use></svg>
+              <span class="ds-sidebar-nav__label">Runs</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/tasks">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
-              <span class="gw-sidebar-nav__label">Tasks</span>
+            <a class="ds-sidebar-nav__item" href="/tasks">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-file"></use></svg>
+              <span class="ds-sidebar-nav__label">Tasks</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/branches">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
-              <span class="gw-sidebar-nav__label">Branches</span>
+            <a class="ds-sidebar-nav__item" href="/branches">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-git-branch"></use></svg>
+              <span class="ds-sidebar-nav__label">Branches</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/approvals">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
-              <span class="gw-sidebar-nav__label">Approvals</span>
+            <a class="ds-sidebar-nav__item" href="/approvals">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>
+              <span class="ds-sidebar-nav__label">Approvals</span>
             </a>
           </li>
         </ul>
       </nav>
-      <div class="gw-container gw-app-shell__main">
-        <div class="gw-agent-run">
-          <div class="gw-agent-run__header">
-            <header class="gw-page-header">
-              <div class="gw-page-header__text">
-                <h1 class="gw-page-header__title">Fix the session refresh after a reload</h1>
-                <p class="gw-page-header__description">Run 4182 in acme/api, on the branch fix/login-timeout</p>
+      <div class="ds-container ds-app-shell__main">
+        <div class="ds-agent-run">
+          <div class="ds-agent-run__header">
+            <header class="ds-page-header">
+              <div class="ds-page-header__text">
+                <h1 class="ds-page-header__title">Fix the session refresh after a reload</h1>
+                <p class="ds-page-header__description">Run 4182 in acme/api, on the branch fix/login-timeout</p>
               </div>
             </header>
-            <ol class="gw-run-timeline" aria-label="Stations of run 4182">
-              <li class="gw-run-timeline__station" data-state="done">
-                <span class="gw-run-timeline__name">Plan</span>
-                <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">1 min 4 s</span></span>
+            <ol class="ds-run-timeline" aria-label="Stations of run 4182">
+              <li class="ds-run-timeline__station" data-state="done">
+                <span class="ds-run-timeline__name">Plan</span>
+                <span class="ds-run-timeline__status">Done · <span class="ds-run-timeline__time">1 min 4 s</span></span>
               </li>
-              <li class="gw-run-timeline__station" data-state="running" aria-current="step">
-                <span class="gw-run-timeline__name">Build</span>
-                <span class="gw-run-timeline__status">Running · <gw-elapsed class="gw-run-timeline__time" datetime="2026-11-22T09:55:48Z">4 min 12 s</gw-elapsed></span>
+              <li class="ds-run-timeline__station" data-state="running" aria-current="step">
+                <span class="ds-run-timeline__name">Build</span>
+                <span class="ds-run-timeline__status">Running · <ds-elapsed class="ds-run-timeline__time" datetime="2026-11-22T09:55:48Z">4 min 12 s</ds-elapsed></span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Verify</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Verify</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Review</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Review</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Decide</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Decide</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
             </ol>
           </div>
-          <p class="gw-activity-announcer" role="status">Approval needed: run npm install --save-dev @acme/session-fixtures.</p>
-          <gw-transcript class="gw-agent-run__transcript">
-            <div class="gw-agent-run__log" role="log" aria-live="off" aria-label="Transcript of run 4182">
-              <ol class="gw-stack gw-gap-sm">
-                <li class="gw-message gw-message--user">
-                  <span class="gw-message__label">You</span>
-                  <p class="gw-message__body">The session cookie expires after 15 minutes even while the tab is active. Find out why and fix it, then run the auth tests.</p>
+          <p class="ds-activity-announcer" role="status">Approval needed: run npm install --save-dev @acme/session-fixtures.</p>
+          <ds-transcript class="ds-agent-run__transcript">
+            <div class="ds-agent-run__log" role="log" aria-live="off" aria-label="Transcript of run 4182">
+              <ol class="ds-stack ds-gap-sm">
+                <li class="ds-message ds-message--user">
+                  <span class="ds-message__label">You</span>
+                  <p class="ds-message__body">The session cookie expires after 15 minutes even while the tab is active. Find out why and fix it, then run the auth tests.</p>
                 </li>
                 <li>
-                  <details class="gw-step-group">
-                    <summary class="gw-step-group__summary">
-                      <span class="gw-step-group__title">Explored 5 files, searched 1 pattern, ran 1 command</span>
-                      <span class="gw-step-group__duration">14 s</span>
+                  <details class="ds-step-group">
+                    <summary class="ds-step-group__summary">
+                      <span class="ds-step-group__title">Explored 5 files, searched 1 pattern, ran 1 command</span>
+                      <span class="ds-step-group__duration">14 s</span>
                     </summary>
-                    <ol class="gw-step-group__steps">
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Explored 5 files in <code class="gw-tool-call__target">src/auth</code></span>
-                            <span class="gw-tool-call__duration">0.4 s</span>
+                    <ol class="ds-step-group__steps">
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Explored 5 files in <code class="ds-tool-call__target">src/auth</code></span>
+                            <span class="ds-tool-call__duration">0.4 s</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Files read</p>
-                              <pre class="gw-tool-call__code">src/auth/session.ts
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Files read</p>
+                              <pre class="ds-tool-call__code">src/auth/session.ts
 src/auth/session.test.ts
 src/auth/refresh.ts
 src/auth/cookie.ts
@@ -140,32 +140,32 @@ src/routes/sign-in.tsx</pre>
                           </details>
                         </div>
                       </li>
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Searched for <code class="gw-tool-call__target">startRefreshTimer</code></span>
-                            <span class="gw-tool-call__duration">41 ms</span>
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Searched for <code class="ds-tool-call__target">startRefreshTimer</code></span>
+                            <span class="ds-tool-call__duration">41 ms</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Output, 3 lines</p>
-                              <pre class="gw-tool-call__code">src/auth/session.ts
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Output, 3 lines</p>
+                              <pre class="ds-tool-call__code">src/auth/session.ts
 src/auth/session.test.ts
 src/routes/sign-in.tsx</pre>
                             </div>
                           </details>
                         </div>
                       </li>
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth/session.test.ts</code></span>
-                            <span class="gw-tool-call__duration">2.4 s</span>
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">npm test -- --run src/auth/session.test.ts</code></span>
+                            <span class="ds-tool-call__duration">2.4 s</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Output, 2 lines</p>
-                              <pre class="gw-tool-call__code"> Test Files  1 passed (1)
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Output, 2 lines</p>
+                              <pre class="ds-tool-call__code"> Test Files  1 passed (1)
       Tests  14 passed (14)</pre>
                             </div>
                           </details>
@@ -174,27 +174,27 @@ src/routes/sign-in.tsx</pre>
                     </ol>
                   </details>
                 </li>
-                <li class="gw-message" data-state="done">
-                  <span class="gw-message__label">Claude Code</span>
-                  <p class="gw-message__body">The refresh timer is only started on sign-in, so a reload drops it. I will start it whenever a valid session is loaded, and add a test for the reload case.</p>
+                <li class="ds-message" data-state="done">
+                  <span class="ds-message__label">Claude Code</span>
+                  <p class="ds-message__body">The refresh timer is only started on sign-in, so a reload drops it. I will start it whenever a valid session is loaded, and add a test for the reload case.</p>
                 </li>
                 <li>
-                  <details class="gw-step-group" open>
-                    <summary class="gw-step-group__summary">
-                      <span class="gw-step-group__title">Edited 2 files, ran 1 command so far <span class="gw-step-group__callout" data-state="running">Running</span></span>
-                      <gw-elapsed class="gw-step-group__duration" datetime="2026-11-22T09:58:56Z">1 min 4 s</gw-elapsed>
+                  <details class="ds-step-group" open>
+                    <summary class="ds-step-group__summary">
+                      <span class="ds-step-group__title">Edited 2 files, ran 1 command so far <span class="ds-step-group__callout" data-state="running">Running</span></span>
+                      <ds-elapsed class="ds-step-group__duration" datetime="2026-11-22T09:58:56Z">1 min 4 s</ds-elapsed>
                     </summary>
-                    <ol class="gw-step-group__steps">
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
-                            <span class="gw-tool-call__duration">38 ms</span>
+                    <ol class="ds-step-group__steps">
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
+                            <span class="ds-tool-call__duration">38 ms</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Arguments</p>
-                              <pre class="gw-tool-call__code">{
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Arguments</p>
+                              <pre class="ds-tool-call__code">{
   "file_path": "src/auth/session.ts",
   "old_string": "if (justSignedIn) startRefreshTimer(session);",
   "new_string": "if (session.expiresAt > Date.now()) startRefreshTimer(session);"
@@ -203,16 +203,16 @@ src/routes/sign-in.tsx</pre>
                           </details>
                         </div>
                       </li>
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/auth/session.test.ts</code> +31&nbsp;−0</span>
-                            <span class="gw-tool-call__duration">44 ms</span>
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">src/auth/session.test.ts</code> +31&nbsp;−0</span>
+                            <span class="ds-tool-call__duration">44 ms</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Arguments</p>
-                              <pre class="gw-tool-call__code">{
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Arguments</p>
+                              <pre class="ds-tool-call__code">{
   "file_path": "src/auth/session.test.ts",
   "new_string": "test(\"keeps the session after a reload\", async () => {"
 }</pre>
@@ -220,16 +220,16 @@ src/routes/sign-in.tsx</pre>
                           </details>
                         </div>
                       </li>
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="running">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Running</span> <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
-                            <gw-elapsed class="gw-tool-call__duration" datetime="2026-11-22T09:59:18Z">42 s</gw-elapsed>
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="running">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Running</span> <code class="ds-tool-call__target">npm test -- --run src/auth</code></span>
+                            <ds-elapsed class="ds-tool-call__duration" datetime="2026-11-22T09:59:18Z">42 s</ds-elapsed>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Arguments</p>
-                              <pre class="gw-tool-call__code">{
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Arguments</p>
+                              <pre class="ds-tool-call__code">{
   "command": "npm test -- --run src/auth",
   "description": "Run the auth tests"
 }</pre>
@@ -241,74 +241,74 @@ src/routes/sign-in.tsx</pre>
                   </details>
                 </li>
                 <li>
-                  <details class="gw-step-group" open>
-                    <summary class="gw-step-group__summary">
-                      <span class="gw-step-group__title">Edited 1 file, 1 command to run <span class="gw-step-group__callout" data-state="awaiting-approval">Awaiting your approval</span></span>
-                      <gw-elapsed class="gw-step-group__duration" datetime="2026-11-22T09:58:30Z">1 min 30 s</gw-elapsed>
+                  <details class="ds-step-group" open>
+                    <summary class="ds-step-group__summary">
+                      <span class="ds-step-group__title">Edited 1 file, 1 command to run <span class="ds-step-group__callout" data-state="awaiting-approval">Awaiting your approval</span></span>
+                      <ds-elapsed class="ds-step-group__duration" datetime="2026-11-22T09:58:30Z">1 min 30 s</ds-elapsed>
                     </summary>
-                    <ol class="gw-step-group__steps">
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">package.json</code> +1&nbsp;−0</span>
-                            <span class="gw-tool-call__duration">19 ms</span>
+                    <ol class="ds-step-group__steps">
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">package.json</code> +1&nbsp;−0</span>
+                            <span class="ds-tool-call__duration">19 ms</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Arguments</p>
-                              <pre class="gw-tool-call__code">{ "file_path": "package.json" }</pre>
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Arguments</p>
+                              <pre class="ds-tool-call__code">{ "file_path": "package.json" }</pre>
                             </div>
                           </details>
                         </div>
                       </li>
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="awaiting-approval">
-                          <details class="gw-tool-call__details" open>
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title" id="agent-run-running-request"><span class="gw-tool-call__status">Awaiting approval</span> Run <code class="gw-tool-call__target">npm install --save-dev @acme/session-fixtures</code></span>
-                            <gw-elapsed class="gw-tool-call__duration" datetime="2026-11-22T09:58:52Z">1 min 8 s</gw-elapsed>
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="awaiting-approval">
+                          <details class="ds-tool-call__details" open>
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title" id="agent-run-running-request"><span class="ds-tool-call__status">Awaiting approval</span> Run <code class="ds-tool-call__target">npm install --save-dev @acme/session-fixtures</code></span>
+                            <ds-elapsed class="ds-tool-call__duration" datetime="2026-11-22T09:58:52Z">1 min 8 s</ds-elapsed>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Arguments</p>
-                              <pre class="gw-tool-call__code">{
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Arguments</p>
+                              <pre class="ds-tool-call__code">{
   "command": "npm install --save-dev @acme/session-fixtures",
   "description": "Add the fixture user the reload test needs"
 }</pre>
                             </div>
                           </details>
-                          <div class="gw-tool-call__actions">
-                            <button type="button" class="gw-button gw-button--small" data-gw-critical aria-describedby="agent-run-running-request">Allow</button>
-                            <button type="button" class="gw-button gw-button--small" data-gw-critical aria-describedby="agent-run-running-request">Decline</button>
+                          <div class="ds-tool-call__actions">
+                            <button type="button" class="ds-button ds-button--small" data-ds-critical aria-describedby="agent-run-running-request">Allow</button>
+                            <button type="button" class="ds-button ds-button--small" data-ds-critical aria-describedby="agent-run-running-request">Decline</button>
                           </div>
                         </div>
                       </li>
                     </ol>
                   </details>
                 </li>
-                <li class="gw-message" data-state="streaming" aria-busy="true">
-                  <span class="gw-message__label">Claude Code</span>
-                  <p class="gw-message__body">While the tests run: the reload test needs a signed-in user, and the shared fixtures package has one. Once it is installed I will<span class="gw-message__caret" aria-hidden="true"></span></p>
+                <li class="ds-message" data-state="streaming" aria-busy="true">
+                  <span class="ds-message__label">Claude Code</span>
+                  <p class="ds-message__body">While the tests run: the reload test needs a signed-in user, and the shared fixtures package has one. Once it is installed I will<span class="ds-message__caret" aria-hidden="true"></span></p>
                 </li>
               </ol>
             </div>
-            <div class="gw-agent-run__dock">
-              <div class="gw-jump-to-latest" data-gw-jump>
-                <button type="button" class="gw-jump-to-latest__button"><span class="gw-jump-to-latest__count" data-gw-count="{count} new steps" data-gw-count-one="1 new step">3 new steps</span> Jump to latest</button>
+            <div class="ds-agent-run__dock">
+              <div class="ds-jump-to-latest" data-ds-jump>
+                <button type="button" class="ds-jump-to-latest__button"><span class="ds-jump-to-latest__count" data-ds-count="{count} new steps" data-ds-count-one="1 new step">3 new steps</span> Jump to latest</button>
               </div>
-              <div class="gw-now-doing" data-state="waiting">
-                <p class="gw-now-doing__text">Waiting for your approval to run <code class="gw-now-doing__target">npm install --save-dev @acme/session-fixtures</code>&nbsp;·&nbsp;<gw-elapsed class="gw-now-doing__elapsed" datetime="2026-11-22T09:58:52Z">1 min 8 s</gw-elapsed></p>
-                <a class="gw-now-doing__link" href="#agent-run-running-request">Go to the request</a>
-                <button type="button" class="gw-button gw-button--small" data-gw-critical>Stop</button>
+              <div class="ds-now-doing" data-state="waiting">
+                <p class="ds-now-doing__text">Waiting for your approval to run <code class="ds-now-doing__target">npm install --save-dev @acme/session-fixtures</code>&nbsp;·&nbsp;<ds-elapsed class="ds-now-doing__elapsed" datetime="2026-11-22T09:58:52Z">1 min 8 s</ds-elapsed></p>
+                <a class="ds-now-doing__link" href="#agent-run-running-request">Go to the request</a>
+                <button type="button" class="ds-button ds-button--small" data-ds-critical>Stop</button>
               </div>
-              <form class="gw-composer">
-                <label class="gw-composer__label" for="agent-run-running-prompt">Message Claude Code</label>
-                <div class="gw-composer__row">
-                  <textarea class="gw-composer__input" id="agent-run-running-prompt" name="prompt" rows="1"></textarea>
-                  <button type="submit" class="gw-button gw-button--primary">Send</button>
+              <form class="ds-composer">
+                <label class="ds-composer__label" for="agent-run-running-prompt">Message Claude Code</label>
+                <div class="ds-composer__row">
+                  <textarea class="ds-composer__input" id="agent-run-running-prompt" name="prompt" rows="1"></textarea>
+                  <button type="submit" class="ds-button ds-button--primary">Send</button>
                 </div>
               </form>
             </div>
-          </gw-transcript>
+          </ds-transcript>
         </div>
       </div>
     </div>
@@ -321,107 +321,107 @@ src/routes/sign-in.tsx</pre>
 <p data-gallery="state">State: <code>loading</code></p>
 </figcaption>
 <div data-example="loading" data-title="The transcript is loading" data-state="loading" data-gallery-frame>
-  <div class="gw-app-shell">
-    <header class="gw-app-header gw-app-header--sticky">
-      <a class="gw-app-header__back" href="/runs">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <div class="ds-app-shell">
+    <header class="ds-app-header ds-app-header--sticky">
+      <a class="ds-app-header__back" href="/runs">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
         Runs
       </a>
-      <div class="gw-app-header__tray">
-        <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
-          <a class="gw-pending-tray__link" href="/approvals"><span class="gw-pending-tray__count">2</span> approvals waiting</a>
+      <div class="ds-app-header__tray">
+        <div class="ds-pending-tray" aria-live="polite" aria-atomic="true">
+          <a class="ds-pending-tray__link" href="/approvals"><span class="ds-pending-tray__count">2</span> approvals waiting</a>
         </div>
       </div>
     </header>
-    <div class="gw-sidebar-layout gw-app-shell__body">
-      <nav class="gw-sidebar-nav" aria-label="Botbench">
-        <ul class="gw-sidebar-nav__items">
+    <div class="ds-sidebar-layout ds-app-shell__body">
+      <nav class="ds-sidebar-nav" aria-label="Botbench">
+        <ul class="ds-sidebar-nav__items">
           <li>
-            <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
-              <span class="gw-sidebar-nav__label">Runs</span>
+            <a class="ds-sidebar-nav__item" href="/runs" aria-current="page">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-terminal"></use></svg>
+              <span class="ds-sidebar-nav__label">Runs</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/tasks">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
-              <span class="gw-sidebar-nav__label">Tasks</span>
+            <a class="ds-sidebar-nav__item" href="/tasks">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-file"></use></svg>
+              <span class="ds-sidebar-nav__label">Tasks</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/branches">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
-              <span class="gw-sidebar-nav__label">Branches</span>
+            <a class="ds-sidebar-nav__item" href="/branches">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-git-branch"></use></svg>
+              <span class="ds-sidebar-nav__label">Branches</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/approvals">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
-              <span class="gw-sidebar-nav__label">Approvals</span>
+            <a class="ds-sidebar-nav__item" href="/approvals">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>
+              <span class="ds-sidebar-nav__label">Approvals</span>
             </a>
           </li>
         </ul>
       </nav>
-      <div class="gw-container gw-app-shell__main">
-        <div class="gw-agent-run">
-          <div class="gw-agent-run__header">
-            <header class="gw-page-header">
-              <div class="gw-page-header__text">
-                <h1 class="gw-page-header__title">Fix the session refresh after a reload</h1>
-                <p class="gw-page-header__description">Run 4182 in acme/api, on the branch fix/login-timeout</p>
+      <div class="ds-container ds-app-shell__main">
+        <div class="ds-agent-run">
+          <div class="ds-agent-run__header">
+            <header class="ds-page-header">
+              <div class="ds-page-header__text">
+                <h1 class="ds-page-header__title">Fix the session refresh after a reload</h1>
+                <p class="ds-page-header__description">Run 4182 in acme/api, on the branch fix/login-timeout</p>
               </div>
             </header>
-            <ol class="gw-run-timeline" aria-label="Stations of run 4182, loading">
-              <li class="gw-run-timeline__station" data-state="done">
-                <span class="gw-run-timeline__name">Plan</span>
-                <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">1 min 4 s</span></span>
+            <ol class="ds-run-timeline" aria-label="Stations of run 4182, loading">
+              <li class="ds-run-timeline__station" data-state="done">
+                <span class="ds-run-timeline__name">Plan</span>
+                <span class="ds-run-timeline__status">Done · <span class="ds-run-timeline__time">1 min 4 s</span></span>
               </li>
-              <li class="gw-run-timeline__station" data-state="running" aria-current="step">
-                <span class="gw-run-timeline__name">Build</span>
-                <span class="gw-run-timeline__status">Running · <gw-elapsed class="gw-run-timeline__time" datetime="2026-11-22T09:55:48Z">4 min 12 s</gw-elapsed></span>
+              <li class="ds-run-timeline__station" data-state="running" aria-current="step">
+                <span class="ds-run-timeline__name">Build</span>
+                <span class="ds-run-timeline__status">Running · <ds-elapsed class="ds-run-timeline__time" datetime="2026-11-22T09:55:48Z">4 min 12 s</ds-elapsed></span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Verify</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Verify</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Review</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Review</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Decide</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Decide</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
             </ol>
           </div>
-          <p class="gw-activity-announcer" role="status"></p>
-          <div class="gw-agent-run__transcript">
-            <div class="gw-agent-run__log">
-              <div class="gw-skeleton gw-skeleton--rows" aria-busy="true">
-                <span class="gw-visually-hidden">Loading the transcript of run 4182</span>
-                <span class="gw-skeleton__row">
-                  <span class="gw-skeleton__line gw-skeleton__line--short"></span>
-                  <span class="gw-skeleton__line"></span>
+          <p class="ds-activity-announcer" role="status"></p>
+          <div class="ds-agent-run__transcript">
+            <div class="ds-agent-run__log">
+              <div class="ds-skeleton ds-skeleton--rows" aria-busy="true">
+                <span class="ds-visually-hidden">Loading the transcript of run 4182</span>
+                <span class="ds-skeleton__row">
+                  <span class="ds-skeleton__line ds-skeleton__line--short"></span>
+                  <span class="ds-skeleton__line"></span>
                 </span>
-                <span class="gw-skeleton__row">
-                  <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+                <span class="ds-skeleton__row">
+                  <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
                 </span>
-                <span class="gw-skeleton__row">
-                  <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+                <span class="ds-skeleton__row">
+                  <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
                 </span>
-                <span class="gw-skeleton__row">
-                  <span class="gw-skeleton__line gw-skeleton__line--short"></span>
-                  <span class="gw-skeleton__line"></span>
-                  <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+                <span class="ds-skeleton__row">
+                  <span class="ds-skeleton__line ds-skeleton__line--short"></span>
+                  <span class="ds-skeleton__line"></span>
+                  <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
                 </span>
               </div>
             </div>
-            <div class="gw-agent-run__dock">
-              <form class="gw-composer">
-                <label class="gw-composer__label" for="agent-run-loading-prompt">Message Claude Code</label>
-                <div class="gw-composer__row">
-                  <textarea class="gw-composer__input" id="agent-run-loading-prompt" name="prompt" rows="1"></textarea>
-                  <button type="submit" class="gw-button gw-button--primary">Send</button>
+            <div class="ds-agent-run__dock">
+              <form class="ds-composer">
+                <label class="ds-composer__label" for="agent-run-loading-prompt">Message Claude Code</label>
+                <div class="ds-composer__row">
+                  <textarea class="ds-composer__input" id="agent-run-loading-prompt" name="prompt" rows="1"></textarea>
+                  <button type="submit" class="ds-button ds-button--primary">Send</button>
                 </div>
               </form>
             </div>
@@ -438,98 +438,98 @@ src/routes/sign-in.tsx</pre>
 <p data-gallery="state">State: <code>empty</code></p>
 </figcaption>
 <div data-example="empty" data-title="A run with nothing in it yet" data-state="empty" data-gallery-frame>
-  <div class="gw-app-shell">
-    <header class="gw-app-header gw-app-header--sticky">
-      <a class="gw-app-header__back" href="/runs">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <div class="ds-app-shell">
+    <header class="ds-app-header ds-app-header--sticky">
+      <a class="ds-app-header__back" href="/runs">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
         Runs
       </a>
-      <div class="gw-app-header__tray">
-        <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
-          <a class="gw-pending-tray__link" href="/approvals"><span class="gw-pending-tray__count">2</span> approvals waiting</a>
+      <div class="ds-app-header__tray">
+        <div class="ds-pending-tray" aria-live="polite" aria-atomic="true">
+          <a class="ds-pending-tray__link" href="/approvals"><span class="ds-pending-tray__count">2</span> approvals waiting</a>
         </div>
       </div>
     </header>
-    <div class="gw-sidebar-layout gw-app-shell__body">
-      <nav class="gw-sidebar-nav" aria-label="Screens">
-        <ul class="gw-sidebar-nav__items">
+    <div class="ds-sidebar-layout ds-app-shell__body">
+      <nav class="ds-sidebar-nav" aria-label="Screens">
+        <ul class="ds-sidebar-nav__items">
           <li>
-            <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
-              <span class="gw-sidebar-nav__label">Runs</span>
+            <a class="ds-sidebar-nav__item" href="/runs" aria-current="page">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-terminal"></use></svg>
+              <span class="ds-sidebar-nav__label">Runs</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/tasks">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
-              <span class="gw-sidebar-nav__label">Tasks</span>
+            <a class="ds-sidebar-nav__item" href="/tasks">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-file"></use></svg>
+              <span class="ds-sidebar-nav__label">Tasks</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/branches">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
-              <span class="gw-sidebar-nav__label">Branches</span>
+            <a class="ds-sidebar-nav__item" href="/branches">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-git-branch"></use></svg>
+              <span class="ds-sidebar-nav__label">Branches</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/approvals">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
-              <span class="gw-sidebar-nav__label">Approvals</span>
+            <a class="ds-sidebar-nav__item" href="/approvals">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>
+              <span class="ds-sidebar-nav__label">Approvals</span>
             </a>
           </li>
         </ul>
       </nav>
-      <div class="gw-container gw-app-shell__main">
-        <div class="gw-agent-run">
-          <div class="gw-agent-run__header">
-            <header class="gw-page-header">
-              <div class="gw-page-header__text">
-                <h1 class="gw-page-header__title">New run</h1>
-                <p class="gw-page-header__description">Run 4190 in acme/api, on the branch main</p>
+      <div class="ds-container ds-app-shell__main">
+        <div class="ds-agent-run">
+          <div class="ds-agent-run__header">
+            <header class="ds-page-header">
+              <div class="ds-page-header__text">
+                <h1 class="ds-page-header__title">New run</h1>
+                <p class="ds-page-header__description">Run 4190 in acme/api, on the branch main</p>
               </div>
             </header>
-            <ol class="gw-run-timeline" aria-label="Stations of run 4190, not started">
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Plan</span>
-                <span class="gw-run-timeline__status">Not started</span>
+            <ol class="ds-run-timeline" aria-label="Stations of run 4190, not started">
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Plan</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Build</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Build</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Verify</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Verify</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Review</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Review</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Decide</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Decide</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
             </ol>
           </div>
-          <p class="gw-activity-announcer" role="status"></p>
-          <div class="gw-agent-run__transcript">
-            <div class="gw-agent-run__log gw-stack">
-              <div class="gw-empty-state gw-empty-state--compact">
-                <h2 class="gw-empty-state__title">Nothing has run yet</h2>
-                <p class="gw-empty-state__body">Say what you want done in acme/api, or start from one of these prompts. Each step the agent takes will show up here.</p>
+          <p class="ds-activity-announcer" role="status"></p>
+          <div class="ds-agent-run__transcript">
+            <div class="ds-agent-run__log ds-stack">
+              <div class="ds-empty-state ds-empty-state--compact">
+                <h2 class="ds-empty-state__title">Nothing has run yet</h2>
+                <p class="ds-empty-state__body">Say what you want done in acme/api, or start from one of these prompts. Each step the agent takes will show up here.</p>
               </div>
-              <ul class="gw-suggestion-chips" aria-label="Suggested first prompts">
-                <li><button type="button" class="gw-button gw-suggestion-chips__chip">Find out why the session cookie expires after 15 minutes</button></li>
-                <li><button type="button" class="gw-button gw-suggestion-chips__chip">Explain how sessions are refreshed in src/auth</button></li>
-                <li><button type="button" class="gw-button gw-suggestion-chips__chip">Run the auth tests</button></li>
+              <ul class="ds-suggestion-chips" aria-label="Suggested first prompts">
+                <li><button type="button" class="ds-button ds-suggestion-chips__chip">Find out why the session cookie expires after 15 minutes</button></li>
+                <li><button type="button" class="ds-button ds-suggestion-chips__chip">Explain how sessions are refreshed in src/auth</button></li>
+                <li><button type="button" class="ds-button ds-suggestion-chips__chip">Run the auth tests</button></li>
               </ul>
             </div>
-            <div class="gw-agent-run__dock">
-              <form class="gw-composer">
-                <label class="gw-composer__label" for="agent-run-empty-prompt">Message Claude Code</label>
-                <div class="gw-composer__row">
-                  <textarea class="gw-composer__input" id="agent-run-empty-prompt" name="prompt" rows="1"></textarea>
-                  <button type="submit" class="gw-button gw-button--primary">Send</button>
+            <div class="ds-agent-run__dock">
+              <form class="ds-composer">
+                <label class="ds-composer__label" for="agent-run-empty-prompt">Message Claude Code</label>
+                <div class="ds-composer__row">
+                  <textarea class="ds-composer__input" id="agent-run-empty-prompt" name="prompt" rows="1"></textarea>
+                  <button type="submit" class="ds-button ds-button--primary">Send</button>
                 </div>
               </form>
             </div>
@@ -542,108 +542,108 @@ src/routes/sign-in.tsx</pre>
 </figure>
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A finished run</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> A finished run</h3>
 <p>Every group is closed, because nothing in them needs the reader any more, and each still says what it did. The final answer is a row of its own outside every fold, so it is read without opening anything. One primary action remains, the next thing the reader does.</p>
 </figcaption>
 <div data-example="finished" data-title="A finished run" data-gallery-frame data-reason="Every group is closed, because nothing in them needs the reader any more, and each still says what it did. The final answer is a row of its own outside every fold, so it is read without opening anything. One primary action remains, the next thing the reader does.">
-  <div class="gw-app-shell">
-    <header class="gw-app-header gw-app-header--sticky">
-      <a class="gw-app-header__back" href="/runs">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <div class="ds-app-shell">
+    <header class="ds-app-header ds-app-header--sticky">
+      <a class="ds-app-header__back" href="/runs">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
         Runs
       </a>
-      <div class="gw-app-header__tray">
-        <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
-          <a class="gw-pending-tray__link" href="/approvals"><span class="gw-pending-tray__count">2</span> approvals waiting</a>
+      <div class="ds-app-header__tray">
+        <div class="ds-pending-tray" aria-live="polite" aria-atomic="true">
+          <a class="ds-pending-tray__link" href="/approvals"><span class="ds-pending-tray__count">2</span> approvals waiting</a>
         </div>
       </div>
     </header>
-    <div class="gw-sidebar-layout gw-app-shell__body">
-      <nav class="gw-sidebar-nav" aria-label="Sections">
-        <ul class="gw-sidebar-nav__items">
+    <div class="ds-sidebar-layout ds-app-shell__body">
+      <nav class="ds-sidebar-nav" aria-label="Sections">
+        <ul class="ds-sidebar-nav__items">
           <li>
-            <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
-              <span class="gw-sidebar-nav__label">Runs</span>
+            <a class="ds-sidebar-nav__item" href="/runs" aria-current="page">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-terminal"></use></svg>
+              <span class="ds-sidebar-nav__label">Runs</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/tasks">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
-              <span class="gw-sidebar-nav__label">Tasks</span>
+            <a class="ds-sidebar-nav__item" href="/tasks">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-file"></use></svg>
+              <span class="ds-sidebar-nav__label">Tasks</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/branches">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
-              <span class="gw-sidebar-nav__label">Branches</span>
+            <a class="ds-sidebar-nav__item" href="/branches">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-git-branch"></use></svg>
+              <span class="ds-sidebar-nav__label">Branches</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/approvals">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
-              <span class="gw-sidebar-nav__label">Approvals</span>
+            <a class="ds-sidebar-nav__item" href="/approvals">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>
+              <span class="ds-sidebar-nav__label">Approvals</span>
             </a>
           </li>
         </ul>
       </nav>
-      <div class="gw-container gw-app-shell__main">
-        <div class="gw-agent-run">
-          <div class="gw-agent-run__header">
-            <header class="gw-page-header">
-              <div class="gw-page-header__text">
-                <h1 class="gw-page-header__title">Fix the session refresh after a reload</h1>
-                <p class="gw-page-header__description">Run 4171 in acme/api, on the branch fix/login-timeout</p>
+      <div class="ds-container ds-app-shell__main">
+        <div class="ds-agent-run">
+          <div class="ds-agent-run__header">
+            <header class="ds-page-header">
+              <div class="ds-page-header__text">
+                <h1 class="ds-page-header__title">Fix the session refresh after a reload</h1>
+                <p class="ds-page-header__description">Run 4171 in acme/api, on the branch fix/login-timeout</p>
               </div>
             </header>
-            <ol class="gw-run-timeline" aria-label="Stations of run 4171">
-              <li class="gw-run-timeline__station" data-state="done">
-                <span class="gw-run-timeline__name">Plan</span>
-                <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">52 s</span></span>
+            <ol class="ds-run-timeline" aria-label="Stations of run 4171">
+              <li class="ds-run-timeline__station" data-state="done">
+                <span class="ds-run-timeline__name">Plan</span>
+                <span class="ds-run-timeline__status">Done · <span class="ds-run-timeline__time">52 s</span></span>
               </li>
-              <li class="gw-run-timeline__station" data-state="done">
-                <span class="gw-run-timeline__name">Build</span>
-                <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">7 min 8 s</span></span>
+              <li class="ds-run-timeline__station" data-state="done">
+                <span class="ds-run-timeline__name">Build</span>
+                <span class="ds-run-timeline__status">Done · <span class="ds-run-timeline__time">7 min 8 s</span></span>
               </li>
-              <li class="gw-run-timeline__station" data-state="done">
-                <span class="gw-run-timeline__name">Verify</span>
-                <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">1 min 49 s</span></span>
+              <li class="ds-run-timeline__station" data-state="done">
+                <span class="ds-run-timeline__name">Verify</span>
+                <span class="ds-run-timeline__status">Done · <span class="ds-run-timeline__time">1 min 49 s</span></span>
               </li>
-              <li class="gw-run-timeline__station" data-state="done">
-                <span class="gw-run-timeline__name">Review</span>
-                <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">3 min</span></span>
+              <li class="ds-run-timeline__station" data-state="done">
+                <span class="ds-run-timeline__name">Review</span>
+                <span class="ds-run-timeline__status">Done · <span class="ds-run-timeline__time">3 min</span></span>
               </li>
-              <li class="gw-run-timeline__station" data-state="waiting" aria-current="step">
-                <span class="gw-run-timeline__name">Decide</span>
-                <span class="gw-run-timeline__status">Waiting on you · <gw-elapsed class="gw-run-timeline__time" datetime="2026-11-22T09:48:00Z">12 min 0 s</gw-elapsed></span>
+              <li class="ds-run-timeline__station" data-state="waiting" aria-current="step">
+                <span class="ds-run-timeline__name">Decide</span>
+                <span class="ds-run-timeline__status">Waiting on you · <ds-elapsed class="ds-run-timeline__time" datetime="2026-11-22T09:48:00Z">12 min 0 s</ds-elapsed></span>
               </li>
             </ol>
           </div>
-          <p class="gw-activity-announcer" role="status">Claude Code finished: explored 5 files, edited 3 files, ran 4 commands, opened 1 pull request.</p>
-          <div class="gw-agent-run__transcript">
-            <div class="gw-agent-run__log" role="log" aria-live="off" aria-label="Transcript of run 4171">
-              <ol class="gw-stack gw-gap-sm">
-                <li class="gw-message gw-message--user">
-                  <span class="gw-message__label">You</span>
-                  <p class="gw-message__body">The session cookie expires after 15 minutes even while the tab is active. Find out why and fix it, then run the auth tests.</p>
+          <p class="ds-activity-announcer" role="status">Claude Code finished: explored 5 files, edited 3 files, ran 4 commands, opened 1 pull request.</p>
+          <div class="ds-agent-run__transcript">
+            <div class="ds-agent-run__log" role="log" aria-live="off" aria-label="Transcript of run 4171">
+              <ol class="ds-stack ds-gap-sm">
+                <li class="ds-message ds-message--user">
+                  <span class="ds-message__label">You</span>
+                  <p class="ds-message__body">The session cookie expires after 15 minutes even while the tab is active. Find out why and fix it, then run the auth tests.</p>
                 </li>
                 <li>
-                  <details class="gw-step-group">
-                    <summary class="gw-step-group__summary">
-                      <span class="gw-step-group__title">Explored 5 files, searched 1 pattern, ran 1 command</span>
-                      <span class="gw-step-group__duration">14 s</span>
+                  <details class="ds-step-group">
+                    <summary class="ds-step-group__summary">
+                      <span class="ds-step-group__title">Explored 5 files, searched 1 pattern, ran 1 command</span>
+                      <span class="ds-step-group__duration">14 s</span>
                     </summary>
-                    <ol class="gw-step-group__steps">
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Explored 5 files in <code class="gw-tool-call__target">src/auth</code></span>
-                            <span class="gw-tool-call__duration">0.4 s</span>
+                    <ol class="ds-step-group__steps">
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Explored 5 files in <code class="ds-tool-call__target">src/auth</code></span>
+                            <span class="ds-tool-call__duration">0.4 s</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Files read</p>
-                              <pre class="gw-tool-call__code">src/auth/session.ts
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Files read</p>
+                              <pre class="ds-tool-call__code">src/auth/session.ts
 src/auth/session.test.ts
 src/auth/refresh.ts
 src/auth/cookie.ts
@@ -652,32 +652,32 @@ src/routes/sign-in.tsx</pre>
                           </details>
                         </div>
                       </li>
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Searched for <code class="gw-tool-call__target">startRefreshTimer</code></span>
-                            <span class="gw-tool-call__duration">41 ms</span>
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Searched for <code class="ds-tool-call__target">startRefreshTimer</code></span>
+                            <span class="ds-tool-call__duration">41 ms</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Output, 3 lines</p>
-                              <pre class="gw-tool-call__code">src/auth/session.ts
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Output, 3 lines</p>
+                              <pre class="ds-tool-call__code">src/auth/session.ts
 src/auth/session.test.ts
 src/routes/sign-in.tsx</pre>
                             </div>
                           </details>
                         </div>
                       </li>
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth/session.test.ts</code></span>
-                            <span class="gw-tool-call__duration">2.4 s</span>
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">npm test -- --run src/auth/session.test.ts</code></span>
+                            <span class="ds-tool-call__duration">2.4 s</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Output, 2 lines</p>
-                              <pre class="gw-tool-call__code"> Test Files  1 passed (1)
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Output, 2 lines</p>
+                              <pre class="ds-tool-call__code"> Test Files  1 passed (1)
       Tests  14 passed (14)</pre>
                             </div>
                           </details>
@@ -686,27 +686,27 @@ src/routes/sign-in.tsx</pre>
                     </ol>
                   </details>
                 </li>
-                <li class="gw-message" data-state="done">
-                  <span class="gw-message__label">Claude Code</span>
-                  <p class="gw-message__body">The refresh timer is only started on sign-in, so a reload drops it. I will start it whenever a valid session is loaded, and add a test for the reload case.</p>
+                <li class="ds-message" data-state="done">
+                  <span class="ds-message__label">Claude Code</span>
+                  <p class="ds-message__body">The refresh timer is only started on sign-in, so a reload drops it. I will start it whenever a valid session is loaded, and add a test for the reload case.</p>
                 </li>
                 <li>
-                  <details class="gw-step-group">
-                    <summary class="gw-step-group__summary">
-                      <span class="gw-step-group__title">Edited 3 files, ran 2 commands</span>
-                      <span class="gw-step-group__duration">1 min 52 s</span>
+                  <details class="ds-step-group">
+                    <summary class="ds-step-group__summary">
+                      <span class="ds-step-group__title">Edited 3 files, ran 2 commands</span>
+                      <span class="ds-step-group__duration">1 min 52 s</span>
                     </summary>
-                    <ol class="gw-step-group__steps">
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
-                            <span class="gw-tool-call__duration">38 ms</span>
+                    <ol class="ds-step-group__steps">
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
+                            <span class="ds-tool-call__duration">38 ms</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Arguments</p>
-                              <pre class="gw-tool-call__code">{
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Arguments</p>
+                              <pre class="ds-tool-call__code">{
   "file_path": "src/auth/session.ts",
   "old_string": "if (justSignedIn) startRefreshTimer(session);",
   "new_string": "if (session.expiresAt > Date.now()) startRefreshTimer(session);"
@@ -715,16 +715,16 @@ src/routes/sign-in.tsx</pre>
                           </details>
                         </div>
                       </li>
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/auth/session.test.ts</code> +31&nbsp;−0</span>
-                            <span class="gw-tool-call__duration">44 ms</span>
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">src/auth/session.test.ts</code> +31&nbsp;−0</span>
+                            <span class="ds-tool-call__duration">44 ms</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Arguments</p>
-                              <pre class="gw-tool-call__code">{
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Arguments</p>
+                              <pre class="ds-tool-call__code">{
   "file_path": "src/auth/session.test.ts",
   "new_string": "test(\"keeps the session after a reload\", async () => {"
 }</pre>
@@ -732,44 +732,44 @@ src/routes/sign-in.tsx</pre>
                           </details>
                         </div>
                       </li>
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">package.json</code> +1&nbsp;−0</span>
-                            <span class="gw-tool-call__duration">19 ms</span>
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Edited <code class="ds-tool-call__target">package.json</code> +1&nbsp;−0</span>
+                            <span class="ds-tool-call__duration">19 ms</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Arguments</p>
-                              <pre class="gw-tool-call__code">{ "file_path": "package.json" }</pre>
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Arguments</p>
+                              <pre class="ds-tool-call__code">{ "file_path": "package.json" }</pre>
                             </div>
                           </details>
                         </div>
                       </li>
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm install --save-dev @acme/session-fixtures</code></span>
-                            <span class="gw-tool-call__duration">9.2 s</span>
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">npm install --save-dev @acme/session-fixtures</code></span>
+                            <span class="ds-tool-call__duration">9.2 s</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Output, 1 line</p>
-                              <pre class="gw-tool-call__code">added 1 package in 9s</pre>
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Output, 1 line</p>
+                              <pre class="ds-tool-call__code">added 1 package in 9s</pre>
                             </div>
                           </details>
                         </div>
                       </li>
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
-                            <span class="gw-tool-call__duration">3.1 s</span>
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">npm test -- --run src/auth</code></span>
+                            <span class="ds-tool-call__duration">3.1 s</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Output, 2 lines</p>
-                              <pre class="gw-tool-call__code"> Test Files  3 passed (3)
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Output, 2 lines</p>
+                              <pre class="ds-tool-call__code"> Test Files  3 passed (3)
       Tests  31 passed (31)</pre>
                             </div>
                           </details>
@@ -779,36 +779,36 @@ src/routes/sign-in.tsx</pre>
                   </details>
                 </li>
                 <li>
-                  <details class="gw-step-group">
-                    <summary class="gw-step-group__summary">
-                      <span class="gw-step-group__title">Ran 1 command, opened 1 pull request</span>
-                      <span class="gw-step-group__duration">3.6 s</span>
+                  <details class="ds-step-group">
+                    <summary class="ds-step-group__summary">
+                      <span class="ds-step-group__title">Ran 1 command, opened 1 pull request</span>
+                      <span class="ds-step-group__duration">3.6 s</span>
                     </summary>
-                    <ol class="gw-step-group__steps">
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">git push origin fix/login-timeout</code></span>
-                            <span class="gw-tool-call__duration">2.2 s</span>
+                    <ol class="ds-step-group__steps">
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">git push origin fix/login-timeout</code></span>
+                            <span class="ds-tool-call__duration">2.2 s</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Output, 1 line</p>
-                              <pre class="gw-tool-call__code"> * [new branch]      fix/login-timeout -> fix/login-timeout</pre>
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Output, 1 line</p>
+                              <pre class="ds-tool-call__code"> * [new branch]      fix/login-timeout -> fix/login-timeout</pre>
                             </div>
                           </details>
                         </div>
                       </li>
-                      <li class="gw-message gw-message--tool-call">
-                        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-                          <details class="gw-tool-call__details">
-                            <summary class="gw-tool-call__summary">
-                              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Opened pull request 482 against <code class="gw-tool-call__target">main</code></span>
-                            <span class="gw-tool-call__duration">1.4 s</span>
+                      <li class="ds-message ds-message--tool-call">
+                        <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+                          <details class="ds-tool-call__details">
+                            <summary class="ds-tool-call__summary">
+                              <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Opened pull request 482 against <code class="ds-tool-call__target">main</code></span>
+                            <span class="ds-tool-call__duration">1.4 s</span>
                             </summary>
-                            <div class="gw-tool-call__body">
-                              <p class="gw-tool-call__label">Arguments</p>
-                              <pre class="gw-tool-call__code">{
+                            <div class="ds-tool-call__body">
+                              <p class="ds-tool-call__label">Arguments</p>
+                              <pre class="ds-tool-call__code">{
   "title": "Keep the session after a reload",
   "base": "main",
   "head": "fix/login-timeout"
@@ -820,19 +820,19 @@ src/routes/sign-in.tsx</pre>
                     </ol>
                   </details>
                 </li>
-                <li class="gw-message" data-state="done">
-                  <span class="gw-message__label">Claude Code</span>
-                  <p class="gw-message__body">The session now survives a reload. The refresh timer was only started on sign-in, so I start it whenever a valid session is loaded, in src/auth/session.ts. I added a test for the reload case, and all 31 auth tests pass. Pull request 482 is open against main and waits for your review.</p>
+                <li class="ds-message" data-state="done">
+                  <span class="ds-message__label">Claude Code</span>
+                  <p class="ds-message__body">The session now survives a reload. The refresh timer was only started on sign-in, so I start it whenever a valid session is loaded, in src/auth/session.ts. I added a test for the reload case, and all 31 auth tests pass. Pull request 482 is open against main and waits for your review.</p>
                 </li>
-                <li class="gw-message gw-message--usage">
-                  <span class="gw-message__label">Usage</span>
-                  <p class="gw-message__body">48,210 tokens in, 3,906 out, 9 minutes</p>
+                <li class="ds-message ds-message--usage">
+                  <span class="ds-message__label">Usage</span>
+                  <p class="ds-message__body">48,210 tokens in, 3,906 out, 9 minutes</p>
                 </li>
               </ol>
             </div>
-            <div class="gw-agent-run__outcome">
-              <a class="gw-button gw-button--primary" href="/runs/4171/review">Review pull request 482</a>
-              <a class="gw-button" href="/tasks/new?from=4171">Start a follow-up task</a>
+            <div class="ds-agent-run__outcome">
+              <a class="ds-button ds-button--primary" href="/runs/4171/review">Review pull request 482</a>
+              <a class="ds-button" href="/tasks/new?from=4171">Start a follow-up task</a>
             </div>
           </div>
         </div>
@@ -843,101 +843,101 @@ src/routes/sign-in.tsx</pre>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Everything the agent does behind one spinner</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Everything the agent does behind one spinner</h3>
 <p>For four minutes the screen says only that something is happening. The reader cannot tell which files were read or changed, whether a command is stuck, or how to stop it, and has no reason to trust the result when it arrives. Show each step as a row, fold finished ones into groups, and keep the now-doing line and Stop in view.</p>
 <p>Caught in review, not by the checker.</p>
 </figcaption>
 <div data-example="single-spinner" data-title="Everything the agent does behind one spinner" data-dont="review" data-gallery-frame data-reason="For four minutes the screen says only that something is happening. The reader cannot tell which files were read or changed, whether a command is stuck, or how to stop it, and has no reason to trust the result when it arrives. Show each step as a row, fold finished ones into groups, and keep the now-doing line and Stop in view.">
-  <div class="gw-app-shell">
-    <header class="gw-app-header gw-app-header--sticky">
-      <a class="gw-app-header__back" href="/runs">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <div class="ds-app-shell">
+    <header class="ds-app-header ds-app-header--sticky">
+      <a class="ds-app-header__back" href="/runs">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
         Runs
       </a>
-      <div class="gw-app-header__tray">
-        <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
-          <a class="gw-pending-tray__link" href="/approvals"><span class="gw-pending-tray__count">2</span> approvals waiting</a>
+      <div class="ds-app-header__tray">
+        <div class="ds-pending-tray" aria-live="polite" aria-atomic="true">
+          <a class="ds-pending-tray__link" href="/approvals"><span class="ds-pending-tray__count">2</span> approvals waiting</a>
         </div>
       </div>
     </header>
-    <div class="gw-sidebar-layout gw-app-shell__body">
-      <nav class="gw-sidebar-nav" aria-label="Navigation">
-        <ul class="gw-sidebar-nav__items">
+    <div class="ds-sidebar-layout ds-app-shell__body">
+      <nav class="ds-sidebar-nav" aria-label="Navigation">
+        <ul class="ds-sidebar-nav__items">
           <li>
-            <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
-              <span class="gw-sidebar-nav__label">Runs</span>
+            <a class="ds-sidebar-nav__item" href="/runs" aria-current="page">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-terminal"></use></svg>
+              <span class="ds-sidebar-nav__label">Runs</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/tasks">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
-              <span class="gw-sidebar-nav__label">Tasks</span>
+            <a class="ds-sidebar-nav__item" href="/tasks">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-file"></use></svg>
+              <span class="ds-sidebar-nav__label">Tasks</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/branches">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
-              <span class="gw-sidebar-nav__label">Branches</span>
+            <a class="ds-sidebar-nav__item" href="/branches">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-git-branch"></use></svg>
+              <span class="ds-sidebar-nav__label">Branches</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/approvals">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
-              <span class="gw-sidebar-nav__label">Approvals</span>
+            <a class="ds-sidebar-nav__item" href="/approvals">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>
+              <span class="ds-sidebar-nav__label">Approvals</span>
             </a>
           </li>
         </ul>
       </nav>
-      <div class="gw-container gw-app-shell__main">
-        <div class="gw-agent-run">
-          <div class="gw-agent-run__header">
-            <header class="gw-page-header">
-              <div class="gw-page-header__text">
-                <h1 class="gw-page-header__title">Fix the session refresh after a reload</h1>
-                <p class="gw-page-header__description">Run 4189 in acme/api, on the branch fix/login-timeout</p>
+      <div class="ds-container ds-app-shell__main">
+        <div class="ds-agent-run">
+          <div class="ds-agent-run__header">
+            <header class="ds-page-header">
+              <div class="ds-page-header__text">
+                <h1 class="ds-page-header__title">Fix the session refresh after a reload</h1>
+                <p class="ds-page-header__description">Run 4189 in acme/api, on the branch fix/login-timeout</p>
               </div>
             </header>
-            <ol class="gw-run-timeline" aria-label="Stations of run 4189">
-              <li class="gw-run-timeline__station" data-state="done">
-                <span class="gw-run-timeline__name">Plan</span>
-                <span class="gw-run-timeline__status">Done · <span class="gw-run-timeline__time">1 min 4 s</span></span>
+            <ol class="ds-run-timeline" aria-label="Stations of run 4189">
+              <li class="ds-run-timeline__station" data-state="done">
+                <span class="ds-run-timeline__name">Plan</span>
+                <span class="ds-run-timeline__status">Done · <span class="ds-run-timeline__time">1 min 4 s</span></span>
               </li>
-              <li class="gw-run-timeline__station" data-state="running" aria-current="step">
-                <span class="gw-run-timeline__name">Build</span>
-                <span class="gw-run-timeline__status">Running</span>
+              <li class="ds-run-timeline__station" data-state="running" aria-current="step">
+                <span class="ds-run-timeline__name">Build</span>
+                <span class="ds-run-timeline__status">Running</span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Verify</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Verify</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Review</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Review</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
-              <li class="gw-run-timeline__station" data-state="not-started">
-                <span class="gw-run-timeline__name">Decide</span>
-                <span class="gw-run-timeline__status">Not started</span>
+              <li class="ds-run-timeline__station" data-state="not-started">
+                <span class="ds-run-timeline__name">Decide</span>
+                <span class="ds-run-timeline__status">Not started</span>
               </li>
             </ol>
           </div>
-          <p class="gw-activity-announcer" role="status"></p>
-          <div class="gw-agent-run__transcript">
-            <div class="gw-agent-run__log">
-              <ol class="gw-stack gw-gap-sm">
-                <li class="gw-message gw-message--user">
-                  <span class="gw-message__label">You</span>
-                  <p class="gw-message__body">The session cookie expires after 15 minutes even while the tab is active. Find out why and fix it, then run the auth tests.</p>
+          <p class="ds-activity-announcer" role="status"></p>
+          <div class="ds-agent-run__transcript">
+            <div class="ds-agent-run__log">
+              <ol class="ds-stack ds-gap-sm">
+                <li class="ds-message ds-message--user">
+                  <span class="ds-message__label">You</span>
+                  <p class="ds-message__body">The session cookie expires after 15 minutes even while the tab is active. Find out why and fix it, then run the auth tests.</p>
                 </li>
               </ol>
-              <p class="gw-spinner gw-spinner--large" role="status">Working</p>
+              <p class="ds-spinner ds-spinner--large" role="status">Working</p>
             </div>
-            <div class="gw-agent-run__dock">
-              <form class="gw-composer">
-                <label class="gw-composer__label" for="agent-run-spinner-prompt">Message Claude Code</label>
-                <div class="gw-composer__row">
-                  <textarea class="gw-composer__input" id="agent-run-spinner-prompt" name="prompt" rows="1"></textarea>
-                  <button type="submit" class="gw-button gw-button--primary">Send</button>
+            <div class="ds-agent-run__dock">
+              <form class="ds-composer">
+                <label class="ds-composer__label" for="agent-run-spinner-prompt">Message Claude Code</label>
+                <div class="ds-composer__row">
+                  <textarea class="ds-composer__input" id="agent-run-spinner-prompt" name="prompt" rows="1"></textarea>
+                  <button type="submit" class="ds-button ds-button--primary">Send</button>
                 </div>
               </form>
             </div>
@@ -950,7 +950,7 @@ src/routes/sign-in.tsx</pre>
 </figure>
 </div>
 </section>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
@@ -972,14 +972,14 @@ src/routes/sign-in.tsx</pre>
 <h2>Accessibility</h2>
 <ul>
 <li>The screen sits in the main column of the app shell. It is a detail screen, so the app header holds a back link to the list of runs and the pending tray, and there is no tab bar. The page header holds the view's one h1, the title of the run.</li>
-<li>gw-agent-run is the one child of the main column. It holds gw-agent-run__header, with the page header and then the run timeline, then the activity announcer, then gw-agent-run__transcript.</li>
-<li>The activity announcer is the view's one status region for the run, in the page from the first render. The transcript is a div with gw-agent-run__log, role=&quot;log&quot;, aria-live=&quot;off&quot; and a name, around the ol of rows. Nothing else on the screen announces the run: not the now-doing line, not a time that counts up, not the text that is arriving.</li>
+<li>ds-agent-run is the one child of the main column. It holds ds-agent-run__header, with the page header and then the run timeline, then the activity announcer, then ds-agent-run__transcript.</li>
+<li>The activity announcer is the view's one status region for the run, in the page from the first render. The transcript is a div with ds-agent-run__log, role=&quot;log&quot;, aria-live=&quot;off&quot; and a name, around the ol of rows. Nothing else on the screen announces the run: not the now-doing line, not a time that counts up, not the text that is arriving.</li>
 <li>What is always in view: the agent's text, a question to the reader, the final answer, and one line for every step or group of steps. One level down, behind a step group's summary: the steps of a finished stretch. Two levels down, behind a step's own summary: its arguments and its output. There is no third level.</li>
 <li>Three or more consecutive tool calls go in a step group. The app sets open on a group while a step in it runs or awaits approval and when one has failed, and closes a finished group only if the reader has not opened or closed it themselves. The final answer is never inside a group.</li>
-<li>A step that waits for approval shows Allow and Decline in its row, with secondary emphasis and data-gw-critical. Its group is open and says Awaiting your approval in its summary, and the now-doing line names the wait and links to the row. A wait on the reader takes the now-doing line even while another step runs: that step says Running in its own row and in its group's summary.</li>
-<li>gw-agent-run__dock is fixed to the bottom of the screen. It holds the jump-to-latest block, the now-doing line and the composer, in that order. Stop is on the now-doing line, so the composer keeps Send, which is the view's one primary action while the run is open. Text sent while the agent works is queued by the app.</li>
-<li>The transcript follows its newest row only while the reader is at the bottom. In an app without a framework, gw-agent-run__transcript is the gw-transcript element from behaviors/transcript.js and the times are gw-elapsed elements from behaviors/elapsed.js. A framework app uses a div and does both itself.</li>
-<li>A finished run has no dock. Its groups are closed, its final answer is the last message row, and gw-agent-run__outcome under the log holds the one primary action that moves the work on, with any lesser action beside it at secondary emphasis.</li>
+<li>A step that waits for approval shows Allow and Decline in its row, with secondary emphasis and data-ds-critical. Its group is open and says Awaiting your approval in its summary, and the now-doing line names the wait and links to the row. A wait on the reader takes the now-doing line even while another step runs: that step says Running in its own row and in its group's summary.</li>
+<li>ds-agent-run__dock is fixed to the bottom of the screen. It holds the jump-to-latest block, the now-doing line and the composer, in that order. Stop is on the now-doing line, so the composer keeps Send, which is the view's one primary action while the run is open. Text sent while the agent works is queued by the app.</li>
+<li>The transcript follows its newest row only while the reader is at the bottom. In an app without a framework, ds-agent-run__transcript is the ds-transcript element from behaviors/transcript.js and the times are ds-elapsed elements from behaviors/elapsed.js. A framework app uses a div and does both itself.</li>
+<li>A finished run has no dock. Its groups are closed, its final answer is the last message row, and ds-agent-run__outcome under the log holds the one primary action that moves the work on, with any lesser action beside it at secondary emphasis.</li>
 <li>While the transcript loads, the header and the timeline are already there and a skeleton with aria-busy stands in for the rows. A run with nothing in it shows a compact empty state under an h2, with suggestion chips, and a timeline whose stations all read Not started.</li>
 <li>Tab goes through the header, the rows and their summaries in order, then the jump control when it is shown, the link and Stop on the now-doing line, and the composer. Nothing on the screen moves focus by itself.</li>
 </ul>
@@ -987,12 +987,12 @@ src/routes/sign-in.tsx</pre>
 <section>
 <h2>Classes</h2>
 <ul>
-<li><code>gw-agent-run</code></li>
-<li><code>gw-agent-run__dock</code></li>
-<li><code>gw-agent-run__header</code></li>
-<li><code>gw-agent-run__log</code></li>
-<li><code>gw-agent-run__outcome</code></li>
-<li><code>gw-agent-run__transcript</code></li>
+<li><code>ds-agent-run</code></li>
+<li><code>ds-agent-run__dock</code></li>
+<li><code>ds-agent-run__header</code></li>
+<li><code>ds-agent-run__log</code></li>
+<li><code>ds-agent-run__outcome</code></li>
+<li><code>ds-agent-run__transcript</code></li>
 </ul>
 </section>
 </div>

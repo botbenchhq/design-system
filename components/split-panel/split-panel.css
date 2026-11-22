@@ -4,55 +4,55 @@
  * Each region scrolls by itself. The split is fixed: there is no handle to drag and no script.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* Stacked: the list takes two fifths of the height and the detail the rest. */
-  .gw-split-panel {
+  .ds-split-panel {
     display: grid;
     grid-template-rows: minmax(0, 2fr) minmax(0, 3fr);
     grid-template-columns: minmax(0, 1fr);
     min-width: 0;
-    height: var(--gw-size-column);
-    border-width: var(--gw-border-width);
-    border-radius: var(--gw-radius-md);
+    height: var(--ds-size-column);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-md);
   }
 
   /* Inside an app shell that already gives it a height and an edge. */
-  .gw-split-panel--fill {
+  .ds-split-panel--fill {
     height: 100%;
     border-width: 0;
     border-radius: 0;
   }
 
-  .gw-split-panel__list,
-  .gw-split-panel__detail {
+  .ds-split-panel__list,
+  .ds-split-panel__detail {
     min-width: 0;
     min-height: 0;
     overflow-y: auto;
   }
 
   /* A rule between the two regions, on whichever edge they share. */
-  .gw-split-panel__list {
-    border-bottom-width: var(--gw-border-width);
+  .ds-split-panel__list {
+    border-bottom-width: var(--ds-border-width);
   }
 
-  .gw-split-panel__detail {
+  .ds-split-panel__detail {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-md);
-    padding: var(--gw-space-lg);
+    gap: var(--ds-space-md);
+    padding: var(--ds-space-lg);
     overflow-wrap: anywhere;
   }
 
   /* Side by side. There is no width token for a list column, so it is a fraction of the reading column. */
   @media (min-width: 768px) {
-    .gw-split-panel {
+    .ds-split-panel {
       grid-template-rows: minmax(0, 1fr);
-      grid-template-columns: calc(var(--gw-size-column) * 0.6) minmax(0, 1fr);
+      grid-template-columns: calc(var(--ds-size-column) * 0.6) minmax(0, 1fr);
     }
 
-    .gw-split-panel__list {
+    .ds-split-panel__list {
       border-bottom-width: 0;
-      border-inline-end-width: var(--gw-border-width);
+      border-inline-end-width: var(--ds-border-width);
     }
   }
 }

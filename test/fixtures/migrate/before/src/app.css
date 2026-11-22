@@ -1,0 +1,16 @@
+@layer base, gw.reset, gw.tokens, gw.base, gw.components;
+
+@layer gw.components {
+  .app-panel {
+    padding: var(--gw-space-md);
+    animation-name: gw-streaming-turn;
+  }
+}
+
+[data-gw-critical] {
+  anchor-name: --gw-anchor;
+}
+
+gw-tabs .gw-visually-hidden {
+  margin: 0;
+}

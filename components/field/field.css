@@ -3,84 +3,84 @@
  * The label, the control, the description and the error are siblings, in that order.
  */
 
-@layer gw.components {
-  .gw-field {
+@layer ds.components {
+  .ds-field {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
   }
 
-  .gw-field__label {
+  .ds-field__label {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    column-gap: var(--gw-space-sm);
-    font-weight: var(--gw-weight-medium);
+    column-gap: var(--ds-space-sm);
+    font-weight: var(--ds-weight-medium);
   }
 
   /* The word itself marks the field as required. Its colour only makes it quieter than the label. */
-  .gw-field__required {
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-normal);
+  .ds-field__required {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-normal);
   }
 
   /* 16px at compact widths, because iOS zooms the page when a smaller input takes focus. */
-  .gw-field__control {
+  .ds-field__control {
     width: 100%;
-    min-height: var(--gw-size-touch);
-    padding: var(--gw-space-sm) var(--gw-space-md);
-    border-width: var(--gw-border-width);
-    border-color: var(--gw-color-border-strong);
-    border-radius: var(--gw-radius-md);
-    background-color: var(--gw-color-surface-raised);
-    font-size: var(--gw-text-lg);
-    line-height: var(--gw-leading-lg);
-    transition: border-color var(--gw-duration-fast) var(--gw-ease);
+    min-height: var(--ds-size-touch);
+    padding: var(--ds-space-sm) var(--ds-space-md);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
+    font-size: var(--ds-text-lg);
+    line-height: var(--ds-leading-lg);
+    transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
 
   @media (min-width: 768px) {
-    .gw-field__control {
-      font-size: var(--gw-text-ui);
-      line-height: var(--gw-leading-ui);
+    .ds-field__control {
+      font-size: var(--ds-text-ui);
+      line-height: var(--ds-leading-ui);
     }
   }
 
-  .gw-field__control[aria-invalid="true"] {
-    border-color: var(--gw-color-danger);
+  .ds-field__control[aria-invalid="true"] {
+    border-color: var(--ds-color-danger);
   }
 
-  .gw-field__control[readonly] {
-    border-color: var(--gw-color-border);
-    background-color: var(--gw-color-surface-sunken);
+  .ds-field__control[readonly] {
+    border-color: var(--ds-color-border);
+    background-color: var(--ds-color-surface-sunken);
   }
 
-  .gw-field__control:disabled {
-    border-color: var(--gw-color-border);
+  .ds-field__control:disabled {
+    border-color: var(--ds-color-border);
     background-color: transparent;
-    color: var(--gw-color-muted);
+    color: var(--ds-color-muted);
   }
 
-  .gw-field__description {
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+  .ds-field__description {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
   }
 
-  .gw-field__error {
+  .ds-field__error {
     display: flex;
-    gap: var(--gw-space-xs);
-    color: var(--gw-color-danger);
+    gap: var(--ds-space-xs);
+    color: var(--ds-color-danger);
     /* The text is a flex item beside the icon, which only shrinks below a long word when the word may break anywhere. */
     overflow-wrap: anywhere;
   }
 
   /* The icon is drawn here, so an error is never marked by colour alone, whatever the markup holds. */
-  .gw-field__error::before {
+  .ds-field__error::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     background-color: currentColor;
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }

@@ -1,50 +1,50 @@
 <div data-example="key" data-title="A single key in a sentence" data-state="default">
-  <p>Press <kbd class="gw-kbd">/</kbd> to search runs, and <kbd class="gw-kbd">Esc</kbd> to close the search.</p>
+  <p>Press <kbd class="ds-kbd">/</kbd> to search runs, and <kbd class="ds-kbd">Esc</kbd> to close the search.</p>
 </div>
 
 <div data-example="combination" data-title="A combination" data-reason="Each key is its own kbd and the plus between them is text, so a screen reader reads Ctrl plus K and the reader sees two keys, not one key with a long name.">
-  <p>Open the command palette with <kbd class="gw-kbd__combo"><kbd class="gw-kbd">Ctrl</kbd> + <kbd class="gw-kbd">K</kbd></kbd>, or reopen the last run with <kbd class="gw-kbd__combo"><kbd class="gw-kbd">Ctrl</kbd> + <kbd class="gw-kbd">Shift</kbd> + <kbd class="gw-kbd">R</kbd></kbd>.</p>
+  <p>Open the command palette with <kbd class="ds-kbd__combo"><kbd class="ds-kbd">Ctrl</kbd> + <kbd class="ds-kbd">K</kbd></kbd>, or reopen the last run with <kbd class="ds-kbd__combo"><kbd class="ds-kbd">Ctrl</kbd> + <kbd class="ds-kbd">Shift</kbd> + <kbd class="ds-kbd">R</kbd></kbd>.</p>
 </div>
 
 <div data-example="sequence" data-title="Keys pressed one after the other">
-  <p>Go to the runs board with <kbd class="gw-kbd">G</kbd> then <kbd class="gw-kbd">R</kbd>.</p>
+  <p>Go to the runs board with <kbd class="ds-kbd">G</kbd> then <kbd class="ds-kbd">R</kbd>.</p>
 </div>
 
 <div data-example="beside-control" data-title="Beside the control it belongs to" data-reason="The button is how the reader finds and performs the action. The key beside it is a faster way for someone who already knows the view, and the button reports the same shortcut to assistive technology.">
-  <div class="gw-cluster">
-    <button type="button" class="gw-button" aria-keyshortcuts="Control+K">
-      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
+  <div class="ds-cluster">
+    <button type="button" class="ds-button" aria-keyshortcuts="Control+K">
+      <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-search"></use></svg>
       Search runs
     </button>
-    <kbd class="gw-kbd__combo"><kbd class="gw-kbd">Ctrl</kbd> + <kbd class="gw-kbd">K</kbd></kbd>
+    <kbd class="ds-kbd__combo"><kbd class="ds-kbd">Ctrl</kbd> + <kbd class="ds-kbd">K</kbd></kbd>
   </div>
 </div>
 
 <div data-example="shortcut-list" data-title="A list of shortcuts">
-  <dl class="gw-key-value">
-    <div class="gw-key-value__item">
-      <dt class="gw-key-value__label">Search runs</dt>
-      <dd class="gw-key-value__value"><kbd class="gw-kbd">/</kbd></dd>
+  <dl class="ds-key-value">
+    <div class="ds-key-value__item">
+      <dt class="ds-key-value__label">Search runs</dt>
+      <dd class="ds-key-value__value"><kbd class="ds-kbd">/</kbd></dd>
     </div>
-    <div class="gw-key-value__item">
-      <dt class="gw-key-value__label">Open the command palette</dt>
-      <dd class="gw-key-value__value"><kbd class="gw-kbd__combo"><kbd class="gw-kbd">Ctrl</kbd> + <kbd class="gw-kbd">K</kbd></kbd></dd>
+    <div class="ds-key-value__item">
+      <dt class="ds-key-value__label">Open the command palette</dt>
+      <dd class="ds-key-value__value"><kbd class="ds-kbd__combo"><kbd class="ds-kbd">Ctrl</kbd> + <kbd class="ds-kbd">K</kbd></kbd></dd>
     </div>
-    <div class="gw-key-value__item">
-      <dt class="gw-key-value__label">Send the message</dt>
-      <dd class="gw-key-value__value"><kbd class="gw-kbd__combo"><kbd class="gw-kbd">Ctrl</kbd> + <kbd class="gw-kbd">Enter</kbd></kbd></dd>
+    <div class="ds-key-value__item">
+      <dt class="ds-key-value__label">Send the message</dt>
+      <dd class="ds-key-value__value"><kbd class="ds-kbd__combo"><kbd class="ds-kbd">Ctrl</kbd> + <kbd class="ds-kbd">Enter</kbd></kbd></dd>
     </div>
-    <div class="gw-key-value__item">
-      <dt class="gw-key-value__label">Move to the next approval</dt>
-      <dd class="gw-key-value__value"><kbd class="gw-kbd">J</kbd> or <kbd class="gw-kbd">Down arrow</kbd></dd>
+    <div class="ds-key-value__item">
+      <dt class="ds-key-value__label">Move to the next approval</dt>
+      <dd class="ds-key-value__value"><kbd class="ds-kbd">J</kbd> or <kbd class="ds-kbd">Down arrow</kbd></dd>
     </div>
   </dl>
 </div>
 
 <div data-example="shortcut-only" data-title="An action that only a shortcut reaches" data-dont="review" data-reason="A phone has no keyboard, and a reader who does not know the keys has nothing to press. Allow and Decline are buttons in the view, and the keys are a hint beside them.">
-  <p>Claude Code asks to run <code>npm run test</code>. Press <kbd class="gw-kbd">A</kbd> to allow or <kbd class="gw-kbd">D</kbd> to decline.</p>
+  <p>Claude Code asks to run <code>npm run test</code>. Press <kbd class="ds-kbd">A</kbd> to allow or <kbd class="ds-kbd">D</kbd> to decline.</p>
 </div>
 
 <div data-example="one-box" data-title="A combination written as one key" data-dont="review" data-reason="Written as one key, the combination looks like a single key named Ctrl+K, and the symbol for a modifier is read differently by each screen reader. Give each key its own kbd, name it in a word and join the keys with a plus sign as text.">
-  <p>Open the command palette with <kbd class="gw-kbd">⌃K</kbd>.</p>
+  <p>Open the command palette with <kbd class="ds-kbd">⌃K</kbd>.</p>
 </div>

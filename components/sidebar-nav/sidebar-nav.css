@@ -1,70 +1,70 @@
 /*
  * Sidebar nav: the destinations of an app in a column beside the content, at the regular width.
  * Below 768px it is not shown, and the tab bar lists the main destinations along the bottom instead.
- * It is the first child of gw-sidebar-layout, which gives it the leading column.
+ * It is the first child of ds-sidebar-layout, which gives it the leading column.
  */
 
-@layer gw.components {
-  .gw-sidebar-nav {
+@layer ds.components {
+  .ds-sidebar-nav {
     display: none;
   }
 
   /* The column is five pointer targets wide. There is no width token for a sidebar. */
   @media (min-width: 768px) {
-    .gw-sidebar-nav {
+    .ds-sidebar-nav {
       display: flex;
       flex-direction: column;
-      gap: var(--gw-space-lg);
-      width: calc(var(--gw-size-touch) * 5);
+      gap: var(--ds-space-lg);
+      width: calc(var(--ds-size-touch) * 5);
       min-width: 0;
-      padding: var(--gw-space-md) var(--gw-space-sm);
-      border-inline-end-width: var(--gw-border-width);
-      background-color: var(--gw-color-surface);
+      padding: var(--ds-space-md) var(--ds-space-sm);
+      border-inline-end-width: var(--ds-border-width);
+      background-color: var(--ds-color-surface);
     }
   }
 
-  .gw-sidebar-nav__section {
+  .ds-sidebar-nav__section {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
   }
 
   /* The label of a section, starting on the same line as the icons below it. */
-  .gw-sidebar-nav__heading {
-    padding-inline: var(--gw-space-md);
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-medium);
-    line-height: var(--gw-leading-xs);
+  .ds-sidebar-nav__heading {
+    padding-inline: var(--ds-space-md);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-xs);
   }
 
-  .gw-sidebar-nav__items {
+  .ds-sidebar-nav__items {
     display: flex;
     flex-direction: column;
   }
 
-  .gw-sidebar-nav__item {
+  .ds-sidebar-nav__item {
     position: relative;
     display: flex;
     align-items: center;
-    gap: var(--gw-space-md);
-    min-height: var(--gw-size-touch);
-    padding: var(--gw-space-xs) var(--gw-space-md);
-    border-radius: var(--gw-radius-sm);
-    color: var(--gw-color-muted);
+    gap: var(--ds-space-md);
+    min-height: var(--ds-size-touch);
+    padding: var(--ds-space-xs) var(--ds-space-md);
+    border-radius: var(--ds-radius-sm);
+    color: var(--ds-color-muted);
     transition-property: background-color, color;
-    transition-duration: var(--gw-duration-fast);
-    transition-timing-function: var(--gw-ease);
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
   }
 
-  .gw-sidebar-nav__icon {
+  .ds-sidebar-nav__icon {
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
   }
 
   /* One line. A label too long for the column is cut with an ellipsis. */
-  .gw-sidebar-nav__label {
+  .ds-sidebar-nav__label {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -72,49 +72,49 @@
   }
 
   /* The last thing in the column, pushed to its foot: a short list of items or a note. */
-  .gw-sidebar-nav__footer {
+  .ds-sidebar-nav__footer {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
     margin-top: auto;
-    padding-top: var(--gw-space-sm);
-    border-top-width: var(--gw-border-width);
+    padding-top: var(--ds-space-sm);
+    border-top-width: var(--ds-border-width);
   }
 
-  .gw-sidebar-nav__note {
-    padding: var(--gw-space-xs) var(--gw-space-md);
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+  .ds-sidebar-nav__note {
+    padding: var(--ds-space-xs) var(--ds-space-md);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
     overflow-wrap: anywhere;
   }
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   @media (hover: hover) {
-    .gw-sidebar-nav__item:hover {
-      background-color: var(--gw-color-surface-sunken);
-      color: var(--gw-color-on-surface);
+    .ds-sidebar-nav__item:hover {
+      background-color: var(--ds-color-surface-sunken);
+      color: var(--ds-color-on-surface);
     }
   }
 
-  .gw-sidebar-nav__item:active {
-    background-color: var(--gw-color-border);
-    color: var(--gw-color-on-surface);
+  .ds-sidebar-nav__item:active {
+    background-color: var(--ds-color-border);
+    color: var(--ds-color-on-surface);
   }
 
   /* The current item is marked by weight and by a bar at its leading edge, as well as by its shade. */
-  .gw-sidebar-nav__item[aria-current]:not([aria-current="false"]) {
-    background-color: var(--gw-color-surface-sunken);
-    color: var(--gw-color-on-surface);
-    font-weight: var(--gw-weight-semibold);
+  .ds-sidebar-nav__item[aria-current]:not([aria-current="false"]) {
+    background-color: var(--ds-color-surface-sunken);
+    color: var(--ds-color-on-surface);
+    font-weight: var(--ds-weight-semibold);
   }
 
-  .gw-sidebar-nav__item[aria-current]:not([aria-current="false"])::before {
+  .ds-sidebar-nav__item[aria-current]:not([aria-current="false"])::before {
     content: "";
     position: absolute;
-    inset-block: var(--gw-space-sm);
+    inset-block: var(--ds-space-sm);
     inset-inline-start: 0;
-    width: calc(var(--gw-border-width) * 2);
-    background-color: var(--gw-color-accent);
+    width: calc(var(--ds-border-width) * 2);
+    background-color: var(--ds-color-accent);
   }
 }

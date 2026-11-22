@@ -16,26 +16,26 @@
   ],
   "variants": [
     { "name": "default", "use": "A mark and a name for each step." },
-    { "name": "with descriptions", "use": "A span with gw-stepper__description after the name: one short fact about the step, such as 214 of 252 tests finished. No modifier class." }
+    { "name": "with descriptions", "use": "A span with ds-stepper__description after the name: one short fact about the step, such as 214 of 252 tests finished. No modifier class." }
   ],
   "sizes": [
     { "name": "default", "use": "Below 768px the steps run down the page, each row at least 44px tall. At 768px and up they run across it, joined by lines." }
   ],
   "states": ["default", "hover", "focus-visible", "error"],
   "accessibility": [
-    "Use an ol with the class gw-stepper and an aria-label that names the flow and the position, such as Connect a repository, step 3 of 4. Each step is an li with gw-stepper__step. A screen reader announces the count and each step's number.",
+    "Use an ol with the class ds-stepper and an aria-label that names the flow and the position, such as Connect a repository, step 3 of 4. Each step is an li with ds-stepper__step. A screen reader announces the count and each step's number.",
     "Set aria-current=\"step\" on the li of the current step. That attribute is the whole state: the stylesheet draws the steps before it as completed and the steps after it as upcoming. Move the attribute as the reader goes on. The numbers are drawn from the order of the list.",
-    "Each state has a mark as well as a colour: a check in a ring for completed, the number on a fill with a heavier name for current, the number in an outline for upcoming. Each name also starts with its state in a span with gw-visually-hidden: Completed, Current or Not started, followed by a colon.",
-    "The name is a span with gw-stepper__label. On a completed step it is an a element with the same class, underlined, that goes back to that step. The current and the upcoming steps are never links.",
+    "Each state has a mark as well as a colour: a check in a ring for completed, the number on a fill with a heavier name for current, the number in an outline for upcoming. Each name also starts with its state in a span with ds-visually-hidden: Completed, Current or Not started, followed by a colon.",
+    "The name is a span with ds-stepper__label. On a completed step it is an a element with the same class, underlined, that goes back to that step. The current and the upcoming steps are never links.",
     "When every step is done the flow is over. Replace the stepper with the result, since no step carries aria-current any longer.",
     "When the current step fails, keep aria-current on it, say so in its description, and put an alert below the stepper that says what happened and what to do.",
     "Tab reaches the links of the completed steps and Enter follows one. The component needs no script."
   ],
   "icons": ["circle-check"],
   "classes": [
-    "gw-stepper",
-    "gw-stepper__description",
-    "gw-stepper__label",
-    "gw-stepper__step"
+    "ds-stepper",
+    "ds-stepper__description",
+    "ds-stepper__label",
+    "ds-stepper__step"
   ]
 }

@@ -1,70 +1,70 @@
-<div data-example="tones" data-title="The four tones" data-state="default" class="gw-stack">
-  <div class="gw-alert">
-    <div class="gw-alert__content">
-      <p class="gw-alert__label">Note</p>
-      <p class="gw-alert__body">This run used the setup commands saved for acme/api.</p>
+<div data-example="tones" data-title="The four tones" data-state="default" class="ds-stack">
+  <div class="ds-alert">
+    <div class="ds-alert__content">
+      <p class="ds-alert__label">Note</p>
+      <p class="ds-alert__body">This run used the setup commands saved for acme/api.</p>
     </div>
   </div>
-  <div class="gw-alert gw-alert--success">
-    <div class="gw-alert__content">
-      <p class="gw-alert__label">Done</p>
-      <p class="gw-alert__body">All 214 tests passed on fix/login-timeout.</p>
+  <div class="ds-alert ds-alert--success">
+    <div class="ds-alert__content">
+      <p class="ds-alert__label">Done</p>
+      <p class="ds-alert__body">All 214 tests passed on fix/login-timeout.</p>
     </div>
   </div>
-  <div class="gw-alert gw-alert--warning">
-    <div class="gw-alert__content">
-      <p class="gw-alert__label">Warning</p>
-      <p class="gw-alert__body">The base branch has 14 new commits. Rebase before opening a pull request.</p>
+  <div class="ds-alert ds-alert--warning">
+    <div class="ds-alert__content">
+      <p class="ds-alert__label">Warning</p>
+      <p class="ds-alert__body">The base branch has 14 new commits. Rebase before opening a pull request.</p>
     </div>
   </div>
-  <div class="gw-alert gw-alert--danger">
-    <div class="gw-alert__content">
-      <p class="gw-alert__label">Error</p>
-      <p class="gw-alert__body">The push was rejected because main is protected. Push to a task branch instead.</p>
+  <div class="ds-alert ds-alert--danger">
+    <div class="ds-alert__content">
+      <p class="ds-alert__label">Error</p>
+      <p class="ds-alert__body">The push was rejected because main is protected. Push to a task branch instead.</p>
     </div>
   </div>
 </div>
 
 <div data-example="with-title" data-title="With a title and a body">
-  <div class="gw-alert gw-alert--warning">
-    <div class="gw-alert__content">
-      <p class="gw-alert__label">Warning</p>
-      <p class="gw-alert__title">The workspace is almost out of disk space</p>
-      <p class="gw-alert__body">412 MB of 20 GB is free. A build needs about 2 GB, so the next run is likely to fail. Delete old workspaces to free space.</p>
+  <div class="ds-alert ds-alert--warning">
+    <div class="ds-alert__content">
+      <p class="ds-alert__label">Warning</p>
+      <p class="ds-alert__title">The workspace is almost out of disk space</p>
+      <p class="ds-alert__body">412 MB of 20 GB is free. A build needs about 2 GB, so the next run is likely to fail. Delete old workspaces to free space.</p>
     </div>
   </div>
 </div>
 
 <div data-example="with-action" data-title="With one action" data-reason="The message says what happened and what to do, and the one action does it. The role makes a screen reader announce the message when the app adds it.">
-  <div class="gw-alert gw-alert--danger" role="alert">
-    <div class="gw-alert__content">
-      <p class="gw-alert__label">Error</p>
-      <p class="gw-alert__title">The run stopped before it finished</p>
-      <p class="gw-alert__body">The runner lost its connection after 12 minutes. The work so far is saved on fix/login-timeout. Resume to carry on from the last commit.</p>
-      <div class="gw-alert__action">
-        <button type="button" class="gw-button gw-button--small">Resume run</button>
+  <div class="ds-alert ds-alert--danger" role="alert">
+    <div class="ds-alert__content">
+      <p class="ds-alert__label">Error</p>
+      <p class="ds-alert__title">The run stopped before it finished</p>
+      <p class="ds-alert__body">The runner lost its connection after 12 minutes. The work so far is saved on fix/login-timeout. Resume to carry on from the last commit.</p>
+      <div class="ds-alert__action">
+        <button type="button" class="ds-button ds-button--small">Resume run</button>
       </div>
     </div>
   </div>
 </div>
 
 <div data-example="status-role" data-title="A result announced politely">
-  <div class="gw-alert gw-alert--success" role="status">
-    <div class="gw-alert__content">
-      <p class="gw-alert__label">Done</p>
-      <p class="gw-alert__body">Pull request 482 was opened against main.</p>
-      <div class="gw-alert__action">
-        <a class="gw-button gw-button--small" href="#pull-482">View pull request</a>
+  <div class="ds-alert ds-alert--success" role="status">
+    <div class="ds-alert__content">
+      <p class="ds-alert__label">Done</p>
+      <p class="ds-alert__body">Pull request 482 was opened against main.</p>
+      <div class="ds-alert__action">
+        <a class="ds-button ds-button--small" href="#pull-482">View pull request</a>
       </div>
     </div>
   </div>
 </div>
 
 <div data-example="vague" data-title="A message that does not say what to do" data-dont="review" data-reason="The reader learns that something failed but not what, or what to try. Name what failed and the next step, and offer that step as the action.">
-  <div class="gw-alert gw-alert--danger" role="alert">
-    <div class="gw-alert__content">
-      <p class="gw-alert__label">Error</p>
-      <p class="gw-alert__body">Something went wrong.</p>
+  <div class="ds-alert ds-alert--danger" role="alert">
+    <div class="ds-alert__content">
+      <p class="ds-alert__label">Error</p>
+      <p class="ds-alert__body">Something went wrong.</p>
     </div>
   </div>
 </div>

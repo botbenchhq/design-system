@@ -17,13 +17,13 @@
   ],
   "variants": [
     { "name": "default", "use": "Values in the interface typeface." },
-    { "name": "mono value", "class": "gw-key-value__value--mono", "use": "On a single value, with gw-key-value__value: a path, a hash, a command or a branch name, in the mono typeface. Mix it freely with plain values in one list." },
-    { "name": "empty value", "class": "gw-key-value__value--empty", "use": "On a value that is not there, with gw-key-value__value. The value is written in words, such as Not set, and drawn in the quiet colour." }
+    { "name": "mono value", "class": "ds-key-value__value--mono", "use": "On a single value, with ds-key-value__value: a path, a hash, a command or a branch name, in the mono typeface. Mix it freely with plain values in one list." },
+    { "name": "empty value", "class": "ds-key-value__value--empty", "use": "On a value that is not there, with ds-key-value__value. The value is written in words, such as Not set, and drawn in the quiet colour." }
   ],
   "sizes": [],
   "states": ["default", "empty"],
   "accessibility": [
-    "Use a dl. Each pair is a div with the class gw-key-value__item, holding one dt, gw-key-value__label, and one dd, gw-key-value__value. A screen reader then announces each value with its label.",
+    "Use a dl. Each pair is a div with the class ds-key-value__item, holding one dt, ds-key-value__label, and one dd, ds-key-value__value. A screen reader then announces each value with its label.",
     "The label is a noun in sentence case with no colon. The stylesheet does not add one.",
     "A value is never blank and never a lone dash. When there is none, write it in words: Not set, None opened yet. The quiet colour of the empty variant supports the words and does not replace them.",
     "A number carries its unit, and a time is written so it cannot be misread, inside a time element with a datetime attribute.",
@@ -32,11 +32,11 @@
   ],
   "icons": [],
   "classes": [
-    "gw-key-value",
-    "gw-key-value__item",
-    "gw-key-value__label",
-    "gw-key-value__value",
-    "gw-key-value__value--empty",
-    "gw-key-value__value--mono"
+    "ds-key-value",
+    "ds-key-value__item",
+    "ds-key-value__label",
+    "ds-key-value__value",
+    "ds-key-value__value--empty",
+    "ds-key-value__value--mono"
   ]
 }

@@ -1,13 +1,13 @@
-// Behaviours for Groundwork components that native elements cannot provide.
-// One ES module with no dependencies: <script type="module" src="behaviors/groundwork.js"></script>
+// Behaviours for the design system's components that native elements cannot provide.
+// One ES module with no dependencies: <script type="module" src="behaviors/tabs.js"></script>
 //
-// <gw-tabs> wraps the markup of the tabs component, in the light DOM. It sets aria-selected and
+// <ds-tabs> wraps the markup of the tabs component, in the light DOM. It sets aria-selected and
 // tabindex on each tab and hidden on each panel, and handles click, Left, Right, Home and End.
 // It adds no class and no inline style: the stylesheet reads those attributes and nothing else.
 
 const TAB = '[role="tab"]';
 
-class GwTabs extends HTMLElement {
+class DsTabs extends HTMLElement {
   constructor() {
     super();
     this.addEventListener("click", this);
@@ -20,9 +20,9 @@ class GwTabs extends HTMLElement {
     if (selected) this.select(selected);
   }
 
-  // The tabs of this element, leaving out those of a gw-tabs nested in one of its panels.
+  // The tabs of this element, leaving out those of a ds-tabs nested in one of its panels.
   get tabs() {
-    return [...this.querySelectorAll(TAB)].filter((tab) => tab.closest("gw-tabs") === this);
+    return [...this.querySelectorAll(TAB)].filter((tab) => tab.closest("ds-tabs") === this);
   }
 
   select(tab) {
@@ -37,7 +37,7 @@ class GwTabs extends HTMLElement {
 
   handleEvent(event) {
     const tab = event.target.closest?.(TAB);
-    if (!tab || tab.closest("gw-tabs") !== this) return;
+    if (!tab || tab.closest("ds-tabs") !== this) return;
     if (event.type === "click") {
       this.select(tab);
       return;
@@ -57,4 +57,4 @@ class GwTabs extends HTMLElement {
   }
 }
 
-if (!customElements.get("gw-tabs")) customElements.define("gw-tabs", GwTabs);
+if (!customElements.get("ds-tabs")) customElements.define("ds-tabs", DsTabs);

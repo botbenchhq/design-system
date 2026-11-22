@@ -5,8 +5,8 @@
  * above that line, over the last rows, so showing and hiding it moves nothing. The app sets hidden on the block.
  */
 
-@layer gw.components {
-  .gw-jump-to-latest {
+@layer ds.components {
+  .ds-jump-to-latest {
     position: relative;
     display: flex;
     justify-content: center;
@@ -14,75 +14,75 @@
   }
 
   /* Drawn 32px tall, as a small button is, and it floats over rows, so it has a firm edge and no shadow. */
-  .gw-jump-to-latest__button {
+  .ds-jump-to-latest__button {
     position: absolute;
-    bottom: var(--gw-space-xs);
-    z-index: var(--gw-z-sticky);
+    bottom: var(--ds-space-xs);
+    z-index: var(--ds-z-sticky);
     display: inline-flex;
     align-items: center;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
     max-width: 100%;
-    min-width: var(--gw-size-touch);
-    min-height: var(--gw-space-2xl);
-    padding-inline: var(--gw-space-md) var(--gw-space-lg);
-    border-width: var(--gw-border-width);
-    border-color: var(--gw-color-border-strong);
-    border-radius: var(--gw-radius-full);
-    background-color: var(--gw-color-surface-raised);
-    color: var(--gw-color-on-surface);
-    font-weight: var(--gw-weight-medium);
-    line-height: var(--gw-leading-ui);
+    min-width: var(--ds-size-touch);
+    min-height: var(--ds-space-2xl);
+    padding-inline: var(--ds-space-md) var(--ds-space-lg);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-full);
+    background-color: var(--ds-color-surface-raised);
+    color: var(--ds-color-on-surface);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-ui);
     white-space: nowrap;
-    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+    transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }
 
   /* An arrow that points where the press goes. */
-  .gw-jump-to-latest__button::before {
+  .ds-jump-to-latest__button::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
     background-color: currentColor;
     mask: url("icons/arrow-down.svg") center / contain no-repeat;
   }
 
   /* The pointer target: an invisible box a touch target tall, centred on the button. */
-  .gw-jump-to-latest__button::after {
+  .ds-jump-to-latest__button::after {
     content: "";
     position: absolute;
     top: 50%;
     inset-inline: 0;
-    height: var(--gw-size-touch);
+    height: var(--ds-size-touch);
     translate: 0 -50%;
   }
 
   /* With nothing to count, the span takes no room and the label stands alone. */
-  .gw-jump-to-latest__count:empty {
+  .ds-jump-to-latest__count:empty {
     display: none;
   }
 
   /* How many rows arrived, in words. A dot parts it from the label, and is drawn only when there is a count. */
-  .gw-jump-to-latest__count:not(:empty)::after {
+  .ds-jump-to-latest__count:not(:empty)::after {
     content: "·" / "";
-    margin-inline-start: var(--gw-space-sm);
-    color: var(--gw-color-muted);
+    margin-inline-start: var(--ds-space-sm);
+    color: var(--ds-color-muted);
   }
 
   @media (hover: hover) {
-    .gw-jump-to-latest__button:hover {
-      background-color: var(--gw-color-surface-sunken);
+    .ds-jump-to-latest__button:hover {
+      background-color: var(--ds-color-surface-sunken);
     }
 
-    .gw-jump-to-latest__button:hover > .gw-jump-to-latest__count::after {
-      color: var(--gw-color-on-surface);
+    .ds-jump-to-latest__button:hover > .ds-jump-to-latest__count::after {
+      color: var(--ds-color-on-surface);
     }
   }
 
-  .gw-jump-to-latest__button:active {
-    background-color: var(--gw-color-border);
+  .ds-jump-to-latest__button:active {
+    background-color: var(--ds-color-border);
   }
 
-  .gw-jump-to-latest__button:active > .gw-jump-to-latest__count::after {
-    color: var(--gw-color-on-surface);
+  .ds-jump-to-latest__button:active > .ds-jump-to-latest__count::after {
+    color: var(--ds-color-on-surface);
   }
 }

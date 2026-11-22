@@ -15,17 +15,17 @@
     "For any action other than copying. Use a button."
   ],
   "variants": [
-    { "name": "with a label", "use": "The default: gw-button gw-button--quiet gw-button--small with the copy icon and the word Copy." },
-    { "name": "icon only", "use": "gw-button gw-button--quiet gw-icon-button with the copy icon and an aria-label, for a dense row or a table cell. It is 44px square." }
+    { "name": "with a label", "use": "The default: ds-button ds-button--quiet ds-button--small with the copy icon and the word Copy." },
+    { "name": "icon only", "use": "ds-button ds-button--quiet ds-icon-button with the copy icon and an aria-label, for a dense row or a table cell. It is 44px square." }
   ],
   "sizes": [
     { "name": "default", "use": "The labelled button is drawn 32px tall with a 44px pointer target. The icon-only button is 44px square." }
   ],
   "states": ["default", "hover", "focus-visible", "copied", "error", "disabled"],
   "accessibility": [
-    "Wrap the button and its status in a span with the class gw-copy-button. The button is a gw-button with type=\"button\"; this component adds no class to it.",
+    "Wrap the button and its status in a span with the class ds-copy-button. The button is a ds-button with type=\"button\"; this component adds no class to it.",
     "Give the button an aria-label that starts with Copy and names the value, such as Copy branch name, so several on one view can be told apart. The icon carries aria-hidden=\"true\".",
-    "Keep an empty span with gw-copy-button__status and role=\"status\" next to the button from the start, after it or, at the trailing end of a row, before it. role=\"status\" is a polite live region.",
+    "Keep an empty span with ds-copy-button__status and role=\"status\" next to the button from the start, after it or, at the trailing end of a row, before it. role=\"status\" is a polite live region.",
     "The app copies with navigator.clipboard.writeText() on a press, then sets the status text to Copied, or to what was copied, such as Branch name copied. A screen reader announces it and sighted readers see the same word. Clear the text after about 2 seconds.",
     "The confirmation is that word. Do not signal a copy by changing the button's colour or icon alone, do not change the button's name, and do not move focus away from the button.",
     "If the copy fails, set the status text to say so and what to do: Not copied. Select the text and copy it by hand.",
@@ -34,7 +34,7 @@
   ],
   "icons": ["copy"],
   "classes": [
-    "gw-copy-button",
-    "gw-copy-button__status"
+    "ds-copy-button",
+    "ds-copy-button__status"
   ]
 }

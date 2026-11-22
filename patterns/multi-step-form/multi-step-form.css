@@ -1,22 +1,22 @@
 /*
  * Multi-step form: one step of a longer task at a time, in one reading column that starts at the leading edge.
- * The fields, the alert and the actions are catalogue components in a gw-stack. This file holds the
+ * The fields, the alert and the actions are catalogue components in a ds-stack. This file holds the
  * column and the line that says which step this is.
  */
 
-@layer gw.components {
-  .gw-multi-step-form {
+@layer ds.components {
+  .ds-multi-step-form {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-xl);
-    max-width: var(--gw-size-column);
+    gap: var(--ds-space-xl);
+    max-width: var(--ds-size-column);
   }
 
   /* "Step 2 of 4", in words, above the step's heading. */
-  .gw-multi-step-form__step {
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-medium);
-    line-height: var(--gw-leading-xs);
+  .ds-multi-step-form__step {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-xs);
   }
 }

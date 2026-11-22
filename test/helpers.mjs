@@ -6,13 +6,13 @@ import { fileURLToPath } from "node:url";
 export const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 
 export function tempDir() {
-  return mkdtempSync(join(tmpdir(), "groundwork-"));
+  return mkdtempSync(join(tmpdir(), "design-system-"));
 }
 
 // A private copy of the build sources, so a test can edit them.
 export function copySources() {
   const root = tempDir();
-  for (const dir of ["tokens", "base", "components", "patterns", "gallery", "behaviors", "checker", "rules", "hooks"]) cpSync(join(repoRoot, dir), join(root, dir), { recursive: true });
+  for (const dir of ["tokens", "base", "components", "patterns", "gallery", "behaviors", "checker", "rules", "hooks", "scripts"]) cpSync(join(repoRoot, dir), join(root, dir), { recursive: true });
   for (const file of ["package.json", "LICENSE", "NOTICE"]) cpSync(join(repoRoot, file), join(root, file));
   return root;
 }
@@ -29,6 +29,6 @@ export function manifestWithClasses(classes) {
 
 // The system classes the structural-rule fixtures use.
 export const FIXTURE_CLASSES = [
-  "gw-container", "gw-stack", "gw-cluster", "gw-split", "gw-grid", "gw-grid-3", "gw-gap-lg",
-  "gw-button", "gw-button--primary", "gw-card", "gw-badge", "gw-text-center",
+  "ds-container", "ds-stack", "ds-cluster", "ds-split", "ds-grid", "ds-grid-3", "ds-gap-lg",
+  "ds-button", "ds-button--primary", "ds-card", "ds-badge", "ds-text-center",
 ];

@@ -1,108 +1,108 @@
 <div data-example="default" data-title="A base branch, chosen by typing" data-state="default" data-gallery-frame="short" data-reason="Typing narrows a long list to a few options, which a select cannot do. The input says it is a combobox and whether its list is open, the active option is named through aria-activedescendant, and the count is announced, so the keyboard and a screen reader get everything the pointer gets.">
-  <div class="gw-field">
-    <label class="gw-field__label" for="combobox-default-input">Base branch</label>
-    <gw-combobox class="gw-combobox">
-      <svg class="gw-combobox__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-      <input class="gw-field__control gw-combobox__input" id="combobox-default-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-default-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="main" aria-describedby="combobox-default-description">
-      <div class="gw-combobox__panel">
-        <ul class="gw-combobox__list" role="listbox" id="combobox-default-list" aria-label="Branches of acme/api">
-        <li class="gw-combobox__option" role="option" id="combobox-default-option-1" aria-selected="false">main</li>
-        <li class="gw-combobox__option" role="option" id="combobox-default-option-2" aria-selected="false">develop</li>
-        <li class="gw-combobox__option" role="option" id="combobox-default-option-3" aria-selected="false">fix/login-timeout</li>
-        <li class="gw-combobox__option" role="option" id="combobox-default-option-4" aria-selected="false">fix/session-refresh</li>
-        <li class="gw-combobox__option" role="option" id="combobox-default-option-5" aria-selected="false">release/2026-11</li>
+  <div class="ds-field">
+    <label class="ds-field__label" for="combobox-default-input">Base branch</label>
+    <ds-combobox class="ds-combobox">
+      <svg class="ds-combobox__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+      <input class="ds-field__control ds-combobox__input" id="combobox-default-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-default-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="main" aria-describedby="combobox-default-description">
+      <div class="ds-combobox__panel">
+        <ul class="ds-combobox__list" role="listbox" id="combobox-default-list" aria-label="Branches of acme/api">
+        <li class="ds-combobox__option" role="option" id="combobox-default-option-1" aria-selected="false">main</li>
+        <li class="ds-combobox__option" role="option" id="combobox-default-option-2" aria-selected="false">develop</li>
+        <li class="ds-combobox__option" role="option" id="combobox-default-option-3" aria-selected="false">fix/login-timeout</li>
+        <li class="ds-combobox__option" role="option" id="combobox-default-option-4" aria-selected="false">fix/session-refresh</li>
+        <li class="ds-combobox__option" role="option" id="combobox-default-option-5" aria-selected="false">release/2026-11</li>
         </ul>
-        <p class="gw-combobox__message" hidden>No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
+        <p class="ds-combobox__message" hidden>No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
       </div>
-      <p class="gw-visually-hidden" role="status" data-gw-count="{count} of {total} branches"></p>
-    </gw-combobox>
-    <p class="gw-field__description" id="combobox-default-description">Type part of a branch name, then choose it from the list.</p>
+      <p class="ds-visually-hidden" role="status" data-ds-count="{count} of {total} branches"></p>
+    </ds-combobox>
+    <p class="ds-field__description" id="combobox-default-description">Type part of a branch name, then choose it from the list.</p>
   </div>
 </div>
 
 <div data-example="open" data-title="Open, with an active option" data-state="open" data-gallery-frame>
-  <div class="gw-field">
-    <label class="gw-field__label" for="combobox-open-input">Base branch</label>
-    <div class="gw-combobox">
-      <svg class="gw-combobox__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-      <input class="gw-field__control gw-combobox__input" id="combobox-open-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="combobox-open-list" aria-activedescendant="combobox-open-option-2" autocomplete="off" autocapitalize="none" spellcheck="false">
-      <div class="gw-combobox__panel">
-        <ul class="gw-combobox__list" role="listbox" id="combobox-open-list" aria-label="Branches of acme/api">
-        <li class="gw-combobox__option" role="option" id="combobox-open-option-1" aria-selected="false">main</li>
-        <li class="gw-combobox__option" role="option" id="combobox-open-option-2" aria-selected="true">develop</li>
-        <li class="gw-combobox__option" role="option" id="combobox-open-option-3" aria-selected="false">fix/login-timeout</li>
-        <li class="gw-combobox__option" role="option" id="combobox-open-option-4" aria-selected="false">fix/session-refresh</li>
-        <li class="gw-combobox__option" role="option" id="combobox-open-option-5" aria-selected="false">release/2026-11</li>
+  <div class="ds-field">
+    <label class="ds-field__label" for="combobox-open-input">Base branch</label>
+    <div class="ds-combobox">
+      <svg class="ds-combobox__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+      <input class="ds-field__control ds-combobox__input" id="combobox-open-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="combobox-open-list" aria-activedescendant="combobox-open-option-2" autocomplete="off" autocapitalize="none" spellcheck="false">
+      <div class="ds-combobox__panel">
+        <ul class="ds-combobox__list" role="listbox" id="combobox-open-list" aria-label="Branches of acme/api">
+        <li class="ds-combobox__option" role="option" id="combobox-open-option-1" aria-selected="false">main</li>
+        <li class="ds-combobox__option" role="option" id="combobox-open-option-2" aria-selected="true">develop</li>
+        <li class="ds-combobox__option" role="option" id="combobox-open-option-3" aria-selected="false">fix/login-timeout</li>
+        <li class="ds-combobox__option" role="option" id="combobox-open-option-4" aria-selected="false">fix/session-refresh</li>
+        <li class="ds-combobox__option" role="option" id="combobox-open-option-5" aria-selected="false">release/2026-11</li>
         </ul>
-        <p class="gw-combobox__message" hidden>No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
+        <p class="ds-combobox__message" hidden>No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
       </div>
-      <p class="gw-visually-hidden" role="status">5 of 5 branches</p>
+      <p class="ds-visually-hidden" role="status">5 of 5 branches</p>
     </div>
   </div>
 </div>
 
 <div data-example="filtered" data-title="Filtered by what was typed, without an icon" data-state="selected" data-gallery-frame="short">
-  <div class="gw-field">
-    <label class="gw-field__label" for="combobox-filtered-input">Base branch</label>
-    <div class="gw-combobox">
-      <input class="gw-field__control gw-combobox__input" id="combobox-filtered-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="combobox-filtered-list" aria-activedescendant="combobox-filtered-option-4" autocomplete="off" autocapitalize="none" spellcheck="false" value="fix/">
-      <div class="gw-combobox__panel">
-        <ul class="gw-combobox__list" role="listbox" id="combobox-filtered-list" aria-label="Branches of acme/api">
-          <li class="gw-combobox__option" role="option" id="combobox-filtered-option-1" aria-selected="false" hidden>main</li>
-          <li class="gw-combobox__option" role="option" id="combobox-filtered-option-2" aria-selected="false" hidden>develop</li>
-          <li class="gw-combobox__option" role="option" id="combobox-filtered-option-3" aria-selected="false">fix/login-timeout</li>
-          <li class="gw-combobox__option" role="option" id="combobox-filtered-option-4" aria-selected="true">fix/session-refresh</li>
-          <li class="gw-combobox__option" role="option" id="combobox-filtered-option-5" aria-selected="false" hidden>release/2026-11</li>
+  <div class="ds-field">
+    <label class="ds-field__label" for="combobox-filtered-input">Base branch</label>
+    <div class="ds-combobox">
+      <input class="ds-field__control ds-combobox__input" id="combobox-filtered-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="combobox-filtered-list" aria-activedescendant="combobox-filtered-option-4" autocomplete="off" autocapitalize="none" spellcheck="false" value="fix/">
+      <div class="ds-combobox__panel">
+        <ul class="ds-combobox__list" role="listbox" id="combobox-filtered-list" aria-label="Branches of acme/api">
+          <li class="ds-combobox__option" role="option" id="combobox-filtered-option-1" aria-selected="false" hidden>main</li>
+          <li class="ds-combobox__option" role="option" id="combobox-filtered-option-2" aria-selected="false" hidden>develop</li>
+          <li class="ds-combobox__option" role="option" id="combobox-filtered-option-3" aria-selected="false">fix/login-timeout</li>
+          <li class="ds-combobox__option" role="option" id="combobox-filtered-option-4" aria-selected="true">fix/session-refresh</li>
+          <li class="ds-combobox__option" role="option" id="combobox-filtered-option-5" aria-selected="false" hidden>release/2026-11</li>
         </ul>
-        <p class="gw-combobox__message" hidden>No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
+        <p class="ds-combobox__message" hidden>No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
       </div>
-      <p class="gw-visually-hidden" role="status">2 of 5 branches</p>
+      <p class="ds-visually-hidden" role="status">2 of 5 branches</p>
     </div>
   </div>
 </div>
 
 <div data-example="empty" data-title="Nothing matches" data-state="empty" data-gallery-frame="short">
-  <div class="gw-field">
-    <label class="gw-field__label" for="combobox-empty-input">Base branch</label>
-    <div class="gw-combobox">
-      <svg class="gw-combobox__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-      <input class="gw-field__control gw-combobox__input" id="combobox-empty-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-empty-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="relase">
-      <div class="gw-combobox__panel">
-        <ul class="gw-combobox__list" role="listbox" id="combobox-empty-list" aria-label="Branches of acme/api" hidden>
-          <li class="gw-combobox__option" role="option" id="combobox-empty-option-1" aria-selected="false" hidden>main</li>
-          <li class="gw-combobox__option" role="option" id="combobox-empty-option-2" aria-selected="false" hidden>release/2026-11</li>
+  <div class="ds-field">
+    <label class="ds-field__label" for="combobox-empty-input">Base branch</label>
+    <div class="ds-combobox">
+      <svg class="ds-combobox__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+      <input class="ds-field__control ds-combobox__input" id="combobox-empty-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-empty-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="relase">
+      <div class="ds-combobox__panel">
+        <ul class="ds-combobox__list" role="listbox" id="combobox-empty-list" aria-label="Branches of acme/api" hidden>
+          <li class="ds-combobox__option" role="option" id="combobox-empty-option-1" aria-selected="false" hidden>main</li>
+          <li class="ds-combobox__option" role="option" id="combobox-empty-option-2" aria-selected="false" hidden>release/2026-11</li>
         </ul>
-        <p class="gw-combobox__message">No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
+        <p class="ds-combobox__message">No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
       </div>
-      <p class="gw-visually-hidden" role="status">No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
+      <p class="ds-visually-hidden" role="status">No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
     </div>
   </div>
 </div>
 
 <div data-example="loading" data-title="While the options load" data-state="loading" data-gallery-frame="short">
-  <div class="gw-field">
-    <label class="gw-field__label" for="combobox-loading-input">Base branch</label>
-    <div class="gw-combobox">
-      <svg class="gw-combobox__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-      <input class="gw-field__control gw-combobox__input" id="combobox-loading-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-loading-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="fix">
-      <div class="gw-combobox__panel">
-        <ul class="gw-combobox__list" role="listbox" id="combobox-loading-list" aria-label="Branches of acme/api" aria-busy="true" hidden></ul>
-        <p class="gw-combobox__message">Fetching the branches of acme/api.</p>
+  <div class="ds-field">
+    <label class="ds-field__label" for="combobox-loading-input">Base branch</label>
+    <div class="ds-combobox">
+      <svg class="ds-combobox__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+      <input class="ds-field__control ds-combobox__input" id="combobox-loading-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-loading-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="fix">
+      <div class="ds-combobox__panel">
+        <ul class="ds-combobox__list" role="listbox" id="combobox-loading-list" aria-label="Branches of acme/api" aria-busy="true" hidden></ul>
+        <p class="ds-combobox__message">Fetching the branches of acme/api.</p>
       </div>
-      <p class="gw-visually-hidden" role="status">Fetching the branches of acme/api.</p>
+      <p class="ds-visually-hidden" role="status">Fetching the branches of acme/api.</p>
     </div>
   </div>
 </div>
 
 <div data-example="focus" data-title="Focus" data-state="focus">
-  <div class="gw-field">
-    <label class="gw-field__label" for="combobox-focus-input">Repository</label>
-    <div class="gw-combobox">
-      <input class="gw-field__control gw-combobox__input" id="combobox-focus-input" type="text" name="repository" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-focus-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="acme/api">
-      <div class="gw-combobox__panel">
-        <ul class="gw-combobox__list" role="listbox" id="combobox-focus-list" aria-label="Repositories">
-          <li class="gw-combobox__option" role="option" id="combobox-focus-option-1" aria-selected="false">acme/api</li>
-          <li class="gw-combobox__option" role="option" id="combobox-focus-option-2" aria-selected="false">acme/web</li>
+  <div class="ds-field">
+    <label class="ds-field__label" for="combobox-focus-input">Repository</label>
+    <div class="ds-combobox">
+      <input class="ds-field__control ds-combobox__input" id="combobox-focus-input" type="text" name="repository" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-focus-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="acme/api">
+      <div class="ds-combobox__panel">
+        <ul class="ds-combobox__list" role="listbox" id="combobox-focus-list" aria-label="Repositories">
+          <li class="ds-combobox__option" role="option" id="combobox-focus-option-1" aria-selected="false">acme/api</li>
+          <li class="ds-combobox__option" role="option" id="combobox-focus-option-2" aria-selected="false">acme/web</li>
         </ul>
       </div>
     </div>
@@ -110,45 +110,45 @@
 </div>
 
 <div data-example="invalid" data-title="Invalid" data-state="invalid">
-  <div class="gw-field">
-    <label class="gw-field__label" for="combobox-invalid-input">Base branch <span class="gw-field__required">required</span></label>
-    <div class="gw-combobox">
-      <svg class="gw-combobox__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-      <input class="gw-field__control gw-combobox__input" id="combobox-invalid-input" type="text" name="base" required role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-invalid-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="release/2026-10" aria-invalid="true" aria-describedby="combobox-invalid-error">
-      <div class="gw-combobox__panel">
-        <ul class="gw-combobox__list" role="listbox" id="combobox-invalid-list" aria-label="Branches of acme/api">
-          <li class="gw-combobox__option" role="option" id="combobox-invalid-option-1" aria-selected="false">main</li>
-          <li class="gw-combobox__option" role="option" id="combobox-invalid-option-2" aria-selected="false">release/2026-11</li>
+  <div class="ds-field">
+    <label class="ds-field__label" for="combobox-invalid-input">Base branch <span class="ds-field__required">required</span></label>
+    <div class="ds-combobox">
+      <svg class="ds-combobox__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+      <input class="ds-field__control ds-combobox__input" id="combobox-invalid-input" type="text" name="base" required role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-invalid-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="release/2026-10" aria-invalid="true" aria-describedby="combobox-invalid-error">
+      <div class="ds-combobox__panel">
+        <ul class="ds-combobox__list" role="listbox" id="combobox-invalid-list" aria-label="Branches of acme/api">
+          <li class="ds-combobox__option" role="option" id="combobox-invalid-option-1" aria-selected="false">main</li>
+          <li class="ds-combobox__option" role="option" id="combobox-invalid-option-2" aria-selected="false">release/2026-11</li>
         </ul>
       </div>
     </div>
-    <p class="gw-field__error" id="combobox-invalid-error">acme/api has no branch named release/2026-10. Choose a branch from the list.</p>
+    <p class="ds-field__error" id="combobox-invalid-error">acme/api has no branch named release/2026-10. Choose a branch from the list.</p>
   </div>
 </div>
 
 <div data-example="disabled" data-title="Disabled" data-state="disabled">
-  <div class="gw-field">
-    <label class="gw-field__label" for="combobox-disabled-input">Base branch</label>
-    <div class="gw-combobox">
-      <svg class="gw-combobox__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-      <input class="gw-field__control gw-combobox__input" id="combobox-disabled-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-disabled-list" autocomplete="off" disabled aria-describedby="combobox-disabled-description">
-      <div class="gw-combobox__panel">
-        <ul class="gw-combobox__list" role="listbox" id="combobox-disabled-list" aria-label="Branches"></ul>
+  <div class="ds-field">
+    <label class="ds-field__label" for="combobox-disabled-input">Base branch</label>
+    <div class="ds-combobox">
+      <svg class="ds-combobox__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+      <input class="ds-field__control ds-combobox__input" id="combobox-disabled-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-disabled-list" autocomplete="off" disabled aria-describedby="combobox-disabled-description">
+      <div class="ds-combobox__panel">
+        <ul class="ds-combobox__list" role="listbox" id="combobox-disabled-list" aria-label="Branches"></ul>
       </div>
     </div>
-    <p class="gw-field__description" id="combobox-disabled-description">Choose a repository first.</p>
+    <p class="ds-field__description" id="combobox-disabled-description">Choose a repository first.</p>
   </div>
 </div>
 
 <div data-example="state-class" data-title="A class for the active option" data-dont="unknown-class" data-gallery-frame="short" data-reason="A class says nothing to a screen reader, and only the script that adds it can draw the list. The active option is the one with aria-selected set to true, which the stylesheet reads and assistive technology announces.">
-  <div class="gw-field">
-    <label class="gw-field__label" for="combobox-state-class-input">Base branch</label>
-    <div class="gw-combobox">
-      <input class="gw-field__control gw-combobox__input" id="combobox-state-class-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="combobox-state-class-list" autocomplete="off">
-      <div class="gw-combobox__panel">
-        <ul class="gw-combobox__list" role="listbox" id="combobox-state-class-list" aria-label="Branches of acme/api">
-          <li class="gw-combobox__option" role="option" id="combobox-state-class-option-1">main</li>
-          <li class="gw-combobox__option gw-combobox__option--active" role="option" id="combobox-state-class-option-2">develop</li>
+  <div class="ds-field">
+    <label class="ds-field__label" for="combobox-state-class-input">Base branch</label>
+    <div class="ds-combobox">
+      <input class="ds-field__control ds-combobox__input" id="combobox-state-class-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="combobox-state-class-list" autocomplete="off">
+      <div class="ds-combobox__panel">
+        <ul class="ds-combobox__list" role="listbox" id="combobox-state-class-list" aria-label="Branches of acme/api">
+          <li class="ds-combobox__option" role="option" id="combobox-state-class-option-1">main</li>
+          <li class="ds-combobox__option ds-combobox__option--active" role="option" id="combobox-state-class-option-2">develop</li>
         </ul>
       </div>
     </div>

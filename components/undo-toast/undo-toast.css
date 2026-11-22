@@ -1,44 +1,44 @@
 /*
  * Undo toast: a toast for an action that can be taken back. It composes the toast:
- * the element carries gw-toast and gw-undo-toast. It says what happened, offers Undo
+ * the element carries ds-toast and ds-undo-toast. It says what happened, offers Undo
  * and shows how long Undo stays, in words, as a progress bar or both.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* The progress bar takes a row of its own under the message and the button. */
-  .gw-undo-toast {
+  .ds-undo-toast {
     flex-wrap: wrap;
   }
 
   /* The time left, on its own line under what happened. */
-  .gw-undo-toast__countdown {
+  .ds-undo-toast__countdown {
     display: block;
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
   }
 
   /* A native progress element. Its value is the time left, which the app lowers as the time runs out. */
-  .gw-undo-toast__progress {
+  .ds-undo-toast__progress {
     flex: none;
     width: 100%;
-    height: var(--gw-space-xs);
-    border-radius: var(--gw-radius-sm);
-    background-color: var(--gw-color-border);
-    color: var(--gw-color-accent);
+    height: var(--ds-space-xs);
+    border-radius: var(--ds-radius-sm);
+    background-color: var(--ds-color-border);
+    color: var(--ds-color-accent);
     overflow: hidden;
     appearance: none;
   }
 
-  .gw-undo-toast__progress::-webkit-progress-bar {
-    background-color: var(--gw-color-border);
+  .ds-undo-toast__progress::-webkit-progress-bar {
+    background-color: var(--ds-color-border);
   }
 
-  .gw-undo-toast__progress::-webkit-progress-value {
-    background-color: var(--gw-color-accent);
+  .ds-undo-toast__progress::-webkit-progress-value {
+    background-color: var(--ds-color-accent);
   }
 
-  .gw-undo-toast__progress::-moz-progress-bar {
-    background-color: var(--gw-color-accent);
+  .ds-undo-toast__progress::-moz-progress-bar {
+    background-color: var(--ds-color-accent);
   }
 }

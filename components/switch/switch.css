@@ -4,153 +4,153 @@
  * On and off are shown by where the thumb sits and by the word, never by the fill alone.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* One line of text is centred in a row one target tall. */
-  .gw-switch {
+  .ds-switch {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto auto;
     align-items: start;
-    column-gap: var(--gw-space-sm);
-    row-gap: var(--gw-space-xs);
-    min-height: var(--gw-size-touch);
-    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
+    column-gap: var(--ds-space-sm);
+    row-gap: var(--ds-space-xs);
+    min-height: var(--ds-size-touch);
+    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
-  .gw-switch__label {
+  .ds-switch__label {
     grid-column: 1;
-    font-weight: var(--gw-weight-medium);
+    font-weight: var(--ds-weight-medium);
     cursor: pointer;
     overflow-wrap: anywhere;
   }
 
-  /* The state in words: one of gw-switch__on and gw-switch__off is shown, chosen from the input's own state. */
-  .gw-switch__state {
+  /* The state in words: one of ds-switch__on and ds-switch__off is shown, chosen from the input's own state. */
+  .ds-switch__state {
     grid-row: 1;
     grid-column: 2;
-    color: var(--gw-color-muted);
+    color: var(--ds-color-muted);
   }
 
-  .gw-switch__on {
+  .ds-switch__on {
     display: none;
   }
 
-  .gw-switch:has(.gw-switch__input:checked) .gw-switch__on {
+  .ds-switch:has(.ds-switch__input:checked) .ds-switch__on {
     display: inline;
   }
 
-  .gw-switch:has(.gw-switch__input:checked) .gw-switch__off {
+  .ds-switch:has(.ds-switch__input:checked) .ds-switch__off {
     display: none;
   }
 
   /* The track: one target wide and 24px tall. The margin centres it on the first line of the label. */
-  .gw-switch__input {
+  .ds-switch__input {
     position: relative;
     grid-row: 1;
     grid-column: 3;
     appearance: none;
-    width: var(--gw-size-touch);
-    height: var(--gw-space-xl);
-    margin-block: calc((var(--gw-text-ui) * var(--gw-leading-ui) - var(--gw-space-xl)) / 2);
-    border-width: var(--gw-border-width);
-    border-color: var(--gw-color-border-strong);
-    border-radius: var(--gw-radius-sm);
-    background-color: var(--gw-color-surface-raised);
-    color: var(--gw-color-border-strong);
+    width: var(--ds-size-touch);
+    height: var(--ds-space-xl);
+    margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-xl)) / 2);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-sm);
+    background-color: var(--ds-color-surface-raised);
+    color: var(--ds-color-border-strong);
     cursor: pointer;
     transition-property: background-color, border-color, color;
-    transition-duration: var(--gw-duration-fast);
-    transition-timing-function: var(--gw-ease);
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
   }
 
   /* The thumb: at the start of the track when off, at the end when on. */
-  .gw-switch__input::before {
+  .ds-switch__input::before {
     content: "";
     position: absolute;
-    inset-block: calc(var(--gw-border-width) * 2);
-    inset-inline-start: calc(var(--gw-border-width) * 2);
-    width: calc(var(--gw-space-lg) + var(--gw-border-width) * 2);
-    border-radius: calc(var(--gw-radius-sm) / 2);
+    inset-block: calc(var(--ds-border-width) * 2);
+    inset-inline-start: calc(var(--ds-border-width) * 2);
+    width: calc(var(--ds-space-lg) + var(--ds-border-width) * 2);
+    border-radius: calc(var(--ds-radius-sm) / 2);
     background-color: currentColor;
     transition-property: inset-inline-start;
-    transition-duration: var(--gw-duration-fast);
-    transition-timing-function: var(--gw-ease);
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
   }
 
   /* The track is drawn 24px tall. This invisible box, centred on it, keeps its pointer target at the touch size. */
-  .gw-switch__input::after {
+  .ds-switch__input::after {
     content: "";
     position: absolute;
     top: 50%;
-    inset-inline: calc(var(--gw-border-width) * -1);
-    height: var(--gw-size-touch);
+    inset-inline: calc(var(--ds-border-width) * -1);
+    height: var(--ds-size-touch);
     translate: 0 -50%;
   }
 
-  .gw-switch__input:checked {
-    border-color: var(--gw-color-accent);
-    background-color: var(--gw-color-accent);
-    color: var(--gw-color-on-accent);
+  .ds-switch__input:checked {
+    border-color: var(--ds-color-accent);
+    background-color: var(--ds-color-accent);
+    color: var(--ds-color-on-accent);
   }
 
   /* The track's inner width, less the thumb and the same gap at the far end. */
-  .gw-switch__input:checked::before {
-    inset-inline-start: calc(var(--gw-size-touch) - var(--gw-space-lg) - var(--gw-border-width) * 6);
+  .ds-switch__input:checked::before {
+    inset-inline-start: calc(var(--ds-size-touch) - var(--ds-space-lg) - var(--ds-border-width) * 6);
   }
 
-  .gw-switch__description {
+  .ds-switch__description {
     grid-column: 1;
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
   }
 
-  .gw-switch__error {
+  .ds-switch__error {
     display: flex;
     grid-column: 1 / -1;
-    gap: var(--gw-space-xs);
-    color: var(--gw-color-danger);
+    gap: var(--ds-space-xs);
+    color: var(--ds-color-danger);
   }
 
   /* The icon is drawn here, so an error is never marked by colour alone, whatever the markup holds. */
-  .gw-switch__error::before {
+  .ds-switch__error::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     background-color: currentColor;
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   @media (hover: hover) {
-    .gw-switch__input:hover {
-      border-color: var(--gw-color-on-surface);
-      color: var(--gw-color-on-surface);
+    .ds-switch__input:hover {
+      border-color: var(--ds-color-on-surface);
+      color: var(--ds-color-on-surface);
     }
 
-    .gw-switch__input:checked:hover {
-      border-color: var(--gw-color-accent-hover);
-      background-color: var(--gw-color-accent-hover);
-      color: var(--gw-color-on-accent);
+    .ds-switch__input:checked:hover {
+      border-color: var(--ds-color-accent-hover);
+      background-color: var(--ds-color-accent-hover);
+      color: var(--ds-color-on-accent);
     }
   }
 
   /* After hover, so an unavailable switch never answers the pointer. */
-  .gw-switch__input:disabled {
-    border-color: var(--gw-color-border);
+  .ds-switch__input:disabled {
+    border-color: var(--ds-color-border);
     background-color: transparent;
-    color: var(--gw-color-border);
+    color: var(--ds-color-border);
     cursor: default;
   }
 
   /* The border colour as a fill keeps an unavailable switch that is on apart from one that is off. */
-  .gw-switch__input:disabled:checked {
-    background-color: var(--gw-color-border);
-    color: var(--gw-color-muted);
+  .ds-switch__input:disabled:checked {
+    background-color: var(--ds-color-border);
+    color: var(--ds-color-muted);
   }
 
-  .gw-switch:has(.gw-switch__input:disabled) .gw-switch__label {
-    color: var(--gw-color-muted);
+  .ds-switch:has(.ds-switch__input:disabled) .ds-switch__label {
+    color: var(--ds-color-muted);
     cursor: default;
   }
 }

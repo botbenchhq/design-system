@@ -5,85 +5,85 @@
  * the row holds a form with a field, Save and Cancel instead. The order is fixed.
  */
 
-@layer gw.components {
-  .gw-editable-list {
+@layer ds.components {
+  .ds-editable-list {
     display: flex;
     flex-direction: column;
     min-width: 0;
   }
 
-  .gw-editable-list__items {
+  .ds-editable-list__items {
     display: flex;
     flex-direction: column;
-    counter-reset: gw-editable-list;
+    counter-reset: ds-editable-list;
   }
 
   /* One line of text is centred in a row one target tall, so a small button's padded hit area never reaches the next row. */
-  .gw-editable-list__item {
+  .ds-editable-list__item {
     display: flex;
     align-items: flex-start;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
     min-width: 0;
-    min-height: var(--gw-size-touch);
-    counter-increment: gw-editable-list;
+    min-height: var(--ds-size-touch);
+    counter-increment: ds-editable-list;
   }
 
-  .gw-editable-list__item + .gw-editable-list__item {
-    border-top-width: var(--gw-border-width);
+  .ds-editable-list__item + .ds-editable-list__item {
+    border-top-width: var(--ds-border-width);
   }
 
   /* The item's number, drawn from its place in the list, so it is right after an item is added or deleted. */
-  .gw-editable-list__item::before {
-    content: counter(gw-editable-list) ".";
+  .ds-editable-list__item::before {
+    content: counter(ds-editable-list) ".";
     flex: none;
-    min-width: var(--gw-space-xl);
-    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
-    color: var(--gw-color-muted);
+    min-width: var(--ds-space-xl);
+    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    color: var(--ds-color-muted);
     font-variant-numeric: tabular-nums;
   }
 
-  .gw-editable-list__text {
+  .ds-editable-list__text {
     flex: 1;
     min-width: 0;
-    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
+    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     overflow-wrap: anywhere;
   }
 
   /* Edit and Delete, as tall as a pointer target so they sit level with the first line of the text. */
-  .gw-editable-list__actions {
+  .ds-editable-list__actions {
     display: flex;
     flex: none;
     align-items: center;
-    min-height: var(--gw-size-touch);
+    min-height: var(--ds-size-touch);
   }
 
   /* The form a row holds while it is edited: the field, then Save and Cancel under it. */
-  .gw-editable-list__editor {
+  .ds-editable-list__editor {
     display: flex;
     flex: 1;
     flex-direction: column;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
     min-width: 0;
-    padding-block: var(--gw-space-md);
+    padding-block: var(--ds-space-md);
   }
 
-  .gw-editable-list__editor-actions {
+  .ds-editable-list__editor-actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
   }
 
   /* The control that adds an item, under the last row and in line with the text of the rows. */
-  .gw-editable-list__add {
+  .ds-editable-list__add {
     display: flex;
-    padding-inline-start: var(--gw-space-lg);
-    border-top-width: var(--gw-border-width);
+    padding-inline-start: var(--ds-space-lg);
+    border-top-width: var(--ds-border-width);
   }
 
   /* Why the list cannot be edited, when it cannot. */
-  .gw-editable-list__note {
-    padding-bottom: var(--gw-space-sm);
-    color: var(--gw-color-muted);
+  .ds-editable-list__note {
+    padding-bottom: var(--ds-space-sm);
+    color: var(--ds-color-muted);
   }
 }

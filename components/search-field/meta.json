@@ -13,31 +13,31 @@
     "As the only way to reach an item. The list stays browsable without a search."
   ],
   "variants": [
-    { "name": "visible label", "use": "The default. A label with gw-search-field__label above the input." },
-    { "name": "hidden label", "use": "The same label with gw-visually-hidden added, where the list's heading already says what is searched. The label element stays in the markup." },
-    { "name": "with a clear button", "use": "A button with gw-search-field__clear after the input. Leave it out where the field is cleared some other way." }
+    { "name": "visible label", "use": "The default. A label with ds-search-field__label above the input." },
+    { "name": "hidden label", "use": "The same label with ds-visually-hidden added, where the list's heading already says what is searched. The label element stays in the markup." },
+    { "name": "with a clear button", "use": "A button with ds-search-field__clear after the input. Leave it out where the field is cleared some other way." }
   ],
   "sizes": [],
   "states": ["default", "focus", "filled", "loading", "empty", "disabled"],
   "accessibility": [
-    "Use input type=\"search\" carrying gw-field__control and gw-search-field__input, inside a div with gw-search-field__box. The search icon is drawn by the stylesheet and needs no markup.",
-    "Every search field has a label element with gw-search-field__label tied to the input by for and id. Add gw-visually-hidden to hide it from sight. A placeholder is a hint, never the label.",
-    "The outer element with gw-search-field is a form with role=\"search\" and an aria-label when it is the search for the page, and a plain div when it filters one list in place. Give each search landmark on a page a different label.",
-    "The clear button is a button with gw-search-field__clear, placed after the input, holding its name in a span with gw-visually-hidden, such as Clear the search. Its cross is drawn by the stylesheet and its target is 44px square.",
+    "Use input type=\"search\" carrying ds-field__control and ds-search-field__input, inside a div with ds-search-field__box. The search icon is drawn by the stylesheet and needs no markup.",
+    "Every search field has a label element with ds-search-field__label tied to the input by for and id. Add ds-visually-hidden to hide it from sight. A placeholder is a hint, never the label.",
+    "The outer element with ds-search-field is a form with role=\"search\" and an aria-label when it is the search for the page, and a plain div when it filters one list in place. Give each search landmark on a page a different label.",
+    "The clear button is a button with ds-search-field__clear, placed after the input, holding its name in a span with ds-visually-hidden, such as Clear the search. Its cross is drawn by the stylesheet and its target is 44px square.",
     "With type=\"reset\" inside a form the clear button needs no script, as long as the form is served with an empty value. Otherwise use type=\"button\", and the app empties the input and moves focus back to it.",
     "The clear button is hidden while the input is empty. That relies on the input having a placeholder attribute: give it hint text, or a single space where no hint is wanted.",
-    "The count line is a p with gw-search-field__count and aria-live=\"polite\". Keep it in the page from the start, and change only its text when the results change, after the reader pauses typing, so a screen reader announces the new count without losing focus. It gives a number and its unit, such as 3 of 128 runs match \"session\".",
+    "The count line is a p with ds-search-field__count and aria-live=\"polite\". Keep it in the page from the start, and change only its text when the results change, after the reader pauses typing, so a screen reader announces the new count without losing focus. It gives a number and its unit, such as 3 of 128 runs match \"session\".",
     "While results load, the count line says what is being searched. With no results it says so, repeats the query and says what to try next. The stylesheet has no styling of its own for either.",
     "When the input is disabled, say why in the count line and link it with aria-describedby. Leave aria-live off a line that never changes.",
     "Tab reaches the input and then the clear button. Escape clears the input in browsers that support it for a search input, and Enter submits the form."
   ],
   "icons": ["search", "x"],
   "classes": [
-    "gw-search-field",
-    "gw-search-field__box",
-    "gw-search-field__clear",
-    "gw-search-field__count",
-    "gw-search-field__input",
-    "gw-search-field__label"
+    "ds-search-field",
+    "ds-search-field__box",
+    "ds-search-field__clear",
+    "ds-search-field__count",
+    "ds-search-field__input",
+    "ds-search-field__label"
   ]
 }

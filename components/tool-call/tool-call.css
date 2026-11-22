@@ -11,179 +11,179 @@
  * Markup written that way is drawn as it always was.
  */
 
-@layer gw.components {
-  .gw-tool-call {
+@layer ds.components {
+  .ds-tool-call {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
     min-width: 0;
-    padding: var(--gw-space-md) var(--gw-space-lg);
-    border-width: var(--gw-border-width);
-    border-radius: var(--gw-radius-md);
-    background-color: var(--gw-color-surface-raised);
+    padding: var(--ds-space-md) var(--ds-space-lg);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
   }
 
   /* A closed summary is a pointer target tall, and its text sits in the middle of that, so less padding is needed under it. */
-  .gw-tool-call:has(> .gw-tool-call__details:last-child) {
-    padding-bottom: var(--gw-space-xs);
+  .ds-tool-call:has(> .ds-tool-call__details:last-child) {
+    padding-bottom: var(--ds-space-xs);
   }
 
   /* The tool, then what it acted on. The target wraps beside the name, so a long one never widens the page. */
-  .gw-tool-call__title {
+  .ds-tool-call__title {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    column-gap: var(--gw-space-sm);
+    column-gap: var(--ds-space-sm);
     min-width: 0;
-    font-weight: var(--gw-weight-normal);
+    font-weight: var(--ds-weight-normal);
   }
 
-  .gw-tool-call__name {
+  .ds-tool-call__name {
     flex: none;
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-mono);
-    font-weight: var(--gw-weight-semibold);
-    line-height: var(--gw-leading-mono);
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-mono);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-mono);
   }
 
-  .gw-tool-call__target {
+  .ds-tool-call__target {
     flex: 1 1 0;
     min-width: 0;
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-mono);
-    line-height: var(--gw-leading-mono);
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-mono);
+    line-height: var(--ds-leading-mono);
     white-space: pre-wrap;
     overflow-wrap: anywhere;
   }
 
-  .gw-tool-call__meta {
+  .ds-tool-call__meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    column-gap: var(--gw-space-md);
+    column-gap: var(--ds-space-md);
     min-width: 0;
   }
 
   /* How the call ended, in words. With no status modifier it is plain text. */
-  .gw-tool-call__status {
+  .ds-tool-call__status {
     display: inline-flex;
     align-items: center;
-    gap: var(--gw-space-xs);
-    font-weight: var(--gw-weight-medium);
+    gap: var(--ds-space-xs);
+    font-weight: var(--ds-weight-medium);
   }
 
   /* The icon is drawn here, so a status is never its colour alone, whatever the markup holds. */
-  .gw-tool-call--succeeded .gw-tool-call__status::before,
-  .gw-tool-call--failed .gw-tool-call__status::before,
-  .gw-tool-call--denied .gw-tool-call__status::before,
-  .gw-tool-call[aria-busy="true"] .gw-tool-call__status::before {
+  .ds-tool-call--succeeded .ds-tool-call__status::before,
+  .ds-tool-call--failed .ds-tool-call__status::before,
+  .ds-tool-call--denied .ds-tool-call__status::before,
+  .ds-tool-call[aria-busy="true"] .ds-tool-call__status::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
     background-color: currentColor;
     mask: url("icons/circle-check.svg") center / contain no-repeat;
   }
 
-  .gw-tool-call--succeeded .gw-tool-call__status {
-    color: var(--gw-color-success);
+  .ds-tool-call--succeeded .ds-tool-call__status {
+    color: var(--ds-color-success);
   }
 
-  .gw-tool-call--failed .gw-tool-call__status {
-    color: var(--gw-color-danger);
+  .ds-tool-call--failed .ds-tool-call__status {
+    color: var(--ds-color-danger);
   }
 
-  .gw-tool-call--failed .gw-tool-call__status::before {
+  .ds-tool-call--failed .ds-tool-call__status::before {
     mask-image: url("icons/circle-alert.svg");
   }
 
-  .gw-tool-call--denied .gw-tool-call__status {
-    color: var(--gw-color-danger);
+  .ds-tool-call--denied .ds-tool-call__status {
+    color: var(--ds-color-danger);
   }
 
-  .gw-tool-call--denied .gw-tool-call__status::before {
+  .ds-tool-call--denied .ds-tool-call__status::before {
     mask-image: url("icons/ban.svg");
   }
 
   /* Running is a state, set with aria-busy. It comes last, so a call that is running never shows an outcome. */
-  .gw-tool-call[aria-busy="true"] .gw-tool-call__status {
-    color: var(--gw-color-info);
+  .ds-tool-call[aria-busy="true"] .ds-tool-call__status {
+    color: var(--ds-color-info);
   }
 
-  .gw-tool-call[aria-busy="true"] .gw-tool-call__status::before {
+  .ds-tool-call[aria-busy="true"] .ds-tool-call__status::before {
     mask-image: url("icons/loader.svg");
-    animation: gw-tool-call-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+    animation: ds-tool-call-turn calc(var(--ds-duration-slow) * 4) steps(8) infinite;
   }
 
-  .gw-tool-call__duration {
-    color: var(--gw-color-muted);
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+  .ds-tool-call__duration {
+    color: var(--ds-color-muted);
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
     white-space: nowrap;
   }
 
   /* One or two sentences on a failure or a denial: what did not happen and why. */
-  .gw-tool-call__note {
+  .ds-tool-call__note {
     min-width: 0;
     overflow-wrap: anywhere;
   }
 
-  .gw-tool-call__details {
+  .ds-tool-call__details {
     display: flex;
     flex-direction: column;
     min-width: 0;
   }
 
-  .gw-tool-call__summary {
+  .ds-tool-call__summary {
     display: flex;
     align-items: center;
-    gap: var(--gw-space-sm);
-    min-height: var(--gw-size-touch);
-    border-radius: var(--gw-radius-sm);
-    color: var(--gw-color-muted);
+    gap: var(--ds-space-sm);
+    min-height: var(--ds-size-touch);
+    border-radius: var(--ds-radius-sm);
+    color: var(--ds-color-muted);
     cursor: pointer;
   }
 
-  .gw-tool-call__summary::-webkit-details-marker {
+  .ds-tool-call__summary::-webkit-details-marker {
     display: none;
   }
 
-  .gw-tool-call__summary::before {
+  .ds-tool-call__summary::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
     background-color: currentColor;
     mask: url("icons/chevron-right.svg") center / contain no-repeat;
   }
 
-  .gw-tool-call__details[open] > .gw-tool-call__summary {
-    color: var(--gw-color-on-surface);
+  .ds-tool-call__details[open] > .ds-tool-call__summary {
+    color: var(--ds-color-on-surface);
   }
 
-  .gw-tool-call__details[open] > .gw-tool-call__summary::before {
+  .ds-tool-call__details[open] > .ds-tool-call__summary::before {
     mask-image: url("icons/chevron-down.svg");
   }
 
   /* The muted text turns to the main text colour on the shaded summary, so it keeps its contrast. */
   @media (hover: hover) {
-    .gw-tool-call__summary:hover {
-      background-color: var(--gw-color-surface-sunken);
-      color: var(--gw-color-on-surface);
+    .ds-tool-call__summary:hover {
+      background-color: var(--ds-color-surface-sunken);
+      color: var(--ds-color-on-surface);
     }
   }
 
   /* Arguments or output, exactly as sent or returned. It wraps, and never scrolls sideways. */
-  .gw-tool-call__code {
+  .ds-tool-call__code {
     min-width: 0;
-    margin-bottom: var(--gw-space-sm);
-    padding: var(--gw-space-sm) var(--gw-space-md);
-    border-radius: var(--gw-radius-sm);
-    background-color: var(--gw-color-surface-sunken);
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-mono);
-    line-height: var(--gw-leading-mono);
+    margin-bottom: var(--ds-space-sm);
+    padding: var(--ds-space-sm) var(--ds-space-md);
+    border-radius: var(--ds-radius-sm);
+    background-color: var(--ds-color-surface-sunken);
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-mono);
+    line-height: var(--ds-leading-mono);
     white-space: pre-wrap;
     overflow-wrap: anywhere;
   }
@@ -192,14 +192,14 @@
    * The lifecycle form: every rule below needs data-state on the root.
    * A card when it stands alone.
    */
-  .gw-tool-call[data-state] {
+  .ds-tool-call[data-state] {
     gap: 0;
-    padding-block: var(--gw-space-sm);
+    padding-block: var(--ds-space-sm);
   }
 
   /* As the content of a transcript row or of a step in a group: no frame, and the row's own width. */
-  .gw-tool-call--row,
-  .gw-tool-call--row[data-state] {
+  .ds-tool-call--row,
+  .ds-tool-call--row[data-state] {
     flex: 1 1 100%;
     padding: 0;
     border-width: 0;
@@ -211,38 +211,38 @@
    * The line: the status and the summary run on as text, then the time, then the chevron.
    * A long command wraps under the status, and the time and the chevron stay on the first line.
    */
-  .gw-tool-call[data-state] .gw-tool-call__summary {
+  .ds-tool-call[data-state] .ds-tool-call__summary {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto auto;
     align-items: start;
-    column-gap: var(--gw-space-sm);
+    column-gap: var(--ds-space-sm);
     position: relative;
     min-height: 0;
-    padding-block: var(--gw-space-sm);
-    color: var(--gw-color-on-surface);
+    padding-block: var(--ds-space-sm);
+    color: var(--ds-color-on-surface);
   }
 
   /*
    * The line is drawn 36px tall, so a long run of calls stays dense. This invisible box, centred on it,
    * keeps its pointer target at the touch size, as the small button does.
    */
-  .gw-tool-call[data-state] .gw-tool-call__summary::after {
+  .ds-tool-call[data-state] .ds-tool-call__summary::after {
     content: "";
     position: absolute;
     top: 50%;
     inset-inline: 0;
-    height: max(100%, var(--gw-size-touch));
+    height: max(100%, var(--ds-size-touch));
     translate: 0 -50%;
   }
 
-  .gw-tool-call[data-state] .gw-tool-call__summary::before {
+  .ds-tool-call[data-state] .ds-tool-call__summary::before {
     grid-row: 1;
     grid-column: 3;
-    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
-    color: var(--gw-color-muted);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    color: var(--ds-color-muted);
   }
 
-  .gw-tool-call[data-state] .gw-tool-call__title {
+  .ds-tool-call[data-state] .ds-tool-call__title {
     display: block;
     grid-row: 1;
     grid-column: 1;
@@ -250,116 +250,116 @@
   }
 
   /* The status is the first words of the line, never apart from what it describes. */
-  .gw-tool-call[data-state] .gw-tool-call__status {
+  .ds-tool-call[data-state] .ds-tool-call__status {
     display: inline;
-    margin-inline-end: var(--gw-space-xs);
-    color: var(--gw-color-muted);
+    margin-inline-end: var(--ds-space-xs);
+    color: var(--ds-color-muted);
     white-space: nowrap;
   }
 
   /* Muted text is too faint on the shaded summary, so the quiet parts of the line take the main text colour there. */
   @media (hover: hover) {
-    .gw-tool-call[data-state] :where(.gw-tool-call__summary:hover) .gw-tool-call__status,
-    .gw-tool-call[data-state] .gw-tool-call__summary:hover > .gw-tool-call__duration,
-    .gw-tool-call[data-state] .gw-tool-call__summary:hover::before {
-      color: var(--gw-color-on-surface);
+    .ds-tool-call[data-state] :where(.ds-tool-call__summary:hover) .ds-tool-call__status,
+    .ds-tool-call[data-state] .ds-tool-call__summary:hover > .ds-tool-call__duration,
+    .ds-tool-call[data-state] .ds-tool-call__summary:hover::before {
+      color: var(--ds-color-on-surface);
     }
   }
 
   /* Drawn from the state, so no markup can leave the icon out. Each state has a shape of its own. */
-  .gw-tool-call[data-state] .gw-tool-call__status::before {
+  .ds-tool-call[data-state] .ds-tool-call__status::before {
     content: "";
     display: inline-block;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
-    margin-inline-end: var(--gw-space-xs);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
+    margin-inline-end: var(--ds-space-xs);
     background-color: currentColor;
     vertical-align: text-bottom;
     mask: url("icons/circle-dashed.svg") center / contain no-repeat;
   }
 
-  .gw-tool-call[data-state="awaiting-approval"] .gw-tool-call__status {
-    color: var(--gw-color-warning);
+  .ds-tool-call[data-state="awaiting-approval"] .ds-tool-call__status {
+    color: var(--ds-color-warning);
   }
 
-  .gw-tool-call[data-state="awaiting-approval"] .gw-tool-call__status::before {
+  .ds-tool-call[data-state="awaiting-approval"] .ds-tool-call__status::before {
     mask-image: url("icons/circle-pause.svg");
   }
 
-  .gw-tool-call[data-state="running"] .gw-tool-call__status {
-    color: var(--gw-color-info);
+  .ds-tool-call[data-state="running"] .ds-tool-call__status {
+    color: var(--ds-color-info);
   }
 
   /* The one state that moves: the stepped loader a busy button shows. */
-  .gw-tool-call[data-state="running"] .gw-tool-call__status::before {
+  .ds-tool-call[data-state="running"] .ds-tool-call__status::before {
     mask-image: url("icons/loader.svg");
-    animation: gw-tool-call-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+    animation: ds-tool-call-turn calc(var(--ds-duration-slow) * 4) steps(8) infinite;
   }
 
   /* A call that went as expected is the quiet one, so a failure stands out in a long list. */
-  .gw-tool-call[data-state="succeeded"] .gw-tool-call__status::before {
+  .ds-tool-call[data-state="succeeded"] .ds-tool-call__status::before {
     mask-image: url("icons/circle-check.svg");
   }
 
-  .gw-tool-call[data-state="failed"] .gw-tool-call__status,
-  .gw-tool-call[data-state="timed-out"] .gw-tool-call__status {
-    color: var(--gw-color-danger);
+  .ds-tool-call[data-state="failed"] .ds-tool-call__status,
+  .ds-tool-call[data-state="timed-out"] .ds-tool-call__status {
+    color: var(--ds-color-danger);
   }
 
-  .gw-tool-call[data-state="failed"] .gw-tool-call__status::before {
+  .ds-tool-call[data-state="failed"] .ds-tool-call__status::before {
     mask-image: url("icons/circle-alert.svg");
   }
 
-  .gw-tool-call[data-state="timed-out"] .gw-tool-call__status::before {
+  .ds-tool-call[data-state="timed-out"] .ds-tool-call__status::before {
     mask-image: url("icons/clock.svg");
   }
 
-  .gw-tool-call[data-state="declined"] .gw-tool-call__status::before {
+  .ds-tool-call[data-state="declined"] .ds-tool-call__status::before {
     mask-image: url("icons/ban.svg");
   }
 
-  .gw-tool-call[data-state="cancelled"] .gw-tool-call__status::before {
+  .ds-tool-call[data-state="cancelled"] .ds-tool-call__status::before {
     mask-image: url("icons/circle-slash.svg");
   }
 
-  .gw-tool-call[data-state] .gw-tool-call__target {
-    font-weight: var(--gw-weight-medium);
+  .ds-tool-call[data-state] .ds-tool-call__target {
+    font-weight: var(--ds-weight-medium);
   }
 
   /* Elapsed while it runs, the total once it has ended. On the first line, level with the status. */
-  .gw-tool-call[data-state] .gw-tool-call__duration {
+  .ds-tool-call[data-state] .ds-tool-call__duration {
     grid-row: 1;
     grid-column: 2;
-    line-height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     font-variant-numeric: tabular-nums;
   }
 
   /* Why it failed, was declined or did not run: a second line of the summary, so closing the details never hides it. */
-  .gw-tool-call[data-state] .gw-tool-call__summary > .gw-tool-call__note {
+  .ds-tool-call[data-state] .ds-tool-call__summary > .ds-tool-call__note {
     grid-row: 2;
     grid-column: 1 / -1;
-    padding-top: var(--gw-space-xs);
-    color: var(--gw-color-on-surface);
+    padding-top: var(--ds-space-xs);
+    color: var(--ds-color-on-surface);
   }
 
   /* What the details element holds: the arguments, then the output, each under a label. */
-  .gw-tool-call__body {
+  .ds-tool-call__body {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
     min-width: 0;
-    padding-bottom: var(--gw-space-md);
+    padding-bottom: var(--ds-space-md);
   }
 
-  .gw-tool-call__body > .gw-tool-call__code {
-    margin-bottom: var(--gw-space-xs);
+  .ds-tool-call__body > .ds-tool-call__code {
+    margin-bottom: var(--ds-space-xs);
   }
 
-  .gw-tool-call__label {
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-medium);
-    line-height: var(--gw-leading-xs);
+  .ds-tool-call__label {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-xs);
   }
 
   /*
@@ -367,36 +367,36 @@
    * The block is laid out from its end, so it opens on the last line and stays there as lines are added.
    * It is at least a pointer target tall, because it takes focus so the keyboard can scroll it.
    */
-  .gw-tool-call__output {
+  .ds-tool-call__output {
     display: flex;
     flex-direction: column-reverse;
     min-width: 0;
-    min-height: var(--gw-size-touch);
-    max-height: calc(var(--gw-size-column) / 2);
-    border-radius: var(--gw-radius-sm);
-    background-color: var(--gw-color-surface-sunken);
+    min-height: var(--ds-size-touch);
+    max-height: calc(var(--ds-size-column) / 2);
+    border-radius: var(--ds-radius-sm);
+    background-color: var(--ds-color-surface-sunken);
     overflow-y: auto;
   }
 
-  .gw-tool-call__output > .gw-tool-call__code {
+  .ds-tool-call__output > .ds-tool-call__code {
     flex: none;
     margin-bottom: 0;
   }
 
   /* While the call runs the block keeps one height, so a new line moves nothing around it. */
-  .gw-tool-call[data-state="running"] .gw-tool-call__output {
-    height: calc(var(--gw-size-column) / 2);
+  .ds-tool-call[data-state="running"] .ds-tool-call__output {
+    height: calc(var(--ds-size-column) / 2);
   }
 
   /* Allow and Decline for a request that waits. Outside the details, so they show whether it is open or closed. */
-  .gw-tool-call__actions {
+  .ds-tool-call__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--gw-space-md);
-    padding-block: var(--gw-space-md);
+    gap: var(--ds-space-md);
+    padding-block: var(--ds-space-md);
   }
 
-  @keyframes gw-tool-call-turn {
+  @keyframes ds-tool-call-turn {
     to {
       rotate: 1turn;
     }
@@ -404,8 +404,8 @@
 
   /* The mark stays, still, and the word Running carries the meaning. */
   @media (prefers-reduced-motion: reduce) {
-    .gw-tool-call[aria-busy="true"] .gw-tool-call__status::before,
-    .gw-tool-call[data-state="running"] .gw-tool-call__status::before {
+    .ds-tool-call[aria-busy="true"] .ds-tool-call__status::before,
+    .ds-tool-call[data-state="running"] .ds-tool-call__status::before {
       animation: none;
     }
   }

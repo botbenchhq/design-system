@@ -1,34 +1,34 @@
 /*
  * Confirm dialog: a dialog that asks before something is deleted or discarded.
- * It composes the dialog: the element carries gw-dialog and gw-confirm-dialog.
+ * It composes the dialog: the element carries ds-dialog and ds-confirm-dialog.
  * What will be lost is a list in plain words, and the footer keeps Cancel first
  * and the destructive button at the far end.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* What will be lost, one thing per line. Each line has a mark drawn here, so the tint is never the only signal. */
-  .gw-confirm-dialog__losses {
+  .ds-confirm-dialog__losses {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-sm);
-    padding: var(--gw-space-md);
-    border-radius: var(--gw-radius-sm);
-    background-color: var(--gw-color-danger-subtle);
+    gap: var(--ds-space-sm);
+    padding: var(--ds-space-md);
+    border-radius: var(--ds-radius-sm);
+    background-color: var(--ds-color-danger-subtle);
   }
 
-  .gw-confirm-dialog__loss {
+  .ds-confirm-dialog__loss {
     display: flex;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
     min-width: 0;
     overflow-wrap: anywhere;
   }
 
-  .gw-confirm-dialog__loss::before {
+  .ds-confirm-dialog__loss::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
-    background-color: var(--gw-color-danger);
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    background-color: var(--ds-color-danger);
     mask: url("icons/x.svg") center / contain no-repeat;
   }
 
@@ -36,7 +36,7 @@
    * Cancel at the start, where focus lands, and the destructive button at the far end,
    * so a thumb or a key press meant for one cannot land on the other.
    */
-  .gw-confirm-dialog .gw-confirm-dialog__actions {
+  .ds-confirm-dialog .ds-confirm-dialog__actions {
     justify-content: space-between;
   }
 }

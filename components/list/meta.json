@@ -17,15 +17,15 @@
   ],
   "variants": [
     { "name": "default", "use": "12px above and below each row's text. A one-line row is 44px tall." },
-    { "name": "dense", "class": "gw-list--dense", "use": "4px above and below each row's text, for long lists and file lists. A row with a link or an action is still at least 44px tall, and a row that only shows text is 28px." }
+    { "name": "dense", "class": "ds-list--dense", "use": "4px above and below each row's text, for long lists and file lists. A row with a link or an action is still at least 44px tall, and a row that only shows text is 28px." }
   ],
   "sizes": [],
   "states": ["default", "hover", "focus-visible", "active", "current", "busy"],
   "accessibility": [
     "Use a ul, or an ol when the order means something, with one li per row. A screen reader then announces how many rows there are.",
-    "A row that navigates wraps its icon, lines and trailing text in one a element with the class gw-list__link. The link is the whole row: one tab stop, one focus ring, and a pointer target at least 44px tall.",
-    "A row that does not navigate uses a div with the class gw-list__content. It is not focusable.",
-    "A row has at most one action: a small quiet button inside gw-list__action, after the content. When every row's button has the same words, add an aria-label that starts with those words and names the row, such as Remove /srv/workspaces/acme-api.",
+    "A row that navigates wraps its icon, lines and trailing text in one a element with the class ds-list__link. The link is the whole row: one tab stop, one focus ring, and a pointer target at least 44px tall.",
+    "A row that does not navigate uses a div with the class ds-list__content. It is not focusable.",
+    "A row has at most one action: a small quiet button inside ds-list__action, after the content. When every row's button has the same words, add an aria-label that starts with those words and names the row, such as Remove /srv/workspaces/acme-api.",
     "Mark the row for the view the reader is on with aria-current=\"page\" on its link. It is drawn with a bar and a heavier title as well as a shade.",
     "A leading icon is decoration and carries aria-hidden=\"true\". Trailing text and a status are written in words, never as a colour or an icon alone.",
     "While rows are fetched again, set aria-busy=\"true\" on the list and say so in an element with role=\"status\" outside it.",
@@ -33,16 +33,16 @@
   ],
   "icons": ["file", "folder", "git-branch"],
   "classes": [
-    "gw-list",
-    "gw-list--dense",
-    "gw-list__action",
-    "gw-list__body",
-    "gw-list__content",
-    "gw-list__icon",
-    "gw-list__link",
-    "gw-list__meta",
-    "gw-list__primary",
-    "gw-list__row",
-    "gw-list__secondary"
+    "ds-list",
+    "ds-list--dense",
+    "ds-list__action",
+    "ds-list__body",
+    "ds-list__content",
+    "ds-list__icon",
+    "ds-list__link",
+    "ds-list__meta",
+    "ds-list__primary",
+    "ds-list__row",
+    "ds-list__secondary"
   ]
 }

@@ -1,25 +1,25 @@
 <div data-example="default" data-title="A list and the detail of its current row" data-state="default" data-reason="Each region has a label, so a screen reader can jump between the list and the detail, and each scrolls by itself, so a long transcript never carries the list out of view. The row whose detail is shown is marked with aria-current.">
-  <div class="gw-split-panel">
-    <section class="gw-split-panel__list" aria-label="Runs of acme/api">
-      <ul class="gw-list">
-        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4182" aria-current="true"><span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">Run 4182</span></span><span class="gw-list__meta">Finished</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4181"><span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">Run 4181</span></span><span class="gw-list__meta">Running</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4180"><span class="gw-list__body"><span class="gw-list__primary">Remove the unused v1 billing routes</span><span class="gw-list__secondary">Run 4180</span></span><span class="gw-list__meta">Finished</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4179"><span class="gw-list__body"><span class="gw-list__primary">Upgrade the Postgres client to 8.13</span><span class="gw-list__secondary">Run 4179</span></span><span class="gw-list__meta">Failed</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4178"><span class="gw-list__body"><span class="gw-list__primary">Add an index on invoices.customer_id</span><span class="gw-list__secondary">Run 4178</span></span><span class="gw-list__meta">Finished</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4177"><span class="gw-list__body"><span class="gw-list__primary">Rate limit the sign-in route</span><span class="gw-list__secondary">Run 4177</span></span><span class="gw-list__meta">Finished</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4176"><span class="gw-list__body"><span class="gw-list__primary">Fix the flaky cookie test</span><span class="gw-list__secondary">Run 4176</span></span><span class="gw-list__meta">Finished</span></a></li>
+  <div class="ds-split-panel">
+    <section class="ds-split-panel__list" aria-label="Runs of acme/api">
+      <ul class="ds-list">
+        <li class="ds-list__row"><a class="ds-list__link" href="/runs/4182" aria-current="true"><span class="ds-list__body"><span class="ds-list__primary">Refuse a session token older than 30 minutes</span><span class="ds-list__secondary">Run 4182</span></span><span class="ds-list__meta">Finished</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/runs/4181"><span class="ds-list__body"><span class="ds-list__primary">Limit webhook deliveries to 20 a second</span><span class="ds-list__secondary">Run 4181</span></span><span class="ds-list__meta">Running</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/runs/4180"><span class="ds-list__body"><span class="ds-list__primary">Remove the unused v1 billing routes</span><span class="ds-list__secondary">Run 4180</span></span><span class="ds-list__meta">Finished</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/runs/4179"><span class="ds-list__body"><span class="ds-list__primary">Upgrade the Postgres client to 8.13</span><span class="ds-list__secondary">Run 4179</span></span><span class="ds-list__meta">Failed</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/runs/4178"><span class="ds-list__body"><span class="ds-list__primary">Add an index on invoices.customer_id</span><span class="ds-list__secondary">Run 4178</span></span><span class="ds-list__meta">Finished</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/runs/4177"><span class="ds-list__body"><span class="ds-list__primary">Rate limit the sign-in route</span><span class="ds-list__secondary">Run 4177</span></span><span class="ds-list__meta">Finished</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/runs/4176"><span class="ds-list__body"><span class="ds-list__primary">Fix the flaky cookie test</span><span class="ds-list__secondary">Run 4176</span></span><span class="ds-list__meta">Finished</span></a></li>
       </ul>
     </section>
-    <section class="gw-split-panel__detail" aria-label="Run 4182" tabindex="0">
+    <section class="ds-split-panel__detail" aria-label="Run 4182" tabindex="0">
       <h3>Run 4182</h3>
       <p>Refuse a session token older than 30 minutes</p>
-      <dl class="gw-key-value">
-        <div class="gw-key-value__item"><dt class="gw-key-value__label">Status</dt><dd class="gw-key-value__value">Finished, 213 of 213 tests passed</dd></div>
-        <div class="gw-key-value__item"><dt class="gw-key-value__label">Branch</dt><dd class="gw-key-value__value gw-key-value__value--mono">fix/login-timeout</dd></div>
-        <div class="gw-key-value__item"><dt class="gw-key-value__label">Started</dt><dd class="gw-key-value__value">14 March, 09:30</dd></div>
-        <div class="gw-key-value__item"><dt class="gw-key-value__label">Duration</dt><dd class="gw-key-value__value">6 minutes 12 seconds</dd></div>
-        <div class="gw-key-value__item"><dt class="gw-key-value__label">Cost</dt><dd class="gw-key-value__value">$0.84 for this run</dd></div>
+      <dl class="ds-key-value">
+        <div class="ds-key-value__item"><dt class="ds-key-value__label">Status</dt><dd class="ds-key-value__value">Finished, 213 of 213 tests passed</dd></div>
+        <div class="ds-key-value__item"><dt class="ds-key-value__label">Branch</dt><dd class="ds-key-value__value ds-key-value__value--mono">fix/login-timeout</dd></div>
+        <div class="ds-key-value__item"><dt class="ds-key-value__label">Started</dt><dd class="ds-key-value__value">14 March, 09:30</dd></div>
+        <div class="ds-key-value__item"><dt class="ds-key-value__label">Duration</dt><dd class="ds-key-value__value">6 minutes 12 seconds</dd></div>
+        <div class="ds-key-value__item"><dt class="ds-key-value__label">Cost</dt><dd class="ds-key-value__value">$0.84 for this run</dd></div>
       </dl>
       <p>The agent wrote a failing test for a 31-minute session, traced the dropped refresh cookie to the 401 handler in <code>src/auth/session.ts</code>, and changed the handler to keep the cookie and retry the request once.</p>
       <p>It then ran the 213 tests in <code>src/auth</code>, all of which passed, and pushed 4 commits to fix/login-timeout. No pull request is open yet.</p>
@@ -28,65 +28,65 @@
 </div>
 
 <div data-example="empty" data-title="Nothing chosen yet" data-state="empty">
-  <div class="gw-split-panel">
-    <section class="gw-split-panel__list" aria-label="Runs of acme/billing">
-      <ul class="gw-list">
-        <li class="gw-list__row"><a class="gw-list__link" href="/billing/runs/4182"><span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">Run 4182</span></span><span class="gw-list__meta">Finished</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/billing/runs/4181"><span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">Run 4181</span></span><span class="gw-list__meta">Running</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/billing/runs/4180"><span class="gw-list__body"><span class="gw-list__primary">Remove the unused v1 billing routes</span><span class="gw-list__secondary">Run 4180</span></span><span class="gw-list__meta">Finished</span></a></li>
+  <div class="ds-split-panel">
+    <section class="ds-split-panel__list" aria-label="Runs of acme/billing">
+      <ul class="ds-list">
+        <li class="ds-list__row"><a class="ds-list__link" href="/billing/runs/4182"><span class="ds-list__body"><span class="ds-list__primary">Refuse a session token older than 30 minutes</span><span class="ds-list__secondary">Run 4182</span></span><span class="ds-list__meta">Finished</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/billing/runs/4181"><span class="ds-list__body"><span class="ds-list__primary">Limit webhook deliveries to 20 a second</span><span class="ds-list__secondary">Run 4181</span></span><span class="ds-list__meta">Running</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/billing/runs/4180"><span class="ds-list__body"><span class="ds-list__primary">Remove the unused v1 billing routes</span><span class="ds-list__secondary">Run 4180</span></span><span class="ds-list__meta">Finished</span></a></li>
       </ul>
     </section>
-    <section class="gw-split-panel__detail" aria-label="Details of the chosen run, none chosen" tabindex="0">
+    <section class="ds-split-panel__detail" aria-label="Details of the chosen run, none chosen" tabindex="0">
       <p>Choose a run from the list to see its summary, its branch and what it cost.</p>
     </section>
   </div>
 </div>
 
 <div data-example="loading" data-title="Loading the detail" data-state="loading">
-  <div class="gw-split-panel">
-    <section class="gw-split-panel__list" aria-label="Runs of acme/web">
-      <ul class="gw-list">
-        <li class="gw-list__row"><a class="gw-list__link" href="/web/runs/4182"><span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">Run 4182</span></span><span class="gw-list__meta">Finished</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/web/runs/4181" aria-current="true"><span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">Run 4181</span></span><span class="gw-list__meta">Running</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/web/runs/4180"><span class="gw-list__body"><span class="gw-list__primary">Remove the unused v1 billing routes</span><span class="gw-list__secondary">Run 4180</span></span><span class="gw-list__meta">Finished</span></a></li>
+  <div class="ds-split-panel">
+    <section class="ds-split-panel__list" aria-label="Runs of acme/web">
+      <ul class="ds-list">
+        <li class="ds-list__row"><a class="ds-list__link" href="/web/runs/4182"><span class="ds-list__body"><span class="ds-list__primary">Refuse a session token older than 30 minutes</span><span class="ds-list__secondary">Run 4182</span></span><span class="ds-list__meta">Finished</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/web/runs/4181" aria-current="true"><span class="ds-list__body"><span class="ds-list__primary">Limit webhook deliveries to 20 a second</span><span class="ds-list__secondary">Run 4181</span></span><span class="ds-list__meta">Running</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/web/runs/4180"><span class="ds-list__body"><span class="ds-list__primary">Remove the unused v1 billing routes</span><span class="ds-list__secondary">Run 4180</span></span><span class="ds-list__meta">Finished</span></a></li>
       </ul>
     </section>
-    <section class="gw-split-panel__detail" aria-label="Run 4181, loading" aria-busy="true" tabindex="0">
+    <section class="ds-split-panel__detail" aria-label="Run 4181, loading" aria-busy="true" tabindex="0">
       <h3>Run 4181</h3>
-      <p class="gw-spinner" role="status">Loading run 4181</p>
+      <p class="ds-spinner" role="status">Loading run 4181</p>
     </section>
   </div>
 </div>
 
 <div data-example="error" data-title="The detail could not be loaded" data-state="error">
-  <div class="gw-split-panel">
-    <section class="gw-split-panel__list" aria-label="Runs of acme/mobile-app">
-      <ul class="gw-list">
-        <li class="gw-list__row"><a class="gw-list__link" href="/mobile-app/runs/4182"><span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">Run 4182</span></span><span class="gw-list__meta">Finished</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/mobile-app/runs/4181"><span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">Run 4181</span></span><span class="gw-list__meta">Running</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/mobile-app/runs/4180" aria-current="true"><span class="gw-list__body"><span class="gw-list__primary">Remove the unused v1 billing routes</span><span class="gw-list__secondary">Run 4180</span></span><span class="gw-list__meta">Finished</span></a></li>
+  <div class="ds-split-panel">
+    <section class="ds-split-panel__list" aria-label="Runs of acme/mobile-app">
+      <ul class="ds-list">
+        <li class="ds-list__row"><a class="ds-list__link" href="/mobile-app/runs/4182"><span class="ds-list__body"><span class="ds-list__primary">Refuse a session token older than 30 minutes</span><span class="ds-list__secondary">Run 4182</span></span><span class="ds-list__meta">Finished</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/mobile-app/runs/4181"><span class="ds-list__body"><span class="ds-list__primary">Limit webhook deliveries to 20 a second</span><span class="ds-list__secondary">Run 4181</span></span><span class="ds-list__meta">Running</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/mobile-app/runs/4180" aria-current="true"><span class="ds-list__body"><span class="ds-list__primary">Remove the unused v1 billing routes</span><span class="ds-list__secondary">Run 4180</span></span><span class="ds-list__meta">Finished</span></a></li>
       </ul>
     </section>
-    <section class="gw-split-panel__detail" aria-label="Run 4180, not loaded">
+    <section class="ds-split-panel__detail" aria-label="Run 4180, not loaded">
       <h3>Run 4180</h3>
       <p role="alert">Run 4180 could not be loaded: the server did not answer within 30 seconds. Check the connection, then load it again.</p>
-      <div class="gw-cluster">
-        <button type="button" class="gw-button">Load run 4180 again</button>
+      <div class="ds-cluster">
+        <button type="button" class="ds-button">Load run 4180 again</button>
       </div>
     </section>
   </div>
 </div>
 
 <div data-example="fill" data-title="Filling its container, without a border">
-  <div class="gw-split-panel gw-split-panel--fill">
-    <section class="gw-split-panel__list" aria-label="Changed files of task 41">
-      <ul class="gw-list gw-list--dense">
-        <li class="gw-list__row"><a class="gw-list__link" href="/tasks/41/files/src/auth/session.ts" aria-current="true"><span class="gw-list__body"><span class="gw-list__primary">src/auth/session.ts</span></span><span class="gw-list__meta">38 added, 12 removed</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/tasks/41/files/src/auth/session.test.ts"><span class="gw-list__body"><span class="gw-list__primary">src/auth/session.test.ts</span></span><span class="gw-list__meta">64 added</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/tasks/41/files/src/auth/refresh.ts"><span class="gw-list__body"><span class="gw-list__primary">src/auth/refresh.ts</span></span><span class="gw-list__meta">9 added, 2 removed</span></a></li>
+  <div class="ds-split-panel ds-split-panel--fill">
+    <section class="ds-split-panel__list" aria-label="Changed files of task 41">
+      <ul class="ds-list ds-list--dense">
+        <li class="ds-list__row"><a class="ds-list__link" href="/tasks/41/files/src/auth/session.ts" aria-current="true"><span class="ds-list__body"><span class="ds-list__primary">src/auth/session.ts</span></span><span class="ds-list__meta">38 added, 12 removed</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/tasks/41/files/src/auth/session.test.ts"><span class="ds-list__body"><span class="ds-list__primary">src/auth/session.test.ts</span></span><span class="ds-list__meta">64 added</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/tasks/41/files/src/auth/refresh.ts"><span class="ds-list__body"><span class="ds-list__primary">src/auth/refresh.ts</span></span><span class="ds-list__meta">9 added, 2 removed</span></a></li>
       </ul>
     </section>
-    <section class="gw-split-panel__detail" aria-label="Changes to src/auth/session.ts" tabindex="0">
+    <section class="ds-split-panel__detail" aria-label="Changes to src/auth/session.ts" tabindex="0">
       <h3>src/auth/session.ts</h3>
       <p>The 401 handler now keeps the refresh cookie and retries the request once. In an app shell the panel takes the height of the main area. Here its container has no height, so it is as tall as what it holds.</p>
     </section>
@@ -94,18 +94,18 @@
 </div>
 
 <div data-example="unlabelled" data-title="Three regions, none of them labelled" data-dont="review" data-reason="Two regions already share a phone screen in fifths. A third leaves each a strip too short to read, and with no labels a screen reader announces three anonymous scrolling boxes. Keep to a list and a detail, label both, and open anything further as a view of its own.">
-  <div class="gw-split-panel">
-    <div class="gw-split-panel__list">
-      <ul class="gw-list">
-        <li class="gw-list__row"><a class="gw-list__link" href="/dont/runs/4182"><span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">Run 4182</span></span><span class="gw-list__meta">Finished</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/dont/runs/4181"><span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">Run 4181</span></span><span class="gw-list__meta">Running</span></a></li>
-        <li class="gw-list__row"><a class="gw-list__link" href="/dont/runs/4180"><span class="gw-list__body"><span class="gw-list__primary">Remove the unused v1 billing routes</span><span class="gw-list__secondary">Run 4180</span></span><span class="gw-list__meta">Finished</span></a></li>
+  <div class="ds-split-panel">
+    <div class="ds-split-panel__list">
+      <ul class="ds-list">
+        <li class="ds-list__row"><a class="ds-list__link" href="/dont/runs/4182"><span class="ds-list__body"><span class="ds-list__primary">Refuse a session token older than 30 minutes</span><span class="ds-list__secondary">Run 4182</span></span><span class="ds-list__meta">Finished</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/dont/runs/4181"><span class="ds-list__body"><span class="ds-list__primary">Limit webhook deliveries to 20 a second</span><span class="ds-list__secondary">Run 4181</span></span><span class="ds-list__meta">Running</span></a></li>
+        <li class="ds-list__row"><a class="ds-list__link" href="/dont/runs/4180"><span class="ds-list__body"><span class="ds-list__primary">Remove the unused v1 billing routes</span><span class="ds-list__secondary">Run 4180</span></span><span class="ds-list__meta">Finished</span></a></li>
       </ul>
     </div>
-    <div class="gw-split-panel__detail">
+    <div class="ds-split-panel__detail">
       <p>Run 4179 failed: 3 of 214 tests did not pass.</p>
     </div>
-    <div class="gw-split-panel__detail">
+    <div class="ds-split-panel__detail">
       <p>npm run test -- --run src/db/client.test.ts</p>
     </div>
   </div>

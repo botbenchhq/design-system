@@ -18,19 +18,19 @@
   ],
   "states": ["default", "hover", "focus-visible", "active"],
   "accessibility": [
-    "The block, a div with gw-jump-to-latest, is the element before the composer or the now-doing line. It has no height, and the button hangs above it over the last rows, so nothing moves when it is shown. The block carries the hidden attribute whenever the reader is at the bottom.",
-    "The button is a button element with gw-jump-to-latest__button. Its text is the count in a span with gw-jump-to-latest__count and then the label, both app text: 3 new steps, Jump to latest. The stylesheet draws the arrow and the dot between the two, and neither is read out. With nothing to count the span is empty and the label stands alone.",
+    "The block, a div with ds-jump-to-latest, is the element before the composer or the now-doing line. It has no height, and the button hangs above it over the last rows, so nothing moves when it is shown. The block carries the hidden attribute whenever the reader is at the bottom.",
+    "The button is a button element with ds-jump-to-latest__button. Its text is the count in a span with ds-jump-to-latest__count and then the label, both app text: 3 new steps, Jump to latest. The stylesheet draws the arrow and the dot between the two, and neither is read out. With nothing to count the span is empty and the label stands alone.",
     "Count rows, in the unit the transcript shows: steps, or messages. Write the singular for one.",
     "A press scrolls to the newest row and starts following again. It never moves focus: a press with the pointer leaves focus in the composer, and after a press from the keyboard the button is hidden only once focus has left it.",
     "The rule the app follows: follow the newest row while the reader is within about 60px of the bottom, stop when they scroll up, count the rows added since, and start following again when they press the button or reach the bottom themselves.",
-    "For an app without a framework, behaviors/transcript.js defines gw-transcript, which does all of this. Put data-gw-jump on the block, and on the count span put data-gw-count with {count} where the number goes and data-gw-count-one with the wording for one. A framework app sets hidden and the count itself.",
+    "For an app without a framework, behaviors/transcript.js defines ds-transcript, which does all of this. Put data-ds-jump on the block, and on the count span put data-ds-count with {count} where the number goes and data-ds-count-one with the wording for one. A framework app sets hidden and the count itself.",
     "The count is not announced as it changes. New rows are in a log with aria-live=\"off\", and the view's one status region reports what matters.",
     "Tab reaches the button while it is shown. Enter and Space press it."
   ],
   "icons": ["arrow-down"],
   "classes": [
-    "gw-jump-to-latest",
-    "gw-jump-to-latest__button",
-    "gw-jump-to-latest__count"
+    "ds-jump-to-latest",
+    "ds-jump-to-latest__button",
+    "ds-jump-to-latest__count"
   ]
 }

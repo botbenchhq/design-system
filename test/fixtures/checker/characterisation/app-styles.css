@@ -21,7 +21,7 @@
     box-sizing: border-box;
   }
   .mark {
-    --editor\.foreground: var(--gw-color-on-surface);
+    --editor\.foreground: var(--ds-color-on-surface);
     background-image: url(data:image/svg+xml;base64,PHN2Zy8+);
     content: "a; b { c }";
   }

@@ -1,14 +1,14 @@
 <div data-example="default" data-title="Checks on a finished run" data-state="default" data-reason="The first line counts the results in words, the failed checks come first, and every result is a word beside its icon. The failing output is one press away under a summary that names the check.">
-  <div class="gw-check-list">
-    <p class="gw-check-list__summary">4 of 7 checks passed. 2 failed and 1 was skipped.</p>
-    <ul class="gw-check-list__items">
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Unit tests</span>
-        <span class="gw-check-list__result gw-check-list__result--failed">Failed, 3 of 214 tests</span>
-        <span class="gw-check-list__duration"><time datetime="PT1M48S">1 min 48 s</time></span>
-        <details class="gw-check-list__output">
-          <summary class="gw-check-list__toggle">Output<span class="gw-visually-hidden"> of Unit tests</span></summary>
-          <pre class="gw-check-list__log">FAIL src/auth/session.test.ts
+  <div class="ds-check-list">
+    <p class="ds-check-list__summary">4 of 7 checks passed. 2 failed and 1 was skipped.</p>
+    <ul class="ds-check-list__items">
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Unit tests</span>
+        <span class="ds-check-list__result ds-check-list__result--failed">Failed, 3 of 214 tests</span>
+        <span class="ds-check-list__duration"><time datetime="PT1M48S">1 min 48 s</time></span>
+        <details class="ds-check-list__output">
+          <summary class="ds-check-list__toggle">Output<span class="ds-visually-hidden"> of Unit tests</span></summary>
+          <pre class="ds-check-list__log">FAIL src/auth/session.test.ts
   refreshes the session after a reload
     expected 200, received 401
   keeps the session cookie on a redirect
@@ -17,55 +17,55 @@
     timed out after 5000 ms</pre>
         </details>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Type check</span>
-        <span class="gw-check-list__result gw-check-list__result--failed">Failed, 1 error</span>
-        <span class="gw-check-list__duration"><time datetime="PT21S">21 s</time></span>
-        <details class="gw-check-list__output">
-          <summary class="gw-check-list__toggle">Output<span class="gw-visually-hidden"> of Type check</span></summary>
-          <pre class="gw-check-list__log">src/auth/session.ts:88:14 - error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.</pre>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Type check</span>
+        <span class="ds-check-list__result ds-check-list__result--failed">Failed, 1 error</span>
+        <span class="ds-check-list__duration"><time datetime="PT21S">21 s</time></span>
+        <details class="ds-check-list__output">
+          <summary class="ds-check-list__toggle">Output<span class="ds-visually-hidden"> of Type check</span></summary>
+          <pre class="ds-check-list__log">src/auth/session.ts:88:14 - error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.</pre>
         </details>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Lint</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
-        <span class="gw-check-list__duration"><time datetime="PT9S">9 s</time></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Lint</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed</span>
+        <span class="ds-check-list__duration"><time datetime="PT9S">9 s</time></span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Build</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
-        <span class="gw-check-list__duration"><time datetime="PT1M2S">1 min 2 s</time></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Build</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed</span>
+        <span class="ds-check-list__duration"><time datetime="PT1M2S">1 min 2 s</time></span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Migration dry run</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
-        <span class="gw-check-list__duration"><time datetime="PT14S">14 s</time></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Migration dry run</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed</span>
+        <span class="ds-check-list__duration"><time datetime="PT14S">14 s</time></span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Secret scan</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
-        <span class="gw-check-list__duration"><time datetime="PT4S">4 s</time></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Secret scan</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed</span>
+        <span class="ds-check-list__duration"><time datetime="PT4S">4 s</time></span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Integration tests</span>
-        <span class="gw-check-list__result gw-check-list__result--skipped">Skipped, because unit tests failed</span>
-        <span class="gw-check-list__duration"></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Integration tests</span>
+        <span class="ds-check-list__result ds-check-list__result--skipped">Skipped, because unit tests failed</span>
+        <span class="ds-check-list__duration"></span>
       </li>
     </ul>
   </div>
 </div>
 
 <div data-example="open" data-title="With a failing check's output open" data-state="open">
-  <div class="gw-check-list">
-    <p class="gw-check-list__summary">2 of 3 checks passed. 1 failed.</p>
-    <ul class="gw-check-list__items">
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Type check</span>
-        <span class="gw-check-list__result gw-check-list__result--failed">Failed, 1 error</span>
-        <span class="gw-check-list__duration"><time datetime="PT21S">21 s</time></span>
-        <details class="gw-check-list__output" open>
-          <summary class="gw-check-list__toggle">Output<span class="gw-visually-hidden"> of Type check</span></summary>
-          <pre class="gw-check-list__log">src/auth/session.ts:88:14 - error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  <div class="ds-check-list">
+    <p class="ds-check-list__summary">2 of 3 checks passed. 1 failed.</p>
+    <ul class="ds-check-list__items">
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Type check</span>
+        <span class="ds-check-list__result ds-check-list__result--failed">Failed, 1 error</span>
+        <span class="ds-check-list__duration"><time datetime="PT21S">21 s</time></span>
+        <details class="ds-check-list__output" open>
+          <summary class="ds-check-list__toggle">Output<span class="ds-visually-hidden"> of Type check</span></summary>
+          <pre class="ds-check-list__log">src/auth/session.ts:88:14 - error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
 
 88     store.refresh(request.cookies.sid)
                     ~~~~~~~~~~~~~~~~~~~
@@ -73,165 +73,165 @@
 Found 1 error in src/auth/session.ts:88</pre>
         </details>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Lint</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
-        <span class="gw-check-list__duration"><time datetime="PT9S">9 s</time></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Lint</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed</span>
+        <span class="ds-check-list__duration"><time datetime="PT9S">9 s</time></span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Unit tests</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed, 214 tests</span>
-        <span class="gw-check-list__duration"><time datetime="PT1M44S">1 min 44 s</time></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Unit tests</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed, 214 tests</span>
+        <span class="ds-check-list__duration"><time datetime="PT1M44S">1 min 44 s</time></span>
       </li>
     </ul>
   </div>
 </div>
 
 <div data-example="running" data-title="While checks are still running" data-state="running">
-  <div class="gw-check-list">
-    <p class="gw-check-list__summary" role="status">2 of 5 checks passed so far. 1 is running and 2 have not started.</p>
-    <ul class="gw-check-list__items">
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Unit tests</span>
-        <span class="gw-check-list__result gw-check-list__result--running">Running</span>
-        <span class="gw-check-list__duration"><time datetime="PT52S">52 s so far</time></span>
+  <div class="ds-check-list">
+    <p class="ds-check-list__summary" role="status">2 of 5 checks passed so far. 1 is running and 2 have not started.</p>
+    <ul class="ds-check-list__items">
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Unit tests</span>
+        <span class="ds-check-list__result ds-check-list__result--running">Running</span>
+        <span class="ds-check-list__duration"><time datetime="PT52S">52 s so far</time></span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Lint</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
-        <span class="gw-check-list__duration"><time datetime="PT9S">9 s</time></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Lint</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed</span>
+        <span class="ds-check-list__duration"><time datetime="PT9S">9 s</time></span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Type check</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
-        <span class="gw-check-list__duration"><time datetime="PT19S">19 s</time></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Type check</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed</span>
+        <span class="ds-check-list__duration"><time datetime="PT19S">19 s</time></span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Build</span>
-        <span class="gw-check-list__result">Not started</span>
-        <span class="gw-check-list__duration">After unit tests</span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Build</span>
+        <span class="ds-check-list__result">Not started</span>
+        <span class="ds-check-list__duration">After unit tests</span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Integration tests</span>
-        <span class="gw-check-list__result">Not started</span>
-        <span class="gw-check-list__duration">After build</span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Integration tests</span>
+        <span class="ds-check-list__result">Not started</span>
+        <span class="ds-check-list__duration">After build</span>
       </li>
     </ul>
   </div>
 </div>
 
 <div data-example="timed-out" data-title="A check that ran out of time">
-  <div class="gw-check-list">
-    <p class="gw-check-list__summary">2 of 3 checks passed. 1 timed out.</p>
-    <ul class="gw-check-list__items">
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Integration tests</span>
-        <span class="gw-check-list__result gw-check-list__result--timed-out">Timed out after 10 min</span>
-        <span class="gw-check-list__duration"><time datetime="PT10M">10 min</time></span>
-        <details class="gw-check-list__output" open>
-          <summary class="gw-check-list__toggle">Output<span class="gw-visually-hidden"> of Integration tests</span></summary>
-          <pre class="gw-check-list__log">PASS src/auth/session.integration.test.ts
+  <div class="ds-check-list">
+    <p class="ds-check-list__summary">2 of 3 checks passed. 1 timed out.</p>
+    <ul class="ds-check-list__items">
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Integration tests</span>
+        <span class="ds-check-list__result ds-check-list__result--timed-out">Timed out after 10 min</span>
+        <span class="ds-check-list__duration"><time datetime="PT10M">10 min</time></span>
+        <details class="ds-check-list__output" open>
+          <summary class="ds-check-list__toggle">Output<span class="ds-visually-hidden"> of Integration tests</span></summary>
+          <pre class="ds-check-list__log">PASS src/auth/session.integration.test.ts
 RUNS src/billing/export.integration.test.ts
   stopped at the 10 minute limit for a check</pre>
         </details>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Unit tests</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
-        <span class="gw-check-list__duration"><time datetime="PT1M48S">1 min 48 s</time></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Unit tests</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed</span>
+        <span class="ds-check-list__duration"><time datetime="PT1M48S">1 min 48 s</time></span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Lint</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
-        <span class="gw-check-list__duration"><time datetime="PT9S">9 s</time></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Lint</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed</span>
+        <span class="ds-check-list__duration"><time datetime="PT9S">9 s</time></span>
       </li>
     </ul>
   </div>
 </div>
 
 <div data-example="all-passed" data-title="Every check passed">
-  <div class="gw-check-list">
-    <p class="gw-check-list__summary">3 of 3 checks passed.</p>
-    <ul class="gw-check-list__items">
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Lint</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
-        <span class="gw-check-list__duration"><time datetime="PT9S">9 s</time></span>
+  <div class="ds-check-list">
+    <p class="ds-check-list__summary">3 of 3 checks passed.</p>
+    <ul class="ds-check-list__items">
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Lint</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed</span>
+        <span class="ds-check-list__duration"><time datetime="PT9S">9 s</time></span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Type check</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
-        <span class="gw-check-list__duration"><time datetime="PT19S">19 s</time></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Type check</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed</span>
+        <span class="ds-check-list__duration"><time datetime="PT19S">19 s</time></span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Unit tests</span>
-        <span class="gw-check-list__result gw-check-list__result--passed">Passed, 214 tests</span>
-        <span class="gw-check-list__duration"><time datetime="PT1M44S">1 min 44 s</time></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Unit tests</span>
+        <span class="ds-check-list__result ds-check-list__result--passed">Passed, 214 tests</span>
+        <span class="ds-check-list__duration"><time datetime="PT1M44S">1 min 44 s</time></span>
       </li>
     </ul>
   </div>
 </div>
 
 <div data-example="loading" data-title="Reading the results" data-state="loading">
-  <div class="gw-check-list">
-    <p class="gw-spinner" role="status">Reading the checks for run 2292</p>
+  <div class="ds-check-list">
+    <p class="ds-spinner" role="status">Reading the checks for run 2292</p>
   </div>
 </div>
 
 <div data-example="empty" data-title="No checks are set up" data-state="empty">
-  <div class="gw-check-list">
-    <div class="gw-empty-state gw-empty-state--compact">
-      <h3 class="gw-empty-state__title">No checks ran for this run</h3>
-      <p class="gw-empty-state__body">acme/api has no check commands yet. Add lint, test or build commands in the repository settings and they run after every change.</p>
+  <div class="ds-check-list">
+    <div class="ds-empty-state ds-empty-state--compact">
+      <h3 class="ds-empty-state__title">No checks ran for this run</h3>
+      <p class="ds-empty-state__body">acme/api has no check commands yet. Add lint, test or build commands in the repository settings and they run after every change.</p>
     </div>
   </div>
 </div>
 
 <div data-example="error" data-title="The results could not be read" data-state="error">
-  <div class="gw-check-list">
-    <div class="gw-error-state" role="alert">
-      <h3 class="gw-error-state__title">The checks for run 2292 could not be loaded</h3>
+  <div class="ds-check-list">
+    <div class="ds-error-state" role="alert">
+      <h3 class="ds-error-state__title">The checks for run 2292 could not be loaded</h3>
       <p>The server did not answer in time. Check your connection, then retry.</p>
-      <div class="gw-error-state__action">
-        <button type="button" class="gw-button">Retry</button>
+      <div class="ds-error-state__action">
+        <button type="button" class="ds-button">Retry</button>
       </div>
     </div>
   </div>
 </div>
 
 <div data-example="marks-only" data-title="Results as coloured marks with no words" data-dont="review" data-reason="A reader who cannot tell the colours apart sees three identical rows, and nobody can tell a skipped check from one that has not started. Write each result as a word and let the stylesheet draw its icon.">
-  <div class="gw-check-list">
-    <ul class="gw-check-list__items">
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Lint</span>
-        <span class="gw-check-list__result gw-check-list__result--passed"></span>
-        <span class="gw-check-list__duration">9 s</span>
+  <div class="ds-check-list">
+    <ul class="ds-check-list__items">
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Lint</span>
+        <span class="ds-check-list__result ds-check-list__result--passed"></span>
+        <span class="ds-check-list__duration">9 s</span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Unit tests</span>
-        <span class="gw-check-list__result gw-check-list__result--failed"></span>
-        <span class="gw-check-list__duration">1 min 48 s</span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Unit tests</span>
+        <span class="ds-check-list__result ds-check-list__result--failed"></span>
+        <span class="ds-check-list__duration">1 min 48 s</span>
       </li>
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Integration tests</span>
-        <span class="gw-check-list__result"></span>
-        <span class="gw-check-list__duration"></span>
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Integration tests</span>
+        <span class="ds-check-list__result"></span>
+        <span class="ds-check-list__duration"></span>
       </li>
     </ul>
   </div>
 </div>
 
 <div data-example="summary-no-text" data-title="Output behind a summary with no text" data-dont="summary-without-text" data-reason="A summary with nothing in it gives a screen reader no name for the disclosure and gives everyone else only a chevron to guess from. Write what it opens: Output, and the check's name.">
-  <div class="gw-check-list">
-    <p class="gw-check-list__summary">0 of 1 checks passed. 1 failed.</p>
-    <ul class="gw-check-list__items">
-      <li class="gw-check-list__item">
-        <span class="gw-check-list__name">Type check</span>
-        <span class="gw-check-list__result gw-check-list__result--failed">Failed, 1 error</span>
-        <span class="gw-check-list__duration"><time datetime="PT21S">21 s</time></span>
-        <details class="gw-check-list__output">
-          <summary class="gw-check-list__toggle"></summary>
-          <pre class="gw-check-list__log">src/auth/session.ts:88:14 - error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.</pre>
+  <div class="ds-check-list">
+    <p class="ds-check-list__summary">0 of 1 checks passed. 1 failed.</p>
+    <ul class="ds-check-list__items">
+      <li class="ds-check-list__item">
+        <span class="ds-check-list__name">Type check</span>
+        <span class="ds-check-list__result ds-check-list__result--failed">Failed, 1 error</span>
+        <span class="ds-check-list__duration"><time datetime="PT21S">21 s</time></span>
+        <details class="ds-check-list__output">
+          <summary class="ds-check-list__toggle"></summary>
+          <pre class="ds-check-list__log">src/auth/session.ts:88:14 - error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.</pre>
         </details>
       </li>
     </ul>

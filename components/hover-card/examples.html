@@ -1,14 +1,14 @@
 <div data-example="default" data-title="A run, previewed from its link" data-state="open" data-gallery-frame="short" data-gallery-open data-reason="The card repeats facts from the run's own page, so a reader who never sees it misses nothing: a tap on the link goes to that page. It holds no button, because an action inside a card would exist nowhere a touch or screen-reader user could find it.">
   <p>
-    <span class="gw-hover-card">
+    <span class="ds-hover-card">
       <a href="/runs/4182" interestfor="hover-card-default-card">Run 4182</a>
-      <span class="gw-popover gw-hover-card__card" id="hover-card-default-card" popover="hint">
-        <strong class="gw-popover__title">Run 4182</strong>
-        <span class="gw-hover-card__meta">acme/api · fix/login-timeout</span>
-        <span class="gw-popover__facts">
-          <span class="gw-popover__fact"><span class="gw-popover__term">Status</span> <span>Finished, 213 of 213 tests passed</span></span>
-          <span class="gw-popover__fact"><span class="gw-popover__term">Started</span> <span>14 March, 09:30</span></span>
-          <span class="gw-popover__fact"><span class="gw-popover__term">Duration</span> <span>6 minutes 12 seconds</span></span>
+      <span class="ds-popover ds-hover-card__card" id="hover-card-default-card" popover="hint">
+        <strong class="ds-popover__title">Run 4182</strong>
+        <span class="ds-hover-card__meta">acme/api · fix/login-timeout</span>
+        <span class="ds-popover__facts">
+          <span class="ds-popover__fact"><span class="ds-popover__term">Status</span> <span>Finished, 213 of 213 tests passed</span></span>
+          <span class="ds-popover__fact"><span class="ds-popover__term">Started</span> <span>14 March, 09:30</span></span>
+          <span class="ds-popover__fact"><span class="ds-popover__term">Duration</span> <span>6 minutes 12 seconds</span></span>
         </span>
       </span>
     </span>
@@ -19,15 +19,15 @@
 <div data-example="rest" data-title="At rest, before hover or focus" data-state="default">
   <p>
     Branch
-    <span class="gw-hover-card">
+    <span class="ds-hover-card">
       <a href="/repositories/acme/api/branches/fix/login-timeout" interestfor="hover-card-rest-card">fix/login-timeout</a>
-      <span class="gw-popover gw-hover-card__card" id="hover-card-rest-card" popover="hint">
-        <strong class="gw-popover__title">fix/login-timeout</strong>
-        <span class="gw-hover-card__meta">acme/api</span>
-        <span class="gw-popover__facts">
-          <span class="gw-popover__fact"><span class="gw-popover__term">Compared with main</span> <span>4 commits ahead, 14 behind</span></span>
-          <span class="gw-popover__fact"><span class="gw-popover__term">Last commit</span> <span>2 minutes ago, by Claude Code</span></span>
-          <span class="gw-popover__fact"><span class="gw-popover__term">Pull request</span> <span>None yet</span></span>
+      <span class="ds-popover ds-hover-card__card" id="hover-card-rest-card" popover="hint">
+        <strong class="ds-popover__title">fix/login-timeout</strong>
+        <span class="ds-hover-card__meta">acme/api</span>
+        <span class="ds-popover__facts">
+          <span class="ds-popover__fact"><span class="ds-popover__term">Compared with main</span> <span>4 commits ahead, 14 behind</span></span>
+          <span class="ds-popover__fact"><span class="ds-popover__term">Last commit</span> <span>2 minutes ago, by Claude Code</span></span>
+          <span class="ds-popover__fact"><span class="ds-popover__term">Pull request</span> <span>None yet</span></span>
         </span>
       </span>
     </span>
@@ -36,19 +36,19 @@
 </div>
 
 <div data-example="person" data-title="A person, at the trailing edge" data-gallery-frame="short" data-gallery-open>
-  <div class="gw-split">
+  <div class="ds-split">
     <span>Task 41 · Fix the session refresh</span>
-    <span class="gw-hover-card gw-hover-card--end">
+    <span class="ds-hover-card ds-hover-card--end">
       <a href="/people/maya-okafor" interestfor="hover-card-person-card">Maya Okafor</a>
-      <span class="gw-popover gw-hover-card__card" id="hover-card-person-card" popover="hint">
-        <span class="gw-avatar">
-          <span class="gw-avatar__mark" aria-hidden="true">MO</span>
-          <span class="gw-avatar__name">Maya Okafor</span>
+      <span class="ds-popover ds-hover-card__card" id="hover-card-person-card" popover="hint">
+        <span class="ds-avatar">
+          <span class="ds-avatar__mark" aria-hidden="true">MO</span>
+          <span class="ds-avatar__name">Maya Okafor</span>
         </span>
-        <span class="gw-hover-card__meta">Maintainer of acme/api and acme/billing</span>
-        <span class="gw-popover__facts">
-          <span class="gw-popover__fact"><span class="gw-popover__term">Reviewing</span> <span>3 tasks</span></span>
-          <span class="gw-popover__fact"><span class="gw-popover__term">Local time</span> <span>16:42, Lagos</span></span>
+        <span class="ds-hover-card__meta">Maintainer of acme/api and acme/billing</span>
+        <span class="ds-popover__facts">
+          <span class="ds-popover__fact"><span class="ds-popover__term">Reviewing</span> <span>3 tasks</span></span>
+          <span class="ds-popover__fact"><span class="ds-popover__term">Local time</span> <span>16:42, Lagos</span></span>
         </span>
       </span>
     </span>
@@ -56,31 +56,31 @@
 </div>
 
 <div data-example="preview-button" data-title="With a preview button, for a tap">
-  <div class="gw-cluster gw-gap-xs">
-    <span class="gw-hover-card">
+  <div class="ds-cluster ds-gap-xs">
+    <span class="ds-hover-card">
       <a href="/runs/4181" interestfor="hover-card-preview-button-card">Run 4181</a>
-      <span class="gw-popover gw-hover-card__card" id="hover-card-preview-button-card" popover="hint">
-        <strong class="gw-popover__title">Run 4181</strong>
-        <span class="gw-hover-card__meta">acme/api · feat/webhook-rate-limit</span>
-        <span class="gw-popover__facts">
-          <span class="gw-popover__fact"><span class="gw-popover__term">Status</span> <span>Running, 38 of 214 tests finished</span></span>
-          <span class="gw-popover__fact"><span class="gw-popover__term">Started</span> <span>4 minutes ago</span></span>
+      <span class="ds-popover ds-hover-card__card" id="hover-card-preview-button-card" popover="hint">
+        <strong class="ds-popover__title">Run 4181</strong>
+        <span class="ds-hover-card__meta">acme/api · feat/webhook-rate-limit</span>
+        <span class="ds-popover__facts">
+          <span class="ds-popover__fact"><span class="ds-popover__term">Status</span> <span>Running, 38 of 214 tests finished</span></span>
+          <span class="ds-popover__fact"><span class="ds-popover__term">Started</span> <span>4 minutes ago</span></span>
         </span>
       </span>
     </span>
-    <button type="button" class="gw-button gw-button--quiet gw-icon-button" popovertarget="hover-card-preview-button-card" aria-label="Preview run 4181">
-      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-info"></use></svg>
+    <button type="button" class="ds-button ds-button--quiet ds-icon-button" popovertarget="hover-card-preview-button-card" aria-label="Preview run 4181">
+      <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-info"></use></svg>
     </button>
   </div>
 </div>
 
 <div data-example="loading" data-title="Loading the preview" data-state="loading" data-gallery-frame="short" data-gallery-open>
   <p>
-    <span class="gw-hover-card">
+    <span class="ds-hover-card">
       <a href="/runs/4179" interestfor="hover-card-loading-card">Run 4179</a>
-      <span class="gw-popover gw-hover-card__card" id="hover-card-loading-card" popover="hint">
-        <strong class="gw-popover__title">Run 4179</strong>
-        <span class="gw-spinner" role="status">Loading the run</span>
+      <span class="ds-popover ds-hover-card__card" id="hover-card-loading-card" popover="hint">
+        <strong class="ds-popover__title">Run 4179</strong>
+        <span class="ds-spinner" role="status">Loading the run</span>
       </span>
     </span>
     was started by a schedule.
@@ -89,10 +89,10 @@
 
 <div data-example="error" data-title="The preview could not be loaded" data-state="error" data-gallery-frame="short" data-gallery-open>
   <p>
-    <span class="gw-hover-card">
+    <span class="ds-hover-card">
       <a href="/runs/4178" interestfor="hover-card-error-card">Run 4178</a>
-      <span class="gw-popover gw-hover-card__card" id="hover-card-error-card" popover="hint">
-        <strong class="gw-popover__title">Run 4178</strong>
+      <span class="ds-popover ds-hover-card__card" id="hover-card-error-card" popover="hint">
+        <strong class="ds-popover__title">Run 4178</strong>
         <span>The preview could not be loaded: the server did not answer. Follow the link to open the run.</span>
       </span>
     </span>
@@ -102,13 +102,13 @@
 
 <div data-example="only-actions" data-title="Actions that exist only in the card" data-dont="review" data-gallery-frame="short" data-gallery-open data-reason="Stop run and Delete run appear only while a pointer rests on the link. A touch reader, who taps and lands on the run's page, and a screen-reader user, who is never told the card exists, cannot reach them. Put the actions on the run's page or in the row's menu, and keep the card to facts.">
   <p>
-    <span class="gw-hover-card">
+    <span class="ds-hover-card">
       <a href="/runs/4181" interestfor="hover-card-only-actions-card">Run 4181</a>
-      <span class="gw-popover gw-hover-card__card" id="hover-card-only-actions-card" popover="hint">
-        <strong class="gw-popover__title">Run 4181</strong>
-        <span class="gw-popover__actions">
-          <button type="button" class="gw-button">Stop run</button>
-          <button type="button" class="gw-button gw-button--danger">Delete run</button>
+      <span class="ds-popover ds-hover-card__card" id="hover-card-only-actions-card" popover="hint">
+        <strong class="ds-popover__title">Run 4181</strong>
+        <span class="ds-popover__actions">
+          <button type="button" class="ds-button">Stop run</button>
+          <button type="button" class="ds-button ds-button--danger">Delete run</button>
         </span>
       </span>
     </span>

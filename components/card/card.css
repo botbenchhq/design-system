@@ -3,61 +3,61 @@
  * It has no shadow. Content sits on the page unless grouping it helps the reader.
  */
 
-@layer gw.components {
-  .gw-card {
+@layer ds.components {
+  .ds-card {
     display: flex;
     flex-direction: column;
     min-width: 0;
-    border-width: var(--gw-border-width);
-    border-radius: var(--gw-radius-md);
-    background-color: var(--gw-color-surface-raised);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
   }
 
   /* A background shift in place of the border. Quiet text does not reach its contrast on this surface. */
-  .gw-card--sunken {
+  .ds-card--sunken {
     border-color: transparent;
-    background-color: var(--gw-color-surface-sunken);
+    background-color: var(--ds-color-surface-sunken);
   }
 
   /* As tall as a pointer target, so a small button's padded hit area stays inside the header. */
-  .gw-card__header {
+  .ds-card__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--gw-space-md);
-    min-height: var(--gw-size-touch);
-    padding-inline: var(--gw-space-lg);
-    border-bottom-width: var(--gw-border-width);
+    gap: var(--ds-space-md);
+    min-height: var(--ds-size-touch);
+    padding-inline: var(--ds-space-lg);
+    border-bottom-width: var(--ds-border-width);
   }
 
-  .gw-card--sunken > .gw-card__header {
-    border-bottom-color: var(--gw-color-border-strong);
+  .ds-card--sunken > .ds-card__header {
+    border-bottom-color: var(--ds-color-border-strong);
   }
 
   /* A heading at whatever level the view needs, drawn at the size of the text around it. */
-  .gw-card__title {
+  .ds-card__title {
     min-width: 0;
     margin: 0;
-    padding-block: var(--gw-space-sm);
-    font-size: var(--gw-text-ui);
-    font-weight: var(--gw-weight-semibold);
-    line-height: var(--gw-leading-ui);
+    padding-block: var(--ds-space-sm);
+    font-size: var(--ds-text-ui);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-ui);
     overflow-wrap: anywhere;
   }
 
   /* Pulled towards the edge, so the words of a quiet button line up with the body's text. */
-  .gw-card__action {
+  .ds-card__action {
     display: flex;
     flex: none;
     align-items: center;
-    margin-inline-end: calc(var(--gw-space-sm) * -1);
+    margin-inline-end: calc(var(--ds-space-sm) * -1);
   }
 
-  .gw-card__body {
+  .ds-card__body {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-md);
+    gap: var(--ds-space-md);
     min-width: 0;
-    padding: var(--gw-space-lg);
+    padding: var(--ds-space-lg);
   }
 }

@@ -32,14 +32,14 @@ test("a raw colour in CSS fails with the file, line, rule and nearest token", ()
   const line = stdout.split("\n").find((text) => text.includes("raw-color"));
   assert.match(line, /^css\/raw-color\.css:3\b/);
   assert.match(line, /#6366f1/);
-  assert.match(line, /var\(--gw-color-focus\)/);
+  assert.match(line, /var\(--ds-color-focus\)/);
 });
 
 test("an off-scale padding fails, and a spacing token or zero passes", () => {
   const { status, report } = checkJson(["css/spacing.css"]);
   assert.equal(status, 1);
   assert.deepEqual(brief(report.findings), ["css/spacing.css:2 off-scale-spacing"]);
-  assert.match(report.findings[0].fix, /var\(--gw-space-md\)/);
+  assert.match(report.findings[0].fix, /var\(--ds-space-md\)/);
 });
 
 test("a gradient built only from tokens still fails", () => {
@@ -76,7 +76,7 @@ test("visual utilities in a screen are findings and a spacing utility is not", (
 });
 
 test("the same visual utilities pass in a file declared as an app-local component", () => {
-  const { status, report } = checkJson(["--config", "app-local/groundwork.config.json", "app-local/src/run-ledger.tsx"]);
+  const { status, report } = checkJson(["--config", "app-local/design-system.config.json", "app-local/src/run-ledger.tsx"]);
   assert.deepEqual(report.findings, []);
   assert.equal(status, 0);
 });
@@ -102,11 +102,11 @@ test("the name of a sprite symbol used as a class is still checked as a class", 
 });
 
 test("a misspelt system class fails and suggests the nearest known one", () => {
-  const manifest = manifestWithClasses(["gw-badge", "gw-button", "gw-button--primary"]);
+  const manifest = manifestWithClasses(["ds-badge", "ds-button", "ds-button--primary"]);
   const { status, report } = checkJson(["markup/typo.tsx"], { manifest });
   assert.equal(status, 1);
   assert.deepEqual(brief(report.findings), ["markup/typo.tsx:2 unknown-class"]);
-  assert.match(report.findings[0].fix, /gw-button\b(?!-)/);
+  assert.match(report.findings[0].fix, /ds-button\b(?!-)/);
 });
 
 test("an inline style in HTML fails and a custom property set from script passes", () => {
@@ -137,41 +137,71 @@ test("a waiver that matches no finding is reported as unused", () => {
   assert.deepEqual(brief(report.findings), ["waivers/unused.css:2 unused-waiver"]);
 });
 
+test("a name with the prefix from before 0.6.0 fails with old-prefix, which names the codemod and the new name", () => {
+  const html = checkJson(["old-prefix/screen.html"]);
+  assert.equal(html.status, 1);
+  assert.deepEqual(brief(html.report.findings), [
+    "old-prefix/screen.html:4 old-prefix",
+    "old-prefix/screen.html:5 old-prefix",
+    "old-prefix/screen.html:5 old-prefix",
+    "old-prefix/screen.html:5 old-prefix",
+    "old-prefix/screen.html:6 old-prefix",
+    // With its only system class misspelt by the old prefix, the view uses no component of the system.
+    "old-prefix/screen.html:5 unstyled-controls",
+    "old-prefix/screen.html:8 old-prefix",
+  ]);
+  const names = (report) => report.findings.filter(({ rule }) => rule === "old-prefix").map(({ message }) => message.match(/^\S+/)[0]);
+  assert.deepEqual(names(html.report), ["gw-tabs", "gw-button", "gw-button--primary", "data-gw-critical", "gw-icon-check", "gw-waive"]);
+  assert.match(html.report.findings[1].message, /migrate-prefix\.mjs/);
+  assert.match(html.report.findings[1].fix, /migrate-prefix\.mjs .*The new name is ds-button\.$/);
+
+  const script = checkJson(["old-prefix/screen.tsx"]);
+  assert.deepEqual(names(script.report), ["gw-card__title", "--gw-progress", "gw-transcript", "data-gw-scroller", "gw-button", "gw-button--small", "gw-waive"]);
+  assert.deepEqual(script.report.findings.map(({ rule }) => rule).filter((rule) => rule !== "old-prefix"), []);
+
+  const css = checkJson(["old-prefix/app.css"]);
+  assert.deepEqual(names(css.report), ["gw.components", "data-gw-critical", "--gw-space-md", "gw-streaming-turn", "--gw-color-accent"]);
+  assert.deepEqual(css.report.findings.map(({ fix }) => fix.match(/\S+\.$/)[0]), ["ds.components.", "data-ds-critical.", "--ds-space-md.", "ds-streaming-turn.", "--ds-color-accent."]);
+
+  const unchanged = checkJson(["old-prefix/unchanged.tsx"]);
+  assert.deepEqual([unchanged.status, unchanged.report.findings], [0, []]);
+});
+
 test("a changed vendored file fails before any other rule and names the file", () => {
   const dir = tempDir();
   cpSync(join(fixtures, "vendored"), dir, { recursive: true });
-  const vendor = join(dir, "vendor", "groundwork");
+  const vendor = join(dir, "vendor", "design-system");
   const files = Object.fromEntries(
     readdirSync(vendor).map((name) => [name, createHash("sha256").update(readFileSync(join(vendor, name))).digest("hex")]),
   );
   writeFileSync(join(vendor, "hashes.json"), JSON.stringify({ files }));
-  const args = ["--config", "groundwork.config.json"];
+  const args = ["--config", "design-system.config.json"];
 
   const intact = checkJson(args, { cwd: dir });
   assert.deepEqual(brief(intact.report.findings), ["src/app.css:2 raw-color"]);
 
-  const original = readFileSync(join(vendor, "groundwork.css"), "utf8");
-  writeFileSync(join(vendor, "groundwork.css"), original.replace("sm", "md"));
+  const original = readFileSync(join(vendor, "design-system.css"), "utf8");
+  writeFileSync(join(vendor, "design-system.css"), original.replace("sm", "md"));
   const changed = checkJson(args, { cwd: dir });
   assert.equal(changed.status, 1);
-  assert.deepEqual(brief(changed.report.findings), ["vendor/groundwork/groundwork.css:1 vendored-file-changed"]);
+  assert.deepEqual(brief(changed.report.findings), ["vendor/design-system/design-system.css:1 vendored-file-changed"]);
   assert.equal(changed.report.filesScanned, 0);
 });
 
 test("a declared app-local class styled with tokens passes and is listed in the summary", () => {
-  const { status, stdout } = check(["--config", "app-local/groundwork.config.json"]);
+  const { status, stdout } = check(["--config", "app-local/design-system.config.json"]);
   assert.equal(status, 0);
   assert.match(stdout, /Declared gaps \(1\)/);
   assert.match(stdout, /Run ledger\s+sm-run-ledger\s+No catalogue component shows a run's cost lines\./);
   const { rules } = JSON.parse(readFileSync(distManifest, "utf8"));
-  assert.equal(rules.length, 40);
-  assert.match(stdout, /^0 findings, 0 waivers, 1 declared gap, 3 files scanned, 40 rules$/m);
+  assert.equal(rules.length, 41);
+  assert.match(stdout, /^0 findings, 0 waivers, 1 declared gap, 3 files scanned, 41 rules$/m);
 });
 
 test("the summary line and the JSON report say how many rules the checker holds", () => {
   const text = check(["css/spacing.css"]);
-  assert.match(text.stdout, /\n1 finding, 0 waivers, 0 declared gaps, 1 file scanned, 40 rules\n$/);
-  assert.equal(checkJson(["css/spacing.css"]).report.rules, 40);
+  assert.match(text.stdout, /\n1 finding, 0 waivers, 0 declared gaps, 1 file scanned, 41 rules\n$/);
+  assert.equal(checkJson(["css/spacing.css"]).report.rules, 41);
   // The count comes from the manifest the run reads, so a copy with one rule says so.
   const dir = tempDir();
   const manifest = JSON.parse(readFileSync(distManifest, "utf8"));
@@ -181,7 +211,7 @@ test("the summary line and the JSON report say how many rules the checker holds"
 });
 
 test("an app-local class missing from the gap file fails", () => {
-  const { status, report } = checkJson(["--config", "app-local/groundwork.config.json", "app-local/undeclared"]);
+  const { status, report } = checkJson(["--config", "app-local/design-system.config.json", "app-local/undeclared"]);
   assert.equal(status, 1);
   assert.deepEqual(brief(report.findings), ["app-local/undeclared/panel.tsx:2 undeclared-app-class"]);
   assert.match(report.findings[0].message, /^sm-cost-panel\b/);
@@ -229,7 +259,7 @@ test("the script reader keeps strings, template parts and element attributes apa
 
 test("a waiver comment yields its rule, reason and line in each comment style", () => {
   const waivers = parseWaivers(
-    ["/* gw-waive raw-color: fixed by contract */", "// gw-waive inline-style: measured at run time", "<!-- gw-waive visual-utility -->"].join("\n"),
+    ["/* ds-waive raw-color: fixed by contract */", "// ds-waive inline-style: measured at run time", "<!-- ds-waive visual-utility -->"].join("\n"),
   );
   assert.deepEqual(waivers, [
     { line: 1, rule: "raw-color", reason: "fixed by contract" },

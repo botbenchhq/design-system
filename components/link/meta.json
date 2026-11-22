@@ -6,7 +6,7 @@
   "whenToUse": [
     "To go to another view, another place in this view or another site.",
     "In running text, as a plain a element with no class.",
-    "Standing alone, such as View all runs under a list, with the gw-link class.",
+    "Standing alone, such as View all runs under a list, with the ds-link class.",
     "With the external-link icon and the hidden hint when the link opens another site in a new tab."
   ],
   "whenNotToUse": [
@@ -17,9 +17,9 @@
   ],
   "variants": [
     { "name": "inline", "use": "A link inside a sentence. It takes no class: the base styles underline it, and it has the colour of the text around it." },
-    { "name": "standalone", "class": "gw-link", "use": "A link outside a sentence. It is 44px tall and may end with an icon, such as arrow-right." },
-    { "name": "quiet", "class": "gw-link--quiet", "use": "With gw-link, for a minor link that should not draw the eye, such as Edit approval rules. Muted, and still underlined." },
-    { "name": "external", "use": "Not a class but a pattern, for a link with target=\"_blank\": end it with a gw-link__icon showing external-link and a gw-link__hint holding (opens in a new tab). It works in an inline, a standalone and a quiet link." }
+    { "name": "standalone", "class": "ds-link", "use": "A link outside a sentence. It is 44px tall and may end with an icon, such as arrow-right." },
+    { "name": "quiet", "class": "ds-link--quiet", "use": "With ds-link, for a minor link that should not draw the eye, such as Edit approval rules. Muted, and still underlined." },
+    { "name": "external", "use": "Not a class but a pattern, for a link with target=\"_blank\": end it with a ds-link__icon showing external-link and a ds-link__hint holding (opens in a new tab). It works in an inline, a standalone and a quiet link." }
   ],
   "sizes": [
     { "name": "default", "use": "A standalone link takes the text size around it and is at least 44px tall and wide. An inline link is the size of its sentence." }
@@ -29,16 +29,16 @@
     "Use an a element with an href. Without an href it cannot be reached with the keyboard.",
     "The link text names where it goes and makes sense read alone: the log for run 2291, never here or read more.",
     "A link is underlined in every variant and state. Do not remove the underline, and do not mark a link by colour alone.",
-    "A link that opens a new tab says so. Put (opens in a new tab) in a gw-link__hint inside the link, which a screen reader reads and the screen does not show, and set rel=\"noopener\".",
+    "A link that opens a new tab says so. Put (opens in a new tab) in a ds-link__hint inside the link, which a screen reader reads and the screen does not show, and set rel=\"noopener\".",
     "An icon inside a link is decoration and carries aria-hidden=\"true\". The external-link icon is the visible sign of what the hint says.",
     "Tab moves to the link and Enter follows it. Space does not, which is one reason an action is a button.",
     "A standalone link has a 44px pointer target. An inline link is exempt, so do not put two of them side by side in a sentence."
   ],
   "icons": ["arrow-right", "external-link"],
   "classes": [
-    "gw-link",
-    "gw-link--quiet",
-    "gw-link__hint",
-    "gw-link__icon"
+    "ds-link",
+    "ds-link--quiet",
+    "ds-link__hint",
+    "ds-link__icon"
   ]
 }

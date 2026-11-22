@@ -1,52 +1,52 @@
 <div data-example="default" data-title="Beside a value in a row" data-state="default" data-reason="The value is already on screen as text, so a small quiet button beside it is enough. The empty status next to the button is in the page from the start, ready for the app to write the result into.">
-  <div class="gw-cluster">
+  <div class="ds-cluster">
     <code>fix/login-timeout</code>
-    <span class="gw-copy-button">
-      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy branch name">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    <span class="ds-copy-button">
+      <button type="button" class="ds-button ds-button--quiet ds-button--small" aria-label="Copy branch name">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
-      <span class="gw-copy-button__status" role="status"></span>
+      <span class="ds-copy-button__status" role="status"></span>
     </span>
   </div>
 </div>
 
 <div data-example="copied" data-title="After a copy" data-state="copied" data-reason="The word Copied appears beside the button and is announced from the live region. The button keeps its name, its icon and the focus, so nothing the reader relies on moves.">
-  <div class="gw-cluster">
+  <div class="ds-cluster">
     <code>fix/login-timeout</code>
-    <span class="gw-copy-button">
-      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy branch name">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    <span class="ds-copy-button">
+      <button type="button" class="ds-button ds-button--quiet ds-button--small" aria-label="Copy branch name">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
-      <span class="gw-copy-button__status" role="status">Copied</span>
+      <span class="ds-copy-button__status" role="status">Copied</span>
     </span>
   </div>
 </div>
 
 <div data-example="icon-only" data-title="Icon only, in a key-value list">
-  <dl class="gw-key-value">
-    <div class="gw-key-value__item">
-      <dt class="gw-key-value__label">Commit</dt>
-      <dd class="gw-key-value__value gw-key-value__value--mono">
+  <dl class="ds-key-value">
+    <div class="ds-key-value__item">
+      <dt class="ds-key-value__label">Commit</dt>
+      <dd class="ds-key-value__value ds-key-value__value--mono">
         9c41e7a
-        <span class="gw-copy-button">
-          <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Copy commit hash">
-            <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+        <span class="ds-copy-button">
+          <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Copy commit hash">
+            <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
           </button>
-          <span class="gw-copy-button__status" role="status"></span>
+          <span class="ds-copy-button__status" role="status"></span>
         </span>
       </dd>
     </div>
-    <div class="gw-key-value__item">
-      <dt class="gw-key-value__label">Worktree</dt>
-      <dd class="gw-key-value__value gw-key-value__value--mono">
+    <div class="ds-key-value__item">
+      <dt class="ds-key-value__label">Worktree</dt>
+      <dd class="ds-key-value__value ds-key-value__value--mono">
         /srv/workspaces/acme-api
-        <span class="gw-copy-button">
-          <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Copy worktree path">
-            <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+        <span class="ds-copy-button">
+          <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Copy worktree path">
+            <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
           </button>
-          <span class="gw-copy-button__status" role="status">Copied</span>
+          <span class="ds-copy-button__status" role="status">Copied</span>
         </span>
       </dd>
     </div>
@@ -54,12 +54,12 @@
 </div>
 
 <div data-example="trailing" data-title="At the trailing end, with the status before the button">
-  <div class="gw-split">
+  <div class="ds-split">
     <code>npm run test -- --run src/auth/session.test.ts</code>
-    <span class="gw-copy-button">
-      <span class="gw-copy-button__status" role="status">Command copied</span>
-      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy command">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    <span class="ds-copy-button">
+      <span class="ds-copy-button__status" role="status">Command copied</span>
+      <button type="button" class="ds-button ds-button--quiet ds-button--small" aria-label="Copy command">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
     </span>
@@ -67,62 +67,62 @@
 </div>
 
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <div class="gw-cluster">
+  <div class="ds-cluster">
     <code>fix/login-timeout</code>
-    <span class="gw-copy-button">
-      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy branch name">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    <span class="ds-copy-button">
+      <button type="button" class="ds-button ds-button--quiet ds-button--small" aria-label="Copy branch name">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
-      <span class="gw-copy-button__status" role="status"></span>
+      <span class="ds-copy-button__status" role="status"></span>
     </span>
   </div>
 </div>
 
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <div class="gw-cluster">
+  <div class="ds-cluster">
     <code>fix/login-timeout</code>
-    <span class="gw-copy-button">
-      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy branch name">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    <span class="ds-copy-button">
+      <button type="button" class="ds-button ds-button--quiet ds-button--small" aria-label="Copy branch name">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
-      <span class="gw-copy-button__status" role="status"></span>
+      <span class="ds-copy-button__status" role="status"></span>
     </span>
   </div>
 </div>
 
 <div data-example="error" data-title="When the copy fails" data-state="error">
-  <div class="gw-cluster">
+  <div class="ds-cluster">
     <code>fix/login-timeout</code>
-    <span class="gw-copy-button">
-      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy branch name">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    <span class="ds-copy-button">
+      <button type="button" class="ds-button ds-button--quiet ds-button--small" aria-label="Copy branch name">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
-      <span class="gw-copy-button__status" role="status">Not copied. Select the branch name and copy it by hand.</span>
+      <span class="ds-copy-button__status" role="status">Not copied. Select the branch name and copy it by hand.</span>
     </span>
   </div>
 </div>
 
 <div data-example="disabled" data-title="Nothing to copy yet" data-state="disabled">
-  <div class="gw-cluster">
+  <div class="ds-cluster">
     <span>The branch is created when the run starts.</span>
-    <span class="gw-copy-button">
-      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy branch name" disabled>
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    <span class="ds-copy-button">
+      <button type="button" class="ds-button ds-button--quiet ds-button--small" aria-label="Copy branch name" disabled>
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
         Copy
       </button>
-      <span class="gw-copy-button__status" role="status"></span>
+      <span class="ds-copy-button__status" role="status"></span>
     </span>
   </div>
 </div>
 
 <div data-example="no-words" data-title="An icon with no name and no status" data-dont="review" data-reason="A screen reader announces only that this is a button, and after a press nothing says whether the copy worked. Name the button for what it copies, and write Copied into a status beside it.">
-  <div class="gw-cluster">
+  <div class="ds-cluster">
     <code>fix/login-timeout</code>
-    <button type="button" class="gw-button gw-button--quiet gw-icon-button">
-      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    <button type="button" class="ds-button ds-button--quiet ds-icon-button">
+      <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-copy"></use></svg>
     </button>
   </div>
 </div>

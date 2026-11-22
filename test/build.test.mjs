@@ -34,7 +34,7 @@ test("dist carries the repo's licence and notice, byte for byte", () => {
 test("an edited source without a rebuild is reported as stale, by file name", () => {
   const root = copySources();
   const source = join(root, "tokens", "tokens.css");
-  writeFileSync(source, readFileSync(source, "utf8").replace("--gw-space-xs: 4px", "--gw-space-xs: 5px"));
+  writeFileSync(source, readFileSync(source, "utf8").replace("--ds-space-xs: 4px", "--ds-space-xs: 5px"));
   const stale = staleFiles({ root, distDir: committed });
   assert.ok(stale.includes("tokens.css"), `expected tokens.css in ${JSON.stringify(stale)}`);
   assert.ok(stale.includes("tokens.json"));

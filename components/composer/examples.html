@@ -1,48 +1,48 @@
 <div data-example="default" data-title="Label, textarea and Send" data-state="default" data-reason="The label stays visible while the reader types, and Send is the one primary action of the view.">
-  <form class="gw-composer">
-    <label class="gw-composer__label" for="composer-default-prompt">Message Claude Code</label>
-    <div class="gw-composer__row">
-      <textarea class="gw-composer__input" id="composer-default-prompt" name="prompt" rows="1"></textarea>
-      <button type="submit" class="gw-button gw-button--primary">Send</button>
+  <form class="ds-composer">
+    <label class="ds-composer__label" for="composer-default-prompt">Message Claude Code</label>
+    <div class="ds-composer__row">
+      <textarea class="ds-composer__input" id="composer-default-prompt" name="prompt" rows="1"></textarea>
+      <button type="submit" class="ds-button ds-button--primary">Send</button>
     </div>
   </form>
 </div>
 
 <div data-example="grown" data-title="Grown with its content">
-  <form class="gw-composer">
-    <label class="gw-composer__label" for="composer-grown-prompt">Message Claude Code</label>
-    <div class="gw-composer__row">
-      <textarea class="gw-composer__input" id="composer-grown-prompt" name="prompt" rows="1">The session cookie expires after 15 minutes even while the tab is active.
+  <form class="ds-composer">
+    <label class="ds-composer__label" for="composer-grown-prompt">Message Claude Code</label>
+    <div class="ds-composer__row">
+      <textarea class="ds-composer__input" id="composer-grown-prompt" name="prompt" rows="1">The session cookie expires after 15 minutes even while the tab is active.
 
 Find out why, fix it, and run the auth tests.</textarea>
-      <button type="submit" class="gw-button gw-button--primary">Send</button>
+      <button type="submit" class="ds-button ds-button--primary">Send</button>
     </div>
   </form>
 </div>
 
 <div data-example="accessible-name" data-title="No visible label, with an accessible name">
-  <form class="gw-composer">
-    <div class="gw-composer__row">
-      <textarea class="gw-composer__input" name="prompt" rows="1" aria-label="Message Claude Code">Run the auth tests again.</textarea>
-      <button type="submit" class="gw-button gw-button--primary">Send</button>
+  <form class="ds-composer">
+    <div class="ds-composer__row">
+      <textarea class="ds-composer__input" name="prompt" rows="1" aria-label="Message Claude Code">Run the auth tests again.</textarea>
+      <button type="submit" class="ds-button ds-button--primary">Send</button>
     </div>
   </form>
 </div>
 
 <div data-example="controls" data-title="With quiet secondary controls">
-  <form class="gw-composer">
-    <label class="gw-composer__label" for="composer-controls-prompt">Message Claude Code</label>
-    <div class="gw-composer__row">
-      <textarea class="gw-composer__input" id="composer-controls-prompt" name="prompt" rows="1">Open a pull request for this branch.</textarea>
-      <button type="submit" class="gw-button gw-button--primary">Send</button>
+  <form class="ds-composer">
+    <label class="ds-composer__label" for="composer-controls-prompt">Message Claude Code</label>
+    <div class="ds-composer__row">
+      <textarea class="ds-composer__input" id="composer-controls-prompt" name="prompt" rows="1">Open a pull request for this branch.</textarea>
+      <button type="submit" class="ds-button ds-button--primary">Send</button>
     </div>
-    <div class="gw-composer__controls">
-      <button type="button" class="gw-button gw-button--quiet gw-button--small">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
+    <div class="ds-composer__controls">
+      <button type="button" class="ds-button ds-button--quiet ds-button--small">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
         Attach file
       </button>
-      <button type="button" class="gw-button gw-button--quiet gw-button--small">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
+      <button type="button" class="ds-button ds-button--quiet ds-button--small">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
         fix/session-refresh
       </button>
     </div>
@@ -50,74 +50,74 @@ Find out why, fix it, and run the auth tests.</textarea>
 </div>
 
 <div data-example="focus" data-title="Focus" data-state="focus">
-  <form class="gw-composer">
-    <label class="gw-composer__label" for="composer-focus-prompt">Message Claude Code</label>
-    <div class="gw-composer__row">
-      <textarea class="gw-composer__input" id="composer-focus-prompt" name="prompt" rows="1">Add a test for the reload case.</textarea>
-      <button type="submit" class="gw-button gw-button--primary">Send</button>
+  <form class="ds-composer">
+    <label class="ds-composer__label" for="composer-focus-prompt">Message Claude Code</label>
+    <div class="ds-composer__row">
+      <textarea class="ds-composer__input" id="composer-focus-prompt" name="prompt" rows="1">Add a test for the reload case.</textarea>
+      <button type="submit" class="ds-button ds-button--primary">Send</button>
     </div>
   </form>
 </div>
 
 <div data-example="busy" data-title="Busy: a turn is running" data-state="busy" data-reason="While a turn runs, Stop takes the place of Send with secondary emphasis, so the view never shows two main actions. The textarea stays open for drafting the next prompt.">
-  <form class="gw-composer" aria-busy="true">
-    <label class="gw-composer__label" for="composer-busy-prompt">Message Claude Code</label>
-    <div class="gw-composer__row">
-      <textarea class="gw-composer__input" id="composer-busy-prompt" name="prompt" rows="1" aria-describedby="composer-busy-reason"></textarea>
-      <button type="button" class="gw-button">Stop</button>
+  <form class="ds-composer" aria-busy="true">
+    <label class="ds-composer__label" for="composer-busy-prompt">Message Claude Code</label>
+    <div class="ds-composer__row">
+      <textarea class="ds-composer__input" id="composer-busy-prompt" name="prompt" rows="1" aria-describedby="composer-busy-reason"></textarea>
+      <button type="button" class="ds-button">Stop</button>
     </div>
-    <p class="gw-composer__reason" id="composer-busy-reason">Claude Code is working. You can send again when this turn ends.</p>
+    <p class="ds-composer__reason" id="composer-busy-reason">Claude Code is working. You can send again when this turn ends.</p>
   </form>
 </div>
 
 <div data-example="disabled" data-title="Disabled, with the reason" data-state="disabled" data-reason="The reason sits beside the controls it explains and is linked to both, so the reader learns what to do instead of meeting a dead button.">
-  <form class="gw-composer">
-    <label class="gw-composer__label" for="composer-disabled-prompt">Message Claude Code</label>
-    <div class="gw-composer__row">
-      <textarea class="gw-composer__input" id="composer-disabled-prompt" name="prompt" rows="1" disabled aria-describedby="composer-disabled-reason"></textarea>
-      <button type="submit" class="gw-button gw-button--primary" disabled aria-describedby="composer-disabled-reason">Send</button>
+  <form class="ds-composer">
+    <label class="ds-composer__label" for="composer-disabled-prompt">Message Claude Code</label>
+    <div class="ds-composer__row">
+      <textarea class="ds-composer__input" id="composer-disabled-prompt" name="prompt" rows="1" disabled aria-describedby="composer-disabled-reason"></textarea>
+      <button type="submit" class="ds-button ds-button--primary" disabled aria-describedby="composer-disabled-reason">Send</button>
     </div>
-    <p class="gw-composer__reason" id="composer-disabled-reason">Sign in to Claude Code to send. Run claude login on the machine that hosts this workspace.</p>
+    <p class="ds-composer__reason" id="composer-disabled-reason">Sign in to Claude Code to send. Run claude login on the machine that hosts this workspace.</p>
   </form>
 </div>
 
 <div data-example="error" data-title="The prompt was not sent" data-state="error">
-  <form class="gw-composer">
-    <label class="gw-composer__label" for="composer-error-prompt">Message Claude Code</label>
-    <div class="gw-composer__row">
-      <textarea class="gw-composer__input" id="composer-error-prompt" name="prompt" rows="1" aria-describedby="composer-error-message">Run the auth tests again.</textarea>
-      <button type="submit" class="gw-button gw-button--primary">Send</button>
+  <form class="ds-composer">
+    <label class="ds-composer__label" for="composer-error-prompt">Message Claude Code</label>
+    <div class="ds-composer__row">
+      <textarea class="ds-composer__input" id="composer-error-prompt" name="prompt" rows="1" aria-describedby="composer-error-message">Run the auth tests again.</textarea>
+      <button type="submit" class="ds-button ds-button--primary">Send</button>
     </div>
-    <p class="gw-composer__error" id="composer-error-message" role="alert">Your message was not sent: the server could not be reached. It is still in the box, so you can send it again.</p>
+    <p class="ds-composer__error" id="composer-error-message" role="alert">Your message was not sent: the server could not be reached. It is still in the box, so you can send it again.</p>
   </form>
 </div>
 
 <div data-example="sticky" data-title="Held to the bottom of the view">
-  <form class="gw-composer gw-composer--sticky">
-    <label class="gw-composer__label" for="composer-sticky-prompt">Message Claude Code</label>
-    <div class="gw-composer__row">
-      <textarea class="gw-composer__input" id="composer-sticky-prompt" name="prompt" rows="1"></textarea>
-      <button type="submit" class="gw-button gw-button--primary">Send</button>
+  <form class="ds-composer ds-composer--sticky">
+    <label class="ds-composer__label" for="composer-sticky-prompt">Message Claude Code</label>
+    <div class="ds-composer__row">
+      <textarea class="ds-composer__input" id="composer-sticky-prompt" name="prompt" rows="1"></textarea>
+      <button type="submit" class="ds-button ds-button--primary">Send</button>
     </div>
   </form>
 </div>
 
 <div data-example="send-and-stop" data-title="Send and Stop both primary" data-dont="one-primary-action" data-reason="Two primary buttons compete, and on a phone the wrong one is a thumb's width away. Show only the one that applies: Send while idle, Stop while a turn runs.">
-  <form class="gw-composer" aria-busy="true">
-    <label class="gw-composer__label" for="composer-send-and-stop-prompt">Message Claude Code</label>
-    <div class="gw-composer__row">
-      <textarea class="gw-composer__input" id="composer-send-and-stop-prompt" name="prompt" rows="1"></textarea>
-      <button type="button" class="gw-button gw-button--primary">Stop</button>
-      <button type="submit" class="gw-button gw-button--primary">Send</button>
+  <form class="ds-composer" aria-busy="true">
+    <label class="ds-composer__label" for="composer-send-and-stop-prompt">Message Claude Code</label>
+    <div class="ds-composer__row">
+      <textarea class="ds-composer__input" id="composer-send-and-stop-prompt" name="prompt" rows="1"></textarea>
+      <button type="button" class="ds-button ds-button--primary">Stop</button>
+      <button type="submit" class="ds-button ds-button--primary">Send</button>
     </div>
   </form>
 </div>
 
 <div data-example="disabled-no-reason" data-title="Disabled with no reason" data-dont="review" data-reason="A greyed-out composer with nothing beside it leaves the reader guessing whether the app is broken, still loading or waiting for them.">
-  <form class="gw-composer">
-    <div class="gw-composer__row">
-      <textarea class="gw-composer__input" name="prompt" rows="1" aria-label="Message Claude Code" disabled></textarea>
-      <button type="submit" class="gw-button gw-button--primary" disabled>Send</button>
+  <form class="ds-composer">
+    <div class="ds-composer__row">
+      <textarea class="ds-composer__input" name="prompt" rows="1" aria-label="Message Claude Code" disabled></textarea>
+      <button type="submit" class="ds-button ds-button--primary" disabled>Send</button>
     </div>
   </form>
 </div>

@@ -14,30 +14,30 @@
   ],
   "variants": [
     { "name": "default", "use": "In the flow of the page, as wide as its container." },
-    { "name": "sticky", "class": "gw-composer--sticky", "use": "Held to the bottom of the scrolling view, with a top border, its own padding and room for the home indicator. Make the view's scroller end at the visible viewport, with a height in dvh or interactive-widget=resizes-content in the viewport meta tag, so it stays above an on-screen keyboard." }
+    { "name": "sticky", "class": "ds-composer--sticky", "use": "Held to the bottom of the scrolling view, with a top border, its own padding and room for the home indicator. Make the view's scroller end at the visible viewport, with a height in dvh or interactive-widget=resizes-content in the viewport meta tag, so it stays above an on-screen keyboard." }
   ],
   "sizes": [
     { "name": "default", "use": "The textarea is one line and 44px tall when empty and grows with its content to 176px, then scrolls. Where field-sizing is not supported it is a fixed 88px. Send stays beside the last line." }
   ],
   "states": ["default", "focus", "busy", "disabled", "error"],
   "accessibility": [
-    "Use a form element, so Send submits it. The textarea has a visible gw-composer__label whose for attribute matches its id, or an aria-label when the view has no room for one. A placeholder is not a label.",
-    "Send is a button of type submit with gw-button gw-button--primary. It is the view's one primary action, so nothing else in the view is primary.",
-    "While a turn runs, the app sets aria-busy=\"true\" on the form and replaces Send with a Stop button of type button and secondary emphasis. Never show both. The textarea stays editable, and a line of gw-composer__reason linked by aria-describedby says when sending is possible again.",
-    "When the reader cannot send, set disabled on the textarea and on Send, and say why in gw-composer__reason, linked from both by aria-describedby. The reason says what to do next.",
-    "When a prompt fails to send, keep the text in the textarea and add gw-composer__error with role=\"alert\", linked by aria-describedby. Its icon is drawn by the stylesheet.",
+    "Use a form element, so Send submits it. The textarea has a visible ds-composer__label whose for attribute matches its id, or an aria-label when the view has no room for one. A placeholder is not a label.",
+    "Send is a button of type submit with ds-button ds-button--primary. It is the view's one primary action, so nothing else in the view is primary.",
+    "While a turn runs, the app sets aria-busy=\"true\" on the form and replaces Send with a Stop button of type button and secondary emphasis. Never show both. The textarea stays editable, and a line of ds-composer__reason linked by aria-describedby says when sending is possible again.",
+    "When the reader cannot send, set disabled on the textarea and on Send, and say why in ds-composer__reason, linked from both by aria-describedby. The reason says what to do next.",
+    "When a prompt fails to send, keep the text in the textarea and add ds-composer__error with role=\"alert\", linked by aria-describedby. Its icon is drawn by the stylesheet.",
     "Tab moves from the textarea to Send, then to the quiet controls. The app decides whether Enter sends. If it does, Shift+Enter adds a line, and the button remains the way to send on a phone.",
     "The component needs no script. The app sets disabled, aria-busy and aria-describedby, and swaps Send for Stop."
   ],
   "icons": ["circle-alert", "file", "git-branch"],
   "classes": [
-    "gw-composer",
-    "gw-composer--sticky",
-    "gw-composer__controls",
-    "gw-composer__error",
-    "gw-composer__input",
-    "gw-composer__label",
-    "gw-composer__reason",
-    "gw-composer__row"
+    "ds-composer",
+    "ds-composer--sticky",
+    "ds-composer__controls",
+    "ds-composer__error",
+    "ds-composer__input",
+    "ds-composer__label",
+    "ds-composer__reason",
+    "ds-composer__row"
   ]
 }

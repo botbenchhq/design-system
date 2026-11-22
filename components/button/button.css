@@ -3,147 +3,147 @@
  * The plain class is the secondary button. A modifier changes its emphasis or its size.
  */
 
-@layer gw.components {
-  .gw-button {
+@layer ds.components {
+  .ds-button {
     position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--gw-space-sm);
-    min-width: var(--gw-size-touch);
-    min-height: var(--gw-size-touch);
-    padding: var(--gw-space-xs) var(--gw-space-lg);
-    border-width: var(--gw-border-width);
-    border-radius: var(--gw-radius-md);
-    background-color: var(--gw-color-surface-raised);
-    color: var(--gw-color-on-surface);
-    font-weight: var(--gw-weight-medium);
-    line-height: var(--gw-leading-ui);
+    gap: var(--ds-space-sm);
+    min-width: var(--ds-size-touch);
+    min-height: var(--ds-size-touch);
+    padding: var(--ds-space-xs) var(--ds-space-lg);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
+    color: var(--ds-color-on-surface);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-ui);
     text-align: center;
     transition-property: background-color, border-color, color;
-    transition-duration: var(--gw-duration-fast);
-    transition-timing-function: var(--gw-ease);
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
   }
 
-  .gw-button--primary {
-    border-color: var(--gw-color-accent);
-    background-color: var(--gw-color-accent);
-    color: var(--gw-color-on-accent);
+  .ds-button--primary {
+    border-color: var(--ds-color-accent);
+    background-color: var(--ds-color-accent);
+    color: var(--ds-color-on-accent);
   }
 
-  .gw-button--quiet {
+  .ds-button--quiet {
     border-color: transparent;
     background-color: transparent;
   }
 
-  .gw-button--danger {
-    border-color: var(--gw-color-danger);
-    color: var(--gw-color-danger);
+  .ds-button--danger {
+    border-color: var(--ds-color-danger);
+    color: var(--ds-color-danger);
   }
 
-  .gw-button--small {
-    min-height: var(--gw-space-2xl);
-    padding-inline: var(--gw-space-md);
-    border-radius: var(--gw-radius-sm);
+  .ds-button--small {
+    min-height: var(--ds-space-2xl);
+    padding-inline: var(--ds-space-md);
+    border-radius: var(--ds-radius-sm);
   }
 
   /*
    * The small button is drawn 32px tall. This invisible box, centred on it,
    * keeps its pointer target at the touch size without making a dense row taller.
    */
-  .gw-button--small::after {
+  .ds-button--small::after {
     content: "";
     position: absolute;
     top: 50%;
     inset-inline: 0;
-    height: var(--gw-size-touch);
+    height: var(--ds-size-touch);
     translate: 0 -50%;
   }
 
-  .gw-button__icon {
+  .ds-button__icon {
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
   }
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   @media (hover: hover) {
-    .gw-button:hover {
-      background-color: var(--gw-color-surface-sunken);
+    .ds-button:hover {
+      background-color: var(--ds-color-surface-sunken);
     }
 
-    .gw-button--primary:hover {
-      border-color: var(--gw-color-accent-hover);
-      background-color: var(--gw-color-accent-hover);
+    .ds-button--primary:hover {
+      border-color: var(--ds-color-accent-hover);
+      background-color: var(--ds-color-accent-hover);
     }
 
-    .gw-button--danger:hover {
-      background-color: var(--gw-color-danger-subtle);
+    .ds-button--danger:hover {
+      background-color: var(--ds-color-danger-subtle);
     }
   }
 
-  .gw-button:active {
-    border-color: var(--gw-color-border-strong);
-    background-color: var(--gw-color-surface-sunken);
+  .ds-button:active {
+    border-color: var(--ds-color-border-strong);
+    background-color: var(--ds-color-surface-sunken);
   }
 
-  .gw-button--primary:active {
-    border-color: var(--gw-color-accent-hover);
-    background-color: var(--gw-color-accent-hover);
+  .ds-button--primary:active {
+    border-color: var(--ds-color-accent-hover);
+    background-color: var(--ds-color-accent-hover);
   }
 
-  .gw-button--danger:active {
-    border-color: var(--gw-color-danger);
-    background-color: var(--gw-color-danger-subtle);
+  .ds-button--danger:active {
+    border-color: var(--ds-color-danger);
+    background-color: var(--ds-color-danger-subtle);
   }
 
   /* After hover and active, so an unavailable button never answers the pointer. */
-  .gw-button:disabled,
-  .gw-button[aria-disabled="true"] {
-    border-color: var(--gw-color-border);
+  .ds-button:disabled,
+  .ds-button[aria-disabled="true"] {
+    border-color: var(--ds-color-border);
     background-color: transparent;
-    color: var(--gw-color-muted);
+    color: var(--ds-color-muted);
     cursor: default;
   }
 
   /* The border colour as a fill keeps an unavailable primary button recognisable as the main action. */
-  .gw-button--primary:disabled,
-  .gw-button--primary[aria-disabled="true"] {
-    background-color: var(--gw-color-border);
+  .ds-button--primary:disabled,
+  .ds-button--primary[aria-disabled="true"] {
+    background-color: var(--ds-color-border);
   }
 
-  .gw-button--quiet:disabled,
-  .gw-button--quiet[aria-disabled="true"] {
+  .ds-button--quiet:disabled,
+  .ds-button--quiet[aria-disabled="true"] {
     border-color: transparent;
   }
 
-  .gw-button[aria-busy="true"] {
+  .ds-button[aria-busy="true"] {
     cursor: progress;
   }
 
   /* The spinner is drawn here, so setting aria-busy is all an app does. It takes the place of a leading icon. */
-  .gw-button[aria-busy="true"]::before {
+  .ds-button[aria-busy="true"]::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
     background-color: currentColor;
     mask: url("icons/loader.svg") center / contain no-repeat;
-    animation: gw-button-spin calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+    animation: ds-button-spin calc(var(--ds-duration-slow) * 4) steps(8) infinite;
   }
 
-  .gw-button[aria-busy="true"] > .gw-button__icon {
+  .ds-button[aria-busy="true"] > .ds-button__icon {
     display: none;
   }
 
-  @keyframes gw-button-spin {
+  @keyframes ds-button-spin {
     to {
       rotate: 1turn;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .gw-button[aria-busy="true"]::before {
+    .ds-button[aria-busy="true"]::before {
       animation: none;
     }
   }

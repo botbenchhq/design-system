@@ -5,7 +5,7 @@
   "status": "draft",
   "whenToUse": [
     "For two to seven panels that belong to one thing, such as the summary, diff and log of a run, when the reader looks at one at a time.",
-    "Wrapped in the gw-tabs element from behaviors/groundwork.js, which handles selection and the arrow keys.",
+    "Wrapped in the ds-tabs element from behaviors/tabs.js, which handles selection and the arrow keys.",
     "On a plain div with the same classes when the app, such as a React app, sets aria-selected, tabindex and hidden itself."
   ],
   "whenNotToUse": [
@@ -20,22 +20,22 @@
   ],
   "states": ["default", "selected", "hover", "focus-visible", "active", "loading", "empty", "error"],
   "accessibility": [
-    "Markup: a gw-tabs element (or a div) with the gw-tabs class holds one gw-tabs__list with role=\"tablist\" and an aria-label, then one gw-tabs__panel per tab.",
+    "Markup: a ds-tabs element (or a div) with the ds-tabs class holds one ds-tabs__list with role=\"tablist\" and an aria-label, then one ds-tabs__panel per tab.",
     "Each tab is a button with type=\"button\", role=\"tab\", an id, and aria-controls naming its panel. Each panel has role=\"tabpanel\", an id, aria-labelledby naming its tab, and tabindex=\"0\" so a panel of plain text can take focus.",
     "Write the first state in the markup: aria-selected=\"true\" on one tab and \"false\" on the rest, and the hidden attribute on every panel but the selected one. The page is then right before any script runs.",
-    "What gw-tabs does: on connection and on every selection it sets aria-selected on each tab, tabindex=\"0\" on the selected tab and \"-1\" on the others, and hidden on every panel except the one the selected tab controls. A click selects a tab. It sets no class and no inline style.",
-    "Keyboard, with gw-tabs: Tab moves into the row onto the selected tab, and Tab again moves to the panel. Left and Right move to the previous and next tab and select it, wrapping at the ends. Home selects the first tab and End the last.",
-    "Without gw-tabs the app does the same: it sets those three attributes and handles click, Left, Right, Home and End. Nothing else is needed for the styles.",
+    "What ds-tabs does: on connection and on every selection it sets aria-selected on each tab, tabindex=\"0\" on the selected tab and \"-1\" on the others, and hidden on every panel except the one the selected tab controls. A click selects a tab. It sets no class and no inline style.",
+    "Keyboard, with ds-tabs: Tab moves into the row onto the selected tab, and Tab again moves to the panel. Left and Right move to the previous and next tab and select it, wrapping at the ends. Home selects the first tab and End the last.",
+    "Without ds-tabs the app does the same: it sets those three attributes and handles click, Left, Right, Home and End. Nothing else is needed for the styles.",
     "The selected tab is marked by a bar and a heavier label as well as by colour. Never mark it with a class.",
-    "Load behaviors/groundwork.js once as a module: <script type=\"module\" src=\"behaviors/groundwork.js\"></script>. Loading it twice is harmless.",
+    "Load behaviors/tabs.js once as a module: <script type=\"module\" src=\"behaviors/tabs.js\"></script>. Loading it twice is harmless.",
     "While a panel is fetched, set aria-busy=\"true\" on it and show a spinner with text. When the fetch fails, put an alert in the panel that says what to do.",
     "Keep labels to one or two words. A label is never cut: the row scrolls instead, and a tab that takes focus is scrolled into view."
   ],
   "icons": [],
   "classes": [
-    "gw-tabs",
-    "gw-tabs__list",
-    "gw-tabs__panel",
-    "gw-tabs__tab"
+    "ds-tabs",
+    "ds-tabs__list",
+    "ds-tabs__panel",
+    "ds-tabs__tab"
   ]
 }

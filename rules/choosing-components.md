@@ -11,7 +11,7 @@ For a whole screen, start from a page pattern. They are listed under "Page patte
 | The bar at the top of every screen, with the product name or a back link and the view's title | `app-header` |
 | The title of a view, with an optional description and its one main action | `page-header` |
 | Moving between the two to five main screens on a phone | `tab-bar`. At 768px and wider, list the same destinations in `sidebar-nav`. |
-| The destinations of the app in a column beside the content, at 768px and wider | `sidebar-nav`, as the first child of `gw-sidebar-layout`. Below 768px it is not shown, so pair it with `tab-bar`. |
+| The destinations of the app in a column beside the content, at 768px and wider | `sidebar-nav`, as the first child of `ds-sidebar-layout`. Below 768px it is not shown, so pair it with `tab-bar`. |
 | Where this page sits under the pages above it | `breadcrumb` |
 | One section of a view set apart from the rest | `card`. Never one inside another, and never a grid of identical ones. |
 | The details of the item selected in the content beside it | `inspector` |
@@ -21,7 +21,7 @@ For a whole screen, start from a page pattern. They are listed under "Page patte
 | Where the reader is in three to five named steps that happen in a fixed order | `stepper` |
 | The files of a repository or the outline of a document, with folders that open and close | `tree` |
 | One setting on a settings page: its label, a one-line description and a single control | `settings-row` |
-| Arranging content | The layout primitives: `gw-stack`, `gw-cluster`, `gw-split`, `gw-grid`, `gw-sidebar-layout`, `gw-container` |
+| Arranging content | The layout primitives: `ds-stack`, `ds-cluster`, `ds-split`, `ds-grid`, `ds-sidebar-layout`, `ds-container` |
 
 ## Actions and navigation
 
@@ -227,5 +227,5 @@ A pattern is a whole screen composed from the components above, with a little la
 
 1. Read the "when not to use" entries of the nearest components in `components.json`. They often name the right one.
 2. Try composing catalogue components with layout primitives. Most screens need nothing else.
-3. If a need is still unmet, build an app-local component. Give its classes the app's own prefix, never `gw-`. Style it with tokens only. Record it in the app's gaps file with a name, a reason, its classes and its files. The checker prints every declared gap on each run, so the gap is visible in review.
+3. If a need is still unmet, build an app-local component. Give its classes the app's own prefix, never `ds-`. Style it with tokens only. Record it in the app's gaps file with a name, a reason, its classes and its files. The checker prints every declared gap on each run, so the gap is visible in review.
 4. Do not restyle a catalogue component, add a modifier to it, or edit the vendored copy. If a component is wrong, change it in the design system's own repo.

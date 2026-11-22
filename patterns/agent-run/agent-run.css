@@ -5,33 +5,33 @@
  * The page scrolls, and the dock stays in view. This file holds only that arrangement.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* The child of the main column. It takes the column's height, so the dock sits at the bottom under a short transcript too. */
-  .gw-agent-run {
+  .ds-agent-run {
     display: flex;
     flex: 1;
     flex-direction: column;
-    gap: var(--gw-space-lg);
+    gap: var(--ds-space-lg);
     min-width: 0;
     /* The dock ends where the screen does, past the room the main column leaves under its content. */
-    margin-bottom: calc(var(--gw-space-xl) * -1);
+    margin-bottom: calc(var(--ds-space-xl) * -1);
   }
 
   /* The page header, then the run timeline. A rule under them parts what the run is from what it did. */
-  .gw-agent-run__header {
+  .ds-agent-run__header {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-lg);
-    padding-bottom: var(--gw-space-lg);
-    border-bottom-width: var(--gw-border-width);
+    gap: var(--ds-space-lg);
+    padding-bottom: var(--ds-space-lg);
+    border-bottom-width: var(--ds-border-width);
   }
 
-  /* The log and the dock. On the gw-transcript element, or on a div in an app that follows the newest row itself. */
-  .gw-agent-run__transcript {
+  /* The log and the dock. On the ds-transcript element, or on a div in an app that follows the newest row itself. */
+  .ds-agent-run__transcript {
     display: flex;
     flex: 1;
     flex-direction: column;
-    gap: var(--gw-space-lg);
+    gap: var(--ds-space-lg);
     min-width: 0;
   }
 
@@ -39,32 +39,32 @@
    * On the element with role="log". It grows, so the dock is pushed to the bottom of the column.
    * The room under the last row is where the jump control hangs, so it never covers the newest text.
    */
-  .gw-agent-run__log {
+  .ds-agent-run__log {
     flex: 1;
     min-width: 0;
-    padding-bottom: var(--gw-space-2xl);
+    padding-bottom: var(--ds-space-2xl);
   }
 
   /* Fixed to the bottom of the screen: the jump control hangs above it, then the now-doing line, then the composer. */
-  .gw-agent-run__dock {
+  .ds-agent-run__dock {
     position: sticky;
     bottom: 0;
-    z-index: var(--gw-z-sticky);
+    z-index: var(--ds-z-sticky);
     display: flex;
     flex-direction: column;
     /* Room between the now-doing line and the composer's label, so each reads as its own line. */
-    gap: var(--gw-space-sm);
-    padding-bottom: calc(var(--gw-space-md) + env(safe-area-inset-bottom));
-    border-top-width: var(--gw-border-width);
-    background-color: var(--gw-color-surface);
+    gap: var(--ds-space-sm);
+    padding-bottom: calc(var(--ds-space-md) + env(safe-area-inset-bottom));
+    border-top-width: var(--ds-border-width);
+    background-color: var(--ds-color-surface);
   }
 
   /* What a finished run leaves: its one next action, and any lesser ones beside it. */
-  .gw-agent-run__outcome {
+  .ds-agent-run__outcome {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--gw-space-md);
-    padding-block: var(--gw-space-lg) var(--gw-space-2xl);
-    border-top-width: var(--gw-border-width);
+    gap: var(--ds-space-md);
+    padding-block: var(--ds-space-lg) var(--ds-space-2xl);
+    border-top-width: var(--ds-border-width);
   }
 }

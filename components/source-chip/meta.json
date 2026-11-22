@@ -14,9 +14,9 @@
     "For a value the reader copies, such as a branch name. Use a copy field."
   ],
   "variants": [
-    { "name": "file", "use": "The file icon, the path split into gw-source-chip__start (the directories, with the last slash) and gw-source-chip__end (the file name), and an optional gw-source-chip__detail such as lines 42–58." },
-    { "name": "url", "use": "The external-link icon and the host alone in gw-source-chip__end. When it opens a new tab, add a gw-visually-hidden span reading (opens in a new tab)." },
-    { "name": "commit", "use": "The git-commit-horizontal icon and the short hash in gw-source-chip__end, after a gw-visually-hidden span reading Commit." }
+    { "name": "file", "use": "The file icon, the path split into ds-source-chip__start (the directories, with the last slash) and ds-source-chip__end (the file name), and an optional ds-source-chip__detail such as lines 42–58." },
+    { "name": "url", "use": "The external-link icon and the host alone in ds-source-chip__end. When it opens a new tab, add a ds-visually-hidden span reading (opens in a new tab)." },
+    { "name": "commit", "use": "The git-commit-horizontal icon and the short hash in ds-source-chip__end, after a ds-visually-hidden span reading Commit." }
   ],
   "sizes": [
     { "name": "default", "use": "Drawn 32px tall. Its pointer target is 44px tall through a padded hit area." }
@@ -26,19 +26,19 @@
     "Use an a element with an href that opens the source. The icon is decoration and carries aria-hidden=\"true\".",
     "Write the whole value as the link's text. The stylesheet cuts the middle from view only, so the accessible name keeps the full path. Do not add an aria-label that shortens it.",
     "Split a path at its last slash, with no white space between the two spans: the start part ends in an ellipsis when room runs out, and the end part, the file name, stays whole until the chip is narrower than the name.",
-    "Write a line range in words, such as line 118 or lines 42–58, in gw-source-chip__detail.",
-    "The icon alone does not say the kind to a screen reader. A path and a host say it themselves. For a commit, start the text with a gw-visually-hidden span reading Commit.",
-    "Several chips are li elements of a ul with the class gw-source-chip__list, so a screen reader announces how many there are. Its 12px gap keeps the 44px pointer targets of two rows apart. Outside that list, leave at least 12px above and below a chip.",
+    "Write a line range in words, such as line 118 or lines 42–58, in ds-source-chip__detail.",
+    "The icon alone does not say the kind to a screen reader. A path and a host say it themselves. For a commit, start the text with a ds-visually-hidden span reading Commit.",
+    "Several chips are li elements of a ul with the class ds-source-chip__list, so a screen reader announces how many there are. Its 12px gap keeps the 44px pointer targets of two rows apart. Outside that list, leave at least 12px above and below a chip.",
     "Tab reaches each chip and Enter follows it. The component needs no script."
   ],
   "icons": ["external-link", "file", "git-commit-horizontal"],
   "classes": [
-    "gw-source-chip",
-    "gw-source-chip__detail",
-    "gw-source-chip__end",
-    "gw-source-chip__icon",
-    "gw-source-chip__list",
-    "gw-source-chip__start",
-    "gw-source-chip__text"
+    "ds-source-chip",
+    "ds-source-chip__detail",
+    "ds-source-chip__end",
+    "ds-source-chip__icon",
+    "ds-source-chip__list",
+    "ds-source-chip__start",
+    "ds-source-chip__text"
   ]
 }

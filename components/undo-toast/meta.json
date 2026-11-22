@@ -14,23 +14,23 @@
     "When Undo is the only way back. The reader must also be able to restore the thing elsewhere, such as from an Archived list."
   ],
   "variants": [
-    { "name": "words", "use": "The default. gw-undo-toast__countdown under the message says how many seconds are left." },
-    { "name": "progress", "use": "A native progress element with gw-undo-toast__progress after the button, as well as the words. Its max is the seconds Undo stays and its value the seconds left." }
+    { "name": "words", "use": "The default. ds-undo-toast__countdown under the message says how many seconds are left." },
+    { "name": "progress", "use": "A native progress element with ds-undo-toast__progress after the button, as well as the words. Its max is the seconds Undo stays and its value the seconds left." }
   ],
   "sizes": [],
   "states": ["default", "busy", "error"],
   "accessibility": [
-    "Use the toast markup inside the page's gw-toast__region, with gw-toast, gw-toast--success and gw-undo-toast on the toast element. The message says what happened and to what: Task 41 archived.",
-    "Undo is the toast's one action, a button with gw-button gw-button--small gw-toast__action. The toast never takes focus, so also give the reader a way back that does not expire, such as a Restore button in the Archived list.",
+    "Use the toast markup inside the page's ds-toast__region, with ds-toast, ds-toast--success and ds-undo-toast on the toast element. The message says what happened and to what: Task 41 archived.",
+    "Undo is the toast's one action, a button with ds-button ds-button--small ds-toast__action. The toast never takes focus, so also give the reader a way back that does not expire, such as a Restore button in the Archived list.",
     "The app keeps the toast for at least 10 seconds, and pauses its timer while the pointer is over the toast or focus is inside it. When the time runs out the app removes the toast.",
-    "Once a second the app writes the seconds left into gw-undo-toast__countdown, and sets the value attribute of the progress element when there is one. Both carry aria-hidden=\"true\", so a screen reader is not interrupted every second. A gw-visually-hidden sentence in the message says the whole time once: You have 10 seconds to undo.",
+    "Once a second the app writes the seconds left into ds-undo-toast__countdown, and sets the value attribute of the progress element when there is one. Both carry aria-hidden=\"true\", so a screen reader is not interrupted every second. A ds-visually-hidden sentence in the message says the whole time once: You have 10 seconds to undo.",
     "When Undo is pressed, set aria-busy=\"true\" on it, change its label to say what is happening, such as Restoring task, and remove the countdown. Then replace the toast with a plain toast that says the thing is back.",
-    "If the undo fails, replace the toast with a gw-toast--danger one that says the thing is still archived and what to do, with Undo again as its action."
+    "If the undo fails, replace the toast with a ds-toast--danger one that says the thing is still archived and what to do, with Undo again as its action."
   ],
   "icons": [],
   "classes": [
-    "gw-undo-toast",
-    "gw-undo-toast__countdown",
-    "gw-undo-toast__progress"
+    "ds-undo-toast",
+    "ds-undo-toast__countdown",
+    "ds-undo-toast__progress"
   ]
 }

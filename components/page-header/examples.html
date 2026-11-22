@@ -1,12 +1,12 @@
 <div data-example="default" data-title="Title, description and the primary action" data-state="default" data-reason="The title names the view, one line says what it holds, and the single primary button is the main thing to do here.">
-  <header class="gw-page-header">
-    <div class="gw-page-header__text">
-      <h1 class="gw-page-header__title">Tasks</h1>
-      <p class="gw-page-header__description">Work queued for the agent, newest first.</p>
+  <header class="ds-page-header">
+    <div class="ds-page-header__text">
+      <h1 class="ds-page-header__title">Tasks</h1>
+      <p class="ds-page-header__description">Work queued for the agent, newest first.</p>
     </div>
-    <div class="gw-page-header__action">
-      <a class="gw-button gw-button--primary" href="/tasks/new">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-plus"></use></svg>
+    <div class="ds-page-header__action">
+      <a class="ds-button ds-button--primary" href="/tasks/new">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
         New task
       </a>
     </div>
@@ -14,72 +14,72 @@
 </div>
 
 <div data-example="title-only" data-title="Title alone">
-  <header class="gw-page-header">
-    <div class="gw-page-header__text">
-      <h1 class="gw-page-header__title">Branches</h1>
+  <header class="ds-page-header">
+    <div class="ds-page-header__text">
+      <h1 class="ds-page-header__title">Branches</h1>
     </div>
   </header>
 </div>
 
 <div data-example="no-action" data-title="Title and description, no action">
-  <header class="gw-page-header">
-    <div class="gw-page-header__text">
-      <h1 class="gw-page-header__title">Approvals</h1>
-      <p class="gw-page-header__description">Commands the agent will not run until you allow them.</p>
+  <header class="ds-page-header">
+    <div class="ds-page-header__text">
+      <h1 class="ds-page-header__title">Approvals</h1>
+      <p class="ds-page-header__description">Commands the agent will not run until you allow them.</p>
     </div>
   </header>
 </div>
 
 <div data-example="long-title" data-title="A long title beside the action">
-  <header class="gw-page-header">
-    <div class="gw-page-header__text">
-      <h1 class="gw-page-header__title">Fix the login timeout on the mobile sign-in screen</h1>
-      <p class="gw-page-header__description">Task 412 on acme/api, branch fix/login-timeout.</p>
+  <header class="ds-page-header">
+    <div class="ds-page-header__text">
+      <h1 class="ds-page-header__title">Fix the login timeout on the mobile sign-in screen</h1>
+      <p class="ds-page-header__description">Task 412 on acme/api, branch fix/login-timeout.</p>
     </div>
-    <div class="gw-page-header__action">
-      <button type="button" class="gw-button gw-button--primary">Start run</button>
+    <div class="ds-page-header__action">
+      <button type="button" class="ds-button ds-button--primary">Start run</button>
     </div>
   </header>
 </div>
 
 <div data-example="compact" data-title="Compact">
-  <header class="gw-page-header gw-page-header--compact">
-    <div class="gw-page-header__text">
-      <h1 class="gw-page-header__title">Run 2291</h1>
-      <p class="gw-page-header__description">fix/login-timeout, started 4 minutes ago.</p>
+  <header class="ds-page-header ds-page-header--compact">
+    <div class="ds-page-header__text">
+      <h1 class="ds-page-header__title">Run 2291</h1>
+      <p class="ds-page-header__description">fix/login-timeout, started 4 minutes ago.</p>
     </div>
-    <div class="gw-page-header__action">
-      <button type="button" class="gw-button gw-button--small">Stop run</button>
+    <div class="ds-page-header__action">
+      <button type="button" class="ds-button ds-button--small">Stop run</button>
     </div>
   </header>
 </div>
 
 <div data-example="compact-title-only" data-title="Compact, title alone">
-  <header class="gw-page-header gw-page-header--compact">
-    <div class="gw-page-header__text">
-      <h1 class="gw-page-header__title">Transcript</h1>
+  <header class="ds-page-header ds-page-header--compact">
+    <div class="ds-page-header__text">
+      <h1 class="ds-page-header__title">Transcript</h1>
     </div>
   </header>
 </div>
 
 <div data-example="two-actions" data-title="Two primary actions" data-dont="one-primary-action" data-reason="A page header holds one action, the main one of the view. A second primary button makes the reader choose between them, so move it into the view as a secondary button.">
-  <header class="gw-page-header">
-    <div class="gw-page-header__text">
-      <h1 class="gw-page-header__title">Tasks</h1>
-      <p class="gw-page-header__description">Work queued for the agent, newest first.</p>
+  <header class="ds-page-header">
+    <div class="ds-page-header__text">
+      <h1 class="ds-page-header__title">Tasks</h1>
+      <p class="ds-page-header__description">Work queued for the agent, newest first.</p>
     </div>
-    <div class="gw-page-header__action gw-cluster">
-      <a class="gw-button gw-button--primary" href="/tasks/import">Import tasks</a>
-      <a class="gw-button gw-button--primary" href="/tasks/new">New task</a>
+    <div class="ds-page-header__action ds-cluster">
+      <a class="ds-button ds-button--primary" href="/tasks/import">Import tasks</a>
+      <a class="ds-button ds-button--primary" href="/tasks/new">New task</a>
     </div>
   </header>
 </div>
 
 <div data-example="paragraph-description" data-title="A paragraph as the description" data-dont="review" data-reason="The description is one line that says what the view holds. Instructions and background belong in the view or in the documentation, where they do not push the content down on a phone.">
-  <header class="gw-page-header">
-    <div class="gw-page-header__text">
-      <h1 class="gw-page-header__title">Approvals</h1>
-      <p class="gw-page-header__description">This is where the commands the agent wants to run are listed. The agent stops whenever it reaches a command that is not on the allowed list for the repository, and it waits here until someone with the maintainer role reads the command and allows or refuses it. Refusing a command ends the run.</p>
+  <header class="ds-page-header">
+    <div class="ds-page-header__text">
+      <h1 class="ds-page-header__title">Approvals</h1>
+      <p class="ds-page-header__description">This is where the commands the agent wants to run are listed. The agent stops whenever it reaches a command that is not on the allowed list for the repository, and it waits here until someone with the maintainer role reads the command and allows or refuses it. Refusing a command ends the run.</p>
     </div>
   </header>
 </div>

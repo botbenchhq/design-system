@@ -5,92 +5,92 @@
  * starts with the tone in words, so the colour is never the only signal.
  */
 
-@layer gw.components {
+@layer ds.components {
   /*
    * Pinned to the bottom edge on a phone, clear of the home indicator, and to the bottom
    * trailing corner at the regular width. The region itself lets the pointer through,
    * so an empty one never blocks the page under it.
    */
-  .gw-toast__region {
+  .ds-toast__region {
     position: fixed;
-    inset: auto var(--gw-space-lg) calc(var(--gw-space-lg) + env(safe-area-inset-bottom));
-    z-index: var(--gw-z-toast);
+    inset: auto var(--ds-space-lg) calc(var(--ds-space-lg) + env(safe-area-inset-bottom));
+    z-index: var(--ds-z-toast);
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
     pointer-events: none;
   }
 
   @media (min-width: 768px) {
-    .gw-toast__region {
+    .ds-toast__region {
       inset-inline-start: auto;
-      width: calc(var(--gw-size-column) * 0.75);
-      max-width: calc(100% - var(--gw-space-lg) * 2);
+      width: calc(var(--ds-size-column) * 0.75);
+      max-width: calc(100% - var(--ds-space-lg) * 2);
     }
   }
 
-  .gw-toast {
+  .ds-toast {
     display: flex;
     align-items: flex-start;
-    gap: var(--gw-space-sm);
-    padding: var(--gw-space-md);
-    border-width: var(--gw-border-width);
-    border-color: var(--gw-color-border-strong);
-    border-radius: var(--gw-radius-md);
-    background-color: var(--gw-color-surface-raised);
-    color: var(--gw-color-on-surface);
-    box-shadow: var(--gw-shadow-overlay);
+    gap: var(--ds-space-sm);
+    padding: var(--ds-space-md);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
+    color: var(--ds-color-on-surface);
+    box-shadow: var(--ds-shadow-overlay);
     pointer-events: auto;
   }
 
   /* At most three show. The newest is last, so anything before the last three waits out of sight. */
-  .gw-toast:nth-last-child(n + 4) {
+  .ds-toast:nth-last-child(n + 4) {
     display: none;
   }
 
   /* The icon is as tall as the first line of text, so it sits level with the tone label. */
-  .gw-toast::before {
+  .ds-toast::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
-    background-color: var(--gw-color-info);
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    background-color: var(--ds-color-info);
     mask: url("icons/info.svg") center / contain no-repeat;
   }
 
-  .gw-toast__message {
+  .ds-toast__message {
     flex: 1;
     min-width: 0;
     overflow-wrap: anywhere;
   }
 
   /* The tone in words: Note, Done or Error. */
-  .gw-toast__label {
-    color: var(--gw-color-info);
-    font-weight: var(--gw-weight-semibold);
+  .ds-toast__label {
+    color: var(--ds-color-info);
+    font-weight: var(--ds-weight-semibold);
   }
 
   /* The one action: a small button. The negative margin keeps a one-line toast as short as it is without one. */
-  .gw-toast__action {
+  .ds-toast__action {
     flex: none;
-    margin-block: calc(var(--gw-space-xs) * -1.5);
+    margin-block: calc(var(--ds-space-xs) * -1.5);
   }
 
-  .gw-toast--success::before {
-    background-color: var(--gw-color-success);
+  .ds-toast--success::before {
+    background-color: var(--ds-color-success);
     mask-image: url("icons/circle-check.svg");
   }
 
-  .gw-toast--success .gw-toast__label {
-    color: var(--gw-color-success);
+  .ds-toast--success .ds-toast__label {
+    color: var(--ds-color-success);
   }
 
-  .gw-toast--danger::before {
-    background-color: var(--gw-color-danger);
+  .ds-toast--danger::before {
+    background-color: var(--ds-color-danger);
     mask-image: url("icons/circle-alert.svg");
   }
 
-  .gw-toast--danger .gw-toast__label {
-    color: var(--gw-color-danger);
+  .ds-toast--danger .ds-toast__label {
+    color: var(--ds-color-danger);
   }
 }

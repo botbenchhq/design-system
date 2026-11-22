@@ -16,26 +16,26 @@
   ],
   "variants": [
     { "name": "start", "use": "The default, with no modifier class. The card hangs under the link from its leading edge." },
-    { "name": "end", "class": "gw-hover-card--end", "use": "A link at the trailing edge of the view. The card lines up with the link's trailing edge and grows towards the start." },
+    { "name": "end", "class": "ds-hover-card--end", "use": "A link at the trailing edge of the view. The card lines up with the link's trailing edge and grows towards the start." },
     { "name": "with a preview button", "use": "An icon button after the wrapper, with popovertarget pointing at the card, where the preview matters on a touch screen. No modifier class." }
   ],
   "sizes": [],
   "states": ["default", "open", "loading", "error"],
   "accessibility": [
-    "Wrap the link in a span with the class gw-hover-card, and put the card straight after the link: a span with gw-popover and gw-hover-card__card, an id and popover=\"hint\". Give the link interestfor with the card's id. Use spans inside the card when the link sits in a paragraph, where a div is not allowed.",
-    "The card's content is the popover's: gw-popover__title for the item's name, gw-hover-card__meta for one line that places it, and gw-popover__facts for a few labelled values in words, with units. An avatar or a badge may stand in for the title.",
+    "Wrap the link in a span with the class ds-hover-card, and put the card straight after the link: a span with ds-popover and ds-hover-card__card, an id and popover=\"hint\". Give the link interestfor with the card's id. Use spans inside the card when the link sits in a paragraph, where a div is not allowed.",
+    "The card's content is the popover's: ds-popover__title for the item's name, ds-hover-card__meta for one line that places it, and ds-popover__facts for a few labelled values in words, with units. An avatar or a badge may stand in for the title.",
     "The card holds only what the linked page also shows, and no link, button or field. A control inside it could not be found by touch or with a screen reader, so the link is not given aria-describedby or aria-haspopup: following it is the accessible way to the same facts.",
     "With that markup alone the card opens on hover and on keyboard focus with no script, and stays open while the pointer is on it. It closes when the pointer and the focus leave.",
     "A browser with interest invokers also opens it after a long press on a touch screen, closes it on Escape, and draws it in the top layer where no container clips it. Other browsers ignore popover=\"hint\" used this way and interestfor.",
     "A tap follows the link, to the page that holds everything the card shows. Where the preview itself matters on a touch screen, add the preview button: an icon button after the wrapper with popovertarget and a name such as Preview run 4181. A tap on it opens and closes the card.",
-    "Shown without the top layer, the card is clipped by an ancestor that hides its overflow. Use gw-hover-card--end at the trailing edge of the view so it stays on the screen.",
+    "Shown without the top layer, the card is clipped by an ancestor that hides its overflow. Use ds-hover-card--end at the trailing edge of the view so it stays on the screen.",
     "To fill the card when it opens, the app listens for the card's toggle event, shows a spinner with its text while the facts load, and on failure says to follow the link."
   ],
   "icons": ["info"],
   "classes": [
-    "gw-hover-card",
-    "gw-hover-card--end",
-    "gw-hover-card__card",
-    "gw-hover-card__meta"
+    "ds-hover-card",
+    "ds-hover-card--end",
+    "ds-hover-card__card",
+    "ds-hover-card__meta"
   ]
 }

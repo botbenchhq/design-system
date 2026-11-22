@@ -1,72 +1,72 @@
 <div data-example="under-composer" data-title="Under a composer, after a turn" data-state="default" data-reason="Each chip is a whole prompt that fits what just happened, so the reader can tell what pressing it will ask for. They are quieter than Send, which stays the view's one primary action.">
-  <div class="gw-stack">
-    <form class="gw-composer">
-      <label class="gw-composer__label" for="suggestion-chips-under-composer-prompt">Message Claude Code</label>
-      <div class="gw-composer__row">
-        <textarea class="gw-composer__input" id="suggestion-chips-under-composer-prompt" name="prompt" rows="1"></textarea>
-        <button type="submit" class="gw-button gw-button--primary">Send</button>
+  <div class="ds-stack">
+    <form class="ds-composer">
+      <label class="ds-composer__label" for="suggestion-chips-under-composer-prompt">Message Claude Code</label>
+      <div class="ds-composer__row">
+        <textarea class="ds-composer__input" id="suggestion-chips-under-composer-prompt" name="prompt" rows="1"></textarea>
+        <button type="submit" class="ds-button ds-button--primary">Send</button>
       </div>
     </form>
-    <ul class="gw-suggestion-chips" aria-label="Suggested prompts">
-      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Run the failing test again</button></li>
-      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Show the diff for src/auth/session.ts</button></li>
-      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Open a pull request against main</button></li>
+    <ul class="ds-suggestion-chips" aria-label="Suggested prompts">
+      <li><button type="button" class="ds-button ds-suggestion-chips__chip">Run the failing test again</button></li>
+      <li><button type="button" class="ds-button ds-suggestion-chips__chip">Show the diff for src/auth/session.ts</button></li>
+      <li><button type="button" class="ds-button ds-suggestion-chips__chip">Open a pull request against main</button></li>
     </ul>
   </div>
 </div>
 
 <div data-example="empty-transcript" data-title="Under an empty transcript">
-  <div class="gw-stack">
-    <div class="gw-empty-state gw-empty-state--compact">
-      <h4 class="gw-empty-state__title">No messages yet</h4>
-      <p class="gw-empty-state__body">Ask Claude Code about acme/api, or start from one of these prompts.</p>
+  <div class="ds-stack">
+    <div class="ds-empty-state ds-empty-state--compact">
+      <h4 class="ds-empty-state__title">No messages yet</h4>
+      <p class="ds-empty-state__body">Ask Claude Code about acme/api, or start from one of these prompts.</p>
     </div>
-    <ul class="gw-suggestion-chips" aria-label="Suggested first prompts">
-      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Explain how sessions are refreshed in src/auth</button></li>
-      <li><button type="button" class="gw-button gw-suggestion-chips__chip">List the tests that failed on main last night</button></li>
-      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Find where the webhook signature is checked</button></li>
-      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Summarise the open pull requests</button></li>
+    <ul class="ds-suggestion-chips" aria-label="Suggested first prompts">
+      <li><button type="button" class="ds-button ds-suggestion-chips__chip">Explain how sessions are refreshed in src/auth</button></li>
+      <li><button type="button" class="ds-button ds-suggestion-chips__chip">List the tests that failed on main last night</button></li>
+      <li><button type="button" class="ds-button ds-suggestion-chips__chip">Find where the webhook signature is checked</button></li>
+      <li><button type="button" class="ds-button ds-suggestion-chips__chip">Summarise the open pull requests</button></li>
     </ul>
   </div>
 </div>
 
 <div data-example="two" data-title="Two chips, one of them long">
-  <ul class="gw-suggestion-chips" aria-label="Suggested prompts after the test run">
-    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Fix the reload case in src/auth/session.test.ts and run the auth tests until they pass</button></li>
-    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Explain the failure</button></li>
+  <ul class="ds-suggestion-chips" aria-label="Suggested prompts after the test run">
+    <li><button type="button" class="ds-button ds-suggestion-chips__chip">Fix the reload case in src/auth/session.test.ts and run the auth tests until they pass</button></li>
+    <li><button type="button" class="ds-button ds-suggestion-chips__chip">Explain the failure</button></li>
   </ul>
 </div>
 
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <ul class="gw-suggestion-chips" aria-label="Suggested prompts, hovered">
-    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Run the failing test again</button></li>
+  <ul class="ds-suggestion-chips" aria-label="Suggested prompts, hovered">
+    <li><button type="button" class="ds-button ds-suggestion-chips__chip">Run the failing test again</button></li>
   </ul>
 </div>
 
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <ul class="gw-suggestion-chips" aria-label="Suggested prompts, focused">
-    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Show the diff for src/auth/session.ts</button></li>
+  <ul class="ds-suggestion-chips" aria-label="Suggested prompts, focused">
+    <li><button type="button" class="ds-button ds-suggestion-chips__chip">Show the diff for src/auth/session.ts</button></li>
   </ul>
 </div>
 
 <div data-example="active" data-title="Pressed" data-state="active">
-  <ul class="gw-suggestion-chips" aria-label="Suggested prompts, pressed">
-    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Open a pull request against main</button></li>
+  <ul class="ds-suggestion-chips" aria-label="Suggested prompts, pressed">
+    <li><button type="button" class="ds-button ds-suggestion-chips__chip">Open a pull request against main</button></li>
   </ul>
 </div>
 
 <div data-example="disabled" data-title="Unavailable while a turn runs" data-state="disabled">
-  <ul class="gw-suggestion-chips" aria-label="Suggested prompts, unavailable while Claude Code is working">
-    <li><button type="button" class="gw-button gw-suggestion-chips__chip" disabled>Run the failing test again</button></li>
-    <li><button type="button" class="gw-button gw-suggestion-chips__chip" disabled>Show the diff for src/auth/session.ts</button></li>
+  <ul class="ds-suggestion-chips" aria-label="Suggested prompts, unavailable while Claude Code is working">
+    <li><button type="button" class="ds-button ds-suggestion-chips__chip" disabled>Run the failing test again</button></li>
+    <li><button type="button" class="ds-button ds-suggestion-chips__chip" disabled>Show the diff for src/auth/session.ts</button></li>
   </ul>
 </div>
 
 <div data-example="generic" data-title="Generic suggestions" data-dont="review" data-reason="Tell me more and Continue fit any conversation, so they say nothing about this one and the reader cannot predict what they will ask for. Write each chip as the specific prompt it sends.">
-  <ul class="gw-suggestion-chips" aria-label="Generic suggested prompts">
-    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Tell me more</button></li>
-    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Continue</button></li>
-    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Explain</button></li>
-    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Try again</button></li>
+  <ul class="ds-suggestion-chips" aria-label="Generic suggested prompts">
+    <li><button type="button" class="ds-button ds-suggestion-chips__chip">Tell me more</button></li>
+    <li><button type="button" class="ds-button ds-suggestion-chips__chip">Continue</button></li>
+    <li><button type="button" class="ds-button ds-suggestion-chips__chip">Explain</button></li>
+    <li><button type="button" class="ds-button ds-suggestion-chips__chip">Try again</button></li>
   </ul>
 </div>

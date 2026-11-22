@@ -3,14 +3,14 @@
  * the root font size and every rem in an app stay as the browser has them.
  */
 
-@layer gw.base {
+@layer ds.base {
   body {
-    font-family: var(--gw-font-ui);
-    font-size: var(--gw-text-ui);
-    font-weight: var(--gw-weight-normal);
-    line-height: var(--gw-leading-ui);
-    color: var(--gw-color-on-surface);
-    background-color: var(--gw-color-surface);
+    font-family: var(--ds-font-ui);
+    font-size: var(--ds-text-ui);
+    font-weight: var(--ds-weight-normal);
+    line-height: var(--ds-leading-ui);
+    color: var(--ds-color-on-surface);
+    background-color: var(--ds-color-surface);
     /* Inherited by all text: a long unbroken word, such as a path or a hash, breaks instead of overflowing. */
     overflow-wrap: break-word;
   }
@@ -23,37 +23,37 @@
   h6,
   b,
   strong {
-    font-weight: var(--gw-weight-semibold);
+    font-weight: var(--ds-weight-semibold);
   }
 
   h1 {
-    font-size: var(--gw-text-2xl);
-    line-height: var(--gw-leading-2xl);
+    font-size: var(--ds-text-2xl);
+    line-height: var(--ds-leading-2xl);
   }
 
   /* The three largest sizes, each heading a step under the one before. A component that draws its own h1 keeps it above the h2 size. */
   h2 {
-    font-size: var(--gw-text-xl);
-    line-height: var(--gw-leading-xl);
+    font-size: var(--ds-text-xl);
+    line-height: var(--ds-leading-xl);
   }
 
   h3 {
-    font-size: var(--gw-text-lg);
-    line-height: var(--gw-leading-lg);
+    font-size: var(--ds-text-lg);
+    line-height: var(--ds-leading-lg);
   }
 
   small {
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
   }
 
   code,
   kbd,
   samp,
   pre {
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-mono);
-    line-height: var(--gw-leading-mono);
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-mono);
+    line-height: var(--ds-leading-mono);
   }
 
   /* A link with a class is a component and draws itself. */

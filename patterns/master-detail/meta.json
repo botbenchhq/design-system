@@ -13,28 +13,28 @@
     "For an item the reader works in for a while, such as a transcript or a diff. Give it a screen of its own and link each row to it.",
     "When the reader compares items with each other. Use a data table.",
     "For a form or a short task that covers the page. Use a sheet or a dialog.",
-    "For the app's destinations beside its content. Use the sidebar nav in gw-sidebar-layout."
+    "For the app's destinations beside its content. Use the sidebar nav in ds-sidebar-layout."
   ],
   "variants": [],
   "sizes": [],
   "states": ["default", "selected", "loading", "error"],
   "accessibility": [
-    "In an app the element with gw-master-detail is the main element. It holds gw-master-detail__list first, then either gw-master-detail__detail or gw-master-detail__placeholder. The list is first in the markup at every width, so Tab reaches the rows before the detail.",
+    "In an app the element with ds-master-detail is the main element. It holds ds-master-detail__list first, then either ds-master-detail__detail or ds-master-detail__placeholder. The list is first in the markup at every width, so Tab reaches the rows before the detail.",
     "The list pane holds the view's h1, in a compact page header, and a list. Each row is a link to the item's own address, so selection works without script and can be bookmarked. Mark the selected row with aria-current=\"true\".",
     "The detail is a section named by its h2, the item's title, through aria-labelledby. Selecting a row does not move focus into it on a wide screen. On a phone the detail is the view, so move focus to its heading.",
-    "The phone layout follows from the markup alone. When gw-master-detail__detail is present the list pane is not rendered below 768px, and gw-master-detail__back, a link to the list's address, is the first thing in the detail. From 768px the link is not rendered. With nothing selected, render gw-master-detail__placeholder instead, which is shown only from 768px.",
+    "The phone layout follows from the markup alone. When ds-master-detail__detail is present the list pane is not rendered below 768px, and ds-master-detail__back, a link to the list's address, is the first thing in the detail. From 768px the link is not rendered. With nothing selected, render ds-master-detail__placeholder instead, which is shown only from 768px.",
     "The list keeps its place. When the reader follows the back link, restore the list's scroll position and move focus to the row they came from. From 768px, replace only the detail when the selection changes, and never reorder or refetch the list under the reader.",
-    "The view's one primary action is in the detail, written last in a button group. A row has at most one action, a gw-button gw-button--small with secondary emphasis, whose aria-label starts with its visible words and names the row.",
-    "An action that discards or stops something carries data-gw-critical and is visible in the detail. It never sits only inside a closed disclosure or a menu.",
+    "The view's one primary action is in the detail, written last in a button group. A row has at most one action, a ds-button ds-button--small with secondary emphasis, whose aria-label starts with its visible words and names the row.",
+    "An action that discards or stops something carries data-ds-critical and is visible in the detail. It never sits only inside a closed disclosure or a menu.",
     "While the detail loads, keep its heading, set aria-busy=\"true\" on the section and show a skeleton. If it cannot be loaded, show an error state in the detail with Retry. The list stays as it is in both cases.",
     "With no items at all, put an empty state in place of the list and leave both the detail and the placeholder out."
   ],
   "icons": ["arrow-left", "circle-alert", "plus"],
   "classes": [
-    "gw-master-detail",
-    "gw-master-detail__back",
-    "gw-master-detail__detail",
-    "gw-master-detail__list",
-    "gw-master-detail__placeholder"
+    "ds-master-detail",
+    "ds-master-detail__back",
+    "ds-master-detail__detail",
+    "ds-master-detail__list",
+    "ds-master-detail__placeholder"
   ]
 }

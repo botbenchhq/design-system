@@ -4,32 +4,32 @@
  * It makes the button a square one target wide and adds the look of a toggle that is on.
  */
 
-@layer gw.components {
-  .gw-icon-button {
+@layer ds.components {
+  .ds-icon-button {
     flex: none;
-    width: var(--gw-size-touch);
+    width: var(--ds-size-touch);
     padding: 0;
   }
 
   /* A toggle that is on: a border and a sunken fill, with a bar under the icon so the state is never colour alone. */
-  .gw-icon-button[aria-pressed="true"] {
-    border-color: var(--gw-color-border-strong);
-    background-color: var(--gw-color-surface-sunken);
+  .ds-icon-button[aria-pressed="true"] {
+    border-color: var(--ds-color-border-strong);
+    background-color: var(--ds-color-surface-sunken);
   }
 
-  .gw-icon-button[aria-pressed="true"]::after {
+  .ds-icon-button[aria-pressed="true"]::after {
     content: "";
     position: absolute;
-    bottom: var(--gw-space-sm);
-    inset-inline: var(--gw-space-md);
-    height: calc(var(--gw-border-width) * 2);
+    bottom: var(--ds-space-sm);
+    inset-inline: var(--ds-space-md);
+    height: calc(var(--ds-border-width) * 2);
     background-color: currentColor;
   }
 
   /* After the pressed rules, so an unavailable toggle keeps its bar and loses the fill. */
-  .gw-icon-button[aria-pressed="true"]:disabled,
-  .gw-icon-button[aria-pressed="true"][aria-disabled="true"] {
-    border-color: var(--gw-color-border);
+  .ds-icon-button[aria-pressed="true"]:disabled,
+  .ds-icon-button[aria-pressed="true"][aria-disabled="true"] {
+    border-color: var(--ds-color-border);
     background-color: transparent;
   }
 }

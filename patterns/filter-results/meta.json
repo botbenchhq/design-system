@@ -19,16 +19,16 @@
   "sizes": [],
   "states": ["default", "empty", "loading", "error"],
   "accessibility": [
-    "In an app the element with gw-filter-results is the main element. The page title is the h1, in a page header, which may hold the view's one primary action. No filter control is primary.",
-    "gw-filter-results__bar holds a search field and then each filter as a select in a field. Every control has a visible label, and each select's first option names the unfiltered choice, such as Any status. The results change as a control changes, so the bar has no Apply button.",
+    "In an app the element with ds-filter-results is the main element. The page title is the h1, in a page header, which may hold the view's one primary action. No filter control is primary.",
+    "ds-filter-results__bar holds a search field and then each filter as a select in a field. Every control has a visible label, and each select's first option names the unfiltered choice, such as Any status. The results change as a control changes, so the bar has no Apply button.",
     "The filters in force are a ul with an aria-label, holding one removable tag for each, written as the filter's name and value. The search text is one of them. Clear filters is a small quiet button after the list, and it is rendered only while a filter is in force.",
-    "The count is a p with gw-filter-results__count and role=\"status\", directly above the results. Keep it in the page from the start and change only its text, after the reader pauses typing, so the new count is announced without moving focus. It says the number, the total and the unit: 3 of 128 runs match.",
+    "The count is a p with ds-filter-results__count and role=\"status\", directly above the results. Keep it in the page from the start and change only its text, after the reader pauses typing, so the new count is announced without moving focus. It says the number, the total and the unit: 3 of 128 runs match.",
     "After a tag is removed, move focus to the next tag's button, or to the search input when none is left.",
     "With no results, the count says 0 and an empty state takes the place of the results. Its title repeats the filters in words, its body names the one filter to loosen and what that would show, and its one button removes that filter. It is never primary.",
-    "While results load, the count says what is being searched and a skeleton of rows takes the place of the results, with aria-busy=\"true\" and a gw-visually-hidden line. The filters stay usable. For a wait under about a second, keep the old results and show nothing.",
+    "While results load, the count says what is being searched and a skeleton of rows takes the place of the results, with aria-busy=\"true\" and a ds-visually-hidden line. The filters stay usable. For a wait under about a second, keep the old results and show nothing.",
     "If the results cannot be loaded, show an error state with Retry in their place and keep the filters as the reader set them. Never show the empty state for a failed load.",
     "Tab moves through the search input, its clear button, the filters, each tag's remove button, Clear filters, then the results. The pattern needs no script of its own."
   ],
   "icons": ["plus", "triangle-alert"],
-  "classes": ["gw-filter-results", "gw-filter-results__bar", "gw-filter-results__count"]
+  "classes": ["ds-filter-results", "ds-filter-results__bar", "ds-filter-results__count"]
 }

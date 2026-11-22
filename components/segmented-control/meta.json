@@ -18,8 +18,8 @@
   "sizes": [],
   "states": ["default", "selected", "hover", "focus-visible", "disabled"],
   "accessibility": [
-    "Use a fieldset with gw-segmented-control and a legend with gw-segmented-control__legend that names the choice. Add gw-visually-hidden to the legend where a heading beside the control already names it. The legend stays in the markup.",
-    "Inside a div with gw-segmented-control__options, each option is a label with gw-segmented-control__option holding input type=\"radio\" with gw-segmented-control__input and then a span with gw-segmented-control__label. The label element names the radio, and the span must come straight after the input.",
+    "Use a fieldset with ds-segmented-control and a legend with ds-segmented-control__legend that names the choice. Add ds-visually-hidden to the legend where a heading beside the control already names it. The legend stays in the markup.",
+    "Inside a div with ds-segmented-control__options, each option is a label with ds-segmented-control__option holding input type=\"radio\" with ds-segmented-control__input and then a span with ds-segmented-control__label. The label element names the radio, and the span must come straight after the input.",
     "Every input has the same name attribute, different from every other group on the page, and one input has the checked attribute from the start.",
     "It needs no script: the browser keeps exactly one option chosen. An app that reacts at once listens for the change event on the fieldset.",
     "The chosen option is a raised segment with a border and heavier text, so it does not rest on colour.",
@@ -29,11 +29,11 @@
   ],
   "icons": [],
   "classes": [
-    "gw-segmented-control",
-    "gw-segmented-control__input",
-    "gw-segmented-control__label",
-    "gw-segmented-control__legend",
-    "gw-segmented-control__option",
-    "gw-segmented-control__options"
+    "ds-segmented-control",
+    "ds-segmented-control__input",
+    "ds-segmented-control__label",
+    "ds-segmented-control__legend",
+    "ds-segmented-control__option",
+    "ds-segmented-control__options"
   ]
 }

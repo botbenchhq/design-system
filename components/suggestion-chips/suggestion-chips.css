@@ -4,20 +4,20 @@
  * quietens them, so it must load after the button's.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* On a ul. The chips wrap, and a chip too long for the line wraps its own text. */
-  .gw-suggestion-chips {
+  .ds-suggestion-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
     min-width: 0;
   }
 
-  /* On the same element as gw-button: lighter, see-through and set from the start, so it reads as a prompt and not as the view's action. */
-  .gw-suggestion-chips__chip {
+  /* On the same element as ds-button: lighter, see-through and set from the start, so it reads as a prompt and not as the view's action. */
+  .ds-suggestion-chips__chip {
     justify-content: flex-start;
     background-color: transparent;
-    font-weight: var(--gw-weight-normal);
+    font-weight: var(--ds-weight-normal);
     text-align: start;
   }
 }

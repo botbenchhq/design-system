@@ -19,7 +19,7 @@ How to write the words in an interface.
 - Write times so they cannot be misread: "2 minutes ago", "14 March, 09:30".
 - An empty view says what is missing and how to add the first one. It does not welcome or promote.
 - A confirmation names the thing: "Delete the workspace api-refactor?" The confirming button repeats the verb: "Delete workspace".
-- Text for assistive technology that is not drawn, such as the label of an icon-only control, goes in an element with the `gw-visually-hidden` class.
+- Text for assistive technology that is not drawn, such as the label of an icon-only control, goes in an element with the `ds-visually-hidden` class.
 
 ## Step summaries
 

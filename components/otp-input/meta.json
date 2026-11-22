@@ -18,16 +18,16 @@
   ],
   "states": ["default", "focus", "filled", "invalid", "disabled"],
   "accessibility": [
-    "Use one input with type=\"text\" carrying gw-field__control and gw-otp-input, inside gw-field. The label says where the code comes from, and the description says how many digits it has and where it was sent.",
+    "Use one input with type=\"text\" carrying ds-field__control and ds-otp-input, inside ds-field. The label says where the code comes from, and the description says how many digits it has and where it was sent.",
     "Set autocomplete=\"one-time-code\", so a phone offers the code from the message it just received, and inputmode=\"numeric\" for the number keys. Use type=\"text\", never type=\"number\": a code may start with a zero and is not an amount.",
     "Do not set maxlength. A code pasted as 482 913 would lose its last digit. The app strips spaces and hyphens from the value, then checks the length.",
     "Never split the code across several inputs, and never move focus or send the form by script as the last digit arrives. The reader sends it with the form's button or with Enter.",
-    "For a wrong or expired code, set aria-invalid=\"true\" on the input and link a gw-field__error that says which it was and what to do, with the action it names, such as Send a new code, as a button beside the field. Leave the code in the input so it can be corrected.",
+    "For a wrong or expired code, set aria-invalid=\"true\" on the input and link a ds-field__error that says which it was and what to do, with the action it names, such as Send a new code, as a button beside the field. Leave the code in the input so it can be corrected.",
     "While the code is checked, set disabled on the input and say so in the description with role=\"status\".",
     "The keyboard is the text input's own, and pasting works as in any field."
   ],
   "icons": [],
   "classes": [
-    "gw-otp-input"
+    "ds-otp-input"
   ]
 }

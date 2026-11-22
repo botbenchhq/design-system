@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Segmented control - Groundwork gallery</title>
-<link rel="stylesheet" href="../groundwork.css">
+<title>Segmented control - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -26,24 +26,24 @@
 </header>
 <section>
 <h2>Examples</h2>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Two options</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Two options</h3>
 <p data-gallery="state">State: <code>default</code></p>
 <p>The two views are named, exactly one is in use, and both stay visible. The chosen one is a raised, bordered segment with heavier text, so it can be told apart without colour.</p>
 </figcaption>
 <div data-example="default" data-title="Two options" data-state="default" data-reason="The two views are named, exactly one is in use, and both stay visible. The chosen one is a raised, bordered segment with heavier text, so it can be told apart without colour.">
-  <fieldset class="gw-segmented-control">
-    <legend class="gw-segmented-control__legend">Diff layout</legend>
-    <div class="gw-segmented-control__options">
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-default-layout" value="unified" checked>
-        <span class="gw-segmented-control__label">Unified</span>
+  <fieldset class="ds-segmented-control">
+    <legend class="ds-segmented-control__legend">Diff layout</legend>
+    <div class="ds-segmented-control__options">
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-default-layout" value="unified" checked>
+        <span class="ds-segmented-control__label">Unified</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-default-layout" value="split">
-        <span class="gw-segmented-control__label">Split</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-default-layout" value="split">
+        <span class="ds-segmented-control__label">Split</span>
       </label>
     </div>
   </fieldset>
@@ -55,20 +55,20 @@
 <p data-gallery="state">State: <code>selected</code></p>
 </figcaption>
 <div data-example="selected" data-title="Three options, the middle one chosen" data-state="selected">
-  <fieldset class="gw-segmented-control">
-    <legend class="gw-segmented-control__legend">Transcript detail</legend>
-    <div class="gw-segmented-control__options">
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-selected-detail" value="summary">
-        <span class="gw-segmented-control__label">Summary</span>
+  <fieldset class="ds-segmented-control">
+    <legend class="ds-segmented-control__legend">Transcript detail</legend>
+    <div class="ds-segmented-control__options">
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-selected-detail" value="summary">
+        <span class="ds-segmented-control__label">Summary</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-selected-detail" value="commands" checked>
-        <span class="gw-segmented-control__label">Commands</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-selected-detail" value="commands" checked>
+        <span class="ds-segmented-control__label">Commands</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-selected-detail" value="everything">
-        <span class="gw-segmented-control__label">Everything</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-selected-detail" value="everything">
+        <span class="ds-segmented-control__label">Everything</span>
       </label>
     </div>
   </fieldset>
@@ -79,28 +79,28 @@
 <h3>Five options, with a visually hidden legend</h3>
 </figcaption>
 <div data-example="five" data-title="Five options, with a visually hidden legend">
-  <fieldset class="gw-segmented-control">
-    <legend class="gw-segmented-control__legend gw-visually-hidden">Show runs with status</legend>
-    <div class="gw-segmented-control__options">
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-five-status" value="all" checked>
-        <span class="gw-segmented-control__label">All</span>
+  <fieldset class="ds-segmented-control">
+    <legend class="ds-segmented-control__legend ds-visually-hidden">Show runs with status</legend>
+    <div class="ds-segmented-control__options">
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-five-status" value="all" checked>
+        <span class="ds-segmented-control__label">All</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-five-status" value="queued">
-        <span class="gw-segmented-control__label">Queued</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-five-status" value="queued">
+        <span class="ds-segmented-control__label">Queued</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-five-status" value="running">
-        <span class="gw-segmented-control__label">Running</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-five-status" value="running">
+        <span class="ds-segmented-control__label">Running</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-five-status" value="failed">
-        <span class="gw-segmented-control__label">Failed</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-five-status" value="failed">
+        <span class="ds-segmented-control__label">Failed</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-five-status" value="done">
-        <span class="gw-segmented-control__label">Done</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-five-status" value="done">
+        <span class="ds-segmented-control__label">Done</span>
       </label>
     </div>
   </fieldset>
@@ -112,16 +112,16 @@
 <p data-gallery="state">State: <code>hover</code></p>
 </figcaption>
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <fieldset class="gw-segmented-control">
-    <legend class="gw-segmented-control__legend">Diff layout</legend>
-    <div class="gw-segmented-control__options">
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-hover-layout" value="unified" checked>
-        <span class="gw-segmented-control__label">Unified</span>
+  <fieldset class="ds-segmented-control">
+    <legend class="ds-segmented-control__legend">Diff layout</legend>
+    <div class="ds-segmented-control__options">
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-hover-layout" value="unified" checked>
+        <span class="ds-segmented-control__label">Unified</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-hover-layout" value="split">
-        <span class="gw-segmented-control__label">Split</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-hover-layout" value="split">
+        <span class="ds-segmented-control__label">Split</span>
       </label>
     </div>
   </fieldset>
@@ -133,16 +133,16 @@
 <p data-gallery="state">State: <code>focus-visible</code></p>
 </figcaption>
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <fieldset class="gw-segmented-control">
-    <legend class="gw-segmented-control__legend">Diff layout</legend>
-    <div class="gw-segmented-control__options">
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-focus-layout" value="unified">
-        <span class="gw-segmented-control__label">Unified</span>
+  <fieldset class="ds-segmented-control">
+    <legend class="ds-segmented-control__legend">Diff layout</legend>
+    <div class="ds-segmented-control__options">
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-focus-layout" value="unified">
+        <span class="ds-segmented-control__label">Unified</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-focus-layout" value="split" checked>
-        <span class="gw-segmented-control__label">Split</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-focus-layout" value="split" checked>
+        <span class="ds-segmented-control__label">Split</span>
       </label>
     </div>
   </fieldset>
@@ -154,34 +154,34 @@
 <p data-gallery="state">State: <code>disabled</code></p>
 </figcaption>
 <div data-example="disabled" data-title="One option disabled, and a whole control disabled" data-state="disabled">
-  <div class="gw-stack gw-gap-lg">
-    <fieldset class="gw-segmented-control">
-      <legend class="gw-segmented-control__legend">Run the task on</legend>
-      <div class="gw-segmented-control__options">
-        <label class="gw-segmented-control__option">
-          <input class="gw-segmented-control__input" type="radio" name="segmented-control-disabled-runner" value="local" checked>
-          <span class="gw-segmented-control__label">This machine</span>
+  <div class="ds-stack ds-gap-lg">
+    <fieldset class="ds-segmented-control">
+      <legend class="ds-segmented-control__legend">Run the task on</legend>
+      <div class="ds-segmented-control__options">
+        <label class="ds-segmented-control__option">
+          <input class="ds-segmented-control__input" type="radio" name="segmented-control-disabled-runner" value="local" checked>
+          <span class="ds-segmented-control__label">This machine</span>
         </label>
-        <label class="gw-segmented-control__option">
-          <input class="gw-segmented-control__input" type="radio" name="segmented-control-disabled-runner" value="container">
-          <span class="gw-segmented-control__label">Container</span>
+        <label class="ds-segmented-control__option">
+          <input class="ds-segmented-control__input" type="radio" name="segmented-control-disabled-runner" value="container">
+          <span class="ds-segmented-control__label">Container</span>
         </label>
-        <label class="gw-segmented-control__option">
-          <input class="gw-segmented-control__input" type="radio" name="segmented-control-disabled-runner" value="cloud" disabled>
-          <span class="gw-segmented-control__label">Cloud runner</span>
+        <label class="ds-segmented-control__option">
+          <input class="ds-segmented-control__input" type="radio" name="segmented-control-disabled-runner" value="cloud" disabled>
+          <span class="ds-segmented-control__label">Cloud runner</span>
         </label>
       </div>
     </fieldset>
-    <fieldset class="gw-segmented-control" disabled>
-      <legend class="gw-segmented-control__legend">Diff layout</legend>
-      <div class="gw-segmented-control__options">
-        <label class="gw-segmented-control__option">
-          <input class="gw-segmented-control__input" type="radio" name="segmented-control-disabled-layout" value="unified" checked>
-          <span class="gw-segmented-control__label">Unified</span>
+    <fieldset class="ds-segmented-control" disabled>
+      <legend class="ds-segmented-control__legend">Diff layout</legend>
+      <div class="ds-segmented-control__options">
+        <label class="ds-segmented-control__option">
+          <input class="ds-segmented-control__input" type="radio" name="segmented-control-disabled-layout" value="unified" checked>
+          <span class="ds-segmented-control__label">Unified</span>
         </label>
-        <label class="gw-segmented-control__option">
-          <input class="gw-segmented-control__input" type="radio" name="segmented-control-disabled-layout" value="split">
-          <span class="gw-segmented-control__label">Split</span>
+        <label class="ds-segmented-control__option">
+          <input class="ds-segmented-control__input" type="radio" name="segmented-control-disabled-layout" value="split">
+          <span class="ds-segmented-control__label">Split</span>
         </label>
       </div>
     </fieldset>
@@ -190,41 +190,41 @@
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Seven options</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Seven options</h3>
 <p>Seven segments do not fit a phone: the labels wrap and the reader has to scan the whole row. Beyond five options, use a select or a radio group.</p>
 <p>Caught in review, not by the checker.</p>
 </figcaption>
 <div data-example="too-many" data-title="Seven options" data-dont="review" data-reason="Seven segments do not fit a phone: the labels wrap and the reader has to scan the whole row. Beyond five options, use a select or a radio group.">
-  <fieldset class="gw-segmented-control">
-    <legend class="gw-segmented-control__legend">Base branch</legend>
-    <div class="gw-segmented-control__options">
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="main" checked>
-        <span class="gw-segmented-control__label">main</span>
+  <fieldset class="ds-segmented-control">
+    <legend class="ds-segmented-control__legend">Base branch</legend>
+    <div class="ds-segmented-control__options">
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="main" checked>
+        <span class="ds-segmented-control__label">main</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="develop">
-        <span class="gw-segmented-control__label">develop</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="develop">
+        <span class="ds-segmented-control__label">develop</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="staging">
-        <span class="gw-segmented-control__label">staging</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="staging">
+        <span class="ds-segmented-control__label">staging</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="release-2026-11">
-        <span class="gw-segmented-control__label">release/2026-11</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="release-2026-11">
+        <span class="ds-segmented-control__label">release/2026-11</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="release-2026-10">
-        <span class="gw-segmented-control__label">release/2026-10</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="release-2026-10">
+        <span class="ds-segmented-control__label">release/2026-10</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="hotfix">
-        <span class="gw-segmented-control__label">hotfix</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="hotfix">
+        <span class="ds-segmented-control__label">hotfix</span>
       </label>
-      <label class="gw-segmented-control__option">
-        <input class="gw-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="next">
-        <span class="gw-segmented-control__label">next</span>
+      <label class="ds-segmented-control__option">
+        <input class="ds-segmented-control__input" type="radio" name="segmented-control-too-many-base" value="next">
+        <span class="ds-segmented-control__label">next</span>
       </label>
     </div>
   </fieldset>
@@ -232,7 +232,7 @@
 </figure>
 </div>
 </section>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
@@ -253,8 +253,8 @@
 <section>
 <h2>Accessibility</h2>
 <ul>
-<li>Use a fieldset with gw-segmented-control and a legend with gw-segmented-control__legend that names the choice. Add gw-visually-hidden to the legend where a heading beside the control already names it. The legend stays in the markup.</li>
-<li>Inside a div with gw-segmented-control__options, each option is a label with gw-segmented-control__option holding input type=&quot;radio&quot; with gw-segmented-control__input and then a span with gw-segmented-control__label. The label element names the radio, and the span must come straight after the input.</li>
+<li>Use a fieldset with ds-segmented-control and a legend with ds-segmented-control__legend that names the choice. Add ds-visually-hidden to the legend where a heading beside the control already names it. The legend stays in the markup.</li>
+<li>Inside a div with ds-segmented-control__options, each option is a label with ds-segmented-control__option holding input type=&quot;radio&quot; with ds-segmented-control__input and then a span with ds-segmented-control__label. The label element names the radio, and the span must come straight after the input.</li>
 <li>Every input has the same name attribute, different from every other group on the page, and one input has the checked attribute from the start.</li>
 <li>It needs no script: the browser keeps exactly one option chosen. An app that reacts at once listens for the change event on the fieldset.</li>
 <li>The chosen option is a raised segment with a border and heavier text, so it does not rest on colour.</li>
@@ -266,12 +266,12 @@
 <section>
 <h2>Classes</h2>
 <ul>
-<li><code>gw-segmented-control</code></li>
-<li><code>gw-segmented-control__input</code></li>
-<li><code>gw-segmented-control__label</code></li>
-<li><code>gw-segmented-control__legend</code></li>
-<li><code>gw-segmented-control__option</code></li>
-<li><code>gw-segmented-control__options</code></li>
+<li><code>ds-segmented-control</code></li>
+<li><code>ds-segmented-control__input</code></li>
+<li><code>ds-segmented-control__label</code></li>
+<li><code>ds-segmented-control__legend</code></li>
+<li><code>ds-segmented-control__option</code></li>
+<li><code>ds-segmented-control__options</code></li>
 </ul>
 </section>
 </div>

@@ -4,28 +4,28 @@
  * field and the filters share one row, with the search field taking the most room.
  */
 
-@layer gw.components {
-  .gw-filter-results {
+@layer ds.components {
+  .ds-filter-results {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-lg);
+    gap: var(--ds-space-lg);
   }
 
-  .gw-filter-results__bar {
+  .ds-filter-results__bar {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     align-items: start;
-    gap: var(--gw-space-md);
+    gap: var(--ds-space-md);
   }
 
   @media (min-width: 768px) {
-    .gw-filter-results__bar {
+    .ds-filter-results__bar {
       grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
     }
   }
 
   /* The count in words, directly above the results it counts. */
-  .gw-filter-results__count {
-    font-weight: var(--gw-weight-medium);
+  .ds-filter-results__count {
+    font-weight: var(--ds-weight-medium);
   }
 }

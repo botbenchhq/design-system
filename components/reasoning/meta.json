@@ -19,15 +19,15 @@
   "accessibility": [
     "Use a native details element with the class on it and a summary as its first child. It starts closed: leave the open attribute off and let the reader open it.",
     "The summary is text that says what is inside and how long it is: Reasoning, 14 lines, or Plan, 4 steps. Count what the reader will see, in a unit they know.",
-    "gw-reasoning__body holds text only: paragraphs, or the steps of a plan as a list with the numbers written in the text. Never put a button, a link the reader must follow or a form control inside.",
+    "ds-reasoning__body holds text only: paragraphs, or the steps of a plan as a list with the numbers written in the text. Never put a button, a link the reader must follow or a form control inside.",
     "Line breaks in the text are kept. Write the reasoning as text, never as markup.",
     "The text is muted on the page surface. Do not place the component on a sunken or tinted surface, where muted text is too faint.",
     "Enter and Space open and close the summary, and its pointer target is 44px tall. The component needs no script."
   ],
   "icons": ["chevron-down", "chevron-right"],
   "classes": [
-    "gw-reasoning",
-    "gw-reasoning__body",
-    "gw-reasoning__summary"
+    "ds-reasoning",
+    "ds-reasoning__body",
+    "ds-reasoning__summary"
   ]
 }

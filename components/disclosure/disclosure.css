@@ -3,92 +3,92 @@
  * The chevron is drawn here and turns when the element is open, so the markup is only details and summary.
  */
 
-@layer gw.components {
-  .gw-disclosure {
+@layer ds.components {
+  .ds-disclosure {
     min-width: 0;
   }
 
-  .gw-disclosure__summary {
+  .ds-disclosure__summary {
     display: flex;
     align-items: center;
-    gap: var(--gw-space-sm);
-    min-height: var(--gw-size-touch);
-    padding: var(--gw-space-sm);
-    border-radius: var(--gw-radius-sm);
-    font-weight: var(--gw-weight-medium);
+    gap: var(--ds-space-sm);
+    min-height: var(--ds-size-touch);
+    padding: var(--ds-space-sm);
+    border-radius: var(--ds-radius-sm);
+    font-weight: var(--ds-weight-medium);
     overflow-wrap: anywhere;
     list-style: none;
     cursor: pointer;
-    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+    transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }
 
-  .gw-disclosure__summary::-webkit-details-marker {
+  .ds-disclosure__summary::-webkit-details-marker {
     display: none;
   }
 
-  .gw-disclosure__summary::before {
+  .ds-disclosure__summary::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
     background-color: currentColor;
     mask: url("icons/chevron-right.svg") center / contain no-repeat;
-    transition: rotate var(--gw-duration-fast) var(--gw-ease);
+    transition: rotate var(--ds-duration-fast) var(--ds-ease);
   }
 
-  .gw-disclosure[open] > .gw-disclosure__summary::before {
+  .ds-disclosure[open] > .ds-disclosure__summary::before {
     rotate: 90deg;
   }
 
   /* Trailing text in the summary, such as a count, pushed to the far end. */
-  .gw-disclosure__meta {
+  .ds-disclosure__meta {
     display: inline-flex;
     flex: none;
     align-items: center;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
     margin-inline-start: auto;
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-normal);
-    line-height: var(--gw-leading-xs);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-normal);
+    line-height: var(--ds-leading-xs);
     white-space: nowrap;
   }
 
   /* Indented to start under the summary's text, past the chevron. */
-  .gw-disclosure__content {
-    padding-block: var(--gw-space-xs) var(--gw-space-md);
-    padding-inline: calc(var(--gw-space-sm) + var(--gw-space-lg) + var(--gw-space-sm)) var(--gw-space-sm);
+  .ds-disclosure__content {
+    padding-block: var(--ds-space-xs) var(--ds-space-md);
+    padding-inline: calc(var(--ds-space-sm) + var(--ds-space-lg) + var(--ds-space-sm)) var(--ds-space-sm);
   }
 
   /* As a list row, the disclosure fills the row and its content uses the full width, which a diff needs on a phone. */
-  .gw-disclosure--row {
+  .ds-disclosure--row {
     flex: 1;
   }
 
-  .gw-disclosure--row > .gw-disclosure__summary {
+  .ds-disclosure--row > .ds-disclosure__summary {
     border-radius: 0;
   }
 
-  .gw-disclosure--row > .gw-disclosure__content {
-    padding-inline: var(--gw-space-sm);
+  .ds-disclosure--row > .ds-disclosure__content {
+    padding-inline: var(--ds-space-sm);
   }
 
   /* The quiet text turns to the main text colour where the summary is shaded, so it keeps its contrast. */
   @media (hover: hover) {
-    .gw-disclosure__summary:hover {
-      background-color: var(--gw-color-surface-sunken);
+    .ds-disclosure__summary:hover {
+      background-color: var(--ds-color-surface-sunken);
     }
 
-    .gw-disclosure__summary:hover > .gw-disclosure__meta {
-      color: var(--gw-color-on-surface);
+    .ds-disclosure__summary:hover > .ds-disclosure__meta {
+      color: var(--ds-color-on-surface);
     }
   }
 
-  .gw-disclosure__summary:active {
-    background-color: var(--gw-color-surface-sunken);
+  .ds-disclosure__summary:active {
+    background-color: var(--ds-color-surface-sunken);
   }
 
-  .gw-disclosure__summary:active > .gw-disclosure__meta {
-    color: var(--gw-color-on-surface);
+  .ds-disclosure__summary:active > .ds-disclosure__meta {
+    color: var(--ds-color-on-surface);
   }
 }

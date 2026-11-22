@@ -16,28 +16,28 @@
   ],
   "variants": [
     { "name": "info", "use": "The default, with no modifier class. A passing event. The label reads Note." },
-    { "name": "success", "class": "gw-toast--success", "use": "Something the reader asked for has happened. The label reads Done." },
-    { "name": "danger", "class": "gw-toast--danger", "use": "Something failed and the reader loses nothing by missing the message, or can try again with its one action. The label reads Error." }
+    { "name": "success", "class": "ds-toast--success", "use": "Something the reader asked for has happened. The label reads Done." },
+    { "name": "danger", "class": "ds-toast--danger", "use": "Something failed and the reader loses nothing by missing the message, or can try again with its one action. The label reads Error." }
   ],
   "sizes": [],
   "states": ["default"],
   "accessibility": [
-    "Put one region in the page from the start, as the last element in the body, empty: a div with the class gw-toast__region, role=\"status\", aria-live=\"polite\" and aria-atomic=\"false\". A screen reader announces only what is added to a live region that already exists.",
-    "The app shows a toast by appending a gw-toast element to the region and hides it by removing that element. Append the newest last. The stylesheet shows the last three and hides any before them, so remove the oldest when a fourth arrives.",
+    "Put one region in the page from the start, as the last element in the body, empty: a div with the class ds-toast__region, role=\"status\", aria-live=\"polite\" and aria-atomic=\"false\". A screen reader announces only what is added to a live region that already exists.",
+    "The app shows a toast by appending a ds-toast element to the region and hides it by removing that element. Append the newest last. The stylesheet shows the last three and hides any before them, so remove the oldest when a fourth arrives.",
     "A toast never takes focus. It is announced when the reader's screen reader is next idle.",
-    "Each message starts with gw-toast__label holding the tone in words: Note, Done or Error, then a colon. The tone's icon is drawn by the stylesheet. The message is one sentence, and an error says what to do.",
-    "A toast has at most one action, a button with gw-button gw-button--small gw-toast__action after the message. Nothing may be reachable only from a toast: the same action is somewhere in the view.",
+    "Each message starts with ds-toast__label holding the tone in words: Note, Done or Error, then a colon. The tone's icon is drawn by the stylesheet. The message is one sentence, and an error says what to do.",
+    "A toast has at most one action, a button with ds-button ds-button--small ds-toast__action after the message. Nothing may be reachable only from a toast: the same action is somewhere in the view.",
     "How long it stays is the app's timer: remove a toast without an action after 5 seconds, and one with an action after 10 seconds. Pause the timer while the pointer is over the toast or focus is inside it, and while the page is hidden. Do not remove a danger toast on a timer shorter than 10 seconds.",
     "The region is fixed to the bottom of the screen on a phone and to the bottom trailing corner at 768px and wider, above the page and below nothing but a modal dialog. While a modal dialog is open the page behind it is inert, so report the result of a dialog's action after it closes."
   ],
   "icons": ["circle-alert", "circle-check", "info"],
   "classes": [
-    "gw-toast",
-    "gw-toast--danger",
-    "gw-toast--success",
-    "gw-toast__action",
-    "gw-toast__label",
-    "gw-toast__message",
-    "gw-toast__region"
+    "ds-toast",
+    "ds-toast--danger",
+    "ds-toast--success",
+    "ds-toast__action",
+    "ds-toast__label",
+    "ds-toast__message",
+    "ds-toast__region"
   ]
 }

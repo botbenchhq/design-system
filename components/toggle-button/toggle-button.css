@@ -5,30 +5,30 @@
  * It adds only the look of an option that is on.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* On: a stronger border and a sunken fill. */
-  .gw-toggle-button[aria-pressed="true"] {
-    border-color: var(--gw-color-border-strong);
-    background-color: var(--gw-color-surface-sunken);
+  .ds-toggle-button[aria-pressed="true"] {
+    border-color: var(--ds-color-border-strong);
+    background-color: var(--ds-color-surface-sunken);
   }
 
   /*
    * On is also marked by a bar under the label, so the state is never the fill alone.
    * It is drawn before the content, because the small button's padded hit area is drawn after it.
    */
-  .gw-toggle-button[aria-pressed="true"]::before {
+  .ds-toggle-button[aria-pressed="true"]::before {
     content: "";
     position: absolute;
-    bottom: var(--gw-space-xs);
-    inset-inline: var(--gw-space-md);
-    height: calc(var(--gw-border-width) * 2);
+    bottom: var(--ds-space-xs);
+    inset-inline: var(--ds-space-md);
+    height: calc(var(--ds-border-width) * 2);
     background-color: currentColor;
   }
 
   /* After the on rules, so an unavailable toggle keeps its bar and loses the fill. */
-  .gw-toggle-button[aria-pressed="true"]:disabled,
-  .gw-toggle-button[aria-pressed="true"][aria-disabled="true"] {
-    border-color: var(--gw-color-border);
+  .ds-toggle-button[aria-pressed="true"]:disabled,
+  .ds-toggle-button[aria-pressed="true"][aria-disabled="true"] {
+    border-color: var(--ds-color-border);
     background-color: transparent;
   }
 }
