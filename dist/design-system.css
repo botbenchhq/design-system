@@ -319,9 +319,12 @@
     height: auto;
   }
 
-  /* A layered display value would otherwise beat the browser's own rule for hidden. */
+  /*
+   * A component's display value sits in a later layer and would beat a plain rule here. An important
+   * declaration in an earlier layer wins over later layers, so hidden always hides.
+   */
   [hidden]:where(:not([hidden="until-found"])) {
-    display: none;
+    display: none !important;
   }
 
   /*
