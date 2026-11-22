@@ -23,7 +23,7 @@ declare const preset: {
     size: { "0": string; "auto": string; "xs": string; "sm": string; "md": string; "lg": string; "xl": string; "2xl": string; "touch": string; "full": string };
     minWidth: { "0": string; "touch": string; "full": string };
     minHeight: { "0": string; "touch": string; "full": string; "screen": string };
-    maxWidth: { "none": string; "column": string; "transcript": string; "full": string };
+    maxWidth: { "none": string; "column": string; "transcript": string; "wide": string; "full": string };
     maxHeight: { "none": string; "full": string; "screen": string };
     letterSpacing: {  };
     boxShadowColor: {  };

@@ -27,9 +27,9 @@
     "The menu button is a button with ds-button and ds-split-button__toggle, popovertarget set to the menu's id and aria-haspopup=\"menu\". It holds the chevron icon with aria-hidden=\"true\" and its own name in a ds-visually-hidden span, such as More ways to start the task. The name is never the main action's label again.",
     "The menu is the menu component, copied from its examples, with the same name as the menu button in its aria-label. Its items are other ways to do the main action. The main action itself is not repeated in it.",
     "At most the main action is primary. Two primary halves fail the one-primary-action rule.",
-    "Tab reaches the main action and then the menu button. Enter and Space activate each. The browser opens and closes the menu, closes it on Escape and on a press outside, and returns focus to the menu button. Arrow keys inside the menu are the menu component's.",
+    "Tab reaches the main action and then the menu button. Enter and Space activate each. The browser opens and closes the menu, closes it on Escape and on a press outside, and returns focus to the menu button. The keys inside the menu are the menu component's: wrap the ds-split-button in the ds-menu element of behaviors/menu.js, or handle them in the app, and focus moves to the first item when the menu opens, the arrow keys move it, and Tab closes the menu.",
     "When the action is unavailable, set disabled on both halves. While the main action runs, set aria-busy=\"true\" on it, change its label to say what is happening, and set disabled on the menu button.",
-    "The component needs no script of its own."
+    "The component needs no script of its own beyond the menu's."
   ],
   "icons": ["chevron-down", "git-branch"],
   "classes": [

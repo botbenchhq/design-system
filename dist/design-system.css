@@ -96,6 +96,8 @@
     --ds-size-touch: 44px;
     --ds-size-column: 480px;
     --ds-size-transcript: 720px;
+    /* A view of dense data, such as a table or a board, that uses the width of a desktop screen. */
+    --ds-size-wide: 1200px;
 
     /* A custom property cannot be used in a media query. Write 768px there. */
     --ds-breakpoint: 768px;
@@ -188,6 +190,7 @@
     text-size-adjust: 100%;
   }
 
+  /* A theme whose default mode is dark sets the dark scheme on a root with no data-theme itself. */
   [data-theme="dark"] {
     color-scheme: dark;
   }
@@ -471,6 +474,11 @@
 
   .ds-container-narrow {
     max-width: var(--ds-size-column);
+  }
+
+  /* For a view of dense data, such as a table or a board: the same column, as wide as a desktop screen allows. */
+  .ds-container--wide {
+    max-width: var(--ds-size-wide);
   }
 
   /* After the primitives, so a gap class wins over a primitive's default. */
@@ -1292,10 +1300,10 @@
     height: var(--ds-space-lg);
   }
 
+  /* A long name wraps between its words, and a word longer than the space breaks only when nothing else fits. */
   .ds-avatar__name {
     min-width: 0;
     font-weight: var(--ds-weight-medium);
-    overflow-wrap: anywhere;
   }
 
   .ds-avatar--small > .ds-avatar__mark {
@@ -1824,13 +1832,16 @@
  */
 
 @layer ds.components {
-  /* Seven columns of at least one pointer target each. It fills a phone's width and stops growing after that. */
+  /*
+   * Seven columns of one pointer target each where there is room. It fills a phone's width and stops growing after that.
+   * On a narrower screen, such as a phone zoomed in, the columns narrow to fit and each day stays 44px tall.
+   */
   .ds-calendar {
     display: flex;
     flex-direction: column;
     gap: var(--ds-space-sm);
     width: 100%;
-    min-width: calc(var(--ds-size-touch) * 7);
+    min-width: min(calc(var(--ds-size-touch) * 7), 100%);
     max-width: calc(var(--ds-size-touch) * 8);
   }
 
@@ -2650,6 +2661,11 @@
     overflow-wrap: anywhere;
   }
 
+  /* The status stays in the page while the list is shown, so it is heard when the sentence is written into it. Empty, it takes no room. */
+  .ds-command-palette__message:empty {
+    padding: 0;
+  }
+
   /* A layered display value would otherwise beat the hidden attribute, which is how a command is filtered out. */
   .ds-command-palette__list[hidden],
   .ds-command-palette__group[hidden],
@@ -3003,13 +3019,17 @@
     caption-side: top;
   }
 
-  /* 12px above and below one line of text makes a row 44px tall. */
+  /*
+   * 12px above and below one line of text makes a row 44px tall.
+   * Text wraps between words only, so a column is never narrower than its longest word, nor than two pointer
+   * targets. Where the columns do not fit, ds-data-table__scroll around the table scrolls them sideways.
+   */
   .ds-data-table :is(th, td) {
+    min-width: calc(var(--ds-size-touch) * 2);
     padding: var(--ds-space-md) var(--ds-space-sm);
     font-weight: var(--ds-weight-normal);
     text-align: start;
     vertical-align: top;
-    overflow-wrap: anywhere;
   }
 
   .ds-data-table thead th {
@@ -3047,6 +3067,7 @@
    */
   .ds-data-table .ds-data-table__action {
     width: 0;
+    min-width: 0;
     padding-block: calc((var(--ds-size-touch) - var(--ds-space-2xl)) / 2);
     text-align: end;
     white-space: nowrap;
@@ -3209,7 +3230,10 @@
     background-color: var(--ds-color-surface);
   }
 
-  /* The wrapper of the scroll variant. It is given tabindex="0", so the arrow keys scroll it. */
+  /*
+   * The wrapper of the scroll variant, and of any table whose columns may not fit, such as one holding names or
+   * paths. It is given tabindex="0", so the arrow keys scroll it.
+   */
   .ds-data-table__scroll {
     min-width: 0;
     overflow-x: auto;
@@ -5019,7 +5043,7 @@
 /*
  * Listbox: a list of options the reader selects one or several of, on role="listbox".
  * Rows are one pointer target tall. The selected option shows a check in a slot every row keeps,
- * so the state is a mark as well as a weight. The keyboard is the app's to provide: see the metadata.
+ * so the state is a mark as well as a weight. The keyboard is script, from behaviors/listbox.js or the app: see the metadata.
  */
 
 @layer ds.components {
@@ -5139,7 +5163,7 @@
 /*
  * Menu: a list of actions opened from a button, built on the Popover API.
  * The button's popovertarget attribute opens and closes it, and a press outside or
- * Escape closes it, with no script. Arrow keys between the items are the one thing a script adds.
+ * Escape closes it, with no script. The keys between the items are script: behaviors/menu.js, or the app.
  */
 
 @layer ds.components {
@@ -5180,6 +5204,17 @@
       margin: var(--ds-space-xs) var(--ds-space-lg) var(--ds-space-xs) 0;
       position-area: block-end span-inline-end;
       position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+    }
+
+    /*
+     * On a narrow screen, such as a phone zoomed in, there may be no room for the menu on either side of its button.
+     * It hangs on the side with more room and is no wider than that room, so it never leaves the screen.
+     */
+    @media not all and (min-width: 768px) {
+      .ds-menu {
+        min-width: min(calc(var(--ds-size-touch) * 5), 100%);
+        position-try-order: most-width;
+      }
     }
   }
 

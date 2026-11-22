@@ -9,7 +9,7 @@
     "With groups when the options fall into a few named sets."
   ],
   "whenNotToUse": [
-    "In a form that must work with no script. Use a select, radios or checkboxes: a listbox needs the app's keyboard handling.",
+    "In a form that must work with no script. Use a select, radios or checkboxes: a listbox needs script for its keyboard.",
     "For two to four short options that fit a row. Use a segmented control or radios.",
     "For a list of actions. Use a menu.",
     "For rows that navigate. Use a list of links.",
@@ -29,7 +29,7 @@
     "Each option is a div with ds-listbox__option, role=\"option\", an id and aria-selected set to \"true\" or \"false\" on every option. The check is drawn by the stylesheet from aria-selected, in a slot every row keeps.",
     "A group is a div with ds-listbox__group, role=\"group\" and aria-labelledby pointing at its ds-listbox__label, which carries role=\"presentation\".",
     "Trailing text goes in a span with ds-listbox__meta and is part of the option's name. An option that cannot be chosen carries aria-disabled=\"true\", stays in the arrow-key order, and gives its reason in that trailing text.",
-    "The keyboard contract is the app's. Focus is roving: exactly one option has tabindex=\"0\", the selected one or else the first, and every other option has tabindex=\"-1\", so Tab enters and leaves the listbox in one stop.",
+    "The keyboard is script: wrap the listbox in the ds-listbox element from behaviors/listbox.js, which does everything below and fires a change event on the listbox after each change of selection, or do the same in the app. Focus is roving: exactly one option has tabindex=\"0\", the selected one or else the first, and every other option has tabindex=\"-1\", so Tab enters and leaves the listbox in one stop.",
     "Down and Up move focus to the next and the previous option and stop at the ends. Home and End go to the first and the last. A typed letter moves to the next option that starts with it. On each move the app swaps the tabindex values and calls focus() on the option.",
     "In a single-select listbox, Space or Enter selects the focused option, or selection follows focus where selecting has no side effect. The app sets aria-selected=\"true\" on it and \"false\" on the rest.",
     "In a multi-select listbox, Space switches the focused option, Shift with Down or Up switches the option moved to, and Ctrl or Cmd with A selects all. A press on an option does the same as Space on it. The app ignores presses on an option with aria-disabled=\"true\".",

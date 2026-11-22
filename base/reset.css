@@ -20,6 +20,7 @@
     text-size-adjust: 100%;
   }
 
+  /* A theme whose default mode is dark sets the dark scheme on a root with no data-theme itself. */
   [data-theme="dark"] {
     color-scheme: dark;
   }

@@ -74,6 +74,7 @@
 
   /* The default mode: with no data-theme attribute the page is dark. */
   :root:not([data-theme]) {
+    color-scheme: dark;
     --ds-color-accent: #F59E0B;
     --ds-color-accent-hover: #E18A0F;
     --ds-color-on-accent: #121417;

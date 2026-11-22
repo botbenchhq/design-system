@@ -22,7 +22,7 @@
     "The browser opens and closes the menu from the button, sets aria-expanded, closes on Escape and on a press outside, and returns focus to the button. While the menu is open its button is drawn with a border and a fill, so the reader can tell which row it acts on.",
     "A right-click and a long press are the app's to add, and only as a second way in. On the row's contextmenu event, which a long press also fires on most touch screens, call preventDefault() and then showPopover({ source: button }) on the menu, so it opens in the same place with the same items.",
     "Every action in the menu is reachable from the button. Never add an item, or a whole menu, that only a right-click or a long press can reach.",
-    "The keyboard inside the menu is the menu component's contract: Tab and Enter with no script, and arrow keys where the app adds them. Shift with F10 and the Menu key fire the contextmenu event on the focused row link in most browsers, and so open the menu too once the app handles that event.",
+    "The keyboard inside the menu is the menu component's contract: Tab and Enter with no script, and the arrow keys, Home, End, letters and Tab closing it from the ds-menu element of behaviors/menu.js, or from the app. One ds-menu may wrap the whole list, so every row's menu has them. Shift with F10 and the Menu key fire the contextmenu event on the focused row link in most browsers, and so open the menu too once the app handles that event.",
     "The item that deletes is last, below a divider, with ds-menu__item--danger, and names the row."
   ],
   "icons": ["copy", "ellipsis", "external-link", "git-branch", "terminal"],

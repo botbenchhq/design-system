@@ -64,6 +64,7 @@ const read = (page) =>
       button: button.backgroundColor,
       buttonText: button.color,
       radius: button.borderTopLeftRadius,
+      scheme: root.colorScheme,
     };
   });
 
@@ -91,22 +92,32 @@ test("the theme's layer comes after ds.tokens whatever order the files load in, 
   expect(hex((await read(page)).body)).toBe("#000000");
 });
 
+// The colour scheme native controls and scrollbars are drawn in follows the mode on screen.
 const cases = [
-  { mode: null, colorScheme: "light", expected: "#121417", reason: "the theme's default mode is dark" },
-  { mode: null, colorScheme: "dark", expected: "#121417", reason: "the default mode does not follow the system" },
-  { mode: "light", colorScheme: "dark", expected: "#FAF8F4", reason: "light is set outright" },
-  { mode: "dark", colorScheme: "light", expected: "#121417", reason: "dark is set outright" },
-  { mode: "auto", colorScheme: "light", expected: "#FAF8F4", reason: "auto follows a light system" },
-  { mode: "auto", colorScheme: "dark", expected: "#121417", reason: "auto follows a dark system" },
+  { mode: null, colorScheme: "light", expected: "#121417", scheme: "dark", reason: "the theme's default mode is dark" },
+  { mode: null, colorScheme: "dark", expected: "#121417", scheme: "dark", reason: "the default mode does not follow the system" },
+  { mode: "light", colorScheme: "dark", expected: "#FAF8F4", scheme: "light", reason: "light is set outright" },
+  { mode: "dark", colorScheme: "light", expected: "#121417", scheme: "dark", reason: "dark is set outright" },
+  { mode: "auto", colorScheme: "light", expected: "#FAF8F4", scheme: "light dark", reason: "auto follows a light system" },
+  { mode: "auto", colorScheme: "dark", expected: "#121417", scheme: "light dark", reason: "auto follows a dark system" },
 ];
 
-for (const { mode, colorScheme, expected, reason } of cases) {
-  test(`with data-theme ${mode ?? "unset"} and a ${colorScheme} system, the botbench page background is ${expected}: ${reason}`, async ({ page }) => {
+for (const { mode, colorScheme, expected, scheme, reason } of cases) {
+  test(`with data-theme ${mode ?? "unset"} and a ${colorScheme} system, the botbench page background is ${expected} and the colour scheme ${scheme}: ${reason}`, async ({ page }) => {
     await openPage(page, { mode, colorScheme });
-    expect(hex((await read(page)).body)).toBe(expected);
+    const { body, scheme: drawn } = await read(page);
+    expect(hex(body)).toBe(expected);
+    expect(drawn).toBe(scheme);
     expect(summary.themeColor[expected === "#121417" ? "dark" : "light"]).toBe(expected);
   });
 }
+
+test("with the botbench theme and no data-theme, the root and a date field are drawn in the dark colour scheme", async ({ page }) => {
+  await openPage(page);
+  await page.evaluate(() => document.body.insertAdjacentHTML("beforeend", '<input class="ds-field__control" type="date" aria-label="Due date" value="2026-11-22">'));
+  const schemes = await page.evaluate(() => [document.documentElement, document.querySelector("input")].map((element) => getComputedStyle(element).colorScheme));
+  expect(schemes).toEqual(["dark", "dark"]);
+});
 
 test("with no data-theme the dark default mode matches data-theme dark in every token, including those the theme does not set", async ({ page }) => {
   const all = () =>
@@ -121,9 +132,10 @@ test("with no data-theme the dark default mode matches data-theme dark in every 
   expect(dark["--ds-shadow-overlay"]).toBe("0 8px 24px 0 rgb(0 0 0 / 0.5)");
 });
 
-test("without a theme, a page with no data-theme is light, as before", async ({ page }) => {
+test("without a theme, a page with no data-theme is light and drawn in the light colour scheme, as before", async ({ page }) => {
   await openPage(page, { stylesheets: ["design-system.css"], colorScheme: "dark" });
   expect(hex((await read(page)).body)).toBe("#FAFAF9");
+  expect((await read(page)).scheme).toBe("light");
 });
 
 test("after a sync the hash manifest covers every theme file, the copy verifies, and the vendored theme loads", async ({ page }) => {

@@ -19,13 +19,17 @@
     caption-side: top;
   }
 
-  /* 12px above and below one line of text makes a row 44px tall. */
+  /*
+   * 12px above and below one line of text makes a row 44px tall.
+   * Text wraps between words only, so a column is never narrower than its longest word, nor than two pointer
+   * targets. Where the columns do not fit, ds-data-table__scroll around the table scrolls them sideways.
+   */
   .ds-data-table :is(th, td) {
+    min-width: calc(var(--ds-size-touch) * 2);
     padding: var(--ds-space-md) var(--ds-space-sm);
     font-weight: var(--ds-weight-normal);
     text-align: start;
     vertical-align: top;
-    overflow-wrap: anywhere;
   }
 
   .ds-data-table thead th {
@@ -63,6 +67,7 @@
    */
   .ds-data-table .ds-data-table__action {
     width: 0;
+    min-width: 0;
     padding-block: calc((var(--ds-size-touch) - var(--ds-space-2xl)) / 2);
     text-align: end;
     white-space: nowrap;
@@ -225,7 +230,10 @@
     background-color: var(--ds-color-surface);
   }
 
-  /* The wrapper of the scroll variant. It is given tabindex="0", so the arrow keys scroll it. */
+  /*
+   * The wrapper of the scroll variant, and of any table whose columns may not fit, such as one holding names or
+   * paths. It is given tabindex="0", so the arrow keys scroll it.
+   */
   .ds-data-table__scroll {
     min-width: 0;
     overflow-x: auto;

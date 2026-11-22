@@ -99,6 +99,8 @@ test("the theme stylesheet declares the layer order, keeps every rule in ds.them
     return Object.fromEntries([...code.slice(at, code.indexOf("}", at)).matchAll(/(--ds-[\w-]+):\s*([^;]+);/g)].map(([, name, value]) => [name, value]));
   };
   assert.deepEqual(block(":root:not([data-theme])"), botbench.tokens.dark);
+  // Native controls and scrollbars are drawn dark on that root too, as the reset does for data-theme="dark".
+  assert.match(code.slice(code.indexOf(":root:not([data-theme]) {")).split("}")[0], /\n\s+color-scheme: dark;\n/);
   assert.deepEqual(block('[data-theme="dark"]'), botbench.own.dark);
   assert.deepEqual(block('[data-theme="auto"]'), botbench.own.dark);
   assert.deepEqual(block(":root"), botbench.own.light);

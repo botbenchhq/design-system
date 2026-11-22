@@ -10,6 +10,8 @@
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
+<script type="module" src="../behaviors/listbox.js"></script>
+<script type="module" src="../behaviors/menu.js"></script>
 <script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
@@ -37,22 +39,24 @@
 <p>The selected branch carries aria-selected and a check, and every row keeps the slot for the check, so the names line up and the choice is never colour alone. Each group has a label, and each row is 44px tall.</p>
 </figcaption>
 <div data-example="default" data-title="One option selected, in two groups" data-state="default" data-reason="The selected branch carries aria-selected and a check, and every row keeps the slot for the check, so the names line up and the choice is never colour alone. Each group has a label, and each row is 44px tall.">
-  <div class="ds-stack ds-gap-xs">
-    <span class="ds-field__label" id="listbox-default-label">Base branch</span>
-    <div class="ds-listbox" role="listbox" aria-labelledby="listbox-default-label">
-      <div class="ds-listbox__group" role="group" aria-labelledby="listbox-default-protected">
-        <div class="ds-listbox__label" id="listbox-default-protected" role="presentation">Protected branches</div>
-        <div class="ds-listbox__option" role="option" id="listbox-default-main" aria-selected="true" tabindex="0">main <span class="ds-listbox__meta">Default branch</span></div>
-        <div class="ds-listbox__option" role="option" id="listbox-default-release" aria-selected="false" tabindex="-1">release/2026.03 <span class="ds-listbox__meta">14 commits behind main</span></div>
-      </div>
-      <div class="ds-listbox__group" role="group" aria-labelledby="listbox-default-recent">
-        <div class="ds-listbox__label" id="listbox-default-recent" role="presentation">Branches you pushed to this week</div>
-        <div class="ds-listbox__option" role="option" id="listbox-default-login" aria-selected="false" tabindex="-1">fix/login-timeout <span class="ds-listbox__meta">4 commits ahead</span></div>
-        <div class="ds-listbox__option" role="option" id="listbox-default-webhook" aria-selected="false" tabindex="-1">feat/webhook-rate-limit <span class="ds-listbox__meta">5 commits ahead</span></div>
-        <div class="ds-listbox__option" role="option" id="listbox-default-pg" aria-selected="false" tabindex="-1">chore/pg-8-13 <span class="ds-listbox__meta">1 commit ahead</span></div>
+  <ds-listbox>
+    <div class="ds-stack ds-gap-xs">
+      <span class="ds-field__label" id="listbox-default-label">Base branch</span>
+      <div class="ds-listbox" role="listbox" aria-labelledby="listbox-default-label">
+        <div class="ds-listbox__group" role="group" aria-labelledby="listbox-default-protected">
+          <div class="ds-listbox__label" id="listbox-default-protected" role="presentation">Protected branches</div>
+          <div class="ds-listbox__option" role="option" id="listbox-default-main" aria-selected="true" tabindex="0">main <span class="ds-listbox__meta">Default branch</span></div>
+          <div class="ds-listbox__option" role="option" id="listbox-default-release" aria-selected="false" tabindex="-1">release/2026.03 <span class="ds-listbox__meta">14 commits behind main</span></div>
+        </div>
+        <div class="ds-listbox__group" role="group" aria-labelledby="listbox-default-recent">
+          <div class="ds-listbox__label" id="listbox-default-recent" role="presentation">Branches you pushed to this week</div>
+          <div class="ds-listbox__option" role="option" id="listbox-default-login" aria-selected="false" tabindex="-1">fix/login-timeout <span class="ds-listbox__meta">4 commits ahead</span></div>
+          <div class="ds-listbox__option" role="option" id="listbox-default-webhook" aria-selected="false" tabindex="-1">feat/webhook-rate-limit <span class="ds-listbox__meta">5 commits ahead</span></div>
+          <div class="ds-listbox__option" role="option" id="listbox-default-pg" aria-selected="false" tabindex="-1">chore/pg-8-13 <span class="ds-listbox__meta">1 commit ahead</span></div>
+        </div>
       </div>
     </div>
-  </div>
+  </ds-listbox>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -61,16 +65,18 @@
 <p data-gallery="state">State: <code>selected</code></p>
 </figcaption>
 <div data-example="selected" data-title="Several options selected" data-state="selected">
-  <div class="ds-stack ds-gap-xs">
-    <span class="ds-field__label" id="listbox-selected-label">Checks that must pass before a merge</span>
-    <div class="ds-listbox" role="listbox" aria-labelledby="listbox-selected-label" aria-multiselectable="true">
-      <div class="ds-listbox__option" role="option" id="listbox-selected-unit" aria-selected="true" tabindex="0">Unit tests <span class="ds-listbox__meta">214 tests</span></div>
-      <div class="ds-listbox__option" role="option" id="listbox-selected-integration" aria-selected="true" tabindex="-1">Integration tests <span class="ds-listbox__meta">38 tests</span></div>
-      <div class="ds-listbox__option" role="option" id="listbox-selected-lint" aria-selected="false" tabindex="-1">Lint</div>
-      <div class="ds-listbox__option" role="option" id="listbox-selected-types" aria-selected="true" tabindex="-1">Type check</div>
-      <div class="ds-listbox__option" role="option" id="listbox-selected-e2e" aria-selected="false" tabindex="-1">End-to-end tests <span class="ds-listbox__meta">About 12 minutes</span></div>
+  <ds-listbox>
+    <div class="ds-stack ds-gap-xs">
+      <span class="ds-field__label" id="listbox-selected-label">Checks that must pass before a merge</span>
+      <div class="ds-listbox" role="listbox" aria-labelledby="listbox-selected-label" aria-multiselectable="true">
+        <div class="ds-listbox__option" role="option" id="listbox-selected-unit" aria-selected="true" tabindex="0">Unit tests <span class="ds-listbox__meta">214 tests</span></div>
+        <div class="ds-listbox__option" role="option" id="listbox-selected-integration" aria-selected="true" tabindex="-1">Integration tests <span class="ds-listbox__meta">38 tests</span></div>
+        <div class="ds-listbox__option" role="option" id="listbox-selected-lint" aria-selected="false" tabindex="-1">Lint</div>
+        <div class="ds-listbox__option" role="option" id="listbox-selected-types" aria-selected="true" tabindex="-1">Type check</div>
+        <div class="ds-listbox__option" role="option" id="listbox-selected-e2e" aria-selected="false" tabindex="-1">End-to-end tests <span class="ds-listbox__meta">About 12 minutes</span></div>
+      </div>
     </div>
-  </div>
+  </ds-listbox>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -78,14 +84,16 @@
 <h3>Without groups or trailing text</h3>
 </figcaption>
 <div data-example="plain" data-title="Without groups or trailing text">
-  <div class="ds-stack ds-gap-xs">
-    <span class="ds-field__label" id="listbox-plain-label">Model for this task</span>
-    <div class="ds-listbox" role="listbox" aria-labelledby="listbox-plain-label">
-      <div class="ds-listbox__option" role="option" id="listbox-plain-opus" aria-selected="false" tabindex="-1">claude-opus-4</div>
-      <div class="ds-listbox__option" role="option" id="listbox-plain-sonnet" aria-selected="true" tabindex="0">claude-sonnet-4</div>
-      <div class="ds-listbox__option" role="option" id="listbox-plain-haiku" aria-selected="false" tabindex="-1">claude-haiku-4</div>
+  <ds-listbox>
+    <div class="ds-stack ds-gap-xs">
+      <span class="ds-field__label" id="listbox-plain-label">Model for this task</span>
+      <div class="ds-listbox" role="listbox" aria-labelledby="listbox-plain-label">
+        <div class="ds-listbox__option" role="option" id="listbox-plain-opus" aria-selected="false" tabindex="-1">claude-opus-4</div>
+        <div class="ds-listbox__option" role="option" id="listbox-plain-sonnet" aria-selected="true" tabindex="0">claude-sonnet-4</div>
+        <div class="ds-listbox__option" role="option" id="listbox-plain-haiku" aria-selected="false" tabindex="-1">claude-haiku-4</div>
+      </div>
     </div>
-  </div>
+  </ds-listbox>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -94,10 +102,12 @@
 <p data-gallery="state">State: <code>hover</code></p>
 </figcaption>
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <div class="ds-listbox" role="listbox" aria-label="Reviewer for task 41">
-    <div class="ds-listbox__option" role="option" id="listbox-hover-maya" aria-selected="true" tabindex="0">Maya Okafor <span class="ds-listbox__meta">Reviewed 12 tasks</span></div>
-    <div class="ds-listbox__option" role="option" id="listbox-hover-tomas" aria-selected="false" tabindex="-1">Tomás Reyes <span class="ds-listbox__meta">Reviewed 3 tasks</span></div>
-  </div>
+  <ds-listbox>
+    <div class="ds-listbox" role="listbox" aria-label="Reviewer for task 41">
+      <div class="ds-listbox__option" role="option" id="listbox-hover-maya" aria-selected="true" tabindex="0">Maya Okafor <span class="ds-listbox__meta">Reviewed 12 tasks</span></div>
+      <div class="ds-listbox__option" role="option" id="listbox-hover-tomas" aria-selected="false" tabindex="-1">Tomás Reyes <span class="ds-listbox__meta">Reviewed 3 tasks</span></div>
+    </div>
+  </ds-listbox>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -106,10 +116,12 @@
 <p data-gallery="state">State: <code>focus-visible</code></p>
 </figcaption>
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <div class="ds-listbox" role="listbox" aria-label="Reviewer for task 38">
-    <div class="ds-listbox__option" role="option" id="listbox-focus-maya" aria-selected="true" tabindex="0">Maya Okafor <span class="ds-listbox__meta">Reviewed 12 tasks</span></div>
-    <div class="ds-listbox__option" role="option" id="listbox-focus-tomas" aria-selected="false" tabindex="-1">Tomás Reyes <span class="ds-listbox__meta">Reviewed 3 tasks</span></div>
-  </div>
+  <ds-listbox>
+    <div class="ds-listbox" role="listbox" aria-label="Reviewer for task 38">
+      <div class="ds-listbox__option" role="option" id="listbox-focus-maya" aria-selected="true" tabindex="0">Maya Okafor <span class="ds-listbox__meta">Reviewed 12 tasks</span></div>
+      <div class="ds-listbox__option" role="option" id="listbox-focus-tomas" aria-selected="false" tabindex="-1">Tomás Reyes <span class="ds-listbox__meta">Reviewed 3 tasks</span></div>
+    </div>
+  </ds-listbox>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -118,14 +130,16 @@
 <p data-gallery="state">State: <code>disabled</code></p>
 </figcaption>
 <div data-example="disabled" data-title="An option that cannot be chosen, with its reason" data-state="disabled">
-  <div class="ds-stack ds-gap-xs">
-    <span class="ds-field__label" id="listbox-disabled-label">Branch to merge into</span>
-    <div class="ds-listbox" role="listbox" aria-labelledby="listbox-disabled-label">
-      <div class="ds-listbox__option" role="option" id="listbox-disabled-main" aria-selected="true" tabindex="0">main <span class="ds-listbox__meta">Default branch</span></div>
-      <div class="ds-listbox__option" role="option" id="listbox-disabled-release" aria-selected="false" tabindex="-1" aria-disabled="true">release/2026.03 <span class="ds-listbox__meta">Frozen until 21 March</span></div>
-      <div class="ds-listbox__option" role="option" id="listbox-disabled-staging" aria-selected="false" tabindex="-1">staging</div>
+  <ds-listbox>
+    <div class="ds-stack ds-gap-xs">
+      <span class="ds-field__label" id="listbox-disabled-label">Branch to merge into</span>
+      <div class="ds-listbox" role="listbox" aria-labelledby="listbox-disabled-label">
+        <div class="ds-listbox__option" role="option" id="listbox-disabled-main" aria-selected="true" tabindex="0">main <span class="ds-listbox__meta">Default branch</span></div>
+        <div class="ds-listbox__option" role="option" id="listbox-disabled-release" aria-selected="false" tabindex="-1" aria-disabled="true">release/2026.03 <span class="ds-listbox__meta">Frozen until 21 March</span></div>
+        <div class="ds-listbox__option" role="option" id="listbox-disabled-staging" aria-selected="false" tabindex="-1">staging</div>
+      </div>
     </div>
-  </div>
+  </ds-listbox>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -182,11 +196,13 @@
 <p>Caught in review, not by the checker.</p>
 </figcaption>
 <div data-example="actions" data-title="Actions in a listbox" data-dont="review" data-reason="An option is a value to select, announced as selected or not selected. Here the rows are commands, so nothing is ever selected, the check never appears and a screen reader promises a choice that does not exist. Use a menu for a list of actions.">
-  <div class="ds-listbox" role="listbox" aria-label="Branch fix/login-timeout">
-    <div class="ds-listbox__option" role="option" id="listbox-dont-rebase" aria-selected="false" tabindex="0">Rebase onto main</div>
-    <div class="ds-listbox__option" role="option" id="listbox-dont-pr" aria-selected="false" tabindex="-1">Open pull request</div>
-    <div class="ds-listbox__option" role="option" id="listbox-dont-delete" aria-selected="false" tabindex="-1">Delete branch</div>
-  </div>
+  <ds-listbox>
+    <div class="ds-listbox" role="listbox" aria-label="Branch fix/login-timeout">
+      <div class="ds-listbox__option" role="option" id="listbox-dont-rebase" aria-selected="false" tabindex="0">Rebase onto main</div>
+      <div class="ds-listbox__option" role="option" id="listbox-dont-pr" aria-selected="false" tabindex="-1">Open pull request</div>
+      <div class="ds-listbox__option" role="option" id="listbox-dont-delete" aria-selected="false" tabindex="-1">Delete branch</div>
+    </div>
+  </ds-listbox>
 </div>
 </figure>
 </div>
@@ -203,7 +219,7 @@
 <section>
 <h2>When not to use it</h2>
 <ul>
-<li>In a form that must work with no script. Use a select, radios or checkboxes: a listbox needs the app's keyboard handling.</li>
+<li>In a form that must work with no script. Use a select, radios or checkboxes: a listbox needs script for its keyboard.</li>
 <li>For two to four short options that fit a row. Use a segmented control or radios.</li>
 <li>For a list of actions. Use a menu.</li>
 <li>For rows that navigate. Use a list of links.</li>
@@ -235,7 +251,7 @@
 <li>Each option is a div with ds-listbox__option, role=&quot;option&quot;, an id and aria-selected set to &quot;true&quot; or &quot;false&quot; on every option. The check is drawn by the stylesheet from aria-selected, in a slot every row keeps.</li>
 <li>A group is a div with ds-listbox__group, role=&quot;group&quot; and aria-labelledby pointing at its ds-listbox__label, which carries role=&quot;presentation&quot;.</li>
 <li>Trailing text goes in a span with ds-listbox__meta and is part of the option's name. An option that cannot be chosen carries aria-disabled=&quot;true&quot;, stays in the arrow-key order, and gives its reason in that trailing text.</li>
-<li>The keyboard contract is the app's. Focus is roving: exactly one option has tabindex=&quot;0&quot;, the selected one or else the first, and every other option has tabindex=&quot;-1&quot;, so Tab enters and leaves the listbox in one stop.</li>
+<li>The keyboard is script: wrap the listbox in the ds-listbox element from behaviors/listbox.js, which does everything below and fires a change event on the listbox after each change of selection, or do the same in the app. Focus is roving: exactly one option has tabindex=&quot;0&quot;, the selected one or else the first, and every other option has tabindex=&quot;-1&quot;, so Tab enters and leaves the listbox in one stop.</li>
 <li>Down and Up move focus to the next and the previous option and stop at the ends. Home and End go to the first and the last. A typed letter moves to the next option that starts with it. On each move the app swaps the tabindex values and calls focus() on the option.</li>
 <li>In a single-select listbox, Space or Enter selects the focused option, or selection follows focus where selecting has no side effect. The app sets aria-selected=&quot;true&quot; on it and &quot;false&quot; on the rest.</li>
 <li>In a multi-select listbox, Space switches the focused option, Shift with Down or Up switches the option moved to, and Ctrl or Cmd with A selects all. A press on an option does the same as Space on it. The app ignores presses on an option with aria-disabled=&quot;true&quot;.</li>

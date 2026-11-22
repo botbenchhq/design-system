@@ -10,6 +10,8 @@
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
+<script type="module" src="../behaviors/listbox.js"></script>
+<script type="module" src="../behaviors/menu.js"></script>
 <script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
@@ -37,18 +39,20 @@
 <p>The main action is the one most readers want, so it takes one press and is the view's primary button. The menu button beside it is secondary, has its own name, and holds only other ways to do the same thing.</p>
 </figcaption>
 <div data-example="default" data-title="A main action and its alternatives" data-state="default" data-reason="The main action is the one most readers want, so it takes one press and is the view's primary button. The menu button beside it is secondary, has its own name, and holds only other ways to do the same thing.">
-  <div class="ds-split-button" role="group" aria-label="Start task">
-    <button type="button" class="ds-button ds-button--primary ds-split-button__action">Start task</button>
-    <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-default-menu" aria-haspopup="menu">
-      <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
-      <span class="ds-visually-hidden">More ways to start the task</span>
-    </button>
-    <div class="ds-menu" id="split-button-default-menu" popover role="menu" aria-label="More ways to start the task">
-      <button type="button" class="ds-menu__item" role="menuitem">Start on a new branch</button>
-      <button type="button" class="ds-menu__item" role="menuitem">Start in plan-only mode</button>
-      <button type="button" class="ds-menu__item" role="menuitem">Start when run 4182 finishes</button>
+  <ds-menu>
+    <div class="ds-split-button" role="group" aria-label="Start task">
+      <button type="button" class="ds-button ds-button--primary ds-split-button__action">Start task</button>
+      <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-default-menu" aria-haspopup="menu">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
+        <span class="ds-visually-hidden">More ways to start the task</span>
+      </button>
+      <div class="ds-menu" id="split-button-default-menu" popover role="menu" aria-label="More ways to start the task">
+        <button type="button" class="ds-menu__item" role="menuitem">Start on a new branch</button>
+        <button type="button" class="ds-menu__item" role="menuitem">Start in plan-only mode</button>
+        <button type="button" class="ds-menu__item" role="menuitem">Start when run 4182 finishes</button>
+      </div>
     </div>
-  </div>
+  </ds-menu>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -57,18 +61,20 @@
 <p data-gallery="state">State: <code>open</code></p>
 </figcaption>
 <div data-example="open" data-title="Secondary, with its menu open" data-state="open" data-gallery-frame="short" data-gallery-open>
-  <div class="ds-split-button" role="group" aria-label="Run again">
-    <button type="button" class="ds-button ds-split-button__action">Run again</button>
-    <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-open-menu" aria-haspopup="menu">
-      <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
-      <span class="ds-visually-hidden">More ways to run again</span>
-    </button>
-    <div class="ds-menu" id="split-button-open-menu" popover role="menu" aria-label="More ways to run again">
-      <button type="button" class="ds-menu__item" role="menuitem">Run again from the failed step</button>
-      <button type="button" class="ds-menu__item" role="menuitem">Run again with a clean cache</button>
-      <button type="button" class="ds-menu__item" role="menuitem">Run again on main</button>
+  <ds-menu>
+    <div class="ds-split-button" role="group" aria-label="Run again">
+      <button type="button" class="ds-button ds-split-button__action">Run again</button>
+      <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-open-menu" aria-haspopup="menu">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
+        <span class="ds-visually-hidden">More ways to run again</span>
+      </button>
+      <div class="ds-menu" id="split-button-open-menu" popover role="menu" aria-label="More ways to run again">
+        <button type="button" class="ds-menu__item" role="menuitem">Run again from the failed step</button>
+        <button type="button" class="ds-menu__item" role="menuitem">Run again with a clean cache</button>
+        <button type="button" class="ds-menu__item" role="menuitem">Run again on main</button>
+      </div>
     </div>
-  </div>
+  </ds-menu>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -76,20 +82,22 @@
 <h3>With a leading icon and a long label</h3>
 </figcaption>
 <div data-example="with-icon" data-title="With a leading icon and a long label">
-  <div class="ds-split-button" role="group" aria-label="Create branch">
-    <button type="button" class="ds-button ds-split-button__action">
-      <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-git-branch"></use></svg>
-      Create branch from release/2026-11
-    </button>
-    <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-with-icon-menu" aria-haspopup="menu">
-      <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
-      <span class="ds-visually-hidden">More ways to create the branch</span>
-    </button>
-    <div class="ds-menu" id="split-button-with-icon-menu" popover role="menu" aria-label="More ways to create the branch">
-      <button type="button" class="ds-menu__item" role="menuitem">Create branch from main</button>
-      <button type="button" class="ds-menu__item" role="menuitem">Create branch from a commit</button>
+  <ds-menu>
+    <div class="ds-split-button" role="group" aria-label="Create branch">
+      <button type="button" class="ds-button ds-split-button__action">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-git-branch"></use></svg>
+        Create branch from release/2026-11
+      </button>
+      <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-with-icon-menu" aria-haspopup="menu">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
+        <span class="ds-visually-hidden">More ways to create the branch</span>
+      </button>
+      <div class="ds-menu" id="split-button-with-icon-menu" popover role="menu" aria-label="More ways to create the branch">
+        <button type="button" class="ds-menu__item" role="menuitem">Create branch from main</button>
+        <button type="button" class="ds-menu__item" role="menuitem">Create branch from a commit</button>
+      </div>
     </div>
-  </div>
+  </ds-menu>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -98,17 +106,19 @@
 <p data-gallery="state">State: <code>hover</code></p>
 </figcaption>
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <div class="ds-split-button" role="group" aria-label="Open pull request">
-    <button type="button" class="ds-button ds-split-button__action">Open pull request</button>
-    <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-hover-menu" aria-haspopup="menu">
-      <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
-      <span class="ds-visually-hidden">More ways to open the pull request</span>
-    </button>
-    <div class="ds-menu" id="split-button-hover-menu" popover role="menu" aria-label="More ways to open the pull request">
-      <button type="button" class="ds-menu__item" role="menuitem">Open as a draft</button>
-      <button type="button" class="ds-menu__item" role="menuitem">Open against develop</button>
+  <ds-menu>
+    <div class="ds-split-button" role="group" aria-label="Open pull request">
+      <button type="button" class="ds-button ds-split-button__action">Open pull request</button>
+      <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-hover-menu" aria-haspopup="menu">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
+        <span class="ds-visually-hidden">More ways to open the pull request</span>
+      </button>
+      <div class="ds-menu" id="split-button-hover-menu" popover role="menu" aria-label="More ways to open the pull request">
+        <button type="button" class="ds-menu__item" role="menuitem">Open as a draft</button>
+        <button type="button" class="ds-menu__item" role="menuitem">Open against develop</button>
+      </div>
     </div>
-  </div>
+  </ds-menu>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -117,19 +127,21 @@
 <p data-gallery="state">State: <code>focus-visible</code></p>
 </figcaption>
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <div class="ds-stack">
-    <div class="ds-split-button" role="group" aria-label="Open pull request, main action focused">
-      <button type="button" class="ds-button ds-split-button__action">Open pull request</button>
-      <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-focus-visible-menu" aria-haspopup="menu">
-        <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
-        <span class="ds-visually-hidden">More ways to open the pull request</span>
-      </button>
-      <div class="ds-menu" id="split-button-focus-visible-menu" popover role="menu" aria-label="More ways to open the pull request">
-        <button type="button" class="ds-menu__item" role="menuitem">Open as a draft</button>
-        <button type="button" class="ds-menu__item" role="menuitem">Open against develop</button>
+  <ds-menu>
+    <div class="ds-stack">
+      <div class="ds-split-button" role="group" aria-label="Open pull request, main action focused">
+        <button type="button" class="ds-button ds-split-button__action">Open pull request</button>
+        <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-focus-visible-menu" aria-haspopup="menu">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
+          <span class="ds-visually-hidden">More ways to open the pull request</span>
+        </button>
+        <div class="ds-menu" id="split-button-focus-visible-menu" popover role="menu" aria-label="More ways to open the pull request">
+          <button type="button" class="ds-menu__item" role="menuitem">Open as a draft</button>
+          <button type="button" class="ds-menu__item" role="menuitem">Open against develop</button>
+        </div>
       </div>
     </div>
-  </div>
+  </ds-menu>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -138,17 +150,19 @@
 <p data-gallery="state">State: <code>active</code></p>
 </figcaption>
 <div data-example="active" data-title="Pressed" data-state="active">
-  <div class="ds-split-button" role="group" aria-label="Open pull request, pressed">
-    <button type="button" class="ds-button ds-split-button__action">Open pull request</button>
-    <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-active-menu" aria-haspopup="menu">
-      <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
-      <span class="ds-visually-hidden">More ways to open the pull request</span>
-    </button>
-    <div class="ds-menu" id="split-button-active-menu" popover role="menu" aria-label="More ways to open the pull request">
-      <button type="button" class="ds-menu__item" role="menuitem">Open as a draft</button>
-      <button type="button" class="ds-menu__item" role="menuitem">Open against develop</button>
+  <ds-menu>
+    <div class="ds-split-button" role="group" aria-label="Open pull request, pressed">
+      <button type="button" class="ds-button ds-split-button__action">Open pull request</button>
+      <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-active-menu" aria-haspopup="menu">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
+        <span class="ds-visually-hidden">More ways to open the pull request</span>
+      </button>
+      <div class="ds-menu" id="split-button-active-menu" popover role="menu" aria-label="More ways to open the pull request">
+        <button type="button" class="ds-menu__item" role="menuitem">Open as a draft</button>
+        <button type="button" class="ds-menu__item" role="menuitem">Open against develop</button>
+      </div>
     </div>
-  </div>
+  </ds-menu>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -157,17 +171,19 @@
 <p data-gallery="state">State: <code>disabled</code></p>
 </figcaption>
 <div data-example="disabled" data-title="Disabled" data-state="disabled">
-  <div class="ds-split-button" role="group" aria-label="Open pull request, unavailable">
-    <button type="button" class="ds-button ds-split-button__action" disabled>Open pull request</button>
-    <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-disabled-menu" aria-haspopup="menu" disabled>
-      <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
-      <span class="ds-visually-hidden">More ways to open the pull request</span>
-    </button>
-    <div class="ds-menu" id="split-button-disabled-menu" popover role="menu" aria-label="More ways to open the pull request">
-      <button type="button" class="ds-menu__item" role="menuitem">Open as a draft</button>
-      <button type="button" class="ds-menu__item" role="menuitem">Open against develop</button>
+  <ds-menu>
+    <div class="ds-split-button" role="group" aria-label="Open pull request, unavailable">
+      <button type="button" class="ds-button ds-split-button__action" disabled>Open pull request</button>
+      <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-disabled-menu" aria-haspopup="menu" disabled>
+        <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
+        <span class="ds-visually-hidden">More ways to open the pull request</span>
+      </button>
+      <div class="ds-menu" id="split-button-disabled-menu" popover role="menu" aria-label="More ways to open the pull request">
+        <button type="button" class="ds-menu__item" role="menuitem">Open as a draft</button>
+        <button type="button" class="ds-menu__item" role="menuitem">Open against develop</button>
+      </div>
     </div>
-  </div>
+  </ds-menu>
 </div>
 </figure>
 <figure data-gallery="specimen">
@@ -176,17 +192,19 @@
 <p data-gallery="state">State: <code>busy</code></p>
 </figcaption>
 <div data-example="busy" data-title="While the main action runs" data-state="busy">
-  <div class="ds-split-button" role="group" aria-label="Start task, starting">
-    <button type="button" class="ds-button ds-button--primary ds-split-button__action" aria-busy="true">Starting task</button>
-    <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-busy-menu" aria-haspopup="menu" disabled>
-      <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
-      <span class="ds-visually-hidden">More ways to start the task</span>
-    </button>
-    <div class="ds-menu" id="split-button-busy-menu" popover role="menu" aria-label="More ways to start the task">
-      <button type="button" class="ds-menu__item" role="menuitem">Start on a new branch</button>
-      <button type="button" class="ds-menu__item" role="menuitem">Start in plan-only mode</button>
+  <ds-menu>
+    <div class="ds-split-button" role="group" aria-label="Start task, starting">
+      <button type="button" class="ds-button ds-button--primary ds-split-button__action" aria-busy="true">Starting task</button>
+      <button type="button" class="ds-button ds-split-button__toggle" popovertarget="split-button-busy-menu" aria-haspopup="menu" disabled>
+        <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
+        <span class="ds-visually-hidden">More ways to start the task</span>
+      </button>
+      <div class="ds-menu" id="split-button-busy-menu" popover role="menu" aria-label="More ways to start the task">
+        <button type="button" class="ds-menu__item" role="menuitem">Start on a new branch</button>
+        <button type="button" class="ds-menu__item" role="menuitem">Start in plan-only mode</button>
+      </div>
     </div>
-  </div>
+  </ds-menu>
 </div>
 </figure>
 <figure data-gallery="dont">
@@ -196,17 +214,19 @@
 <p>Checker rule: <code>one-primary-action</code></p>
 </figcaption>
 <div data-example="both-primary" data-title="Both halves primary" data-dont="one-primary-action" data-reason="Two accent fills side by side read as two main actions, and the small one is the easier to hit by mistake. Make the main action primary and leave the menu button secondary.">
-  <div class="ds-split-button" role="group" aria-label="Start task, both halves primary">
-    <button type="button" class="ds-button ds-button--primary ds-split-button__action">Start task</button>
-    <button type="button" class="ds-button ds-button--primary ds-split-button__toggle" popovertarget="split-button-both-primary-menu" aria-haspopup="menu">
-      <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
-      <span class="ds-visually-hidden">More ways to start the task</span>
-    </button>
-    <div class="ds-menu" id="split-button-both-primary-menu" popover role="menu" aria-label="More ways to start the task">
-      <button type="button" class="ds-menu__item" role="menuitem">Start on a new branch</button>
-      <button type="button" class="ds-menu__item" role="menuitem">Start in plan-only mode</button>
+  <ds-menu>
+    <div class="ds-split-button" role="group" aria-label="Start task, both halves primary">
+      <button type="button" class="ds-button ds-button--primary ds-split-button__action">Start task</button>
+      <button type="button" class="ds-button ds-button--primary ds-split-button__toggle" popovertarget="split-button-both-primary-menu" aria-haspopup="menu">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-down"></use></svg>
+        <span class="ds-visually-hidden">More ways to start the task</span>
+      </button>
+      <div class="ds-menu" id="split-button-both-primary-menu" popover role="menu" aria-label="More ways to start the task">
+        <button type="button" class="ds-menu__item" role="menuitem">Start on a new branch</button>
+        <button type="button" class="ds-menu__item" role="menuitem">Start in plan-only mode</button>
+      </div>
     </div>
-  </div>
+  </ds-menu>
 </div>
 </figure>
 </div>
@@ -252,9 +272,9 @@
 <li>The menu button is a button with ds-button and ds-split-button__toggle, popovertarget set to the menu's id and aria-haspopup=&quot;menu&quot;. It holds the chevron icon with aria-hidden=&quot;true&quot; and its own name in a ds-visually-hidden span, such as More ways to start the task. The name is never the main action's label again.</li>
 <li>The menu is the menu component, copied from its examples, with the same name as the menu button in its aria-label. Its items are other ways to do the main action. The main action itself is not repeated in it.</li>
 <li>At most the main action is primary. Two primary halves fail the one-primary-action rule.</li>
-<li>Tab reaches the main action and then the menu button. Enter and Space activate each. The browser opens and closes the menu, closes it on Escape and on a press outside, and returns focus to the menu button. Arrow keys inside the menu are the menu component's.</li>
+<li>Tab reaches the main action and then the menu button. Enter and Space activate each. The browser opens and closes the menu, closes it on Escape and on a press outside, and returns focus to the menu button. The keys inside the menu are the menu component's: wrap the ds-split-button in the ds-menu element of behaviors/menu.js, or handle them in the app, and focus moves to the first item when the menu opens, the arrow keys move it, and Tab closes the menu.</li>
 <li>When the action is unavailable, set disabled on both halves. While the main action runs, set aria-busy=&quot;true&quot; on it, change its label to say what is happening, and set disabled on the menu button.</li>
-<li>The component needs no script of its own.</li>
+<li>The component needs no script of its own beyond the menu's.</li>
 </ul>
 </section>
 <section>

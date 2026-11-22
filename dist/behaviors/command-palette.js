@@ -4,14 +4,19 @@
 // <ds-command-palette> wraps the palette's dialog, in the light DOM. It finds its parts by role:
 // the combobox input, the listbox, its options and groups, and the status message for no match.
 //   - Typing hides the options that do not match every word typed, the groups left with no option and,
-//     when nothing matches, the list itself, and shows the message. The text of a kbd is not matched.
+//     when nothing matches, the list itself. The text of a kbd is not matched.
+//   - The status element is never hidden, so a screen reader hears what is written into it. When nothing matches
+//     the element writes the app's sentence into it, from its data-ds-empty attribute, and empties it otherwise.
+//     Markup with no data-ds-empty, whose status holds the sentence and the hidden attribute as before 0.7.2,
+//     has the sentence moved into the attribute and the hidden attribute taken off.
 //   - Down and Up move through the options that are shown and wrap at the ends. The option Enter would
 //     run carries aria-selected="true", and the input's aria-activedescendant holds its id.
 //   - Enter presses that option. A press on any option closes the dialog, after the app's own click
 //     listener on the option has run. An option with aria-disabled="true" is never pressed.
 //   - shortcut="k" opens the dialog with showModal() on Ctrl+K and Cmd+K. The dialog itself closes on
 //     Escape and returns focus to where it was. Closing empties the input.
-// It sets attributes only, never a class or an inline style. A framework app sets the same attributes itself.
+// It sets attributes, and the text of the status element, never a class or an inline style.
+// A framework app sets the same attributes and writes the same sentence itself.
 
 const INPUT = '[role="combobox"]';
 const LIST = '[role="listbox"]';
@@ -65,7 +70,12 @@ class DsCommandPalette extends HTMLElement {
     const list = this.querySelector(LIST);
     const message = this.querySelector(MESSAGE);
     if (list) list.hidden = shown.length === 0;
-    if (message) message.hidden = shown.length > 0;
+    if (message) {
+      if (message.dataset.dsEmpty === undefined) message.dataset.dsEmpty = message.textContent.trim();
+      message.hidden = false;
+      const text = shown.length === 0 ? message.dataset.dsEmpty : "";
+      if (message.textContent !== text) message.textContent = text;
+    }
     input.setAttribute("aria-expanded", String(shown.length > 0));
     this.select(shown.find((option) => option.getAttribute("aria-selected") === "true") ?? shown[0]);
   }

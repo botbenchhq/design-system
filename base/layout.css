@@ -72,6 +72,11 @@
     max-width: var(--ds-size-column);
   }
 
+  /* For a view of dense data, such as a table or a board: the same column, as wide as a desktop screen allows. */
+  .ds-container--wide {
+    max-width: var(--ds-size-wide);
+  }
+
   /* After the primitives, so a gap class wins over a primitive's default. */
   .ds-gap-xs {
     gap: var(--ds-space-xs);
