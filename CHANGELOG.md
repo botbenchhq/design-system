@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.8.0
+
+The Botbench theme has a new look, calm and native. It sets the platform's own typeface (SF Pro on an Apple device), neutral grey surfaces, near-invisible outlines, a 22px medium radius so a normal button is a pill, 15px body text, a near-white primary action in dark and near-black in light, and a blue focus ring. Amber is no longer the accent; it remains the colour of Needs input. The status colours are unchanged. The rule against `system-ui` now bans naming a typeface in an app; a theme may choose the platform font through the font tokens. No class, token or rule was renamed or removed. An app that links the Botbench theme only needs to sync; one that copied the theme's `theme-color` values or its token block into its own files should copy them again from `themes/botbench.json` and `themes/botbench.design-tokens.md`.
+
 ## 0.7.7
 
 The composer can start work as one block. New parts of `composer` put the textarea, with an accessible name and no visible label, above one row: Add context, the model chip, an optional dictation button, and Send or Stop. Its metadata gives the contract for a missing required value (one prompt chip, Send unavailable, the reason in words), for the Add context sheet and its setting views, and for dictation's listening, transcribing, unavailable and blocked states. A new component, `context-list`, draws the sheet's rows: a setting, its current value with a long one cut in the middle, a warning in words, and a chevron. The icon set gains `mic`, `cpu` and `shield`. No class was renamed or removed, and a consumer only needs to sync.

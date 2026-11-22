@@ -2,17 +2,17 @@
 version: alpha
 name: Design system, botbench theme
 colors:
-  accent: "#AD5D02"
-  accent-hover: "#914D01"
+  accent: "#1C1C1E"
+  accent-hover: "#3A3A3C"
   on-accent: "#FFFFFF"
-  surface: "#FAF8F4"
+  surface: "#F2F2F7"
   surface-raised: "#FFFFFF"
-  surface-sunken: "#EEEBE4"
-  on-surface: "#121417"
-  muted: "#535E6E"
-  border: "#DDD8CE"
-  border-strong: "#8F8B81"
-  focus: "#CC6F01"
+  surface-sunken: "#EDEDF1"
+  on-surface: "#1C1C1E"
+  muted: "#636366"
+  border: "#E6E6EB"
+  border-strong: "#86868B"
+  focus: "#0066CC"
   success: "#037A54"
   success-subtle: "#DCF8E9"
   warning: "#736C02"
@@ -30,17 +30,17 @@ colors:
   tainted: "#BC4100"
   tainted-subtle: "#FFEBE5"
 colors-dark:
-  accent: "#F59E0B"
-  accent-hover: "#E18A0F"
-  on-accent: "#121417"
-  surface: "#121417"
-  surface-raised: "#181B20"
-  surface-sunken: "#0D0F12"
-  on-surface: "#F8FAFC"
-  muted: "#94A3B8"
-  border: "#2B313B"
-  border-strong: "#646B76"
-  focus: "#F59E0B"
+  accent: "#F5F5F7"
+  accent-hover: "#D8D8DC"
+  on-accent: "#161618"
+  surface: "#161618"
+  surface-raised: "#212124"
+  surface-sunken: "#0F0F10"
+  on-surface: "#F5F5F7"
+  muted: "#A1A1A8"
+  border: "#29292D"
+  border-strong: "#75757C"
+  focus: "#4C9DFF"
   success: "#34D399"
   success-subtle: "#09291D"
   warning: "#FDE047"
@@ -59,33 +59,33 @@ colors-dark:
   tainted-subtle: "#341C0F"
 typography:
   xs:
-    fontFamily: "IBM Plex Sans"
+    fontFamily: "system-ui"
     fontSize: 12px
     fontWeight: 400
     lineHeight: 1.4
   mono:
-    fontFamily: "IBM Plex Mono"
+    fontFamily: "ui-monospace"
     fontSize: 13px
     fontWeight: 400
     lineHeight: 1.5
   ui:
-    fontFamily: "IBM Plex Sans"
-    fontSize: 14px
+    fontFamily: "system-ui"
+    fontSize: 15px
     fontWeight: 400
-    lineHeight: 1.4
+    lineHeight: 1.45
   lg:
-    fontFamily: "IBM Plex Sans"
-    fontSize: 16px
+    fontFamily: "system-ui"
+    fontSize: 17px
     fontWeight: 400
     lineHeight: 1.4
   xl:
-    fontFamily: "IBM Plex Sans"
-    fontSize: 20px
+    fontFamily: "system-ui"
+    fontSize: 22px
     fontWeight: 400
     lineHeight: 1.25
   2xl:
-    fontFamily: "IBM Plex Sans"
-    fontSize: 24px
+    fontFamily: "system-ui"
+    fontSize: 28px
     fontWeight: 400
     lineHeight: 1.2
 fontWeights:
@@ -93,8 +93,8 @@ fontWeights:
   medium: 500
   semibold: 600
 rounded:
-  sm: 4px
-  md: 6px
+  sm: 10px
+  md: 22px
   full: 9999px
 spacing:
   xs: 4px

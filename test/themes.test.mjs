@@ -26,7 +26,7 @@ const theme = (light, dark, header = "/* A test theme. */") =>
   `${header}\n@layer ds.theme {\n  :root { ${light} }\n  [data-theme="dark"] { ${dark} }\n  @media (prefers-color-scheme: dark) {\n    [data-theme="auto"] { ${dark} }\n  }\n}\n`;
 
 test("a theme that sets a name the vocabulary does not have fails the build, naming the theme and the name", () => {
-  const run = buildWithTheme((css) => css.replace("--ds-radius-md: 6px;", "--ds-radius-md: 6px;\n    --ds-color-brand: #F59E0B;"));
+  const run = buildWithTheme((css) => css.replace("--ds-radius-md: 22px;", "--ds-radius-md: 22px;\n    --ds-color-brand: #F59E0B;"));
   assert.throws(run, /themes\/botbench\.css: --ds-color-brand is not a token\. A theme can change a value and cannot add a name\./);
 });
 
@@ -52,7 +52,7 @@ test("a theme colour that is not six-digit hex fails", () => {
 });
 
 test("a theme pair below its minimum fails the build, naming the theme, the pair, the mode and the ratio", () => {
-  const run = buildWithTheme((css) => css.replace("--ds-color-accent: #AD5D02;", "--ds-color-accent: #D97706;"));
+  const run = buildWithTheme((css) => css.replace("--ds-color-accent: #1C1C1E;", "--ds-color-accent: #D97706;"));
   assert.throws(run, /In the botbench theme, --ds-color-on-accent on --ds-color-accent is 3\.19:1 in light mode, below 4\.5:1/);
 });
 
@@ -64,9 +64,9 @@ test("resolved values are the theme's where it sets one and the default theme's 
   assert.equal(small.tokens.light["--ds-color-surface"], defaults.light["--ds-color-surface"]);
   assert.equal(small.tokens.dark["--ds-color-surface"], defaults.dark["--ds-color-surface"]);
   assert.equal(small.tokens.dark["--ds-shadow-overlay"], defaults.dark["--ds-shadow-overlay"]);
-  // Botbench sets no shadow and no 4px radius, so both come from the default theme.
-  assert.equal(botbench.tokens.light["--ds-radius-sm"], "4px");
-  assert.equal(botbench.tokens.light["--ds-radius-md"], "6px");
+  // Botbench sets its radii and no shadow, so the shadow comes from the default theme.
+  assert.equal(botbench.tokens.light["--ds-radius-sm"], "10px");
+  assert.equal(botbench.tokens.light["--ds-radius-md"], "22px");
   assert.equal(botbench.tokens.dark["--ds-shadow-overlay"], defaults.dark["--ds-shadow-overlay"]);
   assert.equal(botbench.tokens.light["--ds-shadow-overlay"], defaults.light["--ds-shadow-overlay"]);
 });
@@ -110,22 +110,22 @@ test("each theme has a summary with its default mode and the page background of 
   assert.deepEqual(JSON.parse(read("themes/botbench.json")), {
     name: "botbench",
     defaultMode: "dark",
-    themeColor: { light: "#FAF8F4", dark: "#121417" },
+    themeColor: { light: "#F2F2F7", dark: "#161618" },
   });
 });
 
 test("each theme has a DESIGN.md token block and a token data file holding its resolved values", () => {
   const block = read("themes/botbench.design-tokens.md");
   assert.match(block, /^---\nversion: alpha\nname: Design system, botbench theme\n/);
-  assert.match(block, /\ncolors:\n {2}accent: "#AD5D02"\n/);
-  assert.match(block, /\ncolors-dark:\n {2}accent: "#F59E0B"\n/);
-  assert.match(block, /\nrounded:\n {2}sm: 4px\n {2}md: 6px\n/);
+  assert.match(block, /\ncolors:\n {2}accent: "#1C1C1E"\n/);
+  assert.match(block, /\ncolors-dark:\n {2}accent: "#F5F5F7"\n/);
+  assert.match(block, /\nrounded:\n {2}sm: 10px\n {2}md: 22px\n/);
   const data = JSON.parse(read("themes/botbench.tokens.json"));
   assert.deepEqual(Object.keys(data), Object.keys(JSON.parse(read("tokens.json"))));
-  assert.equal(data.color.surface.$value.hex, "#faf8f4");
-  assert.equal(data.color.surface.$extensions["design-system"].dark.hex, "#121417");
+  assert.equal(data.color.surface.$value.hex, "#f2f2f7");
+  assert.equal(data.color.surface.$extensions["design-system"].dark.hex, "#161618");
   assert.equal(data.color.approval.$extensions["design-system"].dark.hex, "#fbbf24");
-  assert.deepEqual(data.radius.md.$value, { value: 6, unit: "px" });
+  assert.deepEqual(data.radius.md.$value, { value: 22, unit: "px" });
   assert.deepEqual(data.shadow.overlay, JSON.parse(read("tokens.json")).shadow.overlay);
 });
 

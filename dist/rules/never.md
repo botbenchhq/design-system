@@ -30,8 +30,8 @@ Why: some readers cannot tell the colours apart, and a colour alone does not say
 
 ## Type
 
-**Inter, Roboto, Geist or system-ui as the typeface.**
-Why: they are the defaults every generated interface reaches for. The system typeface is IBM Plex Sans, with IBM Plex Mono for code, and both come from the font tokens. Caught by `raw-font-family`, and a font utility by `visual-utility`.
+**Inter, Roboto, Geist or system-ui named as the typeface in an app.**
+Why: they are the defaults every generated interface reaches for. The typeface comes from the font tokens: IBM Plex Sans with IBM Plex Mono by default, and the platform's own font where a theme chooses it, as the Botbench theme does. Caught by `raw-font-family`, and a font utility by `visual-utility`.
 
 **Centred body text wider than the reading column.**
 Why: each line starts in a different place, so long centred text is hard to read. Align body text to the start and centre only a short line. Caught by `centred-body-text`.
