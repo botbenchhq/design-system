@@ -1,7 +1,7 @@
 /*
  * Listbox: a list of options the reader selects one or several of, on role="listbox".
  * Rows are one pointer target tall. The selected option shows a check in a slot every row keeps,
- * so the state is a mark as well as a weight. The keyboard is the app's to provide: see the metadata.
+ * so the state is a mark as well as a weight. The keyboard is script, from behaviors/listbox.js or the app: see the metadata.
  */
 
 @layer ds.components {

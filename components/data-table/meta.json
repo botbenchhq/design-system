@@ -35,10 +35,10 @@
     "Mark the selected row with aria-selected=\"true\" on its tr. It is drawn with a bar at its start as well as a shade.",
     "With no rows, while loading and after a failure, keep the caption and the header and put one row in the tbody whose single td has the class ds-data-table__state and spans every column. Empty: a ds-data-table__message sentence saying why, and at most one small button. Loading: a spinner with role=\"status\", and aria-busy=\"true\" on the table. Error: a ds-data-table__message with role=\"alert\" that says what to do, and a small Retry button. The stylesheet draws the failure's icon.",
     "A status in a cell is written in words. One badge may hold it.",
-    "The wrapper of the scroll variant carries tabindex=\"0\", role=\"region\" and aria-labelledby pointing at the caption's id, so a keyboard can scroll it with the arrow keys. Give each such table on a view a different caption.",
+    "The wrapper of the scroll variant carries tabindex=\"0\", role=\"region\" and aria-labelledby pointing at the caption's id, so a keyboard can scroll it with the arrow keys. Give each such table on a view a different caption. Put a table in the default layout inside the same wrapper when its cells hold names, paths or other text from outside the app: text wraps between words only, so a long word widens its column, and from 768px the wrapper scrolls the columns sideways where they do not fit, so the page does not.",
     "Tab moves through the header buttons, then each row's expand button and action, in order. Enter and Space activate them. There are no arrow-key bindings between cells."
   ],
-  "icons": ["chevron-down", "chevron-right", "chevron-up", "chevrons-up-down", "circle-alert"],
+  "icons": ["chevron-down", "chevron-right", "chevron-up", "chevrons-up-down", "circle-alert", "circle-check", "circle-dashed", "circle-pause", "circle-stop", "eye", "loader", "search", "terminal"],
   "classes": [
     "ds-data-table",
     "ds-data-table--scroll",

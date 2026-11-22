@@ -96,6 +96,8 @@
     --ds-size-touch: 44px;
     --ds-size-column: 480px;
     --ds-size-transcript: 720px;
+    /* A view of dense data, such as a table or a board, that uses the width of a desktop screen. */
+    --ds-size-wide: 1200px;
 
     /* A custom property cannot be used in a media query. Write 768px there. */
     --ds-breakpoint: 768px;

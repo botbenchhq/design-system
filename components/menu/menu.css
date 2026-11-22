@@ -1,7 +1,7 @@
 /*
  * Menu: a list of actions opened from a button, built on the Popover API.
  * The button's popovertarget attribute opens and closes it, and a press outside or
- * Escape closes it, with no script. Arrow keys between the items are the one thing a script adds.
+ * Escape closes it, with no script. The keys between the items are script: behaviors/menu.js, or the app.
  */
 
 @layer ds.components {
@@ -42,6 +42,17 @@
       margin: var(--ds-space-xs) var(--ds-space-lg) var(--ds-space-xs) 0;
       position-area: block-end span-inline-end;
       position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+    }
+
+    /*
+     * On a narrow screen, such as a phone zoomed in, there may be no room for the menu on either side of its button.
+     * It hangs on the side with more room and is no wider than that room, so it never leaves the screen.
+     */
+    @media not all and (min-width: 768px) {
+      .ds-menu {
+        min-width: min(calc(var(--ds-size-touch) * 5), 100%);
+        position-try-order: most-width;
+      }
     }
   }
 

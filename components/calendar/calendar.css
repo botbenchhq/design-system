@@ -5,13 +5,16 @@
  */
 
 @layer ds.components {
-  /* Seven columns of at least one pointer target each. It fills a phone's width and stops growing after that. */
+  /*
+   * Seven columns of one pointer target each where there is room. It fills a phone's width and stops growing after that.
+   * On a narrower screen, such as a phone zoomed in, the columns narrow to fit and each day stays 44px tall.
+   */
   .ds-calendar {
     display: flex;
     flex-direction: column;
     gap: var(--ds-space-sm);
     width: 100%;
-    min-width: calc(var(--ds-size-touch) * 7);
+    min-width: min(calc(var(--ds-size-touch) * 7), 100%);
     max-width: calc(var(--ds-size-touch) * 8);
   }
 

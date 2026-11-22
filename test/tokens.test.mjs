@@ -187,3 +187,19 @@ test("a theme that declares an unknown --ds- name fails validation", () => {
     /--ds-color-brand is not a token/,
   );
 });
+
+test("the wide size reaches the tokens, the Tailwind preset and its types, the token data, the token block and the manifest, and the wide container uses it", () => {
+  const name = "--ds-size-wide";
+  const { light } = parseTokens(read("tokens.css"));
+  assert.equal(light[name], "1200px");
+  const preset = JSON.parse(read("tailwind-preset.js").replace(/^export default /, "").replace(/;\s*$/, ""));
+  assert.equal(preset.theme.maxWidth.wide, `var(${name})`);
+  assert.match(read("tailwind-preset.d.ts"), /maxWidth: \{[^}]*"wide": string/);
+  assert.deepEqual(JSON.parse(read("tokens.json")).size.wide.$value, { value: 1200, unit: "px" });
+  assert.match(read("design-tokens.md"), /\n {2}wide: 1200px\n/);
+  const manifest = JSON.parse(read("manifest.json"));
+  assert.ok(manifest.tokens.size.includes(name));
+  assert.ok(manifest.utilities.sizeKeys.includes("wide"));
+  assert.ok(manifest.classes.includes("ds-container--wide"));
+  assert.match(read("design-system.css"), /\.ds-container--wide \{\n\s+max-width: var\(--ds-size-wide\);/);
+});

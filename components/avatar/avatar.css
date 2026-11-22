@@ -39,10 +39,10 @@
     height: var(--ds-space-lg);
   }
 
+  /* A long name wraps between its words, and a word longer than the space breaks only when nothing else fits. */
   .ds-avatar__name {
     min-width: 0;
     font-weight: var(--ds-weight-medium);
-    overflow-wrap: anywhere;
   }
 
   .ds-avatar--small > .ds-avatar__mark {

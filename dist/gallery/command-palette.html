@@ -10,6 +10,8 @@
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
+<script type="module" src="../behaviors/listbox.js"></script>
+<script type="module" src="../behaviors/menu.js"></script>
 <script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
@@ -67,7 +69,7 @@
             <button type="button" class="ds-command-palette__option" role="option" id="command-palette-default-pr" aria-selected="false"><svg class="ds-command-palette__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-external-link"></use></svg><span class="ds-command-palette__name">Open the pull request on GitHub</span></button>
           </div>
         </div>
-        <p class="ds-command-palette__message" role="status" hidden>No command matches. Try a verb, such as open, copy or rebase.</p>
+        <p class="ds-command-palette__message" role="status" data-ds-empty="No command matches. Try a verb, such as open, copy or rebase."></p>
       </div>
     </dialog>
   </ds-command-palette>
@@ -110,7 +112,7 @@
             <button type="button" class="ds-command-palette__option" role="option" id="command-palette-closed-pr" aria-selected="false"><svg class="ds-command-palette__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-external-link"></use></svg><span class="ds-command-palette__name">Open the pull request on GitHub</span></button>
           </div>
         </div>
-        <p class="ds-command-palette__message" role="status" hidden>No command matches. Try a verb, such as open, copy or rebase.</p>
+        <p class="ds-command-palette__message" role="status" data-ds-empty="No command matches. Try a verb, such as open, copy or rebase."></p>
       </div>
     </dialog>
   </ds-command-palette>
@@ -144,7 +146,7 @@
             <button type="button" class="ds-command-palette__option" role="option" id="command-palette-filtered-pr" aria-selected="false"><svg class="ds-command-palette__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-external-link"></use></svg><span class="ds-command-palette__name">Open the pull request on GitHub</span></button>
           </div>
         </div>
-        <p class="ds-command-palette__message" role="status" hidden>No command matches. Try a verb, such as open, copy or rebase.</p>
+        <p class="ds-command-palette__message" role="status" data-ds-empty="No command matches. Try a verb, such as open, copy or rebase."></p>
       </div>
     </dialog>
   </ds-command-palette>
@@ -179,7 +181,7 @@
             <button type="button" class="ds-command-palette__option" role="option" hidden id="command-palette-empty-squash" aria-selected="false"><svg class="ds-command-palette__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-git-branch"></use></svg><span class="ds-command-palette__name">Squash and merge into main</span></button>
           </div>
         </div>
-        <p class="ds-command-palette__message" role="status">No command matches "squosh". Try a verb, such as open, copy or rebase.</p>
+        <p class="ds-command-palette__message" role="status" data-ds-empty="No command matches. Try a verb, such as open, copy or rebase.">No command matches. Try a verb, such as open, copy or rebase.</p>
       </div>
     </dialog>
   </ds-command-palette>
@@ -211,7 +213,7 @@
           <button type="button" class="ds-command-palette__option" role="option" id="command-palette-disabled-rebase" aria-selected="true"><svg class="ds-command-palette__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-git-branch"></use></svg><span class="ds-command-palette__name">Rebase onto main</span></button>
           <button type="button" class="ds-command-palette__option" role="option" id="command-palette-disabled-pr" aria-selected="false" aria-disabled="true"><svg class="ds-command-palette__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-external-link"></use></svg><span class="ds-command-palette__name">Open a pull request (push the branch first)</span></button>
         </div>
-        <p class="ds-command-palette__message" role="status" hidden>No command matches. Try a verb, such as open, copy or rebase.</p>
+        <p class="ds-command-palette__message" role="status" data-ds-empty="No command matches. Try a verb, such as open, copy or rebase."></p>
       </div>
     </dialog>
   </ds-command-palette>
@@ -321,8 +323,8 @@
 <li>The list is a div with ds-command-palette__list, role=&quot;listbox&quot; and an aria-label. A group is a div with ds-command-palette__group, role=&quot;group&quot; and aria-labelledby pointing at its ds-command-palette__label, which carries role=&quot;presentation&quot;.</li>
 <li>Each command is a button with type=&quot;button&quot;, ds-command-palette__option, role=&quot;option&quot;, an id and aria-selected. It holds an optional icon with aria-hidden=&quot;true&quot;, its name in a span with ds-command-palette__name, a verb and what it acts on, and optionally a kbd with ds-command-palette__shortcut. Because it is a button, a press runs it and, with no script, Tab reaches it and Enter runs it.</li>
 <li>A command that cannot run now carries aria-disabled=&quot;true&quot; and says why in its name. It stays in the arrow-key order, and neither Enter nor a press runs it.</li>
-<li>The message is a p with ds-command-palette__message, role=&quot;status&quot; and the hidden attribute. When nothing matches it is shown, the list is hidden and aria-expanded is &quot;false&quot;. It says what to try. While commands load, a div with ds-command-palette__message holds a spinner with its text in place of the list.</li>
-<li>The behaviour is script. Wrap the dialog in the ds-command-palette element from behaviors/command-palette.js, or set the same attributes from a framework: typing hides the options and the groups that do not match by setting hidden on them, Down and Up move aria-selected=&quot;true&quot; and aria-activedescendant through the options that are shown and wrap at the ends, and Enter presses the selected option. A press on an option closes the dialog after the app's own click listener has run.</li>
+<li>The message is a p with ds-command-palette__message and role=&quot;status&quot;, in the page from the start and never hidden, so a screen reader hears the sentence when it is written in. It is empty, and takes no room, while commands match. When nothing matches, the list is hidden, aria-expanded is &quot;false&quot; and the app writes its sentence into it, saying what to try. The behaviour module takes that sentence from the element's data-ds-empty attribute. While commands load, a div with ds-command-palette__message holds a spinner with its text in place of the list.</li>
+<li>The behaviour is script. Wrap the dialog in the ds-command-palette element from behaviors/command-palette.js, or set the same attributes from a framework: typing hides the options and the groups that do not match by setting hidden on them and writes the sentence into the status when nothing is left, Down and Up move aria-selected=&quot;true&quot; and aria-activedescendant through the options that are shown and wrap at the ends, and Enter presses the selected option. A press on an option closes the dialog after the app's own click listener has run.</li>
 <li>The element's shortcut attribute names one key: shortcut=&quot;k&quot; opens the dialog on Ctrl with K and on Cmd with K. Say so on the opener with aria-keyshortcuts=&quot;Control+K Meta+K&quot;. Closing the dialog empties the input, so the palette opens on the full list.</li>
 <li>The opener is a button that calls showModal() on the dialog, or carries command=&quot;show-modal&quot; and commandfor with the dialog's id where invoker commands are supported.</li>
 </ul>

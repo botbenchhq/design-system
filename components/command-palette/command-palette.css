@@ -90,6 +90,11 @@
     overflow-wrap: anywhere;
   }
 
+  /* The status stays in the page while the list is shown, so it is heard when the sentence is written into it. Empty, it takes no room. */
+  .ds-command-palette__message:empty {
+    padding: 0;
+  }
+
   /* A layered display value would otherwise beat the hidden attribute, which is how a command is filtered out. */
   .ds-command-palette__list[hidden],
   .ds-command-palette__group[hidden],

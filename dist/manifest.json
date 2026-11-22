@@ -99,7 +99,8 @@
     "size": [
       "--ds-size-touch",
       "--ds-size-column",
-      "--ds-size-transcript"
+      "--ds-size-transcript",
+      "--ds-size-wide"
     ],
     "breakpoint": [
       "--ds-breakpoint"
@@ -217,7 +218,8 @@
     "size": [
       "44px",
       "480px",
-      "720px"
+      "720px",
+      "1200px"
     ],
     "breakpoint": [
       "768px"
@@ -318,6 +320,7 @@
       "touch",
       "column",
       "transcript",
+      "wide",
       "auto",
       "full",
       "screen",
@@ -501,6 +504,7 @@
     "ds-confirm-dialog__loss",
     "ds-confirm-dialog__losses",
     "ds-container",
+    "ds-container--wide",
     "ds-container-narrow",
     "ds-context-menu",
     "ds-context-menu__button",

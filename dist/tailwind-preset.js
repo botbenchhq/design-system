@@ -195,6 +195,7 @@ export default {
       "none": "none",
       "column": "var(--ds-size-column)",
       "transcript": "var(--ds-size-transcript)",
+      "wide": "var(--ds-size-wide)",
       "full": "100%"
     },
     "maxHeight": {

@@ -508,6 +508,7 @@ const paletteState = (page) =>
       groupsShown: [...root.querySelectorAll('[role="group"]')].filter((group) => !group.hidden).length,
       listHidden: root.querySelector('[role="listbox"]').hidden,
       messageHidden: root.querySelector('[role="status"]').hidden,
+      message: root.querySelector('[role="status"]').textContent,
       inlineStyles: [...root.querySelectorAll("ds-command-palette, ds-command-palette *")].filter((node) => node.hasAttribute("style")).length,
     };
   });
@@ -567,7 +568,7 @@ test("ds-command-palette moves the selection with Down and Up, and Escape closes
   await expect(page.locator(`${PALETTE} dialog`)).not.toHaveAttribute("open");
   // The dialog's close event arrives after the key, and empties the input.
   await expect(page.locator("#command-palette-closed-input")).toHaveValue("");
-  expect(await paletteState(page)).toMatchObject({ open: false, focus: "Open the command palette", value: "", messageHidden: true });
+  expect(await paletteState(page)).toMatchObject({ open: false, focus: "Open the command palette", value: "", messageHidden: false, message: "" });
   expect((await paletteState(page)).shown).toHaveLength(6);
 });
 

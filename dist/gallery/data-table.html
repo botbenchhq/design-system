@@ -10,6 +10,8 @@
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
+<script type="module" src="../behaviors/listbox.js"></script>
+<script type="module" src="../behaviors/menu.js"></script>
 <script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
@@ -42,7 +44,7 @@
     <thead>
       <tr>
         <th scope="col">Task</th>
-        <th scope="col">Branch</th>
+          <th scope="col">Branch</th>
         <th scope="col">Status</th>
         <th scope="col" class="ds-data-table__numeric">Duration</th>
         <th scope="col" class="ds-data-table__numeric">Tokens</th>
@@ -51,27 +53,196 @@
     <tbody>
       <tr>
         <th scope="row">Fix the login timeout</th>
-        <td data-label="Branch">fix/login-timeout</td>
+          <td data-label="Branch">fix/login-timeout</td>
         <td data-label="Status">Building</td>
         <td class="ds-data-table__numeric" data-label="Duration">6 min 12 s</td>
         <td class="ds-data-table__numeric" data-label="Tokens">18,420</td>
       </tr>
       <tr>
         <th scope="row">Add rate limiting to the webhook endpoint</th>
-        <td data-label="Branch">feat/webhook-rate-limit</td>
+          <td data-label="Branch">feat/webhook-rate-limit</td>
         <td data-label="Status">Awaiting decision</td>
         <td class="ds-data-table__numeric" data-label="Duration">21 min 40 s</td>
         <td class="ds-data-table__numeric" data-label="Tokens">47,900</td>
       </tr>
       <tr>
         <th scope="row">Upgrade Postgres client to 8.13</th>
-        <td data-label="Branch">chore/pg-8-13</td>
+          <td data-label="Branch">chore/pg-8-13</td>
         <td data-label="Status">Tests failed</td>
         <td class="ds-data-table__numeric" data-label="Duration">2 min 5 s</td>
         <td class="ds-data-table__numeric" data-label="Tokens">6,310</td>
       </tr>
     </tbody>
   </table>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Eight agents, with names up to 30 characters</h3>
+<p>Names and tasks wrap only between words, and every column keeps a sensible width. In a wide container the table spreads across the screen; where the columns still do not fit, the wrapper scrolls them sideways and the page does not move. On a phone each row becomes a block, as in the default layout.</p>
+</figcaption>
+<div data-example="agents" data-title="Eight agents, with names up to 30 characters" data-reason="Names and tasks wrap only between words, and every column keeps a sensible width. In a wide container the table spreads across the screen; where the columns still do not fit, the wrapper scrolls them sideways and the page does not move. On a phone each row becomes a block, as in the default layout.">
+  <div class="ds-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-agents-caption">
+    <table class="ds-data-table">
+      <caption class="ds-data-table__caption" id="data-table-agents-caption">Agents on acme/api today</caption>
+      <thead>
+        <tr>
+          <th scope="col">Agent</th>
+          <th scope="col">Status</th>
+          <th scope="col">Working on</th>
+          <th scope="col">Branch</th>
+          <th scope="col" class="ds-data-table__numeric">Runs today</th>
+          <th scope="col" class="ds-data-table__numeric">Tokens today</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">
+            <span class="ds-avatar ds-avatar--small">
+              <span class="ds-avatar__mark" aria-hidden="true"><svg class="ds-avatar__icon"><use href="../icons.svg#ds-icon-terminal"></use></svg></span>
+              <span class="ds-avatar__name">Claude Code, implementer</span>
+            </span>
+          </th>
+          <td data-label="Status">
+            <span class="ds-badge ds-badge--info">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-loader"></use></svg>
+              Working
+            </span>
+          </td>
+          <td data-label="Working on">Add rate limiting to the webhook endpoint</td>
+          <td data-label="Branch">feat/webhook-rate-limit</td>
+          <td class="ds-data-table__numeric" data-label="Runs today">6</td>
+          <td class="ds-data-table__numeric" data-label="Tokens today">184,220</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="ds-avatar ds-avatar--small">
+              <span class="ds-avatar__mark" aria-hidden="true"><svg class="ds-avatar__icon"><use href="../icons.svg#ds-icon-terminal"></use></svg></span>
+              <span class="ds-avatar__name">Release notes drafter</span>
+            </span>
+          </th>
+          <td data-label="Status">
+            <span class="ds-badge ds-badge--success">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-eye"></use></svg>
+              Ready for review
+            </span>
+          </td>
+          <td data-label="Working on">Draft the notes for release 2026.11</td>
+          <td data-label="Branch">docs/release-2026-11</td>
+          <td class="ds-data-table__numeric" data-label="Runs today">2</td>
+          <td class="ds-data-table__numeric" data-label="Tokens today">31,940</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="ds-avatar ds-avatar--small">
+              <span class="ds-avatar__mark" aria-hidden="true"><svg class="ds-avatar__icon"><use href="../icons.svg#ds-icon-terminal"></use></svg></span>
+              <span class="ds-avatar__name">Dependency upgrade reviewer</span>
+            </span>
+          </th>
+          <td data-label="Status">
+            <span class="ds-badge ds-badge--approval">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-pause"></use></svg>
+              Needs input
+            </span>
+          </td>
+          <td data-label="Working on">Upgrade the Postgres client to 8.13</td>
+          <td data-label="Branch">chore/pg-8-13</td>
+          <td class="ds-data-table__numeric" data-label="Runs today">4</td>
+          <td class="ds-data-table__numeric" data-label="Tokens today">62,310</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="ds-avatar ds-avatar--small">
+              <span class="ds-avatar__mark" aria-hidden="true"><svg class="ds-avatar__icon"><use href="../icons.svg#ds-icon-terminal"></use></svg></span>
+              <span class="ds-avatar__name">Flaky test investigator</span>
+            </span>
+          </th>
+          <td data-label="Status">
+            <span class="ds-badge ds-badge--info">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-search"></use></svg>
+              Checking
+            </span>
+          </td>
+          <td data-label="Working on">Find why the cookie test fails one run in ten</td>
+          <td data-label="Branch">fix/cookie-test</td>
+          <td class="ds-data-table__numeric" data-label="Runs today">9</td>
+          <td class="ds-data-table__numeric" data-label="Tokens today">97,505</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="ds-avatar ds-avatar--small">
+              <span class="ds-avatar__mark" aria-hidden="true"><svg class="ds-avatar__icon"><use href="../icons.svg#ds-icon-terminal"></use></svg></span>
+              <span class="ds-avatar__name">Billing reconciliation agent</span>
+            </span>
+          </th>
+          <td data-label="Status">
+            <span class="ds-badge ds-badge--danger">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-alert"></use></svg>
+              Check failed
+            </span>
+          </td>
+          <td data-label="Working on">Match the November invoices to their payments</td>
+          <td data-label="Branch">fix/invoice-matching</td>
+          <td class="ds-data-table__numeric" data-label="Runs today">3</td>
+          <td class="ds-data-table__numeric" data-label="Tokens today">45,870</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="ds-avatar ds-avatar--small">
+              <span class="ds-avatar__mark" aria-hidden="true"><svg class="ds-avatar__icon"><use href="../icons.svg#ds-icon-terminal"></use></svg></span>
+              <span class="ds-avatar__name">Security advisory triager</span>
+            </span>
+          </th>
+          <td data-label="Status">
+            <span class="ds-badge">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-dashed"></use></svg>
+              Queued
+            </span>
+          </td>
+          <td data-label="Working on">Triage the advisory for the image parser</td>
+          <td data-label="Branch">main</td>
+          <td class="ds-data-table__numeric" data-label="Runs today">0</td>
+          <td class="ds-data-table__numeric" data-label="Tokens today">0</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="ds-avatar ds-avatar--small">
+              <span class="ds-avatar__mark" aria-hidden="true"><svg class="ds-avatar__icon"><use href="../icons.svg#ds-icon-terminal"></use></svg></span>
+              <span class="ds-avatar__name">Postgres query performance bot</span>
+            </span>
+          </th>
+          <td data-label="Status">
+            <span class="ds-badge ds-badge--blocked">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-stop"></use></svg>
+              Stopped
+            </span>
+          </td>
+          <td data-label="Working on">Add an index on invoices.customer_id</td>
+          <td data-label="Branch">perf/invoice-index</td>
+          <td class="ds-data-table__numeric" data-label="Runs today">5</td>
+          <td class="ds-data-table__numeric" data-label="Tokens today">73,160</td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="ds-avatar ds-avatar--small">
+              <span class="ds-avatar__mark" aria-hidden="true"><svg class="ds-avatar__icon"><use href="../icons.svg#ds-icon-terminal"></use></svg></span>
+              <span class="ds-avatar__name">Documentation link checker</span>
+            </span>
+          </th>
+          <td data-label="Status">
+            <span class="ds-badge ds-badge--success">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>
+              Check passed
+            </span>
+          </td>
+          <td data-label="Working on">Check every link in the API reference</td>
+          <td data-label="Branch">docs/api-links</td>
+          <td class="ds-data-table__numeric" data-label="Runs today">12</td>
+          <td class="ds-data-table__numeric" data-label="Tokens today">12,480</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 </figure>
 <figure data-gallery="do">
@@ -85,7 +256,7 @@
     <thead>
       <tr>
         <th scope="col">Task</th>
-        <th scope="col">Branch</th>
+          <th scope="col">Branch</th>
         <th scope="col">Status</th>
         <th scope="col" class="ds-data-table__numeric">Duration</th>
         <th scope="col"><span class="ds-visually-hidden">Actions</span></th>
@@ -94,14 +265,14 @@
     <tbody>
       <tr>
         <th scope="row">Fix the login timeout</th>
-        <td data-label="Branch">fix/login-timeout</td>
+          <td data-label="Branch">fix/login-timeout</td>
         <td data-label="Status">Building</td>
         <td class="ds-data-table__numeric" data-label="Duration">6 min 12 s</td>
         <td class="ds-data-table__action"><button type="button" class="ds-button ds-button--quiet ds-button--small" aria-label="Stop run for Fix the login timeout">Stop run</button></td>
       </tr>
       <tr>
         <th scope="row">Add rate limiting to the webhook endpoint</th>
-        <td data-label="Branch">feat/webhook-rate-limit</td>
+          <td data-label="Branch">feat/webhook-rate-limit</td>
         <td data-label="Status">Awaiting decision</td>
         <td class="ds-data-table__numeric" data-label="Duration">21 min 40 s</td>
         <td class="ds-data-table__action"><button type="button" class="ds-button ds-button--quiet ds-button--small" aria-label="Stop run for Add rate limiting to the webhook endpoint">Stop run</button></td>
@@ -251,7 +422,7 @@
     <thead>
       <tr>
         <th scope="col">Task</th>
-        <th scope="col">Branch</th>
+          <th scope="col">Branch</th>
         <th scope="col">Status</th>
         <th scope="col" class="ds-data-table__numeric">Duration</th>
       </tr>
@@ -259,7 +430,7 @@
     <tbody>
       <tr>
         <th scope="row"><button type="button" class="ds-data-table__expand" aria-expanded="true" aria-controls="data-table-expandable-detail-1">Upgrade Postgres client to 8.13</button></th>
-        <td data-label="Branch">chore/pg-8-13</td>
+          <td data-label="Branch">chore/pg-8-13</td>
         <td data-label="Status">Tests failed</td>
         <td class="ds-data-table__numeric" data-label="Duration">2 min 5 s</td>
       </tr>
@@ -268,7 +439,7 @@
       </tr>
       <tr>
         <th scope="row"><button type="button" class="ds-data-table__expand" aria-expanded="false" aria-controls="data-table-expandable-detail-2">Fix the login timeout</button></th>
-        <td data-label="Branch">fix/login-timeout</td>
+          <td data-label="Branch">fix/login-timeout</td>
         <td data-label="Status">Building</td>
         <td class="ds-data-table__numeric" data-label="Duration">6 min 12 s</td>
       </tr>
@@ -290,7 +461,7 @@
     <thead>
       <tr>
         <th scope="col">Task</th>
-        <th scope="col">Branch</th>
+          <th scope="col">Branch</th>
         <th scope="col">Status</th>
         <th scope="col" class="ds-data-table__numeric">Duration</th>
       </tr>
@@ -298,19 +469,19 @@
     <tbody>
       <tr>
         <th scope="row">Fix the login timeout</th>
-        <td data-label="Branch">fix/login-timeout</td>
+          <td data-label="Branch">fix/login-timeout</td>
         <td data-label="Status">Building</td>
         <td class="ds-data-table__numeric" data-label="Duration">6 min 12 s</td>
       </tr>
       <tr aria-selected="true">
         <th scope="row">Add rate limiting to the webhook endpoint</th>
-        <td data-label="Branch">feat/webhook-rate-limit</td>
+          <td data-label="Branch">feat/webhook-rate-limit</td>
         <td data-label="Status">Awaiting decision</td>
         <td class="ds-data-table__numeric" data-label="Duration">21 min 40 s</td>
       </tr>
       <tr>
         <th scope="row">Upgrade Postgres client to 8.13</th>
-        <td data-label="Branch">chore/pg-8-13</td>
+          <td data-label="Branch">chore/pg-8-13</td>
         <td data-label="Status">Tests failed</td>
         <td class="ds-data-table__numeric" data-label="Duration">2 min 5 s</td>
       </tr>
@@ -329,7 +500,7 @@
     <thead>
       <tr>
         <th scope="col">Task</th>
-        <th scope="col">Branch</th>
+          <th scope="col">Branch</th>
         <th scope="col">Status</th>
         <th scope="col" class="ds-data-table__numeric">Duration</th>
       </tr>
@@ -356,7 +527,7 @@
     <thead>
       <tr>
         <th scope="col">Task</th>
-        <th scope="col">Branch</th>
+          <th scope="col">Branch</th>
         <th scope="col">Status</th>
         <th scope="col" class="ds-data-table__numeric">Duration</th>
       </tr>
@@ -382,7 +553,7 @@
     <thead>
       <tr>
         <th scope="col">Task</th>
-        <th scope="col">Branch</th>
+          <th scope="col">Branch</th>
         <th scope="col">Status</th>
         <th scope="col" class="ds-data-table__numeric">Duration</th>
       </tr>
@@ -408,7 +579,7 @@
     <thead>
       <tr>
         <th scope="col">Task</th>
-        <th scope="col">Branch</th>
+          <th scope="col">Branch</th>
         <th scope="col">Status</th>
         <th scope="col" class="ds-data-table__numeric">Duration</th>
         <th scope="col" class="ds-data-table__numeric">Tokens</th>
@@ -417,21 +588,21 @@
     <tbody>
       <tr>
         <th scope="row">Fix the login timeout</th>
-        <td data-label="Branch">fix/login-timeout</td>
+          <td data-label="Branch">fix/login-timeout</td>
         <td data-label="Status">Building</td>
         <td class="ds-data-table__numeric" data-label="Duration">6 min 12 s</td>
         <td class="ds-data-table__numeric" data-label="Tokens">18,420</td>
       </tr>
       <tr>
         <th scope="row">Add rate limiting to the webhook endpoint</th>
-        <td data-label="Branch">feat/webhook-rate-limit</td>
+          <td data-label="Branch">feat/webhook-rate-limit</td>
         <td data-label="Status">Awaiting decision</td>
         <td class="ds-data-table__numeric" data-label="Duration">21 min 40 s</td>
         <td class="ds-data-table__numeric" data-label="Tokens">47,900</td>
       </tr>
       <tr>
         <th scope="row">Upgrade Postgres client to 8.13</th>
-        <td data-label="Branch">chore/pg-8-13</td>
+          <td data-label="Branch">chore/pg-8-13</td>
         <td data-label="Status">Tests failed</td>
         <td class="ds-data-table__numeric" data-label="Duration">2 min 5 s</td>
         <td class="ds-data-table__numeric" data-label="Tokens">6,310</td>
@@ -452,7 +623,7 @@
     <thead>
       <tr>
         <th scope="col">Task</th>
-        <th scope="col">Branch</th>
+          <th scope="col">Branch</th>
         <th scope="col">Status</th>
         <th scope="col" class="ds-data-table__numeric">Duration</th>
         <th scope="col" class="ds-data-table__numeric">Tokens</th>
@@ -489,19 +660,19 @@
     <thead>
       <tr>
         <th scope="col">Task</th>
-        <th scope="col">Branch</th>
+          <th scope="col">Branch</th>
         <th scope="col"><span class="ds-visually-hidden">Actions</span></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <th scope="row">Fix the login timeout</th>
-        <td data-label="Branch">fix/login-timeout</td>
+          <td data-label="Branch">fix/login-timeout</td>
         <td class="ds-data-table__action"><button type="button" class="ds-button ds-button--primary ds-button--small">Open run</button></td>
       </tr>
       <tr>
         <th scope="row">Add rate limiting to the webhook endpoint</th>
-        <td data-label="Branch">feat/webhook-rate-limit</td>
+          <td data-label="Branch">feat/webhook-rate-limit</td>
         <td class="ds-data-table__action"><button type="button" class="ds-button ds-button--primary ds-button--small">Open run</button></td>
       </tr>
     </tbody>
@@ -555,7 +726,7 @@
 <li>Mark the selected row with aria-selected=&quot;true&quot; on its tr. It is drawn with a bar at its start as well as a shade.</li>
 <li>With no rows, while loading and after a failure, keep the caption and the header and put one row in the tbody whose single td has the class ds-data-table__state and spans every column. Empty: a ds-data-table__message sentence saying why, and at most one small button. Loading: a spinner with role=&quot;status&quot;, and aria-busy=&quot;true&quot; on the table. Error: a ds-data-table__message with role=&quot;alert&quot; that says what to do, and a small Retry button. The stylesheet draws the failure's icon.</li>
 <li>A status in a cell is written in words. One badge may hold it.</li>
-<li>The wrapper of the scroll variant carries tabindex=&quot;0&quot;, role=&quot;region&quot; and aria-labelledby pointing at the caption's id, so a keyboard can scroll it with the arrow keys. Give each such table on a view a different caption.</li>
+<li>The wrapper of the scroll variant carries tabindex=&quot;0&quot;, role=&quot;region&quot; and aria-labelledby pointing at the caption's id, so a keyboard can scroll it with the arrow keys. Give each such table on a view a different caption. Put a table in the default layout inside the same wrapper when its cells hold names, paths or other text from outside the app: text wraps between words only, so a long word widens its column, and from 768px the wrapper scrolls the columns sideways where they do not fit, so the page does not.</li>
 <li>Tab moves through the header buttons, then each row's expand button and action, in order. Enter and Space activate them. There are no arrow-key bindings between cells.</li>
 </ul>
 </section>

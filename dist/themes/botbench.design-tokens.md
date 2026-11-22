@@ -123,5 +123,6 @@ sizes:
   touch: 44px
   column: 480px
   transcript: 720px
+  wide: 1200px
 breakpoint: 768px
 ---

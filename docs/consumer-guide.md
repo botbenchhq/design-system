@@ -49,15 +49,17 @@ Serve `vendor/design-system/` as static files and link the stylesheet.
 
 ### Behaviours, for an app without a framework
 
-The components are CSS, and nearly all of them work from native elements alone. A few need script: tabs, the combobox and the command palette move ARIA attributes as the reader acts, a time that counts up is written again each second, and a transcript that grows follows its newest row. `behaviors/` holds five optional ES modules with no dependencies, each defining one element. Load the ones the app uses, once each, and wrap the component's markup from `components.json` in the module's element.
+The components are CSS, and nearly all of them work from native elements alone. A few need script: tabs, the combobox and the command palette move ARIA attributes as the reader acts, menus and listboxes move focus with the arrow keys, a time that counts up is written again each second, and a transcript that grows follows its newest row. `behaviors/` holds seven optional ES modules with no dependencies, each defining one element. Load the ones the app uses, once each, and wrap the component's markup from `components.json` in the module's element.
 
 | Module | Element | What it does |
 |---|---|---|
 | `behaviors/tabs.js` | `<ds-tabs>` | For the tabs component: sets `aria-selected`, `tabindex` and `hidden`, and handles click, Left, Right, Home and End. |
 | `behaviors/combobox.js` | `<ds-combobox>` | For the combobox component: as the reader types it sets `hidden` on the options that do not match, `aria-expanded` and `aria-activedescendant` on the input and `aria-selected` on the active option, and writes the count into the `role="status"` line. It handles Down, Up, Home, End, Enter, Escape and a press on an option. |
-| `behaviors/command-palette.js` | `<ds-command-palette>` | For the command palette component: filters the commands as the reader types, hides a group left with no match, sets `aria-selected` and `aria-activedescendant` as Down and Up move the selection, presses the selected command on Enter and closes the dialog. With `shortcut="k"` it opens the dialog on Ctrl+K and Cmd+K. |
+| `behaviors/command-palette.js` | `<ds-command-palette>` | For the command palette component: filters the commands as the reader types, hides a group left with no match, writes the no-match sentence from `data-ds-empty` into the status element, which is never hidden, sets `aria-selected` and `aria-activedescendant` as Down and Up move the selection, presses the selected command on Enter and closes the dialog. With `shortcut="k"` it opens the dialog on Ctrl+K and Cmd+K. |
 | `behaviors/elapsed.js` | `<ds-elapsed>` | A time that counts up, for a tool call, a step group, the now-doing line and the run timeline: it shows the time since its `datetime` attribute and writes it again once a second, stops when its `data-state` is anything but `running`, and shows a fixed length when it has a `duration` attribute. It carries `aria-live="off"`, so no tick is announced. |
 | `behaviors/transcript.js` | `<ds-transcript>` | For a transcript that grows: it keeps the newest row in view while the reader is within 60px of the bottom, stops when they scroll up, counts the rows added since and shows the jump-to-latest control, and follows again when they press it or reach the bottom. It sets `hidden` and the count, and never moves focus. |
+| `behaviors/menu.js` | `<ds-menu>` | For the menu, the context menu and the split button: when a menu opens it moves focus to the first item, keeps one item in the tab order with `tabindex`, and handles Down, Up, Home, End and a letter. Tab closes the menu, and Enter and Space do nothing on an item with `aria-disabled="true"`. One element may wrap a whole list of rows with context menus. |
+| `behaviors/listbox.js` | `<ds-listbox>` | For the listbox component: one option in the tab order, Down, Up, Home, End and a letter to move, and Space or Enter to select, or to switch an option where `aria-multiselectable="true"`, with Shift and an arrow and Ctrl or Cmd with A as well. It sets `aria-selected` and `tabindex` and fires a change event on the listbox. |
 
 ```html
 <script type="module" src="/vendor/design-system/behaviors/tabs.js"></script>
@@ -65,9 +67,11 @@ The components are CSS, and nearly all of them work from native elements alone. 
 <script type="module" src="/vendor/design-system/behaviors/command-palette.js"></script>
 <script type="module" src="/vendor/design-system/behaviors/elapsed.js"></script>
 <script type="module" src="/vendor/design-system/behaviors/transcript.js"></script>
+<script type="module" src="/vendor/design-system/behaviors/menu.js"></script>
+<script type="module" src="/vendor/design-system/behaviors/listbox.js"></script>
 ```
 
-Each is an external script from the app's own host, so a content security policy that allows no inline script lets it run. Each sets attributes only, never a class or an inline style. An app that renders with a framework loads none of them: its own components set the same ARIA attributes and handle the same keys, and the stylesheet draws the same result.
+Each is an external script from the app's own host, so a content security policy that allows no inline script lets it run. Each sets attributes, and the menu and listbox modules move focus, never a class or an inline style. An app that renders with a framework loads none of them: its own components set the same ARIA attributes and handle the same keys, and the stylesheet draws the same result.
 
 ### Agent activity, from a framework
 
@@ -421,7 +425,15 @@ A theme declares a default mode, light or dark. With no `data-theme` attribute o
 
 So a page that should follow the system sets `data-theme="auto"`, and a reader's own choice of light or dark is `data-theme="light"` or `data-theme="dark"`.
 
-Take the browser's `theme-color` from `themes/<name>.json`, where `themeColor.light` and `themeColor.dark` are the theme's page backgrounds. For Botbench:
+With no `data-theme`, the theme's stylesheet also sets `color-scheme` for its default mode, so native controls, such as a date field's picker, and the scrollbars are drawn for the mode on screen.
+
+Take the browser's `theme-color` from `themes/<name>.json`, where `themeColor.light` and `themeColor.dark` are the theme's page backgrounds. An app that always shows one mode, such as Botbench in its dark default mode, ships one tag, with that mode's colour:
+
+```html
+<meta name="theme-color" content="#121417">
+```
+
+Ship two, one for each system setting, only when the app offers a choice of mode and follows the system with `data-theme="auto"`:
 
 ```html
 <meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">

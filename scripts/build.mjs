@@ -258,7 +258,7 @@ function tailwindPreset(groups, breakpoint) {
     size: { auto: "auto", ...spacing, touch: size.touch, full: "100%" },
     minWidth: { 0: "0", touch: size.touch, full: "100%" },
     minHeight: { 0: "0", touch: size.touch, full: "100%", screen: "100dvh" },
-    maxWidth: { none: "none", column: size.column, transcript: size.transcript, full: "100%" },
+    maxWidth: { none: "none", column: size.column, transcript: size.transcript, wide: size.wide, full: "100%" },
     maxHeight: { none: "none", full: "100%", screen: "100dvh" },
   };
   const emptied = [
@@ -385,7 +385,8 @@ const block = (indent, selector, values) =>
 
 // dist/themes/<name>.css: the layer order, so the theme wins even when it is loaded first, then the theme's own
 // values. A theme whose default mode is dark also sets every dark value on a root with no data-theme attribute,
-// filled in from the default theme where the theme sets none, so that page matches data-theme="dark".
+// filled in from the default theme where the theme sets none, so that page matches data-theme="dark". That block
+// sets color-scheme too, which the reset sets from data-theme alone, so native controls and scrollbars are drawn dark.
 function themeStylesheet(theme) {
   const parts = [
     ...(theme.comment ? [theme.comment, ""] : []),
@@ -395,7 +396,7 @@ function themeStylesheet(theme) {
     "",
     "@layer ds.theme {",
     block("  ", SELECTORS.light, theme.own.light),
-    ...(theme.defaultMode === "dark" ? ["", "  /* The default mode: with no data-theme attribute the page is dark. */", block("  ", ":root:not([data-theme])", theme.tokens.dark)] : []),
+    ...(theme.defaultMode === "dark" ? ["", "  /* The default mode: with no data-theme attribute the page is dark. */", block("  ", ":root:not([data-theme])", { "color-scheme": "dark", ...theme.tokens.dark })] : []),
     "",
     block("  ", SELECTORS.dark, theme.own.dark),
     "",

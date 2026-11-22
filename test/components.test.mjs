@@ -131,10 +131,12 @@ test("components-index.json lists every component and pattern with only what is 
 test("the app shell pattern puts the pending tray in the header's tray, both navigations around the main column, and one h1 in the page header", () => {
   const shell = readPatterns(repoRoot).find((pattern) => pattern.name === "app-shell");
   const dos = shell.examples.filter((example) => !example.dont);
-  assert.deepEqual(dos.map((example) => example.id), ["list", "empty"]);
+  assert.deepEqual(dos.map((example) => example.id), ["list", "table", "empty"]);
   for (const { id, html } of dos) {
     assert.match(html, /<div class="ds-app-header__tray">\s*<div class="ds-pending-tray"/, id);
-    assert.match(html, /<div class="ds-sidebar-layout ds-app-shell__body">\s*<nav class="ds-sidebar-nav"[\s\S]*<\/nav>\s*<div class="ds-container ds-app-shell__main">\s*<header class="ds-page-header">/, id);
+    // A table view takes the wide form of the container.
+    const container = id === "table" ? "ds-container ds-container--wide" : "ds-container";
+    assert.match(html, new RegExp(`<div class="ds-sidebar-layout ds-app-shell__body">\\s*<nav class="ds-sidebar-nav"[\\s\\S]*</nav>\\s*<div class="${container} ds-app-shell__main">\\s*<header class="ds-page-header">`), id);
     assert.match(html, /<\/div>\s*<nav class="ds-tab-bar"[\s\S]*<\/nav>\s*<\/div>\s*<\/div>$/, id);
     assert.deepEqual(html.match(/<h1[^>]*>/g), ['<h1 class="ds-page-header__title">'], id);
   }
@@ -335,7 +337,7 @@ test("a pattern folder that breaks the contract fails the build and is named", (
 
 test("every gallery page loads each behaviour module, in order", () => {
   const modules = readdirSync(join(repoRoot, "behaviors")).filter((name) => name.endsWith(".js")).sort();
-  assert.deepEqual(modules, ["combobox.js", "command-palette.js", "elapsed.js", "tabs.js", "transcript.js"]);
+  assert.deepEqual(modules, ["combobox.js", "command-palette.js", "elapsed.js", "listbox.js", "menu.js", "tabs.js", "transcript.js"]);
   const tags = modules.map((name) => `<script type="module" src="../behaviors/${name}"></script>`).join("\n");
   for (const name of readdirSync(join(dist, "gallery")).filter((file) => file.endsWith(".html"))) {
     assert.ok(readFileSync(join(dist, "gallery", name), "utf8").includes(tags), name);

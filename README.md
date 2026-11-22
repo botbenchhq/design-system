@@ -2,7 +2,7 @@
 
 A shared design system for a small set of apps. It holds one closed vocabulary of design tokens, a default theme and optional themes that change values only, a base layer of styles, fonts and icons, and the files generated from them. An app copies `dist/` into its own repo.
 
-This repo currently contains the tokens, one theme (Botbench), the base layer, the checker with its static scan and structural rules, the contract every component follows, 98 components built to it, eight page patterns composed from them, five optional behaviour modules, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
+This repo currently contains the tokens, one theme (Botbench), the base layer, the checker with its static scan and structural rules, the contract every component follows, 98 components built to it, eight page patterns composed from them, seven optional behaviour modules, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
 
 To use the system in an app, follow `docs/consumer-guide.md`. In short:
 
@@ -36,7 +36,7 @@ Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start 
 | `components.json` | Every component, in `components`: its purpose, when to use it and when not to, its variants, sizes, states, accessibility notes, classes, and the markup of each example. Read it before writing markup. Every page pattern, in `patterns`: the same fields and `"kind": "pattern"`, with a whole screen as each example. |
 | `components-index.json` | One short entry per component and pattern: name, kind, title, purpose, status and classes. Read it to choose, then open the one entry in `components.json`. |
 | `gallery/` | A static page per component and per page pattern showing every variant and state, with a do and a don't. Serve `dist/` and open `/gallery/`. |
-| `behaviors/` | Five optional ES modules with no dependencies, for an app without a framework. `tabs.js` defines `<ds-tabs>`, `combobox.js` defines `<ds-combobox>`, `command-palette.js` defines `<ds-command-palette>`, `elapsed.js` defines `<ds-elapsed>` and `transcript.js` defines `<ds-transcript>`. Each does what its component needs from script. |
+| `behaviors/` | Seven optional ES modules with no dependencies, for an app without a framework. `tabs.js` defines `<ds-tabs>`, `combobox.js` defines `<ds-combobox>`, `command-palette.js` defines `<ds-command-palette>`, `elapsed.js` defines `<ds-elapsed>`, `transcript.js` defines `<ds-transcript>`, `menu.js` defines `<ds-menu>` and `listbox.js` defines `<ds-listbox>`. Each does what its component needs from script. |
 | `fonts/` | IBM Plex Sans and IBM Plex Mono, with their licence. `design-system.css` loads them by relative URL, so keep the folder beside it. |
 | `icons.svg` | The icon sprite. Each icon is a `<symbol>` with the id `ds-icon-` and its name. |
 | `icons/` | The same icons as single files, for CSS that needs one as a mask or background, with their licence. |
@@ -118,7 +118,7 @@ When the system asks for reduced motion, every transition runs for zero seconds.
 | `ds-split` | Two groups pushed to opposite ends, such as a title and its actions. |
 | `ds-grid` | One column. Add `ds-grid-2`, `ds-grid-3` or `ds-grid-4` for that many equal columns at 768px and wider. |
 | `ds-sidebar-layout` | The first child beside the second at 768px and wider, and above it when narrower. The first child sets its own width. |
-| `ds-container` | A centred column no wider than the transcript size. Add `ds-container-narrow` for the column size. |
+| `ds-container` | A centred column no wider than the transcript size. Add `ds-container-narrow` for the column size, or `ds-container--wide` for the wide size, for a view of dense data such as a table or a board. |
 
 Each has a default gap. Add `ds-gap-xs`, `ds-gap-sm`, `ds-gap-md`, `ds-gap-lg`, `ds-gap-xl` or `ds-gap-2xl` to change it.
 
@@ -138,15 +138,17 @@ The gallery switches mode with `?theme=dark` and loads a theme with `?brand=botb
 
 `dist/components.json` also lists the page patterns, in `patterns`. A pattern is a whole screen composed from the components, such as a settings page or a sign-in screen, with a little layout of its own. Start a new screen from one.
 
-Almost every component needs no script. A few do: something has to move the ARIA attributes when the reader picks a tab, types into a combobox or searches the command palette, a time that counts up has to be written again each second, and a transcript that grows has to follow its newest row only while the reader is at the bottom. `dist/behaviors/` holds five optional modules, one for each. Load only the ones the app uses, and wrap the component's markup from `components.json` in the module's element.
+Almost every component needs no script. A few do: something has to move the ARIA attributes when the reader picks a tab, types into a combobox or searches the command palette, focus has to move through a menu or a listbox with the arrow keys, a time that counts up has to be written again each second, and a transcript that grows has to follow its newest row only while the reader is at the bottom. `dist/behaviors/` holds seven optional modules, one for each. Load only the ones the app uses, and wrap the component's markup from `components.json` in the module's element.
 
 | Module | Element | What it does |
 |---|---|---|
 | `behaviors/tabs.js` | `<ds-tabs>` | For the tabs component: sets `aria-selected`, `tabindex` and `hidden`, and handles click, Left, Right, Home and End. |
 | `behaviors/combobox.js` | `<ds-combobox>` | For the combobox component: as the reader types it sets `hidden` on the options that do not match, `aria-expanded` and `aria-activedescendant` on the input and `aria-selected` on the active option, and writes the count into the `role="status"` line. It handles Down, Up, Home, End, Enter, Escape and a press on an option. |
-| `behaviors/command-palette.js` | `<ds-command-palette>` | For the command palette component: filters the commands as the reader types, hides a group left with no match, sets `aria-selected` and `aria-activedescendant` as Down and Up move the selection, presses the selected command on Enter and closes the dialog. With `shortcut="k"` it opens the dialog on Ctrl+K and Cmd+K. |
+| `behaviors/command-palette.js` | `<ds-command-palette>` | For the command palette component: filters the commands as the reader types, hides a group left with no match, writes the no-match sentence from `data-ds-empty` into the status element, which is never hidden, sets `aria-selected` and `aria-activedescendant` as Down and Up move the selection, presses the selected command on Enter and closes the dialog. With `shortcut="k"` it opens the dialog on Ctrl+K and Cmd+K. |
 | `behaviors/elapsed.js` | `<ds-elapsed>` | A time that counts up, for a tool call, a step group, the now-doing line and the run timeline: it shows the time since its `datetime` attribute and writes it again once a second, stops when its `data-state` is anything but `running`, and shows a fixed length when it has a `duration` attribute. It carries `aria-live="off"`, so no tick is announced. |
 | `behaviors/transcript.js` | `<ds-transcript>` | For a transcript that grows: it keeps the newest row in view while the reader is within 60px of the bottom, stops when they scroll up, counts the rows added since and shows the jump-to-latest control, and follows again when they press it or reach the bottom. It sets `hidden` and the count, and never moves focus. |
+| `behaviors/menu.js` | `<ds-menu>` | For the menu, the context menu and the split button: when a menu opens it moves focus to the first item, keeps one item in the tab order with `tabindex`, and handles Down, Up, Home, End and a letter. Tab closes the menu, and Enter and Space do nothing on an item with `aria-disabled="true"`. One element may wrap a whole list of rows with context menus. |
+| `behaviors/listbox.js` | `<ds-listbox>` | For the listbox component: one option in the tab order, Down, Up, Home, End and a letter to move, and Space or Enter to select, or to switch an option where `aria-multiselectable="true"`, with Shift and an arrow and Ctrl or Cmd with A as well. It sets `aria-selected` and `tabindex` and fires a change event on the listbox. |
 
 ```html
 <script type="module" src="/vendor/design-system/behaviors/tabs.js"></script>
@@ -154,9 +156,11 @@ Almost every component needs no script. A few do: something has to move the ARIA
 <script type="module" src="/vendor/design-system/behaviors/command-palette.js"></script>
 <script type="module" src="/vendor/design-system/behaviors/elapsed.js"></script>
 <script type="module" src="/vendor/design-system/behaviors/transcript.js"></script>
+<script type="module" src="/vendor/design-system/behaviors/menu.js"></script>
+<script type="module" src="/vendor/design-system/behaviors/listbox.js"></script>
 ```
 
-Each module sets attributes only, never a class or an inline style; the two for agent activity also write the time and the count as text, and the transcript module sets the scroll position. None opens or closes a step group: that is the app's job, and the step group's metadata gives the rule. They are for an app without a framework. An app that renders with a framework leaves the modules out and sets the same ARIA attributes itself: the stylesheet reads those attributes and nothing else.
+Each module sets attributes, and the menu and listbox modules move focus, never a class or an inline style. The two for agent activity write the time and the count as text, the combobox writes its count and the command palette its no-match sentence, each in words the markup gives it, and the transcript module sets the scroll position. None opens or closes a step group: that is the app's job, and the step group's metadata gives the rule. They are for an app without a framework. An app that renders with a framework leaves the modules out and sets the same ARIA attributes itself: the stylesheet reads those attributes and nothing else.
 
 To add a component or a page pattern, follow `docs/authoring.md`.
 
