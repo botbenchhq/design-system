@@ -43,7 +43,7 @@ test("every colour token in dist/tokens.css is six-digit hex", () => {
 
 test("every custom property is prefixed --ds- and sits in the ds.tokens layer", () => {
   const css = read("tokens.css");
-  assert.ok(css.includes("@layer ds.reset, ds.tokens, ds.base, ds.components;"));
+  assert.ok(css.includes("@layer ds.reset, ds.tokens, ds.theme, ds.base, ds.components;"));
   assert.deepEqual(css.match(/--(?!ds-)[\w-]+\s*:/g), null);
   const outside = css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/@layer ds\.tokens \{[\s\S]*\n\}/, "");
   assert.doesNotMatch(outside, /--ds-/);
@@ -97,7 +97,7 @@ test("the only breakpoint Tailwind emits is 768px", async () => {
 
 test("with preflight off a ds.components background survives and an unlayered utility overrides it", async () => {
   const { rules, css } = await buildFixture();
-  assert.ok(css.includes("@layer ds.reset, ds.tokens, ds.base, ds.components;"));
+  assert.ok(css.includes("@layer ds.reset, ds.tokens, ds.theme, ds.base, ds.components;"));
   const component = find(rules, ".ds-button");
   assert.equal(component.layer, "ds.components");
   assert.match(component.css, /background-color: var\(--ds-color-surface-raised\)/);

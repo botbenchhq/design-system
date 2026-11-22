@@ -4,9 +4,11 @@
  *
  * Colour tokens are six-digit hex only, because consumers parse computed
  * values as #rrggbb. A theme may change a value and may not add a name.
+ * A theme lives in themes/<name>.css, in the ds.theme layer, which comes after
+ * this one.
  */
 
-@layer ds.reset, ds.tokens, ds.base, ds.components;
+@layer ds.reset, ds.tokens, ds.theme, ds.base, ds.components;
 
 @layer ds.tokens {
   :root {
@@ -30,6 +32,18 @@
     --ds-color-danger-subtle: #F9E9E7;
     --ds-color-info: #1F5C99;
     --ds-color-info-subtle: #E6EEF6;
+    /* Waiting on a person's answer: needs input, needs approval. */
+    --ds-color-approval: #984369;
+    --ds-color-approval-subtle: #FCE9EF;
+    /* Stopped and unable to go on by itself: interrupted, rate limited. */
+    --ds-color-blocked: #6C529E;
+    --ds-color-blocked-subtle: #F0ECFC;
+    /* Another person's agent: a peer's message or proposal. */
+    --ds-color-peer: #076B70;
+    --ds-color-peer-subtle: #DEF3F4;
+    /* Work that carries input from outside the trust boundary, such as a peer's message. */
+    --ds-color-tainted: #994A1A;
+    --ds-color-tainted-subtle: #FCEBE2;
 
     --ds-font-ui: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
     --ds-font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -107,6 +121,14 @@
     --ds-color-danger-subtle: #331917;
     --ds-color-info: #86B7EA;
     --ds-color-info-subtle: #14243A;
+    --ds-color-approval: #E396B3;
+    --ds-color-approval-subtle: #301C24;
+    --ds-color-blocked: #B6A1E6;
+    --ds-color-blocked-subtle: #251F32;
+    --ds-color-peer: #4DBCC2;
+    --ds-color-peer-subtle: #0A2829;
+    --ds-color-tainted: #E39C77;
+    --ds-color-tainted-subtle: #311E14;
     --ds-shadow-overlay: 0 8px 24px 0 rgb(0 0 0 / 0.5);
   }
 
@@ -131,6 +153,14 @@
       --ds-color-danger-subtle: #331917;
       --ds-color-info: #86B7EA;
       --ds-color-info-subtle: #14243A;
+      --ds-color-approval: #E396B3;
+      --ds-color-approval-subtle: #301C24;
+      --ds-color-blocked: #B6A1E6;
+      --ds-color-blocked-subtle: #251F32;
+      --ds-color-peer: #4DBCC2;
+      --ds-color-peer-subtle: #0A2829;
+      --ds-color-tainted: #E39C77;
+      --ds-color-tainted-subtle: #311E14;
       --ds-shadow-overlay: 0 8px 24px 0 rgb(0 0 0 / 0.5);
     }
   }

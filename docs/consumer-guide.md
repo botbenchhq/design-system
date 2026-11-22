@@ -18,7 +18,7 @@ The copy is read-only. The checker verifies the hashes first on every run and st
 
 ## 2. Load the stylesheet
 
-`design-system.css` is the whole system: tokens, reset, base styles, font faces and components. It loads the fonts by relative URL, so serve `fonts/` beside it. The icon sprite is `icons.svg` in the same directory.
+`design-system.css` is the whole system: tokens, reset, base styles, font faces and components. It loads the fonts by relative URL, so serve `fonts/` beside it. The icon sprite is `icons.svg` in the same directory. To use a theme, such as Botbench, link its stylesheet after this one, as step 12 describes.
 
 ### Plain HTML
 
@@ -376,3 +376,70 @@ node vendor/design-system/migrate-prefix.mjs .
 
 4. Keep the app's own prefix. `appPrefix` in the config file and the option passed to `dsCheckDom()` stay as they were.
 5. Run the static scan from step 5 and the end-to-end tests again. A name the codemod could not see, such as one built from pieces at run time, is reported by `old-prefix` with its new form. A `ds-` class that the catalogue does not have is reported by `unknown-class`, which suggests the nearest one. Commit the copy, the deleted old copy and the rewritten source together.
+
+## 12. Themes
+
+A theme changes the values of the system's tokens and nothing else: colours, radii, any token. It cannot add a token name, so every component, utility and check works the same under it. The copy holds each theme in `themes/`. The system ships one, `botbench`.
+
+| File | Holds |
+|---|---|
+| `themes/<name>.css` | The theme's values for light and dark. Link it after `design-system.css`. |
+| `themes/<name>.json` | The theme's name, its default mode and the page background of each mode, for the `theme-color` meta tags. |
+| `themes/<name>.design-tokens.md` | The token block for the front matter of the app's `DESIGN.md`, with the theme's values. Use it in place of `design-tokens.md`. |
+| `themes/<name>.tokens.json` | The tokens as data with the theme's values, in the same format as `tokens.json`. |
+
+### Load a theme
+
+Link the theme's stylesheet after the system's:
+
+```html
+<link rel="stylesheet" href="/vendor/design-system/design-system.css">
+<link rel="stylesheet" href="/vendor/design-system/themes/botbench.css">
+```
+
+From a bundler, import it after `design-system.css`:
+
+```js
+import "../vendor/design-system/design-system.css";
+import "../vendor/design-system/themes/botbench.css";
+```
+
+The theme's rules sit in the `ds.theme` cascade layer, which the layer order puts after `ds.tokens`, so the theme's values win over the default ones. The theme file declares the same layer order, so the result is the same if it happens to load first. App CSS stays unlayered and still wins over both.
+
+The Tailwind preset needs no change: its values are references to the custom properties, so `bg-surface` takes the theme's surface when the theme is loaded.
+
+### Light, dark and the default mode
+
+A theme declares a default mode, light or dark. With no `data-theme` attribute on the root element the page shows that mode. Botbench's default mode is dark.
+
+| `data-theme` | Without a theme | Under a theme |
+|---|---|---|
+| not set | Light | The theme's default mode, whatever the system setting |
+| `light` | Light | Light |
+| `dark` | Dark | Dark |
+| `auto` | Follows the system setting | Follows the system setting |
+
+So a page that should follow the system sets `data-theme="auto"`, and a reader's own choice of light or dark is `data-theme="light"` or `data-theme="dark"`.
+
+Take the browser's `theme-color` from `themes/<name>.json`, where `themeColor.light` and `themeColor.dark` are the theme's page backgrounds. For Botbench:
+
+```html
+<meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+```
+
+Run the accessibility scan from step 6 in both modes under the theme, as without one.
+
+### Write a theme
+
+A theme is written in the design system's repo, never in an app. Add `themes/<name>.css`, with a lower-case name, and run `npm run build`. The file has the shape of `tokens/tokens.css`: a `:root` block of light values, a `[data-theme="dark"]` block of dark values, and the same dark values again in `[data-theme="auto"]` inside `@media (prefers-color-scheme: dark)`, all inside `@layer ds.theme { … }`. A line `Default mode: dark` in the file's first comment makes dark the default mode. Without it the default mode is light. A token the theme does not set keeps the default theme's value in that mode.
+
+The build stops, naming the theme, when:
+
+- it sets a name that is not a token;
+- it has no light values or no dark values, or its dark and auto blocks differ;
+- it sets a colour for light alone that the default theme sets for both modes, since that value would then apply in dark as well;
+- a colour is not six-digit hex, or the default mode is not light or dark;
+- a pair in `tokens/pairs.json` falls below its minimum in either mode, with the theme's values where it sets them and the default values where it does not. The message names the theme, the pair, the mode and the ratio.
+
+The build then writes the four files above for the theme into `dist/themes/`. Sync copies them into the app and records their hashes in `hashes.json`, like every other file.

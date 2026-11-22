@@ -3,6 +3,7 @@
   "layers": [
     "ds.reset",
     "ds.tokens",
+    "ds.theme",
     "ds.base",
     "ds.components"
   ],
@@ -27,7 +28,15 @@
       "--ds-color-danger",
       "--ds-color-danger-subtle",
       "--ds-color-info",
-      "--ds-color-info-subtle"
+      "--ds-color-info-subtle",
+      "--ds-color-approval",
+      "--ds-color-approval-subtle",
+      "--ds-color-blocked",
+      "--ds-color-blocked-subtle",
+      "--ds-color-peer",
+      "--ds-color-peer-subtle",
+      "--ds-color-tainted",
+      "--ds-color-tainted-subtle"
     ],
     "font": [
       "--ds-font-ui",
@@ -130,7 +139,23 @@
       "#F9E9E7",
       "#331917",
       "#E6EEF6",
-      "#14243A"
+      "#14243A",
+      "#984369",
+      "#E396B3",
+      "#FCE9EF",
+      "#301C24",
+      "#6C529E",
+      "#B6A1E6",
+      "#F0ECFC",
+      "#251F32",
+      "#076B70",
+      "#4DBCC2",
+      "#DEF3F4",
+      "#0A2829",
+      "#994A1A",
+      "#E39C77",
+      "#FCEBE2",
+      "#311E14"
     ],
     "font": [
       "\"IBM Plex Sans\", \"Helvetica Neue\", Arial, sans-serif",
@@ -371,9 +396,13 @@
     "ds-avatar__mark",
     "ds-avatar__name",
     "ds-badge",
+    "ds-badge--approval",
+    "ds-badge--blocked",
     "ds-badge--danger",
     "ds-badge--info",
+    "ds-badge--peer",
     "ds-badge--success",
+    "ds-badge--tainted",
     "ds-badge--warning",
     "ds-badge__icon",
     "ds-banner",

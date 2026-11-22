@@ -16,7 +16,10 @@
 <body>
 <header data-gallery="bar">
 <a href="index.html">Design system gallery</a>
-<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<div data-gallery="switches">
+<nav aria-label="Mode"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<nav aria-label="Theme"><a href="?brand=default" data-gallery-default="light">Default</a><a href="?brand=botbench" data-gallery-default="dark">Botbench</a></nav>
+</div>
 </header>
 <main data-gallery="page">
 <header>
@@ -575,7 +578,7 @@ src/routes/sign-in.tsx</pre>
 <li>A retry is a new row after the failed one. Never set a failed row back to running: the reader would lose the failure and its output.</li>
 <li>The root is an article with aria-labelledby pointing at ds-tool-call__title when it stands alone, and a div with the row modifier inside the li of a transcript or a step group.</li>
 <li>The line is the summary of one native details element, ds-tool-call__details. It holds ds-tool-call__title, which starts with ds-tool-call__status and goes on with the summary, then ds-tool-call__duration. Enter and Space open and close it. It is drawn 36px tall, to keep a long run dense, and its pointer target is 44px tall.</li>
-<li>ds-tool-call__status always holds a word, written by the app: Preparing, Awaiting approval, Running, Succeeded, Failed, Declined (or Denied when a permission rule refused it), Timed out, Cancelled. The icon is never the only sign. Only the running icon moves, and under prefers-reduced-motion it is still.</li>
+<li>ds-tool-call__status always holds a word, written by the app: Preparing, Awaiting approval, Running, Succeeded, Failed, Declined (or Denied when a permission rule refused it), Timed out, Cancelled. The icon is never the only sign. Only the running icon moves, and under prefers-reduced-motion it is still. The states the badge's status set names look as it gives them: awaiting-approval is Needs input, running is Working, failed is Check failed and cancelled is Cancelled. Timed-out takes a clock and the warning tone, as a timed-out check does, because it is not a failure of the call.</li>
 <li>The summary is app text in plain words with the command or the target in a code element with ds-tool-call__target: Ran npm test, Edited auth.ts +12 −1, Explored 5 files. Use the past tense once the call has run and the plain verb before it runs or when it never ran: Run npm install. After the word Running, write the command alone. rules/content.md has the wording.</li>
 <li>ds-tool-call__duration is the time elapsed while the call waits or runs, and the total once it has ended, with its unit: 42 s, 2.4 s. A time that counts up is not announced: use the ds-elapsed element from behaviors/elapsed.js, or a span with aria-live=&quot;off&quot; that the app updates.</li>
 <li>A failed, declined, timed-out or cancelled call says why in one or two sentences in a span with ds-tool-call__note, the last element of the summary. It is part of the line, so it stays in view when the details are closed.</li>

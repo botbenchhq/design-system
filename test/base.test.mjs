@@ -112,7 +112,7 @@ test("under prefers-reduced-motion the reset forces every transition duration to
 test("the bundled stylesheet is the layer order, tokens, reset, base and fonts, in that order", () => {
   const css = readFileSync(bundle, "utf8");
   const order = [
-    "@layer ds.reset, ds.tokens, ds.base, ds.components;",
+    "@layer ds.reset, ds.tokens, ds.theme, ds.base, ds.components;",
     "@layer ds.tokens {",
     "@layer ds.reset {",
     "@layer ds.base {",
@@ -121,7 +121,7 @@ test("the bundled stylesheet is the layer order, tokens, reset, base and fonts, 
   assert.ok(order.every((at) => at >= 0), JSON.stringify(order));
   assert.deepEqual(order, order.toSorted((a, b) => a - b));
   assert.ok(css.startsWith(readFileSync(join(dist, "tokens.css"), "utf8")));
-  assert.equal(css.split("@layer ds.reset, ds.tokens, ds.base, ds.components;").length, 2);
+  assert.equal(css.split("@layer ds.reset, ds.tokens, ds.theme, ds.base, ds.components;").length, 2);
 });
 
 test("every font and icon URL in dist/design-system.css resolves to a file inside dist/", () => {

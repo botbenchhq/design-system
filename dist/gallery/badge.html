@@ -16,7 +16,10 @@
 <body>
 <header data-gallery="bar">
 <a href="index.html">Design system gallery</a>
-<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<div data-gallery="switches">
+<nav aria-label="Mode"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<nav aria-label="Theme"><a href="?brand=default" data-gallery-default="light">Default</a><a href="?brand=botbench" data-gallery-default="dark">Botbench</a></nav>
+</div>
 </header>
 <main data-gallery="page">
 <header>
@@ -37,8 +40,21 @@
     <span class="ds-badge">Draft</span>
     <span class="ds-badge ds-badge--info">Running</span>
     <span class="ds-badge ds-badge--success">Merged</span>
-    <span class="ds-badge ds-badge--warning">Needs an answer</span>
+    <span class="ds-badge ds-badge--warning">Out of date</span>
     <span class="ds-badge ds-badge--danger">Failed</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Tones for agent work</h3>
+</figcaption>
+<div data-example="agent-tones" data-title="Tones for agent work">
+  <div class="ds-cluster">
+    <span class="ds-badge ds-badge--approval">Needs approval</span>
+    <span class="ds-badge ds-badge--blocked">Rate limited</span>
+    <span class="ds-badge ds-badge--peer">From a peer</span>
+    <span class="ds-badge ds-badge--tainted">Untrusted input</span>
   </div>
 </div>
 </figure>
@@ -71,12 +87,120 @@
   </div>
 </div>
 </figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The status set: one icon and one tone for each state</h3>
+</figcaption>
+<div data-example="status-set" data-title="The status set: one icon and one tone for each state">
+  <ul class="ds-list">
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Waiting for its turn. Nothing has started.</span>
+        </span>
+        <span class="ds-badge">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-dashed"></use></svg>
+          Queued
+        </span>
+      </div>
+    </li>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">An agent or a step is running.</span>
+        </span>
+        <span class="ds-badge ds-badge--info">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-loader"></use></svg>
+          Working
+        </span>
+      </div>
+    </li>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">The work is done and its checks or a review by an agent are running.</span>
+        </span>
+        <span class="ds-badge ds-badge--info">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-search"></use></svg>
+          Checking
+        </span>
+      </div>
+    </li>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Paused until the reader answers: an approval, a question, a decision.</span>
+        </span>
+        <span class="ds-badge ds-badge--approval">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-pause"></use></svg>
+          Needs input
+        </span>
+      </div>
+    </li>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Finished and checked, waiting for the reader to review the result.</span>
+        </span>
+        <span class="ds-badge ds-badge--success">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-eye"></use></svg>
+          Ready for review
+        </span>
+      </div>
+    </li>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Ended before it finished, by a person, a limit or the runner, and can be resumed.</span>
+        </span>
+        <span class="ds-badge ds-badge--blocked">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-stop"></use></svg>
+          Stopped
+        </span>
+      </div>
+    </li>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Will not run or go on: superseded or withdrawn.</span>
+        </span>
+        <span class="ds-badge">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-slash"></use></svg>
+          Cancelled
+        </span>
+      </div>
+    </li>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">A check ran and passed.</span>
+        </span>
+        <span class="ds-badge ds-badge--success">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>
+          Check passed
+        </span>
+      </div>
+    </li>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">A check ran and failed.</span>
+        </span>
+        <span class="ds-badge ds-badge--danger">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-alert"></use></svg>
+          Check failed
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+</figure>
 <figure data-gallery="do">
 <figcaption>
 <h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> One badge per row: a task's station in words</h3>
-<p>Each row carries one badge, and it says where the task stands in words. Everything else about the task is plain text, so the badge is the one thing the eye lands on.</p>
+<p>Each row carries one badge, and it says where the task stands in words, with the icon and tone of that state in the status set. Everything else about the task is plain text, so the badge is the one thing the eye lands on.</p>
 </figcaption>
-<div data-example="stations" data-title="One badge per row: a task's station in words" data-reason="Each row carries one badge, and it says where the task stands in words. Everything else about the task is plain text, so the badge is the one thing the eye lands on.">
+<div data-example="stations" data-title="One badge per row: a task's station in words" data-reason="Each row carries one badge, and it says where the task stands in words, with the icon and tone of that state in the status set. Everything else about the task is plain text, so the badge is the one thing the eye lands on.">
   <ul class="ds-list">
     <li class="ds-list__row">
       <div class="ds-list__content">
@@ -85,7 +209,7 @@
           <span class="ds-list__secondary">acme/api · fix/login-timeout</span>
         </span>
         <span class="ds-badge">
-          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-ellipsis"></use></svg>
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-dashed"></use></svg>
           Queued
         </span>
       </div>
@@ -98,7 +222,7 @@
         </span>
         <span class="ds-badge ds-badge--info">
           <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-loader"></use></svg>
-          Building
+          Working
         </span>
       </div>
     </li>
@@ -110,19 +234,7 @@
         </span>
         <span class="ds-badge ds-badge--info">
           <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-search"></use></svg>
-          Verifying
-        </span>
-      </div>
-    </li>
-    <li class="ds-list__row">
-      <div class="ds-list__content">
-        <span class="ds-list__body">
-          <span class="ds-list__primary">Move session storage to Redis</span>
-          <span class="ds-list__secondary">acme/api · feat/redis-sessions</span>
-        </span>
-        <span class="ds-badge ds-badge--info">
-          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-file"></use></svg>
-          Reviewing
+          Checking
         </span>
       </div>
     </li>
@@ -132,21 +244,21 @@
           <span class="ds-list__primary">Remove the legacy invoice exporter</span>
           <span class="ds-list__secondary">acme/billing · chore/drop-invoice-export</span>
         </span>
-        <span class="ds-badge ds-badge--warning">
-          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-alert"></use></svg>
-          Awaiting decision
+        <span class="ds-badge ds-badge--approval">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-pause"></use></svg>
+          Needs input
         </span>
       </div>
     </li>
     <li class="ds-list__row">
       <div class="ds-list__content">
         <span class="ds-list__body">
-          <span class="ds-list__primary">Add dark theme to the settings screen</span>
-          <span class="ds-list__secondary">acme/web · feat/settings-dark</span>
+          <span class="ds-list__primary">Move session storage to Redis</span>
+          <span class="ds-list__secondary">acme/api · feat/redis-sessions</span>
         </span>
-        <span class="ds-badge ds-badge--warning">
-          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-triangle-alert"></use></svg>
-          Blocked
+        <span class="ds-badge ds-badge--success">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-eye"></use></svg>
+          Ready for review
         </span>
       </div>
     </li>
@@ -156,21 +268,21 @@
           <span class="ds-list__primary">Paginate the audit log</span>
           <span class="ds-list__secondary">acme/api · feat/audit-log-pages</span>
         </span>
-        <span class="ds-badge ds-badge--danger">
-          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>
-          Interrupted
+        <span class="ds-badge ds-badge--blocked">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-stop"></use></svg>
+          Stopped
         </span>
       </div>
     </li>
     <li class="ds-list__row">
       <div class="ds-list__content">
         <span class="ds-list__body">
-          <span class="ds-list__primary">Fix the off-by-one in the retry counter</span>
-          <span class="ds-list__secondary">acme/api · fix/retry-count</span>
+          <span class="ds-list__primary">Add dark theme to the settings screen</span>
+          <span class="ds-list__secondary">acme/web · feat/settings-dark</span>
         </span>
-        <span class="ds-badge ds-badge--success">
-          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>
-          Decided
+        <span class="ds-badge">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-slash"></use></svg>
+          Cancelled
         </span>
       </div>
     </li>
@@ -196,13 +308,30 @@
   </div>
 </div>
 </figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> A status shown by colour alone</h3>
+<p>A green mark and a red mark do not say Check passed and Check failed, and a reader who cannot tell the colours apart sees two marks that look alike. Every badge holds its status in words, beside the state's icon.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="colour-only" data-title="A status shown by colour alone" data-dont="review" data-reason="A green mark and a red mark do not say Check passed and Check failed, and a reader who cannot tell the colours apart sees two marks that look alike. Every badge holds its status in words, beside the state's icon.">
+  <div class="ds-cluster">
+    <span class="ds-badge ds-badge--success" title="Check passed">
+      <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>
+    </span>
+    <span class="ds-badge ds-badge--danger" title="Check failed">
+      <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-alert"></use></svg>
+    </span>
+  </div>
+</div>
+</figure>
 </div>
 </section>
 <div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
-<li>For the one status of an item that the reader acts on or scans for: Building, Awaiting decision, Blocked.</li>
+<li>For the one status of an item that the reader acts on or scans for: Working, Needs input, Check failed.</li>
 <li>Once per row of a list or table, as the row's trailing element.</li>
 <li>Once beside the title of a view, for the status of the thing the view shows.</li>
 </ul>
@@ -221,15 +350,23 @@
 <h2>Variants</h2>
 <dl>
 <dt>neutral</dt>
-<dd>The default, with no modifier class. A status that needs nothing from the reader yet: Queued, Draft.</dd>
+<dd>The default, with no modifier class. A status that needs nothing from anyone yet, or has ended without a result: Queued, Cancelled, Draft.</dd>
 <dt>info <code>ds-badge--info</code></dt>
-<dd>Work in progress that needs nothing from the reader: Building, Verifying, Reviewing.</dd>
+<dd>Work in progress that needs nothing from the reader: Working, Checking.</dd>
 <dt>success <code>ds-badge--success</code></dt>
-<dd>Finished as intended: Decided, Merged, Tests passed.</dd>
+<dd>Finished as intended: Check passed, Ready for review, Merged.</dd>
 <dt>warning <code>ds-badge--warning</code></dt>
-<dd>Waiting on the reader or on something outside the task: Awaiting decision, Blocked.</dd>
+<dd>Something the reader should know that does not stop the work: Out of date with main, Timed out.</dd>
 <dt>danger <code>ds-badge--danger</code></dt>
-<dd>Stopped or failed: Interrupted, Failed.</dd>
+<dd>Failed: Check failed, Failed.</dd>
+<dt>approval <code>ds-badge--approval</code></dt>
+<dd>Waiting on the reader's answer before the work goes on: Needs input, Needs approval.</dd>
+<dt>blocked <code>ds-badge--blocked</code></dt>
+<dd>Stopped, and unable to go on by itself: Stopped, Rate limited.</dd>
+<dt>peer <code>ds-badge--peer</code></dt>
+<dd>From another person's agent rather than the reader's own: From a peer, Peer proposal.</dd>
+<dt>tainted <code>ds-badge--tainted</code></dt>
+<dd>The work carries input from outside the trust boundary, such as a peer's message: Untrusted input.</dd>
 </dl>
 </section>
 <section>
@@ -244,7 +381,8 @@
 <ul>
 <li>Use a span. The badge is text, and a screen reader reads its words in place.</li>
 <li>The words carry the status. The tone only supports them, so never rely on the colour, and never use a badge with an icon and no text.</li>
-<li>An icon is decoration and carries aria-hidden=&quot;true&quot;. Use the same icon for the same status everywhere.</li>
+<li>An icon is decoration and carries aria-hidden=&quot;true&quot;. A state in the status set always takes that state's icon and tone, in every component that shows it, so the same state never appears with two icons.</li>
+<li>The status set is a fixed table of states, icons and tones: Queued, Working, Checking, Needs input, Ready for review, Stopped, Cancelled, Check passed and Check failed. The words on the badge are the app's own, so an app may write Building for Working, but it keeps the state's icon and tone. Run status, run timeline, check list and tool call draw the same icon and tone for the same state.</li>
 <li>Write the status in sentence case, in one to three words, in the same words everywhere the status appears.</li>
 <li>A badge is not focusable and takes no press. When a status changes while the reader watches, announce it from a role=&quot;status&quot; element in the view, not from the badge.</li>
 </ul>
@@ -253,9 +391,13 @@
 <h2>Classes</h2>
 <ul>
 <li><code>ds-badge</code></li>
+<li><code>ds-badge--approval</code></li>
+<li><code>ds-badge--blocked</code></li>
 <li><code>ds-badge--danger</code></li>
 <li><code>ds-badge--info</code></li>
+<li><code>ds-badge--peer</code></li>
 <li><code>ds-badge--success</code></li>
+<li><code>ds-badge--tainted</code></li>
 <li><code>ds-badge--warning</code></li>
 <li><code>ds-badge__icon</code></li>
 </ul>

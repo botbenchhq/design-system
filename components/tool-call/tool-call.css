@@ -266,7 +266,11 @@
     }
   }
 
-  /* Drawn from the state, so no markup can leave the icon out. Each state has a shape of its own. */
+  /*
+   * Drawn from the state, so no markup can leave the icon out. Each state has a shape of its own.
+   * A state the badge's status set names takes its icon and tone: awaiting approval is Needs input,
+   * running is Working, failed is Check failed's and cancelled is Cancelled. Timed out matches the check list's.
+   */
   .ds-tool-call[data-state] .ds-tool-call__status::before {
     content: "";
     display: inline-block;
@@ -279,7 +283,7 @@
   }
 
   .ds-tool-call[data-state="awaiting-approval"] .ds-tool-call__status {
-    color: var(--ds-color-warning);
+    color: var(--ds-color-approval);
   }
 
   .ds-tool-call[data-state="awaiting-approval"] .ds-tool-call__status::before {
@@ -301,9 +305,13 @@
     mask-image: url("icons/circle-check.svg");
   }
 
-  .ds-tool-call[data-state="failed"] .ds-tool-call__status,
-  .ds-tool-call[data-state="timed-out"] .ds-tool-call__status {
+  .ds-tool-call[data-state="failed"] .ds-tool-call__status {
     color: var(--ds-color-danger);
+  }
+
+  /* It ran out of time, which says nothing about whether the call was right, so it is not drawn as a failure. */
+  .ds-tool-call[data-state="timed-out"] .ds-tool-call__status {
+    color: var(--ds-color-warning);
   }
 
   .ds-tool-call[data-state="failed"] .ds-tool-call__status::before {

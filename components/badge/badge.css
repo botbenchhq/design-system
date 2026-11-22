@@ -1,6 +1,8 @@
 /*
  * Badge: a status written in a word or two, on a subtle background.
  * The plain class is the neutral tone. A modifier changes the tone, and the words always carry the meaning.
+ * meta.json holds the status set: one icon and one tone for each state of a run, reused by the components
+ * that show the same states.
  */
 
 @layer ds.components {
@@ -43,6 +45,30 @@
     border-color: transparent;
     background-color: var(--ds-color-danger-subtle);
     color: var(--ds-color-danger);
+  }
+
+  .ds-badge--approval {
+    border-color: transparent;
+    background-color: var(--ds-color-approval-subtle);
+    color: var(--ds-color-approval);
+  }
+
+  .ds-badge--blocked {
+    border-color: transparent;
+    background-color: var(--ds-color-blocked-subtle);
+    color: var(--ds-color-blocked);
+  }
+
+  .ds-badge--peer {
+    border-color: transparent;
+    background-color: var(--ds-color-peer-subtle);
+    color: var(--ds-color-peer);
+  }
+
+  .ds-badge--tainted {
+    border-color: transparent;
+    background-color: var(--ds-color-tainted-subtle);
+    color: var(--ds-color-tainted);
   }
 
   .ds-badge__icon {

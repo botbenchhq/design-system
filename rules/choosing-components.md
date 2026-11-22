@@ -184,7 +184,7 @@ A pattern is a whole screen composed from the components above, with a little la
 - `checkbox` or `switch`: a checkbox is sent with a form. A switch takes effect at once.
 - `radio`, `segmented-control` or `select`: a segmented control for two to five short labels, a radio group when the labels need room, a select for more than six options.
 - `button-group` or `segmented-control`: a button group holds actions. A segmented control keeps a choice.
-- `badge` or `tag`: a badge is a status with a tone. A tag is a neutral category.
+- `badge` or `tag`: a badge is a status with a tone. A tag is a neutral category. For the state of a run, take the badge's icon and tone from its status set, listed in `content.md`.
 - `spinner`, `skeleton` or `progress`: a skeleton when the shape of the content is known, progress when the length of the wait is known, a spinner when neither is.
 - `progress` or `usage-meter`: progress moves towards done. A usage meter measures against a limit.
 - `list` or `data-table`: a list for things to scan and open. A table when the reader compares them across columns.

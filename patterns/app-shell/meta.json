@@ -29,7 +29,7 @@
     "Give the app a skip link before the shell that moves focus to the main column, so a keyboard reader does not pass the navigation on every screen.",
     "Tab moves through the app header, the sidebar nav when it is shown, the main column, then the tab bar when it is shown. The shell needs no script."
   ],
-  "icons": ["circle-alert", "circle-check", "file", "git-branch", "loader", "plus", "search", "terminal"],
+  "icons": ["circle-check", "circle-pause", "file", "git-branch", "loader", "plus", "search", "terminal"],
   "classes": [
     "ds-app-shell",
     "ds-app-shell__body",

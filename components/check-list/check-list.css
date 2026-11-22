@@ -2,6 +2,8 @@
  * Check list: the results of automated checks on a run, one row for each check.
  * A row says the check's name, its result in words beside an icon, and how long it took.
  * With no modifier a result is one that has not started yet.
+ * Each result takes the icon and tone of its state in the badge's status set: not started is Queued,
+ * running is Working, passed is Check passed and failed is Check failed. Timed out matches the tool call's.
  * The output of a check sits under its row in a details element with a text summary.
  */
 
@@ -60,7 +62,7 @@
     width: var(--ds-space-lg);
     height: var(--ds-space-lg);
     background-color: currentColor;
-    mask: url("icons/ellipsis.svg") center / contain no-repeat;
+    mask: url("icons/circle-dashed.svg") center / contain no-repeat;
   }
 
   .ds-check-list__result--skipped::before {
@@ -91,7 +93,7 @@
   }
 
   .ds-check-list__result--timed-out::before {
-    mask-image: url("icons/triangle-alert.svg");
+    mask-image: url("icons/clock.svg");
   }
 
   .ds-check-list__result--running {

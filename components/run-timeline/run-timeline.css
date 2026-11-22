@@ -85,9 +85,10 @@
     animation: ds-run-timeline-turn calc(var(--ds-duration-slow) * 4) steps(8) infinite;
   }
 
+  /* Waiting on the owner is Needs input in the badge's status set: its icon and its tone. */
   .ds-run-timeline__station[data-state="waiting"]::before,
   .ds-run-timeline__station[data-state="waiting"] > .ds-run-timeline__status {
-    color: var(--ds-color-warning);
+    color: var(--ds-color-approval);
   }
 
   .ds-run-timeline__station[data-state="waiting"]::before {
