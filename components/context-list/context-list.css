@@ -1,5 +1,5 @@
 /*
- * Context list: the rows of the Add context sheet. A rounded group of rows divided by a 1px border.
+ * Context list: the rows of the Add context sheet. Rows divided by a 1px line, with no frame of their own: the sheet is the frame.
  * Each row is a button that shows a setting's name and its current value, and opens the setting's own view.
  * The chevron is drawn here, so the markup holds only the words.
  */
@@ -9,8 +9,6 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
-    border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-md);
   }
 
   .ds-context-list > li + li {
@@ -32,13 +30,13 @@
 
   /* The shade of a pressed row follows the group's rounded corners. Nothing clips the row, so its focus ring shows whole. */
   .ds-context-list > li:first-child > .ds-context-list__button {
-    border-start-start-radius: calc(var(--ds-radius-md) - var(--ds-border-width));
-    border-start-end-radius: calc(var(--ds-radius-md) - var(--ds-border-width));
+    border-start-start-radius: var(--ds-radius-md);
+    border-start-end-radius: var(--ds-radius-md);
   }
 
   .ds-context-list > li:last-child > .ds-context-list__button {
-    border-end-start-radius: calc(var(--ds-radius-md) - var(--ds-border-width));
-    border-end-end-radius: calc(var(--ds-radius-md) - var(--ds-border-width));
+    border-end-start-radius: var(--ds-radius-md);
+    border-end-end-radius: var(--ds-radius-md);
   }
 
   .ds-context-list__button::after {

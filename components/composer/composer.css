@@ -108,13 +108,19 @@
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
 
+  /* One ring, on the block: the textarea inside it draws none of its own. */
   .ds-composer__box:has(> .ds-composer__input:focus-visible) {
     border-color: var(--ds-color-focus);
+    outline: var(--ds-border-width) solid var(--ds-color-focus);
   }
 
   .ds-composer__box > .ds-composer__input {
     border-color: transparent;
     background-color: transparent;
+  }
+
+  .ds-composer__box > .ds-composer__input:focus-visible {
+    outline-style: none;
   }
 
   /*
