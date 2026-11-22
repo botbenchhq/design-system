@@ -1,0 +1,80 @@
+<div data-example="default" data-title="Three levels above the current page" data-state="default" data-reason="Each page above is a link, and the current page is text with aria-current, so the reader can see where they are and go up to any level. The chevrons come from the stylesheet and are never read out.">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories">Repositories</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api">acme/api</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api/runs">Runs</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">Run 4182</span></li>
+    </ol>
+  </nav>
+</div>
+
+<div data-example="two-levels" data-title="One level above">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb to the branch">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api/branches">Branches</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">fix/login-timeout</span></li>
+    </ol>
+  </nav>
+</div>
+
+<div data-example="truncated" data-title="Long names: the middle items are cut below 768px">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb to the file">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories">Repositories</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/payments-gateway">acme/payments-gateway</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/payments-gateway/branches/feat/webhook-rate-limit">feat/webhook-rate-limit</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/payments-gateway/tree/src/session">src/session</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">verify.mjs</span></li>
+    </ol>
+  </nav>
+</div>
+
+<div data-example="long-current" data-title="A current page with a long name">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb to the task">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/tasks">Tasks</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">Refuse a session token older than 30 minutes and tell the client to sign in again</span></li>
+    </ol>
+  </nav>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb to run 4183">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api">acme/api</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api/runs">Runs</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">Run 4183</span></li>
+    </ol>
+  </nav>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb to run 4184">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api">acme/api</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api/runs">Runs</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">Run 4184</span></li>
+    </ol>
+  </nav>
+</div>
+
+<div data-example="active" data-title="Pressed" data-state="active">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb to run 4185">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api">acme/api</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api/runs">Runs</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">Run 4185</span></li>
+    </ol>
+  </nav>
+</div>
+
+<div data-example="typed-separators" data-title="Separators typed into the markup, and the current page as a link" data-dont="review" data-reason="A screen reader reads each typed slash aloud, and a link to the page the reader is already on goes nowhere. Leave the separators to the stylesheet and write the current page as text with aria-current.">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb with slashes">
+    <ol class="gw-breadcrumb__list">
+      <li><a class="gw-breadcrumb__link" href="/repositories">Repositories</a> /</li>
+      <li><a class="gw-breadcrumb__link" href="/repositories/acme/api">acme/api</a> /</li>
+      <li><a class="gw-breadcrumb__link" href="/repositories/acme/api/runs/4182">Run 4182</a></li>
+    </ol>
+  </nav>
+</div>

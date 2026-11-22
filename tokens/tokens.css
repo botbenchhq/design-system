@@ -61,6 +61,8 @@
 
     --gw-radius-sm: 4px;
     --gw-radius-md: 8px;
+    /* A circle or a pill. */
+    --gw-radius-full: 9999px;
 
     --gw-border-width: 1px;
 

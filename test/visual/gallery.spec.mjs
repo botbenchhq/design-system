@@ -102,7 +102,10 @@ for (const name of components) {
     const small = await page.evaluate(
       ({ examples, interactive, reach }) => {
         const failures = [];
-        const controls = [...document.querySelectorAll(examples)].flatMap((example) => [...example.querySelectorAll(interactive)]);
+        // A control that is not rendered has no target: a sidebar hidden at this width, a hidden tab panel.
+        const controls = [...document.querySelectorAll(examples)]
+          .flatMap((example) => [...example.querySelectorAll(interactive)])
+          .filter((control) => control.checkVisibility());
         for (const control of controls) {
           control.scrollIntoView({ block: "center" });
           const box = control.getBoundingClientRect();
@@ -180,4 +183,70 @@ test("a required field says so in its label text", async ({ page }) => {
   const input = page.locator('[data-example="default"] input');
   await expect(input).toHaveAttribute("required", "");
   await expect(input).toHaveAccessibleName("Repository required");
+});
+
+// The selected tab, the tab stop and the shown panel of the default tabs example, read from the attributes the stylesheet styles.
+const tabsState = (page) =>
+  page.locator('[data-example="default"] gw-tabs').evaluate((element) => {
+    const tabs = [...element.querySelectorAll('[role="tab"]')];
+    const panels = [...element.querySelectorAll('[role="tabpanel"]')];
+    return {
+      selected: tabs.filter((tab) => tab.getAttribute("aria-selected") === "true").map((tab) => tab.textContent),
+      stops: tabs.filter((tab) => tab.getAttribute("tabindex") === "0").map((tab) => tab.textContent),
+      unselected: tabs.filter((tab) => tab.getAttribute("aria-selected") === "false" && tab.getAttribute("tabindex") === "-1").length,
+      shown: panels.filter((panel) => !panel.hidden).map((panel) => panel.id),
+      focused: document.activeElement.textContent,
+    };
+  });
+
+const tabSelected = (name, panel) => ({ selected: [name], stops: [name], unselected: 2, shown: [panel], focused: name });
+
+test("gw-tabs moves selection and focus with the arrow keys, Home and End, and shows only the selected panel", async ({ page }) => {
+  await open(page, "tabs");
+  const tabs = page.locator('[data-example="default"] [role="tab"]');
+  await expect(tabs).toHaveText(["Summary", "Diff", "Log"]);
+  await tabs.first().focus();
+  expect(await tabsState(page)).toEqual(tabSelected("Summary", "tabs-default-panel-summary"));
+
+  const steps = [
+    ["ArrowRight", "Diff", "tabs-default-panel-diff"],
+    ["ArrowRight", "Log", "tabs-default-panel-log"],
+    ["ArrowRight", "Summary", "tabs-default-panel-summary"],
+    ["ArrowLeft", "Log", "tabs-default-panel-log"],
+    ["ArrowLeft", "Diff", "tabs-default-panel-diff"],
+    ["End", "Log", "tabs-default-panel-log"],
+    ["Home", "Summary", "tabs-default-panel-summary"],
+  ];
+  for (const [key, name, panel] of steps) {
+    await page.keyboard.press(key);
+    expect(await tabsState(page), key).toEqual(tabSelected(name, panel));
+  }
+  await expect(page.locator("#tabs-default-panel-summary")).toBeVisible();
+  await expect(page.locator("#tabs-default-panel-diff")).toBeHidden();
+  await expect(page.locator("#tabs-default-panel-log")).toBeHidden();
+});
+
+test("gw-tabs selects a tab on a click, and Tab then moves from the selected tab to its panel", async ({ page }) => {
+  await open(page, "tabs");
+  await page.locator('[data-example="default"] [role="tab"]', { hasText: "Diff" }).click();
+  expect(await tabsState(page)).toEqual(tabSelected("Diff", "tabs-default-panel-diff"));
+  await page.keyboard.press("Tab");
+  await expect(page.locator("#tabs-default-panel-diff")).toBeFocused();
+});
+
+test("loading the behaviours module a second time is harmless", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await open(page, "tabs");
+  expect(await page.evaluate(() => customElements.get("gw-tabs").name)).toBe("GwTabs");
+  // A query makes it a different module to the browser, so its body runs again.
+  await page.addScriptTag({ url: `${origin}/behaviors/groundwork.js?again`, type: "module" });
+  await page.evaluate(() => import("/behaviors/groundwork.js?once-more"));
+  expect(errors).toEqual([]);
+  expect(await page.evaluate(() => customElements.get("gw-tabs").name)).toBe("GwTabs");
+
+  const tabs = page.locator('[data-example="default"] [role="tab"]');
+  await tabs.first().focus();
+  await page.keyboard.press("ArrowRight");
+  expect(await tabsState(page)).toEqual(tabSelected("Diff", "tabs-default-panel-diff"));
 });

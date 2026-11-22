@@ -1,0 +1,67 @@
+/*
+ * Key-value: facts about one thing as label and value pairs, on a dl.
+ * A pair is stacked on a phone and sits in two columns at the regular width.
+ */
+
+@layer gw.components {
+  .gw-key-value {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gw-space-md);
+    min-width: 0;
+  }
+
+  .gw-key-value__item {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .gw-key-value__label {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-normal);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  /* A long value wraps, at any character when it has to, so a path or a hash never widens the page. */
+  .gw-key-value__value {
+    min-width: 0;
+    margin: 0;
+    color: var(--gw-color-on-surface);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-key-value__value--mono {
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+  }
+
+  /* A value that is not there is said in words. The quiet colour only supports them. */
+  .gw-key-value__value--empty {
+    color: var(--gw-color-muted);
+  }
+
+  /* The label column is as wide as the longest label, and every pair shares it. */
+  @media (min-width: 768px) {
+    .gw-key-value {
+      grid-template-columns: auto minmax(0, 1fr);
+      column-gap: var(--gw-space-xl);
+      row-gap: var(--gw-space-sm);
+    }
+
+    .gw-key-value__item {
+      display: grid;
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
+      align-items: baseline;
+    }
+
+    .gw-key-value__label {
+      font-size: var(--gw-text-ui);
+      line-height: var(--gw-leading-ui);
+    }
+  }
+}

@@ -1,0 +1,179 @@
+<div data-example="default" data-title="Filters, with the opener" data-state="open" data-gallery-frame data-reason="The body can grow and scroll while the footer stays put, so Apply filters is always in view. Close, Escape and the footer buttons all return focus to the button that opened the sheet.">
+  <button type="button" class="gw-button" command="show-modal" commandfor="sheet-default">Filter runs</button>
+  <dialog class="gw-sheet" id="sheet-default" aria-labelledby="sheet-default-title" open>
+    <form class="gw-sheet__header" method="dialog">
+      <h2 class="gw-sheet__title" id="sheet-default-title">Filter runs</h2>
+      <button type="submit" class="gw-button gw-button--quiet" value="close" aria-label="Close filters">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </form>
+    <form class="gw-sheet__form" method="dialog">
+      <div class="gw-sheet__body">
+        <div class="gw-field">
+          <label class="gw-field__label" for="sheet-default-repository">Repository</label>
+          <div class="gw-select">
+            <select class="gw-field__control gw-select__control" id="sheet-default-repository" name="repository">
+              <option value="" selected>All repositories</option>
+              <option value="acme/api">acme/api</option>
+              <option value="acme/web">acme/web</option>
+            </select>
+          </div>
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="sheet-default-branch">Branch name contains</label>
+          <input class="gw-field__control" id="sheet-default-branch" type="text" name="branch" autocomplete="off" value="fix/">
+        </div>
+      </div>
+      <div class="gw-sheet__footer">
+        <button type="submit" class="gw-button gw-button--primary" value="apply">Apply filters</button>
+        <button type="submit" class="gw-button" value="clear">Clear filters</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+
+<div data-example="long" data-title="A long body under a fixed footer" data-gallery-frame>
+  <dialog class="gw-sheet" id="sheet-long" aria-labelledby="sheet-long-title" open>
+    <form class="gw-sheet__header" method="dialog">
+      <h2 class="gw-sheet__title" id="sheet-long-title">New task</h2>
+      <button type="submit" class="gw-button gw-button--quiet" value="close" aria-label="Close new task">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </form>
+    <form class="gw-sheet__form" method="dialog">
+      <div class="gw-sheet__body">
+        <div class="gw-field">
+          <label class="gw-field__label" for="sheet-long-title-field">Task title <span class="gw-field__required">required</span></label>
+          <input class="gw-field__control" id="sheet-long-title-field" type="text" name="title" required autocomplete="off" value="Fix the session refresh">
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="sheet-long-repository">Repository <span class="gw-field__required">required</span></label>
+          <input class="gw-field__control" id="sheet-long-repository" type="text" name="repository" required autocomplete="off" value="acme/api" aria-describedby="sheet-long-repository-description">
+          <p class="gw-field__description" id="sheet-long-repository-description">The owner and the name, such as acme/api.</p>
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="sheet-long-base">Base branch</label>
+          <input class="gw-field__control" id="sheet-long-base" type="text" name="base" autocomplete="off" value="main">
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="sheet-long-branch">Task branch</label>
+          <input class="gw-field__control" id="sheet-long-branch" type="text" name="branch" autocomplete="off" value="fix/session-refresh">
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="sheet-long-setup">Setup command</label>
+          <input class="gw-field__control" id="sheet-long-setup" type="text" name="setup" autocomplete="off" value="npm ci">
+        </div>
+      </div>
+      <div class="gw-sheet__footer">
+        <button type="submit" class="gw-button gw-button--primary" value="start">Start task</button>
+        <button type="submit" class="gw-button" value="cancel" formnovalidate>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+
+<div data-example="read-only" data-title="Details, with no footer" data-gallery-frame>
+  <dialog class="gw-sheet" id="sheet-read-only" aria-labelledby="sheet-read-only-title" open>
+    <form class="gw-sheet__header" method="dialog">
+      <h2 class="gw-sheet__title" id="sheet-read-only-title">Run 7 of task 41</h2>
+      <button type="submit" class="gw-button gw-button--quiet" value="close" aria-label="Close run details">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </form>
+    <div class="gw-sheet__body">
+      <p>Finished 2 minutes ago after 6 minutes 12 seconds. 214 of 214 tests passed.</p>
+      <p>Branch fix/session-refresh, 3 commits ahead of main. The run cost $0.84.</p>
+    </div>
+  </dialog>
+</div>
+
+<div data-example="loading" data-title="Loading the body" data-state="loading" data-gallery-frame>
+  <dialog class="gw-sheet" id="sheet-loading" aria-labelledby="sheet-loading-title" open>
+    <form class="gw-sheet__header" method="dialog">
+      <h2 class="gw-sheet__title" id="sheet-loading-title">Run 7 of task 41</h2>
+      <button type="submit" class="gw-button gw-button--quiet" value="close" aria-label="Close run details while they load">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </form>
+    <div class="gw-sheet__body">
+      <p class="gw-spinner" role="status">Loading run details</p>
+    </div>
+  </dialog>
+</div>
+
+<div data-example="error" data-title="The body could not be loaded" data-state="error" data-gallery-frame>
+  <dialog class="gw-sheet" id="sheet-error" aria-labelledby="sheet-error-title" open>
+    <form class="gw-sheet__header" method="dialog">
+      <h2 class="gw-sheet__title" id="sheet-error-title">Run 7 of task 41</h2>
+      <button type="submit" class="gw-button gw-button--quiet" value="close" aria-label="Close run details after the error">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </form>
+    <div class="gw-sheet__body">
+      <div class="gw-alert gw-alert--danger" role="alert">
+        <div class="gw-alert__content">
+          <p class="gw-alert__label">Error</p>
+          <p class="gw-alert__body">The run details could not be loaded: the server did not answer. Check your connection, then load them again.</p>
+          <button type="button" class="gw-button gw-alert__action">Load details again</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</div>
+
+<div data-example="busy" data-title="Sending the form" data-state="busy" data-gallery-frame>
+  <dialog class="gw-sheet" id="sheet-busy" aria-labelledby="sheet-busy-title" open>
+    <form class="gw-sheet__header" method="dialog">
+      <h2 class="gw-sheet__title" id="sheet-busy-title">Filter runs</h2>
+      <button type="submit" class="gw-button gw-button--quiet" value="close" aria-label="Close filters while they apply">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </form>
+    <form class="gw-sheet__form" method="dialog">
+      <div class="gw-sheet__body">
+        <div class="gw-field">
+          <label class="gw-field__label" for="sheet-busy-branch">Branch name contains</label>
+          <input class="gw-field__control" id="sheet-busy-branch" type="text" name="branch" autocomplete="off" value="fix/" readonly>
+        </div>
+      </div>
+      <div class="gw-sheet__footer">
+        <button type="submit" class="gw-button gw-button--primary" value="apply" aria-busy="true">Applying filters</button>
+        <button type="submit" class="gw-button" value="clear" disabled>Clear filters</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+
+<div data-example="action-in-body" data-title="The primary action at the end of the scrolling body" data-dont="review" data-gallery-frame data-reason="The button scrolls away with the fields, so on a phone the reader must scroll to the end of the form to find out how to finish. Put it in gw-sheet__footer, which stays in view.">
+  <dialog class="gw-sheet" id="sheet-action-in-body" aria-labelledby="sheet-action-in-body-title" open>
+    <form class="gw-sheet__header" method="dialog">
+      <h2 class="gw-sheet__title" id="sheet-action-in-body-title">New task</h2>
+      <button type="submit" class="gw-button gw-button--quiet" value="close" aria-label="Close">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </form>
+    <form class="gw-sheet__form" method="dialog">
+      <div class="gw-sheet__body">
+        <div class="gw-field">
+          <label class="gw-field__label" for="sheet-action-in-body-title-field">Task title</label>
+          <input class="gw-field__control" id="sheet-action-in-body-title-field" type="text" name="title" autocomplete="off" value="Fix the session refresh">
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="sheet-action-in-body-repository">Repository</label>
+          <input class="gw-field__control" id="sheet-action-in-body-repository" type="text" name="repository" autocomplete="off" value="acme/api">
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="sheet-action-in-body-base">Base branch</label>
+          <input class="gw-field__control" id="sheet-action-in-body-base" type="text" name="base" autocomplete="off" value="main">
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="sheet-action-in-body-branch">Task branch</label>
+          <input class="gw-field__control" id="sheet-action-in-body-branch" type="text" name="branch" autocomplete="off" value="fix/session-refresh">
+        </div>
+        <div class="gw-cluster">
+          <button type="submit" class="gw-button gw-button--primary" value="start">Start task</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+</div>

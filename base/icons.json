@@ -1,11 +1,13 @@
 [
   "arrow-left",
   "arrow-right",
+  "ban",
   "check",
   "chevron-down",
   "chevron-left",
   "chevron-right",
   "chevron-up",
+  "chevrons-up-down",
   "circle-alert",
   "circle-check",
   "copy",
@@ -14,6 +16,8 @@
   "file",
   "folder",
   "git-branch",
+  "git-commit-horizontal",
+  "image",
   "info",
   "loader",
   "menu",
@@ -21,6 +25,8 @@
   "plus",
   "search",
   "terminal",
+  "thumbs-down",
+  "thumbs-up",
   "triangle-alert",
   "x"
 ]

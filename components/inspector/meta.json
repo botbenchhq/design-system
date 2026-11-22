@@ -1,0 +1,47 @@
+{
+  "name": "inspector",
+  "title": "Inspector",
+  "purpose": "A panel for the details of the item selected in the content beside it, with a title, a close button and sections of labelled values.",
+  "status": "draft",
+  "whenToUse": [
+    "When the reader picks an item in a list, a board or a diff and wants its facts while the list stays in view: the branch, timing and usage of a run.",
+    "At 768px and up, as the second child of gw-inspector__layout, where it is a column after the content.",
+    "Below 768px, either stacked under the content in the same layout, or opened over it as a sheet. The sheet is the app's dialog pattern, a dialog element holding the same aside markup, opened when a row is pressed and closed by the same close button. This component does not style the sheet."
+  ],
+  "whenNotToUse": [
+    "For the destinations of the app. Use the sidebar nav.",
+    "For an item the reader will work in for a while, such as a transcript. Give it a screen of its own.",
+    "For a request that waits for an answer. Use an approval.",
+    "For a form with several steps. The panel shows facts and at most a few actions."
+  ],
+  "variants": [],
+  "sizes": [
+    { "name": "default", "use": "288px wide beside the content at 768px and up, with a rule on its leading edge. Full width under the content below that, with a rule above it." }
+  ],
+  "states": ["default", "empty", "loading", "error"],
+  "accessibility": [
+    "Use an aside with the gw-inspector class and an aria-label that names the item, such as Details of run 4182. Change the label when the selection changes.",
+    "gw-inspector__header holds the title, a heading with the gw-inspector__title class at the level the view needs, and the close button.",
+    "The close button is a button with the classes gw-button, gw-button--quiet and gw-inspector__close. It holds the x icon with aria-hidden=\"true\" and its name in a gw-visually-hidden span, such as Close details of run 4182. When it is pressed the app removes the aside, or sets the hidden attribute on it, clears the selection and moves focus back to the row that was selected.",
+    "Each gw-inspector__section has a heading with the gw-inspector__heading class and a dl with the gw-inspector__facts class. Each fact is a div with the gw-inspector__fact class holding a dt, gw-inspector__label, and a dd, gw-inspector__value. A value is written in words with its unit.",
+    "Mark the selected item in the content with aria-current=\"true\", as a list row does, so the reader can tell what the panel describes without relying on position.",
+    "Selecting an item does not move focus into the panel. The panel follows the content in the markup, so Tab reaches it after the list.",
+    "With nothing selected, either leave the aside out or show one gw-inspector__note sentence that says what to select. While the details are fetched, set aria-busy=\"true\" on the aside and show a spinner with text. When the fetch fails, show an alert that says what to do.",
+    "The component needs no script of its own. The app fills the panel, sets aria-label and handles the close button."
+  ],
+  "icons": ["x"],
+  "classes": [
+    "gw-inspector",
+    "gw-inspector__close",
+    "gw-inspector__fact",
+    "gw-inspector__facts",
+    "gw-inspector__heading",
+    "gw-inspector__header",
+    "gw-inspector__label",
+    "gw-inspector__layout",
+    "gw-inspector__note",
+    "gw-inspector__section",
+    "gw-inspector__title",
+    "gw-inspector__value"
+  ]
+}

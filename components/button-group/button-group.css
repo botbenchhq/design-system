@@ -1,0 +1,61 @@
+/*
+ * Button group: related buttons shown together. The plain class is a spaced set of form actions:
+ * full-width and stacked on a phone, a row at the far end of the form at the regular width.
+ * The attached modifier joins its buttons into one row with shared borders.
+ * It styles its children whatever they are, so the buttons keep their own classes.
+ */
+
+@layer gw.components {
+  /* Stacked in source order, so the primary action, which comes last, sits nearest the thumb. */
+  .gw-button-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  @media (min-width: 768px) {
+    .gw-button-group {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
+  /* After the form-action rules, which it replaces at both widths. The group is its own stacking context for the focused button below. */
+  .gw-button-group--attached {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-self: flex-start;
+    justify-content: flex-start;
+    gap: 0;
+    max-width: 100%;
+    isolation: isolate;
+  }
+
+  .gw-button-group--attached > * {
+    border-radius: 0;
+  }
+
+  .gw-button-group--attached > :first-child {
+    border-start-start-radius: var(--gw-radius-md);
+    border-end-start-radius: var(--gw-radius-md);
+  }
+
+  .gw-button-group--attached > :last-child {
+    border-start-end-radius: var(--gw-radius-md);
+    border-end-end-radius: var(--gw-radius-md);
+  }
+
+  /* Each button after the first gives up its leading border, so two borders never sit side by side. */
+  .gw-button-group--attached > :not(:first-child) {
+    border-inline-start-width: 0;
+  }
+
+  /* The focused button comes above its neighbours, so the next one does not cover its focus ring. */
+  .gw-button-group--attached > :focus-visible {
+    z-index: var(--gw-z-sticky);
+  }
+}

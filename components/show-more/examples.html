@@ -1,0 +1,262 @@
+<div data-example="default" data-title="The rest of a log, closed" data-state="default" data-reason="The summary says how much more there is and in what unit, so the reader can decide whether to open it. The first lines stay in view either way, and nothing the reader must act on is in the hidden part.">
+  <div class="gw-show-more">
+    <figure class="gw-code-block">
+      <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✔ session: a token issued a minute ago is accepted (3.9ms)</code></pre>
+    </figure>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 38 more lines</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <figure class="gw-code-block">
+        <pre class="gw-code-block__body"><code>✔ session: the refresh endpoint extends an unexpired token (12.8ms)
+✔ webhooks: a delivery over the limit is answered with 429 (8.1ms)
+✔ webhooks: the limit resets after one second (1004.6ms)
+
+tests 213, pass 213, fail 0</code></pre>
+      </figure>
+    </details>
+  </div>
+</div>
+
+<div data-example="open" data-title="Open: the control moves under the rest and reads Show less" data-state="open">
+  <div class="gw-show-more">
+    <figure class="gw-code-block">
+      <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✔ session: a token issued a minute ago is accepted (3.9ms)</code></pre>
+    </figure>
+    <details class="gw-show-more__rest" open>
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 38 more lines</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <figure class="gw-code-block">
+        <pre class="gw-code-block__body"><code>✔ session: the refresh endpoint extends an unexpired token (12.8ms)
+✔ webhooks: a delivery over the limit is answered with 429 (8.1ms)
+✔ webhooks: the limit resets after one second (1004.6ms)
+
+tests 213, pass 213, fail 0</code></pre>
+      </figure>
+    </details>
+  </div>
+</div>
+
+<div data-example="text" data-title="The rest of a long description">
+  <div class="gw-show-more">
+    <p>Sessions are checked in <code>src/session/verify.mjs</code>. A token is accepted until it expires, however long ago it was issued, so a stolen token works for 30 days.</p>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 2 more paragraphs</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <div class="gw-stack gw-gap-sm">
+        <p>Refuse any token issued more than 30 minutes ago and answer with 401, so the client asks the reader to sign in again. Read the limit from <code>SESSION_TTL_SECONDS</code> and default it to 1800.</p>
+        <p>Add tests for a token just inside the limit and one just outside it, and update <code>.env.example</code>.</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div data-example="list" data-title="A list cut short, with a button for the rest" data-reason="The button gives the full count and names what is listed, so the reader knows what pressing it will bring. It is quiet, because the rows above it are the content.">
+  <div class="gw-show-more">
+    <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/861">
+          <span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">fix/login-timeout</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/860">
+          <span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">feat/webhook-rate-limit</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/859">
+          <span class="gw-list__body"><span class="gw-list__primary">Move the invoice export to a background job</span><span class="gw-list__secondary">feat/invoice-export-job</span></span>
+          <span class="gw-list__meta">Waiting for a runner</span>
+        </a>
+      </li>
+    </ul>
+    <button type="button" class="gw-button gw-button--quiet gw-show-more__all">Show all 24 tasks</button>
+  </div>
+</div>
+
+<div data-example="loading" data-title="The rest of the list is being fetched" data-state="loading">
+  <div class="gw-show-more">
+    <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/861">
+          <span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">fix/login-timeout</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/860">
+          <span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">feat/webhook-rate-limit</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/859">
+          <span class="gw-list__body"><span class="gw-list__primary">Move the invoice export to a background job</span><span class="gw-list__secondary">feat/invoice-export-job</span></span>
+          <span class="gw-list__meta">Waiting for a runner</span>
+        </a>
+      </li>
+    </ul>
+    <button type="button" class="gw-button gw-button--quiet gw-show-more__all" aria-busy="true">Loading 21 more tasks</button>
+  </div>
+</div>
+
+<div data-example="error" data-title="The rest of the list could not be fetched" data-state="error">
+  <div class="gw-show-more">
+    <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/861">
+          <span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">fix/login-timeout</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/860">
+          <span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">feat/webhook-rate-limit</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/859">
+          <span class="gw-list__body"><span class="gw-list__primary">Move the invoice export to a background job</span><span class="gw-list__secondary">feat/invoice-export-job</span></span>
+          <span class="gw-list__meta">Waiting for a runner</span>
+        </a>
+      </li>
+    </ul>
+    <p class="gw-show-more__error" role="alert">The other 21 tasks could not be loaded because the server did not answer. Check your connection, then press Show all 24 tasks again.</p>
+    <button type="button" class="gw-button gw-button--quiet gw-show-more__all">Show all 24 tasks</button>
+  </div>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-show-more">
+    <figure class="gw-code-block">
+      <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✔ session: a token issued a minute ago is accepted (3.9ms)</code></pre>
+    </figure>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 38 more lines</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <figure class="gw-code-block">
+        <pre class="gw-code-block__body"><code>✔ session: the refresh endpoint extends an unexpired token (12.8ms)
+✔ webhooks: a delivery over the limit is answered with 429 (8.1ms)
+✔ webhooks: the limit resets after one second (1004.6ms)
+
+tests 213, pass 213, fail 0</code></pre>
+      </figure>
+    </details>
+  </div>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-show-more">
+    <figure class="gw-code-block">
+      <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✔ session: a token issued a minute ago is accepted (3.9ms)</code></pre>
+    </figure>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 38 more lines</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <figure class="gw-code-block">
+        <pre class="gw-code-block__body"><code>✔ session: the refresh endpoint extends an unexpired token (12.8ms)
+✔ webhooks: a delivery over the limit is answered with 429 (8.1ms)
+✔ webhooks: the limit resets after one second (1004.6ms)
+
+tests 213, pass 213, fail 0</code></pre>
+      </figure>
+    </details>
+  </div>
+</div>
+
+<div data-example="active" data-title="Pressed" data-state="active">
+  <div class="gw-show-more">
+    <figure class="gw-code-block">
+      <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✔ session: a token issued a minute ago is accepted (3.9ms)</code></pre>
+    </figure>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 38 more lines</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <figure class="gw-code-block">
+        <pre class="gw-code-block__body"><code>✔ session: the refresh endpoint extends an unexpired token (12.8ms)
+✔ webhooks: a delivery over the limit is answered with 429 (8.1ms)
+✔ webhooks: the limit resets after one second (1004.6ms)
+
+tests 213, pass 213, fail 0</code></pre>
+      </figure>
+    </details>
+  </div>
+</div>
+
+<div data-example="no-count" data-title="A control that does not say how much more" data-dont="review" data-reason="Show more could mean two lines or two thousand, and the reader has to press it to find out. Write the count and the unit, such as Show 38 more lines.">
+  <div class="gw-show-more">
+    <figure class="gw-code-block">
+      <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✔ session: a token issued a minute ago is accepted (3.9ms)</code></pre>
+    </figure>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show more</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <figure class="gw-code-block">
+        <pre class="gw-code-block__body"><code>✔ session: the refresh endpoint extends an unexpired token (12.8ms)
+✔ webhooks: a delivery over the limit is answered with 429 (8.1ms)
+✔ webhooks: the limit resets after one second (1004.6ms)
+
+tests 213, pass 213, fail 0</code></pre>
+      </figure>
+    </details>
+  </div>
+</div>
+
+<div data-example="hidden-action" data-title="The only way to an action that matters" data-dont="hidden-critical-action" data-reason="Deleting the workspace can be reached only by opening the rest, so a reader who never opens it does not know the action exists. Keep actions in the part that is always shown.">
+  <div class="gw-show-more">
+    <p>The workspace <code>/srv/workspaces/acme-api</code> holds 214 MB on disk.</p>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 1 more paragraph</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <div class="gw-stack gw-gap-sm">
+        <p>It was last used by run 4182, 3 days ago.</p>
+        <div class="gw-cluster">
+          <button type="button" class="gw-button gw-button--danger" data-gw-critical>Delete workspace</button>
+        </div>
+      </div>
+    </details>
+  </div>
+</div>

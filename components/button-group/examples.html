@@ -1,0 +1,59 @@
+<div data-example="actions" data-title="Form actions" data-state="default" data-reason="The group has one primary action and it comes last: at the far end of the row at the regular width, and at the bottom of the stack on a phone, nearest the thumb. Source order and visual order are the same.">
+  <div class="gw-button-group" role="group" aria-label="Task actions">
+    <button type="button" class="gw-button gw-button--quiet">Cancel</button>
+    <button type="button" class="gw-button">Save as template</button>
+    <button type="submit" class="gw-button gw-button--primary">Start task</button>
+  </div>
+</div>
+
+<div data-example="attached" data-title="Attached">
+  <div class="gw-button-group gw-button-group--attached" role="group" aria-label="Rerun checks">
+    <button type="button" class="gw-button">Rerun failed</button>
+    <button type="button" class="gw-button">Rerun all</button>
+  </div>
+</div>
+
+<div data-example="attached-icons" data-title="Attached icon buttons">
+  <div class="gw-split">
+    <span>File 3 of 12 · src/auth/session.ts</span>
+    <div class="gw-button-group gw-button-group--attached" role="group" aria-label="Changed files">
+      <button type="button" class="gw-button gw-icon-button" aria-label="Previous file">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
+      </button>
+      <button type="button" class="gw-button gw-icon-button" aria-label="Next file">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-right"></use></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-button-group gw-button-group--attached" role="group" aria-label="Rerun checks">
+    <button type="button" class="gw-button">Rerun failed</button>
+    <button type="button" class="gw-button">Rerun all</button>
+  </div>
+</div>
+
+<div data-example="disabled" data-title="With a disabled button" data-state="disabled">
+  <div class="gw-stack gw-gap-lg">
+    <div class="gw-button-group gw-button-group--attached" role="group" aria-label="Changed files">
+      <button type="button" class="gw-button gw-icon-button" aria-label="Previous file" disabled>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
+      </button>
+      <button type="button" class="gw-button gw-icon-button" aria-label="Next file">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-right"></use></svg>
+      </button>
+    </div>
+    <div class="gw-button-group" role="group" aria-label="Pull request actions">
+      <button type="button" class="gw-button gw-button--quiet">Cancel</button>
+      <button type="submit" class="gw-button gw-button--primary" disabled>Open pull request</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="two-primaries" data-title="Two primary buttons in one group" data-dont="one-primary-action" data-reason="Two primary buttons compete, and the reader has to work out which one the form is for. Keep the primary class on the last button and give the other secondary emphasis.">
+  <div class="gw-button-group" role="group" aria-label="Task actions">
+    <button type="button" class="gw-button gw-button--primary">Save as template</button>
+    <button type="submit" class="gw-button gw-button--primary">Start task</button>
+  </div>
+</div>

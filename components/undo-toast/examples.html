@@ -1,0 +1,53 @@
+<div data-example="default" data-title="Archived, with the time left in words" data-state="default" data-gallery-frame="short" data-reason="The task is archived at once, with no question first, because archiving can be taken back. The toast says what happened, Undo names the way back, and the line under it says how long Undo stays.">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--success gw-undo-toast">
+      <p class="gw-toast__message">
+        <span class="gw-toast__label">Done:</span> Task 41 archived.
+        <span class="gw-visually-hidden">You have 10 seconds to undo.</span>
+        <span class="gw-undo-toast__countdown" aria-hidden="true">8 seconds left to undo</span>
+      </p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Undo</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="progress" data-title="With a progress bar" data-gallery-frame="short">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--success gw-undo-toast">
+      <p class="gw-toast__message">
+        <span class="gw-toast__label">Done:</span> 3 runs removed from the board.
+        <span class="gw-visually-hidden">You have 10 seconds to undo.</span>
+        <span class="gw-undo-toast__countdown" aria-hidden="true">6 seconds left to undo</span>
+      </p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Undo</button>
+      <progress class="gw-undo-toast__progress" max="10" value="6" aria-hidden="true"></progress>
+    </div>
+  </div>
+</div>
+
+<div data-example="busy" data-title="Undoing" data-state="busy" data-gallery-frame="short">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--success gw-undo-toast">
+      <p class="gw-toast__message"><span class="gw-toast__label">Done:</span> Task 41 archived.</p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action" aria-busy="true">Restoring task</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="error" data-title="The undo failed" data-state="error" data-gallery-frame="short">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--danger gw-undo-toast">
+      <p class="gw-toast__message"><span class="gw-toast__label">Error:</span> Task 41 is still archived, because the server did not answer. Restore it from the Archived list, or try again.</p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Undo again</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="cannot-undo" data-title="Undo offered for something that is already gone" data-dont="review" data-gallery-frame="short" data-reason="The worktree was deleted from disk before the toast appeared, so Undo cannot bring the uncommitted files back and the promise is false. Offer Undo only when the app can restore everything. Ask first with a confirm dialog when it cannot.">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--success gw-undo-toast">
+      <p class="gw-toast__message"><span class="gw-toast__label">Done:</span> Workspace api-refactor deleted.</p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Undo</button>
+    </div>
+  </div>
+</div>

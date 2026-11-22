@@ -1,0 +1,185 @@
+<div data-example="default" data-title="Before a choice" data-state="default" data-reason="Each choice is a word beside its icon, so nobody has to guess what a thumb means, and the two are small enough to sit under every answer.">
+  <div class="gw-feedback" role="group" aria-labelledby="feedback-default-prompt">
+    <div class="gw-feedback__row">
+      <span class="gw-feedback__prompt" id="feedback-default-prompt">Was this answer helpful?</span>
+      <div class="gw-feedback__choices">
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-up"></use></svg>
+          Helpful
+        </button>
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-down"></use></svg>
+          Not helpful
+        </button>
+      </div>
+    </div>
+    <p class="gw-feedback__confirmation" role="status"></p>
+  </div>
+</div>
+
+<div data-example="helpful" data-title="Rated helpful" data-state="selected">
+  <div class="gw-feedback" role="group" aria-labelledby="feedback-helpful-prompt">
+    <div class="gw-feedback__row">
+      <span class="gw-feedback__prompt" id="feedback-helpful-prompt">Was this answer helpful?</span>
+      <div class="gw-feedback__choices">
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="true">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-up"></use></svg>
+          Helpful
+        </button>
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-down"></use></svg>
+          Not helpful
+        </button>
+      </div>
+    </div>
+    <p class="gw-feedback__confirmation" role="status">Rated helpful. Thank you.</p>
+  </div>
+</div>
+
+<div data-example="note" data-title="Rated not helpful, with the follow-up note shown">
+  <div class="gw-feedback" role="group" aria-labelledby="feedback-note-prompt">
+    <div class="gw-feedback__row">
+      <span class="gw-feedback__prompt" id="feedback-note-prompt">Was this answer helpful?</span>
+      <div class="gw-feedback__choices">
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-up"></use></svg>
+          Helpful
+        </button>
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="true">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-down"></use></svg>
+          Not helpful
+        </button>
+      </div>
+    </div>
+    <div class="gw-feedback__note">
+      <div class="gw-field">
+        <label class="gw-field__label" for="feedback-note-note">What was wrong with the answer?</label>
+        <textarea class="gw-field__control gw-textarea" id="feedback-note-note" name="note" maxlength="2000" aria-describedby="feedback-note-note-description"></textarea>
+        <p class="gw-field__description" id="feedback-note-note-description">Optional. Your rating is already saved.</p>
+      </div>
+      <div class="gw-cluster">
+        <button type="button" class="gw-button">Send note</button>
+      </div>
+    </div>
+    <p class="gw-feedback__confirmation" role="status">Rated not helpful.</p>
+  </div>
+</div>
+
+<div data-example="in-transcript" data-title="Under an answer">
+  <div class="gw-stack gw-gap-sm">
+    <ol class="gw-stack gw-gap-sm">
+      <li class="gw-message">
+        <span class="gw-message__label">Claude Code</span>
+        <p class="gw-message__body">One test fails: the session is lost after a reload, because the refresh timer is not restarted. The other 29 tests pass.</p>
+      </li>
+    </ol>
+    <div class="gw-feedback" role="group" aria-labelledby="feedback-in-transcript-prompt">
+      <div class="gw-feedback__row">
+        <span class="gw-feedback__prompt" id="feedback-in-transcript-prompt">Was this answer helpful?</span>
+        <div class="gw-feedback__choices">
+          <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-up"></use></svg>
+            Helpful
+          </button>
+          <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-down"></use></svg>
+            Not helpful
+          </button>
+        </div>
+      </div>
+      <p class="gw-feedback__confirmation" role="status"></p>
+    </div>
+  </div>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-feedback" role="group" aria-labelledby="feedback-hover-prompt">
+    <div class="gw-feedback__row">
+      <span class="gw-feedback__prompt" id="feedback-hover-prompt">Was this answer helpful?</span>
+      <div class="gw-feedback__choices">
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-up"></use></svg>
+          Helpful
+        </button>
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-down"></use></svg>
+          Not helpful
+        </button>
+      </div>
+    </div>
+    <p class="gw-feedback__confirmation" role="status"></p>
+  </div>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-feedback" role="group" aria-labelledby="feedback-focus-visible-prompt">
+    <div class="gw-feedback__row">
+      <span class="gw-feedback__prompt" id="feedback-focus-visible-prompt">Was this answer helpful?</span>
+      <div class="gw-feedback__choices">
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-up"></use></svg>
+          Helpful
+        </button>
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-down"></use></svg>
+          Not helpful
+        </button>
+      </div>
+    </div>
+    <p class="gw-feedback__confirmation" role="status"></p>
+  </div>
+</div>
+
+<div data-example="disabled" data-title="After the note is sent" data-state="disabled">
+  <div class="gw-feedback" role="group" aria-labelledby="feedback-disabled-prompt">
+    <div class="gw-feedback__row">
+      <span class="gw-feedback__prompt" id="feedback-disabled-prompt">Was this answer helpful?</span>
+      <div class="gw-feedback__choices">
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false" disabled>
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-up"></use></svg>
+          Helpful
+        </button>
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="true" disabled>
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-down"></use></svg>
+          Not helpful
+        </button>
+      </div>
+    </div>
+    <p class="gw-feedback__confirmation" role="status">Rated not helpful, and your note was sent. Thank you.</p>
+  </div>
+</div>
+
+<div data-example="error" data-title="The rating was not saved" data-state="error">
+  <div class="gw-feedback" role="group" aria-labelledby="feedback-error-prompt">
+    <div class="gw-feedback__row">
+      <span class="gw-feedback__prompt" id="feedback-error-prompt">Was this answer helpful?</span>
+      <div class="gw-feedback__choices">
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-up"></use></svg>
+          Helpful
+        </button>
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-down"></use></svg>
+          Not helpful
+        </button>
+      </div>
+    </div>
+    <p class="gw-feedback__error" role="alert">Your rating was not saved: the server could not be reached. Choose Helpful or Not helpful again.</p>
+    <p class="gw-feedback__confirmation" role="status"></p>
+  </div>
+</div>
+
+<div data-example="bare-thumbs" data-title="Bare thumbs" data-dont="review" data-reason="Two icons with no words leave the reader to guess what each one records, and a screen reader announces two unnamed buttons. Write Helpful and Not helpful beside the icons.">
+  <div class="gw-feedback">
+    <div class="gw-feedback__row">
+      <div class="gw-feedback__choices">
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="false">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-up"></use></svg>
+        </button>
+        <button type="button" class="gw-button gw-button--small gw-feedback__choice" aria-pressed="true">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-thumbs-down"></use></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

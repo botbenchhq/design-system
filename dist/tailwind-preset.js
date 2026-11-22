@@ -38,7 +38,8 @@ export default {
     "borderRadius": {
       "none": "0",
       "sm": "var(--gw-radius-sm)",
-      "md": "var(--gw-radius-md)"
+      "md": "var(--gw-radius-md)",
+      "full": "var(--gw-radius-full)"
     },
     "borderWidth": {
       "0": "0",

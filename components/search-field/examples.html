@@ -1,0 +1,78 @@
+<div data-example="default" data-title="Visible label, placeholder hint and a count" data-state="default" data-reason="The label says what is searched and stays visible while the reader types. The placeholder only hints at what can be typed, and the line below already tells them how much there is to search.">
+  <form class="gw-search-field" role="search" aria-label="Runs">
+    <label class="gw-search-field__label" for="search-field-default-input">Search runs</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-default-input" name="q" placeholder="Branch, task or run number" autocomplete="off">
+    </div>
+    <p class="gw-search-field__count" aria-live="polite">128 runs</p>
+  </form>
+</div>
+
+<div data-example="filled" data-title="With a value, a clear button and a count" data-state="filled">
+  <form class="gw-search-field" role="search" aria-label="Runs matching a search">
+    <label class="gw-search-field__label" for="search-field-filled-input">Search runs</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-filled-input" name="q" placeholder="Branch, task or run number" autocomplete="off" value="session">
+      <button type="button" class="gw-search-field__clear"><span class="gw-visually-hidden">Clear the search</span></button>
+    </div>
+    <p class="gw-search-field__count" aria-live="polite">3 of 128 runs match "session"</p>
+  </form>
+</div>
+
+<div data-example="hidden-label" data-title="A visually hidden label, with no clear button">
+  <div class="gw-search-field">
+    <label class="gw-search-field__label gw-visually-hidden" for="search-field-hidden-label-input">Filter changed files</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-hidden-label-input" name="file" placeholder="Filter changed files" autocomplete="off" value="src/auth">
+    </div>
+    <p class="gw-search-field__count" aria-live="polite">4 of 12 changed files</p>
+  </div>
+</div>
+
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-search-field">
+    <label class="gw-search-field__label" for="search-field-focus-input">Search branches</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-focus-input" name="branch" placeholder="Branch name" autocomplete="off" value="fix/">
+    </div>
+    <p class="gw-search-field__count" aria-live="polite">7 of 41 branches match "fix/"</p>
+  </div>
+</div>
+
+<div data-example="loading" data-title="Searching" data-state="loading">
+  <div class="gw-search-field">
+    <label class="gw-search-field__label" for="search-field-loading-input">Search the transcript</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-loading-input" name="q" placeholder="A command, a path or a phrase" autocomplete="off" value="npm run test">
+    </div>
+    <p class="gw-search-field__count" aria-live="polite">Searching 2,140 messages</p>
+  </div>
+</div>
+
+<div data-example="empty" data-title="No results" data-state="empty">
+  <div class="gw-search-field">
+    <label class="gw-search-field__label" for="search-field-empty-input">Search runs</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-empty-input" name="q" placeholder="Branch, task or run number" autocomplete="off" value="sesion-refresh">
+    </div>
+    <p class="gw-search-field__count" aria-live="polite">No runs match "sesion-refresh". Check the spelling, or clear the search to see all 128 runs.</p>
+  </div>
+</div>
+
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-search-field">
+    <label class="gw-search-field__label" for="search-field-disabled-input">Search runs</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-disabled-input" name="q" placeholder="Branch, task or run number" autocomplete="off" disabled aria-describedby="search-field-disabled-count">
+    </div>
+    <p class="gw-search-field__count" id="search-field-disabled-count">Choose a repository to search its runs.</p>
+  </div>
+</div>
+
+<div data-example="placeholder-label" data-title="A placeholder as the only label" data-dont="review" data-reason="The placeholder goes with the first character, and a screen reader may not announce it. Keep a label element, visible or visually hidden, tied to the input.">
+  <div class="gw-search-field">
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" name="q" placeholder="Search runs" autocomplete="off">
+    </div>
+  </div>
+</div>

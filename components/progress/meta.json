@@ -1,0 +1,40 @@
+{
+  "name": "progress",
+  "title": "Progress",
+  "purpose": "How far a job with a known length has got: a labelled bar on a native progress element, with the value written in words.",
+  "status": "draft",
+  "whenToUse": [
+    "For work that can be counted: 7 of 12 checks passed, 96 of 213 tests run, 31 of 48 files uploaded.",
+    "In the indeterminate form, for the first moments of such a job, before its length is known. Switch to the determinate form as soon as there is a total."
+  ],
+  "whenNotToUse": [
+    "For a wait with no length at all. Use a spinner, with text that says what is happening.",
+    "In place of content that is loading. Use a skeleton.",
+    "For a status, such as Finished or Failed. Use a badge, or plain text.",
+    "For a measurement that is not progress, such as disk space used. Write it as text: 412 MB of 20 GB is free."
+  ],
+  "variants": [
+    { "name": "determinate", "use": "The progress element has value and max. The fill is as wide as value over max." },
+    { "name": "indeterminate", "use": "The progress element has no value attribute. The whole bar is one mid tone that fades slowly, and holds still under reduced motion. The value text says what is happening." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "The bar is 8px tall and as wide as its container, under a row that holds the label and the value." }
+  ],
+  "states": ["default", "indeterminate"],
+  "accessibility": [
+    "Markup, in this order: a label with the gw-progress__label class and a for attribute, a p with the gw-progress__value class, and a progress element with the gw-progress__bar class and the id the label names. The stylesheet draws the bar under the two lines of text.",
+    "The label says what is measured. The value is a sentence with the count, the total and the unit: 7 of 12 checks passed. Never a bare number or a bare percentage.",
+    "Set value and max on the progress element to the same two numbers, and aria-valuetext to the same sentence, so a screen reader says the count in words instead of a percentage.",
+    "As work goes on, the app updates three things together: the value attribute, aria-valuetext, and the text of gw-progress__value. It sets no inline style and no class.",
+    "For the indeterminate form, leave the value attribute off, and remove it with removeAttribute to go back to that form. The value text says what is happening, such as Counting objects.",
+    "Do not make the value text a live region: a count that changes every second would be read out every second. When the job ends, announce the result once, in an alert or a status message.",
+    "The bar has no controls and takes no focus. The component needs no script beyond those updates."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-progress",
+    "gw-progress__bar",
+    "gw-progress__label",
+    "gw-progress__value"
+  ]
+}

@@ -9,7 +9,7 @@
     "As the last element in the page, so it sits at the bottom of the screen."
   ],
   "whenNotToUse": [
-    "At 768px and wider. The bar is not shown there, so list the same destinations in the app's sidebar.",
+    "At 768px and wider. The bar is not shown there, so list the same destinations in the sidebar nav.",
     "For more than five destinations. Keep the five most used and put the rest behind a menu action in the app header.",
     "For switching between panels inside one view. Use tabs.",
     "For an action such as New task. A destination is a screen, so use a button in the view.",
@@ -28,7 +28,7 @@
     "The current destination is marked by a bar and a heavier label as well as by colour.",
     "Keep the destinations in the same order on every screen.",
     "The bar is sticky to the bottom of the page. Give the scrolling container scroll-padding-bottom of the bar's height, so a focused element is not hidden under it.",
-    "When the bar and a sidebar are both in the markup, the one that is not shown is not in the accessibility tree, so the destinations are announced once."
+    "When the bar and the sidebar nav are both in the markup, the one that is not shown is not in the accessibility tree, so the destinations are announced once."
   ],
   "icons": ["circle-check", "file", "folder", "git-branch", "search", "terminal"],
   "classes": [

@@ -1,0 +1,205 @@
+<div data-example="succeeded" data-title="A call that succeeded" data-state="default" data-reason="The tool and its target can be read at a glance, the status is a word beside an icon, and the arguments and output stay one press away behind summaries that say what they hold.">
+  <article class="gw-tool-call gw-tool-call--succeeded" aria-labelledby="tool-call-succeeded-title">
+    <h4 class="gw-tool-call__title" id="tool-call-succeeded-title">
+      <span class="gw-tool-call__name">Bash</span>
+      <code class="gw-tool-call__target">npm run test -- --run src/auth/session.test.ts</code>
+    </h4>
+    <p class="gw-tool-call__meta">
+      <span class="gw-tool-call__status">Succeeded</span>
+      <span class="gw-tool-call__duration">2.4 s</span>
+    </p>
+    <details class="gw-tool-call__details">
+      <summary class="gw-tool-call__summary">Arguments, 5 lines</summary>
+      <pre class="gw-tool-call__code">{
+  "command": "npm run test -- --run src/auth/session.test.ts",
+  "description": "Run the session tests",
+  "timeout": 120000
+}</pre>
+    </details>
+    <details class="gw-tool-call__details">
+      <summary class="gw-tool-call__summary">Output, 6 lines</summary>
+      <pre class="gw-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
+
+ ✓ src/auth/session.test.ts (14 tests) 212ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)</pre>
+    </details>
+  </article>
+</div>
+
+<div data-example="open" data-title="With its arguments open" data-state="open">
+  <article class="gw-tool-call gw-tool-call--succeeded" aria-labelledby="tool-call-open-title">
+    <h4 class="gw-tool-call__title" id="tool-call-open-title">
+      <span class="gw-tool-call__name">Edit</span>
+      <code class="gw-tool-call__target">src/auth/session.ts</code>
+    </h4>
+    <p class="gw-tool-call__meta">
+      <span class="gw-tool-call__status">Succeeded</span>
+      <span class="gw-tool-call__duration">38 ms</span>
+    </p>
+    <details class="gw-tool-call__details" open>
+      <summary class="gw-tool-call__summary">Arguments, 5 lines</summary>
+      <pre class="gw-tool-call__code">{
+  "file_path": "src/auth/session.ts",
+  "old_string": "if (justSignedIn) startRefreshTimer(session);",
+  "new_string": "if (session.expiresAt > Date.now()) startRefreshTimer(session);"
+}</pre>
+    </details>
+    <details class="gw-tool-call__details">
+      <summary class="gw-tool-call__summary">Output, 1 line</summary>
+      <pre class="gw-tool-call__code">The file src/auth/session.ts was updated.</pre>
+    </details>
+  </article>
+</div>
+
+<div data-example="running" data-title="Running" data-state="busy">
+  <article class="gw-tool-call" aria-busy="true" aria-labelledby="tool-call-running-title">
+    <h4 class="gw-tool-call__title" id="tool-call-running-title">
+      <span class="gw-tool-call__name">Bash</span>
+      <code class="gw-tool-call__target">docker compose --file infra/docker-compose.test.yml run --rm api npm run test:integration</code>
+    </h4>
+    <p class="gw-tool-call__meta">
+      <span class="gw-tool-call__status">Running</span>
+      <span class="gw-tool-call__duration">48 s so far</span>
+    </p>
+    <details class="gw-tool-call__details">
+      <summary class="gw-tool-call__summary">Arguments, 5 lines</summary>
+      <pre class="gw-tool-call__code">{
+  "command": "docker compose --file infra/docker-compose.test.yml run --rm api npm run test:integration",
+  "description": "Run the integration tests in the test stack",
+  "timeout": 600000
+}</pre>
+    </details>
+  </article>
+</div>
+
+<div data-example="failed" data-title="A call that failed">
+  <article class="gw-tool-call gw-tool-call--failed" aria-labelledby="tool-call-failed-title">
+    <h4 class="gw-tool-call__title" id="tool-call-failed-title">
+      <span class="gw-tool-call__name">Bash</span>
+      <code class="gw-tool-call__target">npm run test -- --run src/auth</code>
+    </h4>
+    <p class="gw-tool-call__meta">
+      <span class="gw-tool-call__status">Failed</span>
+      <span class="gw-tool-call__duration">3.1 s</span>
+    </p>
+    <p class="gw-tool-call__note">The command exited with code 1. 1 of 30 tests failed.</p>
+    <details class="gw-tool-call__details">
+      <summary class="gw-tool-call__summary">Arguments, 4 lines</summary>
+      <pre class="gw-tool-call__code">{
+  "command": "npm run test -- --run src/auth",
+  "description": "Run the auth tests"
+}</pre>
+    </details>
+    <details class="gw-tool-call__details" open>
+      <summary class="gw-tool-call__summary">Output, 4 lines</summary>
+      <pre class="gw-tool-call__code"> ✗ src/auth/session.test.ts > keeps the session after a reload
+   AssertionError: expected null to be truthy
+
+ Test Files  1 failed | 2 passed (3)</pre>
+    </details>
+  </article>
+</div>
+
+<div data-example="denied" data-title="A call that was denied">
+  <article class="gw-tool-call gw-tool-call--denied" aria-labelledby="tool-call-denied-title">
+    <h4 class="gw-tool-call__title" id="tool-call-denied-title">
+      <span class="gw-tool-call__name">Bash</span>
+      <code class="gw-tool-call__target">git push --force origin main</code>
+    </h4>
+    <p class="gw-tool-call__meta">
+      <span class="gw-tool-call__status">Denied</span>
+    </p>
+    <p class="gw-tool-call__note">This command was not run. Force pushes to main are blocked by the project's permission rules.</p>
+    <details class="gw-tool-call__details">
+      <summary class="gw-tool-call__summary">Arguments, 4 lines</summary>
+      <pre class="gw-tool-call__code">{
+  "command": "git push --force origin main",
+  "description": "Publish the rebased branch"
+}</pre>
+    </details>
+  </article>
+</div>
+
+<div data-example="list" data-title="Several calls in an activity view">
+  <ul class="gw-stack gw-gap-sm">
+    <li>
+      <article class="gw-tool-call gw-tool-call--succeeded" aria-labelledby="tool-call-list-read-title">
+        <h4 class="gw-tool-call__title" id="tool-call-list-read-title">
+          <span class="gw-tool-call__name">Read</span>
+          <code class="gw-tool-call__target">src/auth/session.ts</code>
+        </h4>
+        <p class="gw-tool-call__meta">
+          <span class="gw-tool-call__status">Succeeded</span>
+          <span class="gw-tool-call__duration">12 ms</span>
+        </p>
+        <details class="gw-tool-call__details">
+          <summary class="gw-tool-call__summary">Output, 184 lines</summary>
+          <pre class="gw-tool-call__code">import { readCookie } from "./cookie.ts";
+import { startRefreshTimer } from "./refresh.ts";</pre>
+        </details>
+      </article>
+    </li>
+    <li>
+      <article class="gw-tool-call gw-tool-call--succeeded" aria-labelledby="tool-call-list-grep-title">
+        <h4 class="gw-tool-call__title" id="tool-call-list-grep-title">
+          <span class="gw-tool-call__name">Grep</span>
+          <code class="gw-tool-call__target">startRefreshTimer</code>
+        </h4>
+        <p class="gw-tool-call__meta">
+          <span class="gw-tool-call__status">Succeeded</span>
+          <span class="gw-tool-call__duration">41 ms</span>
+        </p>
+        <details class="gw-tool-call__details">
+          <summary class="gw-tool-call__summary">Output, 3 lines</summary>
+          <pre class="gw-tool-call__code">src/auth/session.ts
+src/auth/session.test.ts
+src/routes/sign-in.tsx</pre>
+        </details>
+      </article>
+    </li>
+    <li>
+      <article class="gw-tool-call" aria-busy="true" aria-labelledby="tool-call-list-bash-title">
+        <h4 class="gw-tool-call__title" id="tool-call-list-bash-title">
+          <span class="gw-tool-call__name">Bash</span>
+          <code class="gw-tool-call__target">npm run test -- --run src/auth</code>
+        </h4>
+        <p class="gw-tool-call__meta">
+          <span class="gw-tool-call__status">Running</span>
+          <span class="gw-tool-call__duration">6 s so far</span>
+        </p>
+      </article>
+    </li>
+  </ul>
+</div>
+
+<div data-example="colour-only" data-title="A status with no word" data-dont="review" data-reason="An icon and a colour alone leave the reader to guess between failed and denied, and a screen reader announces nothing. Write the status as a word: Running, Succeeded, Failed or Denied.">
+  <article class="gw-tool-call gw-tool-call--failed" aria-labelledby="tool-call-colour-only-title">
+    <h4 class="gw-tool-call__title" id="tool-call-colour-only-title">
+      <span class="gw-tool-call__name">Bash</span>
+      <code class="gw-tool-call__target">npm run test -- --run src/auth</code>
+    </h4>
+    <p class="gw-tool-call__meta">
+      <span class="gw-tool-call__status"></span>
+      <span class="gw-tool-call__duration">3.1 s</span>
+    </p>
+  </article>
+</div>
+
+<div data-example="summary-without-words" data-title="A disclosure with an empty summary" data-dont="summary-without-text" data-reason="The summary is all the reader sees until they open it. With no text they cannot tell arguments from output, and a screen reader announces an unnamed disclosure.">
+  <article class="gw-tool-call gw-tool-call--succeeded" aria-labelledby="tool-call-summary-without-words-title">
+    <h4 class="gw-tool-call__title" id="tool-call-summary-without-words-title">
+      <span class="gw-tool-call__name">Read</span>
+      <code class="gw-tool-call__target">src/auth/session.ts</code>
+    </h4>
+    <p class="gw-tool-call__meta">
+      <span class="gw-tool-call__status">Succeeded</span>
+      <span class="gw-tool-call__duration">12 ms</span>
+    </p>
+    <details class="gw-tool-call__details">
+      <summary class="gw-tool-call__summary"></summary>
+      <pre class="gw-tool-call__code">{ "file_path": "src/auth/session.ts" }</pre>
+    </details>
+  </article>
+</div>

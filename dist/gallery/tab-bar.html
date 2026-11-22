@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../groundwork.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
@@ -297,7 +298,7 @@
 <section>
 <h2>When not to use it</h2>
 <ul>
-<li>At 768px and wider. The bar is not shown there, so list the same destinations in the app's sidebar.</li>
+<li>At 768px and wider. The bar is not shown there, so list the same destinations in the sidebar nav.</li>
 <li>For more than five destinations. Keep the five most used and put the rest behind a menu action in the app header.</li>
 <li>For switching between panels inside one view. Use tabs.</li>
 <li>For an action such as New task. A destination is a screen, so use a button in the view.</li>
@@ -321,7 +322,7 @@
 <li>The current destination is marked by a bar and a heavier label as well as by colour.</li>
 <li>Keep the destinations in the same order on every screen.</li>
 <li>The bar is sticky to the bottom of the page. Give the scrolling container scroll-padding-bottom of the bar's height, so a focused element is not hidden under it.</li>
-<li>When the bar and a sidebar are both in the markup, the one that is not shown is not in the accessibility tree, so the destinations are announced once.</li>
+<li>When the bar and the sidebar nav are both in the markup, the one that is not shown is not in the accessibility tree, so the destinations are announced once.</li>
 </ul>
 </section>
 <section>

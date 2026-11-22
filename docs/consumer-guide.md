@@ -47,6 +47,16 @@ Serve `vendor/groundwork/` as static files and link the stylesheet.
 </html>
 ```
 
+### Behaviours, for an app without a framework
+
+The components are CSS, and nearly all of them work from native elements alone. The tabs component needs script to move `aria-selected`, `tabindex` and `hidden` when a tab is chosen. `behaviors/groundwork.js` is one optional ES module with no dependencies that defines the `<gw-tabs>` element, which does that and handles click, Left, Right, Home and End. Load it once, and wrap the tabs markup from `components.json` in `<gw-tabs>`.
+
+```html
+<script type="module" src="/vendor/groundwork/behaviors/groundwork.js"></script>
+```
+
+It is an external script from the app's own host, so a content security policy that allows no inline script lets it run. An app that renders with a framework does not load it: its tabs component sets the same three attributes and handles the same keys.
+
 ### Tailwind 3
 
 Import the stylesheet from the app's entry script, or from its CSS entry, so the bundler copies the fonts.

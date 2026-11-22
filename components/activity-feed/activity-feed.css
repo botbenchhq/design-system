@@ -1,0 +1,93 @@
+/*
+ * Activity feed: what agents did, oldest first, grouped by day under a heading.
+ * Each entry gives the time, who acted and what they did, with an optional source or short excerpt.
+ */
+
+@layer gw.components {
+  .gw-activity-feed {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+    min-width: 0;
+  }
+
+  /*
+   * Holds the quiet control that brings in older entries. As tall as a pointer target, so the small
+   * button's hit area stays inside it, and pulled back by the button's padding, so its words line up with the times.
+   */
+  .gw-activity-feed__more {
+    display: flex;
+    align-items: center;
+    min-height: var(--gw-size-touch);
+    margin-inline-start: calc(var(--gw-space-md) * -1);
+  }
+
+  .gw-activity-feed__day {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+    min-width: 0;
+  }
+
+  .gw-activity-feed__heading {
+    padding-bottom: var(--gw-space-xs);
+    border-bottom-width: var(--gw-border-width);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+  }
+
+  .gw-activity-feed__entries {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+  }
+
+  /* The time in its own column, so the times line up down the feed and the text never wraps under them. */
+  .gw-activity-feed__entry {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: var(--gw-space-md);
+    row-gap: var(--gw-space-xs);
+  }
+
+  /* It takes the line height of the text beside it, so the two share a baseline. */
+  .gw-activity-feed__time {
+    color: var(--gw-color-muted);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-xs);
+    line-height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    white-space: nowrap;
+  }
+
+  .gw-activity-feed__text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .gw-activity-feed__actor {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* A source chip or an excerpt, under the text. */
+  .gw-activity-feed__evidence {
+    display: flex;
+    grid-column: 2;
+    min-width: 0;
+  }
+
+  /* A short piece of a command or of output. It wraps, and never scrolls sideways. */
+  .gw-activity-feed__excerpt {
+    min-width: 0;
+    padding: var(--gw-space-xs) var(--gw-space-sm);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}

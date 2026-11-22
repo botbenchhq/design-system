@@ -1,0 +1,39 @@
+{
+  "name": "sheet",
+  "title": "Sheet",
+  "purpose": "A panel for a longer form or the details of an item, rising from the bottom edge on a phone and sitting as a side panel at 768px and wider.",
+  "status": "draft",
+  "whenToUse": [
+    "For a form too long for a dialog, such as a new task or a set of filters.",
+    "To show the details of one item without leaving the list it came from."
+  ],
+  "whenNotToUse": [
+    "For one question or one field. Use a dialog.",
+    "To confirm deleting something. Use the confirm dialog.",
+    "For a few lines of supplementary content beside a control. Use a popover.",
+    "For a list of actions. Use a menu.",
+    "For content the reader should be able to link to or come back to. Give it a view of its own."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["open", "loading", "error", "busy"],
+  "accessibility": [
+    "Use a dialog element with the class gw-sheet and aria-labelledby pointing at gw-sheet__title, an h2.",
+    "Open it with the one line document.getElementById(\"sheet-id\").showModal(). That call traps focus, makes the page behind inert, closes on Escape and returns focus to the opener. As progressive enhancement the opener may carry command=\"show-modal\" and commandfor=\"sheet-id\". Do not write the open attribute yourself: the examples carry it only so they are drawn in the gallery.",
+    "gw-sheet__header is a form with method=\"dialog\" holding the title and the Close button, so Close works with no script. Close is a quiet button with only an icon, and its aria-label says what it closes.",
+    "The body is gw-sheet__body and scrolls. The footer is gw-sheet__footer, outside the body, and holds the sheet's one primary button first. Never put the primary action in the body.",
+    "When the footer's button submits fields in the body, wrap the body and the footer in a second form with the class gw-sheet__form. With method=\"dialog\" its buttons close the sheet and the app reads dialog.returnValue in a close event listener. To validate or save first, handle the submit event and call preventDefault().",
+    "A body with no control in it that may scroll takes tabindex=\"0\", role=\"group\" and an aria-label, so the keyboard can scroll it.",
+    "The sheet slides in when showModal() opens it and the reset removes the movement for readers who ask for reduced motion. It keeps clear of the home indicator with env(safe-area-inset-bottom), which needs viewport-fit=cover in the page's viewport meta tag to be more than zero.",
+    "While the body loads, show a spinner with its text in the body. If loading fails, show an alert there that says what to do. While the form is sent, set aria-busy=\"true\" on the primary button and disable the other footer buttons."
+  ],
+  "icons": ["x"],
+  "classes": [
+    "gw-sheet",
+    "gw-sheet__body",
+    "gw-sheet__footer",
+    "gw-sheet__form",
+    "gw-sheet__header",
+    "gw-sheet__title"
+  ]
+}

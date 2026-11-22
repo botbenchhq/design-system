@@ -1,0 +1,314 @@
+/*
+ * Data table: things compared across columns, on a real table with a caption.
+ * Below the regular width each row becomes a block and each cell prints its column label from data-label.
+ * The scroll variant keeps the columns at every width and scrolls sideways inside its wrapper.
+ */
+
+@layer gw.components {
+  /* Borders are drawn on the cells, so the line under a sticky header moves with it. */
+  .gw-data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .gw-data-table__caption {
+    padding-bottom: var(--gw-space-sm);
+    font-weight: var(--gw-weight-semibold);
+    text-align: start;
+    caption-side: top;
+  }
+
+  /* 12px above and below one line of text makes a row 44px tall. */
+  .gw-data-table :is(th, td) {
+    padding: var(--gw-space-md) var(--gw-space-sm);
+    font-weight: var(--gw-weight-normal);
+    text-align: start;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+
+  .gw-data-table thead th {
+    padding-block: var(--gw-space-sm);
+    border-bottom-width: var(--gw-border-width);
+    border-bottom-color: var(--gw-color-border-strong);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+    vertical-align: bottom;
+    white-space: nowrap;
+  }
+
+  .gw-data-table tbody tr + tr > :is(th, td) {
+    border-top-width: var(--gw-border-width);
+  }
+
+  /* The cell that names its row. */
+  .gw-data-table tbody th {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* On the header cell and on every cell of the column, so the digits line up under one another. */
+  .gw-data-table .gw-data-table__numeric {
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+    white-space: nowrap;
+  }
+
+  /*
+   * The cell for a row's one action. Its padding is what a small button leaves of a pointer target,
+   * so the button's words sit on the row's first line, its padded hit area fits the row,
+   * and a one-line row is no taller for having it.
+   */
+  .gw-data-table .gw-data-table__action {
+    width: 0;
+    padding-block: calc((var(--gw-size-touch) - var(--gw-space-2xl)) / 2);
+    text-align: end;
+    white-space: nowrap;
+  }
+
+  /* A cell whose content is a sort or an expand button gives its height to the button. */
+  .gw-data-table :is(th, td):has(> :is(.gw-data-table__sort, .gw-data-table__expand)) {
+    padding-block: 0;
+  }
+
+  /* The button in a sortable column's header. The mark after its words says which way the column is sorted. */
+  .gw-data-table__sort {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-size-touch);
+    margin-inline: calc(var(--gw-space-sm) * -1);
+    padding-inline: var(--gw-space-sm);
+    border-radius: var(--gw-radius-sm);
+    font-weight: var(--gw-weight-medium);
+    text-align: start;
+    transition-property: background-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  /* In a numeric column the mark comes first, so the words still end where the digits end. */
+  .gw-data-table__numeric > .gw-data-table__sort {
+    flex-direction: row-reverse;
+  }
+
+  .gw-data-table__sort::after {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/chevrons-up-down.svg") center / contain no-repeat;
+  }
+
+  .gw-data-table th[aria-sort="ascending"] > .gw-data-table__sort,
+  .gw-data-table th[aria-sort="descending"] > .gw-data-table__sort {
+    color: var(--gw-color-on-surface);
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  .gw-data-table th[aria-sort="ascending"] > .gw-data-table__sort::after {
+    mask-image: url("icons/chevron-up.svg");
+  }
+
+  .gw-data-table th[aria-sort="descending"] > .gw-data-table__sort::after {
+    mask-image: url("icons/chevron-down.svg");
+  }
+
+  /* The button that opens a row's detail. It holds the words that name the row, after a chevron, padded as a cell is. */
+  .gw-data-table__expand {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--gw-space-xs);
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-size-touch);
+    margin-inline-start: calc(var(--gw-space-xs) * -1);
+    padding: var(--gw-space-md) var(--gw-space-sm) var(--gw-space-md) var(--gw-space-xs);
+    border-radius: var(--gw-radius-sm);
+    font-weight: var(--gw-weight-medium);
+    text-align: start;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /* As tall as the first line of the words, so the chevron stays beside it when they wrap. */
+  .gw-data-table__expand::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+  }
+
+  .gw-data-table__expand[aria-expanded="true"]::before {
+    mask-image: url("icons/chevron-down.svg");
+  }
+
+  @media (hover: hover) {
+    .gw-data-table__sort:hover,
+    .gw-data-table__expand:hover {
+      background-color: var(--gw-color-surface-sunken);
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-data-table__sort:active,
+  .gw-data-table__expand:active {
+    background-color: var(--gw-color-surface-sunken);
+    color: var(--gw-color-on-surface);
+  }
+
+  /* The row under an expanded one. It belongs to the row above, so no line divides them. */
+  .gw-data-table tbody .gw-data-table__detail > td {
+    padding-block: 0 var(--gw-space-lg);
+    padding-inline-start: var(--gw-space-xl);
+    border-top-width: 0;
+  }
+
+  /* The selected row is marked by a bar at its start as well as by its shade. */
+  .gw-data-table tr[aria-selected="true"] {
+    position: relative;
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-data-table tr[aria-selected="true"]::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: calc(var(--gw-border-width) * 2);
+    background-color: var(--gw-color-accent);
+  }
+
+  .gw-data-table tr[aria-selected="true"] > th {
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  /* One cell across the whole body, in place of the rows: nothing to show, still loading, or failed. */
+  .gw-data-table .gw-data-table__state {
+    padding-block: var(--gw-space-xl);
+  }
+
+  .gw-data-table__message {
+    display: flex;
+    gap: var(--gw-space-xs);
+    max-width: var(--gw-size-column);
+  }
+
+  .gw-data-table__message:not(:last-child) {
+    margin-bottom: var(--gw-space-md);
+  }
+
+  /* The icon is drawn here, so a failure is never marked by its wording alone. */
+  .gw-data-table__message[role="alert"]::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: var(--gw-color-danger);
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  /* Rows kept on screen while the table is fetched again. */
+  .gw-data-table[aria-busy="true"] {
+    cursor: progress;
+  }
+
+  /* The header stays at the top of whatever scrolls the table up and down: the page, or a panel. */
+  .gw-data-table--sticky thead th {
+    position: sticky;
+    top: 0;
+    z-index: var(--gw-z-sticky);
+    background-color: var(--gw-color-surface);
+  }
+
+  /* The wrapper of the scroll variant. It is given tabindex="0", so the arrow keys scroll it. */
+  .gw-data-table__scroll {
+    min-width: 0;
+    overflow-x: auto;
+  }
+
+  .gw-data-table--scroll :is(th, td) {
+    white-space: nowrap;
+  }
+
+  /*
+   * Below the regular width a table that is not the scroll variant is a stack of blocks.
+   * The header row is not drawn. Each cell prints the label it carries in data-label beside its value.
+   */
+  @media not all and (min-width: 768px) {
+    .gw-data-table:not(.gw-data-table--scroll),
+    .gw-data-table:not(.gw-data-table--scroll) :is(caption, tbody, tr, th, td) {
+      display: block;
+    }
+
+    .gw-data-table:not(.gw-data-table--scroll) thead {
+      display: none;
+    }
+
+    .gw-data-table:not(.gw-data-table--scroll) .gw-data-table__caption {
+      border-bottom-width: var(--gw-border-width);
+      border-bottom-color: var(--gw-color-border-strong);
+    }
+
+    .gw-data-table:not(.gw-data-table--scroll) tbody tr {
+      padding-block: var(--gw-space-sm);
+    }
+
+    .gw-data-table:not(.gw-data-table--scroll) tbody tr + tr {
+      border-top-width: var(--gw-border-width);
+    }
+
+    .gw-data-table:not(.gw-data-table--scroll) tbody tr > :is(th, td) {
+      width: auto;
+      padding-block: var(--gw-space-xs);
+      border-top-width: 0;
+      text-align: start;
+      white-space: normal;
+    }
+
+    .gw-data-table:not(.gw-data-table--scroll) tbody td[data-label] {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      column-gap: var(--gw-space-md);
+    }
+
+    .gw-data-table:not(.gw-data-table--scroll) tbody td[data-label]::before {
+      content: attr(data-label);
+      color: var(--gw-color-muted);
+      font-variant-numeric: normal;
+    }
+
+    .gw-data-table:not(.gw-data-table--scroll) tbody tr[aria-selected="true"] td[data-label]::before {
+      color: var(--gw-color-on-surface);
+    }
+
+    .gw-data-table:not(.gw-data-table--scroll) tbody tr > :is(th, td):has(> .gw-data-table__expand) {
+      padding-block: 0;
+    }
+
+    /* Pulled to the start, so the words of a quiet button line up with the labels above them. */
+    .gw-data-table:not(.gw-data-table--scroll) tbody tr > .gw-data-table__action {
+      margin-inline-start: calc(var(--gw-space-xs) * -1);
+      padding-block: calc((var(--gw-size-touch) - var(--gw-space-2xl)) / 2);
+      padding-inline: 0;
+    }
+
+    .gw-data-table:not(.gw-data-table--scroll) tbody .gw-data-table__detail {
+      padding-top: 0;
+      border-top-width: 0;
+    }
+
+    .gw-data-table:not(.gw-data-table--scroll) tbody tr > .gw-data-table__state {
+      padding-block: var(--gw-space-lg);
+    }
+  }
+
+  /* The detail row is not drawn while the button in the row above says it is collapsed. */
+  .gw-data-table tbody tr:has(.gw-data-table__expand[aria-expanded="false"]) + .gw-data-table__detail {
+    display: none;
+  }
+}

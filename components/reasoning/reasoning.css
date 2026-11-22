@@ -1,0 +1,63 @@
+/*
+ * Reasoning: an agent's reasoning or plan notes behind a native details element.
+ * It starts closed and is drawn quietly, so it defers to the answer beside it.
+ */
+
+@layer gw.components {
+  /* The full width of its line, so it sits under the label of a transcript row and not beside it. */
+  .gw-reasoning {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    color: var(--gw-color-muted);
+  }
+
+  .gw-reasoning__summary {
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    min-height: var(--gw-size-touch);
+    border-radius: var(--gw-radius-sm);
+    cursor: pointer;
+  }
+
+  .gw-reasoning__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .gw-reasoning__summary::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+  }
+
+  .gw-reasoning[open] > .gw-reasoning__summary::before {
+    mask-image: url("icons/chevron-down.svg");
+  }
+
+  /* The muted text turns to the main text colour on the shaded summary, so it keeps its contrast. */
+  @media (hover: hover) {
+    .gw-reasoning__summary:hover {
+      background-color: var(--gw-color-surface-sunken);
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  /* A rule under the chevron ties the notes to their summary, and the text lines up with the summary's. */
+  .gw-reasoning__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+    margin-inline-start: var(--gw-space-sm);
+    margin-bottom: var(--gw-space-sm);
+    padding-inline-start: calc(var(--gw-space-lg) - var(--gw-border-width));
+    border-inline-start-width: var(--gw-border-width);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}

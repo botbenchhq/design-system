@@ -1,0 +1,103 @@
+/*
+ * Timeline: events in the order they happened, on an ol, each with its time, who acted and what happened.
+ * The stylesheet draws the rail and a mark for each event. The current step is also marked in words.
+ */
+
+@layer gw.components {
+  .gw-timeline {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  /* The space between events is padding, not a gap, so the rail runs through it unbroken. */
+  .gw-timeline__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding-inline-start: var(--gw-space-xl);
+    padding-bottom: var(--gw-space-lg);
+  }
+
+  .gw-timeline__item:last-child {
+    padding-bottom: 0;
+  }
+
+  /* The rail: a line from this event's mark down to the next one. The last event has none. */
+  .gw-timeline__item::before {
+    content: "";
+    position: absolute;
+    top: var(--gw-space-sm);
+    bottom: calc(var(--gw-space-sm) * -1);
+    inset-inline-start: var(--gw-space-xs);
+    border-inline-start-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+  }
+
+  .gw-timeline__item:last-child::before {
+    display: none;
+  }
+
+  /* The mark: a 9px square centred on the rail and on the first line of the event. */
+  .gw-timeline__item::after {
+    content: "";
+    position: absolute;
+    top: var(--gw-space-xs);
+    inset-inline-start: 0;
+    width: calc(var(--gw-space-sm) + var(--gw-border-width));
+    height: calc(var(--gw-space-sm) + var(--gw-border-width));
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: calc(var(--gw-radius-sm) / 2);
+    background-color: var(--gw-color-surface);
+  }
+
+  /* The current step has a filled mark. The words in gw-timeline__current say so as well. */
+  .gw-timeline__item[aria-current]:not([aria-current="false"])::after {
+    border-color: var(--gw-color-accent);
+    background-color: var(--gw-color-accent);
+  }
+
+  /* Time, actor and the current-step words, on the first line. */
+  .gw-timeline__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--gw-space-sm);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  .gw-timeline__time {
+    color: var(--gw-color-muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .gw-timeline__actor {
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-timeline__current {
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  .gw-timeline__event {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* Dense: 8px between events, and the event on the same line as its time and actor when there is room. */
+  .gw-timeline--dense > .gw-timeline__item {
+    flex-flow: row wrap;
+    align-items: baseline;
+    column-gap: var(--gw-space-sm);
+    padding-bottom: var(--gw-space-sm);
+  }
+
+  .gw-timeline--dense > .gw-timeline__item:last-child {
+    padding-bottom: 0;
+  }
+}

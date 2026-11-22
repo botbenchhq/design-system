@@ -1,0 +1,41 @@
+{
+  "name": "stat",
+  "title": "Stat",
+  "purpose": "One number in context: a label that says what it counts, the value in tabular figures, and a line that gives its comparison, its period or its scope.",
+  "status": "draft",
+  "whenToUse": [
+    "For a number the reader came to the view for: the time a run took, what it cost, how many tests failed.",
+    "For two to four numbers that summarise the table or list directly under them.",
+    "With the inline variant where the number sits in a line of text: a toolbar, a summary row, the header of a section."
+  ],
+  "whenNotToUse": [
+    "As a row of large standalone numbers at the top of a view. A number with no context line is decoration.",
+    "For a number measured against a limit. Use the usage meter.",
+    "For several facts about one thing that are not all numbers. Use the key-value list.",
+    "For the same number about many things. Use a numeric column in the data table.",
+    "For a status. Use a badge."
+  ],
+  "variants": [
+    { "name": "default", "use": "Label, value and context one above the other. The value is 20px, one size above body text." },
+    { "name": "inline", "class": "gw-stat--inline", "use": "Label, value and context on one line at body size, wrapping when there is no room." }
+  ],
+  "sizes": [],
+  "states": ["default", "empty", "loading", "error"],
+  "accessibility": [
+    "Use a div holding three p elements in this order: gw-stat__label, gw-stat__value, gw-stat__context. Read in order they make a sentence: Median run time, 6 min 12 s, 48 seconds faster than last week.",
+    "The context line is required. It gives the comparison, the period or what is counted, in words: of 50,000 for this run, 8 to 14 March, 48 seconds faster than last week.",
+    "The value carries its unit. A rise or a fall is said in words in the context line, never by colour or an arrow alone.",
+    "Several stats sit in a gw-grid or a gw-cluster. Keep to four or fewer, directly above what they summarise.",
+    "When there is nothing to count, show 0 and say why in the context line. While the number is worked out, set aria-busy=\"true\" on the stat and put a spinner with role=\"status\" in place of the value and context. If it cannot be read, put a context line with role=\"alert\" that says what to do in place of the value.",
+    "When the value updates while the reader watches, announce the change from a role=\"status\" element in the view, not from the stat.",
+    "The stat has no controls and needs no script."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-stat",
+    "gw-stat--inline",
+    "gw-stat__context",
+    "gw-stat__label",
+    "gw-stat__value"
+  ]
+}

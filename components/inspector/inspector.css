@@ -1,0 +1,105 @@
+/*
+ * Inspector: a panel for the details of the item selected in the content beside it.
+ * gw-inspector__layout holds the content and the panel. At 768px and up the panel is a column
+ * after the content, and below that it stacks under it. The panel is an aside with a label.
+ */
+
+@layer gw.components {
+  .gw-inspector__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gw-space-xl);
+  }
+
+  /* Stacked: a rule above sets the panel off from the content. */
+  .gw-inspector {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+    min-width: 0;
+    padding-top: var(--gw-space-md);
+    border-top-width: var(--gw-border-width);
+  }
+
+  /* Beside: the rule moves to the panel's leading edge. There is no width token for a panel. */
+  @media (min-width: 768px) {
+    .gw-inspector__layout {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .gw-inspector {
+      width: calc(var(--gw-size-column) * 0.6);
+      padding-top: 0;
+      padding-inline-start: var(--gw-space-xl);
+      border-top-width: 0;
+      border-inline-start-width: var(--gw-border-width);
+    }
+  }
+
+  /* The title and the close button on one row. A long title wraps, and the button stays at the top. */
+  .gw-inspector__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--gw-space-sm);
+  }
+
+  /* Centred on the first line of the title beside a 44px button. */
+  .gw-inspector__title {
+    min-width: 0;
+    padding-block: var(--gw-space-md);
+    font-size: var(--gw-text-lg);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-lg);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-inspector__close {
+    flex: none;
+  }
+
+  .gw-inspector__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  .gw-inspector__heading {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+  }
+
+  /* A label column and a value column, shared by every row of the section. */
+  .gw-inspector__facts {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--gw-space-md);
+    row-gap: var(--gw-space-xs);
+  }
+
+  .gw-inspector__fact {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
+
+  .gw-inspector__label {
+    color: var(--gw-color-muted);
+    font-weight: var(--gw-weight-normal);
+  }
+
+  .gw-inspector__value {
+    min-width: 0;
+    margin: 0;
+    color: var(--gw-color-on-surface);
+    overflow-wrap: anywhere;
+  }
+
+  /* A sentence in place of the sections: nothing is selected, or the details are on their way. */
+  .gw-inspector__note {
+    color: var(--gw-color-muted);
+  }
+}

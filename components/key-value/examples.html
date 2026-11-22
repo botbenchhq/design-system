@@ -1,0 +1,83 @@
+<div data-example="default" data-title="Facts about one run" data-state="default" data-reason="Each fact is a label and its value in a dl, so a screen reader pairs them. The pairs stack on a phone and line up in two columns at the regular width, and every number carries its unit.">
+  <dl class="gw-key-value">
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Task</dt>
+      <dd class="gw-key-value__value">Fix the login timeout</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Repository</dt>
+      <dd class="gw-key-value__value">acme/api</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Started</dt>
+      <dd class="gw-key-value__value"><time datetime="2026-03-14T09:30">14 March, 09:30</time></dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Duration</dt>
+      <dd class="gw-key-value__value">6 minutes 12 seconds</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Cost</dt>
+      <dd class="gw-key-value__value">$0.84 for this run</dd>
+    </div>
+  </dl>
+</div>
+
+<div data-example="mono" data-title="Mono values: paths, hashes and commands">
+  <dl class="gw-key-value">
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Branch</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">fix/login-timeout</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Base commit</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">9f2c1ab4e07d53c8a1b6f0e2d4c7a9b8e6f5d3c1</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Worktree</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">/srv/workspaces/acme-api/.worktrees/task-418-fix-the-login-timeout</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Test command</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">npm run test -- --run src/auth/session.test.ts</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Role</dt>
+      <dd class="gw-key-value__value">Implementer</dd>
+    </div>
+  </dl>
+</div>
+
+<div data-example="empty" data-title="A value that is not set, said in words" data-state="empty">
+  <dl class="gw-key-value">
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Base branch</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">main</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Setup command</dt>
+      <dd class="gw-key-value__value gw-key-value__value--empty">Not set</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Pull request</dt>
+      <dd class="gw-key-value__value gw-key-value__value--empty">None opened yet</dd>
+    </div>
+  </dl>
+</div>
+
+<div data-example="blank-values" data-title="A dash, or nothing, for a missing value" data-dont="review" data-reason="A dash does not say whether the value is missing, still loading or really a dash, and a screen reader may skip it. A label with nothing after it looks like a fault. Write Not set, or what is missing, in words.">
+  <dl class="gw-key-value">
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Base branch</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">main</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Setup command</dt>
+      <dd class="gw-key-value__value">-</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Pull request</dt>
+      <dd class="gw-key-value__value"></dd>
+    </div>
+  </dl>
+</div>

@@ -1,0 +1,116 @@
+/*
+ * Source chip: a compact link to where something came from: a file, a web page or a commit.
+ * An icon says the kind, the text says which, and a long path loses its middle, never its file name.
+ */
+
+@layer gw.components {
+  .gw-source-chip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    min-width: var(--gw-size-touch);
+    max-width: 100%;
+    min-height: var(--gw-space-2xl);
+    padding-inline: var(--gw-space-sm);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-raised);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+    transition-property: background-color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  /*
+   * The chip is drawn 32px tall. This invisible box, centred on it, keeps its
+   * pointer target at the touch size without making a row of chips taller.
+   */
+  .gw-source-chip::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: var(--gw-size-touch);
+    translate: 0 -50%;
+  }
+
+  .gw-source-chip__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    color: var(--gw-color-muted);
+  }
+
+  /* The whole value is in the markup, so it stays in the accessible name however much is cut from view. */
+  .gw-source-chip__text {
+    display: flex;
+    min-width: 0;
+    white-space: nowrap;
+  }
+
+  /* The start gives way first and ends in an ellipsis, which lands in the middle of the value. */
+  .gw-source-chip__start {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* The end keeps its full width, and is cut only when it is wider than the chip by itself. */
+  .gw-source-chip__end {
+    flex: none;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* A line range or another short qualifier, in words. */
+  .gw-source-chip__detail {
+    flex: none;
+    color: var(--gw-color-muted);
+    font-family: var(--gw-font-ui);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
+  }
+
+  /*
+   * A row of several, on a ul. It wraps, and the 12px between rows keeps the
+   * 44px pointer targets of two rows of 32px chips from overlapping.
+   */
+  .gw-source-chip__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gw-space-md);
+    min-width: 0;
+  }
+
+  .gw-source-chip__list > li {
+    display: flex;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* The quiet parts turn to the main text colour wherever the chip is shaded, so they keep their contrast. */
+  @media (hover: hover) {
+    .gw-source-chip:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-source-chip:hover :is(.gw-source-chip__icon, .gw-source-chip__detail) {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-source-chip:active {
+    border-color: var(--gw-color-border-strong);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-source-chip:active :is(.gw-source-chip__icon, .gw-source-chip__detail) {
+    color: var(--gw-color-on-surface);
+  }
+}

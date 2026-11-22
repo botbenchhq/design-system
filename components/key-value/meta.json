@@ -1,0 +1,42 @@
+{
+  "name": "key-value",
+  "title": "Key-value",
+  "purpose": "Facts about one thing as label and value pairs: stacked on a phone, in two columns at 768px and wider.",
+  "status": "draft",
+  "whenToUse": [
+    "For the facts of one run, task, repository or request: its branch, its path, when it started, what it cost.",
+    "Inside a card or a disclosure, or straight on the page under a heading.",
+    "With mono values for anything the reader may copy or compare character by character: a path, a commit hash, a command, a branch name."
+  ],
+  "whenNotToUse": [
+    "For the same facts about several things. Use the data table, where each thing is a row.",
+    "For one number that deserves emphasis, with its comparison. Use the stat.",
+    "For values the reader edits. Use fields.",
+    "For a value the reader copies with one press. Use the copy field.",
+    "For a status that needs a tone. Write the status in words as the value, or put one badge in it."
+  ],
+  "variants": [
+    { "name": "default", "use": "Values in the interface typeface." },
+    { "name": "mono value", "class": "gw-key-value__value--mono", "use": "On a single value, with gw-key-value__value: a path, a hash, a command or a branch name, in the mono typeface. Mix it freely with plain values in one list." },
+    { "name": "empty value", "class": "gw-key-value__value--empty", "use": "On a value that is not there, with gw-key-value__value. The value is written in words, such as Not set, and drawn in the quiet colour." }
+  ],
+  "sizes": [],
+  "states": ["default", "empty"],
+  "accessibility": [
+    "Use a dl. Each pair is a div with the class gw-key-value__item, holding one dt, gw-key-value__label, and one dd, gw-key-value__value. A screen reader then announces each value with its label.",
+    "The label is a noun in sentence case with no colon. The stylesheet does not add one.",
+    "A value is never blank and never a lone dash. When there is none, write it in words: Not set, None opened yet. The quiet colour of the empty variant supports the words and does not replace them.",
+    "A number carries its unit, and a time is written so it cannot be misread, inside a time element with a datetime attribute.",
+    "A long value wraps inside its column, breaking at any character when it must, so the page never scrolls sideways. Do not truncate a path or a hash.",
+    "The component has no controls and needs no script. While the facts load, show a spinner in place of the list; if they cannot be read, an error state."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-key-value",
+    "gw-key-value__item",
+    "gw-key-value__label",
+    "gw-key-value__value",
+    "gw-key-value__value--empty",
+    "gw-key-value__value--mono"
+  ]
+}

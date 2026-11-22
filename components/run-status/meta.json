@@ -1,0 +1,39 @@
+{
+  "name": "run-status",
+  "title": "Run status",
+  "purpose": "The content of one list row that summarises a run or a task: its title, its station as a badge in words, who or what is acting and the elapsed time.",
+  "status": "draft",
+  "whenToUse": [
+    "For each row of a list of runs or tasks, where the reader scans for the ones that need them.",
+    "When a row needs the station, the actor and the elapsed time together, and at most one action."
+  ],
+  "whenNotToUse": [
+    "For a row with only a title and one trailing fact. Use the list's own parts.",
+    "For the heading of a run's own view. Use a page header with a badge beside the title.",
+    "For what happened during a run, entry by entry. Use an activity feed.",
+    "For runs compared across several columns. Use a table."
+  ],
+  "variants": [
+    { "name": "link", "use": "Inside an a element with the class gw-list__link, so the whole row opens the run." },
+    { "name": "static", "use": "Inside a div with the class gw-list__content, for a row that does not navigate." }
+  ],
+  "sizes": [],
+  "states": ["default", "hover", "focus-visible"],
+  "accessibility": [
+    "It is the content of a list row: a span with the class gw-run-status inside the gw-list__link or gw-list__content of an li with the class gw-list__row, in a ul with the class gw-list. Every part is a span, so it is valid inside a link.",
+    "The parts come in reading order: gw-run-status__title, gw-run-status__station, gw-run-status__facts. A screen reader reads the row as its title, its station, then who is acting and for how long. Below 768px the station sits under the title, and from 768px the row is one line with the station at its end.",
+    "gw-run-status__station holds one badge with the station in words: Queued, Building, Verifying, Reviewing, Awaiting decision, Blocked, Interrupted or Decided. Use the same word, tone and icon for a station everywhere. The badge icon carries aria-hidden=\"true\".",
+    "gw-run-status__facts says who or what is acting in words, such as Claude Code, implementer or Waiting on you, then the elapsed time in a time element with the class gw-run-status__elapsed and a datetime duration. Write the time with its unit: 4 min 12 s. A time that ticks is not in a live region.",
+    "A row has at most one action, and only when the run waits on the reader: a gw-button gw-button--small in the row's gw-list__action, after the link, never primary. Its aria-label starts with its visible words and names the run, such as Resume Fix the login timeout.",
+    "When a station changes while the reader watches, announce it from a role=\"status\" element in the view, not from the row.",
+    "Tab reaches the row's link and then its action. Enter follows the link. The component needs no script."
+  ],
+  "icons": ["circle-alert", "circle-check", "ellipsis", "file", "loader", "search", "triangle-alert", "x"],
+  "classes": [
+    "gw-run-status",
+    "gw-run-status__elapsed",
+    "gw-run-status__facts",
+    "gw-run-status__station",
+    "gw-run-status__title"
+  ]
+}

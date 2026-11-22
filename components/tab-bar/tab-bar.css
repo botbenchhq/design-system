@@ -1,7 +1,7 @@
 /*
  * Tab bar: the main destinations of an app, along the bottom of a phone screen.
  * Each destination is a link with an icon above a text label. At the regular width
- * the bar is not shown, and the app's sidebar lists the same destinations.
+ * the bar is not shown, and the sidebar nav lists the same destinations.
  */
 
 @layer gw.components {

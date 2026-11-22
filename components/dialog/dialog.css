@@ -1,0 +1,98 @@
+/*
+ * Dialog: a native dialog element opened with showModal(), holding one short task.
+ * A title, a body and a footer with the one primary action and Cancel.
+ * Escape, the focus trap, the inert page behind and the return of focus to the opener
+ * all come from the element. Nothing here needs a script beyond the call that opens it.
+ */
+
+@layer gw.components {
+  /* Centred, and never closer to the edge of the screen than the margin. */
+  .gw-dialog {
+    position: fixed;
+    inset: 0;
+    z-index: var(--gw-z-dialog);
+    width: calc(100% - var(--gw-space-lg) * 2);
+    max-width: var(--gw-size-column);
+    max-height: calc(100% - var(--gw-space-lg) * 2);
+    margin: auto;
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-on-surface);
+    box-shadow: var(--gw-shadow-overlay);
+    overflow-y: auto;
+  }
+
+  /* There is no scrim token. The page behind fades towards the sunken surface in both themes. */
+  .gw-dialog::backdrop {
+    background-color: var(--gw-color-surface-sunken);
+    opacity: 0.8;
+  }
+
+  /* The form with method="dialog" that wraps the title, the body and the footer. */
+  .gw-dialog__panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .gw-dialog__title {
+    margin: 0;
+    padding: var(--gw-space-lg) var(--gw-space-lg) 0;
+    font-size: var(--gw-text-lg);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-lg);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-dialog__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+    min-width: 0;
+    padding: var(--gw-space-lg);
+    overflow-wrap: anywhere;
+  }
+
+  /* The primary action first, then Cancel, so Enter in a field takes the primary action. */
+  .gw-dialog__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    padding: 0 var(--gw-space-lg) var(--gw-space-lg);
+  }
+
+  /*
+   * The scrolling body: the title and the footer stay where they are and the body scrolls
+   * between two rules. The display value is set only while open, so a closed dialog stays hidden.
+   */
+  .gw-dialog--scroll {
+    overflow-y: hidden;
+  }
+
+  .gw-dialog--scroll[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gw-dialog--scroll > .gw-dialog__panel {
+    flex: 1;
+  }
+
+  .gw-dialog--scroll .gw-dialog__title {
+    padding-bottom: var(--gw-space-lg);
+  }
+
+  .gw-dialog--scroll .gw-dialog__body {
+    flex: 1;
+    min-height: 0;
+    border-block-width: var(--gw-border-width);
+    overflow-y: auto;
+  }
+
+  .gw-dialog--scroll .gw-dialog__footer {
+    padding-top: var(--gw-space-lg);
+  }
+}

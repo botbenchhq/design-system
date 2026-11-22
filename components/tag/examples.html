@@ -1,0 +1,46 @@
+<div data-example="default" data-title="Categories on an item" data-state="default" data-reason="Each tag names a category the task belongs to, in one neutral tone. They are facts to scan, not statuses to act on, so none of them competes with the task's badge.">
+  <div class="gw-cluster">
+    <span class="gw-tag">backend</span>
+    <span class="gw-tag">auth</span>
+    <span class="gw-tag">needs migration</span>
+  </div>
+</div>
+
+<div data-example="removable" data-title="Filter values, each with a remove button" data-reason="Each button is named for the filter it removes, so a screen reader hears Remove filter: main and not a row of identical buttons. The button is drawn small, with a 44px pointer target around it.">
+  <ul class="gw-cluster" aria-label="Filters applied to the runs">
+    <li class="gw-tag">Branch: main <button type="button" class="gw-tag__remove" aria-label="Remove filter: Branch: main"></button></li>
+    <li class="gw-tag">Status: failed <button type="button" class="gw-tag__remove" aria-label="Remove filter: Status: failed"></button></li>
+    <li class="gw-tag">Repository: acme/api <button type="button" class="gw-tag__remove" aria-label="Remove filter: Repository: acme/api"></button></li>
+    <li class="gw-tag">Started by: Maya Okafor <button type="button" class="gw-tag__remove" aria-label="Remove filter: Started by: Maya Okafor"></button></li>
+  </ul>
+</div>
+
+<div data-example="long-value" data-title="A long value wraps inside the tag">
+  <ul class="gw-cluster" aria-label="Filters applied to the changed files">
+    <li class="gw-tag">Path: web/src/components/settings/notifications/notification-preferences-form.tsx <button type="button" class="gw-tag__remove" aria-label="Remove filter: Path: web/src/components/settings/notifications/notification-preferences-form.tsx"></button></li>
+  </ul>
+</div>
+
+<div data-example="hover" data-title="Hover on the remove button" data-state="hover">
+  <span class="gw-tag">Branch: main <button type="button" class="gw-tag__remove" aria-label="Remove filter: Branch: main"></button></span>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus on the remove button" data-state="focus-visible">
+  <span class="gw-tag">Branch: main <button type="button" class="gw-tag__remove" aria-label="Remove filter: Branch: main"></button></span>
+</div>
+
+<div data-example="active" data-title="The remove button being pressed" data-state="active">
+  <span class="gw-tag">Branch: main <button type="button" class="gw-tag__remove" aria-label="Remove filter: Branch: main"></button></span>
+</div>
+
+<div data-example="disabled" data-title="A filter that cannot be removed while the runs reload" data-state="disabled">
+  <span class="gw-tag">Branch: main <button type="button" class="gw-tag__remove" aria-label="Remove filter: Branch: main" disabled></button></span>
+</div>
+
+<div data-example="status-as-tag" data-title="A status written as a tag" data-dont="review" data-reason="Failed and Awaiting decision are statuses the reader acts on. A tag has one neutral tone and no icon, so they look the same as backend. Use a badge for the one status of an item, and tags for its categories.">
+  <div class="gw-cluster">
+    <span class="gw-tag">Failed</span>
+    <span class="gw-tag">Awaiting decision</span>
+    <span class="gw-tag">backend</span>
+  </div>
+</div>

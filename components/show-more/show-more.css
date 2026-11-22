@@ -1,0 +1,103 @@
+/*
+ * Show more: a control after the first part of long content that reveals the rest.
+ * For text, code or a log it is a details element whose summary says how much more there is, and reads "Show less" once open.
+ * For a list cut short it is a quiet button, "Show all 24 tasks", which the app answers by adding the rows.
+ */
+
+@layer gw.components {
+  .gw-show-more {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+    min-width: 0;
+  }
+
+  .gw-show-more__rest {
+    min-width: 0;
+  }
+
+  /* Once open, the control sits under what it revealed, where "Show less" is looked for. */
+  .gw-show-more__rest[open] {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--gw-space-xs);
+  }
+
+  /* As wide as its text, and starting on the same edge as the text of the rows above it. */
+  .gw-show-more__all {
+    align-self: flex-start;
+    padding-inline: var(--gw-space-sm);
+  }
+
+  /* As wide as its text, so the space beside it does not take a press. */
+  .gw-show-more__toggle {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-size-touch);
+    padding-inline: var(--gw-space-sm) var(--gw-space-md);
+    border-radius: var(--gw-radius-md);
+    font-weight: var(--gw-weight-medium);
+    list-style: none;
+    cursor: pointer;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-show-more__toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .gw-show-more__toggle::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/chevron-down.svg") center / contain no-repeat;
+  }
+
+  .gw-show-more__rest[open] > .gw-show-more__toggle::before {
+    mask-image: url("icons/chevron-up.svg");
+  }
+
+  /* The summary holds both wordings, and the one that does not apply is not rendered or read out. */
+  .gw-show-more__less,
+  .gw-show-more__rest[open] > .gw-show-more__toggle > .gw-show-more__more {
+    display: none;
+  }
+
+  .gw-show-more__rest[open] > .gw-show-more__toggle > .gw-show-more__less {
+    display: inline;
+  }
+
+  /* Why the rest could not be fetched. The icon is drawn here, so the error is never colour alone. */
+  .gw-show-more__error {
+    display: flex;
+    gap: var(--gw-space-xs);
+    padding-inline: var(--gw-space-sm);
+    color: var(--gw-color-danger);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-show-more__error::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-show-more__toggle:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  .gw-show-more__toggle:active {
+    background-color: var(--gw-color-border);
+  }
+}

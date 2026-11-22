@@ -2,7 +2,7 @@
 
 A shared design system for a small set of apps. It holds one closed vocabulary of design tokens, a default theme, a base layer of styles, fonts and icons, and the files generated from them. An app copies `dist/` into its own repo.
 
-This repo currently contains the tokens, the base layer, the checker with its static scan and structural rules, the contract every component follows, a starter set of 24 components built to it, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The rest of the catalogue is not built yet. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
+This repo currently contains the tokens, the base layer, the checker with its static scan and structural rules, the contract every component follows, 64 components built to it, an optional behaviours module, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The long-tail components and page patterns are not built yet. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
 
 To use the system in an app, follow `docs/consumer-guide.md`. In short:
 
@@ -33,6 +33,7 @@ Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start 
 | `groundwork.css` | The whole system in one stylesheet: layer order, tokens, reset, base styles, font faces and components. This is the file a page links. |
 | `components.json` | Every component: its purpose, when to use it and when not to, its variants, sizes, states, accessibility notes, classes, and the markup of each example. Read it before writing markup. |
 | `gallery/` | A static page per component showing every variant and state, with a do and a don't. Serve `dist/` and open `/gallery/`. |
+| `behaviors/groundwork.js` | One optional ES module with no dependencies, for an app without a framework. It defines `<gw-tabs>`, which does what the tabs component needs from script. |
 | `fonts/` | IBM Plex Sans and IBM Plex Mono, with their licence. `groundwork.css` loads them by relative URL, so keep the folder beside it. |
 | `icons.svg` | The icon sprite. Each icon is a `<symbol>` with the id `gw-icon-` and its name. |
 | `icons/` | The same icons as single files, for CSS that needs one as a mask or background, with their licence. |
@@ -51,7 +52,7 @@ Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start 
 
 ## Tokens
 
-Every custom property starts with `--gw-`. The categories are colour roles, font families, a six-step type scale with line heights, font weights, six spacing steps, two radii, a border width, one overlay shadow, three durations and one easing curve, a layering scale, fixed sizes and the breakpoint.
+Every custom property starts with `--gw-`. The categories are colour roles, font families, a six-step type scale with line heights, font weights, six spacing steps, two radii and a full radius for a circle or a pill, a border width, one overlay shadow, three durations and one easing curve, a layering scale, fixed sizes and the breakpoint.
 
 The vocabulary is closed. A theme can change a token's value. It cannot add a name.
 
@@ -116,6 +117,14 @@ A component is class names on plain HTML: `gw-button`, a part such as `gw-button
 
 The gallery switches theme with `?theme=dark`. Its pages carry no inline style and no inline script.
 
+Almost every component needs no script. The tabs component does: something has to move `aria-selected`, `tabindex` and `hidden` when the reader picks a tab. `dist/behaviors/groundwork.js` is one optional module that defines the `<gw-tabs>` element for that. Wrap the tabs markup in it and it handles click, Left, Right, Home and End. It adds no class and no inline style.
+
+```html
+<script type="module" src="/vendor/groundwork/behaviors/groundwork.js"></script>
+```
+
+It is for an app without a framework. An app that renders with a framework leaves the module out and sets the same attributes itself.
+
 To add a component, follow `docs/authoring.md`.
 
 ## Fonts
@@ -175,9 +184,9 @@ npm test
 npm run test:visual
 ```
 
-`npm run build` regenerates `dist/` from `tokens/`, `base/`, `components/`, `gallery/`, `checker/`, `rules/` and `hooks/` and prints the contrast report. It fails, naming the folder, when a component breaks the authoring contract, and when `rules/core.md` is longer than 2,400 characters. It reads nothing from `node_modules`. `npm test` includes a check that the committed `dist/` matches a fresh build.
+`npm run build` regenerates `dist/` from `tokens/`, `base/`, `components/`, `gallery/`, `behaviors/`, `checker/`, `rules/` and `hooks/` and prints the contrast report. It fails, naming the folder, when a component breaks the authoring contract, and when `rules/core.md` is longer than 2,400 characters. It reads nothing from `node_modules`. `npm test` includes a check that the committed `dist/` matches a fresh build.
 
-`npm run test:visual` opens a bare page that links `dist/groundwork.css` in the Chrome installed on the machine and checks the fonts, the focus ring and the spacing. It needs Google Chrome and downloads no browser. It also runs `dist/check-dom.js` on the fixture pages and on a small React app, and checks that the rendered and static results agree. For each component's gallery page, at 390px and 1280px in light and dark, it runs axe and the structural rules on the do examples, measures the pointer targets, and writes a screenshot to `test/visual/screenshots/` for review.
+`npm run test:visual` opens a bare page that links `dist/groundwork.css` in the Chrome installed on the machine and checks the fonts, the focus ring and the spacing. It needs Google Chrome and downloads no browser. It also runs `dist/check-dom.js` on the fixture pages and on a small React app, and checks that the rendered and static results agree. For each component's gallery page, at 390px and 1280px in light and dark, it runs axe and the structural rules on the do examples, measures the pointer targets, and writes a screenshot to `test/visual/screenshots/` for review. It also drives `<gw-tabs>` from the keyboard.
 
 `npm run vendor` copies the font files and the icons named in `base/icons.json` from the development dependencies into `base/`. Run it after changing the icon list or a package version.
 

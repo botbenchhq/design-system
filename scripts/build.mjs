@@ -1,4 +1,4 @@
-// Generates everything in dist/ from tokens/, base/, components/, gallery/, checker/, rules/ and hooks/. Run with `npm run build`.
+// Generates everything in dist/ from tokens/, base/, components/, gallery/, behaviors/, checker/, rules/ and hooks/. Run with `npm run build`.
 // `npm run vendor` refreshes the font and icon files under base/ from node_modules.
 
 import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
@@ -540,6 +540,7 @@ function galleryPage(title, body) {
 <link rel="stylesheet" href="../groundwork.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
@@ -685,6 +686,8 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   for (const name of listFiles(join(root, "rules")).filter((file) => file.endsWith(".md"))) {
     files[`rules/${name}`] = readFileSync(join(root, "rules", name));
   }
+  // The optional behaviours module, for an app without a framework.
+  for (const name of listFiles(join(root, "behaviors"))) files[`behaviors/${name}`] = readFileSync(join(root, "behaviors", name));
   for (const name of listFiles(join(root, "hooks"))) files[`hooks/${name}`] = readFileSync(join(root, "hooks", name));
 
   rmSync(outDir, { recursive: true, force: true });

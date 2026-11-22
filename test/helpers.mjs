@@ -12,7 +12,7 @@ export function tempDir() {
 // A private copy of the build sources, so a test can edit them.
 export function copySources() {
   const root = tempDir();
-  for (const dir of ["tokens", "base", "components", "gallery", "checker", "rules", "hooks"]) cpSync(join(repoRoot, dir), join(root, dir), { recursive: true });
+  for (const dir of ["tokens", "base", "components", "gallery", "behaviors", "checker", "rules", "hooks"]) cpSync(join(repoRoot, dir), join(root, dir), { recursive: true });
   cpSync(join(repoRoot, "package.json"), join(root, "package.json"));
   return root;
 }

@@ -1,0 +1,42 @@
+{
+  "name": "dialog",
+  "title": "Dialog",
+  "purpose": "A modal window for one short task that must be finished or cancelled before the reader goes on.",
+  "status": "draft",
+  "whenToUse": [
+    "For a short task the reader starts from the current view and finishes in one step, such as renaming a branch.",
+    "To ask a question the view cannot go on without, with one primary action and Cancel."
+  ],
+  "whenNotToUse": [
+    "To confirm deleting or discarding something. Use the confirm dialog.",
+    "For a longer form, filters or the details of an item. Use a sheet.",
+    "For supplementary content beside a control that should not block the page. Use a popover.",
+    "To report that something happened. Use a toast, or an alert for a result that stays."
+  ],
+  "variants": [
+    { "name": "default", "use": "No modifier class. The dialog grows with its content and scrolls as a whole once it reaches the height of the screen." },
+    { "name": "scroll", "class": "gw-dialog--scroll", "use": "A body that may be long, such as a list of files. The title and the footer stay in place and the body scrolls between two rules." }
+  ],
+  "sizes": [],
+  "states": ["open", "busy", "error"],
+  "accessibility": [
+    "Use a dialog element with aria-labelledby pointing at gw-dialog__title, an h2. When the body is one short text, point aria-describedby at it.",
+    "Open it with the one line document.getElementById(\"dialog-id\").showModal(). That call traps focus, makes the page behind inert, closes on Escape and returns focus to the opener when the dialog closes. Do not write the open attribute yourself, which shows the dialog without any of that: the examples carry it only so they are drawn in the gallery.",
+    "As progressive enhancement, the opener may carry command=\"show-modal\" and commandfor=\"dialog-id\", and then needs no script where invoker commands are supported. Keep the showModal() call for browsers without them.",
+    "Wrap the content in a form with method=\"dialog\" and the class gw-dialog__panel. Each footer button is a submit button with a value. Pressing one closes the dialog with no script, and the app reads dialog.returnValue in a close event listener. To validate or save before closing, handle the form's submit event and call preventDefault().",
+    "The primary button comes first in the footer and Cancel second, so Enter in a field takes the primary action. Cancel carries formnovalidate so it closes a form with an empty required field.",
+    "showModal() moves focus to the first focusable element, or to the one that has the autofocus attribute. Tab stays inside the dialog.",
+    "A dialog has one primary button. It is a view of its own, so the page behind may have its own.",
+    "With gw-dialog--scroll, if the body holds no control, give gw-dialog__body tabindex=\"0\", role=\"group\" and an aria-label so the keyboard can scroll it.",
+    "While saving, set aria-busy=\"true\" on the primary button, change its label to say what is happening and disable Cancel. If it fails, keep the dialog open and say what happened and what to do, in the field's error or in an alert inside the body."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-dialog",
+    "gw-dialog--scroll",
+    "gw-dialog__body",
+    "gw-dialog__footer",
+    "gw-dialog__panel",
+    "gw-dialog__title"
+  ]
+}

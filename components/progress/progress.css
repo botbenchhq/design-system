@@ -1,0 +1,82 @@
+/*
+ * Progress: how far a job with a known length has got, on a native progress element.
+ * A label says what is measured and a sentence gives the value in words, so the bar is never the only sign.
+ * A progress element with no value attribute is the indeterminate form: a full bar that fades slowly out and in.
+ */
+
+@layer gw.components {
+  /* The label and the value share a row above the bar, and wrap one over the other when they do not fit. */
+  .gw-progress {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--gw-space-xs) var(--gw-space-md);
+    min-width: 0;
+  }
+
+  .gw-progress__label {
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-progress__value {
+    color: var(--gw-color-muted);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
+
+  /* In Gecko the element's own background is the track. */
+  .gw-progress__bar {
+    display: block;
+    flex: 1 0 100%;
+    order: 1;
+    width: 100%;
+    height: var(--gw-space-sm);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-border);
+    overflow: hidden;
+    appearance: none;
+  }
+
+  /* In WebKit and Blink the track and the fill are both pseudo-elements. */
+  .gw-progress__bar::-webkit-progress-bar {
+    background-color: var(--gw-color-border);
+  }
+
+  .gw-progress__bar::-webkit-progress-value {
+    background-color: var(--gw-color-accent);
+    transition: inline-size var(--gw-duration-slow) var(--gw-ease);
+  }
+
+  .gw-progress__bar::-moz-progress-bar {
+    background-color: var(--gw-color-accent);
+  }
+
+  /* No value: the whole bar is one mid tone, which fades so it reads as work under way and not as a full bar. */
+  .gw-progress__bar:indeterminate {
+    background-color: var(--gw-color-border-strong);
+    animation: gw-progress-wait calc(var(--gw-duration-slow) * 6) var(--gw-ease) infinite alternate;
+  }
+
+  .gw-progress__bar:indeterminate::-webkit-progress-bar {
+    background-color: var(--gw-color-border-strong);
+  }
+
+  .gw-progress__bar:indeterminate::-moz-progress-bar {
+    background-color: transparent;
+  }
+
+  @keyframes gw-progress-wait {
+    to {
+      opacity: 0.4;
+    }
+  }
+
+  /* The reset stops transitions under reduced motion. An animation is stopped here. */
+  @media (prefers-reduced-motion: reduce) {
+    .gw-progress__bar:indeterminate {
+      animation: none;
+    }
+  }
+}

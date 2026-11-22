@@ -1,0 +1,109 @@
+<div data-example="default" data-title="Actions on a task" data-state="open" data-gallery-frame data-gallery-open data-reason="The button says what the menu acts on. Each item is a verb and its object, the item that deletes is last, below a divider, and its label names what is deleted.">
+  <button type="button" class="gw-button" popovertarget="menu-default" aria-haspopup="menu">
+    Task actions
+    <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-down"></use></svg>
+  </button>
+  <div class="gw-menu" id="menu-default" popover role="menu" aria-label="Task actions">
+    <div class="gw-menu__section" role="group" aria-labelledby="menu-default-branch">
+      <div class="gw-menu__label" id="menu-default-branch" role="presentation">Branch fix/login-timeout</div>
+      <button type="button" class="gw-menu__item" role="menuitem">
+        <svg class="gw-menu__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+        Copy branch name
+      </button>
+      <button type="button" class="gw-menu__item" role="menuitem">
+        <svg class="gw-menu__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
+        Rebase onto main
+      </button>
+      <button type="button" class="gw-menu__item" role="menuitem">
+        <svg class="gw-menu__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
+        Open a terminal in the worktree
+      </button>
+    </div>
+    <hr class="gw-menu__divider">
+    <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete task 41</button>
+  </div>
+</div>
+
+<div data-example="plain" data-title="Without icons or sections" data-gallery-frame="short" data-gallery-open>
+  <button type="button" class="gw-button gw-button--quiet" popovertarget="menu-plain" aria-haspopup="menu">
+    <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-ellipsis"></use></svg>
+    <span class="gw-visually-hidden">More actions for run 7</span>
+  </button>
+  <div class="gw-menu" id="menu-plain" popover role="menu" aria-label="More actions for run 7">
+    <button type="button" class="gw-menu__item" role="menuitem">Run again</button>
+    <button type="button" class="gw-menu__item" role="menuitem">Copy transcript</button>
+    <button type="button" class="gw-menu__item" role="menuitem">Download log</button>
+  </div>
+</div>
+
+<div data-example="disabled" data-title="An unavailable item" data-state="disabled" data-gallery-frame="short" data-gallery-open>
+  <button type="button" class="gw-button" popovertarget="menu-disabled" aria-haspopup="menu">
+    Branch actions
+    <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-down"></use></svg>
+  </button>
+  <div class="gw-menu" id="menu-disabled" popover role="menu" aria-label="Branch actions">
+    <button type="button" class="gw-menu__item" role="menuitem">
+      <svg class="gw-menu__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+      Copy branch name
+    </button>
+    <button type="button" class="gw-menu__item" role="menuitem" aria-disabled="true">
+      <svg class="gw-menu__icon" aria-hidden="true"><use href="icons.svg#gw-icon-external-link"></use></svg>
+      Open pull request (push the branch first)
+    </button>
+    <button type="button" class="gw-menu__item" role="menuitem">
+      <svg class="gw-menu__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
+      Rebase onto main
+    </button>
+  </div>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover" data-gallery-frame="short" data-gallery-open>
+  <button type="button" class="gw-button" popovertarget="menu-hover" aria-haspopup="menu">
+    Run actions
+    <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-down"></use></svg>
+  </button>
+  <div class="gw-menu" id="menu-hover" popover role="menu" aria-label="Run actions">
+    <button type="button" class="gw-menu__item" role="menuitem">Run again</button>
+    <button type="button" class="gw-menu__item" role="menuitem">Copy transcript</button>
+    <hr class="gw-menu__divider">
+    <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete run 7</button>
+  </div>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible" data-gallery-frame="short" data-gallery-open>
+  <button type="button" class="gw-button" popovertarget="menu-focus-visible" aria-haspopup="menu">
+    Run actions
+    <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-down"></use></svg>
+  </button>
+  <div class="gw-menu" id="menu-focus-visible" popover role="menu" aria-label="Run actions">
+    <button type="button" class="gw-menu__item" role="menuitem">Run again</button>
+    <button type="button" class="gw-menu__item" role="menuitem">Copy transcript</button>
+    <hr class="gw-menu__divider">
+    <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete run 7</button>
+  </div>
+</div>
+
+<div data-example="active" data-title="Pressed" data-state="active" data-gallery-frame="short" data-gallery-open>
+  <button type="button" class="gw-button" popovertarget="menu-active" aria-haspopup="menu">
+    Run actions
+    <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-down"></use></svg>
+  </button>
+  <div class="gw-menu" id="menu-active" popover role="menu" aria-label="Run actions">
+    <button type="button" class="gw-menu__item" role="menuitem">Run again</button>
+    <button type="button" class="gw-menu__item" role="menuitem">Copy transcript</button>
+    <hr class="gw-menu__divider">
+    <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete run 7</button>
+  </div>
+</div>
+
+<div data-example="unmarked-delete" data-title="The destructive item first, unseparated and unnamed" data-dont="review" data-gallery-frame="short" data-gallery-open data-reason="Delete sits where the pointer lands when the menu opens, nothing sets it apart from the safe items, and its label does not say what is deleted. Put it last, below a divider, with gw-menu__item--danger, and name the thing.">
+  <button type="button" class="gw-button" popovertarget="menu-unmarked-delete" aria-haspopup="menu">
+    Run actions
+    <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-down"></use></svg>
+  </button>
+  <div class="gw-menu" id="menu-unmarked-delete" popover role="menu" aria-label="Run actions">
+    <button type="button" class="gw-menu__item" role="menuitem">Delete</button>
+    <button type="button" class="gw-menu__item" role="menuitem">Run again</button>
+    <button type="button" class="gw-menu__item" role="menuitem">Copy transcript</button>
+  </div>
+</div>

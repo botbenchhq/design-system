@@ -79,6 +79,7 @@ fontWeights:
 rounded:
   sm: 4px
   md: 8px
+  full: 9999px
 spacing:
   xs: 4px
   sm: 8px

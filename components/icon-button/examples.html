@@ -1,0 +1,108 @@
+<div data-example="named" data-title="Bordered and quiet, each with a name" data-state="default" data-reason="Each button says what it does to a screen reader and to voice control: one through aria-label, one through visually hidden text. The icon itself is hidden from both.">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Copy branch name">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-ellipsis"></use></svg>
+      <span class="gw-visually-hidden">More actions for run 2184</span>
+    </button>
+  </div>
+</div>
+
+<div data-example="in-a-row" data-title="Quiet, at the end of a row">
+  <div class="gw-split">
+    <code>fix/session-refresh</code>
+    <div class="gw-cluster gw-gap-xs">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Copy branch name">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+      </button>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Open the branch on GitHub">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-external-link"></use></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div data-example="pressed" data-title="A toggle, on and off" data-state="pressed">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Show the terminal" aria-pressed="true">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-icon-button" aria-label="Show the file tree" aria-pressed="false">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-folder"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Show the terminal" aria-pressed="true">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Show the file tree" aria-pressed="false">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-folder"></use></svg>
+    </button>
+  </div>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Copy branch name">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="More actions for run 2184">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-ellipsis"></use></svg>
+    </button>
+  </div>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Copy branch name">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="More actions for run 2184">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-ellipsis"></use></svg>
+    </button>
+  </div>
+</div>
+
+<div data-example="active" data-title="Pressed down" data-state="active">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Copy branch name">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="More actions for run 2184">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-ellipsis"></use></svg>
+    </button>
+  </div>
+</div>
+
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Copy branch name" disabled>
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="More actions for run 2184" disabled>
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-ellipsis"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-icon-button" aria-label="Show the terminal" aria-pressed="true" disabled>
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
+    </button>
+  </div>
+</div>
+
+<div data-example="busy" data-title="Busy" data-state="busy">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Copying branch name" aria-busy="true">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    </button>
+  </div>
+</div>
+
+<div data-example="unnamed" data-title="An icon with no name" data-dont="review" data-reason="A screen reader announces only &quot;button&quot;, and voice control has nothing to call it. Give every icon button an aria-label or visually hidden text that says what it does.">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-ellipsis"></use></svg>
+    </button>
+  </div>
+</div>

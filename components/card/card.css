@@ -1,0 +1,63 @@
+/*
+ * Card: one section of a view set apart by a 1px border or a background shift, with an optional header.
+ * It has no shadow. Content sits on the page unless grouping it helps the reader.
+ */
+
+@layer gw.components {
+  .gw-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  /* A background shift in place of the border. Quiet text does not reach its contrast on this surface. */
+  .gw-card--sunken {
+    border-color: transparent;
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* As tall as a pointer target, so a small button's padded hit area stays inside the header. */
+  .gw-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gw-space-md);
+    min-height: var(--gw-size-touch);
+    padding-inline: var(--gw-space-lg);
+    border-bottom-width: var(--gw-border-width);
+  }
+
+  .gw-card--sunken > .gw-card__header {
+    border-bottom-color: var(--gw-color-border-strong);
+  }
+
+  /* A heading at whatever level the view needs, drawn at the size of the text around it. */
+  .gw-card__title {
+    min-width: 0;
+    margin: 0;
+    padding-block: var(--gw-space-sm);
+    font-size: var(--gw-text-ui);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-ui);
+    overflow-wrap: anywhere;
+  }
+
+  /* Pulled towards the edge, so the words of a quiet button line up with the body's text. */
+  .gw-card__action {
+    display: flex;
+    flex: none;
+    align-items: center;
+    margin-inline-end: calc(var(--gw-space-sm) * -1);
+  }
+
+  .gw-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+    min-width: 0;
+    padding: var(--gw-space-lg);
+  }
+}

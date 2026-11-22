@@ -1,0 +1,101 @@
+/*
+ * Tooltip: a line of supplementary text for a control that already has a name.
+ * A wrapper around the control shows the text on hover and on keyboard focus with no script.
+ * With popover="hint" on the text and interestfor on the control, a browser that supports
+ * interest invokers also opens it on a long press and closes it on Escape.
+ */
+
+@layer gw.components {
+  .gw-tooltip {
+    position: relative;
+    display: inline-flex;
+    /* The wrapper is the anchor of its own text, and the name stays inside it, so tooltips never share an anchor. */
+    anchor-name: --gw-tooltip;
+    anchor-scope: --gw-tooltip;
+  }
+
+  /*
+   * Above the control, from its leading edge. The transparent border bridges the gap,
+   * so the pointer can move from the control onto the text without closing it.
+   */
+  .gw-tooltip__content {
+    position: absolute;
+    inset: auto auto 100% 0;
+    z-index: var(--gw-z-overlay);
+    display: none;
+    width: max-content;
+    max-width: min(calc(var(--gw-size-column) / 2), calc(100vw - var(--gw-space-lg) * 2));
+    margin: 0;
+    padding: var(--gw-space-xs) var(--gw-space-sm);
+    border-block: var(--gw-space-xs) solid transparent;
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-accent);
+    background-clip: padding-box;
+    color: var(--gw-color-on-accent);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-normal);
+    line-height: var(--gw-leading-xs);
+    text-align: start;
+    overflow-wrap: anywhere;
+  }
+
+  .gw-tooltip--below > .gw-tooltip__content {
+    inset: 100% auto auto 0;
+  }
+
+  .gw-tooltip--end > .gw-tooltip__content {
+    inset: auto 0 100% auto;
+  }
+
+  .gw-tooltip--below.gw-tooltip--end > .gw-tooltip__content {
+    inset: 100% 0 auto auto;
+  }
+
+  .gw-tooltip:focus-within > .gw-tooltip__content,
+  .gw-tooltip__content:popover-open {
+    display: block;
+  }
+
+  @media (hover: hover) {
+    .gw-tooltip:hover > .gw-tooltip__content {
+      display: block;
+    }
+  }
+
+  /*
+   * Opened as a popover, the text is in the top layer, where no container can clip it.
+   * Without anchor positioning it cannot find its control there, so it sits at the
+   * bottom of the screen, centred.
+   */
+  .gw-tooltip > .gw-tooltip__content:popover-open {
+    position: fixed;
+    inset: auto var(--gw-space-lg) var(--gw-space-lg);
+    margin: 0 auto;
+  }
+
+  /* With anchor positioning it keeps its place by the control, and flips when it would leave the screen. */
+  @supports (position-area: block-start) {
+    .gw-tooltip > .gw-tooltip__content:popover-open {
+      inset: auto;
+      /* The trailing margin keeps a long text off the edge of the screen. A flip mirrors it. */
+      margin: 0 var(--gw-space-lg) 0 0;
+      position-anchor: --gw-tooltip;
+      position-area: block-start span-inline-end;
+      position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+    }
+
+    .gw-tooltip--below > .gw-tooltip__content:popover-open {
+      position-area: block-end span-inline-end;
+    }
+
+    .gw-tooltip--end > .gw-tooltip__content:popover-open {
+      margin: 0 0 0 var(--gw-space-lg);
+      position-area: block-start span-inline-start;
+    }
+
+    .gw-tooltip--below.gw-tooltip--end > .gw-tooltip__content:popover-open {
+      margin: 0 0 0 var(--gw-space-lg);
+      position-area: block-end span-inline-start;
+    }
+  }
+}
