@@ -59,6 +59,51 @@
   </section>
 </div>
 
+<div data-example="newest-first" data-title="A paged log, newest first">
+  <section class="gw-activity-feed" aria-label="Action log">
+    <p class="gw-visually-hidden">The newest entry is first.</p>
+    <div class="gw-activity-feed__day">
+      <h4 class="gw-activity-feed__heading">Today, 22 November</h4>
+      <ol class="gw-activity-feed__entries" reversed>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T10:41">10:41</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">You</span> revoked the standing permission to run npm install</p>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T09:16">09:16</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">Claude Code</span> ran a command under a standing permission</p>
+          <div class="gw-activity-feed__evidence">
+            <code class="gw-activity-feed__excerpt">npm install --save-dev @acme/session-fixtures</code>
+          </div>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T09:02">09:02</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">You</span> allowed a request to read docs/runbooks/session-store.md</p>
+        </li>
+      </ol>
+    </div>
+    <div class="gw-activity-feed__day">
+      <h4 class="gw-activity-feed__heading">Yesterday, 21 November</h4>
+      <ol class="gw-activity-feed__entries" reversed>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-21T17:55">17:55</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">You</span> declined a request to delete ../shared-config/.cache</p>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-21T17:48">17:48</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">You</span> granted a standing permission to run npm install in acme/api</p>
+        </li>
+      </ol>
+    </div>
+    <div class="gw-activity-feed__more">
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-down"></use></svg>
+        Show older activity
+      </button>
+    </div>
+  </section>
+</div>
+
 <div data-example="live" data-title="A feed that grows while the reader watches">
   <section class="gw-activity-feed" role="log" aria-label="Live activity for task 38">
     <div class="gw-activity-feed__day">

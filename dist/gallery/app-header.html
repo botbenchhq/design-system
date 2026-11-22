@@ -118,6 +118,26 @@
 </figure>
 <figure data-gallery="specimen">
 <figcaption>
+<h3>With the pending tray in the tray</h3>
+</figcaption>
+<div data-example="pending-tray" data-title="With the pending tray in the tray">
+  <header class="gw-app-header">
+    <a class="gw-app-header__name" href="/">Smelt</a>
+    <div class="gw-app-header__actions">
+      <a class="gw-app-header__action" href="/search" aria-label="Search tasks">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+      </a>
+    </div>
+    <div class="gw-app-header__tray">
+      <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+        <a class="gw-pending-tray__link" href="/approvals"><span class="gw-pending-tray__count">2</span> approvals waiting</a>
+      </div>
+    </div>
+  </header>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
 <h3>Tray with nothing waiting</h3>
 <p data-gallery="state">State: <code>empty</code></p>
 </figcaption>
@@ -307,7 +327,9 @@
 <h2>Accessibility</h2>
 <ul>
 <li>Use a header element. Outside main it is the page's banner landmark, so a page has one.</li>
-<li>The product name is a link to the first screen. The view title is the page's h1 when the header shows one.</li>
+<li>The product name is a link to the first screen. It is not a heading.</li>
+<li>A view has one h1. When the view has a page header, the page header's title is the h1 and the app header shows the product name. Only a view with no page header, such as a detail screen with a back link, puts its title in gw-app-header__title as the h1. Never write the title as an h1 in both.</li>
+<li>The tray, gw-app-header__tray, is where the pending tray goes: put the pending tray's div inside it, on every signed-in screen.</li>
 <li>The back link names where it goes: visible text such as Tasks, or aria-label=&quot;Back to tasks&quot; when it is only the icon.</li>
 <li>An icon-only action has an aria-label that says what it does and to what, such as Search tasks. Its icon carries aria-hidden=&quot;true&quot;.</li>
 <li>Use a link for an action that goes to another view and a button for one that acts on this view.</li>

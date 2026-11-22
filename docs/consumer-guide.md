@@ -12,7 +12,7 @@ From the app's repo, with the Groundwork repo checked out beside it:
 node ../groundwork/scripts/sync.mjs --to vendor/groundwork
 ```
 
-This copies `dist/` and writes `hashes.json`, the SHA-256 of every file. Commit the whole directory.
+This copies `dist/` and writes `hashes.json`, the SHA-256 of every file. Commit the whole directory. The copy carries the system's `LICENSE` and `NOTICE` with it.
 
 The copy is read-only. The checker verifies the hashes first on every run and stops with `vendored-file-changed` when a file differs. To change the system, change it in the Groundwork repo and sync again.
 
@@ -151,7 +151,7 @@ Start with `"gaps": []`.
 
 ## 4. When no component fits
 
-1. Read `vendor/groundwork/rules/choosing-components.md` and the "when not to use" entries in `components.json`.
+1. Read `vendor/groundwork/rules/choosing-components.md`, search `components-index.json` by purpose, and read the "when not to use" entries in `components.json`.
 2. Compose catalogue components with the layout classes.
 3. If the need is still unmet, build an app-local component: classes under the app's prefix, values from tokens only, and an entry in the gaps file.
 
@@ -197,7 +197,7 @@ A waiver without a reason is itself a finding, and so is one that matches nothin
 
 ## 6. Run the rendered check in the end-to-end tests
 
-The rules about structure need the rendered page: one primary action per view, the disclosure limits, nested and identical cards, badge clutter, emoji and stock phrases. `check-dom.js` holds them as one script that defines `gwCheckDom()`. It returns a list of `{ rule, message, fix, snippet }`.
+The rules about structure need the rendered page: one primary action per view, the disclosure limits, nested and identical cards, badge clutter, emoji, stock phrases, and a view whose controls use no system component at all. `check-dom.js` holds them as one script that defines `gwCheckDom()`. It returns a list of `{ rule, message, fix, snippet }`.
 
 With Playwright:
 
@@ -209,7 +209,7 @@ const checkDom = readFileSync("vendor/groundwork/check-dom.js", "utf8");
 
 async function expectNoDesignFindings(page) {
   await page.evaluate(checkDom);
-  expect(await page.evaluate(() => gwCheckDom())).toEqual([]);
+  expect(await page.evaluate(() => gwCheckDom(document.documentElement, { appPrefix: "app" }))).toEqual([]);
 }
 
 test("the task list follows the design rules", async ({ page }) => {
@@ -225,13 +225,38 @@ Evaluate the file's text, as above. Injecting it as a script tag fails under a c
 
 Call it once on each screen, and once more with each overlay open: every dialog, sheet, menu and popover. An open overlay is a view of its own, with its own primary action. Call it after the screen has its data, so lists and badges are counted.
 
+`gwCheckDom()` takes two optional arguments: the element to check, which is the whole document when left out, and an object of options. The one option is `appPrefix`, the same prefix as in `groundwork.config.json`. The rendered page cannot tell the app's prefix, and the rule `unstyled-controls` needs it: a view with buttons or form controls fails when none of them carries or sits inside an element with a `gw-` class or a class with the app's prefix. Without the option, a view built only from app-local components is reported. `gwCheckDom()` and `gwCheckDom(element)` work as before.
+
+That rule is the only check that a screen uses the system at all. The rendered check does not read computed styles, so it does not tell whether the fonts loaded or whether every colour, radius and shadow on the page is a token value. The static scan covers what the app's own files write. An app that wants the computed check as well may add its own assertions to the same tests, reading the allowed values from `tokens.json`.
+
+### Optional: an accessibility scan
+
+The system ships no accessibility scanner. Its own gallery is tested with axe, which says nothing about a screen an app composes. To scan the app's screens, add `@axe-core/playwright` to the app's development dependencies and run it beside the rendered check:
+
+```sh
+npm install --save-dev @axe-core/playwright
+```
+
+```js
+import AxeBuilder from "@axe-core/playwright";
+
+async function expectNoAccessibilityViolations(page) {
+  const { violations } = await new AxeBuilder({ page }).analyze();
+  expect(violations.map((violation) => ({ id: violation.id, nodes: violation.nodes.map((node) => node.target.join(" ")) }))).toEqual([]);
+}
+```
+
+Call it where `expectNoDesignFindings` is called: on each screen, and again with each overlay open. Run it in light and in dark, because contrast differs between the two.
+
 ## 7. Put the summary line in each pull request
 
 The scan ends with one line:
 
 ```
-0 findings, 0 waivers, 1 declared gap, 14 files scanned
+0 findings, 0 waivers, 1 declared gap, 14 files scanned, 40 rules
 ```
+
+The last figure is how many rules this copy of the checker holds. It rises when a sync brings new rules.
 
 Paste it into the description of every pull request that touches the interface, with the list of waivers and declared gaps printed above it when there are any. A reviewer reads new waivers and new gaps first.
 
@@ -240,7 +265,7 @@ Paste it into the description of every pull request that touches the interface, 
 In the app's agent instructions (`AGENTS.md`, `CLAUDE.md` or the like), say:
 
 - Read `vendor/groundwork/rules/core.md` before any interface work. It is short, and it says when to open the longer files beside it.
-- Look components up in `vendor/groundwork/components.json` before writing markup.
+- Choose a component or a page pattern from `vendor/groundwork/components-index.json`, which lists each one's name, kind, title, purpose, status and classes. Then open that one entry in `vendor/groundwork/components.json` for its guidance and markup. The full file is large, so search it for the entry's name and do not read it whole.
 - Never edit `vendor/groundwork/`.
 
 ## 9. Optional: a Claude Code hook
@@ -291,12 +316,15 @@ Groundwork 0.1.0 -> 0.2.0 in vendor/groundwork
 Components added: dialog, toast
 Components changed: button
 Components removed: none
+Patterns added: app-shell
+Patterns changed: sign-in
+Patterns removed: none
 Rules added: placeholder-as-label
 Rules removed: none
 Wrote 131 files and hashes.json
 ```
 
-Read those lines. A new rule may produce findings in screens that passed before, and a changed component may need its markup updated: look it up in `components.json`. `CHANGELOG.md` in the Groundwork repo says what each version changed. Then run the test and end-to-end commands and commit the copy with the fixes.
+Read those lines. A new rule may produce findings in screens that passed before, and a changed component or pattern may need its markup updated: look it up in `components.json`. `CHANGELOG.md` in the Groundwork repo says what each version changed. Then run the test and end-to-end commands and commit the copy with the fixes.
 
 Sync stops without writing when a file in the copy was edited by hand, and names the files. Restore them from version control and sync again.
 

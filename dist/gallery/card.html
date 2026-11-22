@@ -216,7 +216,7 @@
 <h2>Accessibility</h2>
 <ul>
 <li>Use a section with aria-labelledby pointing at gw-card__title when the card has a title, so it is a named region. Give each card on a view a different title. Use a div for a card with no title.</li>
-<li>gw-card__title is a heading at the level the view's outline needs. It is drawn at the size of body text whatever its level.</li>
+<li>gw-card__title is a heading. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2. In a queue or a list every title takes the same level. The class sets the size, so the level changes nothing on screen. It is drawn at the size of body text whatever its level.</li>
 <li>The header holds at most one action, in gw-card__action: a small quiet button or a link with the same classes. It is never primary. When several cards carry the same words, add an aria-label that starts with those words and names the card.</li>
 <li>The header is 44px tall, so the small button's padded pointer target stays inside it.</li>
 <li>A card is not focusable and takes no press. To make something pressable, put a link or a button inside it.</li>

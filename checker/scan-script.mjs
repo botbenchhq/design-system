@@ -30,7 +30,8 @@ export function scanScript(text, { file, jsx, vocabulary, appPrefix, gapClasses,
   const findings = [];
   const add = (line, { rule, message, fix }) => findings.push({ file, line: line + lineOffset, rule, message, fix });
   const classOptions = { vocabulary, appPrefix, gapClasses, appLocalFile };
-  const systemClass = new RegExp(`(?<![\\w-])${vocabulary.classPrefix}[\\w-]*`, "g");
+  // A system name after "#" is the fragment of a link to the icon sprite, such as icons.svg#gw-icon-check, not a class.
+  const systemClass = new RegExp(`(?<![\\w-])(?!(?<=#)${vocabulary.classPrefix}icon-)${vocabulary.classPrefix}[\\w-]*`, "g");
 
   let tokens;
   try {

@@ -303,7 +303,7 @@ src/routes/sign-in.tsx</pre>
 <section>
 <h2>Accessibility</h2>
 <ul>
-<li>Use an article with aria-labelledby pointing at gw-tool-call__title, a heading at the level the view needs. The title holds the tool name and then the target, both as text.</li>
+<li>Use an article with aria-labelledby pointing at gw-tool-call__title, a heading. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2. In a queue or a list every title takes the same level. The class sets the size, so the level changes nothing on screen. The title holds the tool name and then the target, both as text.</li>
 <li>Several calls are li elements of a ul or ol, one article in each.</li>
 <li>gw-tool-call__status always holds the status as a word: Running, Succeeded, Failed or Denied. The stylesheet draws the icon from the variant class, so the status is never colour alone.</li>
 <li>While the call runs, set aria-busy=&quot;true&quot; on the article and leave the variant class off. When it ends, remove aria-busy, add the variant class and change the word. Announce the change from a role=&quot;status&quot; element in the view when the reader is waiting on it.</li>

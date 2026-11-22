@@ -22,22 +22,27 @@ function sync(args, cwd = repoRoot) {
 const edit = (file, change) => writeFileSync(file, change(readFileSync(file, "utf8")));
 const editJson = (file, change) => edit(file, (json) => JSON.stringify(change(JSON.parse(json)), null, 2));
 
-// A copy of dist/ as a later release: a new version, one rule more and one fewer, and components added, changed and removed.
+// A copy of dist/ as a later release: a new version, one rule more and one fewer, and components and patterns added, changed and removed.
 function laterRelease() {
   const dir = tempDir();
   cpSync(dist, dir, { recursive: true });
-  writeFileSync(join(dir, "VERSION"), "0.4.0\n");
+  writeFileSync(join(dir, "VERSION"), "0.5.0\n");
   editJson(join(dir, "manifest.json"), (manifest) => ({
     ...manifest,
     rules: [...manifest.rules.filter((id) => id !== "stock-phrase"), "placeholder-as-label"],
   }));
-  editJson(join(dir, "components.json"), ({ components, ...rest }) => ({
-    ...rest,
+  editJson(join(dir, "components.json"), ({ components, patterns }) => ({
     components: [
       ...components
         .filter(({ name }) => name !== "spinner")
         .map((component) => (component.name === "button" ? { ...component, purpose: "An action." } : component)),
       { ...components[0], name: "chart" },
+    ],
+    patterns: [
+      ...patterns
+        .filter(({ name }) => name !== "not-found")
+        .map((pattern) => (pattern.name === "sign-in" ? { ...pattern, purpose: "A way in." } : pattern)),
+      { ...patterns[0], name: "dashboard" },
     ],
   }));
   return dir;
@@ -45,21 +50,21 @@ function laterRelease() {
 
 // The fenced block of a language in the consumer guide that holds a marker.
 function guideBlock(language, marker) {
-  const blocks = [...guide.matchAll(/^```(\w+)\n([\s\S]*?)^```$/gm)].filter(([, lang, body]) => lang === language && body.includes(marker));
+  const blocks = [...guide.matchAll(/^```(\w*)\n([\s\S]*?)^```$/gm)].filter(([, lang, body]) => lang === language && body.includes(marker));
   assert.equal(blocks.length, 1, `the guide needs one ${language} block holding ${marker}`);
   return blocks[0][2];
 }
 
 test("the build writes the package version to dist/VERSION", () => {
-  assert.equal(version, "0.3.0");
-  assert.equal(readFileSync(join(dist, "VERSION"), "utf8"), "0.3.0\n");
+  assert.equal(version, "0.4.0");
+  assert.equal(readFileSync(join(dist, "VERSION"), "utf8"), "0.4.0\n");
 });
 
 test("syncing into an empty directory produces a copy whose hashes verify", () => {
   const target = join(tempDir(), "vendor", "groundwork");
   const { status, stdout } = sync(["--to", target]);
   assert.equal(status, 0);
-  assert.match(stdout, /^Groundwork 0\.3\.0, first sync into /);
+  assert.match(stdout, /^Groundwork 0\.4\.0, first sync into /);
 
   const { files } = JSON.parse(readFileSync(join(target, "hashes.json"), "utf8"));
   assert.deepEqual(Object.keys(files), listFiles(dist));
@@ -71,22 +76,28 @@ test("syncing into an empty directory produces a copy whose hashes verify", () =
   assert.deepEqual(verifyVendored(target), []);
 });
 
-test("syncing a newer version over an older one prints the component and rule changes before writing", () => {
+test("syncing a newer version over an older one prints the component, pattern and rule changes before writing", () => {
   const target = tempDir();
   sync(["--to", target]);
   const { status, stdout } = sync(["--to", target, "--from", laterRelease()]);
   assert.equal(status, 0);
   const lines = stdout.trim().split("\n");
-  assert.match(lines[0], /^Groundwork 0\.3\.0 -> 0\.4\.0 in /);
-  assert.deepEqual(lines.slice(1, 6), [
+  assert.match(lines[0], /^Groundwork 0\.4\.0 -> 0\.5\.0 in /);
+  assert.deepEqual(lines.slice(1, 9), [
     "Components added: chart",
     "Components changed: button",
     "Components removed: spinner",
+    "Patterns added: dashboard",
+    "Patterns changed: sign-in",
+    "Patterns removed: not-found",
     "Rules added: placeholder-as-label",
     "Rules removed: stock-phrase",
   ]);
-  assert.match(lines[6], /^Wrote \d+ files/);
-  assert.equal(readFileSync(join(target, "VERSION"), "utf8"), "0.4.0\n");
+  assert.match(lines[9], /^Wrote \d+ files/);
+  assert.equal(readFileSync(join(target, "VERSION"), "utf8"), "0.5.0\n");
+  // The sample output in the guide has the same lines, in the same order.
+  const sample = guide.match(/^Groundwork 0\.1\.0 -> 0\.2\.0 in [\s\S]*?^```$/m)[0].split("\n");
+  assert.deepEqual(sample.slice(1, 9).map((line) => line.split(":")[0]), lines.slice(1, 9).map((line) => line.split(":")[0]));
   assert.deepEqual(verifyVendored(target), []);
 });
 
@@ -116,7 +127,7 @@ test("syncing into a directory with locally modified files stops and names them"
   assert.match(stderr, /^  checker\/rules\/tells\.mjs$/m);
   assert.equal(stdout, "");
   assert.equal(readFileSync(join(target, "groundwork.css"), "utf8"), edited);
-  assert.equal(readFileSync(join(target, "VERSION"), "utf8"), "0.3.0\n");
+  assert.equal(readFileSync(join(target, "VERSION"), "utf8"), "0.4.0\n");
 });
 
 test("syncing into a directory that holds files and is not a synced copy stops", () => {
@@ -134,7 +145,7 @@ test("syncing the same version twice changes nothing", () => {
   const before = Object.fromEntries(["hashes.json", ...listFiles(dist)].map((name) => [name, statSync(join(target, name)).mtimeMs]));
   const { status, stdout } = sync(["--to", target]);
   assert.equal(status, 0);
-  assert.match(stdout, /is already at 0\.3\.0\. Nothing to change\.\n$/);
+  assert.match(stdout, /is already at 0\.4\.0\. Nothing to change\.\n$/);
   assert.deepEqual(listFiles(target), ["hashes.json", ...listFiles(dist)].sort());
   for (const [name, time] of Object.entries(before)) assert.equal(statSync(join(target, name)).mtimeMs, time, name);
 });
@@ -144,7 +155,7 @@ test("the freshness check says so when the source is newer, and is silent when i
   sync(["--to", target]);
   const newer = sync(["--check", "--to", target, "--from", laterRelease()]);
   assert.equal(newer.status, 0);
-  assert.match(newer.stdout, /^Groundwork 0\.4\.0 is available\. .* holds 0\.3\.0\./);
+  assert.match(newer.stdout, /^Groundwork 0\.5\.0 is available\. .* holds 0\.4\.0\./);
 
   const same = sync(["--check", "--to", target]);
   assert.deepEqual([same.status, same.stdout], [0, ""]);
@@ -187,7 +198,10 @@ test("a consumer set up as the guide says passes the checker, and fails it after
 
   const clean = run();
   assert.equal(clean.status, 0, clean.stdout + clean.stderr);
-  assert.match(clean.stdout, /0 findings, 0 waivers, 1 declared gap, 2 files scanned/);
+  assert.match(clean.stdout, /^0 findings, 0 waivers, 1 declared gap, 2 files scanned, 40 rules$/m);
+  // The summary line the guide quotes has the same shape and the same rule count.
+  assert.match(guideBlock("", "files scanned"), /^0 findings, 0 waivers, 1 declared gap, \d+ files scanned, 40 rules\n$/);
+  assert.ok(existsSync(join(app, "vendor", "groundwork", "LICENSE")) && existsSync(join(app, "vendor", "groundwork", "NOTICE")));
 
   edit(join(app, "vendor", "groundwork", "groundwork.css"), (css) => css.replace("4px", "5px"));
   const changed = run();

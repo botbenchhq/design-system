@@ -3,8 +3,8 @@
 import { parseHtml } from "./parse-html.mjs";
 import { runRules } from "./rules/index.mjs";
 
-export function scanStructure(text, { file }) {
-  return runRules(parseHtml(text))
+export function scanStructure(text, { file, appPrefix }) {
+  return runRules(parseHtml(text), { appPrefix })
     .map(({ node, ...finding }) => ({ file, line: node.line, ...finding }))
     .sort((a, b) => a.line - b.line);
 }

@@ -53,6 +53,29 @@
 </figure>
 <figure data-gallery="specimen">
 <figcaption>
+<h3>Closed, with the button that opens it</h3>
+</figcaption>
+<div data-example="closed" data-title="Closed, with the button that opens it">
+  <button type="button" class="gw-button" command="show-modal" commandfor="dialog-closed">Rename branch</button>
+  <dialog class="gw-dialog" id="dialog-closed" aria-labelledby="dialog-closed-title">
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="dialog-closed-title">Rename the branch</h2>
+      <div class="gw-dialog__body">
+        <div class="gw-field">
+          <label class="gw-field__label" for="dialog-closed-name">Branch name</label>
+          <input class="gw-field__control" id="dialog-closed-name" type="text" name="branch" required autocomplete="off" value="fix/login-timeout">
+        </div>
+      </div>
+      <div class="gw-dialog__footer">
+        <button type="submit" class="gw-button gw-button--primary" value="rename">Rename branch</button>
+        <button type="submit" class="gw-button" value="cancel" formnovalidate>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
 <h3>Text only</h3>
 </figcaption>
 <div data-example="text" data-title="Text only" data-gallery-frame>
@@ -204,8 +227,9 @@
 <h2>Accessibility</h2>
 <ul>
 <li>Use a dialog element with aria-labelledby pointing at gw-dialog__title, an h2. When the body is one short text, point aria-describedby at it.</li>
-<li>Open it with the one line document.getElementById(&quot;dialog-id&quot;).showModal(). That call traps focus, makes the page behind inert, closes on Escape and returns focus to the opener when the dialog closes. Do not write the open attribute yourself, which shows the dialog without any of that: the examples carry it only so they are drawn in the gallery.</li>
-<li>As progressive enhancement, the opener may carry command=&quot;show-modal&quot; and commandfor=&quot;dialog-id&quot;, and then needs no script where invoker commands are supported. Keep the showModal() call for browsers without them.</li>
+<li>Open it with the one line document.getElementById(&quot;dialog-id&quot;).showModal(). That call traps focus, makes the page behind inert, closes on Escape and returns focus to the opener when the dialog closes. Do not write the open attribute yourself, which shows the dialog without any of that: the open examples carry it only so they are drawn in the gallery. The closed example is the markup an app ships: the dialog without the open attribute, and its opener.</li>
+<li>The opener is a button with command=&quot;show-modal&quot; and commandfor=&quot;dialog-id&quot;, as in the closed example. Where the browser supports invoker commands it opens the dialog with no script.</li>
+<li>The showModal() fallback goes in the app's own script file, never in an onclick attribute or an inline script: one click listener on the opener that calls showModal() on the dialog its commandfor names, added only when &quot;command&quot; in HTMLButtonElement.prototype is false, so a browser with invoker commands does not open the dialog twice. A framework app calls showModal() from the button's click handler through a ref and leaves the two attributes out.</li>
 <li>Wrap the content in a form with method=&quot;dialog&quot; and the class gw-dialog__panel. Each footer button is a submit button with a value. Pressing one closes the dialog with no script, and the app reads dialog.returnValue in a close event listener. To validate or save before closing, handle the form's submit event and call preventDefault().</li>
 <li>The primary button comes first in the footer and Cancel second, so Enter in a field takes the primary action. Cancel carries formnovalidate so it closes a form with an empty required field.</li>
 <li>showModal() moves focus to the first focusable element, or to the one that has the autofocus attribute. Tab stays inside the dialog.</li>

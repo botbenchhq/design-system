@@ -11,6 +11,8 @@
     line-height: var(--gw-leading-ui);
     color: var(--gw-color-on-surface);
     background-color: var(--gw-color-surface);
+    /* Inherited by all text: a long unbroken word, such as a path or a hash, breaks instead of overflowing. */
+    overflow-wrap: break-word;
   }
 
   h1,
@@ -29,6 +31,7 @@
     line-height: var(--gw-leading-2xl);
   }
 
+  /* The three largest sizes, each heading a step under the one before. A component that draws its own h1 keeps it above the h2 size. */
   h2 {
     font-size: var(--gw-text-xl);
     line-height: var(--gw-leading-xl);

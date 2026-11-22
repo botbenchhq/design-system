@@ -67,6 +67,22 @@
   </header>
 </div>
 
+<div data-example="pending-tray" data-title="With the pending tray in the tray">
+  <header class="gw-app-header">
+    <a class="gw-app-header__name" href="/">Smelt</a>
+    <div class="gw-app-header__actions">
+      <a class="gw-app-header__action" href="/search" aria-label="Search tasks">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
+      </a>
+    </div>
+    <div class="gw-app-header__tray">
+      <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+        <a class="gw-pending-tray__link" href="/approvals"><span class="gw-pending-tray__count">2</span> approvals waiting</a>
+      </div>
+    </div>
+  </header>
+</div>
+
 <div data-example="empty" data-title="Tray with nothing waiting" data-state="empty">
   <header class="gw-app-header">
     <a class="gw-app-header__name" href="/">Smelt</a>

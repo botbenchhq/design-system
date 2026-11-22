@@ -1,4 +1,4 @@
-// Generated from checker/. Defines gwCheckDom(root), which returns the structural findings of the rendered page.
+// Generated from checker/. Defines gwCheckDom(root, { appPrefix }), which returns the structural findings of the rendered page.
 (() => {
 "use strict";
 // rules/stock-phrases.mjs
@@ -322,15 +322,46 @@ const stockPhrase = {
 
 const COPY_RULES = [emojiAsIcon, stockPhrase];
 
+// rules/adoption.mjs
+// Whether a view is built from the system at all.
+
+
+const SYSTEM_PREFIX = "gw-";
+const FORM_CONTROL_TAGS = ["button", "select", "textarea"];
+
+// A button or a form control. A link is not counted, and neither is a hidden input.
+const isFormControl = (node) =>
+  FORM_CONTROL_TAGS.includes(node.tag) || (node.tag === "input" && (node.attrs.type ?? "").toLowerCase() !== "hidden");
+
+const unstyledControls = {
+  id: "unstyled-controls",
+  fix: "Build the view from catalogue components. Look each control up in the component index and copy its example.",
+  check(root, { appPrefix } = {}) {
+    const prefixes = [SYSTEM_PREFIX, ...(appPrefix ? [`${appPrefix}-`] : [])];
+    const fromSystem = (node) => classesOf(node).some((name) => prefixes.some((prefix) => name.startsWith(prefix)));
+    const findings = [];
+    for (const nodes of views(root).values()) {
+      const controls = nodes.filter(isFormControl);
+      if (controls.length === 0 || controls.some((control) => [control, ...ancestors(control)].some(fromSystem))) continue;
+      const subject = controls.length === 1 ? "its one control does not carry" : `none of its ${controls.length} controls carries`;
+      findings.push({ node: controls[0], message: `This view uses no component of the design system: ${subject} a system class or sits inside an element that does.` });
+    }
+    return findings;
+  },
+};
+
+const ADOPTION_RULES = [unstyledControls];
+
 // rules/index.mjs
 // Every structural rule, and the one function that runs them over a document tree.
 
 
-const RULES = [...DISCLOSURE_RULES, ...TELL_RULES, ...COPY_RULES];
+const RULES = [...DISCLOSURE_RULES, ...TELL_RULES, ...COPY_RULES, ...ADOPTION_RULES];
 
 // Findings as { rule, message, fix, node }, where node is the element at fault.
-function runRules(root) {
-  return RULES.flatMap((rule) => rule.check(root).map(({ node, message }) => ({ rule: rule.id, message, fix: rule.fix, node })));
+// options.appPrefix is the prefix of the app's own classes, without the hyphen, when the app has one.
+function runRules(root, options = {}) {
+  return RULES.flatMap((rule) => rule.check(root, options).map(({ node, message }) => ({ rule: rule.id, message, fix: rule.fix, node })));
 }
 
 // dom-entry.mjs
@@ -362,11 +393,12 @@ function adapt(element, parent, readingColumn) {
 }
 
 // Findings as { rule, message, fix, snippet }, where snippet is the start of the element's markup.
-function checkDom(rootElement, readingColumn) {
+// options.appPrefix is the prefix of the app's own classes, which the page itself cannot tell.
+function checkDom(rootElement, readingColumn, options = {}) {
   const root = { tag: "#document", attrs: {}, children: [], parent: null };
   root.children.push(adapt(rootElement, root, readingColumn));
-  return runRules(root).map(({ node, ...finding }) => ({ ...finding, snippet: node.snippet }));
+  return runRules(root, options).map(({ node, ...finding }) => ({ ...finding, snippet: node.snippet }));
 }
 
-globalThis.gwCheckDom = (root = document.documentElement) => checkDom(root, 480);
+globalThis.gwCheckDom = (root = document.documentElement, options = {}) => checkDom(root, 480, options ?? {});
 })();

@@ -13,7 +13,7 @@ export function tempDir() {
 export function copySources() {
   const root = tempDir();
   for (const dir of ["tokens", "base", "components", "patterns", "gallery", "behaviors", "checker", "rules", "hooks"]) cpSync(join(repoRoot, dir), join(root, dir), { recursive: true });
-  cpSync(join(repoRoot, "package.json"), join(root, "package.json"));
+  for (const file of ["package.json", "LICENSE", "NOTICE"]) cpSync(join(repoRoot, file), join(root, file));
   return root;
 }
 

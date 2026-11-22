@@ -120,6 +120,35 @@ Found 1 error in src/auth/session.ts:88</pre>
   </div>
 </div>
 
+<div data-example="timed-out" data-title="A check that ran out of time">
+  <div class="gw-check-list">
+    <p class="gw-check-list__summary">2 of 3 checks passed. 1 timed out.</p>
+    <ul class="gw-check-list__items">
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Integration tests</span>
+        <span class="gw-check-list__result gw-check-list__result--timed-out">Timed out after 10 min</span>
+        <span class="gw-check-list__duration"><time datetime="PT10M">10 min</time></span>
+        <details class="gw-check-list__output" open>
+          <summary class="gw-check-list__toggle">Output<span class="gw-visually-hidden"> of Integration tests</span></summary>
+          <pre class="gw-check-list__log">PASS src/auth/session.integration.test.ts
+RUNS src/billing/export.integration.test.ts
+  stopped at the 10 minute limit for a check</pre>
+        </details>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Unit tests</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT1M48S">1 min 48 s</time></span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Lint</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT9S">9 s</time></span>
+      </li>
+    </ul>
+  </div>
+</div>
+
 <div data-example="all-passed" data-title="Every check passed">
   <div class="gw-check-list">
     <p class="gw-check-list__summary">3 of 3 checks passed.</p>

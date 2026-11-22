@@ -1,0 +1,38 @@
+{
+  "name": "app-shell",
+  "title": "App shell",
+  "kind": "pattern",
+  "purpose": "The frame of a signed-in screen: the app header with the pending tray, the sidebar nav from 768px and the tab bar below it, and a main column that starts with the view's page header.",
+  "status": "draft",
+  "whenToUse": [
+    "As the starting point of every signed-in screen that has the app's navigation around it. Build the shell once and change only what the main column holds.",
+    "When a screen needs the header, the navigation and the main column together and you are unsure which element carries what.",
+    "With any other page pattern in the main column, such as the settings page or filter and results."
+  ],
+  "whenNotToUse": [
+    "For a screen outside the app's navigation, such as signing in. Use the sign-in pattern.",
+    "For a detail screen that takes the whole width on a phone and has a back link in the app header. Keep the app header and leave the tab bar out, as the app header's back-and-title example shows.",
+    "For a list beside its detail. Use master and detail inside the main column.",
+    "To add a second bar or a second column of navigation. The shell has one header, one sidebar nav and one tab bar."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "empty"],
+  "accessibility": [
+    "The element with gw-app-shell holds three things in this order: the app header, an element with gw-sidebar-layout and gw-app-shell__body, and the tab bar. In an app it is the body or the app's root element. Do not put it inside a container.",
+    "The app header is the page's banner. It holds the product name, a link to the first screen that is not a heading, and gw-app-header__tray with the pending tray inside it. Keep the pending tray's live region in the page on every screen and change only what it holds.",
+    "The element with gw-sidebar-layout holds the sidebar nav first and the main column second. The main column is the page's main element, with gw-container and gw-app-shell__main. The examples use a div for it only because a gallery page already has a main element.",
+    "The main column starts with a page header, which holds the view's one h1. Nothing else in the shell is an h1. Sections of the view are headed by h2, or by the titles of the components they hold.",
+    "The view's one primary action is in the page header, or in the empty state when the view has no data. The headers and the navigation never hold a primary button.",
+    "The sidebar nav and the tab bar are both in the markup and list the same destinations in the same order, with aria-current=\"page\" on the same one. The sidebar nav is rendered from 768px and the tab bar below it, so only one is in the accessibility tree and both may carry the same aria-label.",
+    "The tab bar is the last element in the shell. It sticks to the bottom of the screen, and the shell is at least as tall as the screen so that it does so on a short view too. Keep it to five destinations at most; the sidebar nav may list more.",
+    "Give the app a skip link before the shell that moves focus to the main column, so a keyboard reader does not pass the navigation on every screen.",
+    "Tab moves through the app header, the sidebar nav when it is shown, the main column, then the tab bar when it is shown. The shell needs no script."
+  ],
+  "icons": ["circle-alert", "circle-check", "file", "git-branch", "loader", "plus", "search", "terminal"],
+  "classes": [
+    "gw-app-shell",
+    "gw-app-shell__body",
+    "gw-app-shell__main"
+  ]
+}

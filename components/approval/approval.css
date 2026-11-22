@@ -141,7 +141,7 @@
     border-top-width: var(--gw-border-width);
   }
 
-  /* The note field and its own Decline button, inside the "Decline with a note" details. */
+  /* The optional note field, inside the "Add a note for the agent" details before the actions. Decline sends it. */
   .gw-approval__note {
     display: flex;
     flex-direction: column;

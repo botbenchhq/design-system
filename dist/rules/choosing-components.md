@@ -1,6 +1,6 @@
 # Choosing a component
 
-Find the need, then look the component up in `components.json` for its markup, variants and limits.
+Find the need, then look the component up in `components.json` for its markup, variants and limits. `components-index.json` lists every component and pattern with its purpose and classes and nothing else, which is quicker to search when the need is not in the tables below.
 
 For a whole screen, start from a page pattern. They are listed under "Page patterns" below, and in the patterns list of `components.json`.
 
@@ -123,7 +123,7 @@ For a whole screen, start from a page pattern. They are listed under "Page patte
 
 | Need | Use |
 |---|---|
-| One event in a transcript: a prompt, the agent's text, a tool call, its result, a denial, usage, the end of a turn | `message` |
+| One event in a transcript: the start of the session, a prompt, the agent's text, a question to the reader, a tool call, its result, an answered permission request, a denial, an error, usage, the end of a turn | `message` |
 | The agent is still producing output | `streaming`, as the last row of the transcript |
 | A request that waits for the reader to allow or decline it | `approval` |
 | How many approvals are waiting, visible from every screen | `pending-tray`, in the trailing slot of `app-header` |
@@ -134,7 +134,7 @@ For a whole screen, start from a page pattern. They are listed under "Page patte
 | The agent's reasoning or plan notes, closed by default | `reasoning` |
 | One tool call outside a transcript, with its arguments and output behind disclosures | `tool-call` |
 | A run or a task as one row of a `list` | `run-status` |
-| What agents and people did, day by day | `activity-feed` |
+| What agents and people did, day by day, oldest first, or newest first for a log the reader pages back through | `activity-feed` |
 | Rating an answer as helpful or not | `feedback` |
 
 ## Page patterns
@@ -143,6 +143,7 @@ A pattern is a whole screen composed from the components above, with a little la
 
 | Screen | Start from |
 |---|---|
+| The frame of every signed-in screen: the app header with the pending tray, the sidebar nav and the tab bar, and the main column with its page header | `app-shell` |
 | A long list or table the reader narrows by text and by two or three fixed properties | `filter-results` |
 | A list the reader goes through item by item, acting on each, with a short detail beside it | `master-detail` |
 | A task with more fields than fit one view, in three to five steps with a review before the final action | `multi-step-form` |
@@ -150,6 +151,7 @@ A pattern is a whole screen composed from the components above, with a little la
 | The screen a signed-out reader meets, or another single task outside the app's navigation | `sign-in` |
 | An address that matches no screen, or a screen whose item does not exist | `not-found` |
 
+- `app-shell` and the other patterns: the app shell is the frame, and another pattern goes inside its main column. The page header in the main column holds the view's one h1. Sign in and not found for a signed-out reader stand outside it.
 - `master-detail` or `split-panel`: master and detail is a screen, and on a phone it shows the list or the detail, never both. A split panel is a region of a view whose two parts each scroll, stacked below 768px.
 - `multi-step-form` or `stepper`: the pattern is the whole flow, one step to an address. The stepper is the component that shows where the reader is in it.
 - `not-found`, `error-state` or `empty-state`: not found when the item does not exist, an error state when loading it failed, an empty state when a list or search has no results.
@@ -162,7 +164,7 @@ A pattern is a whole screen composed from the components above, with a little la
 - `spinner` or `streaming`: a spinner stands in for content that has not arrived. Streaming sits beside content that is still arriving.
 - `approval` or `message`: an approval still waits for an answer. Once answered, it is a message row in the transcript.
 - `code-block` or `diff`: a diff shows a change. A code block shows text with no change.
-- `app-header` or `page-header`: the app header is the app's bar. The page header is the view's title inside the page.
+- `app-header` or `page-header`: the app header is the app's bar. The page header is the view's title inside the page, and it holds the view's one h1. The product name in the app header is a link, not a heading.
 - `button` or `link`: a button changes something. A link goes somewhere.
 - `tabs` or `tab-bar`: tabs switch panels inside one view. The tab bar holds links between screens.
 - `tab-bar` or `sidebar-nav`: the same destinations, the tab bar below 768px and the sidebar nav at 768px and wider.
@@ -172,6 +174,7 @@ A pattern is a whole screen composed from the components above, with a little la
 - `dialog`, `confirm-dialog` or `sheet`: a dialog for one short task, a confirm dialog before something is lost, a sheet for a longer form or an item's details.
 - `popover`, `menu` or `tooltip`: a menu is a list of actions. A popover is content or a small form. A tooltip is one line of text and holds no control.
 - `toast`, `undo-toast` or `alert`: a toast leaves by itself, so it carries nothing the reader must act on. An undo toast offers Undo. An alert stays in the view.
+- `undo-toast` or `confirm-dialog`: an undo toast only when Undo puts everything back as it was. An action with no real undo, such as revoking a standing permission, takes a confirm dialog first.
 - `checkbox` or `switch`: a checkbox is sent with a form. A switch takes effect at once.
 - `radio`, `segmented-control` or `select`: a segmented control for two to five short labels, a radio group when the labels need room, a select for more than six options.
 - `button-group` or `segmented-control`: a button group holds actions. A segmented control keeps a choice.

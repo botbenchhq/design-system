@@ -20,11 +20,11 @@
   "accessibility": [
     "In an app the element with gw-sign-in is the main element, and it is the only landmark on the page. The column starts at the leading edge of the page and is never centred.",
     "gw-sign-in__product is a p holding the product's name. The h1 after it reads Sign in, and one sentence under it says which account to use. There is no other copy.",
-    "The fields are in one form. The email input has type=\"email\" and autocomplete=\"username\", and the password input has type=\"password\" and autocomplete=\"current-password\", so a password manager can fill both. Neither uses a placeholder as its label.",
+    "The fields are in one form. The email input has type=\"email\" and autocomplete=\"username\". The password is the catalogue's password field, with autocomplete=\"current-password\", so a password manager can fill both and the reader can show what they typed before sending it. Neither uses a placeholder as its label.",
     "Sign in is the form's submit button and the screen's one primary action. The link for trouble signing in is a quiet link after the form, and it names what it does.",
     "When the sign-in is refused, keep the email, clear the password, and add an alert with role=\"alert\" as the first thing in the form. Its title says what happened and its body says what to do. Link it from both inputs with aria-describedby, and move focus to the password input. Do not say which field was wrong.",
-    "While the form is sent, set aria-busy=\"true\" on the button, change its label to Signing in, make the inputs read-only and ignore further presses.",
-    "Tab moves through Email, Password, Sign in, then the help link. Enter in either input sends the form. The pattern needs no script of its own."
+    "While the form is sent, set aria-busy=\"true\" on the button, change its label to Signing in, make the inputs read-only, set disabled on the password field's Show button and ignore further presses.",
+    "Tab moves through Email, Password, the Show button, Sign in, then the help link. Enter in either input sends the form. The pattern needs no script of its own."
   ],
   "icons": [],
   "classes": ["gw-sign-in", "gw-sign-in__product"]

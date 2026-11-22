@@ -87,6 +87,20 @@ test("a system class built by template interpolation fails with the dynamic-clas
   assert.deepEqual(brief(report.findings), ["markup/dynamic.tsx:2 dynamic-class"]);
 });
 
+test("a link into the icon sprite is not read as a class, interpolated or literal, in TSX and in HTML", () => {
+  for (const file of ["markup/icon-sprite.tsx", "markup/icon-sprite.html"]) {
+    const { status, report } = checkJson([file]);
+    assert.deepEqual(report.findings, [], file);
+    assert.equal(status, 0, file);
+  }
+});
+
+test("the name of a sprite symbol used as a class is still checked as a class", () => {
+  const { status, report } = checkJson(["markup/icon-class.tsx"]);
+  assert.equal(status, 1);
+  assert.deepEqual(brief(report.findings), ["markup/icon-class.tsx:2 unknown-class", "markup/icon-class.tsx:5 dynamic-class"]);
+});
+
 test("a misspelt system class fails and suggests the nearest known one", () => {
   const manifest = manifestWithClasses(["gw-badge", "gw-button", "gw-button--primary"]);
   const { status, report } = checkJson(["markup/typo.tsx"], { manifest });
@@ -149,7 +163,21 @@ test("a declared app-local class styled with tokens passes and is listed in the 
   assert.equal(status, 0);
   assert.match(stdout, /Declared gaps \(1\)/);
   assert.match(stdout, /Run ledger\s+sm-run-ledger\s+No catalogue component shows a run's cost lines\./);
-  assert.match(stdout, /0 findings, 0 waivers, 1 declared gap, 3 files scanned/);
+  const { rules } = JSON.parse(readFileSync(distManifest, "utf8"));
+  assert.equal(rules.length, 40);
+  assert.match(stdout, /^0 findings, 0 waivers, 1 declared gap, 3 files scanned, 40 rules$/m);
+});
+
+test("the summary line and the JSON report say how many rules the checker holds", () => {
+  const text = check(["css/spacing.css"]);
+  assert.match(text.stdout, /\n1 finding, 0 waivers, 0 declared gaps, 1 file scanned, 40 rules\n$/);
+  assert.equal(checkJson(["css/spacing.css"]).report.rules, 40);
+  // The count comes from the manifest the run reads, so a copy with one rule says so.
+  const dir = tempDir();
+  const manifest = JSON.parse(readFileSync(distManifest, "utf8"));
+  writeFileSync(join(dir, "manifest.json"), JSON.stringify({ ...manifest, rules: ["raw-color"] }));
+  cpSync(join(repoRoot, "dist", "tokens.css"), join(dir, "tokens.css"));
+  assert.match(check(["css/spacing.css"], { manifest: join(dir, "manifest.json") }).stdout, /1 file scanned, 1 rule\n$/);
 });
 
 test("an app-local class missing from the gap file fails", () => {

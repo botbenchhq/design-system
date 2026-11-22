@@ -120,7 +120,8 @@ function run(argv, cwd) {
   const vocabulary = loadVocabulary(manifestPath);
   const config = readConfig(options.config ? resolve(cwd, options.config) : null);
   const shown = (path) => relative(cwd, path).split(sep).join("/");
-  const result = (findings, waivers, filesScanned) => ({ findings, waivers, gaps: config.gaps, filesScanned });
+  // rules is how many rules the checker holds, so a reader of the summary can tell an old copy from a new one.
+  const result = (findings, waivers, filesScanned) => ({ findings, waivers, gaps: config.gaps, filesScanned, rules: vocabulary.rules.length });
 
   // A changed vendored copy ends the run: the allowlists the other rules read are part of it.
   if (config.vendorDir) {

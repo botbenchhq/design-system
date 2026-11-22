@@ -71,6 +71,8 @@
     display: flex;
     gap: var(--gw-space-xs);
     color: var(--gw-color-danger);
+    /* The text is a flex item beside the icon, which only shrinks below a long word when the word may break anywhere. */
+    overflow-wrap: anywhere;
   }
 
   /* The icon is drawn here, so an error is never marked by colour alone, whatever the markup holds. */

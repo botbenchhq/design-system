@@ -12,7 +12,7 @@ A component is one folder, `components/<name>/`, holding three hand-written file
 
 `<name>` is lower case with hyphens, and is the same in the folder name, the stylesheet name, the class prefix and `meta.json`.
 
-Nothing else needs editing. `npm run build` reads every folder and adds the component to `dist/groundwork.css`, `dist/components.json`, the `classes` list in `dist/manifest.json` and the gallery in `dist/gallery/`. The build fails, naming the folder, when a folder breaks a rule on this page that it can check.
+Nothing else needs editing. `npm run build` reads every folder and adds the component to `dist/groundwork.css`, `dist/components.json`, `dist/components-index.json`, the `classes` list in `dist/manifest.json` and the gallery in `dist/gallery/`. The build fails, naming the folder, when a folder breaks a rule on this page that it can check.
 
 ## What a component may be
 
@@ -40,6 +40,7 @@ Nothing else needs editing. `npm run build` reads every folder and adds the comp
 - Do not restyle the focus ring. The base layer draws one ring for every focusable element.
 - Put hover styles inside `@media (hover: hover)`, so a touch screen does not keep them after a tap.
 - A transition names its properties and takes its duration and easing from tokens. Anything that animates on its own stops under `@media (prefers-reduced-motion: reduce)`.
+- Text inherits `overflow-wrap: break-word` from the base layer, so a long unbroken word breaks inside a block. That is not enough for an element that is only as wide as its text, or for text that is a flex item beside an icon: give those `overflow-wrap: anywhere` as well, as `gw-alert__body` and `gw-field__error` do. A browser test puts a 90-character path in the places a message lands and fails when the page scrolls sideways at 390px.
 - An icon the stylesheet draws itself is a mask over `currentColor`, from a single icon file: `mask: url("icons/loader.svg") center / contain no-repeat`. The path is relative to `dist/groundwork.css`.
 
 ### State
@@ -185,7 +186,7 @@ An entry in `variants` or `sizes` is `{ "name", "class", "use" }`: the name, the
 { "name": "primary", "class": "gw-button--primary", "use": "The one main action of a view, dialog or popover." }
 ```
 
-The build copies these fields into `dist/components.json`, with the markup of each do example, which is where an agent looks a component up before writing markup. Write them for that reader.
+The build copies these fields into `dist/components.json`, with the markup of each do example, which is where an agent looks a component up before writing markup. Write them for that reader. It copies `name`, `title`, `purpose`, `status` and `classes` into `dist/components-index.json`, the short list an agent searches first, so the purpose must say by itself what the component is for.
 
 ## What the build checks
 

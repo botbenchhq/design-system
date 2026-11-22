@@ -30,10 +30,11 @@
     grid-area: station;
   }
 
-  /* Who or what is acting, then the elapsed time. */
+  /* Who or what is acting, then the elapsed time. The padding keeps facts that wrap beside the badge clear of the title and the row's edge. */
   .gw-run-status__facts {
     grid-area: facts;
     min-width: 0;
+    padding-block: var(--gw-space-xs);
     color: var(--gw-color-muted);
     font-size: var(--gw-text-xs);
     line-height: var(--gw-leading-xs);

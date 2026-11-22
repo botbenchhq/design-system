@@ -9,6 +9,7 @@
   ],
   "whenNotToUse": [
     "After an action the app cannot fully reverse, such as deleting a workspace from disk. Ask first with the confirm dialog.",
+    "After an action with no real undo, such as revoking a standing permission: granting it again is a new decision, not the old state restored, and an agent may have been refused in between. Ask first with the confirm dialog.",
     "For a message with nothing to take back. Use a toast.",
     "When Undo is the only way back. The reader must also be able to restore the thing elsewhere, such as from an Archived list."
   ],

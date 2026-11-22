@@ -142,7 +142,7 @@ request id 2b9e0c14</pre>
 <h2>Accessibility</h2>
 <ul>
 <li>Set role=&quot;alert&quot; on the error state when it replaces content after a failed load, so a screen reader announces it. Leave the role off while a retry is running, so the same failure is not announced twice.</li>
-<li>The title is a heading at the level that fits the view's outline, and says what failed in the reader's terms: The runs could not be loaded.</li>
+<li>The title is a heading, and says what failed in the reader's terms: The runs could not be loaded. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2.</li>
 <li>The sentence after the title is a plain paragraph with no class. It says what to do next. Never show only a status code or a stack trace.</li>
 <li>The Retry action is a gw-button inside gw-error-state__action. While it runs, set aria-busy=&quot;true&quot; on it and change its label to Retrying.</li>
 <li>Technical detail goes in a native details element with a text summary, closed by default. Enter or Space on the summary opens and closes it.</li>

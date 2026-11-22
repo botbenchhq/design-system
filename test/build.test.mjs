@@ -25,6 +25,12 @@ test("committed dist matches a fresh build", () => {
   assert.equal(stale.length, 0, `stale in dist/: ${stale.join(", ")}. Run \`npm run build\` and commit dist/.`);
 });
 
+test("dist carries the repo's licence and notice, byte for byte", () => {
+  for (const name of ["LICENSE", "NOTICE"]) {
+    assert.ok(readFileSync(join(committed, name)).equals(readFileSync(join(repoRoot, name))), name);
+  }
+});
+
 test("an edited source without a rebuild is reported as stale, by file name", () => {
   const root = copySources();
   const source = join(root, "tokens", "tokens.css");

@@ -61,14 +61,20 @@ function checkFreshness({ from, to }, shown) {
 
 // What changed between two copies, from their component indexes and rule lists.
 function changes(from, to) {
-  const components = (dir) => new Map((readJson(dir, "components.json").components ?? []).map((entry) => [entry.name, JSON.stringify(entry)]));
+  const entries = (dir, list) => new Map((readJson(dir, "components.json")[list] ?? []).map((entry) => [entry.name, JSON.stringify(entry)]));
   const rules = (dir) => readJson(dir, "manifest.json").rules ?? [];
-  const [oldComponents, newComponents] = [components(to), components(from)];
   const [oldRules, newRules] = [rules(to), rules(from)];
+  const lines = (label, list) => {
+    const [older, newer] = [entries(to, list), entries(from, list)];
+    return [
+      `${label} added: ${named([...newer.keys()].filter((name) => !older.has(name)))}`,
+      `${label} changed: ${named([...newer.keys()].filter((name) => older.has(name) && older.get(name) !== newer.get(name)))}`,
+      `${label} removed: ${named([...older.keys()].filter((name) => !newer.has(name)))}`,
+    ];
+  };
   return [
-    `Components added: ${named([...newComponents.keys()].filter((name) => !oldComponents.has(name)))}`,
-    `Components changed: ${named([...newComponents.keys()].filter((name) => oldComponents.has(name) && oldComponents.get(name) !== newComponents.get(name)))}`,
-    `Components removed: ${named([...oldComponents.keys()].filter((name) => !newComponents.has(name)))}`,
+    ...lines("Components", "components"),
+    ...lines("Patterns", "patterns"),
     `Rules added: ${named(newRules.filter((id) => !oldRules.includes(id)))}`,
     `Rules removed: ${named(oldRules.filter((id) => !newRules.includes(id)))}`,
   ];

@@ -39,12 +39,15 @@
     font-weight: var(--gw-weight-semibold);
   }
 
+  /* The title and the body are as wide as their text, so a long word must be allowed to break for them to fit. */
   .gw-alert__title {
     font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
   }
 
   .gw-alert__body {
     max-width: var(--gw-size-column);
+    overflow-wrap: anywhere;
   }
 
   .gw-alert__action {

@@ -123,19 +123,23 @@
     color: var(--gw-color-on-surface);
   }
 
-  .gw-message--denied {
+  /* A call the rules refused, and something that failed. The label's word and its icon tell the two apart. */
+  .gw-message--denied,
+  .gw-message--error {
     padding-block: var(--gw-space-md);
     background-color: var(--gw-color-danger-subtle);
   }
 
-  .gw-message--denied > .gw-message__label {
+  .gw-message--denied > .gw-message__label,
+  .gw-message--error > .gw-message__label {
     display: flex;
     gap: var(--gw-space-xs);
     color: var(--gw-color-danger);
   }
 
-  /* Drawn here, so a denial is never marked by colour alone, whatever the markup holds. */
-  .gw-message--denied > .gw-message__label::before {
+  /* Drawn here, so a denial or an error is never marked by colour alone, whatever the markup holds. */
+  .gw-message--denied > .gw-message__label::before,
+  .gw-message--error > .gw-message__label::before {
     content: "";
     flex: none;
     width: var(--gw-space-lg);
@@ -144,13 +148,45 @@
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }
 
-  /* Tool rows are the bulk of a transcript, so they sit closer together. */
+  .gw-message--error > .gw-message__label::before {
+    mask-image: url("icons/triangle-alert.svg");
+  }
+
+  /*
+   * An answered request says how it was answered in its label: a few words and an icon from the sprite.
+   * The label has a line to itself, so the longest of them leaves the command its width.
+   */
+  .gw-message--decision > .gw-message__label {
+    display: flex;
+    flex: 1 1 100%;
+    gap: var(--gw-space-xs);
+  }
+
+  .gw-message__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+  }
+
+  /* A question to the reader. The run waits on the answer, so the row stands out from the agent's other text. */
+  .gw-message--question {
+    padding-block: var(--gw-space-md);
+    background-color: var(--gw-color-info-subtle);
+  }
+
+  .gw-message--question > .gw-message__label {
+    color: var(--gw-color-info);
+  }
+
+  /* Tool rows are the bulk of a transcript, so they sit closer together. An answered request sits with them. */
   .gw-message--tool-call,
-  .gw-message--tool-result {
+  .gw-message--tool-result,
+  .gw-message--decision {
     padding-block: var(--gw-space-xs);
   }
 
   /* Quiet rows: the label and the text share one line. */
+  .gw-message--session-start,
   .gw-message--usage,
   .gw-message--turn-end {
     color: var(--gw-color-muted);
@@ -158,6 +194,7 @@
     line-height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
   }
 
+  .gw-message--session-start > .gw-message__body,
   .gw-message--usage > .gw-message__body,
   .gw-message--turn-end > .gw-message__body {
     flex: 1 1 0;

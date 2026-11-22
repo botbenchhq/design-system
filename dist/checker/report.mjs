@@ -6,7 +6,7 @@ export function jsonReport(result) {
   return `${JSON.stringify({ ok: result.findings.length === 0, ...result }, null, 2)}\n`;
 }
 
-export function textReport({ findings, waivers, gaps, filesScanned }) {
+export function textReport({ findings, waivers, gaps, filesScanned, rules }) {
   const lines = [];
   for (const finding of findings) {
     lines.push(`${finding.file}:${finding.line}  ${finding.rule}  ${finding.message}${finding.fix ? ` ${finding.fix}` : ""}`);
@@ -21,7 +21,7 @@ export function textReport({ findings, waivers, gaps, filesScanned }) {
     for (const gap of gaps) lines.push(`  ${gap.name}  ${gap.classes.join(" ")}  ${gap.reason}`);
   }
   lines.push(
-    `${count(findings.length, "finding")}, ${count(waivers.length, "waiver")}, ${count(gaps.length, "declared gap")}, ${count(filesScanned, "file")} scanned`,
+    `${count(findings.length, "finding")}, ${count(waivers.length, "waiver")}, ${count(gaps.length, "declared gap")}, ${count(filesScanned, "file")} scanned, ${count(rules, "rule")}`,
   );
   return `${lines.join("\n")}\n`;
 }

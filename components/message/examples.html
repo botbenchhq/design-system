@@ -31,6 +31,25 @@
   </ol>
 </div>
 
+<div data-example="tool-call-described" data-title="Tool call with a reason, and the full arguments behind a disclosure" data-reason="The row reads as what the agent did and why: the tool, its target in mono, then one plain sentence. The raw arguments are one press away for the reader who wants them, and are never the row itself.">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--tool-call">
+      <span class="gw-message__label">Tool call</span>
+      <span class="gw-message__tool">Bash</span>
+      <code class="gw-message__command">npm run test -- --run src/auth/session.test.ts</code>
+      <p class="gw-message__body">Run the session tests to confirm the reload case passes.</p>
+      <details class="gw-message__details">
+        <summary class="gw-message__summary">Show the full arguments</summary>
+        <pre class="gw-message__code">{
+  "command": "npm run test -- --run src/auth/session.test.ts",
+  "description": "Run the session tests to confirm the reload case passes.",
+  "timeout": 120000
+}</pre>
+      </details>
+    </li>
+  </ol>
+</div>
+
 <div data-example="tool-call-collapsed" data-title="Tool call with collapsed arguments" data-reason="The summary names the tool and the file in text, so the row can be read without opening it. The arguments stay one press away.">
   <ol class="gw-stack gw-gap-sm">
     <li class="gw-message gw-message--tool-call">
@@ -122,6 +141,62 @@ src/routes/sign-in.tsx</pre>
       <span class="gw-message__tool">Bash</span>
       <code class="gw-message__command">git push --force origin main</code>
       <p class="gw-message__body">This command was not run. Force pushes to main are blocked by the project's permission rules.</p>
+    </li>
+  </ol>
+</div>
+
+<div data-example="session-start" data-title="Session started">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--session-start">
+      <span class="gw-message__label">Session</span>
+      <p class="gw-message__body">Started on the branch fix/login-timeout in /srv/workspaces/acme-api, with Claude Code.</p>
+    </li>
+  </ol>
+</div>
+
+<div data-example="question" data-title="A question to the reader, waiting on an answer" data-reason="The label says in words that this is a question and that the run waits on the reader. The question is whole, so it can be answered from the composer without scrolling back.">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--question">
+      <span class="gw-message__label">Question, waiting on you</span>
+      <p class="gw-message__body">The reload test needs a signed-in session. Should I add a fixture user to the test database, or reuse the one the sign-in tests create?</p>
+    </li>
+  </ol>
+</div>
+
+<div data-example="decision" data-title="A permission request that was resolved, in each of the four ways" data-reason="The label says how the request was resolved and the text says by whom, so a reader can tell a call somebody allowed from one that ran without anybody being asked.">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--decision">
+      <span class="gw-message__label"><svg class="gw-message__icon" aria-hidden="true"><use href="icons.svg#gw-icon-check"></use></svg>Allowed</span>
+      <span class="gw-message__tool">Bash</span>
+      <code class="gw-message__command">npm install --save-dev @acme/session-fixtures</code>
+      <p class="gw-message__body">Allowed by you at 09:12, for this call only.</p>
+    </li>
+    <li class="gw-message gw-message--decision">
+      <span class="gw-message__label"><svg class="gw-message__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>Declined</span>
+      <span class="gw-message__tool">Bash</span>
+      <code class="gw-message__command">psql $DATABASE_URL -f seed/users.sql</code>
+      <p class="gw-message__body">Declined by Dana Okafor at 09:14, with a note: Seed the test database, not the shared one.</p>
+    </li>
+    <li class="gw-message gw-message--decision">
+      <span class="gw-message__label"><svg class="gw-message__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>Pre-approved</span>
+      <span class="gw-message__tool">Bash</span>
+      <code class="gw-message__command">npm run test -- --run src/auth</code>
+      <p class="gw-message__body">On this task's approved list, which you set when you started the task. Nobody was asked.</p>
+    </li>
+    <li class="gw-message gw-message--decision">
+      <span class="gw-message__label"><svg class="gw-message__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>Allowed by a standing permission</span>
+      <span class="gw-message__tool">Bash</span>
+      <code class="gw-message__command">git fetch origin main</code>
+      <p class="gw-message__body">Dana Okafor granted git fetch in acme/api on 14 November. Nobody was asked.</p>
+    </li>
+  </ol>
+</div>
+
+<div data-example="error" data-title="Something failed">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--error">
+      <span class="gw-message__label">Error</span>
+      <p class="gw-message__body">The runner lost its connection to the workspace, so the test run did not finish. The edits so far are saved on fix/login-timeout. Resume the run to carry on from there.</p>
     </li>
   </ol>
 </div>

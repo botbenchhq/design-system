@@ -318,6 +318,8 @@
     line-height: var(--gw-leading-ui);
     color: var(--gw-color-on-surface);
     background-color: var(--gw-color-surface);
+    /* Inherited by all text: a long unbroken word, such as a path or a hash, breaks instead of overflowing. */
+    overflow-wrap: break-word;
   }
 
   h1,
@@ -336,6 +338,7 @@
     line-height: var(--gw-leading-2xl);
   }
 
+  /* The three largest sizes, each heading a step under the one before. A component that draws its own h1 keeps it above the h2 size. */
   h2 {
     font-size: var(--gw-text-xl);
     line-height: var(--gw-leading-xl);
@@ -695,12 +698,15 @@
     font-weight: var(--gw-weight-semibold);
   }
 
+  /* The title and the body are as wide as their text, so a long word must be allowed to break for them to fit. */
   .gw-alert__title {
     font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
   }
 
   .gw-alert__body {
     max-width: var(--gw-size-column);
+    overflow-wrap: anywhere;
   }
 
   .gw-alert__action {
@@ -758,7 +764,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    column-gap: var(--gw-space-xs);
+    /* The row gap keeps the pointer target of a control in the tray clear of the controls in the bar above it. */
+    gap: var(--gw-space-xs);
     padding: var(--gw-space-xs) var(--gw-space-sm);
     border-bottom-width: var(--gw-border-width);
     background-color: var(--gw-color-surface);
@@ -1005,7 +1012,7 @@
     border-top-width: var(--gw-border-width);
   }
 
-  /* The note field and its own Decline button, inside the "Decline with a note" details. */
+  /* The optional note field, inside the "Add a note for the agent" details before the actions. Decline sends it. */
   .gw-approval__note {
     display: flex;
     flex-direction: column;
@@ -2005,6 +2012,16 @@
 
   .gw-check-list__result--failed::before {
     mask-image: url("icons/circle-alert.svg");
+  }
+
+  /* Not a failure of the code under test: the check ran out of time. The word and the mark differ from a failed check's. */
+  .gw-check-list__result--timed-out {
+    color: var(--gw-color-warning);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  .gw-check-list__result--timed-out::before {
+    mask-image: url("icons/triangle-alert.svg");
   }
 
   .gw-check-list__result--running {
@@ -3579,6 +3596,7 @@
     gap: var(--gw-space-xs);
     padding: var(--gw-space-md);
     color: var(--gw-color-muted);
+    overflow-wrap: anywhere;
   }
 
   .gw-diff__body + .gw-diff__note {
@@ -3804,10 +3822,13 @@
     font-size: var(--gw-text-lg);
     font-weight: var(--gw-weight-semibold);
     line-height: var(--gw-leading-lg);
+    /* As wide as its text, so a long word must be allowed to break for it to fit. */
+    overflow-wrap: anywhere;
   }
 
   .gw-empty-state__body {
     color: var(--gw-color-muted);
+    overflow-wrap: anywhere;
   }
 
   .gw-empty-state__action {
@@ -4062,6 +4083,8 @@
     display: flex;
     gap: var(--gw-space-xs);
     color: var(--gw-color-danger);
+    /* The text is a flex item beside the icon, which only shrinks below a long word when the word may break anywhere. */
+    overflow-wrap: anywhere;
   }
 
   /* The icon is drawn here, so an error is never marked by colour alone, whatever the markup holds. */
@@ -5191,19 +5214,23 @@
     color: var(--gw-color-on-surface);
   }
 
-  .gw-message--denied {
+  /* A call the rules refused, and something that failed. The label's word and its icon tell the two apart. */
+  .gw-message--denied,
+  .gw-message--error {
     padding-block: var(--gw-space-md);
     background-color: var(--gw-color-danger-subtle);
   }
 
-  .gw-message--denied > .gw-message__label {
+  .gw-message--denied > .gw-message__label,
+  .gw-message--error > .gw-message__label {
     display: flex;
     gap: var(--gw-space-xs);
     color: var(--gw-color-danger);
   }
 
-  /* Drawn here, so a denial is never marked by colour alone, whatever the markup holds. */
-  .gw-message--denied > .gw-message__label::before {
+  /* Drawn here, so a denial or an error is never marked by colour alone, whatever the markup holds. */
+  .gw-message--denied > .gw-message__label::before,
+  .gw-message--error > .gw-message__label::before {
     content: "";
     flex: none;
     width: var(--gw-space-lg);
@@ -5212,13 +5239,45 @@
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }
 
-  /* Tool rows are the bulk of a transcript, so they sit closer together. */
+  .gw-message--error > .gw-message__label::before {
+    mask-image: url("icons/triangle-alert.svg");
+  }
+
+  /*
+   * An answered request says how it was answered in its label: a few words and an icon from the sprite.
+   * The label has a line to itself, so the longest of them leaves the command its width.
+   */
+  .gw-message--decision > .gw-message__label {
+    display: flex;
+    flex: 1 1 100%;
+    gap: var(--gw-space-xs);
+  }
+
+  .gw-message__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+  }
+
+  /* A question to the reader. The run waits on the answer, so the row stands out from the agent's other text. */
+  .gw-message--question {
+    padding-block: var(--gw-space-md);
+    background-color: var(--gw-color-info-subtle);
+  }
+
+  .gw-message--question > .gw-message__label {
+    color: var(--gw-color-info);
+  }
+
+  /* Tool rows are the bulk of a transcript, so they sit closer together. An answered request sits with them. */
   .gw-message--tool-call,
-  .gw-message--tool-result {
+  .gw-message--tool-result,
+  .gw-message--decision {
     padding-block: var(--gw-space-xs);
   }
 
   /* Quiet rows: the label and the text share one line. */
+  .gw-message--session-start,
   .gw-message--usage,
   .gw-message--turn-end {
     color: var(--gw-color-muted);
@@ -5226,6 +5285,7 @@
     line-height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
   }
 
+  .gw-message--session-start > .gw-message__body,
   .gw-message--usage > .gw-message__body,
   .gw-message--turn-end > .gw-message__body {
     flex: 1 1 0;
@@ -5459,10 +5519,11 @@
     min-width: min(100%, calc(var(--gw-space-2xl) * 5));
   }
 
+  /* The size of a plain h1 at every width, so an h2 in the view is never as large as the title. */
   .gw-page-header__title {
-    font-size: var(--gw-text-xl);
+    font-size: var(--gw-text-2xl);
     font-weight: var(--gw-weight-semibold);
-    line-height: var(--gw-leading-xl);
+    line-height: var(--gw-leading-2xl);
     overflow-wrap: anywhere;
   }
 
@@ -5475,13 +5536,6 @@
     display: flex;
     flex: none;
     align-items: center;
-  }
-
-  @media (min-width: 768px) {
-    .gw-page-header__title {
-      font-size: var(--gw-text-2xl);
-      line-height: var(--gw-leading-2xl);
-    }
   }
 
   /* For a dense screen, where the list or the transcript below is what the reader came for. */
@@ -6154,10 +6208,11 @@
     grid-area: station;
   }
 
-  /* Who or what is acting, then the elapsed time. */
+  /* Who or what is acting, then the elapsed time. The padding keeps facts that wrap beside the badge clear of the title and the row's edge. */
   .gw-run-status__facts {
     grid-area: facts;
     min-width: 0;
+    padding-block: var(--gw-space-xs);
     color: var(--gw-color-muted);
     font-size: var(--gw-text-xs);
     line-height: var(--gw-leading-xs);
@@ -9260,6 +9315,35 @@
     flex: none;
     width: calc(var(--gw-space-2xl) * 4);
     max-width: 100%;
+  }
+}
+
+/*
+ * App shell: the frame every signed-in screen sits in. The app header across the top, then
+ * gw-sidebar-layout holding the sidebar nav and the main column, then the tab bar as the last element.
+ * The sidebar nav shows from 768px and the tab bar below it, each by its own styles, so the same markup serves both widths.
+ * This file holds only what the frame needs: its height, and the room around the main column.
+ */
+
+@layer gw.components {
+  /* At least as tall as the screen, so the tab bar sits at the bottom of a short view too. */
+  .gw-app-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+
+  /* On the element with gw-sidebar-layout. It takes the height the header and the tab bar leave. */
+  .gw-app-shell__body {
+    flex: 1;
+  }
+
+  /* On the element with gw-container: the view's page header, then its content. */
+  .gw-app-shell__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xl);
+    padding-block: var(--gw-space-xl);
   }
 }
 

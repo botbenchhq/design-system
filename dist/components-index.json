@@ -1,0 +1,1497 @@
+[
+  {
+    "name": "accordion",
+    "kind": "component",
+    "title": "Accordion",
+    "purpose": "A set of disclosures of which one is open at a time, built on details elements that share a name.",
+    "status": "draft",
+    "classes": [
+      "gw-accordion",
+      "gw-accordion__section"
+    ]
+  },
+  {
+    "name": "activity-feed",
+    "kind": "component",
+    "title": "Activity feed",
+    "purpose": "A chronological record of what agents and people did, grouped by day, each entry with its time, its actor, a verb phrase and an optional source or excerpt.",
+    "status": "draft",
+    "classes": [
+      "gw-activity-feed",
+      "gw-activity-feed__actor",
+      "gw-activity-feed__day",
+      "gw-activity-feed__entries",
+      "gw-activity-feed__entry",
+      "gw-activity-feed__evidence",
+      "gw-activity-feed__excerpt",
+      "gw-activity-feed__heading",
+      "gw-activity-feed__more",
+      "gw-activity-feed__text",
+      "gw-activity-feed__time"
+    ]
+  },
+  {
+    "name": "alert",
+    "kind": "component",
+    "title": "Alert",
+    "purpose": "A message inside a view about the state of what the view shows.",
+    "status": "draft",
+    "classes": [
+      "gw-alert",
+      "gw-alert--danger",
+      "gw-alert--success",
+      "gw-alert--warning",
+      "gw-alert__action",
+      "gw-alert__body",
+      "gw-alert__content",
+      "gw-alert__label",
+      "gw-alert__title"
+    ]
+  },
+  {
+    "name": "app-header",
+    "kind": "component",
+    "title": "App header",
+    "purpose": "The top bar of an app: the product name or the current view's title, with an optional back link, actions and a tray for approvals that are waiting.",
+    "status": "draft",
+    "classes": [
+      "gw-app-header",
+      "gw-app-header--sticky",
+      "gw-app-header__action",
+      "gw-app-header__actions",
+      "gw-app-header__back",
+      "gw-app-header__icon",
+      "gw-app-header__name",
+      "gw-app-header__title",
+      "gw-app-header__tray"
+    ]
+  },
+  {
+    "name": "approval",
+    "kind": "component",
+    "title": "Approval",
+    "purpose": "One request from an agent that waits for the reader's answer: what would run, where, for whom and why, with Allow and Decline.",
+    "status": "draft",
+    "classes": [
+      "gw-approval",
+      "gw-approval--elevated",
+      "gw-approval__actions",
+      "gw-approval__command",
+      "gw-approval__details",
+      "gw-approval__error",
+      "gw-approval__fact",
+      "gw-approval__facts",
+      "gw-approval__note",
+      "gw-approval__risk",
+      "gw-approval__summary",
+      "gw-approval__term",
+      "gw-approval__title",
+      "gw-approval__value"
+    ]
+  },
+  {
+    "name": "attachment-chip",
+    "kind": "component",
+    "title": "Attachment chip",
+    "purpose": "One file or image attached to a prompt: its kind as an icon, its name, its size in words and a button that removes it.",
+    "status": "draft",
+    "classes": [
+      "gw-attachment-chip",
+      "gw-attachment-chip__end",
+      "gw-attachment-chip__error",
+      "gw-attachment-chip__icon",
+      "gw-attachment-chip__name",
+      "gw-attachment-chip__progress",
+      "gw-attachment-chip__remove",
+      "gw-attachment-chip__remove-icon",
+      "gw-attachment-chip__size",
+      "gw-attachment-chip__start"
+    ]
+  },
+  {
+    "name": "avatar",
+    "kind": "component",
+    "title": "Avatar",
+    "purpose": "A small square mark for a person or an agent, holding initials, an icon or an image, with the name beside it.",
+    "status": "draft",
+    "classes": [
+      "gw-avatar",
+      "gw-avatar--small",
+      "gw-avatar__icon",
+      "gw-avatar__mark",
+      "gw-avatar__name"
+    ]
+  },
+  {
+    "name": "badge",
+    "kind": "component",
+    "title": "Badge",
+    "purpose": "A status in a word or two, such as a task's station.",
+    "status": "draft",
+    "classes": [
+      "gw-badge",
+      "gw-badge--danger",
+      "gw-badge--info",
+      "gw-badge--success",
+      "gw-badge--warning",
+      "gw-badge__icon"
+    ]
+  },
+  {
+    "name": "banner",
+    "kind": "component",
+    "title": "Banner",
+    "purpose": "One message about the state of the whole app, across the full width under the app header.",
+    "status": "draft",
+    "classes": [
+      "gw-banner",
+      "gw-banner--danger",
+      "gw-banner--warning",
+      "gw-banner__actions",
+      "gw-banner__dismiss",
+      "gw-banner__icon",
+      "gw-banner__text"
+    ]
+  },
+  {
+    "name": "breadcrumb",
+    "kind": "component",
+    "title": "Breadcrumb",
+    "purpose": "Where the current page sits in the app, as a line of links to each page above it.",
+    "status": "draft",
+    "classes": [
+      "gw-breadcrumb",
+      "gw-breadcrumb__current",
+      "gw-breadcrumb__item",
+      "gw-breadcrumb__link",
+      "gw-breadcrumb__list"
+    ]
+  },
+  {
+    "name": "button",
+    "kind": "component",
+    "title": "Button",
+    "purpose": "An action the reader takes on the current view.",
+    "status": "draft",
+    "classes": [
+      "gw-button",
+      "gw-button--danger",
+      "gw-button--primary",
+      "gw-button--quiet",
+      "gw-button--small",
+      "gw-button__icon"
+    ]
+  },
+  {
+    "name": "button-group",
+    "kind": "component",
+    "title": "Button group",
+    "purpose": "Related buttons shown together: the actions at the end of a form, or a joined row of closely related actions.",
+    "status": "draft",
+    "classes": [
+      "gw-button-group",
+      "gw-button-group--attached"
+    ]
+  },
+  {
+    "name": "calendar",
+    "kind": "component",
+    "title": "Calendar",
+    "purpose": "One month as a grid of days, for picking a single day.",
+    "status": "draft",
+    "classes": [
+      "gw-calendar",
+      "gw-calendar__day",
+      "gw-calendar__grid",
+      "gw-calendar__header",
+      "gw-calendar__status",
+      "gw-calendar__title",
+      "gw-calendar__weekday"
+    ]
+  },
+  {
+    "name": "card",
+    "kind": "component",
+    "title": "Card",
+    "purpose": "One section of a view set apart by a border or a background shift, with an optional title, one quiet action and a body.",
+    "status": "draft",
+    "classes": [
+      "gw-card",
+      "gw-card--sunken",
+      "gw-card__action",
+      "gw-card__body",
+      "gw-card__header",
+      "gw-card__title"
+    ]
+  },
+  {
+    "name": "check-list",
+    "kind": "component",
+    "title": "Check list",
+    "purpose": "The results of the automated checks on a run: each check's name, its result in words, how long it took and, behind a disclosure, its output.",
+    "status": "draft",
+    "classes": [
+      "gw-check-list",
+      "gw-check-list__duration",
+      "gw-check-list__item",
+      "gw-check-list__items",
+      "gw-check-list__log",
+      "gw-check-list__name",
+      "gw-check-list__output",
+      "gw-check-list__result",
+      "gw-check-list__result--failed",
+      "gw-check-list__result--passed",
+      "gw-check-list__result--running",
+      "gw-check-list__result--skipped",
+      "gw-check-list__result--timed-out",
+      "gw-check-list__summary",
+      "gw-check-list__toggle"
+    ]
+  },
+  {
+    "name": "checkbox",
+    "kind": "component",
+    "title": "Checkbox",
+    "purpose": "A native checkbox with its label: one yes-or-no choice, or several independent choices in a group, sent with a form.",
+    "status": "draft",
+    "classes": [
+      "gw-checkbox",
+      "gw-checkbox__description",
+      "gw-checkbox__error",
+      "gw-checkbox__group",
+      "gw-checkbox__input",
+      "gw-checkbox__label",
+      "gw-checkbox__legend"
+    ]
+  },
+  {
+    "name": "code-block",
+    "kind": "component",
+    "title": "Code block",
+    "purpose": "A block of mono text for a command, a log or a program's output.",
+    "status": "draft",
+    "classes": [
+      "gw-code-block",
+      "gw-code-block--scroll",
+      "gw-code-block__body",
+      "gw-code-block__caption",
+      "gw-code-block__line",
+      "gw-code-block__lines",
+      "gw-code-block__note",
+      "gw-code-block__number",
+      "gw-code-block__text"
+    ]
+  },
+  {
+    "name": "combobox",
+    "kind": "component",
+    "title": "Combobox",
+    "purpose": "A text input that filters a list of options as the reader types, for one choice from a list too long to scan.",
+    "status": "draft",
+    "classes": [
+      "gw-combobox",
+      "gw-combobox__icon",
+      "gw-combobox__input",
+      "gw-combobox__list",
+      "gw-combobox__message",
+      "gw-combobox__option",
+      "gw-combobox__panel"
+    ]
+  },
+  {
+    "name": "command-palette",
+    "kind": "component",
+    "title": "Command palette",
+    "purpose": "A modal dialog with a search input over a grouped list of commands, for running any command of the app from the keyboard.",
+    "status": "draft",
+    "classes": [
+      "gw-command-palette",
+      "gw-command-palette__field",
+      "gw-command-palette__group",
+      "gw-command-palette__icon",
+      "gw-command-palette__label",
+      "gw-command-palette__list",
+      "gw-command-palette__message",
+      "gw-command-palette__name",
+      "gw-command-palette__option",
+      "gw-command-palette__search",
+      "gw-command-palette__shortcut"
+    ]
+  },
+  {
+    "name": "composer",
+    "kind": "component",
+    "title": "Composer",
+    "purpose": "The prompt input under a transcript: a textarea that grows with its content, and Send.",
+    "status": "draft",
+    "classes": [
+      "gw-composer",
+      "gw-composer--sticky",
+      "gw-composer__controls",
+      "gw-composer__error",
+      "gw-composer__input",
+      "gw-composer__label",
+      "gw-composer__reason",
+      "gw-composer__row"
+    ]
+  },
+  {
+    "name": "confirm-dialog",
+    "kind": "component",
+    "title": "Confirm dialog",
+    "purpose": "A dialog that asks before something is deleted or discarded, and says in plain words what will be lost.",
+    "status": "draft",
+    "classes": [
+      "gw-confirm-dialog",
+      "gw-confirm-dialog__actions",
+      "gw-confirm-dialog__loss",
+      "gw-confirm-dialog__losses"
+    ]
+  },
+  {
+    "name": "context-menu",
+    "kind": "component",
+    "title": "Context menu",
+    "purpose": "The actions on one row of a list or a table, in a menu opened from a More actions button at the end of the row.",
+    "status": "draft",
+    "classes": [
+      "gw-context-menu",
+      "gw-context-menu__button",
+      "gw-context-menu__menu"
+    ]
+  },
+  {
+    "name": "copy-button",
+    "kind": "component",
+    "title": "Copy button",
+    "purpose": "A small button that copies a value shown next to it, and says in words that it did.",
+    "status": "draft",
+    "classes": [
+      "gw-copy-button",
+      "gw-copy-button__status"
+    ]
+  },
+  {
+    "name": "copy-field",
+    "kind": "component",
+    "title": "Copy field",
+    "purpose": "A read-only value the reader takes somewhere else, with a button that copies it.",
+    "status": "draft",
+    "classes": [
+      "gw-copy-field",
+      "gw-copy-field__status",
+      "gw-copy-field__value"
+    ]
+  },
+  {
+    "name": "data-table",
+    "kind": "component",
+    "title": "Data table",
+    "purpose": "Things compared across columns on a real table: a caption, sortable headers, numeric columns, one action for each row, rows that expand, and a stacked layout on a phone.",
+    "status": "draft",
+    "classes": [
+      "gw-data-table",
+      "gw-data-table--scroll",
+      "gw-data-table--sticky",
+      "gw-data-table__action",
+      "gw-data-table__caption",
+      "gw-data-table__detail",
+      "gw-data-table__expand",
+      "gw-data-table__message",
+      "gw-data-table__numeric",
+      "gw-data-table__scroll",
+      "gw-data-table__sort",
+      "gw-data-table__state"
+    ]
+  },
+  {
+    "name": "date-field",
+    "kind": "component",
+    "title": "Date field",
+    "purpose": "A native date input, or date and time input, as the control of a field, with a hint for what to enter and its earliest and latest values.",
+    "status": "draft",
+    "classes": [
+      "gw-date-field"
+    ]
+  },
+  {
+    "name": "device-code",
+    "kind": "component",
+    "title": "Device code",
+    "purpose": "What a view shows while the reader connects an outside account by entering a short code on that account's own site: the steps, the link, the code, and whether the app is still waiting.",
+    "status": "draft",
+    "classes": [
+      "gw-device-code",
+      "gw-device-code__code",
+      "gw-device-code__entry",
+      "gw-device-code__group",
+      "gw-device-code__note",
+      "gw-device-code__status",
+      "gw-device-code__step",
+      "gw-device-code__steps"
+    ]
+  },
+  {
+    "name": "dialog",
+    "kind": "component",
+    "title": "Dialog",
+    "purpose": "A modal window for one short task that must be finished or cancelled before the reader goes on.",
+    "status": "draft",
+    "classes": [
+      "gw-dialog",
+      "gw-dialog--scroll",
+      "gw-dialog__body",
+      "gw-dialog__footer",
+      "gw-dialog__panel",
+      "gw-dialog__title"
+    ]
+  },
+  {
+    "name": "diff",
+    "kind": "component",
+    "title": "Diff",
+    "purpose": "One file's change as a unified diff, with its path and how many lines were added and removed.",
+    "status": "draft",
+    "classes": [
+      "gw-diff",
+      "gw-diff__added",
+      "gw-diff__body",
+      "gw-diff__counts",
+      "gw-diff__header",
+      "gw-diff__label",
+      "gw-diff__line",
+      "gw-diff__line--added",
+      "gw-diff__line--hunk",
+      "gw-diff__line--removed",
+      "gw-diff__lines",
+      "gw-diff__note",
+      "gw-diff__path",
+      "gw-diff__removed",
+      "gw-diff__sign",
+      "gw-diff__text"
+    ]
+  },
+  {
+    "name": "disclosure",
+    "kind": "component",
+    "title": "Disclosure",
+    "purpose": "A native details element that shows or hides detail under a summary written in text.",
+    "status": "draft",
+    "classes": [
+      "gw-disclosure",
+      "gw-disclosure--row",
+      "gw-disclosure__content",
+      "gw-disclosure__meta",
+      "gw-disclosure__summary"
+    ]
+  },
+  {
+    "name": "editable-list",
+    "kind": "component",
+    "title": "Editable list",
+    "purpose": "An ordered list whose items the reader can edit in place, add to and delete from, such as the tasks in an agent's plan before it is approved.",
+    "status": "draft",
+    "classes": [
+      "gw-editable-list",
+      "gw-editable-list__actions",
+      "gw-editable-list__add",
+      "gw-editable-list__editor",
+      "gw-editable-list__editor-actions",
+      "gw-editable-list__item",
+      "gw-editable-list__items",
+      "gw-editable-list__note",
+      "gw-editable-list__text"
+    ]
+  },
+  {
+    "name": "empty-state",
+    "kind": "component",
+    "title": "Empty state",
+    "purpose": "What a view shows when it has no data yet, with the way to get some.",
+    "status": "draft",
+    "classes": [
+      "gw-empty-state",
+      "gw-empty-state--compact",
+      "gw-empty-state__action",
+      "gw-empty-state__body",
+      "gw-empty-state__title"
+    ]
+  },
+  {
+    "name": "error-state",
+    "kind": "component",
+    "title": "Error state",
+    "purpose": "What a view shows when its data could not be loaded, with a way to try again.",
+    "status": "draft",
+    "classes": [
+      "gw-error-state",
+      "gw-error-state__action",
+      "gw-error-state__detail",
+      "gw-error-state__output",
+      "gw-error-state__summary",
+      "gw-error-state__title"
+    ]
+  },
+  {
+    "name": "feedback",
+    "kind": "component",
+    "title": "Feedback",
+    "purpose": "A control for rating an agent's answer as helpful or not helpful, with an optional follow-up note and a confirmation.",
+    "status": "draft",
+    "classes": [
+      "gw-feedback",
+      "gw-feedback__choice",
+      "gw-feedback__choices",
+      "gw-feedback__confirmation",
+      "gw-feedback__error",
+      "gw-feedback__note",
+      "gw-feedback__prompt",
+      "gw-feedback__row"
+    ]
+  },
+  {
+    "name": "field",
+    "kind": "component",
+    "title": "Field",
+    "purpose": "One labelled control, a text input, a textarea or a select, with its description and its error message.",
+    "status": "draft",
+    "classes": [
+      "gw-field",
+      "gw-field__control",
+      "gw-field__description",
+      "gw-field__error",
+      "gw-field__label",
+      "gw-field__required"
+    ]
+  },
+  {
+    "name": "file-upload",
+    "kind": "component",
+    "title": "File upload",
+    "purpose": "A file input drawn as a drop area with a button in it, with what it accepts in words and the chosen files listed under it.",
+    "status": "draft",
+    "classes": [
+      "gw-file-upload",
+      "gw-file-upload__button",
+      "gw-file-upload__files",
+      "gw-file-upload__input",
+      "gw-file-upload__prompt"
+    ]
+  },
+  {
+    "name": "filter-chips",
+    "kind": "component",
+    "title": "Filter chips",
+    "purpose": "A row of filters the reader switches on and off above the list they narrow, built on native checkboxes or radios.",
+    "status": "draft",
+    "classes": [
+      "gw-filter-chips",
+      "gw-filter-chips__chip",
+      "gw-filter-chips__input",
+      "gw-filter-chips__legend",
+      "gw-filter-chips__list"
+    ]
+  },
+  {
+    "name": "hover-card",
+    "kind": "component",
+    "title": "Hover card",
+    "purpose": "A preview of a linked item, such as a run, a branch or a person, shown beside its link so the reader can decide whether to follow it.",
+    "status": "draft",
+    "classes": [
+      "gw-hover-card",
+      "gw-hover-card--end",
+      "gw-hover-card__card",
+      "gw-hover-card__meta"
+    ]
+  },
+  {
+    "name": "icon-button",
+    "kind": "component",
+    "title": "Icon button",
+    "purpose": "A button that shows only an icon, for a familiar action where a text label has no room.",
+    "status": "draft",
+    "classes": [
+      "gw-icon-button"
+    ]
+  },
+  {
+    "name": "inspector",
+    "kind": "component",
+    "title": "Inspector",
+    "purpose": "A panel for the details of the item selected in the content beside it, with a title, a close button and sections of labelled values.",
+    "status": "draft",
+    "classes": [
+      "gw-inspector",
+      "gw-inspector__close",
+      "gw-inspector__fact",
+      "gw-inspector__facts",
+      "gw-inspector__heading",
+      "gw-inspector__header",
+      "gw-inspector__label",
+      "gw-inspector__layout",
+      "gw-inspector__note",
+      "gw-inspector__section",
+      "gw-inspector__title",
+      "gw-inspector__value"
+    ]
+  },
+  {
+    "name": "kbd",
+    "kind": "component",
+    "title": "Kbd",
+    "purpose": "A keyboard key or shortcut named in text, such as Ctrl + K.",
+    "status": "draft",
+    "classes": [
+      "gw-kbd",
+      "gw-kbd__combo"
+    ]
+  },
+  {
+    "name": "key-value",
+    "kind": "component",
+    "title": "Key-value",
+    "purpose": "Facts about one thing as label and value pairs: stacked on a phone, in two columns at 768px and wider.",
+    "status": "draft",
+    "classes": [
+      "gw-key-value",
+      "gw-key-value__item",
+      "gw-key-value__label",
+      "gw-key-value__value",
+      "gw-key-value__value--empty",
+      "gw-key-value__value--mono"
+    ]
+  },
+  {
+    "name": "link",
+    "kind": "component",
+    "title": "Link",
+    "purpose": "A text link to another view or another site: in running text, standing alone, external or quiet.",
+    "status": "draft",
+    "classes": [
+      "gw-link",
+      "gw-link--quiet",
+      "gw-link__hint",
+      "gw-link__icon"
+    ]
+  },
+  {
+    "name": "list",
+    "kind": "component",
+    "title": "List",
+    "purpose": "Rows one above the other, each with a primary line and room for a second line, an icon, and trailing text or one quiet action.",
+    "status": "draft",
+    "classes": [
+      "gw-list",
+      "gw-list--dense",
+      "gw-list__action",
+      "gw-list__body",
+      "gw-list__content",
+      "gw-list__icon",
+      "gw-list__link",
+      "gw-list__meta",
+      "gw-list__primary",
+      "gw-list__row",
+      "gw-list__secondary"
+    ]
+  },
+  {
+    "name": "listbox",
+    "kind": "component",
+    "title": "Listbox",
+    "purpose": "A list of options, always in view, from which the reader selects one or several.",
+    "status": "draft",
+    "classes": [
+      "gw-listbox",
+      "gw-listbox__group",
+      "gw-listbox__label",
+      "gw-listbox__meta",
+      "gw-listbox__note",
+      "gw-listbox__option"
+    ]
+  },
+  {
+    "name": "menu",
+    "kind": "component",
+    "title": "Menu",
+    "purpose": "A list of actions on one thing, opened from a button.",
+    "status": "draft",
+    "classes": [
+      "gw-menu",
+      "gw-menu__divider",
+      "gw-menu__icon",
+      "gw-menu__item",
+      "gw-menu__item--danger",
+      "gw-menu__label",
+      "gw-menu__section"
+    ]
+  },
+  {
+    "name": "message",
+    "kind": "component",
+    "title": "Message",
+    "purpose": "One row of an agent transcript: the start of the session, a prompt, the agent's text, a question to the reader, a tool call, its result, an answered permission request, a denial, an error, usage or the end of a turn.",
+    "status": "draft",
+    "classes": [
+      "gw-message",
+      "gw-message--decision",
+      "gw-message--denied",
+      "gw-message--error",
+      "gw-message--question",
+      "gw-message--session-start",
+      "gw-message--tool-call",
+      "gw-message--tool-result",
+      "gw-message--turn-end",
+      "gw-message--usage",
+      "gw-message--user",
+      "gw-message__body",
+      "gw-message__code",
+      "gw-message__command",
+      "gw-message__details",
+      "gw-message__icon",
+      "gw-message__label",
+      "gw-message__summary",
+      "gw-message__tool"
+    ]
+  },
+  {
+    "name": "notification-list",
+    "kind": "component",
+    "title": "Notification list",
+    "purpose": "What happened while the reader was away, grouped as unread and earlier: each entry says what happened, where and when, and offers at most one action.",
+    "status": "draft",
+    "classes": [
+      "gw-notification-list",
+      "gw-notification-list__action",
+      "gw-notification-list__count",
+      "gw-notification-list__group",
+      "gw-notification-list__header",
+      "gw-notification-list__heading",
+      "gw-notification-list__item",
+      "gw-notification-list__title",
+      "gw-notification-list__unread"
+    ]
+  },
+  {
+    "name": "number-field",
+    "kind": "component",
+    "title": "Number field",
+    "purpose": "A numeric input as the control of a field, with an optional unit written beside it and optional stepper buttons.",
+    "status": "draft",
+    "classes": [
+      "gw-number-field",
+      "gw-number-field__input",
+      "gw-number-field__step",
+      "gw-number-field__unit"
+    ]
+  },
+  {
+    "name": "otp-input",
+    "kind": "component",
+    "title": "One-time-code input",
+    "purpose": "A single input for a short one-time code, drawn with wide letter spacing so each digit can be checked.",
+    "status": "draft",
+    "classes": [
+      "gw-otp-input"
+    ]
+  },
+  {
+    "name": "page-header",
+    "kind": "component",
+    "title": "Page header",
+    "purpose": "The top of a view: its title, an optional one-line description and the view's one optional primary action.",
+    "status": "draft",
+    "classes": [
+      "gw-page-header",
+      "gw-page-header--compact",
+      "gw-page-header__action",
+      "gw-page-header__description",
+      "gw-page-header__text",
+      "gw-page-header__title"
+    ]
+  },
+  {
+    "name": "pagination",
+    "kind": "component",
+    "title": "Pagination",
+    "purpose": "Previous and next for a list split into pages, with the position written in words and optional numbered pages.",
+    "status": "draft",
+    "classes": [
+      "gw-pagination",
+      "gw-pagination__controls",
+      "gw-pagination__gap",
+      "gw-pagination__next",
+      "gw-pagination__page",
+      "gw-pagination__pages",
+      "gw-pagination__previous",
+      "gw-pagination__status"
+    ]
+  },
+  {
+    "name": "password-field",
+    "kind": "component",
+    "title": "Password field",
+    "purpose": "A password input as the control of a field, with a button that shows or hides what was typed.",
+    "status": "draft",
+    "classes": [
+      "gw-password-field",
+      "gw-password-field__hide",
+      "gw-password-field__input",
+      "gw-password-field__show",
+      "gw-password-field__toggle"
+    ]
+  },
+  {
+    "name": "pending-tray",
+    "kind": "component",
+    "title": "Pending tray",
+    "purpose": "How many approvals are waiting for the reader, in words and a count, linking to the queue from every screen.",
+    "status": "draft",
+    "classes": [
+      "gw-pending-tray",
+      "gw-pending-tray__count",
+      "gw-pending-tray__link",
+      "gw-pending-tray__text"
+    ]
+  },
+  {
+    "name": "popover",
+    "kind": "component",
+    "title": "Popover",
+    "purpose": "A small panel beside the button that opens it, for short supplementary content or a small form, which does not block the page.",
+    "status": "draft",
+    "classes": [
+      "gw-popover",
+      "gw-popover__actions",
+      "gw-popover__fact",
+      "gw-popover__facts",
+      "gw-popover__term",
+      "gw-popover__title"
+    ]
+  },
+  {
+    "name": "progress",
+    "kind": "component",
+    "title": "Progress",
+    "purpose": "How far a job with a known length has got: a labelled bar on a native progress element, with the value written in words.",
+    "status": "draft",
+    "classes": [
+      "gw-progress",
+      "gw-progress__bar",
+      "gw-progress__label",
+      "gw-progress__value"
+    ]
+  },
+  {
+    "name": "radio",
+    "kind": "component",
+    "title": "Radio",
+    "purpose": "A native radio group: exactly one of a few options, each with room for a full label and a description, sent with a form.",
+    "status": "draft",
+    "classes": [
+      "gw-radio",
+      "gw-radio__description",
+      "gw-radio__error",
+      "gw-radio__group",
+      "gw-radio__input",
+      "gw-radio__label",
+      "gw-radio__legend"
+    ]
+  },
+  {
+    "name": "reasoning",
+    "kind": "component",
+    "title": "Reasoning",
+    "purpose": "A closed disclosure holding an agent's reasoning or plan notes, drawn quietly so it defers to the answer.",
+    "status": "draft",
+    "classes": [
+      "gw-reasoning",
+      "gw-reasoning__body",
+      "gw-reasoning__summary"
+    ]
+  },
+  {
+    "name": "run-status",
+    "kind": "component",
+    "title": "Run status",
+    "purpose": "The content of one list row that summarises a run or a task: its title, its station as a badge in words, who or what is acting and the elapsed time.",
+    "status": "draft",
+    "classes": [
+      "gw-run-status",
+      "gw-run-status__elapsed",
+      "gw-run-status__facts",
+      "gw-run-status__station",
+      "gw-run-status__title"
+    ]
+  },
+  {
+    "name": "search-field",
+    "kind": "component",
+    "title": "Search field",
+    "purpose": "A search input with a search icon, an optional clear button and a line that counts the results.",
+    "status": "draft",
+    "classes": [
+      "gw-search-field",
+      "gw-search-field__box",
+      "gw-search-field__clear",
+      "gw-search-field__count",
+      "gw-search-field__input",
+      "gw-search-field__label"
+    ]
+  },
+  {
+    "name": "segmented-control",
+    "kind": "component",
+    "title": "Segmented control",
+    "purpose": "Two to five short options of which exactly one is chosen, shown side by side.",
+    "status": "draft",
+    "classes": [
+      "gw-segmented-control",
+      "gw-segmented-control__input",
+      "gw-segmented-control__label",
+      "gw-segmented-control__legend",
+      "gw-segmented-control__option",
+      "gw-segmented-control__options"
+    ]
+  },
+  {
+    "name": "select",
+    "kind": "component",
+    "title": "Select",
+    "purpose": "A native select as the control of a field, for one choice from a short fixed list.",
+    "status": "draft",
+    "classes": [
+      "gw-select",
+      "gw-select__control"
+    ]
+  },
+  {
+    "name": "selection-basket",
+    "kind": "component",
+    "title": "Selection basket",
+    "purpose": "The bar that appears while rows of a list or a table are selected: how many are selected, one bulk action, a More menu and Clear selection.",
+    "status": "draft",
+    "classes": [
+      "gw-selection-basket",
+      "gw-selection-basket__actions",
+      "gw-selection-basket__count",
+      "gw-selection-basket__error",
+      "gw-selection-basket__selection"
+    ]
+  },
+  {
+    "name": "settings-row",
+    "kind": "component",
+    "title": "Settings row",
+    "purpose": "One setting as a row: its label and a one-line description, with a single control or a status at the far end.",
+    "status": "draft",
+    "classes": [
+      "gw-settings-row",
+      "gw-settings-row--danger",
+      "gw-settings-row__control",
+      "gw-settings-row__description",
+      "gw-settings-row__error",
+      "gw-settings-row__group",
+      "gw-settings-row__heading",
+      "gw-settings-row__label",
+      "gw-settings-row__status",
+      "gw-settings-row__text"
+    ]
+  },
+  {
+    "name": "sheet",
+    "kind": "component",
+    "title": "Sheet",
+    "purpose": "A panel for a longer form or the details of an item, rising from the bottom edge on a phone and sitting as a side panel at 768px and wider.",
+    "status": "draft",
+    "classes": [
+      "gw-sheet",
+      "gw-sheet__body",
+      "gw-sheet__footer",
+      "gw-sheet__form",
+      "gw-sheet__header",
+      "gw-sheet__title"
+    ]
+  },
+  {
+    "name": "show-more",
+    "kind": "component",
+    "title": "Show more",
+    "purpose": "A control after the first part of long content that reveals the rest: a details element for text, code or a log, and a quiet button for a list cut short.",
+    "status": "draft",
+    "classes": [
+      "gw-show-more",
+      "gw-show-more__all",
+      "gw-show-more__error",
+      "gw-show-more__less",
+      "gw-show-more__more",
+      "gw-show-more__rest",
+      "gw-show-more__toggle"
+    ]
+  },
+  {
+    "name": "sidebar-nav",
+    "kind": "component",
+    "title": "Sidebar nav",
+    "purpose": "The destinations of an app in a column beside the content at 768px and up, each with an icon and a text label, grouped into labelled sections.",
+    "status": "draft",
+    "classes": [
+      "gw-sidebar-nav",
+      "gw-sidebar-nav__footer",
+      "gw-sidebar-nav__heading",
+      "gw-sidebar-nav__icon",
+      "gw-sidebar-nav__item",
+      "gw-sidebar-nav__items",
+      "gw-sidebar-nav__label",
+      "gw-sidebar-nav__note",
+      "gw-sidebar-nav__section"
+    ]
+  },
+  {
+    "name": "skeleton",
+    "kind": "component",
+    "title": "Skeleton",
+    "purpose": "Plain shapes that stand where content is about to appear, so the page keeps its layout while it loads.",
+    "status": "draft",
+    "classes": [
+      "gw-skeleton",
+      "gw-skeleton--rows",
+      "gw-skeleton__block",
+      "gw-skeleton__line",
+      "gw-skeleton__line--medium",
+      "gw-skeleton__line--short",
+      "gw-skeleton__row"
+    ]
+  },
+  {
+    "name": "slider",
+    "kind": "component",
+    "title": "Slider",
+    "purpose": "A native range input for a rough amount, with its label, its value in words and a label at each end.",
+    "status": "draft",
+    "classes": [
+      "gw-slider",
+      "gw-slider__input",
+      "gw-slider__label",
+      "gw-slider__max",
+      "gw-slider__min",
+      "gw-slider__track",
+      "gw-slider__value"
+    ]
+  },
+  {
+    "name": "source-chip",
+    "kind": "component",
+    "title": "Source chip",
+    "purpose": "A compact link to where something came from: a file with an optional line range, a web page by its host, or a commit.",
+    "status": "draft",
+    "classes": [
+      "gw-source-chip",
+      "gw-source-chip__detail",
+      "gw-source-chip__end",
+      "gw-source-chip__icon",
+      "gw-source-chip__list",
+      "gw-source-chip__start",
+      "gw-source-chip__text"
+    ]
+  },
+  {
+    "name": "sparkline",
+    "kind": "component",
+    "title": "Sparkline",
+    "purpose": "A small trend line beside a value, with words that say the trend and the latest value.",
+    "status": "draft",
+    "classes": [
+      "gw-sparkline",
+      "gw-sparkline__chart",
+      "gw-sparkline__last",
+      "gw-sparkline__line",
+      "gw-sparkline__text"
+    ]
+  },
+  {
+    "name": "spinner",
+    "kind": "component",
+    "title": "Spinner",
+    "purpose": "A sign that something is in progress when how long it will take is not known.",
+    "status": "draft",
+    "classes": [
+      "gw-spinner",
+      "gw-spinner--large"
+    ]
+  },
+  {
+    "name": "split-button",
+    "kind": "component",
+    "title": "Split button",
+    "purpose": "A main action joined to a menu button that holds other ways to do the same thing.",
+    "status": "draft",
+    "classes": [
+      "gw-split-button",
+      "gw-split-button__action",
+      "gw-split-button__toggle"
+    ]
+  },
+  {
+    "name": "split-panel",
+    "kind": "component",
+    "title": "Split panel",
+    "purpose": "Two labelled regions, a list and the detail of the row chosen in it, side by side at 768px and up and stacked below, each scrolling by itself.",
+    "status": "draft",
+    "classes": [
+      "gw-split-panel",
+      "gw-split-panel--fill",
+      "gw-split-panel__detail",
+      "gw-split-panel__list"
+    ]
+  },
+  {
+    "name": "stat",
+    "kind": "component",
+    "title": "Stat",
+    "purpose": "One number in context: a label that says what it counts, the value in tabular figures, and a line that gives its comparison, its period or its scope.",
+    "status": "draft",
+    "classes": [
+      "gw-stat",
+      "gw-stat--inline",
+      "gw-stat__context",
+      "gw-stat__label",
+      "gw-stat__value"
+    ]
+  },
+  {
+    "name": "stepper",
+    "kind": "component",
+    "title": "Stepper",
+    "purpose": "Where the reader is in a short, fixed sequence of named steps: which are completed, which is current and which are still to come.",
+    "status": "draft",
+    "classes": [
+      "gw-stepper",
+      "gw-stepper__description",
+      "gw-stepper__label",
+      "gw-stepper__step"
+    ]
+  },
+  {
+    "name": "streaming",
+    "kind": "component",
+    "title": "Streaming",
+    "purpose": "The note that the agent is still producing output: a small turning mark and words that say what is happening.",
+    "status": "draft",
+    "classes": [
+      "gw-streaming",
+      "gw-streaming--row",
+      "gw-streaming__detail"
+    ]
+  },
+  {
+    "name": "suggestion-chips",
+    "kind": "component",
+    "title": "Suggestion chips",
+    "purpose": "Two to four suggested next prompts, as quiet buttons under a composer or an empty transcript.",
+    "status": "draft",
+    "classes": [
+      "gw-suggestion-chips",
+      "gw-suggestion-chips__chip"
+    ]
+  },
+  {
+    "name": "switch",
+    "kind": "component",
+    "title": "Switch",
+    "purpose": "An on-or-off setting that takes effect as soon as it changes.",
+    "status": "draft",
+    "classes": [
+      "gw-switch",
+      "gw-switch__description",
+      "gw-switch__error",
+      "gw-switch__input",
+      "gw-switch__label",
+      "gw-switch__off",
+      "gw-switch__on",
+      "gw-switch__state"
+    ]
+  },
+  {
+    "name": "tab-bar",
+    "kind": "component",
+    "title": "Tab bar",
+    "purpose": "The two to five main destinations of an app, along the bottom of a phone screen, each with an icon and a text label.",
+    "status": "draft",
+    "classes": [
+      "gw-tab-bar",
+      "gw-tab-bar__icon",
+      "gw-tab-bar__item",
+      "gw-tab-bar__label"
+    ]
+  },
+  {
+    "name": "tabs",
+    "kind": "component",
+    "title": "Tabs",
+    "purpose": "A row of tabs that switches between panels of one view, showing one panel at a time.",
+    "status": "draft",
+    "classes": [
+      "gw-tabs",
+      "gw-tabs__list",
+      "gw-tabs__panel",
+      "gw-tabs__tab"
+    ]
+  },
+  {
+    "name": "tag",
+    "kind": "component",
+    "title": "Tag",
+    "purpose": "A small neutral label for a category or a filter value, with an optional remove button.",
+    "status": "draft",
+    "classes": [
+      "gw-tag",
+      "gw-tag__remove"
+    ]
+  },
+  {
+    "name": "tag-input",
+    "kind": "component",
+    "title": "Tag input",
+    "purpose": "A box holding the values already added, as removable tags, and a text input for adding the next one.",
+    "status": "draft",
+    "classes": [
+      "gw-tag-input",
+      "gw-tag-input__input",
+      "gw-tag-input__tags"
+    ]
+  },
+  {
+    "name": "textarea",
+    "kind": "component",
+    "title": "Textarea",
+    "purpose": "The multi-line control of a field, which grows with what the reader types.",
+    "status": "draft",
+    "classes": [
+      "gw-textarea",
+      "gw-textarea--mono"
+    ]
+  },
+  {
+    "name": "timeline",
+    "kind": "component",
+    "title": "Timeline",
+    "purpose": "Events in the order they happened, each with its time, who acted and what happened, joined by a rail.",
+    "status": "draft",
+    "classes": [
+      "gw-timeline",
+      "gw-timeline--dense",
+      "gw-timeline__actor",
+      "gw-timeline__current",
+      "gw-timeline__event",
+      "gw-timeline__item",
+      "gw-timeline__meta",
+      "gw-timeline__time"
+    ]
+  },
+  {
+    "name": "toast",
+    "kind": "component",
+    "title": "Toast",
+    "purpose": "A brief status message that appears at the edge of the screen without taking focus and leaves by itself.",
+    "status": "draft",
+    "classes": [
+      "gw-toast",
+      "gw-toast--danger",
+      "gw-toast--success",
+      "gw-toast__action",
+      "gw-toast__label",
+      "gw-toast__message",
+      "gw-toast__region"
+    ]
+  },
+  {
+    "name": "toggle-button",
+    "kind": "component",
+    "title": "Toggle button",
+    "purpose": "A button that turns one view option on or off, such as Wrap lines, and says which with aria-pressed.",
+    "status": "draft",
+    "classes": [
+      "gw-toggle-button"
+    ]
+  },
+  {
+    "name": "tool-call",
+    "kind": "component",
+    "title": "Tool call",
+    "purpose": "A summary of one tool call outside a transcript: the tool, its target, how it ended and how long it took, with the arguments and output behind disclosures.",
+    "status": "draft",
+    "classes": [
+      "gw-tool-call",
+      "gw-tool-call--denied",
+      "gw-tool-call--failed",
+      "gw-tool-call--succeeded",
+      "gw-tool-call__code",
+      "gw-tool-call__details",
+      "gw-tool-call__duration",
+      "gw-tool-call__meta",
+      "gw-tool-call__name",
+      "gw-tool-call__note",
+      "gw-tool-call__status",
+      "gw-tool-call__summary",
+      "gw-tool-call__target",
+      "gw-tool-call__title"
+    ]
+  },
+  {
+    "name": "toolbar",
+    "kind": "component",
+    "title": "Toolbar",
+    "purpose": "A row of related controls for one view, grouped and labelled, that wraps or scrolls on a narrow screen.",
+    "status": "draft",
+    "classes": [
+      "gw-toolbar",
+      "gw-toolbar--scroll",
+      "gw-toolbar__group",
+      "gw-toolbar__more",
+      "gw-toolbar__overflow",
+      "gw-toolbar__separator",
+      "gw-toolbar__text"
+    ]
+  },
+  {
+    "name": "tooltip",
+    "kind": "component",
+    "title": "Tooltip",
+    "purpose": "A line of supplementary text for a control that already has a visible label or an accessible name.",
+    "status": "draft",
+    "classes": [
+      "gw-tooltip",
+      "gw-tooltip--below",
+      "gw-tooltip--end",
+      "gw-tooltip__content"
+    ]
+  },
+  {
+    "name": "tree",
+    "kind": "component",
+    "title": "Tree",
+    "purpose": "A file tree or an outline whose folders open and close with no script, built on nested details elements.",
+    "status": "draft",
+    "classes": [
+      "gw-tree",
+      "gw-tree__branch",
+      "gw-tree__icon",
+      "gw-tree__leaf",
+      "gw-tree__list",
+      "gw-tree__meta",
+      "gw-tree__name",
+      "gw-tree__note",
+      "gw-tree__summary"
+    ]
+  },
+  {
+    "name": "undo-toast",
+    "kind": "component",
+    "title": "Undo toast",
+    "purpose": "A toast for an action that can be taken back: it says what happened, offers Undo and shows how long Undo stays.",
+    "status": "draft",
+    "classes": [
+      "gw-undo-toast",
+      "gw-undo-toast__countdown",
+      "gw-undo-toast__progress"
+    ]
+  },
+  {
+    "name": "usage-meter",
+    "kind": "component",
+    "title": "Usage meter",
+    "purpose": "How much of a limit is used, on a native meter, with the figures and the state written in words.",
+    "status": "draft",
+    "classes": [
+      "gw-usage-meter",
+      "gw-usage-meter--row",
+      "gw-usage-meter__bar",
+      "gw-usage-meter__figures",
+      "gw-usage-meter__header",
+      "gw-usage-meter__label",
+      "gw-usage-meter__state"
+    ]
+  },
+  {
+    "name": "app-shell",
+    "kind": "pattern",
+    "title": "App shell",
+    "purpose": "The frame of a signed-in screen: the app header with the pending tray, the sidebar nav from 768px and the tab bar below it, and a main column that starts with the view's page header.",
+    "status": "draft",
+    "classes": [
+      "gw-app-shell",
+      "gw-app-shell__body",
+      "gw-app-shell__main"
+    ]
+  },
+  {
+    "name": "filter-results",
+    "kind": "pattern",
+    "title": "Filter and results",
+    "purpose": "A screen that narrows a long list or table: a search field and a few filters above it, the filters in force as removable tags, a count in words, then the results.",
+    "status": "draft",
+    "classes": [
+      "gw-filter-results",
+      "gw-filter-results__bar",
+      "gw-filter-results__count"
+    ]
+  },
+  {
+    "name": "master-detail",
+    "kind": "pattern",
+    "title": "Master and detail",
+    "purpose": "A screen with a list of items and the selected item's detail: side by side from 768px, and on a phone the list alone, with the detail as a view of its own.",
+    "status": "draft",
+    "classes": [
+      "gw-master-detail",
+      "gw-master-detail__back",
+      "gw-master-detail__detail",
+      "gw-master-detail__list",
+      "gw-master-detail__placeholder"
+    ]
+  },
+  {
+    "name": "multi-step-form",
+    "kind": "pattern",
+    "title": "Multi-step form",
+    "purpose": "A longer task split into steps shown one at a time: which step this is in words, the step's fields, Back and one primary action, and a review step before the final action.",
+    "status": "draft",
+    "classes": [
+      "gw-multi-step-form",
+      "gw-multi-step-form__step"
+    ]
+  },
+  {
+    "name": "not-found",
+    "kind": "pattern",
+    "title": "Not found",
+    "purpose": "The screen for a missing page or a missing item: what was not found in plain words, why that might be, one primary way forward and a quiet second link.",
+    "status": "draft",
+    "classes": [
+      "gw-not-found"
+    ]
+  },
+  {
+    "name": "settings-page",
+    "kind": "pattern",
+    "title": "Settings page",
+    "purpose": "A screen of settings shown defaults first: the few settings most people change, one advanced disclosure holding the rest, and a marked danger area for actions that destroy something.",
+    "status": "draft",
+    "classes": [
+      "gw-settings-page",
+      "gw-settings-page__danger"
+    ]
+  },
+  {
+    "name": "sign-in",
+    "kind": "pattern",
+    "title": "Sign in",
+    "purpose": "The sign-in screen: the product's name, one sentence, the fields, one primary action and a quiet link for trouble signing in, in a reading-width column at the leading edge.",
+    "status": "draft",
+    "classes": [
+      "gw-sign-in",
+      "gw-sign-in__product"
+    ]
+  }
+]

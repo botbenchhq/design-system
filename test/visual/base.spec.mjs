@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
@@ -31,6 +32,50 @@ const PAGE = `<!doctype html>
   </body>
 </html>`;
 
+// A path with no place to break, as a server puts one in a message.
+const LONG_WORD = `/Users/${"a".repeat(90 - "/Users/".length)}`;
+
+// Where a message from outside the app lands: [component, example, the elements that take the text].
+const LONG_TEXT_PLACES = [
+  ["field", "invalid", ".gw-field__description, .gw-field__error"],
+  ["alert", "with-action", ".gw-alert__title, .gw-alert__body"],
+  ["page-header", "default", ".gw-page-header__description"],
+  ["empty-state", "default", ".gw-empty-state__title"],
+  ["diff", "truncated", ".gw-diff__note"],
+  ["banner", "info", ".gw-banner__text"],
+  ["toast", "tones", ".gw-toast__message"],
+  ["list", "navigating", ".gw-list__primary, .gw-list__secondary"],
+  ["key-value", "default", ".gw-key-value__value"],
+];
+
+// A bare page holding one example of each of those components, as an app would compose them.
+function longTextPage() {
+  const { components } = JSON.parse(readFileSync(join(dist, "components.json"), "utf8"));
+  const sections = LONG_TEXT_PLACES.map(([name, id]) => {
+    const example = components.find((component) => component.name === name).examples.find((candidate) => candidate.id === id);
+    if (!example) throw new Error(`${name} has no example named ${id}`);
+    return `<section data-place="${name}">${example.markup}</section>`;
+  });
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Long words</title>
+    <link rel="stylesheet" href="/groundwork.css">
+  </head>
+  <body>
+    <main class="gw-container gw-stack">
+      <h1 id="plain-h1">Long words</h1>
+      <h2 id="plain-h2">A section</h2>
+      <h3 id="plain-h3">A part of it</h3>
+      <p id="plain"></p>
+      ${sections.join("\n")}
+    </main>
+  </body>
+</html>`;
+}
+
 let server;
 let origin;
 
@@ -39,6 +84,7 @@ test.beforeAll(async () => {
   server = createServer(async (request, response) => {
     const path = normalize(new URL(request.url, "http://localhost").pathname);
     if (path === "/") return response.writeHead(200, { "content-type": "text/html" }).end(PAGE);
+    if (path === "/long-words") return response.writeHead(200, { "content-type": "text/html" }).end(longTextPage());
     try {
       const body = await readFile(join(dist, path));
       response.writeHead(200, { "content-type": TYPES[extname(path)] }).end(body);
@@ -141,3 +187,46 @@ test("without reduced motion a transition keeps its duration", async ({ page }) 
   await page.addStyleTag({ content: "@layer gw.components { #first { transition: opacity 240ms; } }" });
   expect(await computed(page, "#first", "transition-duration")).toBe("0.24s");
 });
+
+test("a 90-character unbroken path breaks inside its element at 390px, and the page does not scroll sideways", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 900 });
+  await page.goto(`${origin}/long-words`);
+  await page.evaluate(() => document.fonts.ready);
+  expect(LONG_WORD).toHaveLength(90);
+  expect(await computed(page, "body", "overflow-wrap")).toBe("break-word");
+
+  const targets = ["#plain", ...LONG_TEXT_PLACES.map(([name, , selector]) => selector.split(", ").map((part) => `[data-place="${name}"] ${part}`).join(", "))];
+  const found = await page.evaluate(
+    ({ selectors, word }) => {
+      const filled = selectors.map((selector) => {
+        const elements = [...document.querySelectorAll(selector)];
+        for (const element of elements) element.textContent = `Could not read ${word}`;
+        return elements.length;
+      });
+      const root = document.documentElement;
+      const past = selectors.flatMap((selector) =>
+        [...document.querySelectorAll(selector)]
+          .filter((element) => element.getBoundingClientRect().right > root.clientWidth + 0.5 || element.scrollWidth > element.clientWidth + 1)
+          .map((element) => `${selector}: right edge ${Math.round(element.getBoundingClientRect().right)}, content ${element.scrollWidth} in ${element.clientWidth}`),
+      );
+      return { filled, past, scroll: root.scrollWidth - root.clientWidth };
+    },
+    { selectors: targets, word: LONG_WORD },
+  );
+  expect(found.filled.every((amount) => amount > 0), JSON.stringify(found.filled)).toBe(true);
+  expect(found.past).toEqual([]);
+  expect(found.scroll).toBe(0);
+});
+
+for (const width of [390, 1280]) {
+  test(`at ${width}px h1, h2 and h3 step down in size, and the page header's title is never as small as an h2`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(`${origin}/long-words`);
+    const size = async (selector) => parseFloat(await computed(page, selector, "font-size"));
+    const [h1, h2, h3, body] = [await size("#plain-h1"), await size("#plain-h2"), await size("#plain-h3"), await size("body")];
+    expect([h1, h2, h3]).toEqual([24, 20, 16]);
+    expect(h3).toBeGreaterThan(body);
+    expect(await size(".gw-page-header__title")).toBeGreaterThan(h2);
+    expect(await size(".gw-page-header__title")).toBe(h1);
+  });
+}
