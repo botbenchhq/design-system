@@ -829,6 +829,31 @@
     ]
   },
   {
+    "name": "option-picker",
+    "kind": "component",
+    "title": "Option picker",
+    "purpose": "Exactly one of up to about ten options, each a full-width row with a name, a one-line description and an optional state in words, built on native radios.",
+    "status": "draft",
+    "classes": [
+      "ds-option-picker",
+      "ds-option-picker__body",
+      "ds-option-picker__description",
+      "ds-option-picker__end",
+      "ds-option-picker__error",
+      "ds-option-picker__hint",
+      "ds-option-picker__input",
+      "ds-option-picker__legend",
+      "ds-option-picker__name",
+      "ds-option-picker__option",
+      "ds-option-picker__path",
+      "ds-option-picker__reveal",
+      "ds-option-picker__start",
+      "ds-option-picker__state",
+      "ds-option-picker__state--warning",
+      "ds-option-picker__text"
+    ]
+  },
+  {
     "name": "otp-input",
     "kind": "component",
     "title": "One-time-code input",

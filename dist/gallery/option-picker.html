@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Option picker - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/elapsed.js"></script>
+<script type="module" src="../behaviors/listbox.js"></script>
+<script type="module" src="../behaviors/menu.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
+<script type="module" src="../behaviors/transcript.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Design system gallery</a>
+<div data-gallery="switches">
+<nav aria-label="Mode"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<nav aria-label="Theme"><a href="?brand=default" data-gallery-default="light">Default</a><a href="?brand=botbench" data-gallery-default="dark">Botbench</a></nav>
+</div>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Option picker</h1>
+<p>Exactly one of up to about ten options, each a full-width row with a name, a one-line description and an optional state in words, built on native radios.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="ds-grid ds-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> A repository from recently used ones, with a path typed in</h3>
+<p>Each row names the repository and shows its folder on one line, with the middle of a long path cut so the last folder stays in view. The last option reveals the path field under itself when it is chosen, with no script.</p>
+</figcaption>
+<div data-example="repository" data-title="A repository from recently used ones, with a path typed in" data-reason="Each row names the repository and shows its folder on one line, with the middle of a long path cut so the last folder stays in view. The last option reveals the path field under itself when it is chosen, with no script.">
+  <fieldset class="ds-option-picker" aria-describedby="option-picker-repository-hint">
+    <legend class="ds-option-picker__legend">Repository</legend>
+    <p class="ds-option-picker__hint" id="option-picker-repository-hint">Repositories you used on this machine, newest first.</p>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-repository" value="/Users/mira/code/acme/api" aria-labelledby="option-picker-repository-api-name" aria-describedby="option-picker-repository-api-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-repository-api-name">api</span>
+          <span class="ds-option-picker__description" id="option-picker-repository-api-description"><span class="ds-option-picker__path"><span class="ds-option-picker__start">/Users/mira/code/acme/</span><span class="ds-option-picker__end">api</span></span></span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-repository" value="/Users/mira/code/acme/web" aria-labelledby="option-picker-repository-web-name" aria-describedby="option-picker-repository-web-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-repository-web-name">web</span>
+          <span class="ds-option-picker__description" id="option-picker-repository-web-description"><span class="ds-option-picker__path"><span class="ds-option-picker__start">/Users/mira/code/acme/</span><span class="ds-option-picker__end">web</span></span></span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-repository" value="/Users/mira/code/clients/northwind-logistics/platform/services/shipment-tracking-api" aria-labelledby="option-picker-repository-tracking-name" aria-describedby="option-picker-repository-tracking-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-repository-tracking-name">shipment-tracking-api</span>
+          <span class="ds-option-picker__description" id="option-picker-repository-tracking-description"><span class="ds-option-picker__path"><span class="ds-option-picker__start">/Users/mira/code/clients/northwind-logistics/platform/services/</span><span class="ds-option-picker__end">shipment-tracking-api</span></span></span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-repository" value="/Users/mira/code/dotfiles" aria-labelledby="option-picker-repository-dotfiles-name" aria-describedby="option-picker-repository-dotfiles-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-repository-dotfiles-name">dotfiles</span>
+          <span class="ds-option-picker__description" id="option-picker-repository-dotfiles-description"><span class="ds-option-picker__path"><span class="ds-option-picker__start">/Users/mira/code/</span><span class="ds-option-picker__end">dotfiles</span></span></span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-repository" value="other" checked>
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name">Enter a path</span>
+        </span>
+      </span>
+    </label>
+    <div class="ds-option-picker__reveal">
+      <div class="ds-field">
+        <label class="ds-field__label" for="option-picker-repository-path">Path to the repository</label>
+        <input class="ds-field__control" id="option-picker-repository-path" type="text" name="option-picker-repository-path" autocomplete="off" spellcheck="false" aria-describedby="option-picker-repository-path-description">
+        <p class="ds-field__description" id="option-picker-repository-path-description">The folder that holds the repository's .git folder, such as /Users/mira/code/acme/docs.</p>
+      </div>
+    </div>
+  </fieldset>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> An agent and model, with two unavailable</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+<p>An option that cannot be chosen stays in the list, so the reader sees it exists. Its reason is written at the end of the row, and its description says what to do.</p>
+</figcaption>
+<div data-example="agent" data-title="An agent and model, with two unavailable" data-state="disabled" data-reason="An option that cannot be chosen stays in the list, so the reader sees it exists. Its reason is written at the end of the row, and its description says what to do.">
+  <fieldset class="ds-option-picker" aria-describedby="option-picker-agent-hint">
+    <legend class="ds-option-picker__legend">Agent for reviews</legend>
+    <p class="ds-option-picker__hint" id="option-picker-agent-hint">The reviewer reads the diff of each task and leaves comments before you see it.</p>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-agent" value="claude-code-sonnet" checked aria-labelledby="option-picker-agent-sonnet-name" aria-describedby="option-picker-agent-sonnet-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-agent-sonnet-name">Claude Code with Sonnet</span>
+          <span class="ds-option-picker__description" id="option-picker-agent-sonnet-description">Fast enough to review every task as it finishes.</span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-agent" value="claude-code-opus" disabled aria-labelledby="option-picker-agent-opus-name" aria-describedby="option-picker-agent-opus-state option-picker-agent-opus-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-agent-opus-name">Claude Code with Opus</span>
+          <span class="ds-option-picker__description" id="option-picker-agent-opus-description">Available again on 1 December, when the monthly limit resets.</span>
+        </span>
+        <span class="ds-option-picker__state" id="option-picker-agent-opus-state">Usage limit reached</span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-agent" value="gemini-cli-pro" disabled aria-labelledby="option-picker-agent-gemini-name" aria-describedby="option-picker-agent-gemini-state option-picker-agent-gemini-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-agent-gemini-name">Gemini CLI with 2.5 Pro</span>
+          <span class="ds-option-picker__description" id="option-picker-agent-gemini-description">Sign in to Gemini in Settings, Accounts, to use it.</span>
+        </span>
+        <span class="ds-option-picker__state" id="option-picker-agent-gemini-state">Signed out</span>
+      </span>
+    </label>
+  </fieldset>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>An autonomy mode, one with a warning</h3>
+<p data-gallery="state">State: <code>checked</code></p>
+</figcaption>
+<div data-example="autonomy" data-title="An autonomy mode, one with a warning" data-state="checked">
+  <fieldset class="ds-option-picker">
+    <legend class="ds-option-picker__legend">Autonomy</legend>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-autonomy" value="manual" aria-labelledby="option-picker-autonomy-manual-name" aria-describedby="option-picker-autonomy-manual-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-autonomy-manual-name">Manual</span>
+          <span class="ds-option-picker__description" id="option-picker-autonomy-manual-description">Asks before every file edit and every command.</span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-autonomy" value="semi" checked aria-labelledby="option-picker-autonomy-semi-name" aria-describedby="option-picker-autonomy-semi-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-autonomy-semi-name">Semi-autonomous</span>
+          <span class="ds-option-picker__description" id="option-picker-autonomy-semi-description">Edits files in the worktree, and asks before running a command.</span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-autonomy" value="full" aria-labelledby="option-picker-autonomy-full-name" aria-describedby="option-picker-autonomy-full-state option-picker-autonomy-full-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-autonomy-full-name">Fully autonomous</span>
+          <span class="ds-option-picker__description" id="option-picker-autonomy-full-description">Edits files and runs commands in the worktree until the task is done.</span>
+        </span>
+        <span class="ds-option-picker__state ds-option-picker__state--warning" id="option-picker-autonomy-full-state">Runs commands without asking</span>
+      </span>
+    </label>
+  </fieldset>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing chosen yet</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="default" data-title="Nothing chosen yet" data-state="default">
+  <fieldset class="ds-option-picker">
+    <legend class="ds-option-picker__legend">Worktree</legend>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-default-worktree" value="new" aria-labelledby="option-picker-default-new-name" aria-describedby="option-picker-default-new-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-default-new-name">Create a new worktree</span>
+          <span class="ds-option-picker__description" id="option-picker-default-new-description">Branches from main as task/fix-login-timeout.</span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-default-worktree" value="reuse" aria-labelledby="option-picker-default-reuse-name" aria-describedby="option-picker-default-reuse-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-default-reuse-name">Reuse the worktree of task 41</span>
+          <span class="ds-option-picker__description" id="option-picker-default-reuse-description">Keeps its uncommitted changes to 3 files.</span>
+        </span>
+      </span>
+    </label>
+  </fieldset>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <fieldset class="ds-option-picker">
+    <legend class="ds-option-picker__legend">Base branch</legend>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-hover-base" value="main" checked aria-labelledby="option-picker-hover-main-name" aria-describedby="option-picker-hover-main-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-hover-main-name">main</span>
+          <span class="ds-option-picker__description" id="option-picker-hover-main-description">Last commit 2 hours ago.</span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-hover-base" value="develop" aria-labelledby="option-picker-hover-develop-name" aria-describedby="option-picker-hover-develop-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-hover-develop-name">develop</span>
+          <span class="ds-option-picker__description" id="option-picker-hover-develop-description">12 commits ahead of main.</span>
+        </span>
+      </span>
+    </label>
+  </fieldset>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <fieldset class="ds-option-picker">
+    <legend class="ds-option-picker__legend">Base branch</legend>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-focus-base" value="main" checked aria-labelledby="option-picker-focus-main-name" aria-describedby="option-picker-focus-main-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-focus-main-name">main</span>
+          <span class="ds-option-picker__description" id="option-picker-focus-main-description">Last commit 2 hours ago.</span>
+        </span>
+      </span>
+    </label>
+  </fieldset>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Invalid</h3>
+<p data-gallery="state">State: <code>invalid</code></p>
+</figcaption>
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <fieldset class="ds-option-picker" role="radiogroup" aria-labelledby="option-picker-invalid-legend" aria-required="true" aria-invalid="true" aria-describedby="option-picker-invalid-error">
+    <legend class="ds-option-picker__legend" id="option-picker-invalid-legend">Autonomy</legend>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-invalid-autonomy" value="manual" required aria-labelledby="option-picker-invalid-manual-name" aria-describedby="option-picker-invalid-manual-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-invalid-manual-name">Manual</span>
+          <span class="ds-option-picker__description" id="option-picker-invalid-manual-description">Asks before every file edit and every command.</span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-invalid-autonomy" value="semi" required aria-labelledby="option-picker-invalid-semi-name" aria-describedby="option-picker-invalid-semi-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-invalid-semi-name">Semi-autonomous</span>
+          <span class="ds-option-picker__description" id="option-picker-invalid-semi-description">Edits files in the worktree, and asks before running a command.</span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-invalid-autonomy" value="full" required aria-labelledby="option-picker-invalid-full-name" aria-describedby="option-picker-invalid-full-state option-picker-invalid-full-description">
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name" id="option-picker-invalid-full-name">Fully autonomous</span>
+          <span class="ds-option-picker__description" id="option-picker-invalid-full-description">Edits files and runs commands in the worktree until the task is done.</span>
+        </span>
+        <span class="ds-option-picker__state ds-option-picker__state--warning" id="option-picker-invalid-full-state">Runs commands without asking</span>
+      </span>
+    </label>
+    <p class="ds-option-picker__error" id="option-picker-invalid-error">Choose how much the agent may do alone, then start the task again.</p>
+  </fieldset>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> An unavailable option shown by grey alone</h3>
+<p>The two greyed rows cannot be chosen, and nothing says why or what would make them available. Write the reason at the end of the row, such as Signed out, and say what to do in the description.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="grey-alone" data-title="An unavailable option shown by grey alone" data-dont="review" data-reason="The two greyed rows cannot be chosen, and nothing says why or what would make them available. Write the reason at the end of the row, such as Signed out, and say what to do in the description.">
+  <fieldset class="ds-option-picker">
+    <legend class="ds-option-picker__legend">Agent for reviews</legend>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-grey-agent" value="claude-code-sonnet" checked>
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name">Claude Code with Sonnet</span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-grey-agent" value="claude-code-opus" disabled>
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name">Claude Code with Opus</span>
+        </span>
+      </span>
+    </label>
+    <label class="ds-option-picker__option">
+      <input class="ds-option-picker__input" type="radio" name="option-picker-grey-agent" value="gemini-cli-pro" disabled>
+      <span class="ds-option-picker__body">
+        <span class="ds-option-picker__text">
+          <span class="ds-option-picker__name">Gemini CLI with 2.5 Pro</span>
+        </span>
+      </span>
+    </label>
+  </fieldset>
+</div>
+</figure>
+</div>
+</section>
+<div class="ds-grid ds-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>To choose exactly one of two to about ten options where each needs more than a label: a repository and its path, an agent and the model it runs, a mode and what it allows.</li>
+<li>When some options cannot be chosen right now and the reader should still see them and the reason, such as Signed out or Usage limit reached.</li>
+<li>When one option carries a risk the reader should weigh before choosing it, such as running commands without asking.</li>
+<li>When the last option lets the reader type a value that is not in the list, such as a path, in a field shown under it.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For options that a short label names by itself, with at most a line of help. Use a radio group.</li>
+<li>For two to five options of one or two words each. Use a segmented control.</li>
+<li>For more than about ten options, or a list the reader scans rather than reads. Use a select, or a combobox when typing is faster.</li>
+<li>For a choice that should stay on screen as a selection the app's script manages, with several selectable or with keys of its own. Use a listbox.</li>
+<li>For a setting that takes effect the moment it changes, among other settings on a page. Use a settings row, with a select or a switch.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>description</dt>
+<dd>The name and a ds-option-picker__description under it, one line that says what the option does.</dd>
+<dt>path</dt>
+<dd>The description holds ds-option-picker__path, with the folders in ds-option-picker__start and the last folder in ds-option-picker__end. The path stays on one line and loses its middle.</dd>
+<dt>state</dt>
+<dd>ds-option-picker__state after ds-option-picker__text, a state in words such as Signed out. Below 768px it sits under the text; from 768px it is at the trailing end of the row, level with the name.</dd>
+<dt>warning <code>ds-option-picker__state--warning</code></dt>
+<dd>On ds-option-picker__state, for a risk of the option in a word or a short phrase, such as Runs commands without asking. The stylesheet draws a warning icon and the warning tone.</dd>
+<dt>reveal</dt>
+<dd>A div with ds-option-picker__reveal straight after an option's label. It is shown only while that option is chosen, such as a ds-field for a path after an Enter a path option.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a fieldset with ds-option-picker and a legend with ds-option-picker__legend that names the choice. An optional hint is a p with ds-option-picker__hint after the legend, and the fieldset points at it with aria-describedby.</li>
+<li>Each option is a label with ds-option-picker__option that wraps the whole row, so a press anywhere on it chooses the option. Inside it comes input type=&quot;radio&quot; with ds-option-picker__input first, then a span with ds-option-picker__body holding a span with ds-option-picker__text (the ds-option-picker__name and an optional ds-option-picker__description) and an optional span with ds-option-picker__state.</li>
+<li>Name the input with aria-labelledby pointing at its ds-option-picker__name, and point aria-describedby at its state and description, so a screen reader reads the name, then the state and the description, and not all of it as one name.</li>
+<li>Every input in a group has the same name attribute, different from every other group on the page.</li>
+<li>A path is written in full in ds-option-picker__start and ds-option-picker__end, with no white space between them. The stylesheet cuts the middle from view only, so the description read aloud keeps the whole path.</li>
+<li>An option that cannot be chosen takes the disabled attribute on its input. It stays in the list, and its ds-option-picker__state says why in words, with its description saying what to do. Its text keeps a contrast pair of the system.</li>
+<li>A warning is ds-option-picker__state with ds-option-picker__state--warning: the words say the risk, and the stylesheet adds the icon, so the tone is never the only signal.</li>
+<li>A ds-option-picker__reveal is shown by the stylesheet while the option before it is checked, with no script, and is out of the tab order while hidden. Do not put required on a control inside it; check it when the form is sent.</li>
+<li>For an error, the fieldset takes role=&quot;radiogroup&quot;, aria-labelledby pointing at the legend, aria-required=&quot;true&quot;, aria-invalid=&quot;true&quot; and aria-describedby pointing at a p with ds-option-picker__error after the last option, and at the hint too when there is one. The message says what to do, and its icon is drawn by the stylesheet.</li>
+<li>Tab moves into the group, to the chosen option or the first one. The arrow keys move between options, skip a disabled one and choose as they go, and Space chooses the focused option. All of it comes from the native inputs.</li>
+<li>Each row is at least 44px tall and as wide as the group, and the mark has a 44px target of its own inside it.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>ds-option-picker</code></li>
+<li><code>ds-option-picker__body</code></li>
+<li><code>ds-option-picker__description</code></li>
+<li><code>ds-option-picker__end</code></li>
+<li><code>ds-option-picker__error</code></li>
+<li><code>ds-option-picker__hint</code></li>
+<li><code>ds-option-picker__input</code></li>
+<li><code>ds-option-picker__legend</code></li>
+<li><code>ds-option-picker__name</code></li>
+<li><code>ds-option-picker__option</code></li>
+<li><code>ds-option-picker__path</code></li>
+<li><code>ds-option-picker__reveal</code></li>
+<li><code>ds-option-picker__start</code></li>
+<li><code>ds-option-picker__state</code></li>
+<li><code>ds-option-picker__state--warning</code></li>
+<li><code>ds-option-picker__text</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

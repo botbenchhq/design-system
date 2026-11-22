@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.7.4
+
+A new component, `option-picker`: exactly one of up to about ten options, each a full-width row with a name, a one-line description and an optional state in words, built on native radios. It covers a repository from recently used ones with its path cut in the middle and an Enter a path option that shows a field under itself, an agent that is unavailable with the reason in words, and a mode that carries a warning. Nothing else changes, and a consumer only needs to sync.
+
 ## 0.7.3
 
 The icon set gains `settings`, the gear an app header's Settings action needs. Nothing else changes, and a consumer only needs to sync.

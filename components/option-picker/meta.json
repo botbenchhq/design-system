@@ -1,0 +1,60 @@
+{
+  "name": "option-picker",
+  "title": "Option picker",
+  "purpose": "Exactly one of up to about ten options, each a full-width row with a name, a one-line description and an optional state in words, built on native radios.",
+  "status": "draft",
+  "whenToUse": [
+    "To choose exactly one of two to about ten options where each needs more than a label: a repository and its path, an agent and the model it runs, a mode and what it allows.",
+    "When some options cannot be chosen right now and the reader should still see them and the reason, such as Signed out or Usage limit reached.",
+    "When one option carries a risk the reader should weigh before choosing it, such as running commands without asking.",
+    "When the last option lets the reader type a value that is not in the list, such as a path, in a field shown under it."
+  ],
+  "whenNotToUse": [
+    "For options that a short label names by itself, with at most a line of help. Use a radio group.",
+    "For two to five options of one or two words each. Use a segmented control.",
+    "For more than about ten options, or a list the reader scans rather than reads. Use a select, or a combobox when typing is faster.",
+    "For a choice that should stay on screen as a selection the app's script manages, with several selectable or with keys of its own. Use a listbox.",
+    "For a setting that takes effect the moment it changes, among other settings on a page. Use a settings row, with a select or a switch."
+  ],
+  "variants": [
+    { "name": "description", "use": "The name and a ds-option-picker__description under it, one line that says what the option does." },
+    { "name": "path", "use": "The description holds ds-option-picker__path, with the folders in ds-option-picker__start and the last folder in ds-option-picker__end. The path stays on one line and loses its middle." },
+    { "name": "state", "use": "ds-option-picker__state after ds-option-picker__text, a state in words such as Signed out. Below 768px it sits under the text; from 768px it is at the trailing end of the row, level with the name." },
+    { "name": "warning", "class": "ds-option-picker__state--warning", "use": "On ds-option-picker__state, for a risk of the option in a word or a short phrase, such as Runs commands without asking. The stylesheet draws a warning icon and the warning tone." },
+    { "name": "reveal", "use": "A div with ds-option-picker__reveal straight after an option's label. It is shown only while that option is chosen, such as a ds-field for a path after an Enter a path option." }
+  ],
+  "sizes": [],
+  "states": ["default", "checked", "hover", "focus-visible", "disabled", "invalid"],
+  "accessibility": [
+    "Use a fieldset with ds-option-picker and a legend with ds-option-picker__legend that names the choice. An optional hint is a p with ds-option-picker__hint after the legend, and the fieldset points at it with aria-describedby.",
+    "Each option is a label with ds-option-picker__option that wraps the whole row, so a press anywhere on it chooses the option. Inside it comes input type=\"radio\" with ds-option-picker__input first, then a span with ds-option-picker__body holding a span with ds-option-picker__text (the ds-option-picker__name and an optional ds-option-picker__description) and an optional span with ds-option-picker__state.",
+    "Name the input with aria-labelledby pointing at its ds-option-picker__name, and point aria-describedby at its state and description, so a screen reader reads the name, then the state and the description, and not all of it as one name.",
+    "Every input in a group has the same name attribute, different from every other group on the page.",
+    "A path is written in full in ds-option-picker__start and ds-option-picker__end, with no white space between them. The stylesheet cuts the middle from view only, so the description read aloud keeps the whole path.",
+    "An option that cannot be chosen takes the disabled attribute on its input. It stays in the list, and its ds-option-picker__state says why in words, with its description saying what to do. Its text keeps a contrast pair of the system.",
+    "A warning is ds-option-picker__state with ds-option-picker__state--warning: the words say the risk, and the stylesheet adds the icon, so the tone is never the only signal.",
+    "A ds-option-picker__reveal is shown by the stylesheet while the option before it is checked, with no script, and is out of the tab order while hidden. Do not put required on a control inside it; check it when the form is sent.",
+    "For an error, the fieldset takes role=\"radiogroup\", aria-labelledby pointing at the legend, aria-required=\"true\", aria-invalid=\"true\" and aria-describedby pointing at a p with ds-option-picker__error after the last option, and at the hint too when there is one. The message says what to do, and its icon is drawn by the stylesheet.",
+    "Tab moves into the group, to the chosen option or the first one. The arrow keys move between options, skip a disabled one and choose as they go, and Space chooses the focused option. All of it comes from the native inputs.",
+    "Each row is at least 44px tall and as wide as the group, and the mark has a 44px target of its own inside it."
+  ],
+  "icons": ["circle-alert", "triangle-alert"],
+  "classes": [
+    "ds-option-picker",
+    "ds-option-picker__body",
+    "ds-option-picker__description",
+    "ds-option-picker__end",
+    "ds-option-picker__error",
+    "ds-option-picker__hint",
+    "ds-option-picker__input",
+    "ds-option-picker__legend",
+    "ds-option-picker__name",
+    "ds-option-picker__option",
+    "ds-option-picker__path",
+    "ds-option-picker__reveal",
+    "ds-option-picker__start",
+    "ds-option-picker__state",
+    "ds-option-picker__state--warning",
+    "ds-option-picker__text"
+  ]
+}

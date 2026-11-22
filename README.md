@@ -2,7 +2,7 @@
 
 A shared design system for a small set of apps. It holds one closed vocabulary of design tokens, a default theme and optional themes that change values only, a base layer of styles, fonts and icons, and the files generated from them. An app copies `dist/` into its own repo.
 
-This repo currently contains the tokens, one theme (Botbench), the base layer, the checker with its static scan and structural rules, the contract every component follows, 98 components built to it, eight page patterns composed from them, seven optional behaviour modules, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
+This repo currently contains the tokens, one theme (Botbench), the base layer, the checker with its static scan and structural rules, the contract every component follows, 99 components built to it, eight page patterns composed from them, seven optional behaviour modules, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
 
 To use the system in an app, follow `docs/consumer-guide.md`. In short:
 
