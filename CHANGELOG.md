@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.7.1
+
+The status set gains four states, so an app no longer has to choose its own icons for them: Failed (circle-x, danger), Done (check, success), Accepted (thumbs-up, success) and Rejected (x, neutral). One icon joins the sprite: `circle-x`. Nothing else changes, and a consumer only needs to sync.
+
 ## 0.7.0
 
 Themes, four status roles for agent work, and one icon and tone for each state of a run.

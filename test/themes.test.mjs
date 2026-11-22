@@ -185,9 +185,10 @@ const iconOf = (css, selector) => last(declarationsFor(css, selector), ["mask", 
 const colourOf = (css, selectors) =>
   selectors.map((selector) => last(declarationsFor(css, selector), ["color", "background-color"])).filter(Boolean).at(-1)?.match(/--ds-color-([\w-]+)/)?.[1];
 
-test("the badge's status set gives each of its nine states one icon and one tone of its own, and its examples show all of them", () => {
+test("the badge's status set gives each of its thirteen states one icon and one tone of its own, and its examples show all of them", () => {
   assert.deepEqual(statusSet.map((entry) => entry.state), [
     "Queued", "Working", "Checking", "Needs input", "Ready for review", "Stopped", "Cancelled", "Check passed", "Check failed",
+    "Failed", "Done", "Accepted", "Rejected",
   ]);
   assert.equal(new Set(statusSet.map((entry) => entry.icon)).size, statusSet.length);
   const { html } = components.badge.examples.find((example) => example.id === "status-set");

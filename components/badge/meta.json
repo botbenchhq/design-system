@@ -16,20 +16,60 @@
     "As a count on an icon. Write the count as text next to a label."
   ],
   "variants": [
-    { "name": "neutral", "use": "The default, with no modifier class. A status that needs nothing from anyone yet, or has ended without a result: Queued, Cancelled, Draft." },
-    { "name": "info", "class": "ds-badge--info", "use": "Work in progress that needs nothing from the reader: Working, Checking." },
-    { "name": "success", "class": "ds-badge--success", "use": "Finished as intended: Check passed, Ready for review, Merged." },
-    { "name": "warning", "class": "ds-badge--warning", "use": "Something the reader should know that does not stop the work: Out of date with main, Timed out." },
-    { "name": "danger", "class": "ds-badge--danger", "use": "Failed: Check failed, Failed." },
-    { "name": "approval", "class": "ds-badge--approval", "use": "Waiting on the reader's answer before the work goes on: Needs input, Needs approval." },
-    { "name": "blocked", "class": "ds-badge--blocked", "use": "Stopped, and unable to go on by itself: Stopped, Rate limited." },
-    { "name": "peer", "class": "ds-badge--peer", "use": "From another person's agent rather than the reader's own: From a peer, Peer proposal." },
-    { "name": "tainted", "class": "ds-badge--tainted", "use": "The work carries input from outside the trust boundary, such as a peer's message: Untrusted input." }
+    {
+      "name": "neutral",
+      "use": "The default, with no modifier class. A status that needs nothing from anyone yet, or has ended without a result: Queued, Cancelled, Draft."
+    },
+    {
+      "name": "info",
+      "class": "ds-badge--info",
+      "use": "Work in progress that needs nothing from the reader: Working, Checking."
+    },
+    {
+      "name": "success",
+      "class": "ds-badge--success",
+      "use": "Finished as intended: Check passed, Ready for review, Merged."
+    },
+    {
+      "name": "warning",
+      "class": "ds-badge--warning",
+      "use": "Something the reader should know that does not stop the work: Out of date with main, Timed out."
+    },
+    {
+      "name": "danger",
+      "class": "ds-badge--danger",
+      "use": "Failed: Check failed, Failed."
+    },
+    {
+      "name": "approval",
+      "class": "ds-badge--approval",
+      "use": "Waiting on the reader's answer before the work goes on: Needs input, Needs approval."
+    },
+    {
+      "name": "blocked",
+      "class": "ds-badge--blocked",
+      "use": "Stopped, and unable to go on by itself: Stopped, Rate limited."
+    },
+    {
+      "name": "peer",
+      "class": "ds-badge--peer",
+      "use": "From another person's agent rather than the reader's own: From a peer, Peer proposal."
+    },
+    {
+      "name": "tainted",
+      "class": "ds-badge--tainted",
+      "use": "The work carries input from outside the trust boundary, such as a peer's message: Untrusted input."
+    }
   ],
   "sizes": [
-    { "name": "default", "use": "24px tall with 12px text. It fits a dense list row without making it taller." }
+    {
+      "name": "default",
+      "use": "24px tall with 12px text. It fits a dense list row without making it taller."
+    }
   ],
-  "states": ["default"],
+  "states": [
+    "default"
+  ],
   "accessibility": [
     "Use a span. The badge is text, and a screen reader reads its words in place.",
     "The words carry the status. The tone only supports them, so never rely on the colour, and never use a badge with an icon and no text.",
@@ -38,7 +78,23 @@
     "Write the status in sentence case, in one to three words, in the same words everywhere the status appears.",
     "A badge is not focusable and takes no press. When a status changes while the reader watches, announce it from a role=\"status\" element in the view, not from the badge."
   ],
-  "icons": ["circle-alert", "circle-check", "circle-dashed", "circle-pause", "circle-slash", "circle-stop", "eye", "git-branch", "loader", "search", "triangle-alert"],
+  "icons": [
+    "check",
+    "circle-alert",
+    "circle-check",
+    "circle-dashed",
+    "circle-pause",
+    "circle-slash",
+    "circle-stop",
+    "circle-x",
+    "eye",
+    "git-branch",
+    "loader",
+    "search",
+    "thumbs-up",
+    "triangle-alert",
+    "x"
+  ],
   "classes": [
     "ds-badge",
     "ds-badge--approval",
@@ -52,14 +108,83 @@
     "ds-badge__icon"
   ],
   "statusSet": [
-    { "state": "Queued", "icon": "circle-dashed", "tone": "neutral", "use": "Waiting for its turn. Nothing has started." },
-    { "state": "Working", "icon": "loader", "tone": "info", "use": "An agent or a step is running." },
-    { "state": "Checking", "icon": "search", "tone": "info", "use": "The work is done and its checks or a review by an agent are running." },
-    { "state": "Needs input", "icon": "circle-pause", "tone": "approval", "use": "Paused until the reader answers: an approval, a question, a decision." },
-    { "state": "Ready for review", "icon": "eye", "tone": "success", "use": "Finished and checked, waiting for the reader to review the result." },
-    { "state": "Stopped", "icon": "circle-stop", "tone": "blocked", "use": "Ended before it finished, by a person, a limit or the runner, and can be resumed." },
-    { "state": "Cancelled", "icon": "circle-slash", "tone": "neutral", "use": "Will not run or go on: superseded or withdrawn." },
-    { "state": "Check passed", "icon": "circle-check", "tone": "success", "use": "A check ran and passed." },
-    { "state": "Check failed", "icon": "circle-alert", "tone": "danger", "use": "A check ran and failed." }
+    {
+      "state": "Queued",
+      "icon": "circle-dashed",
+      "tone": "neutral",
+      "use": "Waiting for its turn. Nothing has started."
+    },
+    {
+      "state": "Working",
+      "icon": "loader",
+      "tone": "info",
+      "use": "An agent or a step is running."
+    },
+    {
+      "state": "Checking",
+      "icon": "search",
+      "tone": "info",
+      "use": "The work is done and its checks or a review by an agent are running."
+    },
+    {
+      "state": "Needs input",
+      "icon": "circle-pause",
+      "tone": "approval",
+      "use": "Paused until the reader answers: an approval, a question, a decision."
+    },
+    {
+      "state": "Ready for review",
+      "icon": "eye",
+      "tone": "success",
+      "use": "Finished and checked, waiting for the reader to review the result."
+    },
+    {
+      "state": "Stopped",
+      "icon": "circle-stop",
+      "tone": "blocked",
+      "use": "Ended before it finished, by a person, a limit or the runner, and can be resumed."
+    },
+    {
+      "state": "Cancelled",
+      "icon": "circle-slash",
+      "tone": "neutral",
+      "use": "Will not run or go on: superseded or withdrawn."
+    },
+    {
+      "state": "Check passed",
+      "icon": "circle-check",
+      "tone": "success",
+      "use": "A check ran and passed."
+    },
+    {
+      "state": "Check failed",
+      "icon": "circle-alert",
+      "tone": "danger",
+      "use": "A check ran and failed."
+    },
+    {
+      "state": "Failed",
+      "icon": "circle-x",
+      "tone": "danger",
+      "use": "Ended with an error and did not finish its work."
+    },
+    {
+      "state": "Done",
+      "icon": "check",
+      "tone": "success",
+      "use": "Finished, with nothing left for the reader to decide."
+    },
+    {
+      "state": "Accepted",
+      "icon": "thumbs-up",
+      "tone": "success",
+      "use": "The reader reviewed the result and accepted it."
+    },
+    {
+      "state": "Rejected",
+      "icon": "x",
+      "tone": "neutral",
+      "use": "The reader reviewed the result and rejected it."
+    }
   ]
 }
