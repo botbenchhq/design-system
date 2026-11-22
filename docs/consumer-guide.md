@@ -94,6 +94,39 @@ What the two modules do, a framework app does in its own components:
 - **Opening groups.** No module does this. Set `open` by the rule in the table, and listen for the `toggle` event so a group the reader opened or closed is left alone.
 - **Announcing.** The transcript is an element with `role="log"`, `aria-live="off"` and a name. The only thing that speaks is the one `activity-announcer` region, at the five moments in the table. Never put `aria-live` on text that is arriving.
 
+### React source
+
+`react/` holds two files of TypeScript source for a React 19 app, so it does not write them again on every screen. They come with the sync like the rest of the copy, and need nothing but React. Import them from the vendored folder, or copy them into the app's own components and change them there. Nothing changes for an app that does not import them.
+
+`react/busy-button.tsx` is `BusyButton`, a button with the system's classes and a busy state. It takes `variant` (`primary`, `secondary`, `quiet` or `danger`), `size` (`default` or `small`), an optional `icon` name with `spriteHref` for where the app serves `icons.svg`, and every attribute of a native button. It is `type="button"` unless given another type, and takes a `ref`. While `busy` is true it sets `aria-busy="true"`, shows `busyLabel` in place of its label and ignores presses from the pointer and the keyboard. It stays enabled, so focus stays on it. The types do not allow a button that can be busy without `busyLabel`.
+
+```tsx
+import { BusyButton } from "../vendor/design-system/react/busy-button.tsx";
+
+<BusyButton type="submit" variant="primary" busy={signingIn} busyLabel="Signing in">
+  Sign in
+</BusyButton>
+```
+
+`react/use-transcript.ts` is `useTranscript`, the hook that does for a React transcript what `<ds-transcript>` does without a framework: it follows the newest row while the reader is within 60px of the bottom, stops when they scroll up, counts the rows added since, and follows again when they press the jump-to-latest button or reach the bottom. It never moves focus. Pass the number of rows shown, put `scrollerRef` on the element that scrolls and `logRef` on the log inside it, and spread `jumpButtonProps` on the jump-to-latest button. The app writes the count in its own words and sets `hidden` while `newCount` is 0. Call `jumpToLatest()` to go to the bottom from the app's own code, such as after sending a prompt.
+
+```tsx
+import { useTranscript } from "../vendor/design-system/react/use-transcript.ts";
+
+const { scrollerRef, logRef, newCount, jumpButtonProps } = useTranscript({ rowCount: rows.length });
+
+<div ref={scrollerRef} className="overflow-y-auto">
+  <ol ref={logRef} role="log" aria-live="off" aria-label="Transcript">
+    {rows.map((row) => <li key={row.id}>{row.text}</li>)}
+  </ol>
+</div>
+<div className="ds-jump-to-latest" hidden={newCount === 0}>
+  <button type="button" className="ds-jump-to-latest__button" {...jumpButtonProps}>
+    <span className="ds-jump-to-latest__count">{newCount === 1 ? "1 new step" : `${newCount} new steps`}</span> Jump to latest
+  </button>
+</div>
+```
+
 ### Tailwind 3
 
 Import the stylesheet from the app's entry script, or from its CSS entry, so the bundler copies the fonts.

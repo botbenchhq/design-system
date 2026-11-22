@@ -174,3 +174,8 @@ test("the sprite and the single icon files contain exactly the icons in the base
   }
   assert.match(readFileSync(join(dist, "icons", "LICENSE"), "utf8"), /ISC License/);
 });
+
+test("the hidden attribute hides an element whatever display a component gives it", () => {
+  const reset = readFileSync(join(repoRoot, "base", "reset.css"), "utf8");
+  assert.match(reset, /\[hidden\]:where\(:not\(\[hidden="until-found"\]\)\) \{\s*display: none !important;\s*\}/);
+});
