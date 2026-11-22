@@ -114,8 +114,8 @@ test("a rule in Tailwind's base layer is emitted unlayered, so it overrides gw.c
   assert.equal(base.layer, undefined);
 });
 
-// Smelt's DESIGN.md front matter as it stands, with its two fontFamily values replaced.
-const smeltValues = {
+// Botbench's DESIGN.md front matter as it stands, with its two fontFamily values replaced.
+const botbenchValues = {
   colors: { accent: '"#1A1A1A"', surface: '"#FAFAF9"', "on-surface": '"#171717"', border: '"#E5E5E5"', muted: '"#737373"' },
   typography: {
     ui: { fontFamily: '"IBM Plex Sans"', fontSize: "14px", fontWeight: "400" },
@@ -146,9 +146,9 @@ function assertIncludes(actual, expected, path) {
   }
 }
 
-test("the token block reproduces every value in Smelt's DESIGN.md front matter except its two font families, which are IBM Plex Sans and IBM Plex Mono", () => {
+test("the token block reproduces every value in Botbench's DESIGN.md front matter except its two font families, which are IBM Plex Sans and IBM Plex Mono", () => {
   const [, block] = read("design-tokens.md").match(/^---\n([\s\S]*?)\n---\n/);
-  assertIncludes(parseYamlBlock(block), smeltValues, "");
+  assertIncludes(parseYamlBlock(block), botbenchValues, "");
 });
 
 test("the token data file uses the Design Tokens Community Group format", () => {
