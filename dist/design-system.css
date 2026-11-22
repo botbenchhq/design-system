@@ -854,10 +854,9 @@
   }
 
   .ds-app-header__name {
-    font-family: var(--ds-font-mono);
-    font-size: var(--ds-text-mono);
+    font-size: var(--ds-text-ui);
     font-weight: var(--ds-weight-semibold);
-    line-height: var(--ds-leading-mono);
+    line-height: var(--ds-leading-ui);
   }
 
   .ds-app-header__back {
@@ -2851,13 +2850,19 @@
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
 
+  /* One ring, on the block: the textarea inside it draws none of its own. */
   .ds-composer__box:has(> .ds-composer__input:focus-visible) {
     border-color: var(--ds-color-focus);
+    outline: var(--ds-border-width) solid var(--ds-color-focus);
   }
 
   .ds-composer__box > .ds-composer__input {
     border-color: transparent;
     background-color: transparent;
+  }
+
+  .ds-composer__box > .ds-composer__input:focus-visible {
+    outline-style: none;
   }
 
   /*
@@ -2996,7 +3001,7 @@
 }
 
 /*
- * Context list: the rows of the Add context sheet. A rounded group of rows divided by a 1px border.
+ * Context list: the rows of the Add context sheet. Rows divided by a 1px line, with no frame of their own: the sheet is the frame.
  * Each row is a button that shows a setting's name and its current value, and opens the setting's own view.
  * The chevron is drawn here, so the markup holds only the words.
  */
@@ -3006,8 +3011,6 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
-    border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-md);
   }
 
   .ds-context-list > li + li {
@@ -3029,13 +3032,13 @@
 
   /* The shade of a pressed row follows the group's rounded corners. Nothing clips the row, so its focus ring shows whole. */
   .ds-context-list > li:first-child > .ds-context-list__button {
-    border-start-start-radius: calc(var(--ds-radius-md) - var(--ds-border-width));
-    border-start-end-radius: calc(var(--ds-radius-md) - var(--ds-border-width));
+    border-start-start-radius: var(--ds-radius-md);
+    border-start-end-radius: var(--ds-radius-md);
   }
 
   .ds-context-list > li:last-child > .ds-context-list__button {
-    border-end-start-radius: calc(var(--ds-radius-md) - var(--ds-border-width));
-    border-end-end-radius: calc(var(--ds-radius-md) - var(--ds-border-width));
+    border-end-start-radius: var(--ds-radius-md);
+    border-end-end-radius: var(--ds-radius-md);
   }
 
   .ds-context-list__button::after {

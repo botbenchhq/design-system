@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.8.3
+
+Three small changes from a design review of the first consumer. The one-block composer draws one focus ring, on the block; the textarea inside it draws none. The context list has no outer frame, only the lines between its rows, so it is not a box inside the sheet, and its row corners are the plain medium radius. The app header's name is set in the interface font, not mono. A consumer only needs to sync.
+
 ## 0.8.2
 
 Two composer fixes. A visually hidden span after a long value in a composer chip no longer widens the page at 390px: the value is now the span's containing block, so it is clipped with it. The reason under a disabled Send is drawn in the muted colour, so it reads as secondary. A consumer only needs to sync.

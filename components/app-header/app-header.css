@@ -40,10 +40,9 @@
   }
 
   .ds-app-header__name {
-    font-family: var(--ds-font-mono);
-    font-size: var(--ds-text-mono);
+    font-size: var(--ds-text-ui);
     font-weight: var(--ds-weight-semibold);
-    line-height: var(--ds-leading-mono);
+    line-height: var(--ds-leading-ui);
   }
 
   .ds-app-header__back {
