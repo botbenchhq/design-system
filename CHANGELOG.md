@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.7.3
+
+The icon set gains `settings`, the gear an app header's Settings action needs. Nothing else changes, and a consumer only needs to sync.
+
 ## 0.7.2
 
 Fixes for the defects an independent audit confirmed: menus and listboxes by keyboard, the colour scheme under a theme's default mode, reflow at 320px, and tables of many agents at desktop width.
