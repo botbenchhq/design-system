@@ -2,7 +2,7 @@
 
 A design system for apps whose interfaces are largely written by AI coding agents. It gives the agent a closed vocabulary of design tokens and components, and a checker that fails a frontend which steps outside that vocabulary. Screens come out consistent with each other and without the generic AI-generated look, and the look of every app that uses it can be changed in one place.
 
-It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.7.7. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
+It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.8.0. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
 
 The run timeline component under the Botbench theme, dark and light:
 
@@ -200,7 +200,7 @@ The build stops, naming the theme, when it:
 - uses a colour that is not six-digit hex;
 - fails any of the 53 foreground and background pairs in [`tokens/pairs.json`](tokens/pairs.json) in either mode: 4.5:1 for text, 3:1 for borders and focus rings.
 
-A theme may declare a default mode. Botbench, the worked example and the one theme shipped, is dark by default. It maps the Botbench brand onto the system's roles: an amber primary action, warm paper and charcoal surfaces, a 6px medium radius, and its own colours for each status. The header of [`themes/botbench.css`](themes/botbench.css) lists the six brand values that were darkened for light mode to pass contrast, each with its ratio before and after.
+A theme may declare a default mode. Botbench, the worked example and the one theme shipped, is dark by default. It sets the platform's own typeface, neutral grey surfaces a clear step apart, a near-white primary action in dark and near-black in light, a blue focus ring, a 22px medium radius that makes a normal button a pill, and its own colours for each status. The header of [`themes/botbench.css`](themes/botbench.css) explains each choice.
 
 To change the look of every app: edit the theme here, run `npm run build`, and each app runs its sync. The build writes four files per theme to `dist/themes/`: the stylesheet, the theme's name and default mode with the `theme-color` of each mode, a token block for an app's `DESIGN.md`, and the tokens as data. "[Themes](docs/consumer-guide.md#12-themes)" in the consumer guide has the details.
 
@@ -240,7 +240,7 @@ Add a folder under `components/` with its three files and run the build; nothing
 
 ## Status and limits
 
-- **Version 0.7.7.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
+- **Version 0.8.0.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
 - **Everything is `draft`.** All 100 components and 8 patterns. An app may use a draft, but it may still change.
 - **One consumer.** Botbench is the only app that uses it so far.
 - **Chrome only.** The browser tests run in Google Chrome. Nothing has been tested in Firefox, Safari or WebKit, or with a screen reader. The components rely on recent platform features: the Popover API, anchor positioning, invoker commands, `:has()` and `field-sizing`.
@@ -250,7 +250,7 @@ The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five def
 - The screenshot tests do not compare against a baseline; a visual regression is caught only by a person looking.
 - The checker does not check `data-state` values, accessible names, `alt` text or whether a badge's tone matches its word.
 - There is no typed React component layer beyond the two source files.
-- In the Botbench theme's dark mode the focus ring is the same amber as the accent, and the audit judged the theme's identity generic (brand distinctiveness 4 out of 10).
+- The audit judged the Botbench theme's identity generic (brand distinctiveness 4 out of 10). 0.8.0 replaced that theme's look and gave it a focus ring distinct from the accent; the new look has not been audited.
 - The diff has no line numbers, and there is no review-decision component, log viewer or presence component.
 - Sizes are built with `calc()` on tokens in places, which the checker does not limit, and type sizes are in pixels.
 - The stylesheet is one 327 KB file (about 60 KB compressed) with no way to load part of it.

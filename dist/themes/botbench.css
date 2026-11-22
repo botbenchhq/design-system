@@ -1,39 +1,26 @@
 /*
- * Botbench: a warm workbench theme with an amber primary action.
+ * Botbench: a calm, native-feeling theme. The platform's own typeface, tonal filled surfaces, pill-shaped
+ * controls and a monochrome primary action.
  * Default mode: dark.
  *
  * With no data-theme attribute the page is dark. data-theme="light", "dark" and "auto" work as they do
  * without the theme. Load this file after design-system.css: its rules are in the ds.theme layer, which
  * the layer order puts after ds.tokens.
  *
- * The kit's palette is mapped onto the system's roles: background is surface, card is surface-raised,
- * primary is accent, verified is success, destructive is danger, and needs-approval, blocked, peer and
- * tainted input are approval, blocked, peer and tainted. Info, warning, the sunken surface, the strong
- * border, the hover colour and the subtle backgrounds are not in the kit and were chosen to sit beside it.
- *
- * Radius: the kit's one 6px radius is radius-md, which cards, panels and buttons use, so it replaces 8px.
- * radius-sm stays 4px, for badges, code blocks and the parts inside a 6px frame. radius-full is unchanged.
- *
- * Kit values changed, light mode. Dark mode keeps every kit value. The ratio is the pair that decided it.
- *   accent    #D97706 -> #AD5D02  3.00:1 accent on surface and 3.19:1 white on accent, now 4.56:1 and 4.83:1.
- *                                 Dark text on #D97706 passes, but no amber is both light enough for dark
- *                                 text and dark enough to be read as text on the page, so light mode keeps
- *                                 white text on a deeper amber.
- *   focus     #D97706 -> #CC6F01  2.68:1 on surface-sunken, now 3.02:1.
- *   success   #059669 -> #037A54  3.35:1 on success-subtle, now 4.76:1.
- *   approval  #CE8507 -> #8F6202  2.53:1 on surface-sunken, now 4.50:1. The hue moves a little towards
- *                                 yellow as well, so it stays apart from the accent (colour difference
- *                                 10.1, where 7 at the kit's hue).
- *   peer      #0891B2 -> #03748F  3.09:1 on surface-sunken, now 4.52:1.
- *   tainted   #D3470D -> #BC4100  3.77:1 on surface-sunken, now 4.53:1, with the hue moved two degrees
- *                                 towards yellow so it stays apart from danger (colour difference 11.2).
- * Every pair of the accent and the eight status colours differs by at least 10 (CIEDE2000) in each mode.
- *
- * Three ambers. The accent is the brand amber of the primary button, checked states, the current tab
- * and the focus ring; it is never a status. Approval is a lighter, yellower amber for Needs input, with
- * the paused circle. Warning is lemon in dark and olive in light, for a caution that does not stop the
- * work, with the triangle or the clock. Tainted input is orange. A status always carries its icon and
- * its word, so none of them is told apart by colour alone.
+ *   type      system-ui, so an Apple device sets the app in SF Pro and SF Mono as its own apps are, Windows
+ *             in Segoe UI and Android in Roboto. ui 15px, lg 17, xl 22, 2xl 28. This theme is the one
+ *             exception to the rule against system-ui in rules/never.md; an app does not set a font itself.
+ *   accent    near-white in dark and near-black in light, as a chat app's Send button. The primary action
+ *             is told apart by its fill, the one solid shape on the screen. The accent is never a status.
+ *   focus     a system blue, so the ring is never mistaken for the accent or a status.
+ *   surfaces  neutral greys with no warm or cool cast. surface-raised is a clear step above surface, so a
+ *             block reads by its fill.
+ *   border    almost the colour of surface-raised, so outlines all but vanish; border-strong stays at 3:1.
+ *   radius    radius-md 22px, half the 44px control height, so a button of normal size is a pill and a card
+ *             or the composer is generously round. radius-sm 10px. radius-full is unchanged.
+ *   status    success, warning, danger, info, approval, blocked, peer and tainted keep the values of the
+ *             amber theme before 0.8.0. Approval is amber with the paused circle, warning lemon in dark and
+ *             olive in light, tainted input orange. A status always carries its icon and its word.
  */
 
 /* Generated from themes/botbench.css by npm run build. Load it after design-system.css. */
@@ -42,17 +29,19 @@
 
 @layer ds.theme {
   :root {
-    --ds-color-accent: #AD5D02;
-    --ds-color-accent-hover: #914D01;
+    --ds-font-ui: system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --ds-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --ds-color-accent: #1C1C1E;
+    --ds-color-accent-hover: #3A3A3C;
     --ds-color-on-accent: #FFFFFF;
-    --ds-color-surface: #FAF8F4;
+    --ds-color-surface: #F2F2F7;
     --ds-color-surface-raised: #FFFFFF;
-    --ds-color-surface-sunken: #EEEBE4;
-    --ds-color-on-surface: #121417;
-    --ds-color-muted: #535E6E;
-    --ds-color-border: #DDD8CE;
-    --ds-color-border-strong: #8F8B81;
-    --ds-color-focus: #CC6F01;
+    --ds-color-surface-sunken: #EDEDF1;
+    --ds-color-on-surface: #1C1C1E;
+    --ds-color-muted: #636366;
+    --ds-color-border: #E6E6EB;
+    --ds-color-border-strong: #86868B;
+    --ds-color-focus: #0066CC;
     --ds-color-success: #037A54;
     --ds-color-success-subtle: #DCF8E9;
     --ds-color-warning: #736C02;
@@ -69,23 +58,32 @@
     --ds-color-peer-subtle: #DCF5FE;
     --ds-color-tainted: #BC4100;
     --ds-color-tainted-subtle: #FFEBE5;
-    --ds-radius-md: 6px;
+    --ds-radius-sm: 10px;
+    --ds-radius-md: 22px;
+    --ds-text-xs: 12px;
+    --ds-text-mono: 13px;
+    --ds-text-ui: 15px;
+    --ds-text-lg: 17px;
+    --ds-text-xl: 22px;
+    --ds-text-2xl: 28px;
+    --ds-leading-ui: 1.45;
+    --ds-leading-lg: 1.4;
   }
 
   /* The default mode: with no data-theme attribute the page is dark. */
   :root:not([data-theme]) {
     color-scheme: dark;
-    --ds-color-accent: #F59E0B;
-    --ds-color-accent-hover: #E18A0F;
-    --ds-color-on-accent: #121417;
-    --ds-color-surface: #121417;
-    --ds-color-surface-raised: #181B20;
-    --ds-color-surface-sunken: #0D0F12;
-    --ds-color-on-surface: #F8FAFC;
-    --ds-color-muted: #94A3B8;
-    --ds-color-border: #2B313B;
-    --ds-color-border-strong: #646B76;
-    --ds-color-focus: #F59E0B;
+    --ds-color-accent: #F5F5F7;
+    --ds-color-accent-hover: #D8D8DC;
+    --ds-color-on-accent: #161618;
+    --ds-color-surface: #161618;
+    --ds-color-surface-raised: #212124;
+    --ds-color-surface-sunken: #0F0F10;
+    --ds-color-on-surface: #F5F5F7;
+    --ds-color-muted: #A1A1A8;
+    --ds-color-border: #29292D;
+    --ds-color-border-strong: #75757C;
+    --ds-color-focus: #4C9DFF;
     --ds-color-success: #34D399;
     --ds-color-success-subtle: #09291D;
     --ds-color-warning: #FDE047;
@@ -106,17 +104,17 @@
   }
 
   [data-theme="dark"] {
-    --ds-color-accent: #F59E0B;
-    --ds-color-accent-hover: #E18A0F;
-    --ds-color-on-accent: #121417;
-    --ds-color-surface: #121417;
-    --ds-color-surface-raised: #181B20;
-    --ds-color-surface-sunken: #0D0F12;
-    --ds-color-on-surface: #F8FAFC;
-    --ds-color-muted: #94A3B8;
-    --ds-color-border: #2B313B;
-    --ds-color-border-strong: #646B76;
-    --ds-color-focus: #F59E0B;
+    --ds-color-accent: #F5F5F7;
+    --ds-color-accent-hover: #D8D8DC;
+    --ds-color-on-accent: #161618;
+    --ds-color-surface: #161618;
+    --ds-color-surface-raised: #212124;
+    --ds-color-surface-sunken: #0F0F10;
+    --ds-color-on-surface: #F5F5F7;
+    --ds-color-muted: #A1A1A8;
+    --ds-color-border: #29292D;
+    --ds-color-border-strong: #75757C;
+    --ds-color-focus: #4C9DFF;
     --ds-color-success: #34D399;
     --ds-color-success-subtle: #09291D;
     --ds-color-warning: #FDE047;
@@ -137,17 +135,17 @@
 
   @media (prefers-color-scheme: dark) {
     [data-theme="auto"] {
-      --ds-color-accent: #F59E0B;
-      --ds-color-accent-hover: #E18A0F;
-      --ds-color-on-accent: #121417;
-      --ds-color-surface: #121417;
-      --ds-color-surface-raised: #181B20;
-      --ds-color-surface-sunken: #0D0F12;
-      --ds-color-on-surface: #F8FAFC;
-      --ds-color-muted: #94A3B8;
-      --ds-color-border: #2B313B;
-      --ds-color-border-strong: #646B76;
-      --ds-color-focus: #F59E0B;
+      --ds-color-accent: #F5F5F7;
+      --ds-color-accent-hover: #D8D8DC;
+      --ds-color-on-accent: #161618;
+      --ds-color-surface: #161618;
+      --ds-color-surface-raised: #212124;
+      --ds-color-surface-sunken: #0F0F10;
+      --ds-color-on-surface: #F5F5F7;
+      --ds-color-muted: #A1A1A8;
+      --ds-color-border: #29292D;
+      --ds-color-border-strong: #75757C;
+      --ds-color-focus: #4C9DFF;
       --ds-color-success: #34D399;
       --ds-color-success-subtle: #09291D;
       --ds-color-warning: #FDE047;
