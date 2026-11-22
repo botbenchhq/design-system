@@ -2,7 +2,7 @@
 
 A shared design system for a small set of apps. It holds one closed vocabulary of design tokens, a default theme, a base layer of styles, fonts and icons, and the files generated from them. An app copies `dist/` into its own repo.
 
-This repo currently contains the tokens, the base layer, the checker with its static scan and structural rules, the contract every component follows, 64 components built to it, an optional behaviours module, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The long-tail components and page patterns are not built yet. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
+This repo currently contains the tokens, the base layer, the checker with its static scan and structural rules, the contract every component follows, 93 components built to it, six page patterns composed from them, three optional behaviour modules, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
 
 To use the system in an app, follow `docs/consumer-guide.md`. In short:
 
@@ -31,9 +31,9 @@ Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start 
 | File | Use |
 |---|---|
 | `groundwork.css` | The whole system in one stylesheet: layer order, tokens, reset, base styles, font faces and components. This is the file a page links. |
-| `components.json` | Every component: its purpose, when to use it and when not to, its variants, sizes, states, accessibility notes, classes, and the markup of each example. Read it before writing markup. |
-| `gallery/` | A static page per component showing every variant and state, with a do and a don't. Serve `dist/` and open `/gallery/`. |
-| `behaviors/groundwork.js` | One optional ES module with no dependencies, for an app without a framework. It defines `<gw-tabs>`, which does what the tabs component needs from script. |
+| `components.json` | Every component, in `components`: its purpose, when to use it and when not to, its variants, sizes, states, accessibility notes, classes, and the markup of each example. Read it before writing markup. Every page pattern, in `patterns`: the same fields and `"kind": "pattern"`, with a whole screen as each example. |
+| `gallery/` | A static page per component and per page pattern showing every variant and state, with a do and a don't. Serve `dist/` and open `/gallery/`. |
+| `behaviors/` | Three optional ES modules with no dependencies, for an app without a framework. `groundwork.js` defines `<gw-tabs>`, `combobox.js` defines `<gw-combobox>` and `command-palette.js` defines `<gw-command-palette>`. Each does what its component needs from script. |
 | `fonts/` | IBM Plex Sans and IBM Plex Mono, with their licence. `groundwork.css` loads them by relative URL, so keep the folder beside it. |
 | `icons.svg` | The icon sprite. Each icon is a `<symbol>` with the id `gw-icon-` and its name. |
 | `icons/` | The same icons as single files, for CSS that needs one as a mask or background, with their licence. |
@@ -117,15 +117,25 @@ A component is class names on plain HTML: `gw-button`, a part such as `gw-button
 
 The gallery switches theme with `?theme=dark`. Its pages carry no inline style and no inline script.
 
-Almost every component needs no script. The tabs component does: something has to move `aria-selected`, `tabindex` and `hidden` when the reader picks a tab. `dist/behaviors/groundwork.js` is one optional module that defines the `<gw-tabs>` element for that. Wrap the tabs markup in it and it handles click, Left, Right, Home and End. It adds no class and no inline style.
+`dist/components.json` also lists the page patterns, in `patterns`. A pattern is a whole screen composed from the components, such as a settings page or a sign-in screen, with a little layout of its own. Start a new screen from one.
+
+Almost every component needs no script. Three do: something has to move the ARIA attributes when the reader picks a tab, types into a combobox or searches the command palette. `dist/behaviors/` holds three optional modules, one for each. Load only the ones the app uses, and wrap the component's markup from `components.json` in the module's element.
+
+| Module | Element | What it does |
+|---|---|---|
+| `behaviors/groundwork.js` | `<gw-tabs>` | For the tabs component: sets `aria-selected`, `tabindex` and `hidden`, and handles click, Left, Right, Home and End. |
+| `behaviors/combobox.js` | `<gw-combobox>` | For the combobox component: as the reader types it sets `hidden` on the options that do not match, `aria-expanded` and `aria-activedescendant` on the input and `aria-selected` on the active option, and writes the count into the `role="status"` line. It handles Down, Up, Home, End, Enter, Escape and a press on an option. |
+| `behaviors/command-palette.js` | `<gw-command-palette>` | For the command palette component: filters the commands as the reader types, hides a group left with no match, sets `aria-selected` and `aria-activedescendant` as Down and Up move the selection, presses the selected command on Enter and closes the dialog. With `shortcut="k"` it opens the dialog on Ctrl+K and Cmd+K. |
 
 ```html
 <script type="module" src="/vendor/groundwork/behaviors/groundwork.js"></script>
+<script type="module" src="/vendor/groundwork/behaviors/combobox.js"></script>
+<script type="module" src="/vendor/groundwork/behaviors/command-palette.js"></script>
 ```
 
-It is for an app without a framework. An app that renders with a framework leaves the module out and sets the same attributes itself.
+Each module sets attributes only, never a class or an inline style. They are for an app without a framework. An app that renders with a framework leaves the modules out and sets the same ARIA attributes itself: the stylesheet reads those attributes and nothing else.
 
-To add a component, follow `docs/authoring.md`.
+To add a component or a page pattern, follow `docs/authoring.md`.
 
 ## Fonts
 
@@ -184,9 +194,9 @@ npm test
 npm run test:visual
 ```
 
-`npm run build` regenerates `dist/` from `tokens/`, `base/`, `components/`, `gallery/`, `behaviors/`, `checker/`, `rules/` and `hooks/` and prints the contrast report. It fails, naming the folder, when a component breaks the authoring contract, and when `rules/core.md` is longer than 2,400 characters. It reads nothing from `node_modules`. `npm test` includes a check that the committed `dist/` matches a fresh build.
+`npm run build` regenerates `dist/` from `tokens/`, `base/`, `components/`, `patterns/`, `gallery/`, `behaviors/`, `checker/`, `rules/` and `hooks/` and prints the contrast report. It fails, naming the folder, when a component or a pattern breaks the authoring contract, and when `rules/core.md` is longer than 2,400 characters. It reads nothing from `node_modules`. `npm test` includes a check that the committed `dist/` matches a fresh build.
 
-`npm run test:visual` opens a bare page that links `dist/groundwork.css` in the Chrome installed on the machine and checks the fonts, the focus ring and the spacing. It needs Google Chrome and downloads no browser. It also runs `dist/check-dom.js` on the fixture pages and on a small React app, and checks that the rendered and static results agree. For each component's gallery page, at 390px and 1280px in light and dark, it runs axe and the structural rules on the do examples, measures the pointer targets, and writes a screenshot to `test/visual/screenshots/` for review. It also drives `<gw-tabs>` from the keyboard.
+`npm run test:visual` opens a bare page that links `dist/groundwork.css` in the Chrome installed on the machine and checks the fonts, the focus ring and the spacing. It needs Google Chrome and downloads no browser. It also runs `dist/check-dom.js` on the fixture pages and on a small React app, and checks that the rendered and static results agree. For the gallery page of each component and each pattern, at 390px and 1280px in light and dark, it runs axe and the structural rules on the do examples, measures the pointer targets, and writes a screenshot to `test/visual/screenshots/` for review. It also drives `<gw-tabs>`, `<gw-combobox>` and `<gw-command-palette>` from the keyboard.
 
 `npm run vendor` copies the font files and the icons named in `base/icons.json` from the development dependencies into `base/`. Run it after changing the icon list or a package version.
 

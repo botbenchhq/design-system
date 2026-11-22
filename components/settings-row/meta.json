@@ -1,0 +1,51 @@
+{
+  "name": "settings-row",
+  "title": "Settings row",
+  "purpose": "One setting as a row: its label and a one-line description, with a single control or a status at the far end.",
+  "status": "draft",
+  "whenToUse": [
+    "For a page of settings that each take effect by themselves: a switch, a choice from a short list, an account to connect.",
+    "For a group of related settings under one heading, such as Notifications or Connected accounts.",
+    "For a destructive setting, such as deleting a workspace, in a group of its own at the end of the page."
+  ],
+  "whenNotToUse": [
+    "For values sent together with one button. Use fields in a form.",
+    "For a setting that needs more than one control or more than a line of explanation. Give it a view or a sheet of its own, and make the row's control a button that opens it.",
+    "For facts the reader cannot change. Use the key-value list.",
+    "For a list of things the reader opens. Use the list."
+  ],
+  "variants": [
+    { "name": "switch", "use": "The row holds one gw-switch and nothing else. The switch brings its own label, description, state in words and error." },
+    { "name": "select", "use": "gw-settings-row__text, then gw-settings-row__control holding a gw-select. The label is a label element for the select." },
+    { "name": "button", "use": "gw-settings-row__control holds one gw-button whose words name the action and the thing, such as Connect GitHub. Never primary." },
+    { "name": "status", "use": "gw-settings-row__control holds a p with gw-settings-row__status that says the state in words, such as Signed in as mira@acme.dev." },
+    { "name": "danger", "class": "gw-settings-row--danger", "use": "A setting that deletes or cannot be undone. The label gets a warning mark, the description names what is lost and the control is a gw-button gw-button--danger that opens a confirm dialog." }
+  ],
+  "sizes": [],
+  "states": ["default", "disabled", "busy", "error"],
+  "accessibility": [
+    "A group is a div with gw-settings-row__group, role=\"group\" and aria-labelledby pointing at its gw-settings-row__heading, a heading at the level the page needs. Each row is a div with gw-settings-row.",
+    "A row has one control. For a switch, put the gw-switch markup in the row by itself: its label and description stand in for gw-settings-row__text.",
+    "For a select, gw-settings-row__label is a label element whose for attribute is the select's id, and the select points at gw-settings-row__description with aria-describedby. The select saves on its change event, so the row needs no Save button.",
+    "For a button or a status, gw-settings-row__label is a p. The button's own words say what it does and to what, so it reads correctly out of context, and it points at the description with aria-describedby.",
+    "The description is one line that says what the setting does or what state it is in. A status, such as Connected or Not connected, is written in words.",
+    "When a control is unavailable, set the disabled attribute and say why in the description.",
+    "While a button's action runs, set aria-busy=\"true\" on it and change its words to say what is happening, such as Connecting to GitHub.",
+    "If a change is not saved, put the control back to the saved value and add a p with gw-settings-row__error and role=\"alert\" as the row's last child. It says what the setting still is and what to do, and its icon is drawn by the stylesheet.",
+    "A danger row's label is marked with an icon as well as the danger button's colour. Its button never deletes at once: it opens a confirm dialog that names the thing.",
+    "Below 768px the control sits under the text; from 768px it is at the far end of the row, centred on the text. Tab moves through the controls in order. The component needs no script."
+  ],
+  "icons": ["circle-alert", "triangle-alert"],
+  "classes": [
+    "gw-settings-row",
+    "gw-settings-row--danger",
+    "gw-settings-row__control",
+    "gw-settings-row__description",
+    "gw-settings-row__error",
+    "gw-settings-row__group",
+    "gw-settings-row__heading",
+    "gw-settings-row__label",
+    "gw-settings-row__status",
+    "gw-settings-row__text"
+  ]
+}

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slider - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Slider</h1>
+<p>A native range input for a rough amount, with its label, its value in words and a label at each end.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Label, value in words and both limits</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The value is written out with its unit and updates as the thumb moves, so nobody has to judge it from where the thumb sits. The two ends of the track say what the lowest and highest values are.</p>
+</figcaption>
+<div data-example="default" data-title="Label, value in words and both limits" data-state="default" data-reason="The value is written out with its unit and updates as the thumb moves, so nobody has to judge it from where the thumb sits. The two ends of the track say what the lowest and highest values are.">
+  <div class="gw-slider">
+    <label class="gw-slider__label" for="slider-default-input">Agents working at once</label>
+    <output class="gw-slider__value" for="slider-default-input">4 agents</output>
+    <div class="gw-slider__track">
+      <input class="gw-slider__input" id="slider-default-input" type="range" name="agents" min="1" max="8" step="1" value="4">
+    </div>
+    <span class="gw-slider__min">1 agent</span>
+    <span class="gw-slider__max">8 agents</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Steps that have names</h3>
+</figcaption>
+<div data-example="named-steps" data-title="Steps that have names">
+  <div class="gw-slider">
+    <label class="gw-slider__label" for="slider-named-steps-input">Reasoning effort</label>
+    <output class="gw-slider__value" for="slider-named-steps-input">High: slower, for hard bugs</output>
+    <div class="gw-slider__track">
+      <input class="gw-slider__input" id="slider-named-steps-input" type="range" name="effort" min="1" max="4" step="1" value="3" aria-valuetext="High: slower, for hard bugs">
+    </div>
+    <span class="gw-slider__min">Low</span>
+    <span class="gw-slider__max">Maximum</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>At the lowest value</h3>
+</figcaption>
+<div data-example="at-minimum" data-title="At the lowest value">
+  <div class="gw-slider">
+    <label class="gw-slider__label" for="slider-at-minimum-input">Context kept from earlier runs</label>
+    <output class="gw-slider__value" for="slider-at-minimum-input">None</output>
+    <div class="gw-slider__track">
+      <input class="gw-slider__input" id="slider-at-minimum-input" type="range" name="context" min="0" max="20" step="5" value="0" aria-valuetext="None">
+    </div>
+    <span class="gw-slider__min">None</span>
+    <span class="gw-slider__max">The last 20 runs</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-slider">
+    <label class="gw-slider__label" for="slider-hover-input">Agents working at once</label>
+    <output class="gw-slider__value" for="slider-hover-input">6 agents</output>
+    <div class="gw-slider__track">
+      <input class="gw-slider__input" id="slider-hover-input" type="range" name="agents" min="1" max="8" step="1" value="6">
+    </div>
+    <span class="gw-slider__min">1 agent</span>
+    <span class="gw-slider__max">8 agents</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-slider">
+    <label class="gw-slider__label" for="slider-focus-visible-input">Agents working at once</label>
+    <output class="gw-slider__value" for="slider-focus-visible-input">2 agents</output>
+    <div class="gw-slider__track">
+      <input class="gw-slider__input" id="slider-focus-visible-input" type="range" name="agents" min="1" max="8" step="1" value="2">
+    </div>
+    <span class="gw-slider__min">1 agent</span>
+    <span class="gw-slider__max">8 agents</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>While the thumb is held</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="While the thumb is held" data-state="active">
+  <div class="gw-slider">
+    <label class="gw-slider__label" for="slider-active-input">Agents working at once</label>
+    <output class="gw-slider__value" for="slider-active-input">8 agents</output>
+    <div class="gw-slider__track">
+      <input class="gw-slider__input" id="slider-active-input" type="range" name="agents" min="1" max="8" step="1" value="8">
+    </div>
+    <span class="gw-slider__min">1 agent</span>
+    <span class="gw-slider__max">8 agents</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-slider">
+    <label class="gw-slider__label" for="slider-disabled-input">Agents working at once</label>
+    <output class="gw-slider__value" for="slider-disabled-input">2 agents, set by your plan</output>
+    <div class="gw-slider__track">
+      <input class="gw-slider__input" id="slider-disabled-input" type="range" name="agents" min="1" max="8" step="1" value="2" disabled>
+    </div>
+    <span class="gw-slider__min">1 agent</span>
+    <span class="gw-slider__max">8 agents</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A slider for an exact value, with no value shown</h3>
+<p>A timeout in seconds has thousands of positions on a track a thumb cannot place that finely, and with no value written out the reader cannot tell 890 from 900. Use a number field for an exact amount, and always write a slider's value in words.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="exact-value" data-title="A slider for an exact value, with no value shown" data-dont="review" data-reason="A timeout in seconds has thousands of positions on a track a thumb cannot place that finely, and with no value written out the reader cannot tell 890 from 900. Use a number field for an exact amount, and always write a slider's value in words.">
+  <div class="gw-slider">
+    <label class="gw-slider__label" for="slider-exact-value-input">Run timeout in seconds</label>
+    <div class="gw-slider__track">
+      <input class="gw-slider__input" id="slider-exact-value-input" type="range" name="timeout" min="1" max="7200" step="1" value="900">
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For an amount where the feel matters more than the figure, across a short range: how many agents work at once, how much effort to spend.</li>
+<li>For a scale of a few named steps, such as Low to Maximum, where order matters.</li>
+<li>When the effect is shown or applied as the thumb moves.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For an exact amount, or a range with more than about twenty steps. Use a number field.</li>
+<li>For two to four options that are not a scale. Use a radio group or a segmented control.</li>
+<li>For on or off. Use a switch.</li>
+<li>To show how far something has got. Use progress or a usage meter.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>numbers</dt>
+<dd>The value is a number with its unit, such as 4 agents.</dd>
+<dt>named steps</dt>
+<dd>Each step has a name, written in the output and repeated in aria-valuetext on the input.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>As wide as its container and 44px tall. The thumb is drawn 24px square inside a 44px pointer target.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a div with gw-slider holding, in this order: a label with gw-slider__label, an output with gw-slider__value, a div with gw-slider__track around an input type=&quot;range&quot; with gw-slider__input, then a span with gw-slider__min and a span with gw-slider__max.</li>
+<li>The label's for attribute matches the input's id. Set min, max, step and value on the input.</li>
+<li>The output holds the current value in words with its unit, and its for attribute names the input. The app rewrites its text on the input's input event. An output is a live region, so a screen reader announces the new words after the thumb moves.</li>
+<li>When a step has a name, or the bare number would mislead, also set aria-valuetext on the input to the same words, so the slider itself is read as High and not as 3.</li>
+<li>The two spans say what the lowest and highest values are, in words. They are plain text, and the range itself comes from min and max.</li>
+<li>The keyboard is the browser's own: Left and Down lower the value by one step, Right and Up raise it, Page Up and Page Down move further, Home and End go to the ends.</li>
+<li>The track wrapper reaches 10px past the slider on each side, which is the unpainted part of the thumb's pointer target. Keep at least that much padding between a slider and the edge of the screen.</li>
+<li>Set the disabled attribute when the value cannot change, and say why in the output or beside it.</li>
+<li>The thumb's position is styled for WebKit, Blink and Gecko with no inline style. The part of the track below the value is not filled: the value in words carries it.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-slider</code></li>
+<li><code>gw-slider__input</code></li>
+<li><code>gw-slider__label</code></li>
+<li><code>gw-slider__max</code></li>
+<li><code>gw-slider__min</code></li>
+<li><code>gw-slider__track</code></li>
+<li><code>gw-slider__value</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

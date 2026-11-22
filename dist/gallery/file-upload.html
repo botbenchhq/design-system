@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>File upload - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>File upload</h1>
+<p>A file input drawn as a drop area with a button in it, with what it accepts in words and the chosen files listed under it.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A button, a drop area and what is accepted</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The button works for everyone, and the drop area is an extra for a pointer. The types and the size limit are written out before the reader chooses, so a file is not turned away after the wait of an upload.</p>
+</figcaption>
+<div data-example="default" data-title="A button, a drop area and what is accepted" data-state="default" data-reason="The button works for everyone, and the drop area is an extra for a pointer. The types and the size limit are written out before the reader chooses, so a file is not turned away after the wait of an upload.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="file-upload-default-input">Logs and screenshots for the agent</label>
+    <div class="gw-file-upload">
+      <input class="gw-file-upload__input" id="file-upload-default-input" type="file" name="evidence" multiple accept=".log,.txt,.json,image/png,image/jpeg" aria-describedby="file-upload-default-description">
+      <div class="gw-file-upload__prompt" aria-hidden="true">
+        <span class="gw-button gw-file-upload__button">Choose files</span>
+        <span>or drop them here</span>
+      </div>
+    </div>
+    <p class="gw-field__description" id="file-upload-default-description">Log, text, JSON, PNG or JPEG files. Up to 5 files, 10 MB each.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With files chosen</h3>
+</figcaption>
+<div data-example="chosen" data-title="With files chosen">
+  <div class="gw-field">
+    <label class="gw-field__label" for="file-upload-chosen-input">Logs and screenshots for the agent</label>
+    <div class="gw-file-upload">
+      <input class="gw-file-upload__input" id="file-upload-chosen-input" type="file" name="evidence" multiple accept=".log,.txt,.json,image/png,image/jpeg" aria-describedby="file-upload-chosen-description">
+      <div class="gw-file-upload__prompt" aria-hidden="true">
+        <span class="gw-button gw-file-upload__button">Choose more files</span>
+        <span>or drop them here</span>
+      </div>
+    </div>
+    <p class="gw-field__description" id="file-upload-chosen-description">Log, text, JSON, PNG or JPEG files. Up to 5 files, 10 MB each. 2 of 5 chosen.</p>
+    <ul class="gw-cluster gw-gap-md gw-file-upload__files" aria-label="Files chosen">
+      <li class="gw-attachment-chip">
+        <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">session-trace</span><span class="gw-attachment-chip__end">.log</span></span>
+        <span class="gw-attachment-chip__size">48 KB</span>
+        <button type="button" class="gw-attachment-chip__remove">
+          <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+          <span class="gw-visually-hidden">Remove session-trace.log</span>
+        </button>
+      </li>
+      <li class="gw-attachment-chip">
+        <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-image"></use></svg>
+        <span class="gw-attachment-chip__name"><span class="gw-visually-hidden">Image </span><span class="gw-attachment-chip__start">sign-in-error</span><span class="gw-attachment-chip__end">.png</span></span>
+        <span class="gw-attachment-chip__size">2.1 MB</span>
+        <button type="button" class="gw-attachment-chip__remove">
+          <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+          <span class="gw-visually-hidden">Remove sign-in-error.png</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>One file only</h3>
+</figcaption>
+<div data-example="single" data-title="One file only">
+  <div class="gw-field">
+    <label class="gw-field__label" for="file-upload-single-input">Environment file for the workspace</label>
+    <div class="gw-file-upload">
+      <input class="gw-file-upload__input" id="file-upload-single-input" type="file" name="env" accept=".env,.txt" aria-describedby="file-upload-single-description">
+      <div class="gw-file-upload__prompt" aria-hidden="true">
+        <span class="gw-button gw-file-upload__button">Choose a file</span>
+        <span>or drop it here</span>
+      </div>
+    </div>
+    <p class="gw-field__description" id="file-upload-single-description">One .env or text file, up to 64 KB. It replaces the file in use now.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>While files are dragged over it</h3>
+<p data-gallery="state">State: <code>dragover</code></p>
+</figcaption>
+<div data-example="dragover" data-title="While files are dragged over it" data-state="dragover">
+  <div class="gw-field">
+    <label class="gw-field__label" for="file-upload-dragover-input">Logs and screenshots for the agent</label>
+    <div class="gw-file-upload" data-dragover>
+      <input class="gw-file-upload__input" id="file-upload-dragover-input" type="file" name="evidence" multiple accept=".log,.txt,.json,image/png,image/jpeg" aria-describedby="file-upload-dragover-description">
+      <div class="gw-file-upload__prompt" aria-hidden="true">
+        <span>Drop to add 2 files</span>
+      </div>
+    </div>
+    <p class="gw-field__description" id="file-upload-dragover-description">Log, text, JSON, PNG or JPEG files. Up to 5 files, 10 MB each.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-field">
+    <label class="gw-field__label" for="file-upload-hover-input">Logs and screenshots for the agent</label>
+    <div class="gw-file-upload">
+      <input class="gw-file-upload__input" id="file-upload-hover-input" type="file" name="evidence" multiple accept=".log,.txt,.json,image/png,image/jpeg">
+      <div class="gw-file-upload__prompt" aria-hidden="true">
+        <span class="gw-button gw-file-upload__button">Choose files</span>
+        <span>or drop them here</span>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-field">
+    <label class="gw-field__label" for="file-upload-focus-visible-input">Logs and screenshots for the agent</label>
+    <div class="gw-file-upload">
+      <input class="gw-file-upload__input" id="file-upload-focus-visible-input" type="file" name="evidence" multiple accept=".log,.txt,.json,image/png,image/jpeg">
+      <div class="gw-file-upload__prompt" aria-hidden="true">
+        <span class="gw-button gw-file-upload__button">Choose files</span>
+        <span>or drop them here</span>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Uploading</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="uploading" data-title="Uploading" data-state="busy">
+  <div class="gw-field">
+    <label class="gw-field__label" for="file-upload-uploading-input">Logs and screenshots for the agent</label>
+    <div class="gw-file-upload">
+      <input class="gw-file-upload__input" id="file-upload-uploading-input" type="file" name="evidence" multiple accept=".log,.txt,.json,image/png,image/jpeg" aria-describedby="file-upload-uploading-description">
+      <div class="gw-file-upload__prompt" aria-hidden="true">
+        <span class="gw-button gw-file-upload__button">Choose more files</span>
+        <span>or drop them here</span>
+      </div>
+    </div>
+    <p class="gw-field__description" id="file-upload-uploading-description" role="status">Uploading 2 of 3 files. session-trace.log is ready.</p>
+    <ul class="gw-cluster gw-gap-md gw-file-upload__files" aria-label="Files chosen, 2 still uploading">
+      <li class="gw-attachment-chip">
+        <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">session-trace</span><span class="gw-attachment-chip__end">.log</span></span>
+        <span class="gw-attachment-chip__size">48 KB</span>
+        <button type="button" class="gw-attachment-chip__remove">
+          <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+          <span class="gw-visually-hidden">Remove session-trace.log</span>
+        </button>
+      </li>
+      <li class="gw-attachment-chip" aria-busy="true">
+        <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-image"></use></svg>
+        <span class="gw-attachment-chip__name"><span class="gw-visually-hidden">Image </span><span class="gw-attachment-chip__start">sign-in-error</span><span class="gw-attachment-chip__end">.png</span></span>
+        <span class="gw-attachment-chip__size">62% of 2.1 MB</span>
+        <button type="button" class="gw-attachment-chip__remove">
+          <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+          <span class="gw-visually-hidden">Cancel the upload of sign-in-error.png</span>
+        </button>
+        <progress class="gw-attachment-chip__progress" value="62" max="100" aria-label="Uploading sign-in-error.png">62%</progress>
+      </li>
+      <li class="gw-attachment-chip" aria-busy="true">
+        <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">heap-snapshot</span><span class="gw-attachment-chip__end">.json</span></span>
+        <span class="gw-attachment-chip__size">Starting upload</span>
+        <button type="button" class="gw-attachment-chip__remove">
+          <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+          <span class="gw-visually-hidden">Cancel the upload of heap-snapshot.json</span>
+        </button>
+        <progress class="gw-attachment-chip__progress" aria-label="Uploading heap-snapshot.json"></progress>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A file that was turned away, and one that failed</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="A file that was turned away, and one that failed" data-state="error">
+  <div class="gw-field">
+    <label class="gw-field__label" for="file-upload-error-input">Logs and screenshots for the agent</label>
+    <div class="gw-file-upload">
+      <input class="gw-file-upload__input" id="file-upload-error-input" type="file" name="evidence" multiple accept=".log,.txt,.json,image/png,image/jpeg" aria-invalid="true" aria-describedby="file-upload-error-description file-upload-error-error">
+      <div class="gw-file-upload__prompt" aria-hidden="true">
+        <span class="gw-button gw-file-upload__button">Choose more files</span>
+        <span>or drop them here</span>
+      </div>
+    </div>
+    <p class="gw-field__description" id="file-upload-error-description">Log, text, JSON, PNG or JPEG files. Up to 5 files, 10 MB each.</p>
+    <p class="gw-field__error" id="file-upload-error-error" role="alert">screen-recording.mov was not added, because video files are not accepted. Add a PNG or JPEG screenshot of the step that fails.</p>
+    <ul class="gw-cluster gw-gap-md gw-file-upload__files" aria-label="Files chosen, 1 not uploaded">
+      <li class="gw-attachment-chip">
+        <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">session-trace</span><span class="gw-attachment-chip__end">.log</span></span>
+        <span class="gw-attachment-chip__size">48 KB</span>
+        <button type="button" class="gw-attachment-chip__remove">
+          <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+          <span class="gw-visually-hidden">Remove session-trace.log</span>
+        </button>
+      </li>
+      <li class="gw-attachment-chip">
+        <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">heap-snapshot</span><span class="gw-attachment-chip__end">.json</span></span>
+        <span class="gw-attachment-chip__size">38 MB</span>
+        <button type="button" class="gw-attachment-chip__remove">
+          <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+          <span class="gw-visually-hidden">Remove heap-snapshot.json</span>
+        </button>
+        <p class="gw-attachment-chip__error" role="alert">Not uploaded: files can be up to 10 MB. Remove it and add a smaller file.</p>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="file-upload-disabled-input">Logs and screenshots for the agent</label>
+    <div class="gw-file-upload">
+      <input class="gw-file-upload__input" id="file-upload-disabled-input" type="file" name="evidence" multiple disabled aria-describedby="file-upload-disabled-description">
+      <div class="gw-file-upload__prompt" aria-hidden="true">
+        <span class="gw-button gw-file-upload__button">Choose files</span>
+        <span>or drop them here</span>
+      </div>
+    </div>
+    <p class="gw-field__description" id="file-upload-disabled-description">All 5 files are chosen. Remove one to add another.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A drop area with no button and no limits</h3>
+<p>Dragging needs a pointer and two windows side by side, which a phone and a keyboard do not have, and nothing here says which files will be accepted. Keep the button, and write the types and the size limit in the description.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="drop-only" data-title="A drop area with no button and no limits" data-dont="review" data-reason="Dragging needs a pointer and two windows side by side, which a phone and a keyboard do not have, and nothing here says which files will be accepted. Keep the button, and write the types and the size limit in the description.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="file-upload-drop-only-input">Files</label>
+    <div class="gw-file-upload">
+      <input class="gw-file-upload__input" id="file-upload-drop-only-input" type="file" name="evidence" multiple>
+      <div class="gw-file-upload__prompt" aria-hidden="true">
+        <span>Drag and drop files here</span>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>In a form, to send one or more files from the reader's device: logs and screenshots for a task, an environment file for a workspace.</li>
+<li>When the reader should see what is accepted before choosing, and each file's progress and failure after.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>To attach a file to a prompt. Use the composer's attach button, with attachment chips above it.</li>
+<li>To point at a file that is already in the repository. Use a field for its path, or a combobox.</li>
+<li>To paste text. Use a textarea.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>several files</dt>
+<dd>The input has the multiple attribute and the prompt reads Choose files, or drop them here.</dd>
+<dt>one file</dt>
+<dd>No multiple attribute, and the prompt reads Choose a file, or drop it here. A new file replaces the one chosen.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>As wide as the field and at least 88px tall. The whole area is the pointer target.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Inside gw-field, after the label, put a div with gw-file-upload. It holds an input type=&quot;file&quot; with gw-file-upload__input, then a div with gw-file-upload__prompt and aria-hidden=&quot;true&quot;. The label's for attribute matches the input's id, so a screen reader hears the label and the browser's own file button.</li>
+<li>The prompt is what sighted readers see in place of the browser's button: a span with gw-button and gw-file-upload__button, such as Choose files, and a span of plain words, such as or drop them here. It is a picture of the input, not a second control, so it is hidden from assistive technology and takes no pointer events.</li>
+<li>The input covers the whole area. A press or a drop anywhere on it reaches the input itself, so choosing and dropping both work with no script, and Tab, Enter and Space are the browser's own.</li>
+<li>Say what is accepted in words in a gw-field__description linked with aria-describedby: the kinds of file, how many, and the size limit with its unit. Set accept on the input to the same kinds. Check type and size again on the server.</li>
+<li>Dragover is the one state the app sets: add the data-dragover attribute to the gw-file-upload element on dragenter and dragover, and remove it on dragleave and drop. The border turns solid and the area is shaded. The app may also change the prompt's words, such as Drop to add 2 files.</li>
+<li>List the chosen files under the description in a ul with gw-cluster, gw-gap-md and gw-file-upload__files and an aria-label such as Files chosen. Each file is an attachment chip, copied from that component: its name, its size in words and a remove button that names the file.</li>
+<li>While files upload, each chip carries aria-busy=&quot;true&quot; and a progress element, as the attachment chip describes, and the description, with role=&quot;status&quot;, says how many are done. The reader can still add files.</li>
+<li>A file that cannot be added at all has no chip: set aria-invalid=&quot;true&quot; on the input and add a gw-field__error with role=&quot;alert&quot; that names the file, says why and says what to add. A file that was added and then failed keeps its chip, with the chip's own error. Remove aria-invalid when the reader next chooses a file.</li>
+<li>After a file is removed, move focus to the next chip's remove button, or to the input when none is left.</li>
+<li>Set the disabled attribute on the input when no more files can be added, and say why in the description.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-file-upload</code></li>
+<li><code>gw-file-upload__button</code></li>
+<li><code>gw-file-upload__files</code></li>
+<li><code>gw-file-upload__input</code></li>
+<li><code>gw-file-upload__prompt</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

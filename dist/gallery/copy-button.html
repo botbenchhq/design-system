@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Copy button - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Copy button</h1>
+<p>A small button that copies a value shown next to it, and says in words that it did.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Beside a value in a row</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The value is already on screen as text, so a small quiet button beside it is enough. The empty status next to the button is in the page from the start, ready for the app to write the result into.</p>
+</figcaption>
+<div data-example="default" data-title="Beside a value in a row" data-state="default" data-reason="The value is already on screen as text, so a small quiet button beside it is enough. The empty status next to the button is in the page from the start, ready for the app to write the result into.">
+  <div class="gw-cluster">
+    <code>fix/login-timeout</code>
+    <span class="gw-copy-button">
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy branch name">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+      <span class="gw-copy-button__status" role="status"></span>
+    </span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> After a copy</h3>
+<p data-gallery="state">State: <code>copied</code></p>
+<p>The word Copied appears beside the button and is announced from the live region. The button keeps its name, its icon and the focus, so nothing the reader relies on moves.</p>
+</figcaption>
+<div data-example="copied" data-title="After a copy" data-state="copied" data-reason="The word Copied appears beside the button and is announced from the live region. The button keeps its name, its icon and the focus, so nothing the reader relies on moves.">
+  <div class="gw-cluster">
+    <code>fix/login-timeout</code>
+    <span class="gw-copy-button">
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy branch name">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+      <span class="gw-copy-button__status" role="status">Copied</span>
+    </span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Icon only, in a key-value list</h3>
+</figcaption>
+<div data-example="icon-only" data-title="Icon only, in a key-value list">
+  <dl class="gw-key-value">
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Commit</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">
+        9c41e7a
+        <span class="gw-copy-button">
+          <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Copy commit hash">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+          </button>
+          <span class="gw-copy-button__status" role="status"></span>
+        </span>
+      </dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Worktree</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">
+        /srv/workspaces/acme-api
+        <span class="gw-copy-button">
+          <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Copy worktree path">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+          </button>
+          <span class="gw-copy-button__status" role="status">Copied</span>
+        </span>
+      </dd>
+    </div>
+  </dl>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>At the trailing end, with the status before the button</h3>
+</figcaption>
+<div data-example="trailing" data-title="At the trailing end, with the status before the button">
+  <div class="gw-split">
+    <code>npm run test -- --run src/auth/session.test.ts</code>
+    <span class="gw-copy-button">
+      <span class="gw-copy-button__status" role="status">Command copied</span>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy command">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+    </span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-cluster">
+    <code>fix/login-timeout</code>
+    <span class="gw-copy-button">
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy branch name">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+      <span class="gw-copy-button__status" role="status"></span>
+    </span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-cluster">
+    <code>fix/login-timeout</code>
+    <span class="gw-copy-button">
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy branch name">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+      <span class="gw-copy-button__status" role="status"></span>
+    </span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>When the copy fails</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="When the copy fails" data-state="error">
+  <div class="gw-cluster">
+    <code>fix/login-timeout</code>
+    <span class="gw-copy-button">
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy branch name">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+      <span class="gw-copy-button__status" role="status">Not copied. Select the branch name and copy it by hand.</span>
+    </span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing to copy yet</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Nothing to copy yet" data-state="disabled">
+  <div class="gw-cluster">
+    <span>The branch is created when the run starts.</span>
+    <span class="gw-copy-button">
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Copy branch name" disabled>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+      <span class="gw-copy-button__status" role="status"></span>
+    </span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> An icon with no name and no status</h3>
+<p>A screen reader announces only that this is a button, and after a press nothing says whether the copy worked. Name the button for what it copies, and write Copied into a status beside it.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="no-words" data-title="An icon with no name and no status" data-dont="review" data-reason="A screen reader announces only that this is a button, and after a press nothing says whether the copy worked. Name the button for what it copies, and write Copied into a status beside it.">
+  <div class="gw-cluster">
+    <code>fix/login-timeout</code>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+    </button>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>Beside a value the view already shows as text, where the reader may want it on the clipboard: a branch name in a row, a commit hash in a key-value list, a command in a table cell.</li>
+<li>Above a block of code or a log, to copy the whole block.</li>
+<li>With only an icon where several values in a dense list each have one.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>When taking the value away is the point of the view, such as a clone URL or a token shown once. Use the copy field, which puts the value in a box that can be selected and scrolled.</li>
+<li>For a value the view does not show. The reader must be able to see what will be copied.</li>
+<li>For a secret. Do not put one on the clipboard from a button in a list.</li>
+<li>For any action other than copying. Use a button.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>with a label</dt>
+<dd>The default: gw-button gw-button--quiet gw-button--small with the copy icon and the word Copy.</dd>
+<dt>icon only</dt>
+<dd>gw-button gw-button--quiet gw-icon-button with the copy icon and an aria-label, for a dense row or a table cell. It is 44px square.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>The labelled button is drawn 32px tall with a 44px pointer target. The icon-only button is 44px square.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Wrap the button and its status in a span with the class gw-copy-button. The button is a gw-button with type=&quot;button&quot;; this component adds no class to it.</li>
+<li>Give the button an aria-label that starts with Copy and names the value, such as Copy branch name, so several on one view can be told apart. The icon carries aria-hidden=&quot;true&quot;.</li>
+<li>Keep an empty span with gw-copy-button__status and role=&quot;status&quot; next to the button from the start, after it or, at the trailing end of a row, before it. role=&quot;status&quot; is a polite live region.</li>
+<li>The app copies with navigator.clipboard.writeText() on a press, then sets the status text to Copied, or to what was copied, such as Branch name copied. A screen reader announces it and sighted readers see the same word. Clear the text after about 2 seconds.</li>
+<li>The confirmation is that word. Do not signal a copy by changing the button's colour or icon alone, do not change the button's name, and do not move focus away from the button.</li>
+<li>If the copy fails, set the status text to say so and what to do: Not copied. Select the text and copy it by hand.</li>
+<li>Set the disabled attribute while there is nothing to copy yet.</li>
+<li>Tab reaches the button, and Enter and Space press it. Both come from the button element.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-copy-button</code></li>
+<li><code>gw-copy-button__status</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

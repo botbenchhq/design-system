@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tag input - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Tag input</h1>
+<p>A box holding the values already added, as removable tags, and a text input for adding the next one.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Labels on a task</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each value is a tag with a remove button that names it, in a list a screen reader can count. The input is an ordinary text input with the field's label, and the description says which key adds what was typed.</p>
+</figcaption>
+<div data-example="default" data-title="Labels on a task" data-state="default" data-reason="Each value is a tag with a remove button that names it, in a list a screen reader can count. The input is an ordinary text input with the field's label, and the description says which key adds what was typed.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-default-input">Labels</label>
+    <div class="gw-tag-input">
+      <ul class="gw-tag-input__tags" aria-label="Labels added">
+        <li class="gw-tag">backend <button type="button" class="gw-tag__remove" aria-label="Remove label: backend"></button></li>
+        <li class="gw-tag">auth <button type="button" class="gw-tag__remove" aria-label="Remove label: auth"></button></li>
+        <li class="gw-tag">needs migration <button type="button" class="gw-tag__remove" aria-label="Remove label: needs migration"></button></li>
+      </ul>
+      <input class="gw-tag-input__input" id="tag-input-default-input" type="text" name="label" autocomplete="off" autocapitalize="none" enterkeyhint="done" aria-describedby="tag-input-default-description">
+    </div>
+    <p class="gw-field__description" id="tag-input-default-description">Type a label, then press Enter or a comma to add it. Backspace in the empty box removes the last one.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing added yet</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="Nothing added yet" data-state="empty">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-empty-input">Reviewers</label>
+    <div class="gw-tag-input">
+      <ul class="gw-tag-input__tags" aria-label="Reviewers added"></ul>
+      <input class="gw-tag-input__input" id="tag-input-empty-input" type="text" name="reviewer" autocomplete="off" autocapitalize="none" enterkeyhint="done" aria-describedby="tag-input-empty-description">
+    </div>
+    <p class="gw-field__description" id="tag-input-empty-description">No reviewers yet. Type a GitHub username, then press Enter or a comma to add it.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Many values wrap inside the box</h3>
+</figcaption>
+<div data-example="wrapping" data-title="Many values wrap inside the box">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-wrapping-input">Paths the agent may change</label>
+    <div class="gw-tag-input">
+      <ul class="gw-tag-input__tags" aria-label="Paths added">
+        <li class="gw-tag">src/auth/** <button type="button" class="gw-tag__remove" aria-label="Remove path: src/auth/**"></button></li>
+        <li class="gw-tag">src/session/** <button type="button" class="gw-tag__remove" aria-label="Remove path: src/session/**"></button></li>
+        <li class="gw-tag">test/auth/** <button type="button" class="gw-tag__remove" aria-label="Remove path: test/auth/**"></button></li>
+        <li class="gw-tag">docs/sign-in.md <button type="button" class="gw-tag__remove" aria-label="Remove path: docs/sign-in.md"></button></li>
+        <li class="gw-tag">package.json <button type="button" class="gw-tag__remove" aria-label="Remove path: package.json"></button></li>
+      </ul>
+      <input class="gw-tag-input__input" id="tag-input-wrapping-input" type="text" name="path" autocomplete="off" autocapitalize="none" spellcheck="false" enterkeyhint="done" aria-describedby="tag-input-wrapping-description">
+    </div>
+    <p class="gw-field__description" id="tag-input-wrapping-description">Type a path or a glob, then press Enter to add it. A path may hold a comma, so only Enter adds one here.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Focus</h3>
+<p data-gallery="state">State: <code>focus</code></p>
+</figcaption>
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-focus-input">Labels</label>
+    <div class="gw-tag-input">
+      <ul class="gw-tag-input__tags" aria-label="Labels added, input focused">
+        <li class="gw-tag">backend <button type="button" class="gw-tag__remove" aria-label="Remove label: backend"></button></li>
+      </ul>
+      <input class="gw-tag-input__input" id="tag-input-focus-input" type="text" name="label" autocomplete="off" autocapitalize="none" enterkeyhint="done" value="flaky te">
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Invalid</h3>
+<p data-gallery="state">State: <code>invalid</code></p>
+</figcaption>
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-invalid-input">Reviewers</label>
+    <div class="gw-tag-input">
+      <ul class="gw-tag-input__tags" aria-label="Reviewers added, one not accepted">
+        <li class="gw-tag">maya-okafor <button type="button" class="gw-tag__remove" aria-label="Remove reviewer: maya-okafor"></button></li>
+      </ul>
+      <input class="gw-tag-input__input" id="tag-input-invalid-input" type="text" name="reviewer" autocomplete="off" autocapitalize="none" enterkeyhint="done" value="tomas.lind" aria-invalid="true" aria-describedby="tag-input-invalid-description tag-input-invalid-error">
+    </div>
+    <p class="gw-field__description" id="tag-input-invalid-description">Type a GitHub username, then press Enter or a comma to add it.</p>
+    <p class="gw-field__error" id="tag-input-invalid-error">tomas.lind was not added: nobody in acme has that username. Usernames have hyphens, not full stops. Try tomas-lind.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-disabled-input">Labels</label>
+    <div class="gw-tag-input">
+      <ul class="gw-tag-input__tags" aria-label="Labels added, locked">
+        <li class="gw-tag">backend <button type="button" class="gw-tag__remove" aria-label="Remove label: backend" disabled></button></li>
+        <li class="gw-tag">auth <button type="button" class="gw-tag__remove" aria-label="Remove label: auth" disabled></button></li>
+      </ul>
+      <input class="gw-tag-input__input" id="tag-input-disabled-input" type="text" name="label" disabled aria-describedby="tag-input-disabled-description">
+    </div>
+    <p class="gw-field__description" id="tag-input-disabled-description">Labels are locked while the task runs.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Several values typed into one plain field</h3>
+<p>The reader cannot see where one value ends and the next begins, a stray space or a doubled comma makes a wrong value, and taking one out means editing text by hand. Add each value as a tag with its own remove button.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="comma-list" data-title="Several values typed into one plain field" data-dont="review" data-reason="The reader cannot see where one value ends and the next begins, a stray space or a doubled comma makes a wrong value, and taking one out means editing text by hand. Add each value as a tag with its own remove button.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-comma-list-input">Labels</label>
+    <input class="gw-field__control" id="tag-input-comma-list-input" type="text" name="labels" autocomplete="off" value="backend,auth, needs migration,,flaky">
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For several short values of the same kind that the reader types: labels on a task, reviewers, paths an agent may change.</li>
+<li>When the values are free text, or come from a list too long to show as checkboxes.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For one value. Use a field, or a combobox when it comes from a list.</li>
+<li>For a few known options. Use checkboxes.</li>
+<li>To show the filters in force on a list. Use tags in a row above the list, with no input.</li>
+<li>For long values, such as sentences. Use a textarea, one value to a line.</li>
+</ul>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>As wide as the field and 54px tall with one row. The box grows as tags wrap.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Inside gw-field, after the label, put a div with gw-tag-input. It holds a ul with gw-tag-input__tags and an aria-label that says what the values are, such as Labels added, then an input type=&quot;text&quot; with gw-tag-input__input. The label's for attribute matches the input's id.</li>
+<li>Each value is an li with the class gw-tag holding its text and a button with gw-tag__remove, copied from the tag component. The button's aria-label names the value: Remove label: backend. Keep the ul in the markup when it is empty.</li>
+<li>Say which key adds a value in a gw-field__description linked with aria-describedby: Enter always, and a comma only where a value cannot hold one. On a phone, enterkeyhint=&quot;done&quot; labels the key.</li>
+<li>The app wires the keys: on Enter or the separator it trims what was typed, appends an li, empties the input and prevents the form from being sent. A pasted list is split on the separator. Backspace in the empty input removes the last tag. Typing the same value twice adds nothing.</li>
+<li>After a value is added or removed, say so in a gw-visually-hidden element with role=&quot;status&quot;, such as backend added, 3 labels. After a remove button is pressed, move focus to the next tag's button, or to the input when none is left.</li>
+<li>For a value that cannot be added, leave it in the input, set aria-invalid=&quot;true&quot; on the input and link a gw-field__error that repeats the value and says what to type. The box's border turns to the danger colour and the error's icon marks it as well.</li>
+<li>Send the values with the form as one hidden input per value, or as the app's own state. The text input holds only the value being typed.</li>
+<li>Tab reaches each remove button and then the input. Set disabled on the input and on every remove button when the values cannot change.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-tag-input</code></li>
+<li><code>gw-tag-input__input</code></li>
+<li><code>gw-tag-input__tags</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

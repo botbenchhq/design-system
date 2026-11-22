@@ -1,0 +1,120 @@
+/*
+ * Calendar: one month as a table, for picking a day. Each day is a button in a cell,
+ * under a row of weekday headers, with buttons for the month before and the month after.
+ * The app writes the month's days into the markup. Nothing here works out a date.
+ */
+
+@layer gw.components {
+  /* Seven columns of at least one pointer target each. It fills a phone's width and stops growing after that. */
+  .gw-calendar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    width: 100%;
+    min-width: calc(var(--gw-size-touch) * 7);
+    max-width: calc(var(--gw-size-touch) * 8);
+  }
+
+  .gw-calendar__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gw-space-sm);
+  }
+
+  /* The month and the year, between the two buttons. */
+  .gw-calendar__title {
+    flex: 1;
+    font-weight: var(--gw-weight-semibold);
+    text-align: center;
+  }
+
+  .gw-calendar__grid {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .gw-calendar__grid :is(th, td) {
+    padding: 0;
+  }
+
+  .gw-calendar__weekday {
+    height: var(--gw-space-2xl);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+    text-align: center;
+  }
+
+  /* A day fills its cell, so the targets of neighbouring days meet with no gap between them. */
+  .gw-calendar__day {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: var(--gw-size-touch);
+    border-radius: var(--gw-radius-sm);
+    font-variant-numeric: tabular-nums;
+    transition-property: background-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  /* Today is marked by a ring in the text colour, which stays visible when today is also the selected day. */
+  .gw-calendar__day[aria-current="date"] {
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  .gw-calendar__day[aria-current="date"]::after {
+    content: "";
+    position: absolute;
+    inset: var(--gw-space-xs);
+    border-width: var(--gw-border-width);
+    border-color: currentColor;
+    border-radius: var(--gw-radius-sm);
+  }
+
+  @media (hover: hover) {
+    .gw-calendar__day:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  .gw-calendar__day:active {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* The selected day: a button with aria-pressed, or a button in a grid cell with aria-selected. */
+  .gw-calendar__day[aria-pressed="true"],
+  [aria-selected="true"] > .gw-calendar__day {
+    background-color: var(--gw-color-accent);
+    color: var(--gw-color-on-accent);
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  @media (hover: hover) {
+    .gw-calendar__day[aria-pressed="true"]:hover,
+    [aria-selected="true"] > .gw-calendar__day:hover {
+      background-color: var(--gw-color-accent-hover);
+    }
+  }
+
+  /* After hover, pressed and selected, so a day that cannot be chosen never answers the pointer. Struck through, so it is not set apart by colour alone. */
+  .gw-calendar__day:disabled,
+  .gw-calendar__day[aria-disabled="true"] {
+    background-color: transparent;
+    color: var(--gw-color-muted);
+    font-weight: var(--gw-weight-normal);
+    text-decoration-line: line-through;
+    cursor: default;
+  }
+
+  /* The chosen day in words, under the month. */
+  .gw-calendar__status {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+}

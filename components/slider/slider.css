@@ -1,0 +1,145 @@
+/*
+ * Slider: a native range input for a rough amount, with its label, its value in words
+ * and a label at each end of the track.
+ *
+ * The thumb is a box one pointer target square. Only its middle is painted: the rest is a
+ * transparent border, so the thumb takes a press anywhere in the square. The track is drawn
+ * on the wrapper, set in from each end by that border, so the painted thumb stops exactly at its ends.
+ */
+
+@layer gw.components {
+  .gw-slider {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--gw-space-md);
+    /* Room for the input's focus ring between the label above it and the limits below. */
+    row-gap: var(--gw-space-xs);
+    min-width: 0;
+  }
+
+  .gw-slider__label {
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  /* The current value, in words with its unit. */
+  .gw-slider__value {
+    color: var(--gw-color-muted);
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+  }
+
+  /*
+   * The wrapper reaches past the slider by the thumb's transparent border on each side,
+   * so the painted track lines up with the label above it and the limits below it.
+   */
+  .gw-slider__track {
+    position: relative;
+    grid-column: 1 / -1;
+    margin-inline: calc((var(--gw-space-xl) - var(--gw-size-touch)) / 2);
+  }
+
+  .gw-slider__track::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: calc((var(--gw-size-touch) - var(--gw-space-xl)) / 2);
+    height: var(--gw-space-xs);
+    border-radius: var(--gw-radius-full);
+    background-color: var(--gw-color-border-strong);
+    translate: 0 -50%;
+  }
+
+  /* One target tall. The browser's own track and thumb go, and the two engines are styled apart below. */
+  .gw-slider__input {
+    position: relative;
+    display: block;
+    appearance: none;
+    width: 100%;
+    height: var(--gw-size-touch);
+    border-radius: var(--gw-radius-md);
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .gw-slider__input::-webkit-slider-runnable-track {
+    height: var(--gw-size-touch);
+    background-color: transparent;
+  }
+
+  .gw-slider__input::-moz-range-track {
+    height: var(--gw-size-touch);
+    background-color: transparent;
+  }
+
+  .gw-slider__input::-webkit-slider-thumb {
+    appearance: none;
+    box-sizing: border-box;
+    width: var(--gw-size-touch);
+    height: var(--gw-size-touch);
+    border: calc((var(--gw-size-touch) - var(--gw-space-xl)) / 2) solid transparent;
+    border-radius: calc((var(--gw-size-touch) - var(--gw-space-xl)) / 2 + var(--gw-radius-sm));
+    background-color: var(--gw-color-accent);
+    background-clip: padding-box;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-slider__input::-moz-range-thumb {
+    box-sizing: border-box;
+    width: var(--gw-size-touch);
+    height: var(--gw-size-touch);
+    border: calc((var(--gw-size-touch) - var(--gw-space-xl)) / 2) solid transparent;
+    border-radius: calc((var(--gw-size-touch) - var(--gw-space-xl)) / 2 + var(--gw-radius-sm));
+    background-color: var(--gw-color-accent);
+    background-clip: padding-box;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /* The lowest and highest value, in words, under the two ends of the track. */
+  .gw-slider__min,
+  .gw-slider__max {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  .gw-slider__max {
+    text-align: end;
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-slider__input:hover::-webkit-slider-thumb {
+      background-color: var(--gw-color-accent-hover);
+    }
+
+    .gw-slider__input:hover::-moz-range-thumb {
+      background-color: var(--gw-color-accent-hover);
+    }
+  }
+
+  .gw-slider__input:active::-webkit-slider-thumb {
+    background-color: var(--gw-color-accent-hover);
+  }
+
+  .gw-slider__input:active::-moz-range-thumb {
+    background-color: var(--gw-color-accent-hover);
+  }
+
+  /* After hover and pressed, so an unavailable slider never answers the pointer. */
+  .gw-slider__input:disabled {
+    cursor: default;
+  }
+
+  .gw-slider__input:disabled::-webkit-slider-thumb {
+    background-color: var(--gw-color-border-strong);
+  }
+
+  .gw-slider__input:disabled::-moz-range-thumb {
+    background-color: var(--gw-color-border-strong);
+  }
+
+  .gw-slider__track:has(> .gw-slider__input:disabled)::before {
+    background-color: var(--gw-color-border);
+  }
+}

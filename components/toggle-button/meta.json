@@ -1,0 +1,39 @@
+{
+  "name": "toggle-button",
+  "title": "Toggle button",
+  "purpose": "A button that turns one view option on or off, such as Wrap lines, and says which with aria-pressed.",
+  "status": "draft",
+  "whenToUse": [
+    "For an option of the current view that takes effect at once and is not saved as a setting: Wrap lines, Show whitespace, Show tool calls.",
+    "In a toolbar above a log, a diff or a transcript, in its small size."
+  ],
+  "whenNotToUse": [
+    "For a setting that is stored, in a settings form. Use a switch, or a checkbox when it is sent with the form.",
+    "To choose one of several views, such as Unified or Split. Use a segmented control.",
+    "For an option with only an icon. Use an icon button with aria-pressed.",
+    "For an action that happens once, such as Copy. Use a button."
+  ],
+  "variants": [
+    { "name": "off", "use": "aria-pressed=\"false\". Drawn as a plain button." },
+    { "name": "on", "use": "aria-pressed=\"true\". A stronger border, a sunken fill and a bar under the label." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "44px tall." },
+    { "name": "small", "class": "gw-button--small", "use": "The button component's small size: drawn 32px tall for a toolbar, with a 44px pointer target. Lay small toggles out with gw-cluster gw-gap-md, so the targets of two wrapped rows do not overlap." }
+  ],
+  "states": ["default", "pressed", "hover", "focus-visible", "active", "disabled"],
+  "accessibility": [
+    "Use a button element with type=\"button\", the classes gw-button and gw-toggle-button, and aria-pressed set to \"true\" or \"false\". The attribute is always present, so a screen reader announces a toggle button in both states.",
+    "The label names the option and stays the same in both states: Wrap lines, never Unwrap lines. Only aria-pressed changes. An icon is decoration and carries aria-hidden=\"true\".",
+    "The app flips aria-pressed on each press and applies the option at once. Nothing else is needed: the styles read aria-pressed only.",
+    "Never add gw-button--primary to show that an option is on.",
+    "Group related toggles in an element with role=\"group\" and an aria-label that says what they change, such as Diff view options.",
+    "Tab reaches each toggle, and Enter and Space flip it. Both come from the button element.",
+    "Set the disabled attribute while the option cannot change. The bar stays, so the reader can still see which options were on.",
+    "A toggle button is never busy: the bar is drawn where the button component draws its spinner."
+  ],
+  "icons": ["terminal"],
+  "classes": [
+    "gw-toggle-button"
+  ]
+}

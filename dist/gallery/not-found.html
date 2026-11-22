@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not found - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Not found</h1>
+<p>The screen for a missing page or a missing item: what was not found in plain words, why that might be, one primary way forward and a quiet second link.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A page that does not exist</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The title says what was not found, with the address the reader asked for. The sentence gives the two likely reasons in plain words. One primary link goes to the screen most readers want next, and a quiet link offers the other way to find something. There is no picture, no code number as a headline and no joke.</p>
+</figcaption>
+<div data-example="page" data-title="A page that does not exist" data-state="default" data-gallery-frame data-reason="The title says what was not found, with the address the reader asked for. The sentence gives the two likely reasons in plain words. One primary link goes to the screen most readers want next, and a quiet link offers the other way to find something. There is no picture, no code number as a headline and no joke.">
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-not-found">
+      <div class="gw-empty-state">
+        <h1 class="gw-empty-state__title">There is no page at /repositories/acme/apii/runs</h1>
+        <p class="gw-empty-state__body">The address may be mistyped, or the page may have been moved or deleted since the link was made.</p>
+        <div class="gw-empty-state__action">
+          <a class="gw-button gw-button--primary" href="/repositories">View your repositories</a>
+        </div>
+      </div>
+      <a class="gw-link gw-link--quiet" href="/search">Search tasks and runs</a>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>An item that is missing or out of reach</h3>
+<p data-gallery="state">State: <code>missing-item</code></p>
+</figcaption>
+<div data-example="item" data-title="An item that is missing or out of reach" data-state="missing-item" data-gallery-frame>
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__back" href="/runs">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+        Runs
+      </a>
+    </header>
+    <div class="gw-not-found">
+      <div class="gw-empty-state">
+        <h1 class="gw-empty-state__title">Run 4182 was not found</h1>
+        <p class="gw-empty-state__body">It may have been deleted with its workspace, or it may belong to a repository you cannot see. If someone sent you this link, ask them to check that you have access to the repository.</p>
+        <div class="gw-empty-state__action">
+          <a class="gw-button gw-button--primary" href="/runs">View all runs</a>
+        </div>
+      </div>
+      <a class="gw-link gw-link--quiet" href="/runs?q=4182">Search runs for 4182</a>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A code, a joke and no way forward</h3>
+<p>The headline is a status code, the sentence blames nothing and explains nothing, and Go back may lead to the broken link the reader came from. Say what was not found and why that might be, then offer a screen that exists.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="vague" data-title="A code, a joke and no way forward" data-dont="review" data-gallery-frame="short" data-reason="The headline is a status code, the sentence blames nothing and explains nothing, and Go back may lead to the broken link the reader came from. Say what was not found and why that might be, then offer a screen that exists.">
+  <div class="gw-not-found">
+    <div class="gw-empty-state">
+      <h1 class="gw-empty-state__title">404</h1>
+      <p class="gw-empty-state__body">Oops! Something went wrong. The page you are looking for has wandered off.</p>
+      <div class="gw-empty-state__action">
+        <button type="button" class="gw-button gw-button--primary">Go back</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>When an address matches no screen in the app.</li>
+<li>When the screen exists and the item it should show does not, such as a deleted run, or one in a repository the reader cannot see.</li>
+<li>Inside the app's usual header, so the reader still has the app's own ways out.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>When the item may exist and loading it failed. Use an error state with Retry, so the reader is not told something is gone when it may not be.</li>
+<li>When a list or a search has no results. Use an empty state in place of the results, as the filter and results pattern does.</li>
+<li>When the reader is signed out. Send them to the sign-in screen and bring them back afterwards.</li>
+<li>For a section of a view that has nothing in it. Use an empty state in that section.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>In an app the element with gw-not-found is the main element, under the app header. It holds an empty state and then one quiet link.</li>
+<li>The empty state's title is the page's h1. It says what was not found, naming the address or the item: Run 4182 was not found. A status code is not a title. Put the same words in the document title, and send the 404 status with the page.</li>
+<li>The body is one or two sentences giving the likely reasons, and what the reader can do when the reason is access. It does not blame the reader and makes no joke.</li>
+<li>The one action in the empty state is a link with the primary button classes, to a screen that exists and that most readers want next, such as the list the item belonged to. It names where it goes. Never use Go back, which may return to the broken link.</li>
+<li>The second way forward is a gw-link gw-link--quiet after the empty state, such as a search with the missing name already filled in.</li>
+<li>Do not tell a reader without access whether the item exists. Use the same words for a deleted item and for one they may not see.</li>
+<li>There is no illustration and no icon. When the page loads, focus starts at the top of the document as usual, and Tab reaches the header, the primary link, then the quiet link.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-not-found</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

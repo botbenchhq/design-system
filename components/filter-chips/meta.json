@@ -1,0 +1,44 @@
+{
+  "name": "filter-chips",
+  "title": "Filter chips",
+  "purpose": "A row of filters the reader switches on and off above the list they narrow, built on native checkboxes or radios.",
+  "status": "draft",
+  "whenToUse": [
+    "To narrow a list or a table by a few known values, such as the status of a run or its repository, where the reader should see every choice at once.",
+    "With checkboxes when several values may be on together, and with radios when exactly one applies.",
+    "Directly above the list it filters, with a line that says how many items match."
+  ],
+  "whenNotToUse": [
+    "To switch between two or three views of the same content. Use a segmented control.",
+    "For more values than fit in two or three rows on a phone. Use a select, or a sheet that holds checkboxes.",
+    "To show the filters in force with a way to remove each. Use tags with remove buttons.",
+    "To start an action. Use a button.",
+    "For a setting that is saved. Use a checkbox or a switch."
+  ],
+  "variants": [
+    { "name": "multi-select", "use": "The default. Each chip holds an input of type checkbox, and any number may be on." },
+    { "name": "single-select", "use": "Each chip holds an input of type radio with one shared name, and exactly one is on. The first chip is the one that filters nothing, such as At any time, because a radio cannot be switched off." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "Drawn 32px tall with a 44px pointer target. Rows sit 12px apart, so the targets of two rows never overlap." }
+  ],
+  "states": ["default", "selected", "hover", "focus-visible", "disabled"],
+  "accessibility": [
+    "Use a fieldset with the class gw-filter-chips and a legend with gw-filter-chips__legend that says what is filtered. Add gw-visually-hidden to the legend where a heading already says it. The chips go in a div with gw-filter-chips__list.",
+    "Each chip is a label with gw-filter-chips__chip holding an input with gw-filter-chips__input and then the chip's text. The input is the first child. The label gives the input its name, so a screen reader announces Failed, checkbox, checked.",
+    "The state is the input's own checked state. A chip that is on is filled and shows a check, and one that is off is outlined and shows a plus, both drawn by the stylesheet. Nothing is set by script.",
+    "Clear filters is a button with gw-button gw-button--quiet gw-button--small, placed after the last chip inside gw-filter-chips__list, or after the last group when there are several. Inside a form served with nothing checked, type=\"reset\" clears the chips with no script. Otherwise use type=\"button\", and the app unchecks every input and moves focus to the first chip.",
+    "Tab reaches each checkbox and Space switches it. Radios are one tab stop: the arrow keys move between them and select as they go. All of it comes from the inputs.",
+    "After the list is filtered, say how many items match in an element with role=\"status\" below the chips, such as 9 of 128 runs are awaiting approval or failed.",
+    "Set the disabled attribute on an input, or on the fieldset to disable every chip and the Clear button at once, and say why in the view.",
+    "Without script the chips submit with their form as ordinary fields, under each input's name and value."
+  ],
+  "icons": ["check", "plus"],
+  "classes": [
+    "gw-filter-chips",
+    "gw-filter-chips__chip",
+    "gw-filter-chips__input",
+    "gw-filter-chips__legend",
+    "gw-filter-chips__list"
+  ]
+}

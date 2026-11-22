@@ -14,7 +14,10 @@ const files = readdirSync(rulesDir).filter((name) => name.endsWith(".md")).sort(
 const text = Object.fromEntries(files.map((name) => [name, readFileSync(join(rulesDir, name), "utf8")]));
 
 const manifest = JSON.parse(readFileSync(join(dist, "manifest.json"), "utf8"));
-const components = JSON.parse(readFileSync(join(dist, "components.json"), "utf8")).components.map(({ name }) => name);
+const index = JSON.parse(readFileSync(join(dist, "components.json"), "utf8"));
+const patterns = index.patterns.map(({ name }) => name);
+// A code span may name a component or a page pattern.
+const components = [...index.components.map(({ name }) => name), ...patterns];
 
 // In a rules file, a code span holding one lower-case hyphenated word is a component name, a checker rule ID,
 // a system class or a data- or aria- attribute. Anything else in a code span carries a dot, a space or punctuation.
@@ -59,8 +62,9 @@ test("every system class named in a rules file is in the manifest", () => {
   }
 });
 
-test("choosing-components.md mentions every component in the index", () => {
+test("choosing-components.md mentions every component and every pattern in the index", () => {
   const mentioned = new Set([...text["choosing-components.md"].matchAll(WORD_SPAN)].map(([, word]) => word));
+  assert.ok(patterns.length > 0);
   assert.deepEqual(components.filter((name) => !mentioned.has(name)), []);
 });
 

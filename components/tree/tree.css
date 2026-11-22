@@ -1,0 +1,139 @@
+/*
+ * Tree: a file or outline tree built on nested details elements, so a folder opens and closes with no script.
+ * A folder is a details whose summary is its row, and a file is a link. It is a disclosure tree, not an ARIA tree:
+ * the browser gives every row its role, its state and its keys. Folders nest two deep at most.
+ */
+
+@layer gw.components {
+  .gw-tree {
+    min-width: 0;
+  }
+
+  .gw-tree__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /*
+   * What a folder holds is set in from the folder, behind a rule that drops from the centre of its chevron,
+   * so the level of a row can be read from the rules to its left.
+   */
+  .gw-tree__list .gw-tree__list {
+    margin-inline-start: calc(var(--gw-space-lg) - var(--gw-border-width));
+    padding-inline-start: var(--gw-space-xs);
+    border-inline-start-width: var(--gw-border-width);
+  }
+
+  /* The row of a folder and the row of a file share one shape, one pointer target tall. */
+  .gw-tree__summary,
+  .gw-tree__leaf {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-xs) var(--gw-space-sm);
+    border-radius: var(--gw-radius-sm);
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-tree__summary {
+    font-weight: var(--gw-weight-medium);
+    cursor: pointer;
+  }
+
+  .gw-tree__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* The chevron says whether the folder is open, in a shape and not a colour. */
+  .gw-tree__summary::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: var(--gw-color-muted);
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+  }
+
+  .gw-tree__branch[open] > .gw-tree__summary::before {
+    mask-image: url("icons/chevron-down.svg");
+  }
+
+  /* A file has no chevron, so it starts where the icon of a folder beside it starts. */
+  .gw-tree__leaf {
+    padding-inline-start: calc(var(--gw-space-sm) + var(--gw-space-lg) + var(--gw-space-sm));
+  }
+
+  .gw-tree__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    color: var(--gw-color-muted);
+  }
+
+  .gw-tree__name {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* A fact at the end of the row, in words: how many files, or how a file changed. */
+  .gw-tree__meta {
+    flex: none;
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-normal);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
+  }
+
+  /* A sentence where a folder's rows would be: it is empty, loading, or could not be read. */
+  .gw-tree__note {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    padding: var(--gw-space-sm) var(--gw-space-sm) var(--gw-space-sm) calc(var(--gw-space-sm) + var(--gw-space-lg) + var(--gw-space-sm));
+    color: var(--gw-color-muted);
+    overflow-wrap: anywhere;
+  }
+
+  /* The quiet parts turn to the main text colour wherever the row is shaded, so they keep their contrast. */
+  @media (hover: hover) {
+    .gw-tree__summary:hover,
+    .gw-tree__leaf:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-tree__summary:hover > .gw-tree__meta,
+    .gw-tree__leaf:hover > :is(.gw-tree__icon, .gw-tree__meta) {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-tree__summary:active,
+  .gw-tree__leaf:active {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* The current item is marked by a bar and a heavier name as well as by its shade. */
+  .gw-tree__leaf[aria-current]:not([aria-current="false"]) {
+    background-color: var(--gw-color-surface-sunken);
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  .gw-tree__leaf[aria-current]:not([aria-current="false"])::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: calc(var(--gw-border-width) * 2);
+    background-color: var(--gw-color-accent);
+  }
+
+  .gw-tree__leaf[aria-current]:not([aria-current="false"]) > :is(.gw-tree__icon, .gw-tree__meta) {
+    color: var(--gw-color-on-surface);
+  }
+}

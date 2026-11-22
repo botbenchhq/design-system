@@ -1,0 +1,38 @@
+{
+  "name": "kbd",
+  "title": "Kbd",
+  "purpose": "A keyboard key or shortcut named in text, such as Ctrl + K.",
+  "status": "draft",
+  "whenToUse": [
+    "To name the shortcut for an action that the view also offers as a control: beside a button, in a sentence of help, or in a list of shortcuts.",
+    "To name a key the reader presses in a terminal or a form, such as Enter or Esc."
+  ],
+  "whenNotToUse": [
+    "As the only way to learn or reach an action. Every shortcut belongs to a button, a link or a menu item the reader can see and press.",
+    "For a command, a path or other text the reader types out. Use a code element.",
+    "For something the reader presses on screen. Use a button.",
+    "For a status or a count. Use a badge or plain text."
+  ],
+  "variants": [
+    { "name": "key", "use": "One key: a kbd element with the class gw-kbd." },
+    { "name": "combination", "class": "gw-kbd__combo", "use": "Keys pressed together: an outer kbd with gw-kbd__combo holding one gw-kbd per key, with a plus sign and spaces written as text between them." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "12px mono text in a 1px border, about 19px tall. It fits a line of body text, a list row and a small button's row without adding height." }
+  ],
+  "states": ["default"],
+  "accessibility": [
+    "Use the kbd element. A screen reader reads the key's text in place, so write the key as a word or a character it can say: Ctrl, Shift, Enter, Esc, Up arrow, K. Do not use a symbol alone for a modifier, because it is read differently by each screen reader or not at all.",
+    "A combination is an outer kbd with gw-kbd__combo holding one kbd with gw-kbd per key, joined by a plus sign as text with a space each side: Ctrl + K. A screen reader then reads Ctrl plus K. Never draw the plus with a stylesheet or an icon.",
+    "Keys pressed one after the other are separate keys joined by the word then: G then R.",
+    "Name the platform's own key. Where the app knows the reader is on a Mac it writes Cmd in place of Ctrl; it does not show both.",
+    "A shortcut is never the only way to an action. Show it next to the control that does the same thing, or in a list the reader can open from a visible control.",
+    "A key is text. It is not focusable and takes no press, and it has no hover or pressed state.",
+    "The app wires the shortcut itself. For a button, set aria-keyshortcuts to the same keys, such as aria-keyshortcuts=\"Control+K\", so assistive technology can report it."
+  ],
+  "icons": ["search"],
+  "classes": [
+    "gw-kbd",
+    "gw-kbd__combo"
+  ]
+}

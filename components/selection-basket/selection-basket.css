@@ -1,0 +1,86 @@
+/*
+ * Selection basket: the bar that appears while rows of a list or a table are selected.
+ * It says how many are selected, offers "Clear selection", one bulk action and a "More" menu,
+ * and stays at the bottom of the screen while the list scrolls under it.
+ * The buttons and the menu come from the button and menu components.
+ */
+
+@layer gw.components {
+  /*
+   * Placed after the list it acts on, in the same container, so it sticks to the bottom of the
+   * screen for as long as the list is in view. A 1px border and the raised surface set it off
+   * from the rows passing under it. It is part of the page, not an overlay, so it has no shadow.
+   */
+  .gw-selection-basket {
+    position: sticky;
+    bottom: calc(var(--gw-space-sm) + env(safe-area-inset-bottom));
+    z-index: var(--gw-z-sticky);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--gw-space-lg);
+    row-gap: var(--gw-space-md);
+    min-width: 0;
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  /* The count, then "Clear selection". At compact widths this is the bar's first line. */
+  .gw-selection-basket__selection {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  .gw-selection-basket__count {
+    font-weight: var(--gw-weight-medium);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The bulk action and "More". At compact widths they take the second line. */
+  .gw-selection-basket__actions {
+    display: flex;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gw-space-sm);
+  }
+
+  /* What went wrong when the bulk action failed, on a line of its own. */
+  .gw-selection-basket__error {
+    display: flex;
+    flex-basis: 100%;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-danger);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-selection-basket__error::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  /* At the regular width the bar is one line: the count and "Clear selection" at the start, the actions at the far end. */
+  @media (min-width: 768px) {
+    .gw-selection-basket__selection {
+      flex: none;
+      justify-content: flex-start;
+    }
+
+    .gw-selection-basket__actions {
+      flex-basis: auto;
+    }
+  }
+}

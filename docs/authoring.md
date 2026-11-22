@@ -1,6 +1,6 @@
 # Authoring a component
 
-This is the contract every component follows. Every folder in `components/` is built to it. Copy `components/button/` or `components/field/` to start.
+This is the contract every component follows. Every folder in `components/` is built to it, and so is every page pattern in `patterns/`. Copy `components/button/` or `components/field/` to start.
 
 A component is one folder, `components/<name>/`, holding three hand-written files:
 
@@ -147,6 +147,19 @@ Rules for the set of examples:
 
 - Copy is specific and plain, as it would be in a real screen: "Start task", "Repository", "Put a slash between the owner and the name." No "Click me", no placeholder text, no emoji.
 
+## Page patterns
+
+A page pattern is a whole screen composed from components: a settings page, a sign-in screen, a list with its detail. It shows an agent how the components go together, so a new screen starts from a finished one. It lives in `patterns/<name>/` and holds the same three files as a component, built to everything on this page, with these differences:
+
+- `meta.json` has one more field, `"kind": "pattern"`. The build fails when a folder in `patterns/` leaves it out, and when a folder in `components/` has it.
+- The stylesheet is minimal. A pattern arranges components and does not restyle them, so it holds only the layout the screen needs under `gw-<name>`, and often only a class or two. Reach for the layout classes of the base layer first.
+- Each example is a whole screen in one state. The components inside it keep the markup of their own examples.
+- A pattern cannot take the name of a component: the two share the class list, the index and the gallery.
+
+The build bundles pattern stylesheets into `dist/groundwork.css` after every component, in the same `@layer gw.components`, so a pattern's layout wins over a component it arranges. It lists patterns in the `patterns` array of `dist/components.json`, each entry holding the metadata fields, `kind` and the do examples. The `components` array holds components only, as it always has. Pattern classes join the `classes` list of `dist/manifest.json`.
+
+In the gallery a pattern has a page of its own, listed after the components on the index. Its examples run down the page in one column, not two abreast, because each is a whole screen. `data-gallery-frame` on an example gives it room and keeps anything fixed inside it. Name every pattern in `rules/choosing-components.md`, with when to start from it.
+
 ## The metadata
 
 `meta.json` holds exactly these fields. All are required. A list may be empty.
@@ -179,6 +192,7 @@ The build copies these fields into `dist/components.json`, with the markup of ea
 The build stops, naming the folder, when:
 
 - one of the three files is missing, or `meta.json` is not valid JSON;
+- a pattern has no `"kind": "pattern"`, a component has it, or a pattern has the name of a component;
 - a metadata field is missing or of the wrong type, the name is not the folder name, or the status is not `draft` or `stable`;
 - the stylesheet is not in `@layer gw.components`, or defines a class outside `gw-<name>`, `gw-<name>__…` and `gw-<name>--…`;
 - the classes the stylesheet defines and the `classes` list differ;
@@ -195,9 +209,9 @@ npm test             # build rules, and the checker over every example and compo
 npm run test:visual  # the gallery in Chrome
 ```
 
-`npm test` runs the shipped checker over each example as a page of its own and over each component stylesheet. Do examples and stylesheets must produce no finding and no waiver. Each don't example with a rule id must produce that rule and nothing else. It also fails when the committed `dist/` does not match the sources, so commit the regenerated `dist/` with the folder.
+`npm test` runs the shipped checker over each example as a page of its own and over each component and pattern stylesheet. Do examples and stylesheets must produce no finding and no waiver. Each don't example with a rule id must produce that rule and nothing else. It also fails when the committed `dist/` does not match the sources, so commit the regenerated `dist/` with the folder.
 
-`npm run test:visual` opens each component's gallery page at 390px and 1280px, in light and dark. On the do examples it runs axe, runs the structural rules on the rendered page and, at 390px, measures every pointer target. It writes one screenshot per page, width and theme to `test/visual/screenshots/`. Look at them, then commit them: they are what the owner reviews.
+`npm run test:visual` opens the gallery page of each component and each pattern at 390px and 1280px, in light and dark. On the do examples it runs axe, runs the structural rules on the rendered page and, at 390px, measures every pointer target. It writes one screenshot per page, width and theme to `test/visual/screenshots/`. Look at them, then commit them: they are what the owner reviews.
 
 A component with behaviour worth proving, such as keyboard operation, adds its own test to `test/visual/gallery.spec.mjs`, as the button and the field do.
 

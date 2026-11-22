@@ -1,0 +1,44 @@
+{
+  "name": "editable-list",
+  "title": "Editable list",
+  "purpose": "An ordered list whose items the reader can edit in place, add to and delete from, such as the tasks in an agent's plan before it is approved.",
+  "status": "draft",
+  "whenToUse": [
+    "For a short ordered list of one-line items the reader corrects before something acts on it: the tasks of a plan, the setup commands of a repository.",
+    "When each item is one line of text and every change is small enough to make in the row."
+  ],
+  "whenNotToUse": [
+    "To change the order of the items. This component has no reordering: no drag handle and no move buttons. If order must change, the app needs its own control, and until then the reader deletes an item and adds it again at the end.",
+    "For items with more than one field. Make each row a link to a view or a sheet that edits it.",
+    "For a list the reader only reads or opens. Use the list.",
+    "For rows compared across columns. Use the data table.",
+    "For tasks the reader ticks off. Use checkboxes."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "editing", "adding", "invalid", "busy", "error", "deleted", "empty", "disabled"],
+  "accessibility": [
+    "Use an ol with the class gw-editable-list__items and an aria-label that names the list, inside a div with gw-editable-list. Each item is an li with gw-editable-list__item. The stylesheet draws each item's number from its place in the list, and a screen reader announces the position from the ol.",
+    "A row at rest holds a span with gw-editable-list__text and a span with gw-editable-list__actions holding two buttons, Edit then Delete, each gw-button gw-button--quiet gw-button--small. They are drawn 32px tall and their pointer targets are 44px. Row actions are never primary.",
+    "Each button's aria-label starts with its visible word and names the row: Edit task 2: Raise the session timeout to 30 minutes.",
+    "Editing: the app replaces the row's text and buttons with a form with gw-editable-list__editor. It holds a gw-field whose visible label names the item, such as Task 2, with the item's text as the input's value, then gw-editable-list__editor-actions with a submit button, Save task, and a quiet Cancel. Move focus to the input. Only one row is edited at a time.",
+    "Enter in the input saves, because it submits the form. The app also cancels on Escape. After Save or Cancel the row goes back to rest and focus returns to its Edit button.",
+    "An empty item is not saved. Set aria-invalid=\"true\" on the input and link a gw-field__error that says what to do. While the save is sent, set aria-busy=\"true\" on the submit button, change its words to Saving task, make the input readonly and disable Cancel. If the save fails, keep the row in editing with the reader's text and say so in a gw-field__error with role=\"alert\".",
+    "Adding: gw-editable-list__add after the ol holds one quiet button with a plus icon, Add task. Pressing it appends a row in the editing state with an empty input labelled New task and hides the Add button until that row is saved or cancelled.",
+    "Deleting: Delete removes the row at once, with no question first, and the app shows the undo toast, Done: Task 3 deleted from the plan, with Undo for at least 10 seconds. Move focus to the Edit button of the row that took its place, or to Add task when it was the last. Undo puts the item back in its old position and moves focus to its Edit button.",
+    "The order of the items is fixed. Tab moves through each row's Edit and Delete and then Add task. There are no arrow-key bindings.",
+    "When the list cannot be changed, such as after the plan is approved, disable every button and say why in a p with gw-editable-list__note before the list. When there are no items, show an empty state in place of the ol and keep Add task."
+  ],
+  "icons": ["plus"],
+  "classes": [
+    "gw-editable-list",
+    "gw-editable-list__actions",
+    "gw-editable-list__add",
+    "gw-editable-list__editor",
+    "gw-editable-list__editor-actions",
+    "gw-editable-list__item",
+    "gw-editable-list__items",
+    "gw-editable-list__note",
+    "gw-editable-list__text"
+  ]
+}

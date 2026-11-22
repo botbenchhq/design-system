@@ -1,0 +1,86 @@
+/*
+ * Notification list: what happened while the reader was away, as unread first and then earlier.
+ * The rows are list rows from the list component. This stylesheet adds the header with
+ * "Mark all as read", the group headings, the unread mark and the place of a row's one action.
+ */
+
+@layer gw.components {
+  .gw-notification-list {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  /* The title and how many are unread at the start, "Mark all as read" at the far end. */
+  .gw-notification-list__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--gw-space-md);
+    min-height: var(--gw-size-touch);
+  }
+
+  .gw-notification-list__heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  .gw-notification-list__title {
+    font-size: var(--gw-text-lg);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-lg);
+  }
+
+  .gw-notification-list__count {
+    color: var(--gw-color-muted);
+  }
+
+  /* "Unread" and "Earlier", each above its own list. */
+  .gw-notification-list__group {
+    padding: var(--gw-space-md) var(--gw-space-sm) var(--gw-space-xs);
+    border-bottom-width: var(--gw-border-width);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+  }
+
+  /* At compact widths a row's action sits under its text, so the text keeps the width of the row. */
+  .gw-notification-list__item {
+    flex-wrap: wrap;
+  }
+
+  .gw-notification-list__action {
+    flex-basis: 100%;
+    padding: 0 var(--gw-space-sm) var(--gw-space-sm);
+  }
+
+  /* The word says the notification is unread. The dot before it is what the eye finds when scanning down. */
+  .gw-notification-list__unread {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-on-surface);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  .gw-notification-list__unread::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-sm);
+    height: var(--gw-space-sm);
+    border-radius: var(--gw-radius-full);
+    background-color: var(--gw-color-info);
+  }
+
+  @media (min-width: 768px) {
+    .gw-notification-list__action {
+      flex-basis: auto;
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,181 @@
+/*
+ * Check list: the results of automated checks on a run, one row for each check.
+ * A row says the check's name, its result in words beside an icon, and how long it took.
+ * With no modifier a result is one that has not started yet.
+ * The output of a check sits under its row in a details element with a text summary.
+ */
+
+@layer gw.components {
+  .gw-check-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  /* How many passed, of how many, in words. */
+  .gw-check-list__summary {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* One grid for every row, so the results and the durations line up down the list. */
+  .gw-check-list__items {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--gw-space-md);
+  }
+
+  /* At compact widths the name has the first line, and the result and the duration share the second. */
+  .gw-check-list__item {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: center;
+    row-gap: var(--gw-space-xs);
+    padding-block: var(--gw-space-md);
+  }
+
+  .gw-check-list__item + .gw-check-list__item {
+    border-top-width: var(--gw-border-width);
+  }
+
+  .gw-check-list__name {
+    grid-column: 1 / -1;
+    min-width: 0;
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  /* The result in words. The icon is drawn here from the modifier, so a result is never an icon or a colour alone. */
+  .gw-check-list__result {
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-muted);
+  }
+
+  .gw-check-list__result::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/ellipsis.svg") center / contain no-repeat;
+  }
+
+  .gw-check-list__result--skipped::before {
+    mask-image: url("icons/ban.svg");
+  }
+
+  .gw-check-list__result--passed {
+    color: var(--gw-color-success);
+  }
+
+  .gw-check-list__result--passed::before {
+    mask-image: url("icons/circle-check.svg");
+  }
+
+  .gw-check-list__result--failed {
+    color: var(--gw-color-danger);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  .gw-check-list__result--failed::before {
+    mask-image: url("icons/circle-alert.svg");
+  }
+
+  .gw-check-list__result--running {
+    color: var(--gw-color-info);
+  }
+
+  /* The mark has eight spokes, so eight steps a turn moves it one spoke at a time. */
+  .gw-check-list__result--running::before {
+    mask-image: url("icons/loader.svg");
+    animation: gw-check-list-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  @keyframes gw-check-list-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gw-check-list__result--running::before {
+      animation: none;
+    }
+  }
+
+  .gw-check-list__duration {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--gw-leading-xs);
+    text-align: end;
+    white-space: nowrap;
+  }
+
+  /* The output of one check, under its row. The negative margin keeps a row with output from growing a second gap. */
+  .gw-check-list__output {
+    grid-column: 1 / -1;
+    min-width: 0;
+    margin-block: calc(var(--gw-space-xs) * -1) calc(var(--gw-space-md) * -1);
+  }
+
+  .gw-check-list__toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    min-height: var(--gw-size-touch);
+    border-radius: var(--gw-radius-sm);
+    color: var(--gw-color-muted);
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .gw-check-list__toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .gw-check-list__toggle::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+  }
+
+  .gw-check-list__output[open] > .gw-check-list__toggle::before {
+    mask-image: url("icons/chevron-down.svg");
+  }
+
+  @media (hover: hover) {
+    .gw-check-list__toggle:hover {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  /* It wraps, at any character when it has to, so a long line of output never widens the page. */
+  .gw-check-list__log {
+    min-width: 0;
+    margin-bottom: var(--gw-space-md);
+    padding: var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  /* At the regular width a row is one line: the name, then the result and the duration in their own columns. */
+  @media (min-width: 768px) {
+    .gw-check-list__items {
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      column-gap: var(--gw-space-xl);
+    }
+
+    .gw-check-list__name {
+      grid-column: 1;
+    }
+  }
+}

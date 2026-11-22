@@ -1,0 +1,33 @@
+{
+  "name": "otp-input",
+  "title": "One-time-code input",
+  "purpose": "A single input for a short one-time code, drawn with wide letter spacing so each digit can be checked.",
+  "status": "draft",
+  "whenToUse": [
+    "For the code from an authenticator app, a text message or an email, when signing in or confirming a risky change.",
+    "For any short code the reader copies from somewhere else, digit by digit or by pasting."
+  ],
+  "whenNotToUse": [
+    "For a password or a passphrase. Use a password field.",
+    "For a long recovery code or an access token. Use a field with the mono type of a textarea, or a plain field.",
+    "For an amount. Use a number field."
+  ],
+  "variants": [],
+  "sizes": [
+    { "name": "default", "use": "44px tall and at most 242px wide, with 20px mono digits. It fits eight digits." }
+  ],
+  "states": ["default", "focus", "filled", "invalid", "disabled"],
+  "accessibility": [
+    "Use one input with type=\"text\" carrying gw-field__control and gw-otp-input, inside gw-field. The label says where the code comes from, and the description says how many digits it has and where it was sent.",
+    "Set autocomplete=\"one-time-code\", so a phone offers the code from the message it just received, and inputmode=\"numeric\" for the number keys. Use type=\"text\", never type=\"number\": a code may start with a zero and is not an amount.",
+    "Do not set maxlength. A code pasted as 482 913 would lose its last digit. The app strips spaces and hyphens from the value, then checks the length.",
+    "Never split the code across several inputs, and never move focus or send the form by script as the last digit arrives. The reader sends it with the form's button or with Enter.",
+    "For a wrong or expired code, set aria-invalid=\"true\" on the input and link a gw-field__error that says which it was and what to do, with the action it names, such as Send a new code, as a button beside the field. Leave the code in the input so it can be corrected.",
+    "While the code is checked, set disabled on the input and say so in the description with role=\"status\".",
+    "The keyboard is the text input's own, and pasting works as in any field."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-otp-input"
+  ]
+}

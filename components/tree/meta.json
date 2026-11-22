@@ -1,0 +1,50 @@
+{
+  "name": "tree",
+  "title": "Tree",
+  "purpose": "A file tree or an outline whose folders open and close with no script, built on nested details elements.",
+  "status": "draft",
+  "whenToUse": [
+    "For the files of a repository, a worktree or a change set, where the reader opens a folder to find a file.",
+    "For the outline of a long document or a plan, with sections that hold links to their parts.",
+    "Beside the content it navigates, in a sidebar or the list region of a split panel."
+  ],
+  "whenNotToUse": [
+    "For items with no hierarchy. Use a list.",
+    "For the destinations of the app. Use the sidebar nav.",
+    "For one piece of detail that opens in place. Use a disclosure.",
+    "For a hierarchy deeper than two levels of folders. Write the rest of the path into the folder's name, such as src/auth/providers, or open the deep folder as a view of its own.",
+    "Where items must be selected, dragged or renamed in place with the arrow keys. That is an ARIA tree, which this is not: build it as an app-local component."
+  ],
+  "variants": [
+    { "name": "file tree", "use": "The default. Each folder's summary holds a folder icon and each file a file icon, both with gw-tree__icon." },
+    { "name": "outline", "use": "The same markup without the icons, for the sections of a document or a plan." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "Every row is at least 44px tall. Each level is set in 20px behind a rule." }
+  ],
+  "states": ["default", "open", "current", "hover", "focus-visible", "empty", "loading", "error"],
+  "accessibility": [
+    "Use a nav with the class gw-tree and an aria-label that says what the tree holds, or a div where the tree does not navigate. Inside it, a ul with gw-tree__list and one li per row.",
+    "A folder is a details element with gw-tree__branch. Its summary, with gw-tree__summary, holds an optional icon, the name in a span with gw-tree__name, and optionally a fact in words in a span with gw-tree__meta, such as 3 changed files. After the summary comes a nested ul with gw-tree__list.",
+    "A file or an outline entry is an a element with gw-tree__leaf, or a button with type=\"button\" where it selects without navigating. It holds the same icon, name and optional fact.",
+    "This is a disclosure tree, not role=\"tree\". The ARIA tree role would oblige the app to script every key, one tab stop, aria-expanded, aria-level, aria-setsize and aria-posinset, and it reads poorly on touch screen readers. Nested details give a screen reader a list with its item count, a button that says collapsed or expanded, and links, with no script at all.",
+    "Tab moves through the rows that are shown. Enter or Space on a folder opens or closes it, and Enter follows a file's link. There are no arrow-key bindings, and the browser's find-in-page opens a closed folder that holds a match.",
+    "Folders nest at most two levels, the system's limit for disclosures. The checker reports a third as disclosure-depth. Fold a longer path into one folder's name.",
+    "Mark the item in view with aria-current on its leaf: \"page\" for a file that has its own view, \"location\" for a place in the document, \"true\" otherwise. It is drawn with a bar and a heavier name as well as a shade. Open the folders that hold it with the open attribute.",
+    "Icons are decoration and carry aria-hidden=\"true\". A change is written in words, such as 38 added, 12 removed, never as a colour.",
+    "For a folder that is empty, loading or unreadable, put one li with gw-tree__note in its list: a sentence, a spinner with its text, or a sentence with role=\"alert\" and a button that loads again.",
+    "To load a folder's rows when it first opens, the app listens for the details element's toggle event. Nothing else needs script."
+  ],
+  "icons": ["chevron-down", "chevron-right", "file", "folder"],
+  "classes": [
+    "gw-tree",
+    "gw-tree__branch",
+    "gw-tree__icon",
+    "gw-tree__leaf",
+    "gw-tree__list",
+    "gw-tree__meta",
+    "gw-tree__name",
+    "gw-tree__note",
+    "gw-tree__summary"
+  ]
+}

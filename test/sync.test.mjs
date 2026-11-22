@@ -26,17 +26,18 @@ const editJson = (file, change) => edit(file, (json) => JSON.stringify(change(JS
 function laterRelease() {
   const dir = tempDir();
   cpSync(dist, dir, { recursive: true });
-  writeFileSync(join(dir, "VERSION"), "0.3.0\n");
+  writeFileSync(join(dir, "VERSION"), "0.4.0\n");
   editJson(join(dir, "manifest.json"), (manifest) => ({
     ...manifest,
     rules: [...manifest.rules.filter((id) => id !== "stock-phrase"), "placeholder-as-label"],
   }));
-  editJson(join(dir, "components.json"), ({ components }) => ({
+  editJson(join(dir, "components.json"), ({ components, ...rest }) => ({
+    ...rest,
     components: [
       ...components
         .filter(({ name }) => name !== "spinner")
         .map((component) => (component.name === "button" ? { ...component, purpose: "An action." } : component)),
-      { ...components[0], name: "calendar" },
+      { ...components[0], name: "chart" },
     ],
   }));
   return dir;
@@ -50,15 +51,15 @@ function guideBlock(language, marker) {
 }
 
 test("the build writes the package version to dist/VERSION", () => {
-  assert.equal(version, "0.2.0");
-  assert.equal(readFileSync(join(dist, "VERSION"), "utf8"), "0.2.0\n");
+  assert.equal(version, "0.3.0");
+  assert.equal(readFileSync(join(dist, "VERSION"), "utf8"), "0.3.0\n");
 });
 
 test("syncing into an empty directory produces a copy whose hashes verify", () => {
   const target = join(tempDir(), "vendor", "groundwork");
   const { status, stdout } = sync(["--to", target]);
   assert.equal(status, 0);
-  assert.match(stdout, /^Groundwork 0\.2\.0, first sync into /);
+  assert.match(stdout, /^Groundwork 0\.3\.0, first sync into /);
 
   const { files } = JSON.parse(readFileSync(join(target, "hashes.json"), "utf8"));
   assert.deepEqual(Object.keys(files), listFiles(dist));
@@ -76,16 +77,16 @@ test("syncing a newer version over an older one prints the component and rule ch
   const { status, stdout } = sync(["--to", target, "--from", laterRelease()]);
   assert.equal(status, 0);
   const lines = stdout.trim().split("\n");
-  assert.match(lines[0], /^Groundwork 0\.2\.0 -> 0\.3\.0 in /);
+  assert.match(lines[0], /^Groundwork 0\.3\.0 -> 0\.4\.0 in /);
   assert.deepEqual(lines.slice(1, 6), [
-    "Components added: calendar",
+    "Components added: chart",
     "Components changed: button",
     "Components removed: spinner",
     "Rules added: placeholder-as-label",
     "Rules removed: stock-phrase",
   ]);
   assert.match(lines[6], /^Wrote \d+ files/);
-  assert.equal(readFileSync(join(target, "VERSION"), "utf8"), "0.3.0\n");
+  assert.equal(readFileSync(join(target, "VERSION"), "utf8"), "0.4.0\n");
   assert.deepEqual(verifyVendored(target), []);
 });
 
@@ -115,7 +116,7 @@ test("syncing into a directory with locally modified files stops and names them"
   assert.match(stderr, /^  checker\/rules\/tells\.mjs$/m);
   assert.equal(stdout, "");
   assert.equal(readFileSync(join(target, "groundwork.css"), "utf8"), edited);
-  assert.equal(readFileSync(join(target, "VERSION"), "utf8"), "0.2.0\n");
+  assert.equal(readFileSync(join(target, "VERSION"), "utf8"), "0.3.0\n");
 });
 
 test("syncing into a directory that holds files and is not a synced copy stops", () => {
@@ -133,7 +134,7 @@ test("syncing the same version twice changes nothing", () => {
   const before = Object.fromEntries(["hashes.json", ...listFiles(dist)].map((name) => [name, statSync(join(target, name)).mtimeMs]));
   const { status, stdout } = sync(["--to", target]);
   assert.equal(status, 0);
-  assert.match(stdout, /is already at 0\.2\.0\. Nothing to change\.\n$/);
+  assert.match(stdout, /is already at 0\.3\.0\. Nothing to change\.\n$/);
   assert.deepEqual(listFiles(target), ["hashes.json", ...listFiles(dist)].sort());
   for (const [name, time] of Object.entries(before)) assert.equal(statSync(join(target, name)).mtimeMs, time, name);
 });
@@ -143,7 +144,7 @@ test("the freshness check says so when the source is newer, and is silent when i
   sync(["--to", target]);
   const newer = sync(["--check", "--to", target, "--from", laterRelease()]);
   assert.equal(newer.status, 0);
-  assert.match(newer.stdout, /^Groundwork 0\.3\.0 is available\. .* holds 0\.2\.0\./);
+  assert.match(newer.stdout, /^Groundwork 0\.4\.0 is available\. .* holds 0\.3\.0\./);
 
   const same = sync(["--check", "--to", target]);
   assert.deepEqual([same.status, same.stdout], [0, ""]);

@@ -1,4 +1,4 @@
-// Generates everything in dist/ from tokens/, base/, components/, gallery/, behaviors/, checker/, rules/ and hooks/. Run with `npm run build`.
+// Generates everything in dist/ from tokens/, base/, components/, patterns/, gallery/, behaviors/, checker/, rules/ and hooks/. Run with `npm run build`.
 // `npm run vendor` refreshes the font and icon files under base/ from node_modules.
 
 import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
@@ -50,6 +50,10 @@ const COMPONENT_FIELDS = {
   accessibility: "list", icons: "list", classes: "list",
 };
 const STATUSES = ["draft", "stable"];
+
+// The two kinds of folder built to the authoring contract, and the directory each lives in.
+// A page pattern is a whole screen composed from components. Its meta.json says "kind": "pattern".
+const KINDS = { component: "components", pattern: "patterns" };
 
 // The gallery's own stylesheet and script, copied from gallery/ beside the generated pages.
 const GALLERY_FILES = ["gallery.css", "gallery.js"];
@@ -450,7 +454,11 @@ function iconsIn(css, examples) {
 
 const same = (a, b) => JSON.stringify([...a].sort()) === JSON.stringify([...b].sort());
 
-function checkComponent(name, { meta, css, examples }, iconNames) {
+function checkComponent(name, { meta, css, examples }, iconNames, kind = "component") {
+  if (kind === "pattern" && meta.kind !== "pattern") throw new Error('meta.json of a pattern needs "kind": "pattern"');
+  if (kind === "component" && meta.kind !== undefined && meta.kind !== "component") {
+    throw new Error(`meta.json has the kind "${meta.kind}". A folder in components/ is a component. A pattern goes in patterns/`);
+  }
   for (const [field, type] of Object.entries(COMPONENT_FIELDS)) {
     const present = type === "list" ? Array.isArray(meta[field]) : typeof meta[field] === "string" && meta[field] !== "";
     if (!present) throw new Error(`meta.json needs ${field} as ${type === "list" ? "a list" : "text"}`);
@@ -492,45 +500,66 @@ function checkComponent(name, { meta, css, examples }, iconNames) {
   if (!same(used, meta.icons)) throw new Error(`meta.json lists the icons [${meta.icons.join(", ")}], and the stylesheet and examples use [${used.join(", ")}]`);
 }
 
-// Every component folder, read and checked against the authoring contract: [{ name, meta, css, examples }].
+// Every folder of one kind, read and checked against the authoring contract: [{ name, meta, css, examples }].
 // An error names the folder.
-export function readComponents(root = repoRoot) {
+function readFolders(root, kind) {
+  const dir = KINDS[kind];
+  if (!existsSync(join(root, dir))) return [];
   const iconNames = JSON.parse(readFileSync(join(root, "base", "icons.json"), "utf8"));
-  const folders = readdirSync(join(root, "components"), { withFileTypes: true })
+  const folders = readdirSync(join(root, dir), { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
     .sort();
   return folders.map((name) => {
     try {
       const read = (file) => {
-        const path = join(root, "components", name, file);
-        if (!existsSync(path)) throw new Error(`${file} is missing. A component is ${name}.css, examples.html and meta.json`);
+        const path = join(root, dir, name, file);
+        if (!existsSync(path)) throw new Error(`${file} is missing. A ${kind} is ${name}.css, examples.html and meta.json`);
         return readFileSync(path, "utf8");
       };
-      const component = { name, meta: JSON.parse(read("meta.json")), css: read(`${name}.css`), examples: parseExamples(read("examples.html")) };
-      checkComponent(name, component, iconNames);
-      return component;
+      const folder = { name, meta: JSON.parse(read("meta.json")), css: read(`${name}.css`), examples: parseExamples(read("examples.html")) };
+      checkComponent(name, folder, iconNames, kind);
+      return folder;
     } catch (error) {
-      throw new Error(`components/${name}: ${error.message}`);
+      throw new Error(`${dir}/${name}: ${error.message}`);
     }
   });
 }
 
-// One entry per component: its metadata and the markup of each do example, for an agent to copy.
-function componentIndex(components) {
-  return {
-    components: components.map(({ meta, examples }) => ({
-      ...Object.fromEntries(Object.keys(COMPONENT_FIELDS).map((field) => [field, meta[field]])),
-      examples: examples
-        .filter((example) => !example.dont)
-        .map(({ id, title, state, reason, markup }) => ({ id, title, ...(state && { state }), ...(reason && { reason }), markup })),
-    })),
-  };
+// Every component folder.
+export function readComponents(root = repoRoot) {
+  return readFolders(root, "component");
+}
+
+// Every page pattern folder. A pattern shares the gallery, the class list and the index with the components,
+// so it cannot take the name of one.
+export function readPatterns(root = repoRoot) {
+  const taken = new Set(readdirSync(join(root, KINDS.component)));
+  const patterns = readFolders(root, "pattern");
+  for (const { name } of patterns) {
+    if (taken.has(name)) throw new Error(`patterns/${name}: components/${name} has the same name. A component and a pattern cannot share one`);
+  }
+  return patterns;
+}
+
+// One entry per component and one per pattern: its metadata and the markup of each do example, for an agent to copy.
+// Components keep their own list, so a reader of `components` sees what it always has. A pattern entry also says
+// "kind": "pattern".
+function componentIndex(components, patterns) {
+  const entry = ({ meta, examples }) => ({
+    ...Object.fromEntries(Object.keys(COMPONENT_FIELDS).map((field) => [field, meta[field]])),
+    ...(meta.kind === "pattern" && { kind: "pattern" }),
+    examples: examples
+      .filter((example) => !example.dont)
+      .map(({ id, title, state, reason, markup }) => ({ id, title, ...(state && { state }), ...(reason && { reason }), markup })),
+  });
+  return { components: components.map(entry), patterns: patterns.map(entry) };
 }
 
 const galleryIcon = (name) => `<svg aria-hidden="true"><use href="../icons.svg#gw-icon-${name}"></use></svg>`;
 
-function galleryPage(title, body) {
+// Every gallery page loads each behaviour module, so an example wrapped in one of their elements works.
+function galleryPage(title, body, behaviors) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -540,7 +569,7 @@ function galleryPage(title, body) {
 <link rel="stylesheet" href="../groundwork.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+${behaviors.map((name) => `<script type="module" src="../behaviors/${name}"></script>`).join("\n")}
 </head>
 <body>
 <header data-gallery="bar">
@@ -576,7 +605,9 @@ function galleryExample(example) {
   ].join("\n");
 }
 
-function galleryComponent({ meta, examples }) {
+// A pattern is a whole screen, so its examples run down the page in one column. A component's sit two abreast.
+function galleryComponent({ meta, examples }, behaviors) {
+  const columns = meta.kind === "pattern" ? "gw-grid" : "gw-grid gw-grid-2";
   const options = (heading, items) =>
     items.length === 0
       ? []
@@ -589,7 +620,7 @@ function galleryComponent({ meta, examples }) {
         ];
   return galleryPage(`${meta.title} - Groundwork gallery`, [
     `<header>\n<h1>${escapeHtml(meta.title)}</h1>\n<p>${escapeHtml(meta.purpose)}</p>\n<p data-gallery="status">Status: ${meta.status}</p>\n</header>`,
-    `<section>\n<h2>Examples</h2>\n<div class="gw-grid gw-grid-2">\n${examples.map(galleryExample).join("\n")}\n</div>\n</section>`,
+    `<section>\n<h2>Examples</h2>\n<div class="${columns}">\n${examples.map(galleryExample).join("\n")}\n</div>\n</section>`,
     `<div class="gw-grid gw-grid-2">`,
     `<section>\n<h2>When to use it</h2>\n${galleryList(meta.whenToUse)}\n</section>`,
     `<section>\n<h2>When not to use it</h2>\n${galleryList(meta.whenNotToUse)}\n</section>`,
@@ -598,18 +629,25 @@ function galleryComponent({ meta, examples }) {
     `<section>\n<h2>Accessibility</h2>\n${galleryList(meta.accessibility)}\n</section>`,
     `<section>\n<h2>Classes</h2>\n<ul>\n${meta.classes.map((item) => `<li><code>${escapeHtml(item)}</code></li>`).join("\n")}\n</ul>\n</section>`,
     "</div>",
-  ].join("\n"));
+  ].join("\n"), behaviors);
 }
 
-function galleryIndex(components) {
-  const rows = components.map(
-    ({ name, meta }) =>
-      `<li><a href="${name}.html">${escapeHtml(meta.title)}</a> <span>${escapeHtml(meta.purpose)}</span> <span data-gallery="status">${meta.status}</span></li>`,
-  );
+function galleryIndex(components, patterns, behaviors) {
+  const rows = (folders) =>
+    folders.map(
+      ({ name, meta }) =>
+        `<li><a href="${name}.html">${escapeHtml(meta.title)}</a> <span>${escapeHtml(meta.purpose)}</span> <span data-gallery="status">${meta.status}</span></li>`,
+    );
   return galleryPage("Groundwork gallery", [
     "<header>\n<h1>Components</h1>\n<p>Each page shows a component in every variant and state, with a do and a don't.</p>\n</header>",
-    `<ul data-gallery="index">\n${rows.join("\n")}\n</ul>`,
-  ].join("\n"));
+    `<ul data-gallery="index">\n${rows(components).join("\n")}\n</ul>`,
+    ...(patterns.length === 0
+      ? []
+      : [
+          "<header>\n<h2>Page patterns</h2>\n<p>Each page shows a whole screen composed from the components, in every state, with a do and a don't.</p>\n</header>",
+          `<ul data-gallery="index">\n${rows(patterns).join("\n")}\n</ul>`,
+        ]),
+  ].join("\n"), behaviors);
 }
 
 // Every file under dir, as a path relative to it with forward slashes.
@@ -652,7 +690,11 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   const iconNames = JSON.parse(readFileSync(join(base, "icons.json"), "utf8"));
   const icons = Object.fromEntries(iconNames.map((name) => [name, readFileSync(join(base, "icons", `${name}.svg`))]));
   const components = readComponents(root);
-  const classes = [...new Set([...baseStyles.flatMap(classesIn), ...components.flatMap(({ meta }) => meta.classes)])].sort();
+  const patterns = readPatterns(root);
+  const folders = [...components, ...patterns];
+  const classes = [...new Set([...baseStyles.flatMap(classesIn), ...folders.flatMap(({ meta }) => meta.classes)])].sort();
+  const behaviors = listFiles(join(root, "behaviors"));
+  const modules = behaviors.filter((name) => name.endsWith(".js"));
   const checker = join(root, "checker");
   const { version } = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
   const coreRules = readFileSync(join(root, "rules", "core.md"), "utf8");
@@ -662,7 +704,8 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
 
   const files = {
     "tokens.css": source,
-    "groundwork.css": [source, ...baseStyles, ...components.map(({ css }) => css)].join("\n"),
+    // Patterns come after every component, so a pattern's layout wins over a component it arranges.
+    "groundwork.css": [source, ...baseStyles, ...folders.map(({ css }) => css)].join("\n"),
     "icons.svg": sprite(icons),
     "icons/LICENSE": readFileSync(join(base, "icons", "LICENSE")),
     "tokens.json": json(tokenData(groups, tokens)),
@@ -670,11 +713,11 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
     "tailwind-preset.d.ts": presetTypes(preset),
     "design-tokens.md": designTokens(groups, tokens),
     "manifest.json": json(manifest(groups, tokens, classes, ruleIds(checker))),
-    "components.json": json(componentIndex(components)),
-    "gallery/index.html": galleryIndex(components),
+    "components.json": json(componentIndex(components, patterns)),
+    "gallery/index.html": galleryIndex(components, patterns, modules),
     VERSION: `${version}\n`,
   };
-  for (const component of components) files[`gallery/${component.name}.html`] = galleryComponent(component);
+  for (const folder of folders) files[`gallery/${folder.name}.html`] = galleryComponent(folder, modules);
   for (const name of GALLERY_FILES) files[`gallery/${name}`] = readFileSync(join(root, "gallery", name));
   for (const [name, svg] of Object.entries(icons)) files[`icons/${name}.svg`] = svg;
   for (const name of Object.keys(FONT_SOURCES)) files[`fonts/${name}`] = readFileSync(join(base, "fonts", name));
@@ -686,8 +729,8 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   for (const name of listFiles(join(root, "rules")).filter((file) => file.endsWith(".md"))) {
     files[`rules/${name}`] = readFileSync(join(root, "rules", name));
   }
-  // The optional behaviours module, for an app without a framework.
-  for (const name of listFiles(join(root, "behaviors"))) files[`behaviors/${name}`] = readFileSync(join(root, "behaviors", name));
+  // The optional behaviour modules, for an app without a framework.
+  for (const name of behaviors) files[`behaviors/${name}`] = readFileSync(join(root, "behaviors", name));
   for (const name of listFiles(join(root, "hooks"))) files[`hooks/${name}`] = readFileSync(join(root, "hooks", name));
 
   rmSync(outDir, { recursive: true, force: true });

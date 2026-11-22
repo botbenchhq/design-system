@@ -1,0 +1,46 @@
+{
+  "name": "calendar",
+  "title": "Calendar",
+  "purpose": "One month as a grid of days, for picking a single day.",
+  "status": "draft",
+  "whenToUse": [
+    "To pick a day near today where the weekday matters, such as the day a scheduled run starts or the day a report begins.",
+    "Inside a popover or a sheet opened from a field, or straight in a form."
+  ],
+  "whenNotToUse": [
+    "For a date the reader already knows, such as a date of birth or a date far from today. Use a text input with type=\"date\" in a field.",
+    "For a time of day. Use a text input with type=\"time\" or a select.",
+    "For a choice from a few fixed periods, such as the last 7 or 30 days. Use a segmented control or a select.",
+    "To show what happened on each day. This is a picker, not a schedule: use a list or a table grouped by day."
+  ],
+  "variants": [
+    { "name": "buttons", "use": "The default. A plain table whose days are buttons with aria-pressed. It works with no script beyond handling the press." },
+    { "name": "grid", "use": "The same markup with role=\"grid\" on the table, aria-selected on the selected day's cell and one day in the tab order. Use it when the app provides the arrow keys." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "Each day is 44px tall and at least 44px wide. The month is 308px to 352px wide, which fits a 390px phone with its margins." }
+  ],
+  "states": ["default", "hover", "focus-visible", "selected", "disabled"],
+  "accessibility": [
+    "Use a div with gw-calendar, role=\"group\" and an aria-label that says what the day is for, such as Day the report starts. It holds gw-calendar__header, the table and gw-calendar__status.",
+    "gw-calendar__header holds the previous-month button, a p with gw-calendar__title and aria-live=\"polite\" naming the month and year, and the next-month button. Each button is a quiet icon button whose aria-label names the month it goes to: Previous month, October 2026. When the month changes the app rewrites the title and the table, and the title is announced.",
+    "The month is a table with gw-calendar__grid and aria-labelledby pointing at the title. Its thead has one th with scope=\"col\" and gw-calendar__weekday for each weekday, holding a two-letter name with aria-hidden=\"true\" and the full name in a gw-visually-hidden span. Each week is a tr of seven td. A cell outside the month is an empty td.",
+    "Each day is a button with type=\"button\" and gw-calendar__day, showing the day's number. Its aria-label is the full date with the weekday: Tuesday 24 November 2026. The app writes these, so the stylesheet holds no date arithmetic.",
+    "Today carries aria-current=\"date\", and its aria-label ends with the word today: Sunday 22 November 2026, today. The stylesheet draws a ring on it, so today is marked by a shape for the eye and in words for a screen reader.",
+    "The selected day carries aria-pressed=\"true\" and every other day aria-pressed=\"false\". The app also writes the choice in words into gw-calendar__status, a p with role=\"status\": Chosen: Tuesday 24 November 2026.",
+    "A day that cannot be chosen has the disabled attribute and is struck through. Say why near the calendar, such as Runs can be scheduled from today. Disable the previous-month or next-month button when every day that way is unavailable.",
+    "With no script the keyboard still works: Tab moves through the two month buttons and every day, and Enter or Space chooses a day.",
+    "The arrow keys are the app's to provide, with the grid variant: set role=\"grid\" on the table, move the selection to aria-selected=\"true\" on the day's td in place of aria-pressed, and give every day tabindex=\"-1\" except one, which is the selected day, or else today, or else the first day that can be chosen. Left and Right move focus one day, Up and Down one week, Home and End to the start and the end of the week, Page Up and Page Down one month, and Shift with Page Up or Page Down one year. Moving past either end of the month shows the next month and keeps focus on the day reached. A day that cannot be chosen takes aria-disabled=\"true\" in place of disabled, so the arrows can cross it, and the app ignores presses on it. Enter and Space choose the focused day.",
+    "When the calendar is in a popover or a sheet, choosing a day closes it and returns focus to the control that opened it. Escape closes it and changes nothing."
+  ],
+  "icons": ["chevron-left", "chevron-right"],
+  "classes": [
+    "gw-calendar",
+    "gw-calendar__day",
+    "gw-calendar__grid",
+    "gw-calendar__header",
+    "gw-calendar__status",
+    "gw-calendar__title",
+    "gw-calendar__weekday"
+  ]
+}

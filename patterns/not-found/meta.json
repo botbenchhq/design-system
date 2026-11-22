@@ -1,0 +1,32 @@
+{
+  "name": "not-found",
+  "title": "Not found",
+  "kind": "pattern",
+  "purpose": "The screen for a missing page or a missing item: what was not found in plain words, why that might be, one primary way forward and a quiet second link.",
+  "status": "draft",
+  "whenToUse": [
+    "When an address matches no screen in the app.",
+    "When the screen exists and the item it should show does not, such as a deleted run, or one in a repository the reader cannot see.",
+    "Inside the app's usual header, so the reader still has the app's own ways out."
+  ],
+  "whenNotToUse": [
+    "When the item may exist and loading it failed. Use an error state with Retry, so the reader is not told something is gone when it may not be.",
+    "When a list or a search has no results. Use an empty state in place of the results, as the filter and results pattern does.",
+    "When the reader is signed out. Send them to the sign-in screen and bring them back afterwards.",
+    "For a section of a view that has nothing in it. Use an empty state in that section."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "missing-item"],
+  "accessibility": [
+    "In an app the element with gw-not-found is the main element, under the app header. It holds an empty state and then one quiet link.",
+    "The empty state's title is the page's h1. It says what was not found, naming the address or the item: Run 4182 was not found. A status code is not a title. Put the same words in the document title, and send the 404 status with the page.",
+    "The body is one or two sentences giving the likely reasons, and what the reader can do when the reason is access. It does not blame the reader and makes no joke.",
+    "The one action in the empty state is a link with the primary button classes, to a screen that exists and that most readers want next, such as the list the item belonged to. It names where it goes. Never use Go back, which may return to the broken link.",
+    "The second way forward is a gw-link gw-link--quiet after the empty state, such as a search with the missing name already filled in.",
+    "Do not tell a reader without access whether the item exists. Use the same words for a deleted item and for one they may not see.",
+    "There is no illustration and no icon. When the page loads, focus starts at the top of the document as usual, and Tab reaches the header, the primary link, then the quiet link."
+  ],
+  "icons": ["chevron-left"],
+  "classes": ["gw-not-found"]
+}

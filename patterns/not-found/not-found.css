@@ -1,0 +1,14 @@
+/*
+ * Not found: what a missing page or a missing item shows.
+ * It is an empty state at the top of the content, with one more link under it. This file only
+ * joins the two, so the link sits with the message and not a whole section away from it.
+ */
+
+@layer gw.components {
+  .gw-not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: var(--gw-size-column);
+  }
+}

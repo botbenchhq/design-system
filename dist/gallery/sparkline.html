@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sparkline - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Sparkline</h1>
+<p>A small trend line beside a value, with words that say the trend and the latest value.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Beside the value of a stat</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The number says where the value is now, the line shows how it got there, and the words under it say both, so nothing depends on reading the shape of a 16px drawing.</p>
+</figcaption>
+<div data-example="stat" data-title="Beside the value of a stat" data-state="default" data-reason="The number says where the value is now, the line shows how it got there, and the words under it say both, so nothing depends on reading the shape of a 16px drawing.">
+  <div class="gw-stat">
+    <p class="gw-stat__label">Median run time</p>
+    <p class="gw-stat__value">6 min 12 s</p>
+    <p class="gw-stat__context">
+      <span class="gw-sparkline">
+        <svg class="gw-sparkline__chart" viewBox="0 0 64 16" aria-hidden="true" focusable="false">
+          <polyline class="gw-sparkline__line" points="2,14 12,12.4 22,13 32,9.2 42,7 52,5.6 62,2"></polyline>
+          <circle class="gw-sparkline__last" cx="62" cy="2" r="2"></circle>
+        </svg>
+        <span class="gw-sparkline__text">Rising over the last 7 runs, from 4 min 10 s to 6 min 12 s</span>
+      </span>
+    </p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>In a table cell, with the words for screen readers</h3>
+</figcaption>
+<div data-example="table" data-title="In a table cell, with the words for screen readers">
+  <table class="gw-data-table">
+    <caption class="gw-data-table__caption">Run time by repository, last 7 runs</caption>
+    <thead>
+      <tr>
+        <th scope="col">Repository</th>
+        <th scope="col" class="gw-data-table__numeric">Latest run</th>
+        <th scope="col">Trend</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">acme/api</th>
+        <td class="gw-data-table__numeric" data-label="Latest run">6 min 12 s</td>
+        <td data-label="Trend">
+          <span class="gw-sparkline">
+            <svg class="gw-sparkline__chart" viewBox="0 0 64 16" aria-hidden="true" focusable="false">
+              <polyline class="gw-sparkline__line" points="2,14 12,12.4 22,13 32,9.2 42,7 52,5.6 62,2"></polyline>
+              <circle class="gw-sparkline__last" cx="62" cy="2" r="2"></circle>
+            </svg>
+            <span class="gw-visually-hidden">Rising over the last 7 runs, from 4 min 10 s to 6 min 12 s</span>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">acme/web</th>
+        <td class="gw-data-table__numeric" data-label="Latest run">2 min 48 s</td>
+        <td data-label="Trend">
+          <span class="gw-sparkline">
+            <svg class="gw-sparkline__chart" viewBox="0 0 64 16" aria-hidden="true" focusable="false">
+              <polyline class="gw-sparkline__line" points="2,2 12,3.5 22,6 32,5 42,9.5 52,12 62,14"></polyline>
+              <circle class="gw-sparkline__last" cx="62" cy="14" r="2"></circle>
+            </svg>
+            <span class="gw-visually-hidden">Falling over the last 7 runs, from 4 min 30 s to 2 min 48 s</span>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">acme/billing</th>
+        <td class="gw-data-table__numeric" data-label="Latest run">3 min 5 s</td>
+        <td data-label="Trend">
+          <span class="gw-sparkline">
+            <svg class="gw-sparkline__chart" viewBox="0 0 64 16" aria-hidden="true" focusable="false">
+              <polyline class="gw-sparkline__line" points="2,8 12,6 22,9 32,7.5 42,8.5 52,7 62,8"></polyline>
+              <circle class="gw-sparkline__last" cx="62" cy="8" r="2"></circle>
+            </svg>
+            <span class="gw-visually-hidden">Steady over the last 7 runs, between 2 min 58 s and 3 min 10 s</span>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>In a line of text, after the value</h3>
+</figcaption>
+<div data-example="inline" data-title="In a line of text, after the value">
+  <p>
+    Tokens for each run: <strong>18,420</strong>
+    <span class="gw-sparkline">
+      <svg class="gw-sparkline__chart" viewBox="0 0 64 16" aria-hidden="true" focusable="false">
+        <polyline class="gw-sparkline__line" points="2,4 8.7,2 15.3,6 22,5 28.7,9 35.3,8 42,11 48.7,10 55.3,13 62,14"></polyline>
+        <circle class="gw-sparkline__last" cx="62" cy="14" r="2"></circle>
+      </svg>
+      <span class="gw-sparkline__text">Falling over the last 10 runs, from 31,900</span>
+    </span>
+  </p>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Too few values for a trend</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="Too few values for a trend" data-state="empty">
+  <div class="gw-stat">
+    <p class="gw-stat__label">Median run time</p>
+    <p class="gw-stat__value">5 min 40 s</p>
+    <p class="gw-stat__context">
+      <span class="gw-sparkline">
+        <span class="gw-sparkline__text">1 run so far. A trend appears after the second run.</span>
+      </span>
+    </p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A line with no words</h3>
+<p>The drawing is hidden from a screen reader, so this says nothing to one, and a sighted reader cannot tell what is measured, over how long, or where the value is now. Put the value beside it and say the trend in words.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="no-words" data-title="A line with no words" data-dont="review" data-reason="The drawing is hidden from a screen reader, so this says nothing to one, and a sighted reader cannot tell what is measured, over how long, or where the value is now. Put the value beside it and say the trend in words.">
+  <div class="gw-stat">
+    <p class="gw-stat__label">Run time</p>
+    <p class="gw-stat__context">
+      <span class="gw-sparkline">
+        <svg class="gw-sparkline__chart" viewBox="0 0 64 16" aria-hidden="true" focusable="false">
+          <polyline class="gw-sparkline__line" points="2,14 12,12.4 22,13 32,9.2 42,7 52,5.6 62,2"></polyline>
+          <circle class="gw-sparkline__last" cx="62" cy="2" r="2"></circle>
+        </svg>
+      </span>
+    </p>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>Beside a number in a table cell or a stat, to show how it moved over the last few runs or days.</li>
+<li>For one series of 5 to 30 points where the shape matters and the single values do not.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>By itself, with no value and no words. The line cannot be read as a number.</li>
+<li>When the reader needs single values, axes or more than one series. Use a table, or a chart the app builds for the purpose.</li>
+<li>For progress towards a known total. Use the progress bar or the usage meter.</li>
+<li>For one number with its comparison and nothing over time. Use the stat alone.</li>
+<li>As decoration on a card or a heading.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>with words</dt>
+<dd>The default. gw-sparkline__text after the drawing says the trend, the period and the latest value in a short visible line.</dd>
+<dt>words for screen readers only</dt>
+<dd>The same sentence in a span with gw-visually-hidden in place of gw-sparkline__text, where the value and the period are already visible in the same row and a table has no room for the line of text.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>64px wide and 16px tall, with a 1.5px line. It fits a table row and a line of text without adding height.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a span with the class gw-sparkline holding the svg and then the words. The svg carries aria-hidden=&quot;true&quot; and focusable=&quot;false&quot;: the drawing is not announced, and the words carry everything it shows.</li>
+<li>The words are required. They say the direction, the period and the latest value with its unit, such as Rising over the last 7 runs, now 6 min 12 s. Put them in gw-sparkline__text, or in gw-visually-hidden when the same row already shows the value. Direction is a word, Rising, Falling or Steady, never the line's slope or a colour alone.</li>
+<li>The app generates the svg: viewBox=&quot;0 0 64 16&quot;, one polyline with the class gw-sparkline__line, and one circle with the class gw-sparkline__last and r=&quot;2&quot; on the last point. Spread the points evenly from x=2 to x=62 and scale the values so the lowest is at y=14 and the highest at y=2. When every value is the same, draw the line at y=8.</li>
+<li>The line and the dot are drawn in the main text colour through currentColor, in both themes. Do not set a stroke or fill attribute, and do not add a fill under the line, a gradient, grid lines or an animation.</li>
+<li>Do not colour the line by whether the change is good or bad. If that judgement matters, write it in the words.</li>
+<li>With fewer than two values there is no line. Leave the svg out and write that in gw-sparkline__text: Not enough runs for a trend yet.</li>
+<li>The component has no controls and needs no script beyond generating the points.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-sparkline</code></li>
+<li><code>gw-sparkline__chart</code></li>
+<li><code>gw-sparkline__last</code></li>
+<li><code>gw-sparkline__line</code></li>
+<li><code>gw-sparkline__text</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

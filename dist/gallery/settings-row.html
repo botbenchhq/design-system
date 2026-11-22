@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings row - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Settings row</h1>
+<p>One setting as a row: its label and a one-line description, with a single control or a status at the far end.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A group of settings under a heading</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each row is one setting with one control, and each change saves by itself, so the page has no Save button to forget. The labels line up at the start and the controls at the far end, so the reader can scan either.</p>
+</figcaption>
+<div data-example="group" data-title="A group of settings under a heading" data-state="default" data-reason="Each row is one setting with one control, and each change saves by itself, so the page has no Save button to forget. The labels line up at the start and the controls at the far end, so the reader can scan either.">
+  <div class="gw-settings-row__group" role="group" aria-labelledby="settings-row-group-heading">
+    <h3 class="gw-settings-row__heading" id="settings-row-group-heading">Runs</h3>
+    <div class="gw-settings-row">
+      <div class="gw-switch">
+        <label class="gw-switch__label" for="settings-row-group-read-only">Auto-approve read-only commands</label>
+        <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+        <input class="gw-switch__input" type="checkbox" role="switch" id="settings-row-group-read-only" name="auto-approve-read-only" checked aria-describedby="settings-row-group-read-only-description">
+        <p class="gw-switch__description" id="settings-row-group-read-only-description">Commands such as git status and ls run without asking.</p>
+      </div>
+    </div>
+    <div class="gw-settings-row">
+      <div class="gw-settings-row__text">
+        <label class="gw-settings-row__label" for="settings-row-group-base">Default base branch</label>
+        <p class="gw-settings-row__description" id="settings-row-group-base-description">New tasks branch from here unless the task names another.</p>
+      </div>
+      <div class="gw-settings-row__control">
+        <div class="gw-select">
+          <select class="gw-field__control gw-select__control" id="settings-row-group-base" name="base" aria-describedby="settings-row-group-base-description">
+            <option value="main" selected>main</option>
+            <option value="develop">develop</option>
+            <option value="release/2026-11">release/2026-11</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="gw-settings-row">
+      <div class="gw-switch">
+        <label class="gw-switch__label" for="settings-row-group-draft">Open pull requests as drafts</label>
+        <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+        <input class="gw-switch__input" type="checkbox" role="switch" id="settings-row-group-draft" name="draft-pull-requests" aria-describedby="settings-row-group-draft-description">
+        <p class="gw-switch__description" id="settings-row-group-draft-description">A draft is not sent to reviewers until you mark it ready.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A button and a status</h3>
+</figcaption>
+<div data-example="accounts" data-title="A button and a status">
+  <div class="gw-settings-row__group" role="group" aria-labelledby="settings-row-accounts-heading">
+    <h3 class="gw-settings-row__heading" id="settings-row-accounts-heading">Connected accounts</h3>
+    <div class="gw-settings-row">
+      <div class="gw-settings-row__text">
+        <p class="gw-settings-row__label">Claude</p>
+        <p class="gw-settings-row__description">Runs are billed to this account.</p>
+      </div>
+      <div class="gw-settings-row__control">
+        <p class="gw-settings-row__status">Signed in as mira@acme.dev</p>
+      </div>
+    </div>
+    <div class="gw-settings-row">
+      <div class="gw-settings-row__text">
+        <p class="gw-settings-row__label">GitHub</p>
+        <p class="gw-settings-row__description" id="settings-row-accounts-github-description">Not connected. Needed to push branches and open pull requests.</p>
+      </div>
+      <div class="gw-settings-row__control">
+        <button type="button" class="gw-button" aria-describedby="settings-row-accounts-github-description">Connect GitHub</button>
+      </div>
+    </div>
+    <div class="gw-settings-row">
+      <div class="gw-settings-row__text">
+        <p class="gw-settings-row__label">Linear</p>
+        <p class="gw-settings-row__description" id="settings-row-accounts-linear-description">Connected to the Acme workspace. Tasks link back to their issues.</p>
+      </div>
+      <div class="gw-settings-row__control">
+        <button type="button" class="gw-button" aria-describedby="settings-row-accounts-linear-description">Disconnect Linear</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A destructive setting, in a group of its own</h3>
+<p>The destructive setting is apart from the everyday ones, its label carries a warning mark as well as the button's colour, and the description says exactly what is lost. The button opens a confirm dialog and deletes nothing by itself.</p>
+</figcaption>
+<div data-example="danger" data-title="A destructive setting, in a group of its own" data-reason="The destructive setting is apart from the everyday ones, its label carries a warning mark as well as the button's colour, and the description says exactly what is lost. The button opens a confirm dialog and deletes nothing by itself.">
+  <div class="gw-settings-row__group" role="group" aria-labelledby="settings-row-danger-heading">
+    <h3 class="gw-settings-row__heading" id="settings-row-danger-heading">Delete</h3>
+    <div class="gw-settings-row gw-settings-row--danger">
+      <div class="gw-settings-row__text">
+        <p class="gw-settings-row__label">Delete the workspace acme-api</p>
+        <p class="gw-settings-row__description" id="settings-row-danger-description">Removes /srv/workspaces/acme-api and its 3 worktrees from disk. Branches already pushed stay on GitHub.</p>
+      </div>
+      <div class="gw-settings-row__control">
+        <button type="button" class="gw-button gw-button--danger" aria-describedby="settings-row-danger-description">Delete workspace</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Settings that cannot be changed yet</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Settings that cannot be changed yet" data-state="disabled">
+  <div class="gw-settings-row__group" role="group" aria-labelledby="settings-row-disabled-heading">
+    <h3 class="gw-settings-row__heading" id="settings-row-disabled-heading">Pull requests</h3>
+    <div class="gw-settings-row">
+      <div class="gw-settings-row__text">
+        <label class="gw-settings-row__label" for="settings-row-disabled-reviewer">Default reviewer</label>
+        <p class="gw-settings-row__description" id="settings-row-disabled-reviewer-description">Connect GitHub first to choose from the repository's collaborators.</p>
+      </div>
+      <div class="gw-settings-row__control">
+        <div class="gw-select">
+          <select class="gw-field__control gw-select__control" id="settings-row-disabled-reviewer" name="reviewer" disabled aria-describedby="settings-row-disabled-reviewer-description">
+            <option value="" selected>No reviewer</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="gw-settings-row">
+      <div class="gw-settings-row__text">
+        <p class="gw-settings-row__label">Branch protection</p>
+        <p class="gw-settings-row__description" id="settings-row-disabled-protection-description">Only an owner of acme/api can change this.</p>
+      </div>
+      <div class="gw-settings-row__control">
+        <button type="button" class="gw-button" disabled aria-describedby="settings-row-disabled-protection-description">Edit protection rules</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>While an account connects</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="busy" data-title="While an account connects" data-state="busy">
+  <div class="gw-settings-row__group" role="group" aria-labelledby="settings-row-busy-heading">
+    <h3 class="gw-settings-row__heading" id="settings-row-busy-heading">Source control</h3>
+    <div class="gw-settings-row">
+      <div class="gw-settings-row__text">
+        <p class="gw-settings-row__label">GitHub</p>
+        <p class="gw-settings-row__description" id="settings-row-busy-description">Not connected. Needed to push branches and open pull requests.</p>
+      </div>
+      <div class="gw-settings-row__control">
+        <button type="button" class="gw-button" aria-busy="true" aria-describedby="settings-row-busy-description">Connecting to GitHub</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A change that was not saved</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="A change that was not saved" data-state="error">
+  <div class="gw-settings-row__group" role="group" aria-labelledby="settings-row-error-heading">
+    <h3 class="gw-settings-row__heading" id="settings-row-error-heading">Branches</h3>
+    <div class="gw-settings-row">
+      <div class="gw-settings-row__text">
+        <label class="gw-settings-row__label" for="settings-row-error-base">Default base branch</label>
+        <p class="gw-settings-row__description" id="settings-row-error-base-description">New tasks branch from here unless the task names another.</p>
+      </div>
+      <div class="gw-settings-row__control">
+        <div class="gw-select">
+          <select class="gw-field__control gw-select__control" id="settings-row-error-base" name="base" aria-describedby="settings-row-error-base-description settings-row-error-base-error">
+            <option value="main" selected>main</option>
+            <option value="develop">develop</option>
+          </select>
+        </div>
+      </div>
+      <p class="gw-settings-row__error" id="settings-row-error-base-error" role="alert">The change to develop was not saved, because the server did not answer. The base branch is still main. Choose develop again to retry.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A primary button on every row</h3>
+<p>Two primary buttons in a list of settings compete with each other and with the page's own main action. A row's button has secondary emphasis.</p>
+<p>Checker rule: <code>repeated-item-primary</code></p>
+</figcaption>
+<div data-example="primary-on-rows" data-title="A primary button on every row" data-dont="repeated-item-primary" data-reason="Two primary buttons in a list of settings compete with each other and with the page's own main action. A row's button has secondary emphasis.">
+  <div class="gw-settings-row__group" role="group" aria-labelledby="settings-row-primary-heading">
+    <h3 class="gw-settings-row__heading" id="settings-row-primary-heading">Connected accounts</h3>
+    <div class="gw-settings-row">
+      <div class="gw-settings-row__text">
+        <p class="gw-settings-row__label">GitHub</p>
+        <p class="gw-settings-row__description">Not connected. Needed to push branches and open pull requests.</p>
+      </div>
+      <div class="gw-settings-row__control">
+        <button type="button" class="gw-button gw-button--primary">Connect GitHub</button>
+      </div>
+    </div>
+    <div class="gw-settings-row">
+      <div class="gw-settings-row__text">
+        <p class="gw-settings-row__label">Linear</p>
+        <p class="gw-settings-row__description">Not connected. Links tasks back to their issues.</p>
+      </div>
+      <div class="gw-settings-row__control">
+        <button type="button" class="gw-button gw-button--primary">Connect Linear</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Two controls in one row</h3>
+<p>With a select and a button side by side the row no longer says which one changes the setting, and on a phone they stack into a small form. Let the select save by itself, or move the setting to a view of its own.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="two-controls" data-title="Two controls in one row" data-dont="review" data-reason="With a select and a button side by side the row no longer says which one changes the setting, and on a phone they stack into a small form. Let the select save by itself, or move the setting to a view of its own.">
+  <div class="gw-settings-row__group" role="group" aria-labelledby="settings-row-two-heading">
+    <h3 class="gw-settings-row__heading" id="settings-row-two-heading">Branches</h3>
+    <div class="gw-settings-row">
+      <div class="gw-settings-row__text">
+        <label class="gw-settings-row__label" for="settings-row-two-base">Default base branch</label>
+        <p class="gw-settings-row__description">New tasks branch from here unless the task names another.</p>
+      </div>
+      <div class="gw-settings-row__control">
+        <div class="gw-select">
+          <select class="gw-field__control gw-select__control" id="settings-row-two-base" name="base">
+            <option value="main" selected>main</option>
+            <option value="develop">develop</option>
+          </select>
+        </div>
+        <button type="button" class="gw-button">Save base branch</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a page of settings that each take effect by themselves: a switch, a choice from a short list, an account to connect.</li>
+<li>For a group of related settings under one heading, such as Notifications or Connected accounts.</li>
+<li>For a destructive setting, such as deleting a workspace, in a group of its own at the end of the page.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For values sent together with one button. Use fields in a form.</li>
+<li>For a setting that needs more than one control or more than a line of explanation. Give it a view or a sheet of its own, and make the row's control a button that opens it.</li>
+<li>For facts the reader cannot change. Use the key-value list.</li>
+<li>For a list of things the reader opens. Use the list.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>switch</dt>
+<dd>The row holds one gw-switch and nothing else. The switch brings its own label, description, state in words and error.</dd>
+<dt>select</dt>
+<dd>gw-settings-row__text, then gw-settings-row__control holding a gw-select. The label is a label element for the select.</dd>
+<dt>button</dt>
+<dd>gw-settings-row__control holds one gw-button whose words name the action and the thing, such as Connect GitHub. Never primary.</dd>
+<dt>status</dt>
+<dd>gw-settings-row__control holds a p with gw-settings-row__status that says the state in words, such as Signed in as mira@acme.dev.</dd>
+<dt>danger <code>gw-settings-row--danger</code></dt>
+<dd>A setting that deletes or cannot be undone. The label gets a warning mark, the description names what is lost and the control is a gw-button gw-button--danger that opens a confirm dialog.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>A group is a div with gw-settings-row__group, role=&quot;group&quot; and aria-labelledby pointing at its gw-settings-row__heading, a heading at the level the page needs. Each row is a div with gw-settings-row.</li>
+<li>A row has one control. For a switch, put the gw-switch markup in the row by itself: its label and description stand in for gw-settings-row__text.</li>
+<li>For a select, gw-settings-row__label is a label element whose for attribute is the select's id, and the select points at gw-settings-row__description with aria-describedby. The select saves on its change event, so the row needs no Save button.</li>
+<li>For a button or a status, gw-settings-row__label is a p. The button's own words say what it does and to what, so it reads correctly out of context, and it points at the description with aria-describedby.</li>
+<li>The description is one line that says what the setting does or what state it is in. A status, such as Connected or Not connected, is written in words.</li>
+<li>When a control is unavailable, set the disabled attribute and say why in the description.</li>
+<li>While a button's action runs, set aria-busy=&quot;true&quot; on it and change its words to say what is happening, such as Connecting to GitHub.</li>
+<li>If a change is not saved, put the control back to the saved value and add a p with gw-settings-row__error and role=&quot;alert&quot; as the row's last child. It says what the setting still is and what to do, and its icon is drawn by the stylesheet.</li>
+<li>A danger row's label is marked with an icon as well as the danger button's colour. Its button never deletes at once: it opens a confirm dialog that names the thing.</li>
+<li>Below 768px the control sits under the text; from 768px it is at the far end of the row, centred on the text. Tab moves through the controls in order. The component needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-settings-row</code></li>
+<li><code>gw-settings-row--danger</code></li>
+<li><code>gw-settings-row__control</code></li>
+<li><code>gw-settings-row__description</code></li>
+<li><code>gw-settings-row__error</code></li>
+<li><code>gw-settings-row__group</code></li>
+<li><code>gw-settings-row__heading</code></li>
+<li><code>gw-settings-row__label</code></li>
+<li><code>gw-settings-row__status</code></li>
+<li><code>gw-settings-row__text</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

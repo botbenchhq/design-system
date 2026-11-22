@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check list - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Check list</h1>
+<p>The results of the automated checks on a run: each check's name, its result in words, how long it took and, behind a disclosure, its output.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Checks on a finished run</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The first line counts the results in words, the failed checks come first, and every result is a word beside its icon. The failing output is one press away under a summary that names the check.</p>
+</figcaption>
+<div data-example="default" data-title="Checks on a finished run" data-state="default" data-reason="The first line counts the results in words, the failed checks come first, and every result is a word beside its icon. The failing output is one press away under a summary that names the check.">
+  <div class="gw-check-list">
+    <p class="gw-check-list__summary">4 of 7 checks passed. 2 failed and 1 was skipped.</p>
+    <ul class="gw-check-list__items">
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Unit tests</span>
+        <span class="gw-check-list__result gw-check-list__result--failed">Failed, 3 of 214 tests</span>
+        <span class="gw-check-list__duration"><time datetime="PT1M48S">1 min 48 s</time></span>
+        <details class="gw-check-list__output">
+          <summary class="gw-check-list__toggle">Output<span class="gw-visually-hidden"> of Unit tests</span></summary>
+          <pre class="gw-check-list__log">FAIL src/auth/session.test.ts
+  refreshes the session after a reload
+    expected 200, received 401
+  keeps the session cookie on a redirect
+    expected "sid" to be set
+  retries once when the store times out
+    timed out after 5000 ms</pre>
+        </details>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Type check</span>
+        <span class="gw-check-list__result gw-check-list__result--failed">Failed, 1 error</span>
+        <span class="gw-check-list__duration"><time datetime="PT21S">21 s</time></span>
+        <details class="gw-check-list__output">
+          <summary class="gw-check-list__toggle">Output<span class="gw-visually-hidden"> of Type check</span></summary>
+          <pre class="gw-check-list__log">src/auth/session.ts:88:14 - error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.</pre>
+        </details>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Lint</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT9S">9 s</time></span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Build</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT1M2S">1 min 2 s</time></span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Migration dry run</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT14S">14 s</time></span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Secret scan</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT4S">4 s</time></span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Integration tests</span>
+        <span class="gw-check-list__result gw-check-list__result--skipped">Skipped, because unit tests failed</span>
+        <span class="gw-check-list__duration"></span>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a failing check's output open</h3>
+<p data-gallery="state">State: <code>open</code></p>
+</figcaption>
+<div data-example="open" data-title="With a failing check's output open" data-state="open">
+  <div class="gw-check-list">
+    <p class="gw-check-list__summary">2 of 3 checks passed. 1 failed.</p>
+    <ul class="gw-check-list__items">
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Type check</span>
+        <span class="gw-check-list__result gw-check-list__result--failed">Failed, 1 error</span>
+        <span class="gw-check-list__duration"><time datetime="PT21S">21 s</time></span>
+        <details class="gw-check-list__output" open>
+          <summary class="gw-check-list__toggle">Output<span class="gw-visually-hidden"> of Type check</span></summary>
+          <pre class="gw-check-list__log">src/auth/session.ts:88:14 - error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+
+88     store.refresh(request.cookies.sid)
+                    ~~~~~~~~~~~~~~~~~~~
+
+Found 1 error in src/auth/session.ts:88</pre>
+        </details>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Lint</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT9S">9 s</time></span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Unit tests</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed, 214 tests</span>
+        <span class="gw-check-list__duration"><time datetime="PT1M44S">1 min 44 s</time></span>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>While checks are still running</h3>
+<p data-gallery="state">State: <code>running</code></p>
+</figcaption>
+<div data-example="running" data-title="While checks are still running" data-state="running">
+  <div class="gw-check-list">
+    <p class="gw-check-list__summary" role="status">2 of 5 checks passed so far. 1 is running and 2 have not started.</p>
+    <ul class="gw-check-list__items">
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Unit tests</span>
+        <span class="gw-check-list__result gw-check-list__result--running">Running</span>
+        <span class="gw-check-list__duration"><time datetime="PT52S">52 s so far</time></span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Lint</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT9S">9 s</time></span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Type check</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT19S">19 s</time></span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Build</span>
+        <span class="gw-check-list__result">Not started</span>
+        <span class="gw-check-list__duration">After unit tests</span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Integration tests</span>
+        <span class="gw-check-list__result">Not started</span>
+        <span class="gw-check-list__duration">After build</span>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Every check passed</h3>
+</figcaption>
+<div data-example="all-passed" data-title="Every check passed">
+  <div class="gw-check-list">
+    <p class="gw-check-list__summary">3 of 3 checks passed.</p>
+    <ul class="gw-check-list__items">
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Lint</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT9S">9 s</time></span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Type check</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed</span>
+        <span class="gw-check-list__duration"><time datetime="PT19S">19 s</time></span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Unit tests</span>
+        <span class="gw-check-list__result gw-check-list__result--passed">Passed, 214 tests</span>
+        <span class="gw-check-list__duration"><time datetime="PT1M44S">1 min 44 s</time></span>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Reading the results</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="Reading the results" data-state="loading">
+  <div class="gw-check-list">
+    <p class="gw-spinner" role="status">Reading the checks for run 2292</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>No checks are set up</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="No checks are set up" data-state="empty">
+  <div class="gw-check-list">
+    <div class="gw-empty-state gw-empty-state--compact">
+      <h3 class="gw-empty-state__title">No checks ran for this run</h3>
+      <p class="gw-empty-state__body">acme/api has no check commands yet. Add lint, test or build commands in the repository settings and they run after every change.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The results could not be read</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The results could not be read" data-state="error">
+  <div class="gw-check-list">
+    <div class="gw-error-state" role="alert">
+      <h3 class="gw-error-state__title">The checks for run 2292 could not be loaded</h3>
+      <p>The server did not answer in time. Check your connection, then retry.</p>
+      <div class="gw-error-state__action">
+        <button type="button" class="gw-button">Retry</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Results as coloured marks with no words</h3>
+<p>A reader who cannot tell the colours apart sees three identical rows, and nobody can tell a skipped check from one that has not started. Write each result as a word and let the stylesheet draw its icon.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="marks-only" data-title="Results as coloured marks with no words" data-dont="review" data-reason="A reader who cannot tell the colours apart sees three identical rows, and nobody can tell a skipped check from one that has not started. Write each result as a word and let the stylesheet draw its icon.">
+  <div class="gw-check-list">
+    <ul class="gw-check-list__items">
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Lint</span>
+        <span class="gw-check-list__result gw-check-list__result--passed"></span>
+        <span class="gw-check-list__duration">9 s</span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Unit tests</span>
+        <span class="gw-check-list__result gw-check-list__result--failed"></span>
+        <span class="gw-check-list__duration">1 min 48 s</span>
+      </li>
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Integration tests</span>
+        <span class="gw-check-list__result"></span>
+        <span class="gw-check-list__duration"></span>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Output behind a summary with no text</h3>
+<p>A summary with nothing in it gives a screen reader no name for the disclosure and gives everyone else only a chevron to guess from. Write what it opens: Output, and the check's name.</p>
+<p>Checker rule: <code>summary-without-text</code></p>
+</figcaption>
+<div data-example="summary-no-text" data-title="Output behind a summary with no text" data-dont="summary-without-text" data-reason="A summary with nothing in it gives a screen reader no name for the disclosure and gives everyone else only a chevron to guess from. Write what it opens: Output, and the check's name.">
+  <div class="gw-check-list">
+    <p class="gw-check-list__summary">0 of 1 checks passed. 1 failed.</p>
+    <ul class="gw-check-list__items">
+      <li class="gw-check-list__item">
+        <span class="gw-check-list__name">Type check</span>
+        <span class="gw-check-list__result gw-check-list__result--failed">Failed, 1 error</span>
+        <span class="gw-check-list__duration"><time datetime="PT21S">21 s</time></span>
+        <details class="gw-check-list__output">
+          <summary class="gw-check-list__toggle"></summary>
+          <pre class="gw-check-list__log">src/auth/session.ts:88:14 - error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.</pre>
+        </details>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>As the evidence for a run or a pull request: lint, type check, tests and build, each with its result.</li>
+<li>Where the reader decides whether to approve work and needs to see what was verified and what failed.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For the steps a run took, in the order they happened. Use the timeline or the activity feed.</li>
+<li>For one check or one overall status. Write it as a badge or a sentence.</li>
+<li>For a list of tasks the reader ticks off. Use checkboxes.</li>
+<li>For results compared across runs. Use the data table.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>passed <code>gw-check-list__result--passed</code></dt>
+<dd>The check ran and passed. The word is Passed, beside a check mark in a circle.</dd>
+<dt>failed <code>gw-check-list__result--failed</code></dt>
+<dd>The check ran and failed. The word is Failed, or says how much failed, beside an alert mark. Its row holds the output.</dd>
+<dt>running <code>gw-check-list__result--running</code></dt>
+<dd>The check has started and not finished. The word is Running, beside a turning mark.</dd>
+<dt>skipped <code>gw-check-list__result--skipped</code></dt>
+<dd>The check did not run and will not. The words say Skipped and why, beside a barred circle.</dd>
+<dt>not started</dt>
+<dd>The default, with no modifier class. The check is waiting for its turn. The words are Not started, beside three dots.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a ul with the class gw-check-list__items and one li with gw-check-list__item for each check, inside a div with gw-check-list. A screen reader then says how many checks there are.</li>
+<li>Start with gw-check-list__summary, a p that counts in words: 7 of 12 checks passed, then how many failed, are running and were skipped. Give it role=&quot;status&quot; when results arrive while the reader watches, so the new count is announced.</li>
+<li>Each row holds, in this order, gw-check-list__name, gw-check-list__result and gw-check-list__duration, all spans. The result is always a word, Passed, Failed, Running, Skipped or Not started, and the stylesheet draws its icon from the modifier class, so no result is an icon or a colour alone.</li>
+<li>Write the duration with its unit inside a time element with a datetime duration: 1 min 48 s. A check that has not finished or did not run has an empty gw-check-list__duration, or says what it waits for.</li>
+<li>Output goes in a details element with gw-check-list__output after the three spans. Its summary, gw-check-list__toggle, has text that names the check: Output, with the check's name in a gw-visually-hidden span. The pre with gw-check-list__log holds the output as text and wraps, so it never scrolls sideways.</li>
+<li>A failed check's output starts closed unless the view is about that failure. Trim it to the lines that explain the failure and link to the full log.</li>
+<li>Put failed checks first, then running, then passed and skipped, so what needs the reader is at the top.</li>
+<li>Tab reaches each summary, and Enter and Space open and close it. The component needs no script.</li>
+<li>While the results are fetched, show a spinner with its text in place of the list. If they cannot be read, show an error state. If no checks are set up, show an empty state that says so.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-check-list</code></li>
+<li><code>gw-check-list__duration</code></li>
+<li><code>gw-check-list__item</code></li>
+<li><code>gw-check-list__items</code></li>
+<li><code>gw-check-list__log</code></li>
+<li><code>gw-check-list__name</code></li>
+<li><code>gw-check-list__output</code></li>
+<li><code>gw-check-list__result</code></li>
+<li><code>gw-check-list__result--failed</code></li>
+<li><code>gw-check-list__result--passed</code></li>
+<li><code>gw-check-list__result--running</code></li>
+<li><code>gw-check-list__result--skipped</code></li>
+<li><code>gw-check-list__summary</code></li>
+<li><code>gw-check-list__toggle</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hover card - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Hover card</h1>
+<p>A preview of a linked item, such as a run, a branch or a person, shown beside its link so the reader can decide whether to follow it.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A run, previewed from its link</h3>
+<p data-gallery="state">State: <code>open</code></p>
+<p>The card repeats facts from the run's own page, so a reader who never sees it misses nothing: a tap on the link goes to that page. It holds no button, because an action inside a card would exist nowhere a touch or screen-reader user could find it.</p>
+</figcaption>
+<div data-example="default" data-title="A run, previewed from its link" data-state="open" data-gallery-frame="short" data-gallery-open data-reason="The card repeats facts from the run's own page, so a reader who never sees it misses nothing: a tap on the link goes to that page. It holds no button, because an action inside a card would exist nowhere a touch or screen-reader user could find it.">
+  <p>
+    <span class="gw-hover-card">
+      <a href="/runs/4182" interestfor="hover-card-default-card">Run 4182</a>
+      <span class="gw-popover gw-hover-card__card" id="hover-card-default-card" popover="hint">
+        <strong class="gw-popover__title">Run 4182</strong>
+        <span class="gw-hover-card__meta">acme/api · fix/login-timeout</span>
+        <span class="gw-popover__facts">
+          <span class="gw-popover__fact"><span class="gw-popover__term">Status</span> <span>Finished, 213 of 213 tests passed</span></span>
+          <span class="gw-popover__fact"><span class="gw-popover__term">Started</span> <span>14 March, 09:30</span></span>
+          <span class="gw-popover__fact"><span class="gw-popover__term">Duration</span> <span>6 minutes 12 seconds</span></span>
+        </span>
+      </span>
+    </span>
+    passed all 213 tests.
+  </p>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>At rest, before hover or focus</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="rest" data-title="At rest, before hover or focus" data-state="default">
+  <p>
+    Branch
+    <span class="gw-hover-card">
+      <a href="/repositories/acme/api/branches/fix/login-timeout" interestfor="hover-card-rest-card">fix/login-timeout</a>
+      <span class="gw-popover gw-hover-card__card" id="hover-card-rest-card" popover="hint">
+        <strong class="gw-popover__title">fix/login-timeout</strong>
+        <span class="gw-hover-card__meta">acme/api</span>
+        <span class="gw-popover__facts">
+          <span class="gw-popover__fact"><span class="gw-popover__term">Compared with main</span> <span>4 commits ahead, 14 behind</span></span>
+          <span class="gw-popover__fact"><span class="gw-popover__term">Last commit</span> <span>2 minutes ago, by Claude Code</span></span>
+          <span class="gw-popover__fact"><span class="gw-popover__term">Pull request</span> <span>None yet</span></span>
+        </span>
+      </span>
+    </span>
+    is 4 commits ahead of main.
+  </p>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A person, at the trailing edge</h3>
+</figcaption>
+<div data-example="person" data-title="A person, at the trailing edge" data-gallery-frame="short" data-gallery-open>
+  <div class="gw-split">
+    <span>Task 41 · Fix the session refresh</span>
+    <span class="gw-hover-card gw-hover-card--end">
+      <a href="/people/maya-okafor" interestfor="hover-card-person-card">Maya Okafor</a>
+      <span class="gw-popover gw-hover-card__card" id="hover-card-person-card" popover="hint">
+        <span class="gw-avatar">
+          <span class="gw-avatar__mark" aria-hidden="true">MO</span>
+          <span class="gw-avatar__name">Maya Okafor</span>
+        </span>
+        <span class="gw-hover-card__meta">Maintainer of acme/api and acme/billing</span>
+        <span class="gw-popover__facts">
+          <span class="gw-popover__fact"><span class="gw-popover__term">Reviewing</span> <span>3 tasks</span></span>
+          <span class="gw-popover__fact"><span class="gw-popover__term">Local time</span> <span>16:42, Lagos</span></span>
+        </span>
+      </span>
+    </span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a preview button, for a tap</h3>
+</figcaption>
+<div data-example="preview-button" data-title="With a preview button, for a tap">
+  <div class="gw-cluster gw-gap-xs">
+    <span class="gw-hover-card">
+      <a href="/runs/4181" interestfor="hover-card-preview-button-card">Run 4181</a>
+      <span class="gw-popover gw-hover-card__card" id="hover-card-preview-button-card" popover="hint">
+        <strong class="gw-popover__title">Run 4181</strong>
+        <span class="gw-hover-card__meta">acme/api · feat/webhook-rate-limit</span>
+        <span class="gw-popover__facts">
+          <span class="gw-popover__fact"><span class="gw-popover__term">Status</span> <span>Running, 38 of 214 tests finished</span></span>
+          <span class="gw-popover__fact"><span class="gw-popover__term">Started</span> <span>4 minutes ago</span></span>
+        </span>
+      </span>
+    </span>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" popovertarget="hover-card-preview-button-card" aria-label="Preview run 4181">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-info"></use></svg>
+    </button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Loading the preview</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="Loading the preview" data-state="loading" data-gallery-frame="short" data-gallery-open>
+  <p>
+    <span class="gw-hover-card">
+      <a href="/runs/4179" interestfor="hover-card-loading-card">Run 4179</a>
+      <span class="gw-popover gw-hover-card__card" id="hover-card-loading-card" popover="hint">
+        <strong class="gw-popover__title">Run 4179</strong>
+        <span class="gw-spinner" role="status">Loading the run</span>
+      </span>
+    </span>
+    was started by a schedule.
+  </p>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The preview could not be loaded</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The preview could not be loaded" data-state="error" data-gallery-frame="short" data-gallery-open>
+  <p>
+    <span class="gw-hover-card">
+      <a href="/runs/4178" interestfor="hover-card-error-card">Run 4178</a>
+      <span class="gw-popover gw-hover-card__card" id="hover-card-error-card" popover="hint">
+        <strong class="gw-popover__title">Run 4178</strong>
+        <span>The preview could not be loaded: the server did not answer. Follow the link to open the run.</span>
+      </span>
+    </span>
+    was started by a schedule.
+  </p>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Actions that exist only in the card</h3>
+<p>Stop run and Delete run appear only while a pointer rests on the link. A touch reader, who taps and lands on the run's page, and a screen-reader user, who is never told the card exists, cannot reach them. Put the actions on the run's page or in the row's menu, and keep the card to facts.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="only-actions" data-title="Actions that exist only in the card" data-dont="review" data-gallery-frame="short" data-gallery-open data-reason="Stop run and Delete run appear only while a pointer rests on the link. A touch reader, who taps and lands on the run's page, and a screen-reader user, who is never told the card exists, cannot reach them. Put the actions on the run's page or in the row's menu, and keep the card to facts.">
+  <p>
+    <span class="gw-hover-card">
+      <a href="/runs/4181" interestfor="hover-card-only-actions-card">Run 4181</a>
+      <span class="gw-popover gw-hover-card__card" id="hover-card-only-actions-card" popover="hint">
+        <strong class="gw-popover__title">Run 4181</strong>
+        <span class="gw-popover__actions">
+          <button type="button" class="gw-button">Stop run</button>
+          <button type="button" class="gw-button gw-button--danger">Delete run</button>
+        </span>
+      </span>
+    </span>
+  </p>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>On a link to an item that appears in passing, in a sentence, a row or a transcript, where a few facts save the reader a visit: the status of a run, how far a branch is ahead, who a person is.</li>
+<li>Only for facts the linked page also shows. The card is a shortcut to them, never their only home.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For anything the reader needs in order to act, or any action. Put it in the view. A hover card may never open, on a touch screen or with a screen reader.</li>
+<li>For a line of text about a control. Use a tooltip.</li>
+<li>For content opened on purpose from a button, or a small form. Use a popover.</li>
+<li>For the details of the selected row beside a list. Use the inspector.</li>
+<li>On every link of a dense list. Preview the items that are referred to, not the list's own rows.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>start</dt>
+<dd>The default, with no modifier class. The card hangs under the link from its leading edge.</dd>
+<dt>end <code>gw-hover-card--end</code></dt>
+<dd>A link at the trailing edge of the view. The card lines up with the link's trailing edge and grows towards the start.</dd>
+<dt>with a preview button</dt>
+<dd>An icon button after the wrapper, with popovertarget pointing at the card, where the preview matters on a touch screen. No modifier class.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Wrap the link in a span with the class gw-hover-card, and put the card straight after the link: a span with gw-popover and gw-hover-card__card, an id and popover=&quot;hint&quot;. Give the link interestfor with the card's id. Use spans inside the card when the link sits in a paragraph, where a div is not allowed.</li>
+<li>The card's content is the popover's: gw-popover__title for the item's name, gw-hover-card__meta for one line that places it, and gw-popover__facts for a few labelled values in words, with units. An avatar or a badge may stand in for the title.</li>
+<li>The card holds only what the linked page also shows, and no link, button or field. A control inside it could not be found by touch or with a screen reader, so the link is not given aria-describedby or aria-haspopup: following it is the accessible way to the same facts.</li>
+<li>With that markup alone the card opens on hover and on keyboard focus with no script, and stays open while the pointer is on it. It closes when the pointer and the focus leave.</li>
+<li>A browser with interest invokers also opens it after a long press on a touch screen, closes it on Escape, and draws it in the top layer where no container clips it. Other browsers ignore popover=&quot;hint&quot; used this way and interestfor.</li>
+<li>A tap follows the link, to the page that holds everything the card shows. Where the preview itself matters on a touch screen, add the preview button: an icon button after the wrapper with popovertarget and a name such as Preview run 4181. A tap on it opens and closes the card.</li>
+<li>Shown without the top layer, the card is clipped by an ancestor that hides its overflow. Use gw-hover-card--end at the trailing edge of the view so it stays on the screen.</li>
+<li>To fill the card when it opens, the app listens for the card's toggle event, shows a spinner with its text while the facts load, and on failure says to follow the link.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-hover-card</code></li>
+<li><code>gw-hover-card--end</code></li>
+<li><code>gw-hover-card__card</code></li>
+<li><code>gw-hover-card__meta</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

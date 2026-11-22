@@ -1,0 +1,127 @@
+/*
+ * Filter chips: a row of filters the reader switches on and off, each a native checkbox or radio in a label.
+ * The input covers its chip and takes the press and the focus ring, so the row works with no script.
+ * A chip that is on is filled and shows a check. One that is off is outlined and shows a plus.
+ */
+
+@layer gw.components {
+  /* A fieldset would otherwise refuse to shrink below its longest chip. */
+  .gw-filter-chips {
+    min-width: 0;
+  }
+
+  .gw-filter-chips__legend {
+    margin-bottom: var(--gw-space-sm);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* 12px between rows: chips are drawn 32px tall, so the 44px targets of two rows meet and never overlap. */
+  .gw-filter-chips__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-sm);
+    row-gap: var(--gw-space-md);
+  }
+
+  .gw-filter-chips__chip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    max-width: 100%;
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-space-2xl);
+    padding-inline: var(--gw-space-sm) var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-full);
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-on-surface);
+    overflow-wrap: anywhere;
+    transition-property: background-color, border-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  /* The mark keeps its place in both states, so switching a chip never moves the chips after it. */
+  .gw-filter-chips__chip::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: var(--gw-color-muted);
+    mask: url("icons/plus.svg") center / contain no-repeat;
+  }
+
+  /* The input lies over the whole chip, border included, so the focus ring is drawn around the chip. */
+  .gw-filter-chips__input {
+    position: absolute;
+    inset: calc(var(--gw-border-width) * -1);
+    appearance: none;
+    margin: 0;
+    border-radius: inherit;
+    cursor: pointer;
+  }
+
+  /* An invisible box centred on the chip, which takes the press without making the row any taller. */
+  .gw-filter-chips__input::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: var(--gw-size-touch);
+    translate: 0 -50%;
+  }
+
+  /* On: a fill and a check, so the state is a shape as well as a colour. */
+  .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked) {
+    border-color: var(--gw-color-accent);
+    background-color: var(--gw-color-accent);
+    color: var(--gw-color-on-accent);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked)::before {
+    background-color: currentColor;
+    mask-image: url("icons/check.svg");
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-filter-chips__chip:has(> .gw-filter-chips__input:hover) {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked:hover) {
+      border-color: var(--gw-color-accent-hover);
+      background-color: var(--gw-color-accent-hover);
+    }
+  }
+
+  .gw-filter-chips__chip:has(> .gw-filter-chips__input:active) {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked:active) {
+    border-color: var(--gw-color-accent-hover);
+    background-color: var(--gw-color-accent-hover);
+  }
+
+  /* After hover and active, so an unavailable chip never answers the pointer. */
+  .gw-filter-chips__chip:has(> .gw-filter-chips__input:disabled) {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+    font-weight: var(--gw-weight-normal);
+  }
+
+  /* The border colour as a fill keeps an unavailable chip that is on recognisable, with its check. */
+  .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked:disabled) {
+    background-color: var(--gw-color-border);
+  }
+
+  .gw-filter-chips__input:disabled {
+    cursor: default;
+  }
+}

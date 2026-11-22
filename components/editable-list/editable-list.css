@@ -1,0 +1,89 @@
+/*
+ * Editable list: an ordered list whose items can be changed in place, added and deleted,
+ * such as the tasks in an agent's plan before it is approved.
+ * A row shows its number, its text and quiet Edit and Delete buttons. While it is edited,
+ * the row holds a form with a field, Save and Cancel instead. The order is fixed.
+ */
+
+@layer gw.components {
+  .gw-editable-list {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .gw-editable-list__items {
+    display: flex;
+    flex-direction: column;
+    counter-reset: gw-editable-list;
+  }
+
+  /* One line of text is centred in a row one target tall, so a small button's padded hit area never reaches the next row. */
+  .gw-editable-list__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+    min-height: var(--gw-size-touch);
+    counter-increment: gw-editable-list;
+  }
+
+  .gw-editable-list__item + .gw-editable-list__item {
+    border-top-width: var(--gw-border-width);
+  }
+
+  /* The item's number, drawn from its place in the list, so it is right after an item is added or deleted. */
+  .gw-editable-list__item::before {
+    content: counter(gw-editable-list) ".";
+    flex: none;
+    min-width: var(--gw-space-xl);
+    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
+    color: var(--gw-color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gw-editable-list__text {
+    flex: 1;
+    min-width: 0;
+    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
+    overflow-wrap: anywhere;
+  }
+
+  /* Edit and Delete, as tall as a pointer target so they sit level with the first line of the text. */
+  .gw-editable-list__actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    min-height: var(--gw-size-touch);
+  }
+
+  /* The form a row holds while it is edited: the field, then Save and Cancel under it. */
+  .gw-editable-list__editor {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+    padding-block: var(--gw-space-md);
+  }
+
+  .gw-editable-list__editor-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gw-space-sm);
+  }
+
+  /* The control that adds an item, under the last row and in line with the text of the rows. */
+  .gw-editable-list__add {
+    display: flex;
+    padding-inline-start: var(--gw-space-lg);
+    border-top-width: var(--gw-border-width);
+  }
+
+  /* Why the list cannot be edited, when it cannot. */
+  .gw-editable-list__note {
+    padding-bottom: var(--gw-space-sm);
+    color: var(--gw-color-muted);
+  }
+}

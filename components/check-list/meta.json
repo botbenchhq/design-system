@@ -1,0 +1,53 @@
+{
+  "name": "check-list",
+  "title": "Check list",
+  "purpose": "The results of the automated checks on a run: each check's name, its result in words, how long it took and, behind a disclosure, its output.",
+  "status": "draft",
+  "whenToUse": [
+    "As the evidence for a run or a pull request: lint, type check, tests and build, each with its result.",
+    "Where the reader decides whether to approve work and needs to see what was verified and what failed."
+  ],
+  "whenNotToUse": [
+    "For the steps a run took, in the order they happened. Use the timeline or the activity feed.",
+    "For one check or one overall status. Write it as a badge or a sentence.",
+    "For a list of tasks the reader ticks off. Use checkboxes.",
+    "For results compared across runs. Use the data table."
+  ],
+  "variants": [
+    { "name": "passed", "class": "gw-check-list__result--passed", "use": "The check ran and passed. The word is Passed, beside a check mark in a circle." },
+    { "name": "failed", "class": "gw-check-list__result--failed", "use": "The check ran and failed. The word is Failed, or says how much failed, beside an alert mark. Its row holds the output." },
+    { "name": "running", "class": "gw-check-list__result--running", "use": "The check has started and not finished. The word is Running, beside a turning mark." },
+    { "name": "skipped", "class": "gw-check-list__result--skipped", "use": "The check did not run and will not. The words say Skipped and why, beside a barred circle." },
+    { "name": "not started", "use": "The default, with no modifier class. The check is waiting for its turn. The words are Not started, beside three dots." }
+  ],
+  "sizes": [],
+  "states": ["default", "open", "running", "loading", "empty", "error"],
+  "accessibility": [
+    "Use a ul with the class gw-check-list__items and one li with gw-check-list__item for each check, inside a div with gw-check-list. A screen reader then says how many checks there are.",
+    "Start with gw-check-list__summary, a p that counts in words: 7 of 12 checks passed, then how many failed, are running and were skipped. Give it role=\"status\" when results arrive while the reader watches, so the new count is announced.",
+    "Each row holds, in this order, gw-check-list__name, gw-check-list__result and gw-check-list__duration, all spans. The result is always a word, Passed, Failed, Running, Skipped or Not started, and the stylesheet draws its icon from the modifier class, so no result is an icon or a colour alone.",
+    "Write the duration with its unit inside a time element with a datetime duration: 1 min 48 s. A check that has not finished or did not run has an empty gw-check-list__duration, or says what it waits for.",
+    "Output goes in a details element with gw-check-list__output after the three spans. Its summary, gw-check-list__toggle, has text that names the check: Output, with the check's name in a gw-visually-hidden span. The pre with gw-check-list__log holds the output as text and wraps, so it never scrolls sideways.",
+    "A failed check's output starts closed unless the view is about that failure. Trim it to the lines that explain the failure and link to the full log.",
+    "Put failed checks first, then running, then passed and skipped, so what needs the reader is at the top.",
+    "Tab reaches each summary, and Enter and Space open and close it. The component needs no script.",
+    "While the results are fetched, show a spinner with its text in place of the list. If they cannot be read, show an error state. If no checks are set up, show an empty state that says so."
+  ],
+  "icons": ["ban", "chevron-down", "chevron-right", "circle-alert", "circle-check", "ellipsis", "loader"],
+  "classes": [
+    "gw-check-list",
+    "gw-check-list__duration",
+    "gw-check-list__item",
+    "gw-check-list__items",
+    "gw-check-list__log",
+    "gw-check-list__name",
+    "gw-check-list__output",
+    "gw-check-list__result",
+    "gw-check-list__result--failed",
+    "gw-check-list__result--passed",
+    "gw-check-list__result--running",
+    "gw-check-list__result--skipped",
+    "gw-check-list__summary",
+    "gw-check-list__toggle"
+  ]
+}

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Split button - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Split button</h1>
+<p>A main action joined to a menu button that holds other ways to do the same thing.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A main action and its alternatives</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The main action is the one most readers want, so it takes one press and is the view's primary button. The menu button beside it is secondary, has its own name, and holds only other ways to do the same thing.</p>
+</figcaption>
+<div data-example="default" data-title="A main action and its alternatives" data-state="default" data-reason="The main action is the one most readers want, so it takes one press and is the view's primary button. The menu button beside it is secondary, has its own name, and holds only other ways to do the same thing.">
+  <div class="gw-split-button" role="group" aria-label="Start task">
+    <button type="button" class="gw-button gw-button--primary gw-split-button__action">Start task</button>
+    <button type="button" class="gw-button gw-split-button__toggle" popovertarget="split-button-default-menu" aria-haspopup="menu">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+      <span class="gw-visually-hidden">More ways to start the task</span>
+    </button>
+    <div class="gw-menu" id="split-button-default-menu" popover role="menu" aria-label="More ways to start the task">
+      <button type="button" class="gw-menu__item" role="menuitem">Start on a new branch</button>
+      <button type="button" class="gw-menu__item" role="menuitem">Start in plan-only mode</button>
+      <button type="button" class="gw-menu__item" role="menuitem">Start when run 4182 finishes</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Secondary, with its menu open</h3>
+<p data-gallery="state">State: <code>open</code></p>
+</figcaption>
+<div data-example="open" data-title="Secondary, with its menu open" data-state="open" data-gallery-frame="short" data-gallery-open>
+  <div class="gw-split-button" role="group" aria-label="Run again">
+    <button type="button" class="gw-button gw-split-button__action">Run again</button>
+    <button type="button" class="gw-button gw-split-button__toggle" popovertarget="split-button-open-menu" aria-haspopup="menu">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+      <span class="gw-visually-hidden">More ways to run again</span>
+    </button>
+    <div class="gw-menu" id="split-button-open-menu" popover role="menu" aria-label="More ways to run again">
+      <button type="button" class="gw-menu__item" role="menuitem">Run again from the failed step</button>
+      <button type="button" class="gw-menu__item" role="menuitem">Run again with a clean cache</button>
+      <button type="button" class="gw-menu__item" role="menuitem">Run again on main</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a leading icon and a long label</h3>
+</figcaption>
+<div data-example="with-icon" data-title="With a leading icon and a long label">
+  <div class="gw-split-button" role="group" aria-label="Create branch">
+    <button type="button" class="gw-button gw-split-button__action">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+      Create branch from release/2026-11
+    </button>
+    <button type="button" class="gw-button gw-split-button__toggle" popovertarget="split-button-with-icon-menu" aria-haspopup="menu">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+      <span class="gw-visually-hidden">More ways to create the branch</span>
+    </button>
+    <div class="gw-menu" id="split-button-with-icon-menu" popover role="menu" aria-label="More ways to create the branch">
+      <button type="button" class="gw-menu__item" role="menuitem">Create branch from main</button>
+      <button type="button" class="gw-menu__item" role="menuitem">Create branch from a commit</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-split-button" role="group" aria-label="Open pull request">
+    <button type="button" class="gw-button gw-split-button__action">Open pull request</button>
+    <button type="button" class="gw-button gw-split-button__toggle" popovertarget="split-button-hover-menu" aria-haspopup="menu">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+      <span class="gw-visually-hidden">More ways to open the pull request</span>
+    </button>
+    <div class="gw-menu" id="split-button-hover-menu" popover role="menu" aria-label="More ways to open the pull request">
+      <button type="button" class="gw-menu__item" role="menuitem">Open as a draft</button>
+      <button type="button" class="gw-menu__item" role="menuitem">Open against develop</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-stack">
+    <div class="gw-split-button" role="group" aria-label="Open pull request, main action focused">
+      <button type="button" class="gw-button gw-split-button__action">Open pull request</button>
+      <button type="button" class="gw-button gw-split-button__toggle" popovertarget="split-button-focus-visible-menu" aria-haspopup="menu">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+        <span class="gw-visually-hidden">More ways to open the pull request</span>
+      </button>
+      <div class="gw-menu" id="split-button-focus-visible-menu" popover role="menu" aria-label="More ways to open the pull request">
+        <button type="button" class="gw-menu__item" role="menuitem">Open as a draft</button>
+        <button type="button" class="gw-menu__item" role="menuitem">Open against develop</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active">
+  <div class="gw-split-button" role="group" aria-label="Open pull request, pressed">
+    <button type="button" class="gw-button gw-split-button__action">Open pull request</button>
+    <button type="button" class="gw-button gw-split-button__toggle" popovertarget="split-button-active-menu" aria-haspopup="menu">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+      <span class="gw-visually-hidden">More ways to open the pull request</span>
+    </button>
+    <div class="gw-menu" id="split-button-active-menu" popover role="menu" aria-label="More ways to open the pull request">
+      <button type="button" class="gw-menu__item" role="menuitem">Open as a draft</button>
+      <button type="button" class="gw-menu__item" role="menuitem">Open against develop</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-split-button" role="group" aria-label="Open pull request, unavailable">
+    <button type="button" class="gw-button gw-split-button__action" disabled>Open pull request</button>
+    <button type="button" class="gw-button gw-split-button__toggle" popovertarget="split-button-disabled-menu" aria-haspopup="menu" disabled>
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+      <span class="gw-visually-hidden">More ways to open the pull request</span>
+    </button>
+    <div class="gw-menu" id="split-button-disabled-menu" popover role="menu" aria-label="More ways to open the pull request">
+      <button type="button" class="gw-menu__item" role="menuitem">Open as a draft</button>
+      <button type="button" class="gw-menu__item" role="menuitem">Open against develop</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>While the main action runs</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="busy" data-title="While the main action runs" data-state="busy">
+  <div class="gw-split-button" role="group" aria-label="Start task, starting">
+    <button type="button" class="gw-button gw-button--primary gw-split-button__action" aria-busy="true">Starting task</button>
+    <button type="button" class="gw-button gw-split-button__toggle" popovertarget="split-button-busy-menu" aria-haspopup="menu" disabled>
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+      <span class="gw-visually-hidden">More ways to start the task</span>
+    </button>
+    <div class="gw-menu" id="split-button-busy-menu" popover role="menu" aria-label="More ways to start the task">
+      <button type="button" class="gw-menu__item" role="menuitem">Start on a new branch</button>
+      <button type="button" class="gw-menu__item" role="menuitem">Start in plan-only mode</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Both halves primary</h3>
+<p>Two accent fills side by side read as two main actions, and the small one is the easier to hit by mistake. Make the main action primary and leave the menu button secondary.</p>
+<p>Checker rule: <code>one-primary-action</code></p>
+</figcaption>
+<div data-example="both-primary" data-title="Both halves primary" data-dont="one-primary-action" data-reason="Two accent fills side by side read as two main actions, and the small one is the easier to hit by mistake. Make the main action primary and leave the menu button secondary.">
+  <div class="gw-split-button" role="group" aria-label="Start task, both halves primary">
+    <button type="button" class="gw-button gw-button--primary gw-split-button__action">Start task</button>
+    <button type="button" class="gw-button gw-button--primary gw-split-button__toggle" popovertarget="split-button-both-primary-menu" aria-haspopup="menu">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+      <span class="gw-visually-hidden">More ways to start the task</span>
+    </button>
+    <div class="gw-menu" id="split-button-both-primary-menu" popover role="menu" aria-label="More ways to start the task">
+      <button type="button" class="gw-menu__item" role="menuitem">Start on a new branch</button>
+      <button type="button" class="gw-menu__item" role="menuitem">Start in plan-only mode</button>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>When one action is right most of the time and two or more close alternatives are needed now and then, such as Start task and Start on a new branch.</li>
+<li>When the alternatives are variations of the main action, so the reader would look for them beside it.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For actions that are not variations of one another. Use buttons, or a menu behind a button that names what they act on.</li>
+<li>For a single alternative. Show it as a second button.</li>
+<li>To choose a value that stays chosen. Use a select or a segmented control.</li>
+<li>For an option that is on or off. Use a toggle button.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>secondary</dt>
+<dd>The default. Both halves are plain buttons.</dd>
+<dt>primary</dt>
+<dd>The main action also carries gw-button--primary when it is the one main action of the view. The menu button stays a plain button, so the pair never shows two accent fills.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>44px tall. The menu button is 44px wide.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a div with gw-split-button, role=&quot;group&quot; and an aria-label that names the main action. It holds the main action, then the menu button, then the menu, in that order.</li>
+<li>The main action is a button with gw-button and gw-split-button__action. Its label is a verb and what it acts on. Pressing it never opens the menu.</li>
+<li>The menu button is a button with gw-button and gw-split-button__toggle, popovertarget set to the menu's id and aria-haspopup=&quot;menu&quot;. It holds the chevron icon with aria-hidden=&quot;true&quot; and its own name in a gw-visually-hidden span, such as More ways to start the task. The name is never the main action's label again.</li>
+<li>The menu is the menu component, copied from its examples, with the same name as the menu button in its aria-label. Its items are other ways to do the main action. The main action itself is not repeated in it.</li>
+<li>At most the main action is primary. Two primary halves fail the one-primary-action rule.</li>
+<li>Tab reaches the main action and then the menu button. Enter and Space activate each. The browser opens and closes the menu, closes it on Escape and on a press outside, and returns focus to the menu button. Arrow keys inside the menu are the menu component's.</li>
+<li>When the action is unavailable, set disabled on both halves. While the main action runs, set aria-busy=&quot;true&quot; on it, change its label to say what is happening, and set disabled on the menu button.</li>
+<li>The component needs no script of its own.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-split-button</code></li>
+<li><code>gw-split-button__action</code></li>
+<li><code>gw-split-button__toggle</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

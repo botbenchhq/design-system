@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stepper - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Stepper</h1>
+<p>Where the reader is in a short, fixed sequence of named steps: which are completed, which is current and which are still to come.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Completed, current and upcoming</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The current step carries aria-current and a filled number, the steps before it show a check and the steps after it an outlined number, so no state is colour alone. Each also says its state in hidden text. Only the completed steps are links, because only they can be gone back to.</p>
+</figcaption>
+<div data-example="default" data-title="Completed, current and upcoming" data-state="default" data-reason="The current step carries aria-current and a filled number, the steps before it show a check and the steps after it an outlined number, so no state is colour alone. Each also says its state in hidden text. Only the completed steps are links, because only they can be gone back to.">
+  <ol class="gw-stepper" aria-label="Connect a repository, step 3 of 4">
+    <li class="gw-stepper__step"><a class="gw-stepper__label" href="/connect/acme-api/repository"><span class="gw-visually-hidden">Completed: </span>Choose a repository</a></li>
+    <li class="gw-stepper__step"><a class="gw-stepper__label" href="/connect/acme-api/deploy-key"><span class="gw-visually-hidden">Completed: </span>Add a deploy key</a></li>
+    <li class="gw-stepper__step" aria-current="step"><span class="gw-stepper__label"><span class="gw-visually-hidden">Current: </span>Set the setup commands</span></li>
+    <li class="gw-stepper__step"><span class="gw-stepper__label"><span class="gw-visually-hidden">Not started: </span>Run a first task</span></li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a line under each name</h3>
+</figcaption>
+<div data-example="descriptions" data-title="With a line under each name">
+  <ol class="gw-stepper" aria-label="Release 2026.03, step 2 of 3">
+    <li class="gw-stepper__step">
+      <a class="gw-stepper__label" href="/releases/2026.03/freeze"><span class="gw-visually-hidden">Completed: </span>Freeze the branch</a>
+      <span class="gw-stepper__description">release/2026.03 cut from main on 14 March</span>
+    </li>
+    <li class="gw-stepper__step" aria-current="step">
+      <span class="gw-stepper__label"><span class="gw-visually-hidden">Current: </span>Run the release checks</span>
+      <span class="gw-stepper__description">214 of 252 tests finished</span>
+    </li>
+    <li class="gw-stepper__step">
+      <span class="gw-stepper__label"><span class="gw-visually-hidden">Not started: </span>Tag and publish</span>
+      <span class="gw-stepper__description">Needs an approval from a maintainer</span>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>On the first step</h3>
+</figcaption>
+<div data-example="first" data-title="On the first step">
+  <ol class="gw-stepper" aria-label="New task, step 1 of 3">
+    <li class="gw-stepper__step" aria-current="step"><span class="gw-stepper__label"><span class="gw-visually-hidden">Current: </span>Describe the task</span></li>
+    <li class="gw-stepper__step"><span class="gw-stepper__label"><span class="gw-visually-hidden">Not started: </span>Choose a branch</span></li>
+    <li class="gw-stepper__step"><span class="gw-stepper__label"><span class="gw-visually-hidden">Not started: </span>Review and start</span></li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover on a completed step</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover on a completed step" data-state="hover">
+  <ol class="gw-stepper" aria-label="Move a workspace, step 2 of 2">
+    <li class="gw-stepper__step"><a class="gw-stepper__label" href="/workspaces/api-refactor/move/target"><span class="gw-visually-hidden">Completed: </span>Choose the new host</a></li>
+    <li class="gw-stepper__step" aria-current="step"><span class="gw-stepper__label"><span class="gw-visually-hidden">Current: </span>Confirm the move</span></li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus on a completed step</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus on a completed step" data-state="focus-visible">
+  <ol class="gw-stepper" aria-label="Rotate the deploy key, step 2 of 2">
+    <li class="gw-stepper__step"><a class="gw-stepper__label" href="/repositories/acme/api/deploy-key/new"><span class="gw-visually-hidden">Completed: </span>Create the new key</a></li>
+    <li class="gw-stepper__step" aria-current="step"><span class="gw-stepper__label"><span class="gw-visually-hidden">Current: </span>Remove the old key</span></li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The current step failed</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The current step failed" data-state="error">
+  <div class="gw-stack">
+    <ol class="gw-stepper" aria-label="Connect acme/billing, step 2 of 4">
+      <li class="gw-stepper__step"><a class="gw-stepper__label" href="/connect/acme-billing/repository"><span class="gw-visually-hidden">Completed: </span>Choose a repository</a></li>
+      <li class="gw-stepper__step" aria-current="step">
+        <span class="gw-stepper__label"><span class="gw-visually-hidden">Current: </span>Add a deploy key</span>
+        <span class="gw-stepper__description">Not verified yet</span>
+      </li>
+      <li class="gw-stepper__step"><span class="gw-stepper__label"><span class="gw-visually-hidden">Not started: </span>Set the setup commands</span></li>
+      <li class="gw-stepper__step"><span class="gw-stepper__label"><span class="gw-visually-hidden">Not started: </span>Run a first task</span></li>
+    </ol>
+    <div class="gw-alert gw-alert--danger" role="alert">
+      <div class="gw-alert__content">
+        <p class="gw-alert__label">Error</p>
+        <p class="gw-alert__body">GitHub rejected the deploy key: it has no read access to acme/billing. Add the key under the repository's settings, then verify it again.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Every step a link</h3>
+<p>A link on a step that has not been reached promises the reader can jump ahead, and the step then opens without what the earlier ones collect. Make a step a link only once it is completed, and leave the current and the upcoming steps as text.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="upcoming-links" data-title="Every step a link" data-dont="review" data-reason="A link on a step that has not been reached promises the reader can jump ahead, and the step then opens without what the earlier ones collect. Make a step a link only once it is completed, and leave the current and the upcoming steps as text.">
+  <ol class="gw-stepper" aria-label="Connect a repository with every step linked">
+    <li class="gw-stepper__step"><a class="gw-stepper__label" href="/connect/acme-api/repository">Choose a repository</a></li>
+    <li class="gw-stepper__step" aria-current="step"><a class="gw-stepper__label" href="/connect/acme-api/deploy-key">Add a deploy key</a></li>
+    <li class="gw-stepper__step"><a class="gw-stepper__label" href="/connect/acme-api/setup">Set the setup commands</a></li>
+    <li class="gw-stepper__step"><a class="gw-stepper__label" href="/connect/acme-api/first-task">Run a first task</a></li>
+  </ol>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>At the top of a flow of three to five steps that happen in a fixed order, such as connecting a repository.</li>
+<li>To show how far a staged job has got, such as a release, where each stage has a name.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For progress with no named steps. Use the progress component.</li>
+<li>For a record of what already happened, with times. Use the timeline.</li>
+<li>For views the reader may open in any order. Use tabs.</li>
+<li>For more than five steps, or steps that change with earlier answers. Say Step 3 of 8 in the view's heading and leave the stepper out.</li>
+<li>For a flow of two fields. Put both in one form.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>default</dt>
+<dd>A mark and a name for each step.</dd>
+<dt>with descriptions</dt>
+<dd>A span with gw-stepper__description after the name: one short fact about the step, such as 214 of 252 tests finished. No modifier class.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>Below 768px the steps run down the page, each row at least 44px tall. At 768px and up they run across it, joined by lines.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use an ol with the class gw-stepper and an aria-label that names the flow and the position, such as Connect a repository, step 3 of 4. Each step is an li with gw-stepper__step. A screen reader announces the count and each step's number.</li>
+<li>Set aria-current=&quot;step&quot; on the li of the current step. That attribute is the whole state: the stylesheet draws the steps before it as completed and the steps after it as upcoming. Move the attribute as the reader goes on. The numbers are drawn from the order of the list.</li>
+<li>Each state has a mark as well as a colour: a check in a ring for completed, the number on a fill with a heavier name for current, the number in an outline for upcoming. Each name also starts with its state in a span with gw-visually-hidden: Completed, Current or Not started, followed by a colon.</li>
+<li>The name is a span with gw-stepper__label. On a completed step it is an a element with the same class, underlined, that goes back to that step. The current and the upcoming steps are never links.</li>
+<li>When every step is done the flow is over. Replace the stepper with the result, since no step carries aria-current any longer.</li>
+<li>When the current step fails, keep aria-current on it, say so in its description, and put an alert below the stepper that says what happened and what to do.</li>
+<li>Tab reaches the links of the completed steps and Enter follows one. The component needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-stepper</code></li>
+<li><code>gw-stepper__description</code></li>
+<li><code>gw-stepper__label</code></li>
+<li><code>gw-stepper__step</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

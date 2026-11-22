@@ -1,0 +1,31 @@
+{
+  "name": "sign-in",
+  "title": "Sign in",
+  "kind": "pattern",
+  "purpose": "The sign-in screen: the product's name, one sentence, the fields, one primary action and a quiet link for trouble signing in, in a reading-width column at the leading edge.",
+  "status": "draft",
+  "whenToUse": [
+    "For the screen a signed-out reader meets before anything else in the app.",
+    "For any other single focused task that stands outside the app's navigation, such as setting a new password or accepting an invitation. Keep the same shape: a name, a sentence, the fields, one action."
+  ],
+  "whenNotToUse": [
+    "To ask for the password again inside the app, before a sensitive action. Use a dialog.",
+    "To describe or promote the product. This screen has no hero, no feature list and no picture. That belongs on the product's site.",
+    "For creating an account in several steps. Use the multi-step form.",
+    "With the app header or the navigation around it. A signed-out reader has nowhere to go, so the screen shows neither."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "error", "busy"],
+  "accessibility": [
+    "In an app the element with gw-sign-in is the main element, and it is the only landmark on the page. The column starts at the leading edge of the page and is never centred.",
+    "gw-sign-in__product is a p holding the product's name. The h1 after it reads Sign in, and one sentence under it says which account to use. There is no other copy.",
+    "The fields are in one form. The email input has type=\"email\" and autocomplete=\"username\", and the password input has type=\"password\" and autocomplete=\"current-password\", so a password manager can fill both. Neither uses a placeholder as its label.",
+    "Sign in is the form's submit button and the screen's one primary action. The link for trouble signing in is a quiet link after the form, and it names what it does.",
+    "When the sign-in is refused, keep the email, clear the password, and add an alert with role=\"alert\" as the first thing in the form. Its title says what happened and its body says what to do. Link it from both inputs with aria-describedby, and move focus to the password input. Do not say which field was wrong.",
+    "While the form is sent, set aria-busy=\"true\" on the button, change its label to Signing in, make the inputs read-only and ignore further presses.",
+    "Tab moves through Email, Password, Sign in, then the help link. Enter in either input sends the form. The pattern needs no script of its own."
+  ],
+  "icons": [],
+  "classes": ["gw-sign-in", "gw-sign-in__product"]
+}

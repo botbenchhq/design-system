@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Master and detail - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Master and detail</h1>
+<p>A screen with a list of items and the selected item's detail: side by side from 768px, and on a phone the list alone, with the detail as a view of its own.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A run selected: list and detail from 768px, the detail alone on a phone</h3>
+<p data-gallery="state">State: <code>selected</code></p>
+<p>The list comes first and marks the selected row, and the detail beside it holds the view's one primary action, Review changes. The action that discards work is in sight beside it, and the only row action, Resume, has secondary emphasis. Below 768px the same markup shows the detail as a view of its own, with a link back to the list.</p>
+</figcaption>
+<div data-example="selected" data-title="A run selected: list and detail from 768px, the detail alone on a phone" data-state="selected" data-gallery-frame data-reason="The list comes first and marks the selected row, and the detail beside it holds the view's one primary action, Review changes. The action that discards work is in sight beside it, and the only row action, Resume, has secondary emphasis. Below 768px the same markup shows the detail as a view of its own, with a link back to the list.">
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-master-detail">
+      <div class="gw-master-detail__list">
+        <header class="gw-page-header gw-page-header--compact">
+          <div class="gw-page-header__text">
+            <h1 class="gw-page-header__title">Runs</h1>
+            <p class="gw-page-header__description">5 runs, newest first.</p>
+          </div>
+          <div class="gw-page-header__action">
+            <a class="gw-button gw-button--small" href="/tasks/new">
+              <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+              New task
+            </a>
+          </div>
+        </header>
+        <ul class="gw-list">
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2295">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Add rate limiting to the webhook endpoint</span>
+                <span class="gw-list__secondary">acme/api · Building</span>
+              </span>
+              <span class="gw-list__meta">4 min</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2292" aria-current="true">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Remove the legacy invoice exporter</span>
+                <span class="gw-list__secondary">acme/billing · Awaiting decision</span>
+              </span>
+              <span class="gw-list__meta">1 h 8 min</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2291">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Add dark theme to the settings screen</span>
+                <span class="gw-list__secondary">acme/web · Blocked by a failed check</span>
+              </span>
+              <span class="gw-list__meta">2 h 40 min</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2290">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Fix the login timeout</span>
+                <span class="gw-list__secondary">acme/api · Interrupted</span>
+              </span>
+              <span class="gw-list__meta">18 min</span>
+            </a>
+            <div class="gw-list__action">
+              <button type="button" class="gw-button gw-button--small" aria-label="Resume Fix the login timeout">Resume</button>
+            </div>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2289">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Fix the off-by-one in the retry counter</span>
+                <span class="gw-list__secondary">acme/api · Decided, accepted by you</span>
+              </span>
+              <span class="gw-list__meta">35 min</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <section class="gw-master-detail__detail" aria-labelledby="master-detail-selected-title">
+        <a class="gw-link gw-master-detail__back" href="/runs">
+          <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-arrow-left"></use></svg>
+          All runs
+        </a>
+        <div class="gw-stack gw-gap-sm">
+          <h2 id="master-detail-selected-title">Remove the legacy invoice exporter</h2>
+          <div class="gw-cluster">
+            <span class="gw-badge gw-badge--warning">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-alert"></use></svg>
+              Awaiting decision
+            </span>
+            <span>Waiting on you for 1 hour 8 minutes</span>
+          </div>
+        </div>
+        <p>The agent deleted <code>src/billing/export/legacy</code> and the 14 tests that covered it. It will not open a pull request until you accept the changes.</p>
+        <dl class="gw-key-value">
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Repository</dt>
+            <dd class="gw-key-value__value">acme/billing</dd>
+          </div>
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Branch</dt>
+            <dd class="gw-key-value__value gw-key-value__value--mono">chore/remove-legacy-exporter</dd>
+          </div>
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Started</dt>
+            <dd class="gw-key-value__value"><time datetime="2026-03-14T09:30">14 March, 09:30</time></dd>
+          </div>
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Tests</dt>
+            <dd class="gw-key-value__value">212 of 212 passed</dd>
+          </div>
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Cost</dt>
+            <dd class="gw-key-value__value">$1.12 for this run</dd>
+          </div>
+        </dl>
+        <details class="gw-disclosure">
+          <summary class="gw-disclosure__summary">
+            Changed files
+            <span class="gw-disclosure__meta">6 files</span>
+          </summary>
+          <div class="gw-disclosure__content">
+            <figure class="gw-code-block">
+              <pre class="gw-code-block__body"><code>src/billing/export/index.ts           |  12 +-
+src/billing/export/legacy/csv.ts      | 388 ------
+src/billing/export/legacy/csv.test.ts | 301 -----
+src/billing/export/legacy/index.ts    | 141 ---
+src/billing/routes.ts                 |  16 +-
+docs/billing/exports.md               |  19 +-</code></pre>
+            </figure>
+          </div>
+        </details>
+        <div class="gw-button-group" role="group" aria-label="Decide on Remove the legacy invoice exporter">
+          <button type="button" class="gw-button gw-button--danger" data-gw-critical>Discard run</button>
+          <a class="gw-button gw-button--primary" href="/runs/2292/review">Review changes</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing selected: the list alone on a phone, with a note beside it from 768px</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="nothing-selected" data-title="Nothing selected: the list alone on a phone, with a note beside it from 768px" data-state="default" data-gallery-frame>
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-master-detail">
+      <div class="gw-master-detail__list">
+        <header class="gw-page-header gw-page-header--compact">
+          <div class="gw-page-header__text">
+            <h1 class="gw-page-header__title">Runs</h1>
+            <p class="gw-page-header__description">5 runs, newest first.</p>
+          </div>
+          <div class="gw-page-header__action">
+            <a class="gw-button gw-button--small" href="/tasks/new">
+              <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+              New task
+            </a>
+          </div>
+        </header>
+        <ul class="gw-list">
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2295">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Add rate limiting to the webhook endpoint</span>
+                <span class="gw-list__secondary">acme/api · Building</span>
+              </span>
+              <span class="gw-list__meta">4 min</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2292">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Remove the legacy invoice exporter</span>
+                <span class="gw-list__secondary">acme/billing · Awaiting decision</span>
+              </span>
+              <span class="gw-list__meta">1 h 8 min</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2291">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Add dark theme to the settings screen</span>
+                <span class="gw-list__secondary">acme/web · Blocked by a failed check</span>
+              </span>
+              <span class="gw-list__meta">2 h 40 min</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2290">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Fix the login timeout</span>
+                <span class="gw-list__secondary">acme/api · Interrupted</span>
+              </span>
+              <span class="gw-list__meta">18 min</span>
+            </a>
+            <div class="gw-list__action">
+              <button type="button" class="gw-button gw-button--small" aria-label="Resume Fix the login timeout">Resume</button>
+            </div>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2289">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Fix the off-by-one in the retry counter</span>
+                <span class="gw-list__secondary">acme/api · Decided, accepted by you</span>
+              </span>
+              <span class="gw-list__meta">35 min</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <p class="gw-master-detail__placeholder">Select a run in the list to see what it changed and to decide on it here.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The detail is loading</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="detail-loading" data-title="The detail is loading" data-state="loading" data-gallery-frame>
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-master-detail">
+      <div class="gw-master-detail__list">
+        <header class="gw-page-header gw-page-header--compact">
+          <div class="gw-page-header__text">
+            <h1 class="gw-page-header__title">Runs</h1>
+            <p class="gw-page-header__description">5 runs, newest first.</p>
+          </div>
+          <div class="gw-page-header__action">
+            <a class="gw-button gw-button--small" href="/tasks/new">
+              <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+              New task
+            </a>
+          </div>
+        </header>
+        <ul class="gw-list">
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2295">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Add rate limiting to the webhook endpoint</span>
+                <span class="gw-list__secondary">acme/api · Building</span>
+              </span>
+              <span class="gw-list__meta">4 min</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2292">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Remove the legacy invoice exporter</span>
+                <span class="gw-list__secondary">acme/billing · Awaiting decision</span>
+              </span>
+              <span class="gw-list__meta">1 h 8 min</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2291" aria-current="true">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Add dark theme to the settings screen</span>
+                <span class="gw-list__secondary">acme/web · Blocked by a failed check</span>
+              </span>
+              <span class="gw-list__meta">2 h 40 min</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2290">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Fix the login timeout</span>
+                <span class="gw-list__secondary">acme/api · Interrupted</span>
+              </span>
+              <span class="gw-list__meta">18 min</span>
+            </a>
+            <div class="gw-list__action">
+              <button type="button" class="gw-button gw-button--small" aria-label="Resume Fix the login timeout">Resume</button>
+            </div>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2289">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Fix the off-by-one in the retry counter</span>
+                <span class="gw-list__secondary">acme/api · Decided, accepted by you</span>
+              </span>
+              <span class="gw-list__meta">35 min</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <section class="gw-master-detail__detail" aria-labelledby="master-detail-loading-title" aria-busy="true">
+        <a class="gw-link gw-master-detail__back" href="/runs">
+          <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-arrow-left"></use></svg>
+          All runs
+        </a>
+        <h2 id="master-detail-loading-title">Add dark theme to the settings screen</h2>
+        <div class="gw-skeleton">
+          <span class="gw-visually-hidden">Loading the details of Add dark theme to the settings screen</span>
+          <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+          <span class="gw-skeleton__line"></span>
+          <span class="gw-skeleton__line"></span>
+          <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The detail could not be loaded</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="detail-failed" data-title="The detail could not be loaded" data-state="error" data-gallery-frame>
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-master-detail">
+      <div class="gw-master-detail__list">
+        <header class="gw-page-header gw-page-header--compact">
+          <div class="gw-page-header__text">
+            <h1 class="gw-page-header__title">Runs</h1>
+            <p class="gw-page-header__description">5 runs, newest first.</p>
+          </div>
+          <div class="gw-page-header__action">
+            <a class="gw-button gw-button--small" href="/tasks/new">
+              <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+              New task
+            </a>
+          </div>
+        </header>
+        <ul class="gw-list">
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2295">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Add rate limiting to the webhook endpoint</span>
+                <span class="gw-list__secondary">acme/api · Building</span>
+              </span>
+              <span class="gw-list__meta">4 min</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2292">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Remove the legacy invoice exporter</span>
+                <span class="gw-list__secondary">acme/billing · Awaiting decision</span>
+              </span>
+              <span class="gw-list__meta">1 h 8 min</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2291">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Add dark theme to the settings screen</span>
+                <span class="gw-list__secondary">acme/web · Blocked by a failed check</span>
+              </span>
+              <span class="gw-list__meta">2 h 40 min</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2290">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Fix the login timeout</span>
+                <span class="gw-list__secondary">acme/api · Interrupted</span>
+              </span>
+              <span class="gw-list__meta">18 min</span>
+            </a>
+            <div class="gw-list__action">
+              <button type="button" class="gw-button gw-button--small" aria-label="Resume Fix the login timeout">Resume</button>
+            </div>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/runs/2289" aria-current="true">
+              <span class="gw-list__body">
+                <span class="gw-list__primary">Fix the off-by-one in the retry counter</span>
+                <span class="gw-list__secondary">acme/api · Decided, accepted by you</span>
+              </span>
+              <span class="gw-list__meta">35 min</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <section class="gw-master-detail__detail" aria-label="Details of Fix the off-by-one in the retry counter">
+        <a class="gw-link gw-master-detail__back" href="/runs">
+          <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-arrow-left"></use></svg>
+          All runs
+        </a>
+        <div class="gw-error-state" role="alert">
+          <h2 class="gw-error-state__title">The details of this run could not be loaded</h2>
+          <p>The server did not answer in time. The list is still up to date. Check your connection, then retry.</p>
+          <div class="gw-error-state__action">
+            <button type="button" class="gw-button">Retry</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> The destructive action inside a closed disclosure</h3>
+<p>Discard run is the other answer to the question this detail asks, and here the reader must open More actions to learn that it exists. Keep a critical action in the detail beside the primary one, with secondary or danger emphasis.</p>
+<p>Checker rule: <code>hidden-critical-action</code></p>
+</figcaption>
+<div data-example="action-hidden" data-title="The destructive action inside a closed disclosure" data-dont="hidden-critical-action" data-gallery-frame="short" data-reason="Discard run is the other answer to the question this detail asks, and here the reader must open More actions to learn that it exists. Keep a critical action in the detail beside the primary one, with secondary or danger emphasis.">
+  <div class="gw-master-detail">
+    <section class="gw-master-detail__detail" aria-labelledby="master-detail-hidden-title">
+      <h2 id="master-detail-hidden-title">Remove the legacy invoice exporter</h2>
+      <p>The agent deleted <code>src/billing/export/legacy</code> and the 14 tests that covered it. It will not open a pull request until you accept the changes.</p>
+      <div class="gw-cluster">
+        <a class="gw-button gw-button--primary" href="/runs/2292/review">Review changes</a>
+      </div>
+      <details class="gw-disclosure">
+        <summary class="gw-disclosure__summary">More actions</summary>
+        <div class="gw-disclosure__content">
+          <button type="button" class="gw-button gw-button--danger" data-gw-critical>Discard run</button>
+        </div>
+      </details>
+    </section>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>When the reader goes through a list item by item and acts on each, such as runs that wait for a decision.</li>
+<li>When the detail is short enough to read beside the list: a summary, a few facts and one or two actions.</li>
+<li>When the detail is only facts, with no action. Put the catalogue's inspector in the detail's place, using its own layout class.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For an item the reader works in for a while, such as a transcript or a diff. Give it a screen of its own and link each row to it.</li>
+<li>When the reader compares items with each other. Use a data table.</li>
+<li>For a form or a short task that covers the page. Use a sheet or a dialog.</li>
+<li>For the app's destinations beside its content. Use the sidebar nav in gw-sidebar-layout.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>In an app the element with gw-master-detail is the main element. It holds gw-master-detail__list first, then either gw-master-detail__detail or gw-master-detail__placeholder. The list is first in the markup at every width, so Tab reaches the rows before the detail.</li>
+<li>The list pane holds the view's h1, in a compact page header, and a list. Each row is a link to the item's own address, so selection works without script and can be bookmarked. Mark the selected row with aria-current=&quot;true&quot;.</li>
+<li>The detail is a section named by its h2, the item's title, through aria-labelledby. Selecting a row does not move focus into it on a wide screen. On a phone the detail is the view, so move focus to its heading.</li>
+<li>The phone layout follows from the markup alone. When gw-master-detail__detail is present the list pane is not rendered below 768px, and gw-master-detail__back, a link to the list's address, is the first thing in the detail. From 768px the link is not rendered. With nothing selected, render gw-master-detail__placeholder instead, which is shown only from 768px.</li>
+<li>The list keeps its place. When the reader follows the back link, restore the list's scroll position and move focus to the row they came from. From 768px, replace only the detail when the selection changes, and never reorder or refetch the list under the reader.</li>
+<li>The view's one primary action is in the detail, written last in a button group. A row has at most one action, a gw-button gw-button--small with secondary emphasis, whose aria-label starts with its visible words and names the row.</li>
+<li>An action that discards or stops something carries data-gw-critical and is visible in the detail. It never sits only inside a closed disclosure or a menu.</li>
+<li>While the detail loads, keep its heading, set aria-busy=&quot;true&quot; on the section and show a skeleton. If it cannot be loaded, show an error state in the detail with Retry. The list stays as it is in both cases.</li>
+<li>With no items at all, put an empty state in place of the list and leave both the detail and the placeholder out.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-master-detail</code></li>
+<li><code>gw-master-detail__back</code></li>
+<li><code>gw-master-detail__detail</code></li>
+<li><code>gw-master-detail__list</code></li>
+<li><code>gw-master-detail__placeholder</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

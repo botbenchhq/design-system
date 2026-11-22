@@ -10,7 +10,7 @@ Read this before writing any interface. Paths assume the system is vendored at `
 
 ## Order of choice
 
-1. A catalogue component. `choosing-components.md` maps a need to one.
+1. A catalogue component. `choosing-components.md` maps a need to one. For a whole screen, start from a page pattern, listed there too.
 2. Layout primitives: `gw-stack`, `gw-cluster`, `gw-split`, `gw-grid`, `gw-sidebar-layout`, `gw-container`.
 3. An app-local component under the app's own class prefix, styled with tokens only and declared in the app's gaps file. Never invent a `gw-` class.
 

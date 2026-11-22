@@ -1,0 +1,61 @@
+<div data-example="default" data-title="A date, with the range in words" data-state="default" data-reason="The browser's own control writes the date in the reader's format and opens the calendar each platform already has, with no script. The description says which days can be chosen, and min and max hold the same range.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-default-input">Show runs since</label>
+    <input class="gw-field__control gw-date-field" id="date-field-default-input" type="date" name="since" min="2026-08-24" max="2026-11-22" value="2026-11-15" autocomplete="off" aria-describedby="date-field-default-description">
+    <p class="gw-field__description" id="date-field-default-description">Any day from 24 August to 22 November 2026. Runs are kept for 90 days.</p>
+  </div>
+</div>
+
+<div data-example="empty" data-title="Required, with nothing entered yet" data-state="empty">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-empty-input">Token expires on <span class="gw-field__required">required</span></label>
+    <input class="gw-field__control gw-date-field" id="date-field-empty-input" type="date" name="expires" required min="2026-11-23" max="2027-11-22" autocomplete="off" aria-describedby="date-field-empty-description">
+    <p class="gw-field__description" id="date-field-empty-description">Any day from tomorrow, 23 November 2026, to 22 November 2027.</p>
+  </div>
+</div>
+
+<div data-example="date-and-time" data-title="A date and a time">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-date-and-time-input">Start the run at</label>
+    <input class="gw-field__control gw-date-field" id="date-field-date-and-time-input" type="datetime-local" name="start" min="2026-11-22T09:30" max="2026-12-22T09:30" step="900" value="2026-11-23T02:00" autocomplete="off" aria-describedby="date-field-date-and-time-description">
+    <p class="gw-field__description" id="date-field-date-and-time-description">A day and a time in the next 30 days, in your own time zone, Europe/Berlin. Times go in steps of 15 minutes.</p>
+  </div>
+</div>
+
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-focus-input">Show runs since</label>
+    <input class="gw-field__control gw-date-field" id="date-field-focus-input" type="date" name="since" min="2026-08-24" max="2026-11-22" value="2026-11-01" autocomplete="off">
+  </div>
+</div>
+
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-invalid-input">Show runs since</label>
+    <input class="gw-field__control gw-date-field" id="date-field-invalid-input" type="date" name="since" min="2026-08-24" max="2026-11-22" value="2026-06-01" autocomplete="off" aria-invalid="true" aria-describedby="date-field-invalid-description date-field-invalid-error">
+    <p class="gw-field__description" id="date-field-invalid-description">Any day from 24 August to 22 November 2026.</p>
+    <p class="gw-field__error" id="date-field-invalid-error">Runs from before 24 August 2026 have been deleted. Choose that day or a later one.</p>
+  </div>
+</div>
+
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-disabled-input">Start the run at</label>
+    <input class="gw-field__control gw-date-field" id="date-field-disabled-input" type="datetime-local" name="start" value="2026-11-23T02:00" disabled aria-describedby="date-field-disabled-description">
+    <p class="gw-field__description" id="date-field-disabled-description">Choose Start later to set a time.</p>
+  </div>
+</div>
+
+<div data-example="read-only" data-title="Read-only" data-state="read-only">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-read-only-input">Workspace created on</label>
+    <input class="gw-field__control gw-date-field" id="date-field-read-only-input" type="date" name="created" value="2026-03-14" readonly>
+  </div>
+</div>
+
+<div data-example="text-pattern" data-title="A text input with the format as its placeholder" data-dont="review" data-reason="The pattern vanishes with the first character, nothing stops 31/02/2026 or a month written first, and a phone shows a full keyboard where it could show a date picker. Use the date input, and give the range in the description.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-text-pattern-input">Show runs since</label>
+    <input class="gw-field__control" id="date-field-text-pattern-input" type="text" name="since" placeholder="DD/MM/YYYY" autocomplete="off">
+  </div>
+</div>

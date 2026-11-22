@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filter and results - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Filter and results</h1>
+<p>A screen that narrows a long list or table: a search field and a few filters above it, the filters in force as removable tags, a count in words, then the results.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Filters in force, a count and the results</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Every filter in force is written out as a tag that removes it, so the reader can see why the list is short, and Clear filters undoes them all. The count is in words in a live region directly above the results, and the results are a list, because the runs are alike and are there to be scanned and opened.</p>
+</figcaption>
+<div data-example="results" data-title="Filters in force, a count and the results" data-state="default" data-gallery-frame data-reason="Every filter in force is written out as a tag that removes it, so the reader can see why the list is short, and Clear filters undoes them all. The count is in words in a live region directly above the results, and the results are a list, because the runs are alike and are there to be scanned and opened.">
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-filter-results">
+      <header class="gw-page-header">
+        <div class="gw-page-header__text">
+          <h1 class="gw-page-header__title">Runs</h1>
+          <p class="gw-page-header__description">Every run in your repositories, newest first.</p>
+        </div>
+        <div class="gw-page-header__action">
+          <a class="gw-button gw-button--primary" href="/tasks/new">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+            New task
+          </a>
+        </div>
+      </header>
+      <div class="gw-filter-results__bar">
+        <div class="gw-search-field">
+          <label class="gw-search-field__label" for="filter-results-results-search">Search runs</label>
+          <div class="gw-search-field__box">
+            <input class="gw-field__control gw-search-field__input" type="search" id="filter-results-results-search" name="q" placeholder="Task, branch or run number" autocomplete="off" value="session">
+            <button type="button" class="gw-search-field__clear"><span class="gw-visually-hidden">Clear the search</span></button>
+          </div>
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="filter-results-results-status">Status</label>
+          <div class="gw-select">
+            <select class="gw-field__control gw-select__control" id="filter-results-results-status" name="status">
+              <option value="">Any status</option>
+              <option value="building">Building</option>
+              <option value="awaiting">Awaiting decision</option>
+              <option value="blocked" selected>Blocked</option>
+              <option value="interrupted">Interrupted</option>
+              <option value="decided">Decided</option>
+            </select>
+          </div>
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="filter-results-results-repository">Repository</label>
+          <div class="gw-select">
+            <select class="gw-field__control gw-select__control" id="filter-results-results-repository" name="repository">
+              <option value="" selected>All repositories</option>
+              <option value="acme/api">acme/api</option>
+              <option value="acme/billing">acme/billing</option>
+              <option value="acme/web">acme/web</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="gw-cluster gw-gap-lg">
+        <ul class="gw-cluster" aria-label="Filters applied to the runs">
+          <li class="gw-tag">Search: session <button type="button" class="gw-tag__remove" aria-label="Remove filter: Search: session"></button></li>
+          <li class="gw-tag">Status: Blocked <button type="button" class="gw-tag__remove" aria-label="Remove filter: Status: Blocked"></button></li>
+        </ul>
+        <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear filters</button>
+      </div>
+      <p class="gw-filter-results__count" role="status">3 of 128 runs match</p>
+      <ul class="gw-list">
+        <li class="gw-list__row">
+          <a class="gw-list__link" href="/runs/2291">
+            <span class="gw-run-status">
+              <span class="gw-run-status__title">Add dark theme to the session settings screen</span>
+              <span class="gw-run-status__station">
+                <span class="gw-badge gw-badge--warning">
+                  <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-triangle-alert"></use></svg>
+                  Blocked
+                </span>
+              </span>
+              <span class="gw-run-status__facts">Waiting on a failed check in acme/web · <time class="gw-run-status__elapsed" datetime="PT2H40M">2 h 40 min</time></span>
+            </span>
+          </a>
+        </li>
+        <li class="gw-list__row">
+          <a class="gw-list__link" href="/runs/2284">
+            <span class="gw-run-status">
+              <span class="gw-run-status__title">Move session storage to Redis</span>
+              <span class="gw-run-status__station">
+                <span class="gw-badge gw-badge--warning">
+                  <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-triangle-alert"></use></svg>
+                  Blocked
+                </span>
+              </span>
+              <span class="gw-run-status__facts">Waiting on a deploy key for acme/infra · <time class="gw-run-status__elapsed" datetime="PT5H12M">5 h 12 min</time></span>
+            </span>
+          </a>
+        </li>
+        <li class="gw-list__row">
+          <a class="gw-list__link" href="/runs/2279">
+            <span class="gw-run-status">
+              <span class="gw-run-status__title">Refuse a session token older than 30 minutes</span>
+              <span class="gw-run-status__station">
+                <span class="gw-badge gw-badge--warning">
+                  <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-triangle-alert"></use></svg>
+                  Blocked
+                </span>
+              </span>
+              <span class="gw-run-status__facts">Waiting on a merge conflict with main · <time class="gw-run-status__elapsed" datetime="P1DT3H">1 day 3 h</time></span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>No results, and which filter to loosen</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="no-results" data-title="No results, and which filter to loosen" data-state="empty" data-gallery-frame>
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-filter-results">
+      <header class="gw-page-header">
+        <div class="gw-page-header__text">
+          <h1 class="gw-page-header__title">Runs</h1>
+          <p class="gw-page-header__description">Every run in your repositories, newest first.</p>
+        </div>
+        <div class="gw-page-header__action">
+          <a class="gw-button gw-button--primary" href="/tasks/new">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+            New task
+          </a>
+        </div>
+      </header>
+      <div class="gw-filter-results__bar">
+        <div class="gw-search-field">
+          <label class="gw-search-field__label" for="filter-results-none-search">Search runs</label>
+          <div class="gw-search-field__box">
+            <input class="gw-field__control gw-search-field__input" type="search" id="filter-results-none-search" name="q" placeholder="Task, branch or run number" autocomplete="off" value="session-refresh">
+            <button type="button" class="gw-search-field__clear"><span class="gw-visually-hidden">Clear the search</span></button>
+          </div>
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="filter-results-none-status">Status</label>
+          <div class="gw-select">
+            <select class="gw-field__control gw-select__control" id="filter-results-none-status" name="status">
+              <option value="">Any status</option>
+              <option value="building">Building</option>
+              <option value="awaiting">Awaiting decision</option>
+              <option value="blocked" selected>Blocked</option>
+              <option value="interrupted">Interrupted</option>
+              <option value="decided">Decided</option>
+            </select>
+          </div>
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="filter-results-none-repository">Repository</label>
+          <div class="gw-select">
+            <select class="gw-field__control gw-select__control" id="filter-results-none-repository" name="repository">
+              <option value="">All repositories</option>
+              <option value="acme/api">acme/api</option>
+              <option value="acme/billing" selected>acme/billing</option>
+              <option value="acme/web">acme/web</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="gw-cluster gw-gap-lg">
+        <ul class="gw-cluster" aria-label="Filters that leave no runs">
+          <li class="gw-tag">Search: session-refresh <button type="button" class="gw-tag__remove" aria-label="Remove filter: Search: session-refresh"></button></li>
+          <li class="gw-tag">Status: Blocked <button type="button" class="gw-tag__remove" aria-label="Remove filter: Status: Blocked"></button></li>
+          <li class="gw-tag">Repository: acme/billing <button type="button" class="gw-tag__remove" aria-label="Remove filter: Repository: acme/billing"></button></li>
+        </ul>
+        <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear filters</button>
+      </div>
+      <p class="gw-filter-results__count" role="status">0 of 128 runs match</p>
+      <div class="gw-empty-state">
+        <h2 class="gw-empty-state__title">No blocked run in acme/billing matches "session-refresh"</h2>
+        <p class="gw-empty-state__body">4 runs in acme/billing match "session-refresh", and none of them is blocked. Remove the status filter to see them.</p>
+        <div class="gw-empty-state__action">
+          <button type="button" class="gw-button">Remove the status filter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Loading the results of a new filter</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="Loading the results of a new filter" data-state="loading" data-gallery-frame>
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-filter-results">
+      <header class="gw-page-header">
+        <div class="gw-page-header__text">
+          <h1 class="gw-page-header__title">Runs</h1>
+          <p class="gw-page-header__description">Every run in your repositories, newest first.</p>
+        </div>
+        <div class="gw-page-header__action">
+          <a class="gw-button gw-button--primary" href="/tasks/new">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+            New task
+          </a>
+        </div>
+      </header>
+      <div class="gw-filter-results__bar">
+        <div class="gw-search-field">
+          <label class="gw-search-field__label" for="filter-results-loading-search">Search runs</label>
+          <div class="gw-search-field__box">
+            <input class="gw-field__control gw-search-field__input" type="search" id="filter-results-loading-search" name="q" placeholder="Task, branch or run number" autocomplete="off" value="session">
+            <button type="button" class="gw-search-field__clear"><span class="gw-visually-hidden">Clear the search</span></button>
+          </div>
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="filter-results-loading-status">Status</label>
+          <div class="gw-select">
+            <select class="gw-field__control gw-select__control" id="filter-results-loading-status" name="status">
+              <option value="" selected>Any status</option>
+              <option value="building">Building</option>
+              <option value="awaiting">Awaiting decision</option>
+              <option value="blocked">Blocked</option>
+              <option value="interrupted">Interrupted</option>
+              <option value="decided">Decided</option>
+            </select>
+          </div>
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="filter-results-loading-repository">Repository</label>
+          <div class="gw-select">
+            <select class="gw-field__control gw-select__control" id="filter-results-loading-repository" name="repository">
+              <option value="">All repositories</option>
+              <option value="acme/api" selected>acme/api</option>
+              <option value="acme/billing">acme/billing</option>
+              <option value="acme/web">acme/web</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="gw-cluster gw-gap-lg">
+        <ul class="gw-cluster" aria-label="Filters being applied to the runs">
+          <li class="gw-tag">Search: session <button type="button" class="gw-tag__remove" aria-label="Remove filter: Search: session"></button></li>
+          <li class="gw-tag">Repository: acme/api <button type="button" class="gw-tag__remove" aria-label="Remove filter: Repository: acme/api"></button></li>
+        </ul>
+        <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear filters</button>
+      </div>
+      <p class="gw-filter-results__count" role="status">Searching 128 runs</p>
+      <div class="gw-skeleton gw-skeleton--rows" aria-busy="true">
+        <span class="gw-visually-hidden">Loading the runs that match</span>
+        <span class="gw-skeleton__row">
+          <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+          <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+        </span>
+        <span class="gw-skeleton__row">
+          <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+          <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+        </span>
+        <span class="gw-skeleton__row">
+          <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+          <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The results could not be loaded</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="load-failed" data-title="The results could not be loaded" data-state="error" data-gallery-frame>
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-filter-results">
+      <header class="gw-page-header">
+        <div class="gw-page-header__text">
+          <h1 class="gw-page-header__title">Runs</h1>
+          <p class="gw-page-header__description">Every run in your repositories, newest first.</p>
+        </div>
+        <div class="gw-page-header__action">
+          <a class="gw-button gw-button--primary" href="/tasks/new">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+            New task
+          </a>
+        </div>
+      </header>
+      <div class="gw-filter-results__bar">
+        <div class="gw-search-field">
+          <label class="gw-search-field__label" for="filter-results-failed-search">Search runs</label>
+          <div class="gw-search-field__box">
+            <input class="gw-field__control gw-search-field__input" type="search" id="filter-results-failed-search" name="q" placeholder="Task, branch or run number" autocomplete="off" value="">
+            <button type="button" class="gw-search-field__clear"><span class="gw-visually-hidden">Clear the search</span></button>
+          </div>
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="filter-results-failed-status">Status</label>
+          <div class="gw-select">
+            <select class="gw-field__control gw-select__control" id="filter-results-failed-status" name="status">
+              <option value="">Any status</option>
+              <option value="building">Building</option>
+              <option value="awaiting" selected>Awaiting decision</option>
+              <option value="blocked">Blocked</option>
+              <option value="interrupted">Interrupted</option>
+              <option value="decided">Decided</option>
+            </select>
+          </div>
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="filter-results-failed-repository">Repository</label>
+          <div class="gw-select">
+            <select class="gw-field__control gw-select__control" id="filter-results-failed-repository" name="repository">
+              <option value="" selected>All repositories</option>
+              <option value="acme/api">acme/api</option>
+              <option value="acme/billing">acme/billing</option>
+              <option value="acme/web">acme/web</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="gw-cluster gw-gap-lg">
+        <ul class="gw-cluster" aria-label="Filters that could not be applied">
+          <li class="gw-tag">Status: Awaiting decision <button type="button" class="gw-tag__remove" aria-label="Remove filter: Status: Awaiting decision"></button></li>
+        </ul>
+        <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear filters</button>
+      </div>
+      <div class="gw-error-state" role="alert">
+        <h2 class="gw-error-state__title">The runs could not be loaded</h2>
+        <p>The server did not answer in time. Your filters are kept. Check your connection, then retry.</p>
+        <div class="gw-error-state__action">
+          <button type="button" class="gw-button">Retry</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Results as a grid of identical cards</h3>
+<p>Three boxes of the same shape take the room of a dozen rows and make the reader's eye travel in two directions to compare them. Results that are alike are a list, or a table when the reader compares them across columns.</p>
+<p>Checker rule: <code>identical-card-grid</code></p>
+</figcaption>
+<div data-example="card-grid" data-title="Results as a grid of identical cards" data-dont="identical-card-grid" data-gallery-frame="short" data-reason="Three boxes of the same shape take the room of a dozen rows and make the reader's eye travel in two directions to compare them. Results that are alike are a list, or a table when the reader compares them across columns.">
+  <div class="gw-filter-results">
+    <p class="gw-filter-results__count" role="status">3 of 128 runs match</p>
+    <div class="gw-grid gw-grid-3">
+      <section class="gw-card" aria-labelledby="filter-results-cards-first">
+        <div class="gw-card__header">
+          <h2 class="gw-card__title" id="filter-results-cards-first">Add dark theme to the session settings screen</h2>
+        </div>
+        <div class="gw-card__body">
+          <p>Blocked. Waiting on a failed check in acme/web.</p>
+          <a class="gw-link" href="/runs/2291">Open run 2291</a>
+        </div>
+      </section>
+      <section class="gw-card" aria-labelledby="filter-results-cards-second">
+        <div class="gw-card__header">
+          <h2 class="gw-card__title" id="filter-results-cards-second">Move session storage to Redis</h2>
+        </div>
+        <div class="gw-card__body">
+          <p>Blocked. Waiting on a deploy key for acme/infra.</p>
+          <a class="gw-link" href="/runs/2284">Open run 2284</a>
+        </div>
+      </section>
+      <section class="gw-card" aria-labelledby="filter-results-cards-third">
+        <div class="gw-card__header">
+          <h2 class="gw-card__title" id="filter-results-cards-third">Refuse a session token older than 30 minutes</h2>
+        </div>
+        <div class="gw-card__body">
+          <p>Blocked. Waiting on a merge conflict with main.</p>
+          <a class="gw-link" href="/runs/2279">Open run 2279</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a list or table too long to scan whole, such as every run in a workspace, that the reader narrows by text and by two or three fixed properties.</li>
+<li>When the reader needs to see which filters are in force and to remove one without finding its control again.</li>
+<li>With a list for results the reader scans and opens, and with a data table when they compare results across columns.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a list short enough to read whole. Show the list with no filters.</li>
+<li>For a search over one list with no other filter. Use a search field alone, with its own count line.</li>
+<li>For more than three or four filters. Keep the most used in the bar and open the rest in a sheet from a secondary button.</li>
+<li>For switching between a few fixed views of one list, such as Open and Closed. Use tabs.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>In an app the element with gw-filter-results is the main element. The page title is the h1, in a page header, which may hold the view's one primary action. No filter control is primary.</li>
+<li>gw-filter-results__bar holds a search field and then each filter as a select in a field. Every control has a visible label, and each select's first option names the unfiltered choice, such as Any status. The results change as a control changes, so the bar has no Apply button.</li>
+<li>The filters in force are a ul with an aria-label, holding one removable tag for each, written as the filter's name and value. The search text is one of them. Clear filters is a small quiet button after the list, and it is rendered only while a filter is in force.</li>
+<li>The count is a p with gw-filter-results__count and role=&quot;status&quot;, directly above the results. Keep it in the page from the start and change only its text, after the reader pauses typing, so the new count is announced without moving focus. It says the number, the total and the unit: 3 of 128 runs match.</li>
+<li>After a tag is removed, move focus to the next tag's button, or to the search input when none is left.</li>
+<li>With no results, the count says 0 and an empty state takes the place of the results. Its title repeats the filters in words, its body names the one filter to loosen and what that would show, and its one button removes that filter. It is never primary.</li>
+<li>While results load, the count says what is being searched and a skeleton of rows takes the place of the results, with aria-busy=&quot;true&quot; and a gw-visually-hidden line. The filters stay usable. For a wait under about a second, keep the old results and show nothing.</li>
+<li>If the results cannot be loaded, show an error state with Retry in their place and keep the filters as the reader set them. Never show the empty state for a failed load.</li>
+<li>Tab moves through the search input, its clear button, the filters, each tag's remove button, Clear filters, then the results. The pattern needs no script of its own.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-filter-results</code></li>
+<li><code>gw-filter-results__bar</code></li>
+<li><code>gw-filter-results__count</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "name": "date-field",
+  "title": "Date field",
+  "purpose": "A native date input, or date and time input, as the control of a field, with a hint for what to enter and its earliest and latest values.",
+  "status": "draft",
+  "whenToUse": [
+    "For one calendar day the reader knows or picks: an expiry date, the start of a filter.",
+    "With type=\"datetime-local\", for a day and a time together, such as when a scheduled run starts."
+  ],
+  "whenNotToUse": [
+    "For a date the reader knows by heart and that is far in the past, such as a date of birth. Use three fields: day, month and year.",
+    "For a rough span of time, such as the last 7 days. Use a select or a segmented control of ready-made ranges.",
+    "For a length of time, such as 30 minutes. Use a number field with a unit.",
+    "To show a date the reader cannot change and will not send with a form. Write it as plain text, such as 14 March 2026."
+  ],
+  "variants": [
+    { "name": "date", "use": "input type=\"date\". At most 220px wide." },
+    { "name": "date and time", "use": "input type=\"datetime-local\". At most 286px wide. Set step, in seconds, to limit the minutes it offers." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "44px tall. The calendar button inside it is the browser's own, with a widened pointer target." }
+  ],
+  "states": ["default", "focus", "empty", "invalid", "disabled", "read-only"],
+  "accessibility": [
+    "Use input type=\"date\" or type=\"datetime-local\" carrying gw-field__control and gw-date-field, inside gw-field. The label, description and error are the field's. There is no wrapper and no custom calendar.",
+    "The value, min and max are always written as 2026-11-22, or 2026-11-22T09:30 with a time, whatever the reader sees. The browser shows and reads the date in the reader's own format.",
+    "Because that format and the order of its parts differ from reader to reader, the hint never spells a pattern such as DD/MM/YYYY. The description gives the earliest and latest day with the month as a word, such as Any day from 24 August to 22 November 2026, which also shows the reader what a full date holds. For a time, it names the time zone.",
+    "Set min and max to the same range the description gives, and check the value on the server as well: a browser may let the reader type a day outside the range.",
+    "For a day out of range, set aria-invalid=\"true\" on the input and link a gw-field__error that names the limit and says what to choose.",
+    "The keyboard is the browser's own: Tab moves between the day, month and year, the arrow keys change each, typing digits fills it, and in most browsers Space, or Alt and Down, opens the calendar.",
+    "An empty input shows the browser's own outline of the format. Do not add a placeholder.",
+    "A read-only date stays focusable and can be read. A disabled one leaves the tab order, and its description says how to make it available."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-date-field"
+  ]
+}

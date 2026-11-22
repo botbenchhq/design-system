@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendar - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Calendar</h1>
+<p>One month as a grid of days, for picking a single day.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A month with today marked</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>It is a real table, so a screen reader can say which weekday a day falls on, and each day is a button named with its full date. Today has a ring for the eye and the word today in its name.</p>
+</figcaption>
+<div data-example="default" data-title="A month with today marked" data-state="default" data-reason="It is a real table, so a screen reader can say which weekday a day falls on, and each day is a button named with its full date. Today has a ring for the eye and the word today in its name.">
+  <div class="gw-calendar" role="group" aria-label="Day the report starts">
+    <div class="gw-calendar__header">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Previous month, October 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+      </button>
+      <p class="gw-calendar__title" id="calendar-default-title" aria-live="polite">November 2026</p>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Next month, December 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </button>
+    </div>
+    <table class="gw-calendar__grid" aria-labelledby="calendar-default-title">
+      <thead>
+        <tr>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Mo</span><span class="gw-visually-hidden">Monday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Tu</span><span class="gw-visually-hidden">Tuesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">We</span><span class="gw-visually-hidden">Wednesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Th</span><span class="gw-visually-hidden">Thursday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Fr</span><span class="gw-visually-hidden">Friday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Sa</span><span class="gw-visually-hidden">Saturday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Su</span><span class="gw-visually-hidden">Sunday</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 1 November 2026" aria-pressed="false">1</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 2 November 2026" aria-pressed="false">2</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 3 November 2026" aria-pressed="false">3</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 4 November 2026" aria-pressed="false">4</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 5 November 2026" aria-pressed="false">5</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 6 November 2026" aria-pressed="false">6</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 7 November 2026" aria-pressed="false">7</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 8 November 2026" aria-pressed="false">8</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 9 November 2026" aria-pressed="false">9</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 10 November 2026" aria-pressed="false">10</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 11 November 2026" aria-pressed="false">11</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 12 November 2026" aria-pressed="false">12</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 13 November 2026" aria-pressed="false">13</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 14 November 2026" aria-pressed="false">14</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 15 November 2026" aria-pressed="false">15</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 16 November 2026" aria-pressed="false">16</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 17 November 2026" aria-pressed="false">17</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 18 November 2026" aria-pressed="false">18</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 19 November 2026" aria-pressed="false">19</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 20 November 2026" aria-pressed="false">20</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 21 November 2026" aria-pressed="false">21</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 22 November 2026, today" aria-current="date" aria-pressed="false">22</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 23 November 2026" aria-pressed="false">23</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 24 November 2026" aria-pressed="false">24</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 25 November 2026" aria-pressed="false">25</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 26 November 2026" aria-pressed="false">26</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 27 November 2026" aria-pressed="false">27</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 28 November 2026" aria-pressed="false">28</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 29 November 2026" aria-pressed="false">29</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 30 November 2026" aria-pressed="false">30</button></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="gw-calendar__status" role="status">No day chosen yet.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A chosen day</h3>
+<p data-gallery="state">State: <code>selected</code></p>
+<p>The chosen day is filled and heavier, it is the pressed button for a screen reader, and the line under the month says the choice in words. Today keeps its ring, so the two are never confused.</p>
+</figcaption>
+<div data-example="selected" data-title="A chosen day" data-state="selected" data-reason="The chosen day is filled and heavier, it is the pressed button for a screen reader, and the line under the month says the choice in words. Today keeps its ring, so the two are never confused.">
+  <div class="gw-calendar" role="group" aria-label="Day the nightly run starts">
+    <div class="gw-calendar__header">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Previous month, October 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+      </button>
+      <p class="gw-calendar__title" id="calendar-selected-title" aria-live="polite">November 2026</p>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Next month, December 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </button>
+    </div>
+    <table class="gw-calendar__grid" aria-labelledby="calendar-selected-title">
+      <thead>
+        <tr>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Mo</span><span class="gw-visually-hidden">Monday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Tu</span><span class="gw-visually-hidden">Tuesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">We</span><span class="gw-visually-hidden">Wednesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Th</span><span class="gw-visually-hidden">Thursday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Fr</span><span class="gw-visually-hidden">Friday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Sa</span><span class="gw-visually-hidden">Saturday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Su</span><span class="gw-visually-hidden">Sunday</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 1 November 2026" aria-pressed="false">1</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 2 November 2026" aria-pressed="false">2</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 3 November 2026" aria-pressed="false">3</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 4 November 2026" aria-pressed="false">4</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 5 November 2026" aria-pressed="false">5</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 6 November 2026" aria-pressed="false">6</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 7 November 2026" aria-pressed="false">7</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 8 November 2026" aria-pressed="false">8</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 9 November 2026" aria-pressed="false">9</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 10 November 2026" aria-pressed="false">10</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 11 November 2026" aria-pressed="false">11</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 12 November 2026" aria-pressed="false">12</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 13 November 2026" aria-pressed="false">13</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 14 November 2026" aria-pressed="false">14</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 15 November 2026" aria-pressed="false">15</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 16 November 2026" aria-pressed="false">16</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 17 November 2026" aria-pressed="false">17</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 18 November 2026" aria-pressed="false">18</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 19 November 2026" aria-pressed="false">19</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 20 November 2026" aria-pressed="false">20</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 21 November 2026" aria-pressed="false">21</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 22 November 2026, today" aria-current="date" aria-pressed="false">22</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 23 November 2026" aria-pressed="false">23</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 24 November 2026" aria-pressed="true">24</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 25 November 2026" aria-pressed="false">25</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 26 November 2026" aria-pressed="false">26</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 27 November 2026" aria-pressed="false">27</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 28 November 2026" aria-pressed="false">28</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 29 November 2026" aria-pressed="false">29</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 30 November 2026" aria-pressed="false">30</button></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="gw-calendar__status" role="status">Chosen: Tuesday 24 November 2026.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Today is the chosen day</h3>
+</figcaption>
+<div data-example="today-selected" data-title="Today is the chosen day">
+  <div class="gw-calendar" role="group" aria-label="Day the usage report ends">
+    <div class="gw-calendar__header">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Previous month, October 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+      </button>
+      <p class="gw-calendar__title" id="calendar-today-selected-title" aria-live="polite">November 2026</p>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Next month, December 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </button>
+    </div>
+    <table class="gw-calendar__grid" aria-labelledby="calendar-today-selected-title">
+      <thead>
+        <tr>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Mo</span><span class="gw-visually-hidden">Monday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Tu</span><span class="gw-visually-hidden">Tuesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">We</span><span class="gw-visually-hidden">Wednesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Th</span><span class="gw-visually-hidden">Thursday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Fr</span><span class="gw-visually-hidden">Friday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Sa</span><span class="gw-visually-hidden">Saturday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Su</span><span class="gw-visually-hidden">Sunday</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 1 November 2026" aria-pressed="false">1</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 2 November 2026" aria-pressed="false">2</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 3 November 2026" aria-pressed="false">3</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 4 November 2026" aria-pressed="false">4</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 5 November 2026" aria-pressed="false">5</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 6 November 2026" aria-pressed="false">6</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 7 November 2026" aria-pressed="false">7</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 8 November 2026" aria-pressed="false">8</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 9 November 2026" aria-pressed="false">9</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 10 November 2026" aria-pressed="false">10</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 11 November 2026" aria-pressed="false">11</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 12 November 2026" aria-pressed="false">12</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 13 November 2026" aria-pressed="false">13</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 14 November 2026" aria-pressed="false">14</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 15 November 2026" aria-pressed="false">15</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 16 November 2026" aria-pressed="false">16</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 17 November 2026" aria-pressed="false">17</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 18 November 2026" aria-pressed="false">18</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 19 November 2026" aria-pressed="false">19</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 20 November 2026" aria-pressed="false">20</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 21 November 2026" aria-pressed="false">21</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 22 November 2026, today" aria-current="date" aria-pressed="true">22</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 23 November 2026" aria-pressed="false">23</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 24 November 2026" aria-pressed="false">24</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 25 November 2026" aria-pressed="false">25</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 26 November 2026" aria-pressed="false">26</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 27 November 2026" aria-pressed="false">27</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 28 November 2026" aria-pressed="false">28</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 29 November 2026" aria-pressed="false">29</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 30 November 2026" aria-pressed="false">30</button></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="gw-calendar__status" role="status">Chosen: Sunday 22 November 2026, today.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Days that cannot be chosen</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Days that cannot be chosen" data-state="disabled">
+  <div class="gw-calendar" role="group" aria-label="Day the scheduled run starts">
+    <div class="gw-calendar__header">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Previous month, October 2026" disabled>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+      </button>
+      <p class="gw-calendar__title" id="calendar-disabled-title" aria-live="polite">November 2026</p>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Next month, December 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </button>
+    </div>
+    <table class="gw-calendar__grid" aria-labelledby="calendar-disabled-title">
+      <thead>
+        <tr>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Mo</span><span class="gw-visually-hidden">Monday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Tu</span><span class="gw-visually-hidden">Tuesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">We</span><span class="gw-visually-hidden">Wednesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Th</span><span class="gw-visually-hidden">Thursday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Fr</span><span class="gw-visually-hidden">Friday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Sa</span><span class="gw-visually-hidden">Saturday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Su</span><span class="gw-visually-hidden">Sunday</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 1 November 2026" aria-pressed="false" disabled>1</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 2 November 2026" aria-pressed="false" disabled>2</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 3 November 2026" aria-pressed="false" disabled>3</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 4 November 2026" aria-pressed="false" disabled>4</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 5 November 2026" aria-pressed="false" disabled>5</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 6 November 2026" aria-pressed="false" disabled>6</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 7 November 2026" aria-pressed="false" disabled>7</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 8 November 2026" aria-pressed="false" disabled>8</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 9 November 2026" aria-pressed="false" disabled>9</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 10 November 2026" aria-pressed="false" disabled>10</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 11 November 2026" aria-pressed="false" disabled>11</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 12 November 2026" aria-pressed="false" disabled>12</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 13 November 2026" aria-pressed="false" disabled>13</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 14 November 2026" aria-pressed="false" disabled>14</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 15 November 2026" aria-pressed="false" disabled>15</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 16 November 2026" aria-pressed="false" disabled>16</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 17 November 2026" aria-pressed="false" disabled>17</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 18 November 2026" aria-pressed="false" disabled>18</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 19 November 2026" aria-pressed="false" disabled>19</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 20 November 2026" aria-pressed="false" disabled>20</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 21 November 2026" aria-pressed="false" disabled>21</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 22 November 2026, today" aria-current="date" aria-pressed="false">22</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 23 November 2026" aria-pressed="false">23</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 24 November 2026" aria-pressed="false">24</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 25 November 2026" aria-pressed="false">25</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 26 November 2026" aria-pressed="false">26</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 27 November 2026" aria-pressed="true">27</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 28 November 2026" aria-pressed="false">28</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 29 November 2026" aria-pressed="false">29</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 30 November 2026" aria-pressed="false">30</button></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="gw-calendar__status" role="status">Chosen: Friday 27 November 2026. A run can be scheduled from today onwards.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-calendar" role="group" aria-label="Day the audit log starts">
+    <div class="gw-calendar__header">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Previous month, October 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+      </button>
+      <p class="gw-calendar__title" id="calendar-hover-title" aria-live="polite">November 2026</p>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Next month, December 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </button>
+    </div>
+    <table class="gw-calendar__grid" aria-labelledby="calendar-hover-title">
+      <thead>
+        <tr>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Mo</span><span class="gw-visually-hidden">Monday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Tu</span><span class="gw-visually-hidden">Tuesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">We</span><span class="gw-visually-hidden">Wednesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Th</span><span class="gw-visually-hidden">Thursday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Fr</span><span class="gw-visually-hidden">Friday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Sa</span><span class="gw-visually-hidden">Saturday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Su</span><span class="gw-visually-hidden">Sunday</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 1 November 2026" aria-pressed="false">1</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 2 November 2026" aria-pressed="false">2</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 3 November 2026" aria-pressed="false">3</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 4 November 2026" aria-pressed="false">4</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 5 November 2026" aria-pressed="false">5</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 6 November 2026" aria-pressed="false">6</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 7 November 2026" aria-pressed="false">7</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 8 November 2026" aria-pressed="false">8</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 9 November 2026" aria-pressed="false">9</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 10 November 2026" aria-pressed="false">10</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 11 November 2026" aria-pressed="false">11</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 12 November 2026" aria-pressed="false">12</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 13 November 2026" aria-pressed="false">13</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 14 November 2026" aria-pressed="false">14</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 15 November 2026" aria-pressed="false">15</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 16 November 2026" aria-pressed="false">16</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 17 November 2026" aria-pressed="false">17</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 18 November 2026" aria-pressed="false">18</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 19 November 2026" aria-pressed="false">19</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 20 November 2026" aria-pressed="false">20</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 21 November 2026" aria-pressed="false">21</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 22 November 2026, today" aria-current="date" aria-pressed="false">22</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 23 November 2026" aria-pressed="false">23</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 24 November 2026" aria-pressed="true">24</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 25 November 2026" aria-pressed="false">25</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 26 November 2026" aria-pressed="false">26</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 27 November 2026" aria-pressed="false">27</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 28 November 2026" aria-pressed="false">28</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 29 November 2026" aria-pressed="false">29</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 30 November 2026" aria-pressed="false">30</button></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-calendar" role="group" aria-label="Day the audit log ends">
+    <div class="gw-calendar__header">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Previous month, October 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+      </button>
+      <p class="gw-calendar__title" id="calendar-focus-visible-title" aria-live="polite">November 2026</p>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Next month, December 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </button>
+    </div>
+    <table class="gw-calendar__grid" aria-labelledby="calendar-focus-visible-title">
+      <thead>
+        <tr>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Mo</span><span class="gw-visually-hidden">Monday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Tu</span><span class="gw-visually-hidden">Tuesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">We</span><span class="gw-visually-hidden">Wednesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Th</span><span class="gw-visually-hidden">Thursday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Fr</span><span class="gw-visually-hidden">Friday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Sa</span><span class="gw-visually-hidden">Saturday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Su</span><span class="gw-visually-hidden">Sunday</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 1 November 2026" aria-pressed="false">1</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 2 November 2026" aria-pressed="false">2</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 3 November 2026" aria-pressed="false">3</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 4 November 2026" aria-pressed="false">4</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 5 November 2026" aria-pressed="false">5</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 6 November 2026" aria-pressed="false">6</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 7 November 2026" aria-pressed="false">7</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 8 November 2026" aria-pressed="false">8</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 9 November 2026" aria-pressed="false">9</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 10 November 2026" aria-pressed="false">10</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 11 November 2026" aria-pressed="false">11</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 12 November 2026" aria-pressed="false">12</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 13 November 2026" aria-pressed="false">13</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 14 November 2026" aria-pressed="false">14</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 15 November 2026" aria-pressed="false">15</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 16 November 2026" aria-pressed="false">16</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 17 November 2026" aria-pressed="false">17</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 18 November 2026" aria-pressed="false">18</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 19 November 2026" aria-pressed="false">19</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 20 November 2026" aria-pressed="false">20</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 21 November 2026" aria-pressed="false">21</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 22 November 2026, today" aria-current="date" aria-pressed="false">22</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 23 November 2026" aria-pressed="false">23</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 24 November 2026" aria-pressed="true">24</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 25 November 2026" aria-pressed="false">25</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 26 November 2026" aria-pressed="false">26</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 27 November 2026" aria-pressed="false">27</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 28 November 2026" aria-pressed="false">28</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 29 November 2026" aria-pressed="false">29</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 30 November 2026" aria-pressed="false">30</button></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The grid variant, for an app that provides the arrow keys</h3>
+</figcaption>
+<div data-example="grid" data-title="The grid variant, for an app that provides the arrow keys">
+  <div class="gw-calendar" role="group" aria-label="Day the branch freeze starts">
+    <div class="gw-calendar__header">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Previous month, October 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+      </button>
+      <p class="gw-calendar__title" id="calendar-grid-title" aria-live="polite">November 2026</p>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Next month, December 2026">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </button>
+    </div>
+    <table class="gw-calendar__grid" role="grid" aria-labelledby="calendar-grid-title">
+      <thead>
+        <tr>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Mo</span><span class="gw-visually-hidden">Monday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Tu</span><span class="gw-visually-hidden">Tuesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">We</span><span class="gw-visually-hidden">Wednesday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Th</span><span class="gw-visually-hidden">Thursday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Fr</span><span class="gw-visually-hidden">Friday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Sa</span><span class="gw-visually-hidden">Saturday</span></th>
+          <th scope="col" class="gw-calendar__weekday"><span aria-hidden="true">Su</span><span class="gw-visually-hidden">Sunday</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 1 November 2026" tabindex="-1">1</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 2 November 2026" tabindex="-1">2</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 3 November 2026" tabindex="-1">3</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 4 November 2026" tabindex="-1">4</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 5 November 2026" tabindex="-1">5</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 6 November 2026" tabindex="-1">6</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 7 November 2026" tabindex="-1">7</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 8 November 2026" tabindex="-1">8</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 9 November 2026" tabindex="-1">9</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 10 November 2026" tabindex="-1">10</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 11 November 2026" tabindex="-1">11</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 12 November 2026" tabindex="-1">12</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 13 November 2026" tabindex="-1">13</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 14 November 2026" tabindex="-1">14</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 15 November 2026" tabindex="-1">15</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 16 November 2026" tabindex="-1">16</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Tuesday 17 November 2026" tabindex="-1">17</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 18 November 2026" tabindex="-1">18</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 19 November 2026" tabindex="-1">19</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 20 November 2026" tabindex="-1">20</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 21 November 2026" tabindex="-1">21</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 22 November 2026, today" aria-current="date" tabindex="-1">22</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 23 November 2026" tabindex="-1">23</button></td>
+          <td aria-selected="true"><button type="button" class="gw-calendar__day" aria-label="Tuesday 24 November 2026" tabindex="0">24</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Wednesday 25 November 2026" tabindex="-1">25</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Thursday 26 November 2026" tabindex="-1">26</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Friday 27 November 2026" tabindex="-1">27</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Saturday 28 November 2026" tabindex="-1">28</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-label="Sunday 29 November 2026" tabindex="-1">29</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-label="Monday 30 November 2026" tabindex="-1">30</button></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="gw-calendar__status" role="status">Chosen: Tuesday 24 November 2026.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Bare numbers and unnamed arrows</h3>
+<p>A screen reader hears a button called 24 with no month, year or weekday, two buttons with no name at all, and nothing that says which day is today or which is chosen. Name every day with its full date, name the arrows for the month they go to, and mark today and the choice in the markup.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="bare-numbers" data-title="Bare numbers and unnamed arrows" data-dont="review" data-reason="A screen reader hears a button called 24 with no month, year or weekday, two buttons with no name at all, and nothing that says which day is today or which is chosen. Name every day with its full date, name the arrows for the month they go to, and mark today and the choice in the markup.">
+  <div class="gw-calendar" role="group">
+    <div class="gw-calendar__header">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+      </button>
+      <p class="gw-calendar__title" id="calendar-bare-numbers-title" aria-live="polite">November 2026</p>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </button>
+    </div>
+    <table class="gw-calendar__grid" aria-labelledby="calendar-bare-numbers-title">
+      <thead>
+        <tr>
+          <th scope="col" class="gw-calendar__weekday">Mo</th>
+          <th scope="col" class="gw-calendar__weekday">Tu</th>
+          <th scope="col" class="gw-calendar__weekday">We</th>
+          <th scope="col" class="gw-calendar__weekday">Th</th>
+          <th scope="col" class="gw-calendar__weekday">Fr</th>
+          <th scope="col" class="gw-calendar__weekday">Sa</th>
+          <th scope="col" class="gw-calendar__weekday">Su</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">1</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">2</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">3</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">4</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">5</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">6</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">7</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">8</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">9</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">10</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">11</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">12</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">13</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">14</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">15</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">16</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">17</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">18</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">19</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">20</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">21</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">22</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">23</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">24</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">25</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">26</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">27</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">28</button></td>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">29</button></td>
+        </tr>
+        <tr>
+          <td><button type="button" class="gw-calendar__day" aria-pressed="false">30</button></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>To pick a day near today where the weekday matters, such as the day a scheduled run starts or the day a report begins.</li>
+<li>Inside a popover or a sheet opened from a field, or straight in a form.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a date the reader already knows, such as a date of birth or a date far from today. Use a text input with type=&quot;date&quot; in a field.</li>
+<li>For a time of day. Use a text input with type=&quot;time&quot; or a select.</li>
+<li>For a choice from a few fixed periods, such as the last 7 or 30 days. Use a segmented control or a select.</li>
+<li>To show what happened on each day. This is a picker, not a schedule: use a list or a table grouped by day.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>buttons</dt>
+<dd>The default. A plain table whose days are buttons with aria-pressed. It works with no script beyond handling the press.</dd>
+<dt>grid</dt>
+<dd>The same markup with role=&quot;grid&quot; on the table, aria-selected on the selected day's cell and one day in the tab order. Use it when the app provides the arrow keys.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>Each day is 44px tall and at least 44px wide. The month is 308px to 352px wide, which fits a 390px phone with its margins.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a div with gw-calendar, role=&quot;group&quot; and an aria-label that says what the day is for, such as Day the report starts. It holds gw-calendar__header, the table and gw-calendar__status.</li>
+<li>gw-calendar__header holds the previous-month button, a p with gw-calendar__title and aria-live=&quot;polite&quot; naming the month and year, and the next-month button. Each button is a quiet icon button whose aria-label names the month it goes to: Previous month, October 2026. When the month changes the app rewrites the title and the table, and the title is announced.</li>
+<li>The month is a table with gw-calendar__grid and aria-labelledby pointing at the title. Its thead has one th with scope=&quot;col&quot; and gw-calendar__weekday for each weekday, holding a two-letter name with aria-hidden=&quot;true&quot; and the full name in a gw-visually-hidden span. Each week is a tr of seven td. A cell outside the month is an empty td.</li>
+<li>Each day is a button with type=&quot;button&quot; and gw-calendar__day, showing the day's number. Its aria-label is the full date with the weekday: Tuesday 24 November 2026. The app writes these, so the stylesheet holds no date arithmetic.</li>
+<li>Today carries aria-current=&quot;date&quot;, and its aria-label ends with the word today: Sunday 22 November 2026, today. The stylesheet draws a ring on it, so today is marked by a shape for the eye and in words for a screen reader.</li>
+<li>The selected day carries aria-pressed=&quot;true&quot; and every other day aria-pressed=&quot;false&quot;. The app also writes the choice in words into gw-calendar__status, a p with role=&quot;status&quot;: Chosen: Tuesday 24 November 2026.</li>
+<li>A day that cannot be chosen has the disabled attribute and is struck through. Say why near the calendar, such as Runs can be scheduled from today. Disable the previous-month or next-month button when every day that way is unavailable.</li>
+<li>With no script the keyboard still works: Tab moves through the two month buttons and every day, and Enter or Space chooses a day.</li>
+<li>The arrow keys are the app's to provide, with the grid variant: set role=&quot;grid&quot; on the table, move the selection to aria-selected=&quot;true&quot; on the day's td in place of aria-pressed, and give every day tabindex=&quot;-1&quot; except one, which is the selected day, or else today, or else the first day that can be chosen. Left and Right move focus one day, Up and Down one week, Home and End to the start and the end of the week, Page Up and Page Down one month, and Shift with Page Up or Page Down one year. Moving past either end of the month shows the next month and keeps focus on the day reached. A day that cannot be chosen takes aria-disabled=&quot;true&quot; in place of disabled, so the arrows can cross it, and the app ignores presses on it. Enter and Space choose the focused day.</li>
+<li>When the calendar is in a popover or a sheet, choosing a day closes it and returns focus to the control that opened it. Escape closes it and changes nothing.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-calendar</code></li>
+<li><code>gw-calendar__day</code></li>
+<li><code>gw-calendar__grid</code></li>
+<li><code>gw-calendar__header</code></li>
+<li><code>gw-calendar__status</code></li>
+<li><code>gw-calendar__title</code></li>
+<li><code>gw-calendar__weekday</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

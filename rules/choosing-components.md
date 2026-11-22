@@ -2,6 +2,8 @@
 
 Find the need, then look the component up in `components.json` for its markup, variants and limits.
 
+For a whole screen, start from a page pattern. They are listed under "Page patterns" below, and in the patterns list of `components.json`.
+
 ## Page structure
 
 | Need | Use |
@@ -15,6 +17,10 @@ Find the need, then look the component up in `components.json` for its markup, v
 | The details of the item selected in the content beside it | `inspector` |
 | Panels of one view, one shown at a time | `tabs` |
 | Sections of which one is open at a time | `accordion` |
+| A list and the detail of its chosen row side by side, each scrolling by itself | `split-panel` |
+| Where the reader is in three to five named steps that happen in a fixed order | `stepper` |
+| The files of a repository or the outline of a document, with folders that open and close | `tree` |
+| One setting on a settings page: its label, a one-line description and a single control | `settings-row` |
 | Arranging content | The layout primitives: `gw-stack`, `gw-cluster`, `gw-split`, `gw-grid`, `gw-sidebar-layout`, `gw-container` |
 
 ## Actions and navigation
@@ -29,6 +35,14 @@ Find the need, then look the component up in `components.json` for its markup, v
 | Three or more actions on one thing, opened from a button | `menu` |
 | The next or previous page of a long list | `pagination` |
 | The rest of long text, or of a list cut short, shown in place | `show-more` |
+| A main action with two or more variations of it behind a joined menu button | `split-button` |
+| An option of the current view that is on or off and is not saved, such as Wrap lines | `toggle-button` |
+| Three or more related controls for one view, grouped and labelled | `toolbar` |
+| Copying a value the view already shows as text | `copy-button` |
+| Three or more actions on one row of a list or table | `context-menu`, opened from a More actions button in the row |
+| Any command of the app, run from the keyboard | `command-palette`. Every command is also a button or a menu item in its own view. |
+| Naming a key or a shortcut in text | `kbd` |
+| The actions on the rows the reader has selected | `selection-basket`, straight after the list it acts on |
 
 ## Forms
 
@@ -44,6 +58,19 @@ Find the need, then look the component up in `components.json` for its markup, v
 | Finding items in a list by text | `search-field` |
 | Sending the next prompt to an agent, or stopping a turn | `composer` |
 | A value the reader copies and cannot change | `copy-field` |
+| An amount the reader types or nudges, with its unit | `number-field` |
+| A rough amount, or a scale of a few named steps | `slider` |
+| A password or another secret the reader types and may want to check | `password-field` |
+| A short one-time code from an authenticator app, a text message or an email | `otp-input` |
+| One calendar day, or a day and a time, that the reader knows or picks | `date-field` |
+| A day near today where the weekday matters | `calendar` |
+| One choice from a list too long to scan, found by typing | `combobox` |
+| One or several of a known set, with the options and a fact about each always in view | `listbox` |
+| Several short values of one kind that the reader types | `tag-input` |
+| One or more files from the reader's device, sent with a form | `file-upload` |
+| Narrowing a list by a few known values the reader switches on and off | `filter-chips`, directly above the list |
+| A short ordered list of one-line items the reader corrects in place | `editable-list` |
+| Connecting an outside account by entering a short code on that account's site | `device-code` |
 
 ## Messages and status
 
@@ -63,6 +90,8 @@ Find the need, then look the component up in `components.json` for its markup, v
 | An action was done at once and can be taken back | `undo-toast` |
 | A neutral label for a category or a filter value | `tag` |
 | A line of supplementary text about a control that already has a label | `tooltip` |
+| What happened while the reader was away, as unread and earlier | `notification-list` |
+| The results of the automated checks on a run | `check-list` |
 
 ## Overlays
 
@@ -73,6 +102,7 @@ Find the need, then look the component up in `components.json` for its markup, v
 | A longer form, filters or the details of an item, over the page | `sheet` |
 | Short supplementary content or a small form beside the button that opens it | `popover` |
 | A list of actions on one thing | `menu` |
+| A preview of a linked item beside its link, holding only facts the linked page also shows | `hover-card` |
 
 ## Data
 
@@ -87,6 +117,7 @@ Find the need, then look the component up in `components.json` for its markup, v
 | One number with its comparison, period or scope | `stat` |
 | Events in the order they happened | `timeline` |
 | A person or an agent, named, with a small mark | `avatar` |
+| How a number moved over the last few runs or days, beside the number | `sparkline` |
 
 ## Agent surfaces
 
@@ -105,6 +136,24 @@ Find the need, then look the component up in `components.json` for its markup, v
 | A run or a task as one row of a `list` | `run-status` |
 | What agents and people did, day by day | `activity-feed` |
 | Rating an answer as helpful or not | `feedback` |
+
+## Page patterns
+
+A pattern is a whole screen composed from the components above, with a little layout of its own. Start a new screen from the nearest one: copy its example from the patterns list of `components.json` and replace the content.
+
+| Screen | Start from |
+|---|---|
+| A long list or table the reader narrows by text and by two or three fixed properties | `filter-results` |
+| A list the reader goes through item by item, acting on each, with a short detail beside it | `master-detail` |
+| A task with more fields than fit one view, in three to five steps with a review before the final action | `multi-step-form` |
+| The settings of one thing: the few most people change, one advanced disclosure and a danger area | `settings-page`. Write each setting as a `settings-row`. |
+| The screen a signed-out reader meets, or another single task outside the app's navigation | `sign-in` |
+| An address that matches no screen, or a screen whose item does not exist | `not-found` |
+
+- `master-detail` or `split-panel`: master and detail is a screen, and on a phone it shows the list or the detail, never both. A split panel is a region of a view whose two parts each scroll, stacked below 768px.
+- `multi-step-form` or `stepper`: the pattern is the whole flow, one step to an address. The stepper is the component that shows where the reader is in it.
+- `not-found`, `error-state` or `empty-state`: not found when the item does not exist, an error state when loading it failed, an empty state when a list or search has no results.
+- `filter-results` or `search-field`: a search field alone for text over one list. The pattern when there are other filters and the reader must see which are in force.
 
 ## Telling similar components apart
 
@@ -135,6 +184,29 @@ Find the need, then look the component up in `components.json` for its markup, v
 - `message` or `tool-call`: a message is a row of a transcript. A tool call summarises one call outside a transcript.
 - `source-chip` or `attachment-chip`: a source chip is a link to where something came from. An attachment chip is a file the reader attached and can remove.
 - `inspector` or `sheet`: an inspector sits beside the content it describes. A sheet covers the page until it is closed.
+- `select`, `combobox` or `listbox`: a select for a short fixed list, a combobox when typing is faster than scrolling, from about fifteen options up, a listbox when the options stay in view. A listbox and a combobox need script. A select does not.
+- `combobox` or `search-field`: a combobox picks one value from options it holds. A search field filters a list already on the page.
+- `tag-input`, `filter-chips` or `tag`: a tag input collects values the reader types. Filter chips switch known values on and off. Tags with remove buttons show the filters in force.
+- `number-field` or `slider`: a number field for an exact amount, a slider when the feel matters more than the figure.
+- `password-field`, `otp-input` or `copy-field`: a password field for a secret the reader types, a one-time-code input for a short code from elsewhere, a copy field for a secret the app made.
+- `date-field` or `calendar`: a date field is the native date input, for a date the reader knows. A calendar is for a day near today where the weekday matters.
+- `copy-button` or `copy-field`: a copy button sits beside a value the view already shows. A copy field is for when taking the value away is the point of the view.
+- `device-code` or `otp-input`: a device code is a code the app shows for the reader to enter elsewhere. A one-time-code input takes a code the reader brings.
+- `button`, `split-button` or `menu`: a split button when one action is right most of the time and the rest are variations of it. A menu behind a labelled button when the actions are not variations of one another.
+- `toggle-button`, `switch` or `segmented-control`: a toggle button for a view option that is not saved, a switch for a stored setting, a segmented control for one of several views.
+- `toolbar` or `button-group`: a toolbar holds three or more controls for one view. A button group holds the actions at the end of a form.
+- `menu`, `context-menu` or `command-palette`: a menu for the actions on one thing, a context menu for the actions on a row, the command palette for every command of the app.
+- `tooltip`, `hover-card` or `popover`: a tooltip is one line about a control. A hover card previews a linked item and may never open, so it holds nothing the reader needs. A popover is opened on purpose from a button.
+- `tree`, `list` or `sidebar-nav`: a tree for a hierarchy the reader opens folder by folder, a list for items with none, the sidebar nav for the app's destinations.
+- `split-panel` or `inspector`: a split panel when the reader reads each item at length and both regions scroll. An inspector for a few facts beside content that scrolls with the page.
+- `stepper`, `progress` or `timeline`: a stepper for a few named steps in a fixed order, progress when the steps have no names, a timeline for what already happened, with times.
+- `settings-row`, `field` or `key-value`: a settings row for a setting that takes effect by itself, fields for values sent together with one button, key-value for facts the reader cannot change.
+- `editable-list`, `list` or `checkbox`: an editable list when the reader corrects the items, a list when they only read or open them, checkboxes for tasks to tick off.
+- `selection-basket` or `toolbar`: a selection basket appears only while rows are selected and acts on them. A toolbar acts on the view.
+- `notification-list`, `activity-feed` or `toast`: a notification list has read and unread entries about things that changed while the reader was away. An activity feed is the record of what was done. A toast is a passing report on the current view.
+- `check-list`, `timeline` or `badge`: a check list for the result of each automated check, a timeline for the steps in the order they happened, a badge for one overall status.
+- `sparkline` or `stat`: a stat is one number with its comparison. A sparkline beside it shows how the number moved.
+- `kbd` or `code-block`: a kbd names a key the reader presses. Code is text the reader types out or reads.
 
 ## When nothing fits
 

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filter chips - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Filter chips</h1>
+<p>A row of filters the reader switches on and off above the list they narrow, built on native checkboxes or radios.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Several filters at once, none on yet</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each chip is a checkbox with its own label, so the row works with no script and a screen reader hears Failed, checkbox, not checked. A chip that is off shows a plus and an outline. The quiet reset button returns the form to how it was served.</p>
+</figcaption>
+<div data-example="default" data-title="Several filters at once, none on yet" data-state="default" data-reason="Each chip is a checkbox with its own label, so the row works with no script and a screen reader hears Failed, checkbox, not checked. A chip that is off shows a plus and an outline. The quiet reset button returns the form to how it was served.">
+  <form>
+    <fieldset class="gw-filter-chips">
+      <legend class="gw-filter-chips__legend">Show runs that are</legend>
+      <div class="gw-filter-chips__list">
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-default-status" value="running"> Running</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-default-status" value="awaiting"> Awaiting approval</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-default-status" value="failed"> Failed</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-default-status" value="finished"> Finished</label>
+        <button type="reset" class="gw-button gw-button--quiet gw-button--small">Clear filters</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Two filters on</h3>
+<p data-gallery="state">State: <code>selected</code></p>
+</figcaption>
+<div data-example="selected" data-title="Two filters on" data-state="selected">
+  <div class="gw-stack">
+    <fieldset class="gw-filter-chips">
+      <legend class="gw-filter-chips__legend">Show runs that are</legend>
+      <div class="gw-filter-chips__list">
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-selected-status" value="running"> Running</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-selected-status" value="awaiting" checked> Awaiting approval</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-selected-status" value="failed" checked> Failed</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-selected-status" value="finished"> Finished</label>
+        <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear filters</button>
+      </div>
+    </fieldset>
+    <p role="status">9 of 128 runs are awaiting approval or failed.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>One at a time, on radios</h3>
+</figcaption>
+<div data-example="single" data-title="One at a time, on radios">
+  <fieldset class="gw-filter-chips">
+    <legend class="gw-filter-chips__legend">Started</legend>
+    <div class="gw-filter-chips__list">
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="radio" name="filter-chips-single-started" value="any" checked> At any time</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="radio" name="filter-chips-single-started" value="day"> In the last 24 hours</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="radio" name="filter-chips-single-started" value="week"> In the last 7 days</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="radio" name="filter-chips-single-started" value="month"> In the last 30 days</label>
+    </div>
+  </fieldset>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Two groups and one button that clears both</h3>
+</figcaption>
+<div data-example="groups" data-title="Two groups and one button that clears both">
+  <form class="gw-stack">
+    <fieldset class="gw-filter-chips">
+      <legend class="gw-filter-chips__legend">Repository</legend>
+      <div class="gw-filter-chips__list">
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-repository" value="acme/api"> acme/api</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-repository" value="acme/billing"> acme/billing</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-repository" value="acme/web"> acme/web</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-repository" value="acme/mobile-app"> acme/mobile-app</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-repository" value="acme/infrastructure"> acme/infrastructure</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-repository" value="acme/design-tokens"> acme/design-tokens</label>
+      </div>
+    </fieldset>
+    <fieldset class="gw-filter-chips">
+      <legend class="gw-filter-chips__legend">Started by</legend>
+      <div class="gw-filter-chips__list">
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-author" value="me"> Me</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-author" value="maya"> Maya Okafor</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-author" value="schedule"> A schedule</label>
+      </div>
+    </fieldset>
+    <div class="gw-cluster">
+      <button type="reset" class="gw-button gw-button--quiet gw-button--small">Clear filters</button>
+    </div>
+  </form>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <fieldset class="gw-filter-chips">
+    <legend class="gw-filter-chips__legend">Show branches that are</legend>
+    <div class="gw-filter-chips__list">
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-hover-branch" value="ahead"> Ahead of main</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-hover-branch" value="stale" checked> Untouched for 30 days</label>
+    </div>
+  </fieldset>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <fieldset class="gw-filter-chips">
+    <legend class="gw-filter-chips__legend">Show branches that are</legend>
+    <div class="gw-filter-chips__list">
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-focus-branch" value="ahead"> Ahead of main</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-focus-branch" value="stale" checked> Untouched for 30 days</label>
+    </div>
+  </fieldset>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Unavailable while the runs reload</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Unavailable while the runs reload" data-state="disabled">
+  <div class="gw-stack">
+    <fieldset class="gw-filter-chips" disabled>
+      <legend class="gw-filter-chips__legend">Show runs that are</legend>
+      <div class="gw-filter-chips__list">
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-disabled-status" value="running"> Running</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-disabled-status" value="failed" checked> Failed</label>
+        <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear filters</button>
+      </div>
+    </fieldset>
+    <p class="gw-spinner" role="status">Loading the failed runs</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Chips that run commands</h3>
+<p>A chip is a checkbox: it says a filter is on or off and changes nothing else. Here each one starts something, so its checked state means nothing and a screen reader announces a checkbox that behaves like a button. Use buttons for actions, and a menu when there are more than two.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="commands" data-title="Chips that run commands" data-dont="review" data-reason="A chip is a checkbox: it says a filter is on or off and changes nothing else. Here each one starts something, so its checked state means nothing and a screen reader announces a checkbox that behaves like a button. Use buttons for actions, and a menu when there are more than two.">
+  <fieldset class="gw-filter-chips">
+    <legend class="gw-filter-chips__legend">Run 4182</legend>
+    <div class="gw-filter-chips__list">
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-commands-action" value="rerun"> Run again</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-commands-action" value="pr"> Open pull request</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-commands-action" value="delete"> Delete run</label>
+    </div>
+  </fieldset>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>To narrow a list or a table by a few known values, such as the status of a run or its repository, where the reader should see every choice at once.</li>
+<li>With checkboxes when several values may be on together, and with radios when exactly one applies.</li>
+<li>Directly above the list it filters, with a line that says how many items match.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>To switch between two or three views of the same content. Use a segmented control.</li>
+<li>For more values than fit in two or three rows on a phone. Use a select, or a sheet that holds checkboxes.</li>
+<li>To show the filters in force with a way to remove each. Use tags with remove buttons.</li>
+<li>To start an action. Use a button.</li>
+<li>For a setting that is saved. Use a checkbox or a switch.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>multi-select</dt>
+<dd>The default. Each chip holds an input of type checkbox, and any number may be on.</dd>
+<dt>single-select</dt>
+<dd>Each chip holds an input of type radio with one shared name, and exactly one is on. The first chip is the one that filters nothing, such as At any time, because a radio cannot be switched off.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>Drawn 32px tall with a 44px pointer target. Rows sit 12px apart, so the targets of two rows never overlap.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a fieldset with the class gw-filter-chips and a legend with gw-filter-chips__legend that says what is filtered. Add gw-visually-hidden to the legend where a heading already says it. The chips go in a div with gw-filter-chips__list.</li>
+<li>Each chip is a label with gw-filter-chips__chip holding an input with gw-filter-chips__input and then the chip's text. The input is the first child. The label gives the input its name, so a screen reader announces Failed, checkbox, checked.</li>
+<li>The state is the input's own checked state. A chip that is on is filled and shows a check, and one that is off is outlined and shows a plus, both drawn by the stylesheet. Nothing is set by script.</li>
+<li>Clear filters is a button with gw-button gw-button--quiet gw-button--small, placed after the last chip inside gw-filter-chips__list, or after the last group when there are several. Inside a form served with nothing checked, type=&quot;reset&quot; clears the chips with no script. Otherwise use type=&quot;button&quot;, and the app unchecks every input and moves focus to the first chip.</li>
+<li>Tab reaches each checkbox and Space switches it. Radios are one tab stop: the arrow keys move between them and select as they go. All of it comes from the inputs.</li>
+<li>After the list is filtered, say how many items match in an element with role=&quot;status&quot; below the chips, such as 9 of 128 runs are awaiting approval or failed.</li>
+<li>Set the disabled attribute on an input, or on the fieldset to disable every chip and the Clear button at once, and say why in the view.</li>
+<li>Without script the chips submit with their form as ordinary fields, under each input's name and value.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-filter-chips</code></li>
+<li><code>gw-filter-chips__chip</code></li>
+<li><code>gw-filter-chips__input</code></li>
+<li><code>gw-filter-chips__legend</code></li>
+<li><code>gw-filter-chips__list</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

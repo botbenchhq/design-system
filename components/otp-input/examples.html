@@ -1,0 +1,59 @@
+<div data-example="default" data-title="A six-digit code from an authenticator app" data-state="default" data-reason="One input takes a code typed, pasted or filled in from a message in one go. autocomplete tells the phone to offer the code it just received, and inputmode shows the number keys.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="otp-input-default-input">Code from your authenticator app</label>
+    <input class="gw-field__control gw-otp-input" id="otp-input-default-input" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9 ]*" required aria-describedby="otp-input-default-description">
+    <p class="gw-field__description" id="otp-input-default-description">The 6 digits shown for Acme under your account. You can paste them.</p>
+  </div>
+</div>
+
+<div data-example="filled" data-title="With a code entered" data-state="filled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="otp-input-filled-input">Code from your authenticator app</label>
+    <input class="gw-field__control gw-otp-input" id="otp-input-filled-input" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9 ]*" required value="482913" aria-describedby="otp-input-filled-description">
+    <p class="gw-field__description" id="otp-input-filled-description">The 6 digits shown for Acme under your account. You can paste them.</p>
+  </div>
+</div>
+
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="otp-input-focus-input">Code from the message we sent</label>
+    <input class="gw-field__control gw-otp-input" id="otp-input-focus-input" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9 ]*" required value="4829" aria-describedby="otp-input-focus-description">
+    <p class="gw-field__description" id="otp-input-focus-description">6 digits, sent to the phone number ending in 4471.</p>
+  </div>
+</div>
+
+<div data-example="invalid" data-title="Invalid, with what to do" data-state="invalid">
+  <div class="gw-stack">
+    <div class="gw-field">
+      <label class="gw-field__label" for="otp-input-invalid-input">Code from the message we sent</label>
+      <input class="gw-field__control gw-otp-input" id="otp-input-invalid-input" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9 ]*" required value="482913" aria-invalid="true" aria-describedby="otp-input-invalid-description otp-input-invalid-error">
+      <p class="gw-field__description" id="otp-input-invalid-description">6 digits, sent to the phone number ending in 4471.</p>
+      <p class="gw-field__error" id="otp-input-invalid-error">That code has expired. Codes last 10 minutes. Send a new code, then enter it here.</p>
+    </div>
+    <div class="gw-cluster">
+      <button type="button" class="gw-button">Send a new code</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="disabled" data-title="Disabled while the code is checked" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="otp-input-disabled-input">Code from your authenticator app</label>
+    <input class="gw-field__control gw-otp-input" id="otp-input-disabled-input" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" value="482913" disabled aria-describedby="otp-input-disabled-description">
+    <p class="gw-field__description" id="otp-input-disabled-description" role="status">Checking the code.</p>
+  </div>
+</div>
+
+<div data-example="six-boxes" data-title="Six separate boxes" data-dont="review" data-reason="Six inputs need script to move focus on every key, and that script is where pasting, auto-fill from a message, Backspace and screen readers break: a reader hears six unlabelled fields. One input with wide letter spacing looks much the same and has none of those faults.">
+  <div class="gw-stack gw-gap-xs">
+    <span>Code from your authenticator app</span>
+    <div class="gw-cluster">
+      <input class="gw-field__control" type="text" inputmode="numeric" maxlength="1" value="4" aria-label="Digit 1">
+      <input class="gw-field__control" type="text" inputmode="numeric" maxlength="1" value="8" aria-label="Digit 2">
+      <input class="gw-field__control" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3">
+      <input class="gw-field__control" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4">
+      <input class="gw-field__control" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5">
+      <input class="gw-field__control" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 6">
+    </div>
+  </div>
+</div>

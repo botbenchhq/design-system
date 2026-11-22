@@ -1,0 +1,32 @@
+/*
+ * Context menu: the menu component opened from the More actions button at the end of a row.
+ * gw-context-menu wraps the button and the menu. The button also carries gw-context-menu__button and the
+ * menu gw-context-menu__menu, beside the classes of the icon button and the menu.
+ * The button is drawn pressed while its menu is open, and the menu hangs from the button's trailing edge.
+ * A right-click or a long press may open the same menu, but only as a second way in: see the metadata.
+ */
+
+@layer gw.components {
+  .gw-context-menu {
+    display: flex;
+    flex: none;
+    align-items: center;
+  }
+
+  /* Which row the open menu acts on, when every row ends in the same button: a border and a fill on its button. */
+  .gw-context-menu:has(> .gw-context-menu__menu:popover-open) > .gw-context-menu__button {
+    border-color: var(--gw-color-border-strong);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /*
+   * The button is at the trailing edge of the row, so the menu grows towards the start from the button's
+   * trailing edge. The leading margin keeps a wide menu off the edge of the screen. A flip mirrors it.
+   */
+  @supports (position-area: block-end) {
+    .gw-context-menu > .gw-context-menu__menu {
+      margin: var(--gw-space-xs) 0 var(--gw-space-xs) var(--gw-space-lg);
+      position-area: block-end span-inline-start;
+    }
+  }
+}

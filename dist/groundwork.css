@@ -1737,6 +1737,127 @@
 }
 
 /*
+ * Calendar: one month as a table, for picking a day. Each day is a button in a cell,
+ * under a row of weekday headers, with buttons for the month before and the month after.
+ * The app writes the month's days into the markup. Nothing here works out a date.
+ */
+
+@layer gw.components {
+  /* Seven columns of at least one pointer target each. It fills a phone's width and stops growing after that. */
+  .gw-calendar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    width: 100%;
+    min-width: calc(var(--gw-size-touch) * 7);
+    max-width: calc(var(--gw-size-touch) * 8);
+  }
+
+  .gw-calendar__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gw-space-sm);
+  }
+
+  /* The month and the year, between the two buttons. */
+  .gw-calendar__title {
+    flex: 1;
+    font-weight: var(--gw-weight-semibold);
+    text-align: center;
+  }
+
+  .gw-calendar__grid {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .gw-calendar__grid :is(th, td) {
+    padding: 0;
+  }
+
+  .gw-calendar__weekday {
+    height: var(--gw-space-2xl);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+    text-align: center;
+  }
+
+  /* A day fills its cell, so the targets of neighbouring days meet with no gap between them. */
+  .gw-calendar__day {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: var(--gw-size-touch);
+    border-radius: var(--gw-radius-sm);
+    font-variant-numeric: tabular-nums;
+    transition-property: background-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  /* Today is marked by a ring in the text colour, which stays visible when today is also the selected day. */
+  .gw-calendar__day[aria-current="date"] {
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  .gw-calendar__day[aria-current="date"]::after {
+    content: "";
+    position: absolute;
+    inset: var(--gw-space-xs);
+    border-width: var(--gw-border-width);
+    border-color: currentColor;
+    border-radius: var(--gw-radius-sm);
+  }
+
+  @media (hover: hover) {
+    .gw-calendar__day:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  .gw-calendar__day:active {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* The selected day: a button with aria-pressed, or a button in a grid cell with aria-selected. */
+  .gw-calendar__day[aria-pressed="true"],
+  [aria-selected="true"] > .gw-calendar__day {
+    background-color: var(--gw-color-accent);
+    color: var(--gw-color-on-accent);
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  @media (hover: hover) {
+    .gw-calendar__day[aria-pressed="true"]:hover,
+    [aria-selected="true"] > .gw-calendar__day:hover {
+      background-color: var(--gw-color-accent-hover);
+    }
+  }
+
+  /* After hover, pressed and selected, so a day that cannot be chosen never answers the pointer. Struck through, so it is not set apart by colour alone. */
+  .gw-calendar__day:disabled,
+  .gw-calendar__day[aria-disabled="true"] {
+    background-color: transparent;
+    color: var(--gw-color-muted);
+    font-weight: var(--gw-weight-normal);
+    text-decoration-line: line-through;
+    cursor: default;
+  }
+
+  /* The chosen day in words, under the month. */
+  .gw-calendar__status {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+}
+
+/*
  * Card: one section of a view set apart by a 1px border or a background shift, with an optional header.
  * It has no shadow. Content sits on the page unless grouping it helps the reader.
  */
@@ -1797,6 +1918,188 @@
     gap: var(--gw-space-md);
     min-width: 0;
     padding: var(--gw-space-lg);
+  }
+}
+
+/*
+ * Check list: the results of automated checks on a run, one row for each check.
+ * A row says the check's name, its result in words beside an icon, and how long it took.
+ * With no modifier a result is one that has not started yet.
+ * The output of a check sits under its row in a details element with a text summary.
+ */
+
+@layer gw.components {
+  .gw-check-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  /* How many passed, of how many, in words. */
+  .gw-check-list__summary {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* One grid for every row, so the results and the durations line up down the list. */
+  .gw-check-list__items {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--gw-space-md);
+  }
+
+  /* At compact widths the name has the first line, and the result and the duration share the second. */
+  .gw-check-list__item {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: center;
+    row-gap: var(--gw-space-xs);
+    padding-block: var(--gw-space-md);
+  }
+
+  .gw-check-list__item + .gw-check-list__item {
+    border-top-width: var(--gw-border-width);
+  }
+
+  .gw-check-list__name {
+    grid-column: 1 / -1;
+    min-width: 0;
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  /* The result in words. The icon is drawn here from the modifier, so a result is never an icon or a colour alone. */
+  .gw-check-list__result {
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-muted);
+  }
+
+  .gw-check-list__result::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/ellipsis.svg") center / contain no-repeat;
+  }
+
+  .gw-check-list__result--skipped::before {
+    mask-image: url("icons/ban.svg");
+  }
+
+  .gw-check-list__result--passed {
+    color: var(--gw-color-success);
+  }
+
+  .gw-check-list__result--passed::before {
+    mask-image: url("icons/circle-check.svg");
+  }
+
+  .gw-check-list__result--failed {
+    color: var(--gw-color-danger);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  .gw-check-list__result--failed::before {
+    mask-image: url("icons/circle-alert.svg");
+  }
+
+  .gw-check-list__result--running {
+    color: var(--gw-color-info);
+  }
+
+  /* The mark has eight spokes, so eight steps a turn moves it one spoke at a time. */
+  .gw-check-list__result--running::before {
+    mask-image: url("icons/loader.svg");
+    animation: gw-check-list-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  @keyframes gw-check-list-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gw-check-list__result--running::before {
+      animation: none;
+    }
+  }
+
+  .gw-check-list__duration {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--gw-leading-xs);
+    text-align: end;
+    white-space: nowrap;
+  }
+
+  /* The output of one check, under its row. The negative margin keeps a row with output from growing a second gap. */
+  .gw-check-list__output {
+    grid-column: 1 / -1;
+    min-width: 0;
+    margin-block: calc(var(--gw-space-xs) * -1) calc(var(--gw-space-md) * -1);
+  }
+
+  .gw-check-list__toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    min-height: var(--gw-size-touch);
+    border-radius: var(--gw-radius-sm);
+    color: var(--gw-color-muted);
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .gw-check-list__toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .gw-check-list__toggle::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+  }
+
+  .gw-check-list__output[open] > .gw-check-list__toggle::before {
+    mask-image: url("icons/chevron-down.svg");
+  }
+
+  @media (hover: hover) {
+    .gw-check-list__toggle:hover {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  /* It wraps, at any character when it has to, so a long line of output never widens the page. */
+  .gw-check-list__log {
+    min-width: 0;
+    margin-bottom: var(--gw-space-md);
+    padding: var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  /* At the regular width a row is one line: the name, then the result and the duration in their own columns. */
+  @media (min-width: 768px) {
+    .gw-check-list__items {
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      column-gap: var(--gw-space-xl);
+    }
+
+    .gw-check-list__name {
+      grid-column: 1;
+    }
   }
 }
 
@@ -2027,6 +2330,291 @@
 }
 
 /*
+ * Combobox: a text input that filters a list of options shown under it.
+ * The input also carries gw-field__control, which draws the border, the fill and the invalid and
+ * disabled states. This stylesheet is bundled before the field's, so where it changes a property
+ * the field sets, its selector is the more specific one.
+ *
+ * Every state is read from an attribute: aria-expanded on the input opens the list, aria-selected
+ * on an option marks the active one, and hidden removes an option or the message. So the result is
+ * the same whether the gw-combobox element or the app sets them.
+ */
+
+@layer gw.components {
+  /* Holds the input, and places the icons over it and the panel under it. */
+  .gw-combobox {
+    position: relative;
+    display: block;
+  }
+
+  /* The chevron says there is a list. It is decoration, and takes no pointer events. */
+  .gw-combobox::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(--gw-space-md);
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/chevron-down.svg") center / contain no-repeat;
+    translate: 0 -50%;
+    pointer-events: none;
+  }
+
+  /* An optional icon at the start, which says what kind of thing is chosen. */
+  .gw-combobox__icon {
+    position: absolute;
+    top: 50%;
+    inset-inline-start: var(--gw-space-md);
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    color: var(--gw-color-muted);
+    translate: 0 -50%;
+    pointer-events: none;
+  }
+
+  /* The end padding keeps a long value clear of the chevron, and the start padding clear of the icon. */
+  .gw-combobox > .gw-combobox__input {
+    padding-inline-end: calc(var(--gw-space-md) * 2 + var(--gw-space-lg));
+    text-overflow: ellipsis;
+  }
+
+  .gw-combobox:has(> .gw-combobox__icon) > .gw-combobox__input {
+    padding-inline-start: calc(var(--gw-space-md) + var(--gw-space-lg) + var(--gw-space-sm));
+  }
+
+  /*
+   * The panel under the input: an overlay, so it takes the shadow. It is as wide as the input,
+   * and scrolls after five and a half options, so the cut-off sixth shows there are more.
+   */
+  .gw-combobox__panel {
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    z-index: var(--gw-z-overlay);
+    display: none;
+    max-height: calc(var(--gw-size-touch) * 5.5 + var(--gw-space-xs));
+    margin-top: var(--gw-space-xs);
+    padding: var(--gw-space-xs);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    overflow-y: auto;
+    background-color: var(--gw-color-surface-raised);
+    box-shadow: var(--gw-shadow-overlay);
+  }
+
+  /* Open while the input says its list is expanded, or while the message is shown in place of the list. */
+  .gw-combobox__input[aria-expanded="true"] ~ .gw-combobox__panel,
+  .gw-combobox__panel:has(> .gw-combobox__message:not([hidden])) {
+    display: block;
+  }
+
+  .gw-combobox__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gw-combobox__option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-xs) var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+
+  /* An option that does not match what was typed. A layered display value would otherwise beat the reset's rule for hidden. */
+  .gw-combobox__list[hidden],
+  .gw-combobox__option[hidden] {
+    display: none;
+  }
+
+  @media (hover: hover) {
+    .gw-combobox__option:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  /* The active option: a fill, and a bar at its start so it is never marked by the fill alone. */
+  .gw-combobox__option[aria-selected="true"] {
+    background-color: var(--gw-color-surface-sunken);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  .gw-combobox__option[aria-selected="true"]::before {
+    content: "";
+    position: absolute;
+    inset-block: var(--gw-space-sm);
+    inset-inline-start: 0;
+    width: calc(var(--gw-border-width) * 2);
+    background-color: currentColor;
+  }
+
+  /* Shown in place of the list: that nothing matches and what to try, or that the options are loading. */
+  .gw-combobox__message {
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    color: var(--gw-color-muted);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-combobox:has(> .gw-combobox__input:disabled)::after {
+    background-color: var(--gw-color-muted);
+  }
+}
+
+/*
+ * Command palette: a search input over a grouped list of commands, inside a dialog.
+ * The dialog is the dialog component's, and the input is the search field's. This stylesheet lays out
+ * what they hold: the search row, the list, each command with its shortcut, and the message when nothing matches.
+ * The input is a combobox that controls the list. Filtering and the arrow keys are script: see the metadata.
+ */
+
+@layer gw.components {
+  .gw-command-palette {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  /* The input and the button that closes the palette, which a touch screen has no Escape key for. */
+  .gw-command-palette__search {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    padding: var(--gw-space-md);
+    border-bottom-width: var(--gw-border-width);
+  }
+
+  .gw-command-palette__field {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* The list scrolls inside the dialog, so the input stays in view above it. */
+  .gw-command-palette__list {
+    display: flex;
+    flex-direction: column;
+    max-height: min(calc(var(--gw-size-touch) * 8), 50dvh);
+    padding: var(--gw-space-xs);
+    overflow-y: auto;
+  }
+
+  .gw-command-palette__group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gw-command-palette__label {
+    padding: var(--gw-space-sm) var(--gw-space-md) var(--gw-space-xs);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-command-palette__option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    width: 100%;
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-xs) var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    text-align: start;
+    overflow-wrap: anywhere;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-command-palette__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    color: var(--gw-color-muted);
+  }
+
+  .gw-command-palette__name {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* The keys that run the command without the palette, as a hint at the end of its row. */
+  .gw-command-palette__shortcut {
+    flex: none;
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
+  }
+
+  /* Nothing matches, or the commands are on their way: a sentence where the list would be. */
+  .gw-command-palette__message {
+    padding: var(--gw-space-lg);
+    overflow-wrap: anywhere;
+  }
+
+  /* A layered display value would otherwise beat the hidden attribute, which is how a command is filtered out. */
+  .gw-command-palette__list[hidden],
+  .gw-command-palette__group[hidden],
+  .gw-command-palette__option[hidden],
+  .gw-command-palette__message[hidden] {
+    display: none;
+  }
+
+  /* The quiet parts turn to the main text colour wherever the row is shaded, so they keep their contrast. */
+  @media (hover: hover) {
+    .gw-command-palette__option:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-command-palette__option:hover > :is(.gw-command-palette__icon, .gw-command-palette__shortcut) {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-command-palette__option:active {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* The command Enter would run: a bar at its start as well as a shade. */
+  .gw-command-palette__option[aria-selected="true"] {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-command-palette__option[aria-selected="true"]::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: calc(var(--gw-border-width) * 2);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-accent);
+  }
+
+  .gw-command-palette__option[aria-selected="true"] > :is(.gw-command-palette__icon, .gw-command-palette__shortcut) {
+    color: var(--gw-color-on-surface);
+  }
+
+  /* After hover, active and selected, so an unavailable command never answers the pointer. */
+  .gw-command-palette__option[aria-disabled="true"] {
+    color: var(--gw-color-muted);
+    cursor: default;
+  }
+
+  .gw-command-palette__option[aria-disabled="true"]:not([aria-selected="true"]) {
+    background-color: transparent;
+  }
+
+  .gw-command-palette__option[aria-disabled="true"] > :is(.gw-command-palette__icon, .gw-command-palette__shortcut) {
+    color: var(--gw-color-muted);
+  }
+}
+
+/*
  * Composer: the prompt input under a transcript. A form holding a label, a row with the
  * textarea and the Send button, and optionally a row of quiet controls and a line of text.
  * Send and Stop are buttons from the button component.
@@ -2180,6 +2768,72 @@
    */
   .gw-confirm-dialog .gw-confirm-dialog__actions {
     justify-content: space-between;
+  }
+}
+
+/*
+ * Context menu: the menu component opened from the More actions button at the end of a row.
+ * gw-context-menu wraps the button and the menu. The button also carries gw-context-menu__button and the
+ * menu gw-context-menu__menu, beside the classes of the icon button and the menu.
+ * The button is drawn pressed while its menu is open, and the menu hangs from the button's trailing edge.
+ * A right-click or a long press may open the same menu, but only as a second way in: see the metadata.
+ */
+
+@layer gw.components {
+  .gw-context-menu {
+    display: flex;
+    flex: none;
+    align-items: center;
+  }
+
+  /* Which row the open menu acts on, when every row ends in the same button: a border and a fill on its button. */
+  .gw-context-menu:has(> .gw-context-menu__menu:popover-open) > .gw-context-menu__button {
+    border-color: var(--gw-color-border-strong);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /*
+   * The button is at the trailing edge of the row, so the menu grows towards the start from the button's
+   * trailing edge. The leading margin keeps a wide menu off the edge of the screen. A flip mirrors it.
+   */
+  @supports (position-area: block-end) {
+    .gw-context-menu > .gw-context-menu__menu {
+      margin: var(--gw-space-xs) 0 var(--gw-space-xs) var(--gw-space-lg);
+      position-area: block-end span-inline-start;
+    }
+  }
+}
+
+/*
+ * Copy button: a small button that copies a value shown next to it, with a status beside it.
+ * The button is a gw-button. This stylesheet lays out the pair and draws the status,
+ * which is where the app writes "Copied" and where a screen reader hears it.
+ */
+
+@layer gw.components {
+  .gw-copy-button {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+    vertical-align: middle;
+  }
+
+  /*
+   * Always in the page, so a screen reader hears text arrive in it. It takes no room while it is empty.
+   * It keeps the text colour around it, so it reads on a sunken band or a shaded row as well as on the page.
+   */
+  .gw-copy-button__status {
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  /* The status may come after the button or before it, and keeps its distance from the button either way. */
+  .gw-copy-button__status:not(:empty):last-child {
+    margin-inline-start: var(--gw-space-sm);
+  }
+
+  .gw-copy-button__status:not(:empty):first-child {
+    margin-inline-end: var(--gw-space-sm);
   }
 }
 
@@ -2551,6 +3205,146 @@
 }
 
 /*
+ * Date field: a native date or date and time input as the control of a field. The input also
+ * carries gw-field__control, which draws the border, the fill and the invalid, read-only and
+ * disabled states. The browser supplies the calendar, the segments and their keys.
+ *
+ * This stylesheet is bundled before the field's, so it sets only properties the field leaves alone.
+ */
+
+@layer gw.components {
+  /*
+   * A date is short, so the control is no wider than five pointer targets, because there is no token
+   * for a control's width. Without the native appearance, iOS keeps the field's height and border.
+   */
+  .gw-date-field {
+    appearance: none;
+    max-width: calc(var(--gw-size-touch) * 5);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gw-date-field[type="datetime-local"] {
+    max-width: calc(var(--gw-size-touch) * 6.5);
+  }
+
+  /* iOS centres the value. It starts where every other field's text starts. */
+  .gw-date-field::-webkit-date-and-time-value {
+    text-align: start;
+  }
+
+  /*
+   * The button that opens the calendar. The padding widens its pointer target and the
+   * negative margins give the room back, so the control stays one target tall.
+   */
+  .gw-date-field::-webkit-calendar-picker-indicator {
+    margin-block: calc(var(--gw-space-md) * -1);
+    margin-inline: 0 calc(var(--gw-space-md) * -1);
+    padding: var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    cursor: pointer;
+  }
+
+  .gw-date-field:disabled::-webkit-calendar-picker-indicator {
+    cursor: default;
+  }
+}
+
+/*
+ * Device code: what a view shows while the reader connects an outside account by typing a short code
+ * on that account's own site. Numbered steps hold the link to the site and the code in large mono text,
+ * and a status under them says the app is waiting. It sits in a sheet's body or straight on a page.
+ */
+
+@layer gw.components {
+  .gw-device-code {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+    max-width: var(--gw-size-column);
+    min-width: 0;
+  }
+
+  .gw-device-code__steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+    counter-reset: gw-device-code;
+  }
+
+  /* The number is drawn from the step's place in the list, in a column of its own. */
+  .gw-device-code__step {
+    display: grid;
+    grid-template-columns: var(--gw-space-xl) minmax(0, 1fr);
+    align-items: baseline;
+    row-gap: var(--gw-space-sm);
+    counter-increment: gw-device-code;
+    overflow-wrap: anywhere;
+  }
+
+  .gw-device-code__step::before {
+    content: counter(gw-device-code) ".";
+    color: var(--gw-color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Everything in a step after its first line sits under that line, clear of the numbers. */
+  .gw-device-code__step > * {
+    grid-column: 2;
+  }
+
+  /* The code and its Copy button, on a sunken band so the code is the first thing the eye finds. */
+  .gw-device-code__entry {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gw-space-sm) var(--gw-space-lg);
+    padding: var(--gw-space-md) var(--gw-space-lg);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* One press or one drag selects the whole code, for a reader who copies it by hand. */
+  .gw-device-code__code {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--gw-space-sm);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-2xl);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-2xl);
+    user-select: all;
+  }
+
+  /* A group of the code's characters, spaced so each can be read off one at a time. */
+  .gw-device-code__group {
+    letter-spacing: calc(var(--gw-space-xs) / 2);
+    white-space: nowrap;
+  }
+
+  /* A code that can no longer be used is written in an s element: struck through, and said to be expired in words next to it. */
+  .gw-device-code__code:has(s) {
+    color: var(--gw-color-muted);
+    user-select: none;
+  }
+
+  .gw-device-code__note {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  /* The waiting line and when the code runs out. */
+  .gw-device-code__status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gw-space-xs);
+  }
+}
+
+/*
  * Dialog: a native dialog element opened with showModal(), holding one short task.
  * A title, a body and a footer with the one primary action and Cancel.
  * Escape, the focus trap, the inert page behind and the return of focus to the opener
@@ -2902,6 +3696,96 @@
 }
 
 /*
+ * Editable list: an ordered list whose items can be changed in place, added and deleted,
+ * such as the tasks in an agent's plan before it is approved.
+ * A row shows its number, its text and quiet Edit and Delete buttons. While it is edited,
+ * the row holds a form with a field, Save and Cancel instead. The order is fixed.
+ */
+
+@layer gw.components {
+  .gw-editable-list {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .gw-editable-list__items {
+    display: flex;
+    flex-direction: column;
+    counter-reset: gw-editable-list;
+  }
+
+  /* One line of text is centred in a row one target tall, so a small button's padded hit area never reaches the next row. */
+  .gw-editable-list__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+    min-height: var(--gw-size-touch);
+    counter-increment: gw-editable-list;
+  }
+
+  .gw-editable-list__item + .gw-editable-list__item {
+    border-top-width: var(--gw-border-width);
+  }
+
+  /* The item's number, drawn from its place in the list, so it is right after an item is added or deleted. */
+  .gw-editable-list__item::before {
+    content: counter(gw-editable-list) ".";
+    flex: none;
+    min-width: var(--gw-space-xl);
+    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
+    color: var(--gw-color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gw-editable-list__text {
+    flex: 1;
+    min-width: 0;
+    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
+    overflow-wrap: anywhere;
+  }
+
+  /* Edit and Delete, as tall as a pointer target so they sit level with the first line of the text. */
+  .gw-editable-list__actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    min-height: var(--gw-size-touch);
+  }
+
+  /* The form a row holds while it is edited: the field, then Save and Cancel under it. */
+  .gw-editable-list__editor {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+    padding-block: var(--gw-space-md);
+  }
+
+  .gw-editable-list__editor-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gw-space-sm);
+  }
+
+  /* The control that adds an item, under the last row and in line with the text of the rows. */
+  .gw-editable-list__add {
+    display: flex;
+    padding-inline-start: var(--gw-space-lg);
+    border-top-width: var(--gw-border-width);
+  }
+
+  /* Why the list cannot be edited, when it cannot. */
+  .gw-editable-list__note {
+    padding-bottom: var(--gw-space-sm);
+    color: var(--gw-color-muted);
+  }
+}
+
+/*
  * Empty state: what a view shows before it has any data.
  * It starts at the same edge as the content that will take its place, so it has no inline padding of its own.
  */
@@ -3192,6 +4076,306 @@
 }
 
 /*
+ * File upload: a native file input drawn as a drop area with a button in it, as the control of a field.
+ * The input covers the whole area, so a press anywhere in it opens the file picker and a file dropped
+ * anywhere on it is taken, with no script. The words and the button are drawn under it.
+ * The chosen files are attachment chips in a list below. The label, the description and the error are the field's.
+ * It must load after the button's stylesheet, because the button in the prompt is a gw-button it restyles when unavailable.
+ */
+
+@layer gw.components {
+  /* The drop area. Two targets tall at least, so it is easy to drop on. */
+  .gw-file-upload {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    min-height: calc(var(--gw-size-touch) * 2);
+  }
+
+  /*
+   * The input fills the area and draws its dashed border and its focus ring. Its own button and
+   * file name are not drawn: the prompt under it says the same in the app's words.
+   */
+  .gw-file-upload__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-width: var(--gw-border-width);
+    border-style: dashed;
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    color: transparent;
+    cursor: pointer;
+  }
+
+  .gw-file-upload__input::file-selector-button {
+    display: none;
+  }
+
+  /* What the reader sees: a button and a line of words, centred. It takes no pointer events, so every press reaches the input. */
+  .gw-file-upload__prompt {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gw-space-sm) var(--gw-space-md);
+    min-width: 0;
+    padding: var(--gw-space-lg);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-muted);
+    text-align: center;
+    pointer-events: none;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-file-upload__input:hover ~ .gw-file-upload__prompt > .gw-file-upload__button {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  .gw-file-upload__input:active ~ .gw-file-upload__prompt > .gw-file-upload__button {
+    border-color: var(--gw-color-border-strong);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /*
+   * While a file is dragged over the area, which the app marks with data-dragover:
+   * the border turns solid and dark and the area is shaded, so the change is not a colour alone.
+   */
+  .gw-file-upload[data-dragover] > .gw-file-upload__input {
+    border-style: solid;
+    border-color: var(--gw-color-on-surface);
+  }
+
+  .gw-file-upload[data-dragover] > .gw-file-upload__prompt {
+    background-color: var(--gw-color-surface-sunken);
+    color: var(--gw-color-on-surface);
+  }
+
+  .gw-file-upload__input[aria-invalid="true"] {
+    border-color: var(--gw-color-danger);
+  }
+
+  /* After hover, pressed and dragover, so an unavailable area never answers the pointer. */
+  .gw-file-upload__input:disabled {
+    border-color: var(--gw-color-border);
+    cursor: default;
+  }
+
+  .gw-file-upload__input:disabled ~ .gw-file-upload__prompt {
+    background-color: transparent;
+  }
+
+  .gw-file-upload__input:disabled ~ .gw-file-upload__prompt > .gw-file-upload__button {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+  }
+
+  /* The chosen files. The space above keeps the chips' remove buttons clear of the drop area. */
+  .gw-file-upload__files {
+    margin-top: var(--gw-space-sm);
+  }
+}
+
+/*
+ * Filter chips: a row of filters the reader switches on and off, each a native checkbox or radio in a label.
+ * The input covers its chip and takes the press and the focus ring, so the row works with no script.
+ * A chip that is on is filled and shows a check. One that is off is outlined and shows a plus.
+ */
+
+@layer gw.components {
+  /* A fieldset would otherwise refuse to shrink below its longest chip. */
+  .gw-filter-chips {
+    min-width: 0;
+  }
+
+  .gw-filter-chips__legend {
+    margin-bottom: var(--gw-space-sm);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* 12px between rows: chips are drawn 32px tall, so the 44px targets of two rows meet and never overlap. */
+  .gw-filter-chips__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-sm);
+    row-gap: var(--gw-space-md);
+  }
+
+  .gw-filter-chips__chip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    max-width: 100%;
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-space-2xl);
+    padding-inline: var(--gw-space-sm) var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-full);
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-on-surface);
+    overflow-wrap: anywhere;
+    transition-property: background-color, border-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  /* The mark keeps its place in both states, so switching a chip never moves the chips after it. */
+  .gw-filter-chips__chip::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: var(--gw-color-muted);
+    mask: url("icons/plus.svg") center / contain no-repeat;
+  }
+
+  /* The input lies over the whole chip, border included, so the focus ring is drawn around the chip. */
+  .gw-filter-chips__input {
+    position: absolute;
+    inset: calc(var(--gw-border-width) * -1);
+    appearance: none;
+    margin: 0;
+    border-radius: inherit;
+    cursor: pointer;
+  }
+
+  /* An invisible box centred on the chip, which takes the press without making the row any taller. */
+  .gw-filter-chips__input::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: var(--gw-size-touch);
+    translate: 0 -50%;
+  }
+
+  /* On: a fill and a check, so the state is a shape as well as a colour. */
+  .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked) {
+    border-color: var(--gw-color-accent);
+    background-color: var(--gw-color-accent);
+    color: var(--gw-color-on-accent);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked)::before {
+    background-color: currentColor;
+    mask-image: url("icons/check.svg");
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-filter-chips__chip:has(> .gw-filter-chips__input:hover) {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked:hover) {
+      border-color: var(--gw-color-accent-hover);
+      background-color: var(--gw-color-accent-hover);
+    }
+  }
+
+  .gw-filter-chips__chip:has(> .gw-filter-chips__input:active) {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked:active) {
+    border-color: var(--gw-color-accent-hover);
+    background-color: var(--gw-color-accent-hover);
+  }
+
+  /* After hover and active, so an unavailable chip never answers the pointer. */
+  .gw-filter-chips__chip:has(> .gw-filter-chips__input:disabled) {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+    font-weight: var(--gw-weight-normal);
+  }
+
+  /* The border colour as a fill keeps an unavailable chip that is on recognisable, with its check. */
+  .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked:disabled) {
+    background-color: var(--gw-color-border);
+  }
+
+  .gw-filter-chips__input:disabled {
+    cursor: default;
+  }
+}
+
+/*
+ * Hover card: a preview of a linked item, shown beside its link on hover, on keyboard focus and from a preview button.
+ * The card is the popover component's panel with gw-hover-card__card added, inside a wrapper around the link.
+ * The wrapper shows it on hover and focus with no script. With popover="hint" on the card and interestfor on
+ * the link, a browser with interest invokers opens it in the top layer, on a long press too, and closes it on Escape.
+ */
+
+@layer gw.components {
+  .gw-hover-card {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Once the card is open as a popover it is placed against its link by the browser, not inside the wrapper. */
+  .gw-hover-card:has(> .gw-hover-card__card:popover-open) {
+    position: static;
+  }
+
+  /*
+   * Shown by the wrapper alone, the card hangs under the link from its leading edge.
+   * It touches the link, so the pointer can move onto the card without closing it.
+   */
+  .gw-hover-card > .gw-hover-card__card:not(:popover-open) {
+    position: absolute;
+    inset: 100% auto auto 0;
+    z-index: var(--gw-z-overlay);
+    margin: 0;
+    position-area: none;
+  }
+
+  .gw-hover-card--end > .gw-hover-card__card:not(:popover-open) {
+    inset: 100% 0 auto auto;
+  }
+
+  .gw-hover-card:focus-within > .gw-hover-card__card:not(:popover-open) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+  }
+
+  @media (hover: hover) {
+    .gw-hover-card:hover > .gw-hover-card__card:not(:popover-open) {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gw-space-md);
+    }
+  }
+
+  /* A link at the trailing edge of the view: the card grows towards the start. A flip mirrors the margin. */
+  @supports (position-area: block-end) {
+    .gw-hover-card--end > .gw-hover-card__card:popover-open {
+      margin: var(--gw-space-xs) 0 var(--gw-space-xs) var(--gw-space-lg);
+      position-area: block-end span-inline-start;
+    }
+  }
+
+  /* One line under the title that places the item: its repository, its role, when it ran. */
+  .gw-hover-card__meta {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+}
+
+/*
  * Icon button: a button that shows only an icon. It sits on the same element as the button class,
  * which draws the border, the fill, hover, pressed-down, busy and disabled, so this stylesheet must load after the button's.
  * It makes the button a square one target wide and adds the look of a toggle that is on.
@@ -3330,6 +4514,38 @@
   /* A sentence in place of the sections: nothing is selected, or the details are on their way. */
   .gw-inspector__note {
     color: var(--gw-color-muted);
+  }
+}
+
+/*
+ * Kbd: a keyboard key named in text, on a kbd element.
+ * A combination is an outer kbd holding one key per kbd, joined by a plus sign written as text.
+ */
+
+@layer gw.components {
+  /* 12px text and a 1px border keep a key inside one line of body text, so a line with a key in it is no taller. */
+  .gw-kbd {
+    display: inline-block;
+    min-width: var(--gw-space-xl);
+    padding-inline: var(--gw-space-xs);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    color: var(--gw-color-on-surface);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* The keys of one combination stay on one line. The plus signs between them are text in the quiet colour. */
+  .gw-kbd__combo {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
   }
 }
 
@@ -3608,6 +4824,126 @@
   }
 
   .gw-list[aria-busy="true"] .gw-list__primary {
+    color: var(--gw-color-muted);
+  }
+}
+
+/*
+ * Listbox: a list of options the reader selects one or several of, on role="listbox".
+ * Rows are one pointer target tall. The selected option shows a check in a slot every row keeps,
+ * so the state is a mark as well as a weight. The keyboard is the app's to provide: see the metadata.
+ */
+
+@layer gw.components {
+  .gw-listbox {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: var(--gw-space-xs);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  /* A group of options under a label. A rule sets each group off from the one before. */
+  .gw-listbox__group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gw-listbox__group + .gw-listbox__group {
+    margin-top: var(--gw-space-xs);
+    padding-top: var(--gw-space-xs);
+    border-top-width: var(--gw-border-width);
+  }
+
+  .gw-listbox__label {
+    padding: var(--gw-space-sm) var(--gw-space-md) var(--gw-space-xs);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-listbox__option {
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-xs) var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    cursor: pointer;
+    overflow-wrap: anywhere;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /* The slot for the check. Every option keeps it, so the text of all rows lines up. */
+  .gw-listbox__option::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+  }
+
+  .gw-listbox__option[aria-selected="true"] {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  .gw-listbox__option[aria-selected="true"]::before {
+    background-color: currentColor;
+    mask: url("icons/check.svg") center / contain no-repeat;
+  }
+
+  /* A fact about the option at the end of its row, such as how far a branch is ahead. */
+  .gw-listbox__meta {
+    flex: none;
+    margin-inline-start: auto;
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-normal);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
+  }
+
+  /* A sentence in place of the options: there are none, they are loading, or they could not be loaded. */
+  .gw-listbox__note {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    overflow-wrap: anywhere;
+  }
+
+  /* The quiet text turns to the main text colour on the shade, so it keeps its contrast. */
+  @media (hover: hover) {
+    .gw-listbox__option:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-listbox__option:hover > .gw-listbox__meta {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-listbox__option:active {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-listbox__option:active > .gw-listbox__meta {
+    color: var(--gw-color-on-surface);
+  }
+
+  /* After hover and active, so an unavailable option never answers the pointer. */
+  .gw-listbox__option[aria-disabled="true"] {
+    background-color: transparent;
+    color: var(--gw-color-muted);
+    cursor: default;
+  }
+
+  .gw-listbox__option[aria-disabled="true"] > .gw-listbox__meta {
     color: var(--gw-color-muted);
   }
 }
@@ -3904,6 +5240,203 @@
 }
 
 /*
+ * Notification list: what happened while the reader was away, as unread first and then earlier.
+ * The rows are list rows from the list component. This stylesheet adds the header with
+ * "Mark all as read", the group headings, the unread mark and the place of a row's one action.
+ */
+
+@layer gw.components {
+  .gw-notification-list {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  /* The title and how many are unread at the start, "Mark all as read" at the far end. */
+  .gw-notification-list__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--gw-space-md);
+    min-height: var(--gw-size-touch);
+  }
+
+  .gw-notification-list__heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  .gw-notification-list__title {
+    font-size: var(--gw-text-lg);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-lg);
+  }
+
+  .gw-notification-list__count {
+    color: var(--gw-color-muted);
+  }
+
+  /* "Unread" and "Earlier", each above its own list. */
+  .gw-notification-list__group {
+    padding: var(--gw-space-md) var(--gw-space-sm) var(--gw-space-xs);
+    border-bottom-width: var(--gw-border-width);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+  }
+
+  /* At compact widths a row's action sits under its text, so the text keeps the width of the row. */
+  .gw-notification-list__item {
+    flex-wrap: wrap;
+  }
+
+  .gw-notification-list__action {
+    flex-basis: 100%;
+    padding: 0 var(--gw-space-sm) var(--gw-space-sm);
+  }
+
+  /* The word says the notification is unread. The dot before it is what the eye finds when scanning down. */
+  .gw-notification-list__unread {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-on-surface);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  .gw-notification-list__unread::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-sm);
+    height: var(--gw-space-sm);
+    border-radius: var(--gw-radius-full);
+    background-color: var(--gw-color-info);
+  }
+
+  @media (min-width: 768px) {
+    .gw-notification-list__action {
+      flex-basis: auto;
+      padding: 0;
+    }
+  }
+}
+
+/*
+ * Number field: a numeric input as the control of a field, optionally joined to its unit as text
+ * and to two stepper buttons. The input also carries gw-field__control, which draws the border,
+ * the fill and the invalid, read-only and disabled states, and the steppers are icon buttons,
+ * so this stylesheet must load after the field's and the button's.
+ */
+
+@layer gw.components {
+  /*
+   * One joined row. A number is short, so the row is no wider than six pointer targets,
+   * because there is no token for a control's width. It is its own stacking context for the focused part below.
+   */
+  .gw-number-field {
+    display: flex;
+    min-width: 0;
+    max-width: calc(var(--gw-size-touch) * 6);
+    isolation: isolate;
+  }
+
+  /* The browser's own spin buttons are too small to press, so they go. The Up and Down keys still step the value. */
+  .gw-number-field__input {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    appearance: textfield;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gw-number-field__input::-webkit-inner-spin-button,
+  .gw-number-field__input::-webkit-outer-spin-button {
+    appearance: none;
+  }
+
+  /* The unit, as text beside the value. It shares the input's border, and its shaded fill sets it apart from what is typed. */
+  .gw-number-field__unit {
+    display: flex;
+    flex: none;
+    align-items: center;
+    padding-inline: var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* A stepper is an icon button. It takes the input's border colour, so the row reads as one control. */
+  .gw-number-field__step {
+    border-color: var(--gw-color-border-strong);
+  }
+
+  /* Only the two ends of the row are rounded, and each part after the first gives up its leading border. */
+  .gw-number-field > * {
+    border-radius: 0;
+  }
+
+  .gw-number-field > :first-child {
+    border-start-start-radius: var(--gw-radius-md);
+    border-end-start-radius: var(--gw-radius-md);
+  }
+
+  .gw-number-field > :last-child {
+    border-start-end-radius: var(--gw-radius-md);
+    border-end-end-radius: var(--gw-radius-md);
+  }
+
+  .gw-number-field > :not(:first-child) {
+    border-inline-start-width: 0;
+  }
+
+  /* The focused part comes above its neighbours, so its focus ring is whole. */
+  .gw-number-field > :focus-visible {
+    position: relative;
+    z-index: var(--gw-z-sticky);
+  }
+
+  /* After the rules above, so an unavailable row is quiet in every part. */
+  .gw-number-field__step:disabled {
+    border-color: var(--gw-color-border);
+  }
+
+  .gw-number-field:has(> .gw-number-field__input:disabled) > .gw-number-field__unit {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+  }
+}
+
+/*
+ * One-time-code input: a single text input for a short code sent by message or shown by an
+ * authenticator app. It goes on the same element as gw-field__control, which draws the border,
+ * the fill and the invalid and disabled states, so this stylesheet must load after the field's.
+ * It is one input, not a row of boxes, so a pasted or auto-filled code lands whole.
+ */
+
+@layer gw.components {
+  /*
+   * Mono digits a size up, spaced widely so each one can be checked against the message.
+   * The start padding is half the spacing wider, which centres the gap around each digit.
+   * It is no wider than five and a half pointer targets, because there is no token for a control's width.
+   */
+  .gw-otp-input {
+    max-width: calc(var(--gw-size-touch) * 5.5);
+    padding-inline: calc(var(--gw-space-md) + var(--gw-space-md) / 2) var(--gw-space-md);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-xl);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--gw-leading-xl);
+    letter-spacing: var(--gw-space-md);
+  }
+}
+
+/*
  * Page header: the top of a view. The title, an optional one-line description
  * and, at the end of the row, the view's one optional primary action.
  */
@@ -4074,6 +5607,85 @@
     background-color: var(--gw-color-surface-raised);
     color: var(--gw-color-on-surface);
     font-weight: var(--gw-weight-semibold);
+  }
+}
+
+/*
+ * Password field: a password input as the control of a field, with a button at its end that shows
+ * or hides what was typed. The input also carries gw-field__control, which draws the border, the fill
+ * and the invalid and disabled states, so this stylesheet must load after the field's.
+ */
+
+@layer gw.components {
+  /* Holds the input, and places the button over its end. */
+  .gw-password-field {
+    position: relative;
+    display: block;
+  }
+
+  /* The end padding keeps a long password clear of the button. */
+  .gw-password-field__input {
+    padding-inline-end: calc(var(--gw-size-touch) + var(--gw-space-lg) + var(--gw-space-sm));
+  }
+
+  /*
+   * One target tall and wide enough for either word. A line at its start sets it apart from the value.
+   * It has no fill of its own, so the input's border shows through it.
+   */
+  .gw-password-field__toggle {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--gw-size-touch) + var(--gw-space-lg));
+    min-height: var(--gw-size-touch);
+    border-inline-start-width: var(--gw-border-width);
+    border-start-end-radius: var(--gw-radius-md);
+    border-end-end-radius: var(--gw-radius-md);
+    color: var(--gw-color-muted);
+    font-weight: var(--gw-weight-medium);
+    transition-property: color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  /*
+   * The button holds both words. Which one is drawn, and read out, follows the input's type, which the app
+   * sets to text while the password is shown. The button's own words are its state, so it takes no aria-pressed.
+   */
+  .gw-password-field__hide,
+  .gw-password-field:has(> .gw-password-field__input[type="text"]) .gw-password-field__show {
+    display: none;
+  }
+
+  .gw-password-field:has(> .gw-password-field__input[type="text"]) .gw-password-field__hide {
+    display: inline;
+  }
+
+  /*
+   * While the password can be read, the button is as dark as the text it uncovers.
+   * :where() keeps this no stronger than the unavailable rule below.
+   */
+  :where(.gw-password-field:has(> .gw-password-field__input[type="text"])) > .gw-password-field__toggle {
+    color: var(--gw-color-on-surface);
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-password-field__toggle:hover {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-password-field__toggle:active {
+    color: var(--gw-color-on-surface);
+  }
+
+  /* After hover and pressed, so an unavailable button never answers the pointer. */
+  .gw-password-field__toggle:disabled {
+    color: var(--gw-color-muted);
   }
 }
 
@@ -4848,6 +6460,224 @@
 }
 
 /*
+ * Selection basket: the bar that appears while rows of a list or a table are selected.
+ * It says how many are selected, offers "Clear selection", one bulk action and a "More" menu,
+ * and stays at the bottom of the screen while the list scrolls under it.
+ * The buttons and the menu come from the button and menu components.
+ */
+
+@layer gw.components {
+  /*
+   * Placed after the list it acts on, in the same container, so it sticks to the bottom of the
+   * screen for as long as the list is in view. A 1px border and the raised surface set it off
+   * from the rows passing under it. It is part of the page, not an overlay, so it has no shadow.
+   */
+  .gw-selection-basket {
+    position: sticky;
+    bottom: calc(var(--gw-space-sm) + env(safe-area-inset-bottom));
+    z-index: var(--gw-z-sticky);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--gw-space-lg);
+    row-gap: var(--gw-space-md);
+    min-width: 0;
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  /* The count, then "Clear selection". At compact widths this is the bar's first line. */
+  .gw-selection-basket__selection {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  .gw-selection-basket__count {
+    font-weight: var(--gw-weight-medium);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The bulk action and "More". At compact widths they take the second line. */
+  .gw-selection-basket__actions {
+    display: flex;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gw-space-sm);
+  }
+
+  /* What went wrong when the bulk action failed, on a line of its own. */
+  .gw-selection-basket__error {
+    display: flex;
+    flex-basis: 100%;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-danger);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-selection-basket__error::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  /* At the regular width the bar is one line: the count and "Clear selection" at the start, the actions at the far end. */
+  @media (min-width: 768px) {
+    .gw-selection-basket__selection {
+      flex: none;
+      justify-content: flex-start;
+    }
+
+    .gw-selection-basket__actions {
+      flex-basis: auto;
+    }
+  }
+}
+
+/*
+ * Settings row: one setting as a row, with its label and a one-line description at the start
+ * and a single control at the far end. Rows sit in a group under a heading, divided by a 1px border.
+ * A row whose control is a switch holds the switch component alone, which is already laid out this way.
+ */
+
+@layer gw.components {
+  .gw-settings-row__group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .gw-settings-row__heading {
+    padding-bottom: var(--gw-space-sm);
+    border-bottom-width: var(--gw-border-width);
+    border-bottom-color: var(--gw-color-border-strong);
+    font-size: var(--gw-text-lg);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-lg);
+  }
+
+  /* At compact widths the control sits under the text and is as wide as the row. */
+  .gw-settings-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+  }
+
+  .gw-settings-row + .gw-settings-row {
+    border-top-width: var(--gw-border-width);
+  }
+
+  /* The same space above and below the label as the switch gives its own, so every row's first line sits level. */
+  .gw-settings-row__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+    min-width: 0;
+    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
+  }
+
+  .gw-settings-row__label {
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-settings-row__description {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-settings-row__control {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    padding-bottom: var(--gw-space-md);
+  }
+
+  /* A select fills the row at compact widths, where a thumb reaches it more easily. */
+  .gw-settings-row__control > :not(button, a, p) {
+    align-self: stretch;
+  }
+
+  /* A status in words in place of a control, such as who is signed in. */
+  .gw-settings-row__status {
+    overflow-wrap: anywhere;
+  }
+
+  /* A setting that deletes or cannot be undone. The mark is drawn here, so the row is never set apart by colour alone. */
+  .gw-settings-row--danger .gw-settings-row__label {
+    display: flex;
+    gap: var(--gw-space-sm);
+  }
+
+  .gw-settings-row--danger .gw-settings-row__label::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: var(--gw-color-danger);
+    mask: url("icons/triangle-alert.svg") center / contain no-repeat;
+  }
+
+  /* What went wrong when a change was not saved, under the whole row. */
+  .gw-settings-row__error {
+    display: flex;
+    gap: var(--gw-space-xs);
+    padding-bottom: var(--gw-space-md);
+    color: var(--gw-color-danger);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-settings-row__error::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  /* At the regular width the control is at the far end of the row, centred on the text. */
+  @media (min-width: 768px) {
+    .gw-settings-row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: var(--gw-space-xl);
+    }
+
+    .gw-settings-row > :only-child,
+    .gw-settings-row__error {
+      grid-column: 1 / -1;
+    }
+
+    .gw-settings-row__control {
+      align-items: flex-end;
+      justify-content: center;
+      min-width: calc(var(--gw-size-column) / 2);
+      min-height: var(--gw-size-touch);
+      padding-bottom: 0;
+    }
+
+    .gw-settings-row__status {
+      text-align: end;
+    }
+  }
+}
+
+/*
  * Sheet: a panel built on the dialog element. It rises from the bottom edge on a phone
  * and sits against the trailing edge as a side panel at the regular width.
  * A header with the title and Close, a body that scrolls, and a footer that stays in view.
@@ -5265,6 +7095,152 @@
 }
 
 /*
+ * Slider: a native range input for a rough amount, with its label, its value in words
+ * and a label at each end of the track.
+ *
+ * The thumb is a box one pointer target square. Only its middle is painted: the rest is a
+ * transparent border, so the thumb takes a press anywhere in the square. The track is drawn
+ * on the wrapper, set in from each end by that border, so the painted thumb stops exactly at its ends.
+ */
+
+@layer gw.components {
+  .gw-slider {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--gw-space-md);
+    /* Room for the input's focus ring between the label above it and the limits below. */
+    row-gap: var(--gw-space-xs);
+    min-width: 0;
+  }
+
+  .gw-slider__label {
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  /* The current value, in words with its unit. */
+  .gw-slider__value {
+    color: var(--gw-color-muted);
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+  }
+
+  /*
+   * The wrapper reaches past the slider by the thumb's transparent border on each side,
+   * so the painted track lines up with the label above it and the limits below it.
+   */
+  .gw-slider__track {
+    position: relative;
+    grid-column: 1 / -1;
+    margin-inline: calc((var(--gw-space-xl) - var(--gw-size-touch)) / 2);
+  }
+
+  .gw-slider__track::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: calc((var(--gw-size-touch) - var(--gw-space-xl)) / 2);
+    height: var(--gw-space-xs);
+    border-radius: var(--gw-radius-full);
+    background-color: var(--gw-color-border-strong);
+    translate: 0 -50%;
+  }
+
+  /* One target tall. The browser's own track and thumb go, and the two engines are styled apart below. */
+  .gw-slider__input {
+    position: relative;
+    display: block;
+    appearance: none;
+    width: 100%;
+    height: var(--gw-size-touch);
+    border-radius: var(--gw-radius-md);
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .gw-slider__input::-webkit-slider-runnable-track {
+    height: var(--gw-size-touch);
+    background-color: transparent;
+  }
+
+  .gw-slider__input::-moz-range-track {
+    height: var(--gw-size-touch);
+    background-color: transparent;
+  }
+
+  .gw-slider__input::-webkit-slider-thumb {
+    appearance: none;
+    box-sizing: border-box;
+    width: var(--gw-size-touch);
+    height: var(--gw-size-touch);
+    border: calc((var(--gw-size-touch) - var(--gw-space-xl)) / 2) solid transparent;
+    border-radius: calc((var(--gw-size-touch) - var(--gw-space-xl)) / 2 + var(--gw-radius-sm));
+    background-color: var(--gw-color-accent);
+    background-clip: padding-box;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-slider__input::-moz-range-thumb {
+    box-sizing: border-box;
+    width: var(--gw-size-touch);
+    height: var(--gw-size-touch);
+    border: calc((var(--gw-size-touch) - var(--gw-space-xl)) / 2) solid transparent;
+    border-radius: calc((var(--gw-size-touch) - var(--gw-space-xl)) / 2 + var(--gw-radius-sm));
+    background-color: var(--gw-color-accent);
+    background-clip: padding-box;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /* The lowest and highest value, in words, under the two ends of the track. */
+  .gw-slider__min,
+  .gw-slider__max {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  .gw-slider__max {
+    text-align: end;
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-slider__input:hover::-webkit-slider-thumb {
+      background-color: var(--gw-color-accent-hover);
+    }
+
+    .gw-slider__input:hover::-moz-range-thumb {
+      background-color: var(--gw-color-accent-hover);
+    }
+  }
+
+  .gw-slider__input:active::-webkit-slider-thumb {
+    background-color: var(--gw-color-accent-hover);
+  }
+
+  .gw-slider__input:active::-moz-range-thumb {
+    background-color: var(--gw-color-accent-hover);
+  }
+
+  /* After hover and pressed, so an unavailable slider never answers the pointer. */
+  .gw-slider__input:disabled {
+    cursor: default;
+  }
+
+  .gw-slider__input:disabled::-webkit-slider-thumb {
+    background-color: var(--gw-color-border-strong);
+  }
+
+  .gw-slider__input:disabled::-moz-range-thumb {
+    background-color: var(--gw-color-border-strong);
+  }
+
+  .gw-slider__track:has(> .gw-slider__input:disabled)::before {
+    background-color: var(--gw-color-border);
+  }
+}
+
+/*
  * Source chip: a compact link to where something came from: a file, a web page or a commit.
  * An icon says the kind, the text says which, and a long path loses its middle, never its file name.
  */
@@ -5382,6 +7358,52 @@
 }
 
 /*
+ * Sparkline: a small trend line beside a value, drawn as an inline SVG the app generates.
+ * The line takes the text colour. The words next to it say the trend and the latest value,
+ * because the drawing is hidden from assistive technology and too small to read a number from.
+ */
+
+@layer gw.components {
+  .gw-sparkline {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-sm);
+    min-width: 0;
+    vertical-align: middle;
+  }
+
+  /* 64px by 16px, the size of the viewBox, so one unit in the drawing is one pixel. The line keeps the main text colour inside quiet text. */
+  .gw-sparkline__chart {
+    flex: none;
+    color: var(--gw-color-on-surface);
+    width: calc(var(--gw-space-2xl) * 2);
+    height: var(--gw-space-lg);
+    overflow: visible;
+  }
+
+  .gw-sparkline__line {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: calc(var(--gw-border-width) * 1.5);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* The latest value, marked so the eye knows which end is now. */
+  .gw-sparkline__last {
+    fill: currentColor;
+  }
+
+  .gw-sparkline__text {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+}
+
+/*
  * Spinner: a sign that something is in progress and its length is not known.
  * The text inside it is the label. The turning mark is decoration, so when motion is off the text still says what is happening.
  */
@@ -5424,6 +7446,111 @@
   @media (prefers-reduced-motion: reduce) {
     .gw-spinner::before {
       animation: none;
+    }
+  }
+}
+
+/*
+ * Split button: a main action joined to a small button that opens a menu of related alternatives.
+ * Both halves are buttons from the button component and the menu is the menu component, so this
+ * stylesheet only joins the two halves. It must load after the button's.
+ */
+
+@layer gw.components {
+  /* The pair is its own stacking context for the focused half below. */
+  .gw-split-button {
+    display: inline-flex;
+    max-width: 100%;
+    isolation: isolate;
+  }
+
+  /* The main action keeps its rounded corners at the start only. A long label wraps inside it. */
+  .gw-split-button__action {
+    flex: 0 1 auto;
+    min-width: 0;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  /*
+   * The menu button is one pointer target wide. It gives up its leading border,
+   * so the main action's border is the one line between the two.
+   */
+  .gw-split-button__toggle {
+    flex: none;
+    width: var(--gw-size-touch);
+    padding: 0;
+    border-inline-start-width: 0;
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  /* While its menu is open the menu button stays shaded, so the menu is seen to belong to it. */
+  .gw-split-button:has(:popover-open) > .gw-split-button__toggle {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* The focused half comes above the other, so its focus ring is whole. */
+  .gw-split-button > :focus-visible {
+    z-index: var(--gw-z-sticky);
+  }
+}
+
+/*
+ * Split panel: two labelled regions, a list and the detail of what is chosen in it.
+ * They sit side by side at 768px and up, the list in a fixed column, and one above the other below that.
+ * Each region scrolls by itself. The split is fixed: there is no handle to drag and no script.
+ */
+
+@layer gw.components {
+  /* Stacked: the list takes two fifths of the height and the detail the rest. */
+  .gw-split-panel {
+    display: grid;
+    grid-template-rows: minmax(0, 2fr) minmax(0, 3fr);
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    height: var(--gw-size-column);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+  }
+
+  /* Inside an app shell that already gives it a height and an edge. */
+  .gw-split-panel--fill {
+    height: 100%;
+    border-width: 0;
+    border-radius: 0;
+  }
+
+  .gw-split-panel__list,
+  .gw-split-panel__detail {
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  /* A rule between the two regions, on whichever edge they share. */
+  .gw-split-panel__list {
+    border-bottom-width: var(--gw-border-width);
+  }
+
+  .gw-split-panel__detail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+    padding: var(--gw-space-lg);
+    overflow-wrap: anywhere;
+  }
+
+  /* Side by side. There is no width token for a list column, so it is a fraction of the reading column. */
+  @media (min-width: 768px) {
+    .gw-split-panel {
+      grid-template-rows: minmax(0, 1fr);
+      grid-template-columns: calc(var(--gw-size-column) * 0.6) minmax(0, 1fr);
+    }
+
+    .gw-split-panel__list {
+      border-bottom-width: 0;
+      border-inline-end-width: var(--gw-border-width);
     }
   }
 }
@@ -5480,6 +7607,157 @@
   .gw-stat--inline > .gw-stat__value {
     font-size: var(--gw-text-ui);
     line-height: var(--gw-leading-ui);
+  }
+}
+
+/*
+ * Stepper: where the reader is in a few named steps, on an ol.
+ * The step that carries aria-current is the current one. The steps before it are completed and the steps
+ * after it are upcoming, read from their position, so the markup needs no class for either.
+ * Each state has its own mark: a check in a ring, a number on a fill, a number in an outline.
+ * The steps run down the page, and across it at 768px and up.
+ */
+
+@layer gw.components {
+  .gw-stepper {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    counter-reset: gw-stepper;
+  }
+
+  /* An upcoming step, which is what a step is until the markup says otherwise. */
+  .gw-stepper__step {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    column-gap: var(--gw-space-md);
+    min-width: 0;
+    color: var(--gw-color-muted);
+    counter-increment: gw-stepper;
+  }
+
+  /* The mark: the step's number in an outlined circle, centred on the first line of a row one target tall. */
+  .gw-stepper__step::before {
+    content: counter(gw-stepper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--gw-space-xl);
+    height: var(--gw-space-xl);
+    margin-block: calc((var(--gw-size-touch) - var(--gw-space-xl)) / 2);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-full);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+  }
+
+  /* The line to the next step, from under this mark to above the next one. */
+  .gw-stepper__step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    inset-block: calc((var(--gw-size-touch) + var(--gw-space-xl)) / 2 + var(--gw-space-xs)) calc(var(--gw-space-xs) - (var(--gw-size-touch) - var(--gw-space-xl)) / 2);
+    inset-inline-start: calc((var(--gw-space-xl) - var(--gw-border-width)) / 2);
+    width: var(--gw-border-width);
+    background-color: var(--gw-color-border-strong);
+  }
+
+  /*
+   * The name of the step: text, or a link when the step is completed and can be gone back to.
+   * The padding makes one line a pointer target tall and keeps the same space above a name of several lines.
+   */
+  .gw-stepper__label {
+    position: relative;
+    grid-column: 2;
+    min-height: var(--gw-size-touch);
+    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-stepper__label:any-link {
+    text-decoration-line: underline;
+    text-underline-offset: var(--gw-space-xs);
+  }
+
+  /*
+   * A line under the name, pulled up into the space the name's padding leaves under its last line.
+   * The name is positioned, so it lies over this line and a link keeps its whole pointer target.
+   */
+  .gw-stepper__description {
+    grid-column: 2;
+    margin-top: calc(var(--gw-space-sm) * -1);
+    padding-bottom: var(--gw-space-sm);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  /* Completed: every step before the current one. A check in a ring takes the place of the number. */
+  .gw-stepper__step:has(~ .gw-stepper__step[aria-current]:not([aria-current="false"])) {
+    color: var(--gw-color-on-surface);
+  }
+
+  .gw-stepper__step:has(~ .gw-stepper__step[aria-current]:not([aria-current="false"]))::before {
+    content: "";
+    border-width: 0;
+    border-radius: 0;
+    background-color: currentColor;
+    mask: url("icons/circle-check.svg") center / contain no-repeat;
+  }
+
+  /* Current: the number on a fill, and a heavier name. */
+  .gw-stepper__step[aria-current]:not([aria-current="false"]) {
+    color: var(--gw-color-on-surface);
+  }
+
+  .gw-stepper__step[aria-current]:not([aria-current="false"])::before {
+    border-color: var(--gw-color-accent);
+    background-color: var(--gw-color-accent);
+    color: var(--gw-color-on-accent);
+  }
+
+  .gw-stepper__step[aria-current]:not([aria-current="false"]) > .gw-stepper__label {
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  @media (hover: hover) {
+    .gw-stepper__label:any-link:hover {
+      text-decoration-thickness: calc(var(--gw-border-width) * 2);
+    }
+  }
+
+  /* Across the page: each step is its mark, its name and then the line to the next step. */
+  @media (min-width: 768px) {
+    .gw-stepper {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: var(--gw-space-md);
+    }
+
+    .gw-stepper__step {
+      flex: 1 1 auto;
+      grid-template-columns: auto auto minmax(var(--gw-space-lg), 1fr);
+      column-gap: var(--gw-space-sm);
+    }
+
+    .gw-stepper__step:last-child {
+      flex: 0 1 auto;
+      grid-template-columns: auto auto;
+    }
+
+    .gw-stepper__step:not(:last-child)::after {
+      position: static;
+      grid-row: 1;
+      grid-column: 3;
+      width: auto;
+      height: var(--gw-border-width);
+      margin-block-start: calc((var(--gw-size-touch) - var(--gw-border-width)) / 2);
+      margin-inline-start: var(--gw-space-xs);
+    }
   }
 }
 
@@ -5979,6 +8257,70 @@
 }
 
 /*
+ * Tag input: a box that holds the values already added, as removable tags, and a text input for the next one.
+ * The tags are the tag component and the label, the description and the error are the field's.
+ * The box is drawn as a field's control is, so it sits in a form beside the others.
+ */
+
+@layer gw.components {
+  /*
+   * The box. The padding leaves room for the input's focus ring inside the border.
+   * The gap between rows keeps the 44px pointer targets of two rows of remove buttons apart.
+   */
+  .gw-tag-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-sm);
+    row-gap: var(--gw-space-xs);
+    min-width: 0;
+    padding: var(--gw-space-xs) var(--gw-space-sm);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    transition: border-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /* The list adds no box of its own: its tags wrap in the same rows as the input. */
+  .gw-tag-input__tags {
+    display: contents;
+  }
+
+  /*
+   * One target tall, and never narrower than two, so it wraps to a new row before it is too small to type in.
+   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   */
+  .gw-tag-input__input {
+    flex: 1 1 calc(var(--gw-size-touch) * 2);
+    min-width: calc(var(--gw-size-touch) * 2);
+    min-height: var(--gw-size-touch);
+    padding-inline: var(--gw-space-xs);
+    border-radius: var(--gw-radius-sm);
+    background-color: transparent;
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+  }
+
+  @media (min-width: 768px) {
+    .gw-tag-input__input {
+      font-size: var(--gw-text-ui);
+      line-height: var(--gw-leading-ui);
+    }
+  }
+
+  .gw-tag-input:has(> .gw-tag-input__input[aria-invalid="true"]) {
+    border-color: var(--gw-color-danger);
+  }
+
+  .gw-tag-input:has(> .gw-tag-input__input:disabled) {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+  }
+}
+
+/*
  * Textarea: the multi-line control of a field. It goes on the same element as gw-field__control,
  * which draws the border, the fill and the invalid, read-only and disabled states.
  * This stylesheet adds only the height behaviour and the mono variant, so it must load after the field's.
@@ -6221,6 +8563,41 @@
 }
 
 /*
+ * Toggle button: a button that turns one view option on or off and says which with aria-pressed.
+ * It sits on the same element as the button class, which draws the border, the fill, hover,
+ * pressed-down and disabled, so this stylesheet must load after the button's.
+ * It adds only the look of an option that is on.
+ */
+
+@layer gw.components {
+  /* On: a stronger border and a sunken fill. */
+  .gw-toggle-button[aria-pressed="true"] {
+    border-color: var(--gw-color-border-strong);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /*
+   * On is also marked by a bar under the label, so the state is never the fill alone.
+   * It is drawn before the content, because the small button's padded hit area is drawn after it.
+   */
+  .gw-toggle-button[aria-pressed="true"]::before {
+    content: "";
+    position: absolute;
+    bottom: var(--gw-space-xs);
+    inset-inline: var(--gw-space-md);
+    height: calc(var(--gw-border-width) * 2);
+    background-color: currentColor;
+  }
+
+  /* After the on rules, so an unavailable toggle keeps its bar and loses the fill. */
+  .gw-toggle-button[aria-pressed="true"]:disabled,
+  .gw-toggle-button[aria-pressed="true"][aria-disabled="true"] {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+  }
+}
+
+/*
  * Tool call: a summary of one tool call on its own, outside a transcript.
  * It names the tool and its target, says how the call ended in words beside an icon,
  * and keeps the arguments and the output in native details elements.
@@ -6418,6 +8795,79 @@
 }
 
 /*
+ * Toolbar: a row of related controls for one view, on role="toolbar".
+ * It holds buttons from the button and icon button components, in groups set apart by separators.
+ * It wraps onto more rows when the view is narrow, or scrolls inside itself with the scroll modifier.
+ * Controls marked as overflow leave the row below 768px, where the More menu offers them instead.
+ */
+
+@layer gw.components {
+  /* The padding leaves room for the focus ring of a button at the edge, which a scrolling toolbar would clip. */
+  .gw-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    width: fit-content;
+    max-width: 100%;
+    padding: var(--gw-space-xs);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  .gw-toolbar--scroll {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  /* Controls that belong together, kept on one row when the toolbar wraps. */
+  .gw-toolbar__group {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gw-space-xs);
+  }
+
+  /* A rule between two groups, as tall as the row it is in. */
+  .gw-toolbar__separator {
+    flex: none;
+    align-self: stretch;
+    width: var(--gw-border-width);
+    margin-inline: var(--gw-space-xs);
+    background-color: var(--gw-color-border);
+  }
+
+  /* A short fact among the controls, such as which change is in view. */
+  .gw-toolbar__text {
+    flex: none;
+    padding-inline: var(--gw-space-sm);
+    color: var(--gw-color-muted);
+    white-space: nowrap;
+  }
+
+  /* Below 768px these controls are offered by the More menu, which is hidden once there is room for them. */
+  .gw-toolbar__overflow {
+    display: none;
+  }
+
+  .gw-toolbar__more {
+    display: flex;
+    flex: none;
+  }
+
+  @media (min-width: 768px) {
+    .gw-toolbar__overflow {
+      display: contents;
+    }
+
+    .gw-toolbar__more {
+      display: none;
+    }
+  }
+}
+
+/*
  * Tooltip: a line of supplementary text for a control that already has a name.
  * A wrapper around the control shows the text on hover and on keyboard focus with no script.
  * With popover="hint" on the text and interestfor on the control, a browser that supports
@@ -6516,6 +8966,146 @@
       margin: 0 0 0 var(--gw-space-lg);
       position-area: block-end span-inline-start;
     }
+  }
+}
+
+/*
+ * Tree: a file or outline tree built on nested details elements, so a folder opens and closes with no script.
+ * A folder is a details whose summary is its row, and a file is a link. It is a disclosure tree, not an ARIA tree:
+ * the browser gives every row its role, its state and its keys. Folders nest two deep at most.
+ */
+
+@layer gw.components {
+  .gw-tree {
+    min-width: 0;
+  }
+
+  .gw-tree__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /*
+   * What a folder holds is set in from the folder, behind a rule that drops from the centre of its chevron,
+   * so the level of a row can be read from the rules to its left.
+   */
+  .gw-tree__list .gw-tree__list {
+    margin-inline-start: calc(var(--gw-space-lg) - var(--gw-border-width));
+    padding-inline-start: var(--gw-space-xs);
+    border-inline-start-width: var(--gw-border-width);
+  }
+
+  /* The row of a folder and the row of a file share one shape, one pointer target tall. */
+  .gw-tree__summary,
+  .gw-tree__leaf {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-xs) var(--gw-space-sm);
+    border-radius: var(--gw-radius-sm);
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-tree__summary {
+    font-weight: var(--gw-weight-medium);
+    cursor: pointer;
+  }
+
+  .gw-tree__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* The chevron says whether the folder is open, in a shape and not a colour. */
+  .gw-tree__summary::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: var(--gw-color-muted);
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+  }
+
+  .gw-tree__branch[open] > .gw-tree__summary::before {
+    mask-image: url("icons/chevron-down.svg");
+  }
+
+  /* A file has no chevron, so it starts where the icon of a folder beside it starts. */
+  .gw-tree__leaf {
+    padding-inline-start: calc(var(--gw-space-sm) + var(--gw-space-lg) + var(--gw-space-sm));
+  }
+
+  .gw-tree__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    color: var(--gw-color-muted);
+  }
+
+  .gw-tree__name {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* A fact at the end of the row, in words: how many files, or how a file changed. */
+  .gw-tree__meta {
+    flex: none;
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-normal);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
+  }
+
+  /* A sentence where a folder's rows would be: it is empty, loading, or could not be read. */
+  .gw-tree__note {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    padding: var(--gw-space-sm) var(--gw-space-sm) var(--gw-space-sm) calc(var(--gw-space-sm) + var(--gw-space-lg) + var(--gw-space-sm));
+    color: var(--gw-color-muted);
+    overflow-wrap: anywhere;
+  }
+
+  /* The quiet parts turn to the main text colour wherever the row is shaded, so they keep their contrast. */
+  @media (hover: hover) {
+    .gw-tree__summary:hover,
+    .gw-tree__leaf:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-tree__summary:hover > .gw-tree__meta,
+    .gw-tree__leaf:hover > :is(.gw-tree__icon, .gw-tree__meta) {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-tree__summary:active,
+  .gw-tree__leaf:active {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* The current item is marked by a bar and a heavier name as well as by its shade. */
+  .gw-tree__leaf[aria-current]:not([aria-current="false"]) {
+    background-color: var(--gw-color-surface-sunken);
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  .gw-tree__leaf[aria-current]:not([aria-current="false"])::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: calc(var(--gw-border-width) * 2);
+    background-color: var(--gw-color-accent);
+  }
+
+  .gw-tree__leaf[aria-current]:not([aria-current="false"]) > :is(.gw-tree__icon, .gw-tree__meta) {
+    color: var(--gw-color-on-surface);
   }
 }
 
@@ -6670,5 +9260,189 @@
     flex: none;
     width: calc(var(--gw-space-2xl) * 4);
     max-width: 100%;
+  }
+}
+
+/*
+ * Filter and results: a filter bar above the list or table it narrows.
+ * The page stacks the bar, the filters in force, the count and the results. From 768px the search
+ * field and the filters share one row, with the search field taking the most room.
+ */
+
+@layer gw.components {
+  .gw-filter-results {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+  }
+
+  .gw-filter-results__bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: var(--gw-space-md);
+  }
+
+  @media (min-width: 768px) {
+    .gw-filter-results__bar {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  /* The count in words, directly above the results it counts. */
+  .gw-filter-results__count {
+    font-weight: var(--gw-weight-medium);
+  }
+}
+
+/*
+ * Master and detail: a list of items, with the selected item's detail.
+ * Below 768px a view holds one of the two: the list while nothing is selected, and the detail alone,
+ * with a link back to the list, once an item is. From 768px the list comes first and the detail sits beside it.
+ * The same markup serves both widths. Which pane a phone shows follows from whether the detail is in the markup.
+ */
+
+@layer gw.components {
+  .gw-master-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: var(--gw-space-xl);
+  }
+
+  /* The list pane holds the view's heading and the list. With an item selected, a phone shows the detail alone. */
+  .gw-master-detail__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+    min-width: 0;
+  }
+
+  .gw-master-detail:has(> .gw-master-detail__detail) > .gw-master-detail__list {
+    display: none;
+  }
+
+  .gw-master-detail__detail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+    min-width: 0;
+  }
+
+  /* The sentence that stands in the detail's place while nothing is selected. A phone shows the list alone. */
+  .gw-master-detail__placeholder {
+    display: none;
+    color: var(--gw-color-muted);
+  }
+
+  /* The way back to the list, on a phone only. It starts at the pane's edge, not in the middle of it. */
+  .gw-master-detail__back {
+    align-self: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    .gw-master-detail {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    }
+
+    .gw-master-detail:has(> .gw-master-detail__detail) > .gw-master-detail__list {
+      display: flex;
+    }
+
+    .gw-master-detail__detail,
+    .gw-master-detail__placeholder {
+      padding-inline-start: var(--gw-space-xl);
+      border-inline-start-width: var(--gw-border-width);
+    }
+
+    .gw-master-detail__placeholder {
+      display: block;
+      padding-block: var(--gw-space-md);
+    }
+
+    .gw-master-detail__back {
+      display: none;
+    }
+  }
+}
+
+/*
+ * Multi-step form: one step of a longer task at a time, in one reading column that starts at the leading edge.
+ * The fields, the alert and the actions are catalogue components in a gw-stack. This file holds the
+ * column and the line that says which step this is.
+ */
+
+@layer gw.components {
+  .gw-multi-step-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xl);
+    max-width: var(--gw-size-column);
+  }
+
+  /* "Step 2 of 4", in words, above the step's heading. */
+  .gw-multi-step-form__step {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+  }
+}
+
+/*
+ * Not found: what a missing page or a missing item shows.
+ * It is an empty state at the top of the content, with one more link under it. This file only
+ * joins the two, so the link sits with the message and not a whole section away from it.
+ */
+
+@layer gw.components {
+  .gw-not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: var(--gw-size-column);
+  }
+}
+
+/*
+ * Settings page: the settings most people change, then one advanced disclosure, then the danger area.
+ * The page is one reading column that starts at the leading edge. Everything inside it is a catalogue
+ * component laid out with gw-stack, so this file holds only the column and the mark of the danger area.
+ */
+
+@layer gw.components {
+  .gw-settings-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-2xl);
+    max-width: var(--gw-size-transcript);
+  }
+
+  /* On the card that holds the danger area. Its title says Danger area in words, so the colour is not the only sign. */
+  .gw-settings-page__danger {
+    border-color: var(--gw-color-danger);
+  }
+}
+
+/*
+ * Sign in: one focused task in one reading column that starts at the leading edge.
+ * There is no hero, no picture and no second column. The fields, the alert and the button are
+ * catalogue components. This file holds the column and the product's name above the heading.
+ */
+
+@layer gw.components {
+  .gw-sign-in {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xl);
+    max-width: var(--gw-size-column);
+  }
+
+  /* The product's name, set as the app header sets it. */
+  .gw-sign-in__product {
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-mono);
   }
 }

@@ -1,0 +1,70 @@
+/*
+ * Master and detail: a list of items, with the selected item's detail.
+ * Below 768px a view holds one of the two: the list while nothing is selected, and the detail alone,
+ * with a link back to the list, once an item is. From 768px the list comes first and the detail sits beside it.
+ * The same markup serves both widths. Which pane a phone shows follows from whether the detail is in the markup.
+ */
+
+@layer gw.components {
+  .gw-master-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: var(--gw-space-xl);
+  }
+
+  /* The list pane holds the view's heading and the list. With an item selected, a phone shows the detail alone. */
+  .gw-master-detail__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+    min-width: 0;
+  }
+
+  .gw-master-detail:has(> .gw-master-detail__detail) > .gw-master-detail__list {
+    display: none;
+  }
+
+  .gw-master-detail__detail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+    min-width: 0;
+  }
+
+  /* The sentence that stands in the detail's place while nothing is selected. A phone shows the list alone. */
+  .gw-master-detail__placeholder {
+    display: none;
+    color: var(--gw-color-muted);
+  }
+
+  /* The way back to the list, on a phone only. It starts at the pane's edge, not in the middle of it. */
+  .gw-master-detail__back {
+    align-self: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    .gw-master-detail {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    }
+
+    .gw-master-detail:has(> .gw-master-detail__detail) > .gw-master-detail__list {
+      display: flex;
+    }
+
+    .gw-master-detail__detail,
+    .gw-master-detail__placeholder {
+      padding-inline-start: var(--gw-space-xl);
+      border-inline-start-width: var(--gw-border-width);
+    }
+
+    .gw-master-detail__placeholder {
+      display: block;
+      padding-block: var(--gw-space-md);
+    }
+
+    .gw-master-detail__back {
+      display: none;
+    }
+  }
+}

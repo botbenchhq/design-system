@@ -8,7 +8,10 @@ import { expect, test } from "@playwright/test";
 
 const dist = fileURLToPath(new URL("../../dist", import.meta.url));
 const screenshots = fileURLToPath(new URL("screenshots", import.meta.url));
-const components = JSON.parse(readFileSync(join(dist, "components.json"), "utf8")).components.map((component) => component.name);
+// Every folder with a gallery page: the components, then the page patterns.
+const index = JSON.parse(readFileSync(join(dist, "components.json"), "utf8"));
+const patterns = index.patterns.map((pattern) => pattern.name);
+const components = [...index.components.map((component) => component.name), ...patterns];
 
 const TYPES = { ".css": "text/css", ".woff2": "font/woff2", ".svg": "image/svg+xml", ".html": "text/html", ".js": "text/javascript" };
 const WIDTHS = [390, 1280];
@@ -249,4 +252,276 @@ test("loading the behaviours module a second time is harmless", async ({ page })
   await tabs.first().focus();
   await page.keyboard.press("ArrowRight");
   expect(await tabsState(page)).toEqual(tabSelected("Diff", "tabs-default-panel-diff"));
+});
+
+test("a pattern's gallery page lays its examples out in one column at 1280px, and a component's in two", async ({ page }) => {
+  const columns = () =>
+    page.locator('[data-gallery="page"] > section').first().locator("> .gw-grid").evaluate((grid) => getComputedStyle(grid).gridTemplateColumns.split(" ").length);
+  expect(patterns.length).toBeGreaterThan(0);
+  for (const name of patterns) {
+    await open(page, name);
+    expect(await columns(), name).toBe(1);
+  }
+  await open(page, "button");
+  expect(await columns()).toBe(2);
+});
+
+test("the password field's button changes its words with the input's type and carries no aria-pressed", async ({ page }) => {
+  await open(page, "password-field");
+  const input = page.locator("#password-field-default-input");
+  const toggle = page.locator('[data-example="default"] .gw-password-field__toggle');
+  await expect(toggle).not.toHaveAttribute("aria-pressed");
+  await expect(toggle).toHaveAccessibleName("Show the registry password");
+  await expect(toggle.locator(".gw-password-field__hide")).toBeHidden();
+  // What an app does on a press: it flips the input's type and nothing else.
+  await input.evaluate((element) => (element.type = "text"));
+  await expect(toggle).toHaveAccessibleName("Hide the registry password");
+  await expect(toggle.locator(".gw-password-field__show")).toBeHidden();
+  await input.evaluate((element) => (element.type = "password"));
+  await expect(toggle).toHaveAccessibleName("Show the registry password");
+  await expect(page.locator('[data-example="shown"] .gw-password-field__toggle')).toHaveAccessibleName("Hide the registry password");
+  expect(await page.locator(".gw-password-field__toggle[aria-pressed]").count()).toBe(0);
+});
+
+// The default combobox example, read from the attributes the stylesheet styles.
+const comboboxState = (page) =>
+  page.locator('[data-example="default"] gw-combobox').evaluate((element) => {
+    const input = element.querySelector('[role="combobox"]');
+    const options = [...element.querySelectorAll('[role="option"]')];
+    return {
+      value: input.value,
+      expanded: input.getAttribute("aria-expanded"),
+      active: input.getAttribute("aria-activedescendant"),
+      shown: options.filter((option) => !option.hidden).map((option) => option.textContent),
+      selected: options.filter((option) => option.getAttribute("aria-selected") === "true").map((option) => option.textContent),
+      status: element.querySelector('[role="status"]').textContent,
+      panel: getComputedStyle(element.querySelector(".gw-combobox__panel")).display,
+      message: element.querySelector(".gw-combobox__message").hidden,
+      inlineStyles: [element, ...element.querySelectorAll("*")].filter((node) => node.hasAttribute("style")).length,
+    };
+  });
+
+test("gw-combobox filters as the reader types and writes the count into the status line", async ({ page }) => {
+  await open(page, "combobox");
+  expect(await page.evaluate(() => customElements.get("gw-combobox")?.name)).toBe("GwCombobox");
+  expect(await comboboxState(page)).toMatchObject({ value: "main", expanded: "false", panel: "none", status: "" });
+
+  const input = page.locator("#combobox-default-input");
+  await input.fill("");
+  await page.keyboard.type("fix");
+  expect(await comboboxState(page)).toMatchObject({
+    shown: ["fix/login-timeout", "fix/session-refresh"],
+    expanded: "true",
+    panel: "block",
+    status: "2 of 5 branches",
+    active: null,
+    selected: [],
+  });
+  await input.fill("DEV");
+  expect(await comboboxState(page)).toMatchObject({ shown: ["develop"], status: "1 of 5 branches" });
+  expect((await comboboxState(page)).inlineStyles).toBe(0);
+  // An example that is not wrapped in the element keeps the state its markup gives it.
+  expect(await page.locator('[data-example="open"] .gw-combobox__panel').evaluate((element) => getComputedStyle(element).display)).toBe("block");
+});
+
+test("gw-combobox moves aria-activedescendant with Down, Up, Home and End, and Enter selects and closes", async ({ page }) => {
+  await open(page, "combobox");
+  const input = page.locator("#combobox-default-input");
+  await input.fill("");
+  await page.keyboard.type("fix");
+  const steps = [
+    ["ArrowDown", "combobox-default-option-3"],
+    ["ArrowDown", "combobox-default-option-4"],
+    ["ArrowDown", "combobox-default-option-3"],
+    ["ArrowUp", "combobox-default-option-4"],
+    ["Home", "combobox-default-option-3"],
+    ["End", "combobox-default-option-4"],
+  ];
+  for (const [key, active] of steps) {
+    await page.keyboard.press(key);
+    expect((await comboboxState(page)).active, key).toBe(active);
+  }
+  expect((await comboboxState(page)).selected).toEqual(["fix/session-refresh"]);
+  await expect(input).toBeFocused();
+
+  await input.evaluate((element) => element.addEventListener("change", () => element.setAttribute("data-changed", element.value)));
+  await page.keyboard.press("Enter");
+  expect(await comboboxState(page)).toMatchObject({ value: "fix/session-refresh", expanded: "false", active: null, panel: "none" });
+  await expect(input).toHaveAttribute("data-changed", "fix/session-refresh");
+
+  // Down on a closed list opens every option, and a press on one chooses it without taking focus from the input.
+  await page.keyboard.press("ArrowDown");
+  expect(await comboboxState(page)).toMatchObject({ expanded: "true", active: "combobox-default-option-1" });
+  expect((await comboboxState(page)).shown).toHaveLength(5);
+  await page.locator("#combobox-default-option-5").click();
+  expect(await comboboxState(page)).toMatchObject({ value: "release/2026-11", expanded: "false" });
+  await expect(input).toBeFocused();
+});
+
+test("gw-combobox shows its message when nothing matches, and Escape closes it and keeps the text", async ({ page }) => {
+  await open(page, "combobox");
+  const input = page.locator("#combobox-default-input");
+  await input.fill("relase");
+  expect(await comboboxState(page)).toMatchObject({
+    expanded: "false",
+    shown: [],
+    message: false,
+    panel: "block",
+    status: "No branch matches. Check the spelling, or clear the field to see all 5 branches.",
+  });
+  await page.keyboard.press("Escape");
+  expect(await comboboxState(page)).toMatchObject({ message: true, panel: "none", value: "relase" });
+
+  await input.fill("dev");
+  expect((await comboboxState(page)).expanded).toBe("true");
+  await page.keyboard.press("Escape");
+  expect(await comboboxState(page)).toMatchObject({ expanded: "false", value: "dev", panel: "none" });
+
+  await input.click();
+  expect((await comboboxState(page)).expanded).toBe("true");
+  await page.keyboard.press("Tab");
+  expect((await comboboxState(page)).expanded).toBe("false");
+});
+
+test("loading the combobox module a second time is harmless", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await open(page, "combobox");
+  await page.addScriptTag({ url: `${origin}/behaviors/combobox.js?again`, type: "module" });
+  await page.evaluate(() => import("/behaviors/combobox.js?once-more"));
+  expect(errors).toEqual([]);
+  expect(await page.evaluate(() => customElements.get("gw-combobox").name)).toBe("GwCombobox");
+  await page.locator("#combobox-default-input").fill("main");
+  expect(await comboboxState(page)).toMatchObject({ shown: ["main"], status: "1 of 5 branches" });
+});
+
+// The closed command palette example, which the shortcut and its button open.
+const PALETTE = '[data-example="closed"]';
+const paletteState = (page) =>
+  page.locator(PALETTE).evaluate((root) => {
+    const input = root.querySelector('[role="combobox"]');
+    const options = [...root.querySelectorAll('[role="option"]')];
+    return {
+      open: root.querySelector("dialog").open,
+      modal: root.querySelector("dialog").matches(":modal"),
+      focus: document.activeElement.id || document.activeElement.textContent.trim(),
+      value: input.value,
+      expanded: input.getAttribute("aria-expanded"),
+      active: input.getAttribute("aria-activedescendant"),
+      shown: options.filter((option) => !option.hidden).map((option) => option.querySelector(".gw-command-palette__name").textContent),
+      selected: options.filter((option) => option.getAttribute("aria-selected") === "true").map((option) => option.id),
+      groupsShown: [...root.querySelectorAll('[role="group"]')].filter((group) => !group.hidden).length,
+      listHidden: root.querySelector('[role="listbox"]').hidden,
+      messageHidden: root.querySelector('[role="status"]').hidden,
+      inlineStyles: [...root.querySelectorAll("gw-command-palette, gw-command-palette *")].filter((node) => node.hasAttribute("style")).length,
+    };
+  });
+
+test("gw-command-palette opens on Ctrl+K with focus in the input, filters as the reader types and hides a group with no match", async ({ page }) => {
+  await open(page, "command-palette");
+  expect(await page.evaluate(() => customElements.get("gw-command-palette")?.name)).toBe("GwCommandPalette");
+  expect((await paletteState(page)).open).toBe(false);
+  await page.locator(`${PALETTE} > button`).focus();
+
+  // A plain k, and the shortcut with Shift, do nothing.
+  await page.keyboard.press("Control+Shift+k");
+  await page.keyboard.press("k");
+  expect((await paletteState(page)).open).toBe(false);
+
+  await page.keyboard.press("Control+k");
+  expect(await paletteState(page)).toMatchObject({
+    open: true,
+    modal: true,
+    focus: "command-palette-closed-input",
+    active: "command-palette-closed-new-task",
+    selected: ["command-palette-closed-new-task"],
+  });
+  expect((await paletteState(page)).shown).toHaveLength(6);
+
+  await page.keyboard.type("open");
+  expect(await paletteState(page)).toMatchObject({
+    shown: ["Open a terminal in the worktree", "Open the pull request on GitHub"],
+    groupsShown: 1,
+    expanded: "true",
+    active: "command-palette-closed-terminal",
+  });
+
+  // A shortcut hint is not matched, so nothing is left: the list goes and the message shows.
+  await page.locator("#command-palette-closed-input").fill("ctrl");
+  expect(await paletteState(page)).toMatchObject({ shown: [], listHidden: true, messageHidden: false, expanded: "false", active: null });
+  await expect(page.locator(`${PALETTE} [role="status"]`)).toBeVisible();
+  expect((await paletteState(page)).inlineStyles).toBe(0);
+});
+
+test("gw-command-palette moves the selection with Down and Up, and Escape closes it and returns focus", async ({ page }) => {
+  await open(page, "command-palette");
+  await page.locator(`${PALETTE} > button`).focus();
+  await page.keyboard.press("Control+k");
+  await page.keyboard.type("open");
+  const steps = [
+    ["ArrowDown", "command-palette-closed-pr"],
+    ["ArrowDown", "command-palette-closed-terminal"],
+    ["ArrowUp", "command-palette-closed-pr"],
+  ];
+  for (const [key, active] of steps) {
+    await page.keyboard.press(key);
+    expect(await paletteState(page), key).toMatchObject({ active, selected: [active], focus: "command-palette-closed-input" });
+  }
+
+  await page.keyboard.press("Escape");
+  await expect(page.locator(`${PALETTE} dialog`)).not.toHaveAttribute("open");
+  // The dialog's close event arrives after the key, and empties the input.
+  await expect(page.locator("#command-palette-closed-input")).toHaveValue("");
+  expect(await paletteState(page)).toMatchObject({ open: false, focus: "Open the command palette", value: "", messageHidden: true });
+  expect((await paletteState(page)).shown).toHaveLength(6);
+});
+
+test("gw-command-palette opens on Meta+K, and Enter activates the selected command and closes", async ({ page }) => {
+  await open(page, "command-palette");
+  await page.locator(`${PALETTE} > button`).focus();
+  // The app's own listener on the command runs while the dialog is still open.
+  await page.evaluate(() =>
+    document.getElementById("command-palette-closed-rebase").addEventListener("click", (event) => {
+      document.body.dataset.ran = `${event.currentTarget.id} open=${event.currentTarget.closest("dialog").open}`;
+    }),
+  );
+  await page.keyboard.press("Meta+k");
+  expect((await paletteState(page)).open).toBe(true);
+  await page.keyboard.type("rebase main");
+  expect((await paletteState(page)).shown).toEqual(["Rebase onto main"]);
+  await page.keyboard.press("Enter");
+  await expect(page.locator(`${PALETTE} dialog`)).not.toHaveAttribute("open");
+  expect(await page.evaluate(() => document.body.dataset.ran)).toBe("command-palette-closed-rebase open=true");
+  expect((await paletteState(page)).focus).toBe("Open the command palette");
+
+  // The button opens it too, and a press on a command closes it.
+  await page.locator(`${PALETTE} > button`).click();
+  expect((await paletteState(page)).open).toBe(true);
+  await page.locator("#command-palette-closed-terminal").click();
+  expect((await paletteState(page)).open).toBe(false);
+
+  // A command that is not available is never pressed.
+  await page.evaluate(() => {
+    const option = document.getElementById("command-palette-closed-new-task");
+    option.setAttribute("aria-disabled", "true");
+    option.addEventListener("click", () => (document.body.dataset.disabledRan = "yes"));
+  });
+  await page.keyboard.press("Control+k");
+  await page.keyboard.press("Enter");
+  expect((await paletteState(page)).open).toBe(true);
+  expect(await page.evaluate(() => document.body.dataset.disabledRan ?? "no")).toBe("no");
+});
+
+test("loading the command palette module a second time is harmless", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await open(page, "command-palette");
+  await page.addScriptTag({ url: `${origin}/behaviors/command-palette.js?again`, type: "module" });
+  await page.evaluate(() => import("/behaviors/command-palette.js?once-more"));
+  expect(errors).toEqual([]);
+  expect(await page.evaluate(() => customElements.get("gw-command-palette").name)).toBe("GwCommandPalette");
+  await page.locator(`${PALETTE} > button`).focus();
+  await page.keyboard.press("Control+k");
+  await page.keyboard.type("copy");
+  expect((await paletteState(page)).shown).toEqual(["Copy the transcript of run 4182"]);
 });

@@ -1,0 +1,34 @@
+/*
+ * Toggle button: a button that turns one view option on or off and says which with aria-pressed.
+ * It sits on the same element as the button class, which draws the border, the fill, hover,
+ * pressed-down and disabled, so this stylesheet must load after the button's.
+ * It adds only the look of an option that is on.
+ */
+
+@layer gw.components {
+  /* On: a stronger border and a sunken fill. */
+  .gw-toggle-button[aria-pressed="true"] {
+    border-color: var(--gw-color-border-strong);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /*
+   * On is also marked by a bar under the label, so the state is never the fill alone.
+   * It is drawn before the content, because the small button's padded hit area is drawn after it.
+   */
+  .gw-toggle-button[aria-pressed="true"]::before {
+    content: "";
+    position: absolute;
+    bottom: var(--gw-space-xs);
+    inset-inline: var(--gw-space-md);
+    height: calc(var(--gw-border-width) * 2);
+    background-color: currentColor;
+  }
+
+  /* After the on rules, so an unavailable toggle keeps its bar and loses the fill. */
+  .gw-toggle-button[aria-pressed="true"]:disabled,
+  .gw-toggle-button[aria-pressed="true"][aria-disabled="true"] {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+  }
+}

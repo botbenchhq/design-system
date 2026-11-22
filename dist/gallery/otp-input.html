@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One-time-code input - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>One-time-code input</h1>
+<p>A single input for a short one-time code, drawn with wide letter spacing so each digit can be checked.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A six-digit code from an authenticator app</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>One input takes a code typed, pasted or filled in from a message in one go. autocomplete tells the phone to offer the code it just received, and inputmode shows the number keys.</p>
+</figcaption>
+<div data-example="default" data-title="A six-digit code from an authenticator app" data-state="default" data-reason="One input takes a code typed, pasted or filled in from a message in one go. autocomplete tells the phone to offer the code it just received, and inputmode shows the number keys.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="otp-input-default-input">Code from your authenticator app</label>
+    <input class="gw-field__control gw-otp-input" id="otp-input-default-input" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9 ]*" required aria-describedby="otp-input-default-description">
+    <p class="gw-field__description" id="otp-input-default-description">The 6 digits shown for Acme under your account. You can paste them.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a code entered</h3>
+<p data-gallery="state">State: <code>filled</code></p>
+</figcaption>
+<div data-example="filled" data-title="With a code entered" data-state="filled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="otp-input-filled-input">Code from your authenticator app</label>
+    <input class="gw-field__control gw-otp-input" id="otp-input-filled-input" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9 ]*" required value="482913" aria-describedby="otp-input-filled-description">
+    <p class="gw-field__description" id="otp-input-filled-description">The 6 digits shown for Acme under your account. You can paste them.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Focus</h3>
+<p data-gallery="state">State: <code>focus</code></p>
+</figcaption>
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="otp-input-focus-input">Code from the message we sent</label>
+    <input class="gw-field__control gw-otp-input" id="otp-input-focus-input" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9 ]*" required value="4829" aria-describedby="otp-input-focus-description">
+    <p class="gw-field__description" id="otp-input-focus-description">6 digits, sent to the phone number ending in 4471.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Invalid, with what to do</h3>
+<p data-gallery="state">State: <code>invalid</code></p>
+</figcaption>
+<div data-example="invalid" data-title="Invalid, with what to do" data-state="invalid">
+  <div class="gw-stack">
+    <div class="gw-field">
+      <label class="gw-field__label" for="otp-input-invalid-input">Code from the message we sent</label>
+      <input class="gw-field__control gw-otp-input" id="otp-input-invalid-input" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9 ]*" required value="482913" aria-invalid="true" aria-describedby="otp-input-invalid-description otp-input-invalid-error">
+      <p class="gw-field__description" id="otp-input-invalid-description">6 digits, sent to the phone number ending in 4471.</p>
+      <p class="gw-field__error" id="otp-input-invalid-error">That code has expired. Codes last 10 minutes. Send a new code, then enter it here.</p>
+    </div>
+    <div class="gw-cluster">
+      <button type="button" class="gw-button">Send a new code</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled while the code is checked</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled while the code is checked" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="otp-input-disabled-input">Code from your authenticator app</label>
+    <input class="gw-field__control gw-otp-input" id="otp-input-disabled-input" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" value="482913" disabled aria-describedby="otp-input-disabled-description">
+    <p class="gw-field__description" id="otp-input-disabled-description" role="status">Checking the code.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Six separate boxes</h3>
+<p>Six inputs need script to move focus on every key, and that script is where pasting, auto-fill from a message, Backspace and screen readers break: a reader hears six unlabelled fields. One input with wide letter spacing looks much the same and has none of those faults.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="six-boxes" data-title="Six separate boxes" data-dont="review" data-reason="Six inputs need script to move focus on every key, and that script is where pasting, auto-fill from a message, Backspace and screen readers break: a reader hears six unlabelled fields. One input with wide letter spacing looks much the same and has none of those faults.">
+  <div class="gw-stack gw-gap-xs">
+    <span>Code from your authenticator app</span>
+    <div class="gw-cluster">
+      <input class="gw-field__control" type="text" inputmode="numeric" maxlength="1" value="4" aria-label="Digit 1">
+      <input class="gw-field__control" type="text" inputmode="numeric" maxlength="1" value="8" aria-label="Digit 2">
+      <input class="gw-field__control" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 3">
+      <input class="gw-field__control" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 4">
+      <input class="gw-field__control" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 5">
+      <input class="gw-field__control" type="text" inputmode="numeric" maxlength="1" aria-label="Digit 6">
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For the code from an authenticator app, a text message or an email, when signing in or confirming a risky change.</li>
+<li>For any short code the reader copies from somewhere else, digit by digit or by pasting.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a password or a passphrase. Use a password field.</li>
+<li>For a long recovery code or an access token. Use a field with the mono type of a textarea, or a plain field.</li>
+<li>For an amount. Use a number field.</li>
+</ul>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>44px tall and at most 242px wide, with 20px mono digits. It fits eight digits.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use one input with type=&quot;text&quot; carrying gw-field__control and gw-otp-input, inside gw-field. The label says where the code comes from, and the description says how many digits it has and where it was sent.</li>
+<li>Set autocomplete=&quot;one-time-code&quot;, so a phone offers the code from the message it just received, and inputmode=&quot;numeric&quot; for the number keys. Use type=&quot;text&quot;, never type=&quot;number&quot;: a code may start with a zero and is not an amount.</li>
+<li>Do not set maxlength. A code pasted as 482 913 would lose its last digit. The app strips spaces and hyphens from the value, then checks the length.</li>
+<li>Never split the code across several inputs, and never move focus or send the form by script as the last digit arrives. The reader sends it with the form's button or with Enter.</li>
+<li>For a wrong or expired code, set aria-invalid=&quot;true&quot; on the input and link a gw-field__error that says which it was and what to do, with the action it names, such as Send a new code, as a button beside the field. Leave the code in the input so it can be corrected.</li>
+<li>While the code is checked, set disabled on the input and say so in the description with role=&quot;status&quot;.</li>
+<li>The keyboard is the text input's own, and pasting works as in any field.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-otp-input</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

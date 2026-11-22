@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editable list - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Editable list</h1>
+<p>An ordered list whose items the reader can edit in place, add to and delete from, such as the tasks in an agent's plan before it is approved.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A plan before it is approved</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each task can be corrected where it stands, with two quiet buttons whose names say which task they act on. Nothing in the rows competes with the one main action of the view, which is approving the plan.</p>
+</figcaption>
+<div data-example="default" data-title="A plan before it is approved" data-state="default" data-reason="Each task can be corrected where it stands, with two quiet buttons whose names say which task they act on. Nothing in the rows competes with the one main action of the view, which is approving the plan.">
+  <div class="gw-editable-list">
+    <ol class="gw-editable-list__items" aria-label="Plan for Fix the login timeout">
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Reproduce the timeout with a failing test in src/auth/session.test.ts</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Raise the session timeout to 30 minutes</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 2: Raise the session timeout to 30 minutes">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 2: Raise the session timeout to 30 minutes">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Retry the refresh once when the session store times out</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 3: Retry the refresh once when the session store times out">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 3: Retry the refresh once when the session store times out">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Run the unit and integration tests</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 4: Run the unit and integration tests">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 4: Run the unit and integration tests">Delete</button>
+        </span>
+      </li>
+    </ol>
+    <div class="gw-editable-list__add">
+      <button type="button" class="gw-button gw-button--quiet">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        Add task
+      </button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> One task being edited</h3>
+<p data-gallery="state">State: <code>editing</code></p>
+<p>The row turns into a labelled field with the task's own text in it, so the reader edits in place and sees the tasks around it. Save and Cancel are small and neither is primary, because the view's main action is still to approve the plan.</p>
+</figcaption>
+<div data-example="editing" data-title="One task being edited" data-state="editing" data-reason="The row turns into a labelled field with the task's own text in it, so the reader edits in place and sees the tasks around it. Save and Cancel are small and neither is primary, because the view's main action is still to approve the plan.">
+  <div class="gw-editable-list">
+    <ol class="gw-editable-list__items" aria-label="Plan for Fix the login timeout">
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Reproduce the timeout with a failing test in src/auth/session.test.ts</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <form class="gw-editable-list__editor">
+          <div class="gw-field">
+            <label class="gw-field__label" for="editable-list-editing-input">Task 2</label>
+            <input class="gw-field__control" id="editable-list-editing-input" type="text" name="task" autocomplete="off" value="Raise the session timeout to 30 minutes">
+          </div>
+          <div class="gw-editable-list__editor-actions">
+            <button type="submit" class="gw-button gw-button--small">Save task</button>
+            <button type="button" class="gw-button gw-button--quiet gw-button--small">Cancel</button>
+          </div>
+        </form>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Retry the refresh once when the session store times out</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 3: Retry the refresh once when the session store times out">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 3: Retry the refresh once when the session store times out">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Run the unit and integration tests</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 4: Run the unit and integration tests">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 4: Run the unit and integration tests">Delete</button>
+        </span>
+      </li>
+    </ol>
+    <div class="gw-editable-list__add">
+      <button type="button" class="gw-button gw-button--quiet">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        Add task
+      </button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A new task being added</h3>
+<p data-gallery="state">State: <code>adding</code></p>
+</figcaption>
+<div data-example="adding" data-title="A new task being added" data-state="adding">
+  <div class="gw-editable-list">
+    <ol class="gw-editable-list__items" aria-label="Plan for Fix the login timeout">
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Reproduce the timeout with a failing test in src/auth/session.test.ts</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Raise the session timeout to 30 minutes</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 2: Raise the session timeout to 30 minutes">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 2: Raise the session timeout to 30 minutes">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Retry the refresh once when the session store times out</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 3: Retry the refresh once when the session store times out">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 3: Retry the refresh once when the session store times out">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <form class="gw-editable-list__editor">
+          <div class="gw-field">
+            <label class="gw-field__label" for="editable-list-adding-input">New task</label>
+            <input class="gw-field__control" id="editable-list-adding-input" type="text" name="task" autocomplete="off" value="">
+          </div>
+          <div class="gw-editable-list__editor-actions">
+            <button type="submit" class="gw-button gw-button--small">Add task</button>
+            <button type="button" class="gw-button gw-button--quiet gw-button--small">Cancel</button>
+          </div>
+        </form>
+      </li>
+    </ol>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A task with no text</h3>
+<p data-gallery="state">State: <code>invalid</code></p>
+</figcaption>
+<div data-example="invalid" data-title="A task with no text" data-state="invalid">
+  <div class="gw-editable-list">
+    <ol class="gw-editable-list__items" aria-label="Plan for Fix the login timeout">
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Reproduce the timeout with a failing test in src/auth/session.test.ts</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <form class="gw-editable-list__editor">
+          <div class="gw-field">
+            <label class="gw-field__label" for="editable-list-invalid-input">Task 2</label>
+            <input class="gw-field__control" id="editable-list-invalid-input" type="text" name="task" autocomplete="off" value="" aria-invalid="true" aria-describedby="editable-list-invalid-error">
+            <p class="gw-field__error" id="editable-list-invalid-error">Write what this task should do, or cancel to keep the task as it was.</p>
+          </div>
+          <div class="gw-editable-list__editor-actions">
+            <button type="submit" class="gw-button gw-button--small">Save task</button>
+            <button type="button" class="gw-button gw-button--quiet gw-button--small">Cancel</button>
+          </div>
+        </form>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Retry the refresh once when the session store times out</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 3: Retry the refresh once when the session store times out">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 3: Retry the refresh once when the session store times out">Delete</button>
+        </span>
+      </li>
+    </ol>
+    <div class="gw-editable-list__add">
+      <button type="button" class="gw-button gw-button--quiet">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        Add task
+      </button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Saving a change</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="busy" data-title="Saving a change" data-state="busy">
+  <div class="gw-editable-list">
+    <ol class="gw-editable-list__items" aria-label="Plan for Fix the login timeout">
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Reproduce the timeout with a failing test in src/auth/session.test.ts</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <form class="gw-editable-list__editor">
+          <div class="gw-field">
+            <label class="gw-field__label" for="editable-list-busy-input">Task 2</label>
+            <input class="gw-field__control" id="editable-list-busy-input" type="text" name="task" autocomplete="off" value="Raise the session timeout to 30 minutes on the API only" readonly>
+          </div>
+          <div class="gw-editable-list__editor-actions">
+            <button type="submit" class="gw-button gw-button--small" aria-busy="true">Saving task</button>
+            <button type="button" class="gw-button gw-button--quiet gw-button--small" disabled>Cancel</button>
+          </div>
+        </form>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Retry the refresh once when the session store times out</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 3: Retry the refresh once when the session store times out">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 3: Retry the refresh once when the session store times out">Delete</button>
+        </span>
+      </li>
+    </ol>
+    <div class="gw-editable-list__add">
+      <button type="button" class="gw-button gw-button--quiet">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        Add task
+      </button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A change that was not saved</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="A change that was not saved" data-state="error">
+  <div class="gw-editable-list">
+    <ol class="gw-editable-list__items" aria-label="Plan for Fix the login timeout">
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Reproduce the timeout with a failing test in src/auth/session.test.ts</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <form class="gw-editable-list__editor">
+          <div class="gw-field">
+            <label class="gw-field__label" for="editable-list-error-input">Task 2</label>
+            <input class="gw-field__control" id="editable-list-error-input" type="text" name="task" autocomplete="off" value="Raise the session timeout to 30 minutes on the API only" aria-describedby="editable-list-error-error">
+            <p class="gw-field__error" id="editable-list-error-error" role="alert">The task was not saved, because the server did not answer. Your text is still here. Check your connection, then save again.</p>
+          </div>
+          <div class="gw-editable-list__editor-actions">
+            <button type="submit" class="gw-button gw-button--small">Save task</button>
+            <button type="button" class="gw-button gw-button--quiet gw-button--small">Cancel</button>
+          </div>
+        </form>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Retry the refresh once when the session store times out</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 3: Retry the refresh once when the session store times out">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 3: Retry the refresh once when the session store times out">Delete</button>
+        </span>
+      </li>
+    </ol>
+    <div class="gw-editable-list__add">
+      <button type="button" class="gw-button gw-button--quiet">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        Add task
+      </button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> After a delete, with Undo</h3>
+<p data-gallery="state">State: <code>deleted</code></p>
+<p>Delete acts at once and the toast offers the way back, which is faster than a question on every delete and loses nothing. The remaining tasks are renumbered by the list itself.</p>
+</figcaption>
+<div data-example="deleted" data-title="After a delete, with Undo" data-state="deleted" data-gallery-frame data-reason="Delete acts at once and the toast offers the way back, which is faster than a question on every delete and loses nothing. The remaining tasks are renumbered by the list itself.">
+  <div class="gw-editable-list">
+    <ol class="gw-editable-list__items" aria-label="Plan for Fix the login timeout">
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Reproduce the timeout with a failing test in src/auth/session.test.ts</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Raise the session timeout to 30 minutes</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 2: Raise the session timeout to 30 minutes">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 2: Raise the session timeout to 30 minutes">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Run the unit and integration tests</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 3: Run the unit and integration tests">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 3: Run the unit and integration tests">Delete</button>
+        </span>
+      </li>
+    </ol>
+    <div class="gw-editable-list__add">
+      <button type="button" class="gw-button gw-button--quiet">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        Add task
+      </button>
+    </div>
+  </div>
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--success gw-undo-toast">
+      <p class="gw-toast__message">
+        <span class="gw-toast__label">Done:</span> Task 3 deleted from the plan.
+        <span class="gw-visually-hidden">You have 10 seconds to undo.</span>
+        <span class="gw-undo-toast__countdown" aria-hidden="true">8 seconds left to undo</span>
+      </p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Undo</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A plan with no tasks</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="A plan with no tasks" data-state="empty">
+  <div class="gw-editable-list">
+    <div class="gw-empty-state gw-empty-state--compact">
+      <h3 class="gw-empty-state__title">No tasks in this plan</h3>
+      <p class="gw-empty-state__body">The agent has nothing to do until the plan has at least one task. Add the first one.</p>
+    </div>
+    <div class="gw-editable-list__add">
+      <button type="button" class="gw-button gw-button--quiet">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        Add task
+      </button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A plan that can no longer be edited</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="A plan that can no longer be edited" data-state="disabled">
+  <div class="gw-editable-list">
+    <p class="gw-editable-list__note">The plan was approved 4 minutes ago and the agent is working on task 1. Stop the run to change the plan.</p>
+    <ol class="gw-editable-list__items" aria-label="Plan for Fix the login timeout">
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Reproduce the timeout with a failing test in src/auth/session.test.ts</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts" disabled>Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts" disabled>Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Raise the session timeout to 30 minutes</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 2: Raise the session timeout to 30 minutes" disabled>Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 2: Raise the session timeout to 30 minutes" disabled>Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Retry the refresh once when the session store times out</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 3: Retry the refresh once when the session store times out" disabled>Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 3: Retry the refresh once when the session store times out" disabled>Delete</button>
+        </span>
+      </li>
+    </ol>
+    <div class="gw-editable-list__add">
+      <button type="button" class="gw-button gw-button--quiet" disabled>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        Add task
+      </button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With the view's main action under it</h3>
+</figcaption>
+<div data-example="with-approval" data-title="With the view's main action under it">
+  <div class="gw-stack gw-gap-lg">
+    <div class="gw-editable-list">
+      <ol class="gw-editable-list__items" aria-label="Plan for Fix the login timeout">
+        <li class="gw-editable-list__item">
+          <span class="gw-editable-list__text">Reproduce the timeout with a failing test in src/auth/session.test.ts</span>
+          <span class="gw-editable-list__actions">
+            <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Edit</button>
+            <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Delete</button>
+          </span>
+        </li>
+        <li class="gw-editable-list__item">
+          <span class="gw-editable-list__text">Raise the session timeout to 30 minutes</span>
+          <span class="gw-editable-list__actions">
+            <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 2: Raise the session timeout to 30 minutes">Edit</button>
+            <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 2: Raise the session timeout to 30 minutes">Delete</button>
+          </span>
+        </li>
+        <li class="gw-editable-list__item">
+          <span class="gw-editable-list__text">Retry the refresh once when the session store times out</span>
+          <span class="gw-editable-list__actions">
+            <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Edit task 3: Retry the refresh once when the session store times out">Edit</button>
+            <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 3: Retry the refresh once when the session store times out">Delete</button>
+          </span>
+        </li>
+      </ol>
+      <div class="gw-editable-list__add">
+        <button type="button" class="gw-button gw-button--quiet">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+          Add task
+        </button>
+      </div>
+    </div>
+    <div class="gw-cluster">
+      <button type="button" class="gw-button gw-button--primary">Approve plan</button>
+      <button type="button" class="gw-button">Ask for a new plan</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A primary button on every row</h3>
+<p>A primary Edit on each task gives the plan as many main actions as it has tasks and buries the one that matters, approving the plan. Row actions are quiet.</p>
+<p>Checker rule: <code>repeated-item-primary</code></p>
+</figcaption>
+<div data-example="primary-on-rows" data-title="A primary button on every row" data-dont="repeated-item-primary" data-reason="A primary Edit on each task gives the plan as many main actions as it has tasks and buries the one that matters, approving the plan. Row actions are quiet.">
+  <div class="gw-editable-list">
+    <ol class="gw-editable-list__items" aria-label="Plan for Fix the login timeout">
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Reproduce the timeout with a failing test in src/auth/session.test.ts</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--primary gw-button--small" aria-label="Edit task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 1: Reproduce the timeout with a failing test in src/auth/session.test.ts">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Raise the session timeout to 30 minutes</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--primary gw-button--small" aria-label="Edit task 2: Raise the session timeout to 30 minutes">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 2: Raise the session timeout to 30 minutes">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Retry the refresh once when the session store times out</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--primary gw-button--small" aria-label="Edit task 3: Retry the refresh once when the session store times out">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Delete task 3: Retry the refresh once when the session store times out">Delete</button>
+        </span>
+      </li>
+    </ol>
+    <div class="gw-editable-list__add">
+      <button type="button" class="gw-button gw-button--quiet">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        Add task
+      </button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Row actions that do not say which row</h3>
+<p>A screen reader moving from button to button hears Edit, Delete, Edit, Delete, with nothing to say which task each belongs to. Give each an aria-label that starts with the visible word and names the task.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="unnamed-actions" data-title="Row actions that do not say which row" data-dont="review" data-reason="A screen reader moving from button to button hears Edit, Delete, Edit, Delete, with nothing to say which task each belongs to. Give each an aria-label that starts with the visible word and names the task.">
+  <div class="gw-editable-list">
+    <ol class="gw-editable-list__items">
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Reproduce the timeout with a failing test in src/auth/session.test.ts</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small">Delete</button>
+        </span>
+      </li>
+      <li class="gw-editable-list__item">
+        <span class="gw-editable-list__text">Raise the session timeout to 30 minutes</span>
+        <span class="gw-editable-list__actions">
+          <button type="button" class="gw-button gw-button--quiet gw-button--small">Edit</button>
+          <button type="button" class="gw-button gw-button--quiet gw-button--small">Delete</button>
+        </span>
+      </li>
+    </ol>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a short ordered list of one-line items the reader corrects before something acts on it: the tasks of a plan, the setup commands of a repository.</li>
+<li>When each item is one line of text and every change is small enough to make in the row.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>To change the order of the items. This component has no reordering: no drag handle and no move buttons. If order must change, the app needs its own control, and until then the reader deletes an item and adds it again at the end.</li>
+<li>For items with more than one field. Make each row a link to a view or a sheet that edits it.</li>
+<li>For a list the reader only reads or opens. Use the list.</li>
+<li>For rows compared across columns. Use the data table.</li>
+<li>For tasks the reader ticks off. Use checkboxes.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use an ol with the class gw-editable-list__items and an aria-label that names the list, inside a div with gw-editable-list. Each item is an li with gw-editable-list__item. The stylesheet draws each item's number from its place in the list, and a screen reader announces the position from the ol.</li>
+<li>A row at rest holds a span with gw-editable-list__text and a span with gw-editable-list__actions holding two buttons, Edit then Delete, each gw-button gw-button--quiet gw-button--small. They are drawn 32px tall and their pointer targets are 44px. Row actions are never primary.</li>
+<li>Each button's aria-label starts with its visible word and names the row: Edit task 2: Raise the session timeout to 30 minutes.</li>
+<li>Editing: the app replaces the row's text and buttons with a form with gw-editable-list__editor. It holds a gw-field whose visible label names the item, such as Task 2, with the item's text as the input's value, then gw-editable-list__editor-actions with a submit button, Save task, and a quiet Cancel. Move focus to the input. Only one row is edited at a time.</li>
+<li>Enter in the input saves, because it submits the form. The app also cancels on Escape. After Save or Cancel the row goes back to rest and focus returns to its Edit button.</li>
+<li>An empty item is not saved. Set aria-invalid=&quot;true&quot; on the input and link a gw-field__error that says what to do. While the save is sent, set aria-busy=&quot;true&quot; on the submit button, change its words to Saving task, make the input readonly and disable Cancel. If the save fails, keep the row in editing with the reader's text and say so in a gw-field__error with role=&quot;alert&quot;.</li>
+<li>Adding: gw-editable-list__add after the ol holds one quiet button with a plus icon, Add task. Pressing it appends a row in the editing state with an empty input labelled New task and hides the Add button until that row is saved or cancelled.</li>
+<li>Deleting: Delete removes the row at once, with no question first, and the app shows the undo toast, Done: Task 3 deleted from the plan, with Undo for at least 10 seconds. Move focus to the Edit button of the row that took its place, or to Add task when it was the last. Undo puts the item back in its old position and moves focus to its Edit button.</li>
+<li>The order of the items is fixed. Tab moves through each row's Edit and Delete and then Add task. There are no arrow-key bindings.</li>
+<li>When the list cannot be changed, such as after the plan is approved, disable every button and say why in a p with gw-editable-list__note before the list. When there are no items, show an empty state in place of the ol and keep Add task.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-editable-list</code></li>
+<li><code>gw-editable-list__actions</code></li>
+<li><code>gw-editable-list__add</code></li>
+<li><code>gw-editable-list__editor</code></li>
+<li><code>gw-editable-list__editor-actions</code></li>
+<li><code>gw-editable-list__item</code></li>
+<li><code>gw-editable-list__items</code></li>
+<li><code>gw-editable-list__note</code></li>
+<li><code>gw-editable-list__text</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

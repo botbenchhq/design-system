@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings page - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Settings page</h1>
+<p>A screen of settings shown defaults first: the few settings most people change, one advanced disclosure holding the rest, and a marked danger area for actions that destroy something.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Defaults first, saved as they change</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The seven settings most people change are in the view, each with a default already chosen. The five that few people touch sit in the one advanced disclosure, whose summary counts them. Every change is saved at once, so the page needs no primary action, and the two actions that destroy something stay in sight in a marked area of their own.</p>
+</figcaption>
+<div data-example="save-on-change" data-title="Defaults first, saved as they change" data-state="default" data-gallery-frame data-reason="The seven settings most people change are in the view, each with a default already chosen. The five that few people touch sit in the one advanced disclosure, whose summary counts them. Every change is saved at once, so the page needs no primary action, and the two actions that destroy something stay in sight in a marked area of their own.">
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-settings-page">
+      <header class="gw-page-header">
+        <div class="gw-page-header__text">
+          <h1 class="gw-page-header__title">Settings for acme/api</h1>
+          <p class="gw-page-header__description">Each change is saved as you make it.</p>
+        </div>
+      </header>
+
+      <div class="gw-stack gw-gap-lg">
+        <h2>Runs</h2>
+        <div class="gw-field">
+          <label class="gw-field__label" for="settings-page-change-base">Base branch</label>
+          <div class="gw-select">
+            <select class="gw-field__control gw-select__control" id="settings-page-change-base" name="base" aria-describedby="settings-page-change-base-description">
+              <option value="main" selected>main</option>
+              <option value="develop">develop</option>
+              <option value="release/2026-11">release/2026-11</option>
+            </select>
+          </div>
+          <p class="gw-field__description" id="settings-page-change-base-description">Each task branch starts from the latest commit on this branch.</p>
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="settings-page-change-approval">Ask before running a shell command</label>
+          <div class="gw-select">
+            <select class="gw-field__control gw-select__control" id="settings-page-change-approval" name="approval">
+              <option value="always">Every command</option>
+              <option value="outside" selected>Commands outside the task's worktree</option>
+              <option value="never">Never</option>
+            </select>
+          </div>
+        </div>
+        <div class="gw-stack gw-gap-xs">
+          <div class="gw-switch">
+            <label class="gw-switch__label" for="settings-page-change-tests">Run the tests before opening a pull request</label>
+            <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+            <input class="gw-switch__input" type="checkbox" role="switch" id="settings-page-change-tests" name="run-tests" checked aria-describedby="settings-page-change-tests-description">
+            <p class="gw-switch__description" id="settings-page-change-tests-description">Runs npm test in the task's worktree. A failed run stops the pull request.</p>
+          </div>
+          <div class="gw-switch">
+            <label class="gw-switch__label" for="settings-page-change-pull">Open a pull request when a run finishes</label>
+            <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+            <input class="gw-switch__input" type="checkbox" role="switch" id="settings-page-change-pull" name="open-pull-request" checked>
+          </div>
+        </div>
+      </div>
+
+      <div class="gw-stack gw-gap-lg">
+        <h2>Notifications</h2>
+        <div class="gw-stack gw-gap-xs">
+          <div class="gw-switch">
+            <label class="gw-switch__label" for="settings-page-change-notify-approval">Notify me when a run needs approval</label>
+            <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+            <input class="gw-switch__input" type="checkbox" role="switch" id="settings-page-change-notify-approval" name="notify-approval" checked>
+          </div>
+          <div class="gw-switch">
+            <label class="gw-switch__label" for="settings-page-change-notify-failed">Notify me when a run fails</label>
+            <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+            <input class="gw-switch__input" type="checkbox" role="switch" id="settings-page-change-notify-failed" name="notify-failed" checked>
+          </div>
+          <div class="gw-switch">
+            <label class="gw-switch__label" for="settings-page-change-notify-finished">Notify me when a run finishes</label>
+            <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+            <input class="gw-switch__input" type="checkbox" role="switch" id="settings-page-change-notify-finished" name="notify-finished">
+          </div>
+        </div>
+      </div>
+
+      <details class="gw-disclosure" data-gw-advanced>
+        <summary class="gw-disclosure__summary">
+          Advanced settings
+          <span class="gw-disclosure__meta">5 settings</span>
+        </summary>
+        <div class="gw-disclosure__content gw-stack gw-gap-lg">
+          <div class="gw-field">
+            <label class="gw-field__label" for="settings-page-change-setup">Setup command</label>
+            <input class="gw-field__control" id="settings-page-change-setup" type="text" name="setup-command" autocomplete="off" value="npm ci &amp;&amp; npm run db:migrate" aria-describedby="settings-page-change-setup-description">
+            <p class="gw-field__description" id="settings-page-change-setup-description">Runs once in each new worktree, before the agent starts.</p>
+          </div>
+          <div class="gw-field">
+            <label class="gw-field__label" for="settings-page-change-test">Test command</label>
+            <input class="gw-field__control" id="settings-page-change-test" type="text" name="test-command" autocomplete="off" value="npm test">
+          </div>
+          <div class="gw-field">
+            <label class="gw-field__label" for="settings-page-change-longest">Longest run</label>
+            <div class="gw-select">
+              <select class="gw-field__control gw-select__control" id="settings-page-change-longest" name="longest-run">
+                <option value="15">15 minutes</option>
+                <option value="30" selected>30 minutes</option>
+                <option value="60">1 hour</option>
+                <option value="120">2 hours</option>
+              </select>
+            </div>
+          </div>
+          <div class="gw-field">
+            <label class="gw-field__label" for="settings-page-change-tokens">Tokens for each run</label>
+            <input class="gw-field__control" id="settings-page-change-tokens" type="text" inputmode="numeric" name="token-limit" autocomplete="off" value="50000">
+          </div>
+          <div class="gw-switch">
+            <label class="gw-switch__label" for="settings-page-change-keep">Keep the worktree after a failed run</label>
+            <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+            <input class="gw-switch__input" type="checkbox" role="switch" id="settings-page-change-keep" name="keep-worktree">
+          </div>
+        </div>
+      </details>
+
+      <section class="gw-card gw-settings-page__danger" aria-labelledby="settings-page-change-danger">
+        <div class="gw-card__header">
+          <h2 class="gw-card__title" id="settings-page-change-danger">Danger area for acme/api</h2>
+        </div>
+        <div class="gw-card__body">
+          <div class="gw-split">
+            <div>
+              <p><strong>Delete the workspaces</strong></p>
+              <p>Removes 3 worktrees and 302 MB from /srv/workspaces/acme-api. Work that was not committed is lost.</p>
+            </div>
+            <button type="button" class="gw-button gw-button--danger" data-gw-critical>Delete workspaces</button>
+          </div>
+          <hr>
+          <div class="gw-split">
+            <div>
+              <p><strong>Disconnect the repository</strong></p>
+              <p>Stops the 2 runs in progress and removes the deploy key. Branches and pull requests stay on the host.</p>
+            </div>
+            <button type="button" class="gw-button gw-button--danger" data-gw-critical>Disconnect repository</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A page that saves as a whole</h3>
+<p data-gallery="state">State: <code>unsaved</code></p>
+<p>These settings take effect together when the runner restarts, so the page is a form with one primary action, Save settings. It uses checkboxes, not switches, because nothing changes until the form is sent. The danger area is outside the form and is never the primary action.</p>
+</figcaption>
+<div data-example="explicit-save" data-title="A page that saves as a whole" data-state="unsaved" data-gallery-frame data-reason="These settings take effect together when the runner restarts, so the page is a form with one primary action, Save settings. It uses checkboxes, not switches, because nothing changes until the form is sent. The danger area is outside the form and is never the primary action.">
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-settings-page">
+      <header class="gw-page-header">
+        <div class="gw-page-header__text">
+          <h1 class="gw-page-header__title">Runner settings</h1>
+          <p class="gw-page-header__description">Saved together. The runner restarts when you save, and runs in progress carry on.</p>
+        </div>
+      </header>
+
+      <form class="gw-stack gw-gap-xl" action="/settings/runner" method="post">
+        <div class="gw-stack gw-gap-lg">
+          <div class="gw-field">
+            <label class="gw-field__label" for="settings-page-save-directory">Workspace directory</label>
+            <input class="gw-field__control" id="settings-page-save-directory" type="text" name="workspace-directory" autocomplete="off" value="/srv/workspaces" aria-describedby="settings-page-save-directory-description">
+            <p class="gw-field__description" id="settings-page-save-directory-description">Each repository gets a folder here, with one worktree for each task.</p>
+          </div>
+          <div class="gw-field">
+            <label class="gw-field__label" for="settings-page-save-parallel">Runs at the same time</label>
+            <div class="gw-select">
+              <select class="gw-field__control gw-select__control" id="settings-page-save-parallel" name="parallel-runs">
+                <option value="1">1 run</option>
+                <option value="2">2 runs</option>
+                <option value="4">4 runs</option>
+                <option value="8" selected>8 runs</option>
+              </select>
+            </div>
+          </div>
+          <div class="gw-checkbox">
+            <input class="gw-checkbox__input" type="checkbox" id="settings-page-save-stale" name="stop-stale" checked aria-describedby="settings-page-save-stale-description">
+            <label class="gw-checkbox__label" for="settings-page-save-stale">Stop a run that has waited 24 hours for an approval</label>
+            <p class="gw-checkbox__description" id="settings-page-save-stale-description">The work so far stays on the task's branch.</p>
+          </div>
+        </div>
+
+        <details class="gw-disclosure" data-gw-advanced>
+          <summary class="gw-disclosure__summary">
+            Advanced settings
+            <span class="gw-disclosure__meta">3 settings</span>
+          </summary>
+          <div class="gw-disclosure__content gw-stack gw-gap-lg">
+            <div class="gw-field">
+              <label class="gw-field__label" for="settings-page-save-shell">Shell</label>
+              <input class="gw-field__control" id="settings-page-save-shell" type="text" name="shell" autocomplete="off" value="/bin/bash">
+            </div>
+            <div class="gw-field">
+              <label class="gw-field__label" for="settings-page-save-log">Log level</label>
+              <div class="gw-select">
+                <select class="gw-field__control gw-select__control" id="settings-page-save-log" name="log-level">
+                  <option value="error">Errors only</option>
+                  <option value="info" selected>Information</option>
+                  <option value="debug">Debug</option>
+                </select>
+              </div>
+            </div>
+            <div class="gw-checkbox">
+              <input class="gw-checkbox__input" type="checkbox" id="settings-page-save-cache" name="share-cache">
+              <label class="gw-checkbox__label" for="settings-page-save-cache">Share the package cache between worktrees</label>
+            </div>
+          </div>
+        </details>
+
+        <div class="gw-stack gw-gap-sm">
+          <p role="status">2 changes are not saved yet: Runs at the same time, and Stop a run that has waited.</p>
+          <div class="gw-button-group">
+            <button type="reset" class="gw-button">Discard changes</button>
+            <button type="submit" class="gw-button gw-button--primary">Save settings</button>
+          </div>
+        </div>
+      </form>
+
+      <section class="gw-card gw-settings-page__danger" aria-labelledby="settings-page-save-danger">
+        <div class="gw-card__header">
+          <h2 class="gw-card__title" id="settings-page-save-danger">Danger area for this runner</h2>
+        </div>
+        <div class="gw-card__body">
+          <div class="gw-split">
+            <div>
+              <p><strong>Remove the runner</strong></p>
+              <p>Stops the 5 runs in progress on build-02 and deletes /srv/workspaces. Branches already pushed stay on the host.</p>
+            </div>
+            <button type="button" class="gw-button gw-button--danger" data-gw-critical>Remove runner</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Loading the settings</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="Loading the settings" data-state="loading" data-gallery-frame="short">
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-settings-page">
+      <header class="gw-page-header">
+        <div class="gw-page-header__text">
+          <h1 class="gw-page-header__title">Settings for acme/billing</h1>
+          <p class="gw-page-header__description">Each change is saved as you make it.</p>
+        </div>
+      </header>
+      <div class="gw-skeleton gw-skeleton--rows" aria-busy="true">
+        <span class="gw-visually-hidden">Loading the settings for acme/billing</span>
+        <span class="gw-skeleton__row">
+          <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+          <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+        </span>
+        <span class="gw-skeleton__row">
+          <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+          <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+        </span>
+        <span class="gw-skeleton__row">
+          <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+          <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+        </span>
+        <span class="gw-skeleton__row">
+          <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+          <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A change that could not be saved</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="save-failed" data-title="A change that could not be saved" data-state="error" data-gallery-frame="short">
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-settings-page">
+      <header class="gw-page-header">
+        <div class="gw-page-header__text">
+          <h1 class="gw-page-header__title">Settings for acme/web</h1>
+          <p class="gw-page-header__description">Each change is saved as you make it.</p>
+        </div>
+      </header>
+      <div class="gw-stack gw-gap-lg">
+        <h2>Runs</h2>
+        <div class="gw-stack gw-gap-xs">
+          <div class="gw-switch">
+            <label class="gw-switch__label" for="settings-page-failed-tests">Run the tests before opening a pull request</label>
+            <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+            <input class="gw-switch__input" type="checkbox" role="switch" id="settings-page-failed-tests" name="run-tests" checked aria-describedby="settings-page-failed-tests-error">
+            <p class="gw-switch__error" id="settings-page-failed-tests-error" role="alert">The tests still run before a pull request: the server did not answer. Check your connection, then switch it off again.</p>
+          </div>
+          <div class="gw-switch">
+            <label class="gw-switch__label" for="settings-page-failed-pull">Open a pull request when a run finishes</label>
+            <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+            <input class="gw-switch__input" type="checkbox" role="switch" id="settings-page-failed-pull" name="open-pull-request" checked>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Two advanced disclosures</h3>
+<p>With an advanced section under each heading, the reader cannot tell which one holds the setting they want and has to open both. Put every setting that few people change in one disclosure at the end of the page.</p>
+<p>Checker rule: <code>one-advanced-disclosure</code></p>
+</figcaption>
+<div data-example="two-advanced" data-title="Two advanced disclosures" data-dont="one-advanced-disclosure" data-gallery-frame="short" data-reason="With an advanced section under each heading, the reader cannot tell which one holds the setting they want and has to open both. Put every setting that few people change in one disclosure at the end of the page.">
+  <div class="gw-settings-page">
+    <header class="gw-page-header">
+      <div class="gw-page-header__text">
+        <h1 class="gw-page-header__title">Settings for acme/api</h1>
+        <p class="gw-page-header__description">Each change is saved as you make it.</p>
+      </div>
+    </header>
+    <div class="gw-stack gw-gap-lg">
+      <h2>Runs</h2>
+      <div class="gw-switch">
+        <label class="gw-switch__label" for="settings-page-two-tests">Run the tests before opening a pull request</label>
+        <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+        <input class="gw-switch__input" type="checkbox" role="switch" id="settings-page-two-tests" name="run-tests" checked>
+      </div>
+      <details class="gw-disclosure" data-gw-advanced>
+        <summary class="gw-disclosure__summary">Advanced run settings</summary>
+        <div class="gw-disclosure__content">
+          <div class="gw-field">
+            <label class="gw-field__label" for="settings-page-two-setup">Setup command</label>
+            <input class="gw-field__control" id="settings-page-two-setup" type="text" name="setup-command" autocomplete="off" value="npm ci">
+          </div>
+        </div>
+      </details>
+    </div>
+    <div class="gw-stack gw-gap-lg">
+      <h2>Notifications</h2>
+      <div class="gw-switch">
+        <label class="gw-switch__label" for="settings-page-two-notify">Notify me when a run needs approval</label>
+        <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+        <input class="gw-switch__input" type="checkbox" role="switch" id="settings-page-two-notify" name="notify-approval" checked>
+      </div>
+      <details class="gw-disclosure" data-gw-advanced>
+        <summary class="gw-disclosure__summary">Advanced notification settings</summary>
+        <div class="gw-disclosure__content">
+          <div class="gw-field">
+            <label class="gw-field__label" for="settings-page-two-webhook">Webhook address</label>
+            <input class="gw-field__control" id="settings-page-two-webhook" type="url" name="webhook" autocomplete="off" value="https://hooks.acme.example/smelt">
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For the settings of one thing, such as a repository, a runner or an account, when a few of them are changed often and the rest rarely.</li>
+<li>Save-on-change: every control saves the moment it changes. Use switches and selects, say so in the page description, and give the page no primary action.</li>
+<li>Explicit save: the settings take effect together. Make the page a form with checkboxes in place of switches, and one primary button that names what it saves.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For one or two settings that belong to a view. Put a switch or a select in that view.</li>
+<li>For a task with an order to it, such as connecting a repository. Use the multi-step form.</li>
+<li>For settings in several unrelated groups, each long enough to scroll. Give each group a screen of its own, linked from the sidebar nav, and use this pattern on each.</li>
+<li>For facts the reader cannot change. Use a key-value list.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>save on change</dt>
+<dd>Each control saves as it changes. The page description says so, a failed save is reported on the control that failed, and there is no primary button.</dd>
+<dt>explicit save</dt>
+<dd>The page is one form. Its primary button, written last in a button group after a secondary Discard changes, is the only primary action, and a status line above it says what is not saved yet.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>In an app the element with gw-settings-page is the main element. The examples use a div because a gallery page holds several of them.</li>
+<li>The page title is the h1, in a page header. Each group of settings starts with an h2, and the danger area is a card whose title is an h2 that says Danger area and what it belongs to.</li>
+<li>Every setting keeps the markup of its own component: a switch for a setting saved at once, a checkbox inside a form, a select or a text input in a field. Each has a visible label, and a default is already chosen.</li>
+<li>For a setting written as one row, with its label and description at the start and its control at the far end, use the settings row component.</li>
+<li>There is exactly one details element with data-gw-advanced in the view. Its summary reads Advanced settings and counts what is inside in a gw-disclosure__meta span. It starts closed, and nothing the reader must set before the page works goes inside it.</li>
+<li>Every action in the danger area carries data-gw-critical and gw-button--danger, is visible without opening anything, and sits beside a sentence that says what is lost. Ask before it runs with a confirm dialog.</li>
+<li>Save-on-change: when a save fails, set the control back and add its component's error element with role=&quot;alert&quot;, saying which state the setting is in and what to do.</li>
+<li>Explicit save: the line that says what is unsaved has role=&quot;status&quot;. While the form is sent, set aria-busy=&quot;true&quot; on the primary button and change its label to Saving settings. Report a failed save in an alert above the button group.</li>
+<li>While the settings load, a skeleton stands in for the groups, with aria-busy=&quot;true&quot; and a gw-visually-hidden line that says what is loading. If they cannot be loaded, show an error state in its place.</li>
+<li>Tab moves through the settings in reading order, then the advanced summary, then the danger area. The pattern needs no script of its own.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-settings-page</code></li>
+<li><code>gw-settings-page__danger</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

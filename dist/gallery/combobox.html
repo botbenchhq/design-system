@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Combobox - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Combobox</h1>
+<p>A text input that filters a list of options as the reader types, for one choice from a list too long to scan.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A base branch, chosen by typing</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Typing narrows a long list to a few options, which a select cannot do. The input says it is a combobox and whether its list is open, the active option is named through aria-activedescendant, and the count is announced, so the keyboard and a screen reader get everything the pointer gets.</p>
+</figcaption>
+<div data-example="default" data-title="A base branch, chosen by typing" data-state="default" data-gallery-frame="short" data-reason="Typing narrows a long list to a few options, which a select cannot do. The input says it is a combobox and whether its list is open, the active option is named through aria-activedescendant, and the count is announced, so the keyboard and a screen reader get everything the pointer gets.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="combobox-default-input">Base branch</label>
+    <gw-combobox class="gw-combobox">
+      <svg class="gw-combobox__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+      <input class="gw-field__control gw-combobox__input" id="combobox-default-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-default-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="main" aria-describedby="combobox-default-description">
+      <div class="gw-combobox__panel">
+        <ul class="gw-combobox__list" role="listbox" id="combobox-default-list" aria-label="Branches of acme/api">
+        <li class="gw-combobox__option" role="option" id="combobox-default-option-1" aria-selected="false">main</li>
+        <li class="gw-combobox__option" role="option" id="combobox-default-option-2" aria-selected="false">develop</li>
+        <li class="gw-combobox__option" role="option" id="combobox-default-option-3" aria-selected="false">fix/login-timeout</li>
+        <li class="gw-combobox__option" role="option" id="combobox-default-option-4" aria-selected="false">fix/session-refresh</li>
+        <li class="gw-combobox__option" role="option" id="combobox-default-option-5" aria-selected="false">release/2026-11</li>
+        </ul>
+        <p class="gw-combobox__message" hidden>No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
+      </div>
+      <p class="gw-visually-hidden" role="status" data-gw-count="{count} of {total} branches"></p>
+    </gw-combobox>
+    <p class="gw-field__description" id="combobox-default-description">Type part of a branch name, then choose it from the list.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Open, with an active option</h3>
+<p data-gallery="state">State: <code>open</code></p>
+</figcaption>
+<div data-example="open" data-title="Open, with an active option" data-state="open" data-gallery-frame>
+  <div class="gw-field">
+    <label class="gw-field__label" for="combobox-open-input">Base branch</label>
+    <div class="gw-combobox">
+      <svg class="gw-combobox__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+      <input class="gw-field__control gw-combobox__input" id="combobox-open-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="combobox-open-list" aria-activedescendant="combobox-open-option-2" autocomplete="off" autocapitalize="none" spellcheck="false">
+      <div class="gw-combobox__panel">
+        <ul class="gw-combobox__list" role="listbox" id="combobox-open-list" aria-label="Branches of acme/api">
+        <li class="gw-combobox__option" role="option" id="combobox-open-option-1" aria-selected="false">main</li>
+        <li class="gw-combobox__option" role="option" id="combobox-open-option-2" aria-selected="true">develop</li>
+        <li class="gw-combobox__option" role="option" id="combobox-open-option-3" aria-selected="false">fix/login-timeout</li>
+        <li class="gw-combobox__option" role="option" id="combobox-open-option-4" aria-selected="false">fix/session-refresh</li>
+        <li class="gw-combobox__option" role="option" id="combobox-open-option-5" aria-selected="false">release/2026-11</li>
+        </ul>
+        <p class="gw-combobox__message" hidden>No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
+      </div>
+      <p class="gw-visually-hidden" role="status">5 of 5 branches</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Filtered by what was typed, without an icon</h3>
+<p data-gallery="state">State: <code>selected</code></p>
+</figcaption>
+<div data-example="filtered" data-title="Filtered by what was typed, without an icon" data-state="selected" data-gallery-frame="short">
+  <div class="gw-field">
+    <label class="gw-field__label" for="combobox-filtered-input">Base branch</label>
+    <div class="gw-combobox">
+      <input class="gw-field__control gw-combobox__input" id="combobox-filtered-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="combobox-filtered-list" aria-activedescendant="combobox-filtered-option-4" autocomplete="off" autocapitalize="none" spellcheck="false" value="fix/">
+      <div class="gw-combobox__panel">
+        <ul class="gw-combobox__list" role="listbox" id="combobox-filtered-list" aria-label="Branches of acme/api">
+          <li class="gw-combobox__option" role="option" id="combobox-filtered-option-1" aria-selected="false" hidden>main</li>
+          <li class="gw-combobox__option" role="option" id="combobox-filtered-option-2" aria-selected="false" hidden>develop</li>
+          <li class="gw-combobox__option" role="option" id="combobox-filtered-option-3" aria-selected="false">fix/login-timeout</li>
+          <li class="gw-combobox__option" role="option" id="combobox-filtered-option-4" aria-selected="true">fix/session-refresh</li>
+          <li class="gw-combobox__option" role="option" id="combobox-filtered-option-5" aria-selected="false" hidden>release/2026-11</li>
+        </ul>
+        <p class="gw-combobox__message" hidden>No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
+      </div>
+      <p class="gw-visually-hidden" role="status">2 of 5 branches</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing matches</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="Nothing matches" data-state="empty" data-gallery-frame="short">
+  <div class="gw-field">
+    <label class="gw-field__label" for="combobox-empty-input">Base branch</label>
+    <div class="gw-combobox">
+      <svg class="gw-combobox__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+      <input class="gw-field__control gw-combobox__input" id="combobox-empty-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-empty-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="relase">
+      <div class="gw-combobox__panel">
+        <ul class="gw-combobox__list" role="listbox" id="combobox-empty-list" aria-label="Branches of acme/api" hidden>
+          <li class="gw-combobox__option" role="option" id="combobox-empty-option-1" aria-selected="false" hidden>main</li>
+          <li class="gw-combobox__option" role="option" id="combobox-empty-option-2" aria-selected="false" hidden>release/2026-11</li>
+        </ul>
+        <p class="gw-combobox__message">No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
+      </div>
+      <p class="gw-visually-hidden" role="status">No branch matches. Check the spelling, or clear the field to see all 5 branches.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>While the options load</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="While the options load" data-state="loading" data-gallery-frame="short">
+  <div class="gw-field">
+    <label class="gw-field__label" for="combobox-loading-input">Base branch</label>
+    <div class="gw-combobox">
+      <svg class="gw-combobox__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+      <input class="gw-field__control gw-combobox__input" id="combobox-loading-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-loading-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="fix">
+      <div class="gw-combobox__panel">
+        <ul class="gw-combobox__list" role="listbox" id="combobox-loading-list" aria-label="Branches of acme/api" aria-busy="true" hidden></ul>
+        <p class="gw-combobox__message">Fetching the branches of acme/api.</p>
+      </div>
+      <p class="gw-visually-hidden" role="status">Fetching the branches of acme/api.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Focus</h3>
+<p data-gallery="state">State: <code>focus</code></p>
+</figcaption>
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="combobox-focus-input">Repository</label>
+    <div class="gw-combobox">
+      <input class="gw-field__control gw-combobox__input" id="combobox-focus-input" type="text" name="repository" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-focus-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="acme/api">
+      <div class="gw-combobox__panel">
+        <ul class="gw-combobox__list" role="listbox" id="combobox-focus-list" aria-label="Repositories">
+          <li class="gw-combobox__option" role="option" id="combobox-focus-option-1" aria-selected="false">acme/api</li>
+          <li class="gw-combobox__option" role="option" id="combobox-focus-option-2" aria-selected="false">acme/web</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Invalid</h3>
+<p data-gallery="state">State: <code>invalid</code></p>
+</figcaption>
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <div class="gw-field">
+    <label class="gw-field__label" for="combobox-invalid-input">Base branch <span class="gw-field__required">required</span></label>
+    <div class="gw-combobox">
+      <svg class="gw-combobox__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+      <input class="gw-field__control gw-combobox__input" id="combobox-invalid-input" type="text" name="base" required role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-invalid-list" autocomplete="off" autocapitalize="none" spellcheck="false" value="release/2026-10" aria-invalid="true" aria-describedby="combobox-invalid-error">
+      <div class="gw-combobox__panel">
+        <ul class="gw-combobox__list" role="listbox" id="combobox-invalid-list" aria-label="Branches of acme/api">
+          <li class="gw-combobox__option" role="option" id="combobox-invalid-option-1" aria-selected="false">main</li>
+          <li class="gw-combobox__option" role="option" id="combobox-invalid-option-2" aria-selected="false">release/2026-11</li>
+        </ul>
+      </div>
+    </div>
+    <p class="gw-field__error" id="combobox-invalid-error">acme/api has no branch named release/2026-10. Choose a branch from the list.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="combobox-disabled-input">Base branch</label>
+    <div class="gw-combobox">
+      <svg class="gw-combobox__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+      <input class="gw-field__control gw-combobox__input" id="combobox-disabled-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="combobox-disabled-list" autocomplete="off" disabled aria-describedby="combobox-disabled-description">
+      <div class="gw-combobox__panel">
+        <ul class="gw-combobox__list" role="listbox" id="combobox-disabled-list" aria-label="Branches"></ul>
+      </div>
+    </div>
+    <p class="gw-field__description" id="combobox-disabled-description">Choose a repository first.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A class for the active option</h3>
+<p>A class says nothing to a screen reader, and only the script that adds it can draw the list. The active option is the one with aria-selected set to true, which the stylesheet reads and assistive technology announces.</p>
+<p>Checker rule: <code>unknown-class</code></p>
+</figcaption>
+<div data-example="state-class" data-title="A class for the active option" data-dont="unknown-class" data-gallery-frame="short" data-reason="A class says nothing to a screen reader, and only the script that adds it can draw the list. The active option is the one with aria-selected set to true, which the stylesheet reads and assistive technology announces.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="combobox-state-class-input">Base branch</label>
+    <div class="gw-combobox">
+      <input class="gw-field__control gw-combobox__input" id="combobox-state-class-input" type="text" name="base" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="combobox-state-class-list" autocomplete="off">
+      <div class="gw-combobox__panel">
+        <ul class="gw-combobox__list" role="listbox" id="combobox-state-class-list" aria-label="Branches of acme/api">
+          <li class="gw-combobox__option" role="option" id="combobox-state-class-option-1">main</li>
+          <li class="gw-combobox__option gw-combobox__option--active" role="option" id="combobox-state-class-option-2">develop</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For one choice from a long list the reader can name: a branch, a repository, a teammate, a model.</li>
+<li>When typing a few characters is faster than scrolling, from about fifteen options up.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a short fixed list. Use a select, which opens the picker each platform already has.</li>
+<li>To filter a list the reader can already see on the page. Use a search field.</li>
+<li>For several values at once. Use a tag input.</li>
+<li>For a menu of actions. Use a menu.</li>
+<li>For free text with no list behind it. Use a field.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>plain</dt>
+<dd>The input, the panel and the status line inside gw-combobox.</dd>
+<dt>with a leading icon</dt>
+<dd>An svg with gw-combobox__icon before the input, to say what kind of thing is chosen. No modifier class is needed.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>The input is 44px tall and as wide as the field. Each option is at least 44px tall, and the panel scrolls after five and a half options.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Inside gw-field, after the label, put an element with gw-combobox. Use the gw-combobox element when the page loads behaviors/combobox.js, and a div when a framework sets the attributes itself. The styles are the same for both.</li>
+<li>The input carries gw-field__control and gw-combobox__input, with type=&quot;text&quot;, role=&quot;combobox&quot;, aria-autocomplete=&quot;list&quot;, autocomplete=&quot;off&quot;, aria-expanded and aria-controls pointing at the list's id. Its label is the field's label element.</li>
+<li>After the input comes a div with gw-combobox__panel. It holds a ul with gw-combobox__list, role=&quot;listbox&quot;, an id and an aria-label, then a p with gw-combobox__message and the hidden attribute. Each option is an li with gw-combobox__option, role=&quot;option&quot;, an id and aria-selected.</li>
+<li>Open is aria-expanded=&quot;true&quot; on the input. The active option is the one with aria-selected=&quot;true&quot;, and the input's aria-activedescendant holds its id, so focus never leaves the input. An option that does not match carries the hidden attribute. No class marks any of this.</li>
+<li>The last child is a p with role=&quot;status&quot; and gw-visually-hidden. After each change to what is typed, write the count into it with its unit, such as 2 of 41 branches, so a screen reader announces it. With the gw-combobox element, give it data-gw-count holding the sentence with {count} and {total}, and the element writes it.</li>
+<li>When nothing matches, set aria-expanded=&quot;false&quot;, set hidden on the list, remove hidden from the message and copy its text into the status line. The message says that nothing matches and what to try. The same message element says what is being fetched while options load.</li>
+<li>Keys, which the gw-combobox element provides: typing filters and opens the list. Down and Up open it and move the active option, wrapping at the ends. Home and End go to the first and last option while the list is open. Enter chooses the active option, writes its text into the input, closes the list and sends a change event. Escape closes the list and keeps what was typed. A press on an option chooses it. Leaving the input closes the list.</li>
+<li>An option's value is its text. Put a different value to write into the input in data-value on the option.</li>
+<li>The element matches the typed text anywhere in an option, ignoring case. An app that fetches options from a server filters them itself and sets the same attributes.</li>
+<li>For a value that is not in the list, set aria-invalid=&quot;true&quot; on the input and link a gw-field__error that says to choose from the list.</li>
+<li>The chevron is decoration drawn by the stylesheet. The leading icon carries aria-hidden=&quot;true&quot;.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-combobox</code></li>
+<li><code>gw-combobox__icon</code></li>
+<li><code>gw-combobox__input</code></li>
+<li><code>gw-combobox__list</code></li>
+<li><code>gw-combobox__message</code></li>
+<li><code>gw-combobox__option</code></li>
+<li><code>gw-combobox__panel</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

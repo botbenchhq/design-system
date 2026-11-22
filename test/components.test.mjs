@@ -3,11 +3,12 @@ import { spawnSync } from "node:child_process";
 import { cpSync, existsSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
-import { build, readComponents } from "../scripts/build.mjs";
+import { build, readComponents, readPatterns } from "../scripts/build.mjs";
 import { copySources, repoRoot, tempDir } from "./helpers.mjs";
 
 const dist = join(repoRoot, "dist");
 const folders = readdirSync(join(repoRoot, "components")).sort();
+const patternFolders = readdirSync(join(repoRoot, "patterns")).sort();
 const META_FIELDS = [
   "name", "title", "purpose", "status", "whenToUse", "whenNotToUse", "variants", "sizes", "states",
   "accessibility", "icons", "classes",
@@ -92,10 +93,87 @@ test("components.json has one entry per folder, each with every metadata field a
   }
 });
 
-test("the manifest lists every component class and every base layout class", () => {
+test("components.json lists the patterns in their own array, each marked with its kind, and leaves components as they were", () => {
+  const index = JSON.parse(readFileSync(join(dist, "components.json"), "utf8"));
+  assert.deepEqual(Object.keys(index), ["components", "patterns"]);
+  assert.deepEqual(index.patterns.map((pattern) => pattern.name), patternFolders);
+  for (const pattern of index.patterns) {
+    assert.deepEqual(Object.keys(pattern), [...META_FIELDS, "kind", "examples"]);
+    assert.equal(pattern.kind, "pattern");
+    assert.ok(pattern.examples.length > 0);
+    for (const example of pattern.examples) {
+      assert.ok(example.id && example.title && example.markup.trim().startsWith("<"), `${pattern.name} example ${example.id}`);
+      assert.doesNotMatch(example.markup, /data-example/);
+    }
+    for (const state of pattern.states) {
+      assert.ok(pattern.examples.some((example) => example.state === state), `${pattern.name} has no ${state} example`);
+    }
+  }
+  assert.ok(index.components.every((component) => !("kind" in component)));
+});
+
+test("pattern styles are bundled after every component, inside the components layer", () => {
+  const css = readFileSync(join(dist, "groundwork.css"), "utf8");
+  const lastComponent = css.lastIndexOf(`.gw-${folders.at(-1)}`);
+  for (const pattern of readPatterns(repoRoot)) {
+    assert.match(pattern.css, /@layer gw\.components/);
+    assert.ok(css.indexOf(`.gw-${pattern.name}`) > lastComponent, `${pattern.name} is bundled before a component`);
+  }
+});
+
+test("a pattern's gallery page lays its examples out in one column, and the index lists patterns after components", () => {
+  for (const name of patternFolders) {
+    const html = readFileSync(join(dist, "gallery", `${name}.html`), "utf8");
+    assert.match(html, /<h2>Examples<\/h2>\n<div class="gw-grid">/, name);
+  }
+  assert.match(readFileSync(join(dist, "gallery", "button.html"), "utf8"), /<h2>Examples<\/h2>\n<div class="gw-grid gw-grid-2">/);
+  const index = readFileSync(join(dist, "gallery", "index.html"), "utf8");
+  const heading = index.indexOf("<h2>Page patterns</h2>");
+  assert.ok(heading > index.lastIndexOf(`href="${folders.at(-1)}.html"`));
+  for (const name of patternFolders) assert.ok(index.indexOf(`href="${name}.html"`) > heading, name);
+});
+
+test("a pattern without its kind, a component with the kind of a pattern, and a component named as a pattern each fail the build", () => {
+  const pattern = copySources();
+  edit(join(pattern, "patterns", "sign-in", "meta.json"), (json) => JSON.stringify({ ...JSON.parse(json), kind: undefined }));
+  assert.throws(() => build({ root: pattern, outDir: tempDir() }), /patterns\/sign-in: .*"kind": "pattern"/);
+
+  const component = buildWith((folder) =>
+    edit(join(folder, "meta.json"), (json) => JSON.stringify({ ...JSON.parse(json), kind: "pattern" })),
+  );
+  assert.throws(component, /components\/button: .*kind/);
+
+  const twin = copySources();
+  const folder = join(twin, "components", "sign-in");
+  cpSync(join(twin, "components", "button"), folder, { recursive: true });
+  renameSync(join(folder, "button.css"), join(folder, "sign-in.css"));
+  for (const file of ["sign-in.css", "examples.html", "meta.json"]) {
+    edit(join(folder, file), (text) => text.replaceAll("gw-button", "gw-sign-in").replace('"name": "button"', '"name": "sign-in"'));
+  }
+  assert.throws(() => build({ root: twin, outDir: tempDir() }), /patterns\/sign-in: components\/sign-in has the same name/);
+});
+
+test("a pattern folder that breaks the contract fails the build and is named", () => {
+  const root = copySources();
+  rmSync(join(root, "patterns", "not-found", "examples.html"));
+  assert.throws(() => build({ root, outDir: tempDir() }), /patterns\/not-found: examples\.html is missing/);
+});
+
+test("every gallery page loads each behaviour module, in order", () => {
+  const modules = readdirSync(join(repoRoot, "behaviors")).filter((name) => name.endsWith(".js")).sort();
+  assert.deepEqual(modules, ["combobox.js", "command-palette.js", "groundwork.js"]);
+  const tags = modules.map((name) => `<script type="module" src="../behaviors/${name}"></script>`).join("\n");
+  for (const name of readdirSync(join(dist, "gallery")).filter((file) => file.endsWith(".html"))) {
+    assert.ok(readFileSync(join(dist, "gallery", name), "utf8").includes(tags), name);
+    assert.ok(existsSync(join(dist, "behaviors", modules[0])));
+  }
+});
+
+test("the manifest lists every component class, every pattern class and every base layout class", () => {
   const { classes } = JSON.parse(readFileSync(join(dist, "manifest.json"), "utf8"));
-  const { components } = JSON.parse(readFileSync(join(dist, "components.json"), "utf8"));
-  for (const name of components.flatMap((component) => component.classes)) assert.ok(classes.includes(name), name);
+  const { components, patterns } = JSON.parse(readFileSync(join(dist, "components.json"), "utf8"));
+  assert.ok(patterns.flatMap((pattern) => pattern.classes).length > 0);
+  for (const name of [...components, ...patterns].flatMap((component) => component.classes)) assert.ok(classes.includes(name), name);
   for (const name of ["gw-stack", "gw-cluster", "gw-split", "gw-grid", "gw-grid-3", "gw-sidebar-layout", "gw-container-narrow", "gw-gap-2xl"]) {
     assert.ok(classes.includes(name), name);
   }
@@ -122,7 +200,7 @@ test("a new folder alone adds a component to the stylesheet, the index, the mani
 test("every gallery page links the stylesheet relatively and carries no inline style or inline script", () => {
   const gallery = join(dist, "gallery");
   const pages = readdirSync(gallery).filter((name) => name.endsWith(".html"));
-  assert.deepEqual(pages.sort(), ["index.html", ...folders.map((name) => `${name}.html`)].sort());
+  assert.deepEqual(pages.sort(), ["index.html", ...[...folders, ...patternFolders].map((name) => `${name}.html`)].sort());
   for (const name of pages) {
     // Don't examples may show a banned pattern, so only the page around them is held to the rule.
     const html = readFileSync(join(gallery, name), "utf8").replace(/<figure data-gallery="dont"[\s\S]*?<\/figure>/g, "");
@@ -132,11 +210,11 @@ test("every gallery page links the stylesheet relatively and carries no inline s
   }
 });
 
-// The shipped checker, run once over every example as a page of its own and over every component stylesheet.
+// The shipped checker, run once over every example as a page of its own and over every component and pattern stylesheet.
 function checkExamples() {
   const dir = tempDir();
   const examples = [];
-  for (const component of readComponents(repoRoot)) {
+  for (const component of [...readComponents(repoRoot), ...readPatterns(repoRoot)]) {
     writeFileSync(join(dir, `${component.name}.css`), component.css);
     for (const example of component.examples) {
       const file = `${component.name}.${example.id}.html`;

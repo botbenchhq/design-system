@@ -49,13 +49,21 @@ Serve `vendor/groundwork/` as static files and link the stylesheet.
 
 ### Behaviours, for an app without a framework
 
-The components are CSS, and nearly all of them work from native elements alone. The tabs component needs script to move `aria-selected`, `tabindex` and `hidden` when a tab is chosen. `behaviors/groundwork.js` is one optional ES module with no dependencies that defines the `<gw-tabs>` element, which does that and handles click, Left, Right, Home and End. Load it once, and wrap the tabs markup from `components.json` in `<gw-tabs>`.
+The components are CSS, and nearly all of them work from native elements alone. Three need script to move ARIA attributes as the reader acts: tabs, the combobox and the command palette. `behaviors/` holds three optional ES modules with no dependencies, each defining one element. Load the ones the app uses, once each, and wrap the component's markup from `components.json` in the module's element.
+
+| Module | Element | What it does |
+|---|---|---|
+| `behaviors/groundwork.js` | `<gw-tabs>` | For the tabs component: sets `aria-selected`, `tabindex` and `hidden`, and handles click, Left, Right, Home and End. |
+| `behaviors/combobox.js` | `<gw-combobox>` | For the combobox component: as the reader types it sets `hidden` on the options that do not match, `aria-expanded` and `aria-activedescendant` on the input and `aria-selected` on the active option, and writes the count into the `role="status"` line. It handles Down, Up, Home, End, Enter, Escape and a press on an option. |
+| `behaviors/command-palette.js` | `<gw-command-palette>` | For the command palette component: filters the commands as the reader types, hides a group left with no match, sets `aria-selected` and `aria-activedescendant` as Down and Up move the selection, presses the selected command on Enter and closes the dialog. With `shortcut="k"` it opens the dialog on Ctrl+K and Cmd+K. |
 
 ```html
 <script type="module" src="/vendor/groundwork/behaviors/groundwork.js"></script>
+<script type="module" src="/vendor/groundwork/behaviors/combobox.js"></script>
+<script type="module" src="/vendor/groundwork/behaviors/command-palette.js"></script>
 ```
 
-It is an external script from the app's own host, so a content security policy that allows no inline script lets it run. An app that renders with a framework does not load it: its tabs component sets the same three attributes and handles the same keys.
+Each is an external script from the app's own host, so a content security policy that allows no inline script lets it run. Each sets attributes only, never a class or an inline style. An app that renders with a framework loads none of them: its own components set the same ARIA attributes and handle the same keys, and the stylesheet draws the same result.
 
 ### Tailwind 3
 

@@ -1,0 +1,72 @@
+/*
+ * Toolbar: a row of related controls for one view, on role="toolbar".
+ * It holds buttons from the button and icon button components, in groups set apart by separators.
+ * It wraps onto more rows when the view is narrow, or scrolls inside itself with the scroll modifier.
+ * Controls marked as overflow leave the row below 768px, where the More menu offers them instead.
+ */
+
+@layer gw.components {
+  /* The padding leaves room for the focus ring of a button at the edge, which a scrolling toolbar would clip. */
+  .gw-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    width: fit-content;
+    max-width: 100%;
+    padding: var(--gw-space-xs);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  .gw-toolbar--scroll {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  /* Controls that belong together, kept on one row when the toolbar wraps. */
+  .gw-toolbar__group {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gw-space-xs);
+  }
+
+  /* A rule between two groups, as tall as the row it is in. */
+  .gw-toolbar__separator {
+    flex: none;
+    align-self: stretch;
+    width: var(--gw-border-width);
+    margin-inline: var(--gw-space-xs);
+    background-color: var(--gw-color-border);
+  }
+
+  /* A short fact among the controls, such as which change is in view. */
+  .gw-toolbar__text {
+    flex: none;
+    padding-inline: var(--gw-space-sm);
+    color: var(--gw-color-muted);
+    white-space: nowrap;
+  }
+
+  /* Below 768px these controls are offered by the More menu, which is hidden once there is room for them. */
+  .gw-toolbar__overflow {
+    display: none;
+  }
+
+  .gw-toolbar__more {
+    display: flex;
+    flex: none;
+  }
+
+  @media (min-width: 768px) {
+    .gw-toolbar__overflow {
+      display: contents;
+    }
+
+    .gw-toolbar__more {
+      display: none;
+    }
+  }
+}

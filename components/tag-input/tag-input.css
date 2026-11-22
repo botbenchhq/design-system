@@ -1,0 +1,63 @@
+/*
+ * Tag input: a box that holds the values already added, as removable tags, and a text input for the next one.
+ * The tags are the tag component and the label, the description and the error are the field's.
+ * The box is drawn as a field's control is, so it sits in a form beside the others.
+ */
+
+@layer gw.components {
+  /*
+   * The box. The padding leaves room for the input's focus ring inside the border.
+   * The gap between rows keeps the 44px pointer targets of two rows of remove buttons apart.
+   */
+  .gw-tag-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-sm);
+    row-gap: var(--gw-space-xs);
+    min-width: 0;
+    padding: var(--gw-space-xs) var(--gw-space-sm);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    transition: border-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /* The list adds no box of its own: its tags wrap in the same rows as the input. */
+  .gw-tag-input__tags {
+    display: contents;
+  }
+
+  /*
+   * One target tall, and never narrower than two, so it wraps to a new row before it is too small to type in.
+   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   */
+  .gw-tag-input__input {
+    flex: 1 1 calc(var(--gw-size-touch) * 2);
+    min-width: calc(var(--gw-size-touch) * 2);
+    min-height: var(--gw-size-touch);
+    padding-inline: var(--gw-space-xs);
+    border-radius: var(--gw-radius-sm);
+    background-color: transparent;
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+  }
+
+  @media (min-width: 768px) {
+    .gw-tag-input__input {
+      font-size: var(--gw-text-ui);
+      line-height: var(--gw-leading-ui);
+    }
+  }
+
+  .gw-tag-input:has(> .gw-tag-input__input[aria-invalid="true"]) {
+    border-color: var(--gw-color-danger);
+  }
+
+  .gw-tag-input:has(> .gw-tag-input__input:disabled) {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+  }
+}

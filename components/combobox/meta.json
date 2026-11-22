@@ -1,0 +1,48 @@
+{
+  "name": "combobox",
+  "title": "Combobox",
+  "purpose": "A text input that filters a list of options as the reader types, for one choice from a list too long to scan.",
+  "status": "draft",
+  "whenToUse": [
+    "For one choice from a long list the reader can name: a branch, a repository, a teammate, a model.",
+    "When typing a few characters is faster than scrolling, from about fifteen options up."
+  ],
+  "whenNotToUse": [
+    "For a short fixed list. Use a select, which opens the picker each platform already has.",
+    "To filter a list the reader can already see on the page. Use a search field.",
+    "For several values at once. Use a tag input.",
+    "For a menu of actions. Use a menu.",
+    "For free text with no list behind it. Use a field."
+  ],
+  "variants": [
+    { "name": "plain", "use": "The input, the panel and the status line inside gw-combobox." },
+    { "name": "with a leading icon", "use": "An svg with gw-combobox__icon before the input, to say what kind of thing is chosen. No modifier class is needed." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "The input is 44px tall and as wide as the field. Each option is at least 44px tall, and the panel scrolls after five and a half options." }
+  ],
+  "states": ["default", "focus", "open", "selected", "empty", "loading", "invalid", "disabled"],
+  "accessibility": [
+    "Inside gw-field, after the label, put an element with gw-combobox. Use the gw-combobox element when the page loads behaviors/combobox.js, and a div when a framework sets the attributes itself. The styles are the same for both.",
+    "The input carries gw-field__control and gw-combobox__input, with type=\"text\", role=\"combobox\", aria-autocomplete=\"list\", autocomplete=\"off\", aria-expanded and aria-controls pointing at the list's id. Its label is the field's label element.",
+    "After the input comes a div with gw-combobox__panel. It holds a ul with gw-combobox__list, role=\"listbox\", an id and an aria-label, then a p with gw-combobox__message and the hidden attribute. Each option is an li with gw-combobox__option, role=\"option\", an id and aria-selected.",
+    "Open is aria-expanded=\"true\" on the input. The active option is the one with aria-selected=\"true\", and the input's aria-activedescendant holds its id, so focus never leaves the input. An option that does not match carries the hidden attribute. No class marks any of this.",
+    "The last child is a p with role=\"status\" and gw-visually-hidden. After each change to what is typed, write the count into it with its unit, such as 2 of 41 branches, so a screen reader announces it. With the gw-combobox element, give it data-gw-count holding the sentence with {count} and {total}, and the element writes it.",
+    "When nothing matches, set aria-expanded=\"false\", set hidden on the list, remove hidden from the message and copy its text into the status line. The message says that nothing matches and what to try. The same message element says what is being fetched while options load.",
+    "Keys, which the gw-combobox element provides: typing filters and opens the list. Down and Up open it and move the active option, wrapping at the ends. Home and End go to the first and last option while the list is open. Enter chooses the active option, writes its text into the input, closes the list and sends a change event. Escape closes the list and keeps what was typed. A press on an option chooses it. Leaving the input closes the list.",
+    "An option's value is its text. Put a different value to write into the input in data-value on the option.",
+    "The element matches the typed text anywhere in an option, ignoring case. An app that fetches options from a server filters them itself and sets the same attributes.",
+    "For a value that is not in the list, set aria-invalid=\"true\" on the input and link a gw-field__error that says to choose from the list.",
+    "The chevron is decoration drawn by the stylesheet. The leading icon carries aria-hidden=\"true\"."
+  ],
+  "icons": ["chevron-down", "git-branch"],
+  "classes": [
+    "gw-combobox",
+    "gw-combobox__icon",
+    "gw-combobox__input",
+    "gw-combobox__list",
+    "gw-combobox__message",
+    "gw-combobox__option",
+    "gw-combobox__panel"
+  ]
+}
