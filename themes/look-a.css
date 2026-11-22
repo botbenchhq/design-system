@@ -1,0 +1,118 @@
+/*
+ * Look A, Botbench quieted: the same amber, Plex and dark workbench, with faint outlines, rounder corners and a larger reading size.
+ * Default mode: dark.
+ *
+ * An exploration, not a release. It changes values only. Against Botbench:
+ *   border      the 1px outline of cards, rows and secondary buttons sits much closer to the surface, so blocks
+ *               read as tonal surfaces. border-strong cannot follow: tokens/pairs.json holds it to 3:1, so the
+ *               composer, approval and sheet outlines that use it stay visible.
+ *   surfaces    surface-raised is lifted a step further from surface in dark, so a block shows without its line.
+ *   accent      a less saturated amber in dark (#EFA544 for #F59E0B), the same hue.
+ *   radius      radius-sm 4px -> 6px, radius-md 6px -> 12px.
+ *   type        ui 14px -> 15px, lg 16 -> 17, xl 20 -> 22, 2xl 24 -> 28; ui leading 1.4 -> 1.45.
+ * Every status colour is Botbench's.
+ */
+
+@layer ds.theme {
+  :root {
+    --ds-color-accent: #AD5D02;
+    --ds-color-accent-hover: #914D01;
+    --ds-color-on-accent: #FFFFFF;
+    --ds-color-surface: #FAF8F4;
+    --ds-color-surface-raised: #FFFFFF;
+    --ds-color-surface-sunken: #F1EEE8;
+    --ds-color-on-surface: #16181B;
+    --ds-color-muted: #565F6C;
+    --ds-color-border: #ECE8E1;
+    --ds-color-border-strong: #8F8B81;
+    --ds-color-focus: #CC6F01;
+    --ds-color-success: #037A54;
+    --ds-color-success-subtle: #DCF8E9;
+    --ds-color-warning: #736C02;
+    --ds-color-warning-subtle: #F3F2D7;
+    --ds-color-danger: #BA1C1C;
+    --ds-color-danger-subtle: #FEEBE8;
+    --ds-color-info: #2360E8;
+    --ds-color-info-subtle: #E9F0FF;
+    --ds-color-approval: #8F6202;
+    --ds-color-approval-subtle: #FEF3C7;
+    --ds-color-blocked: #6A31C4;
+    --ds-color-blocked-subtle: #F1EDFF;
+    --ds-color-peer: #03748F;
+    --ds-color-peer-subtle: #DCF5FE;
+    --ds-color-tainted: #BC4100;
+    --ds-color-tainted-subtle: #FFEBE5;
+    --ds-radius-sm: 6px;
+    --ds-radius-md: 12px;
+    --ds-text-xs: 12px;
+    --ds-text-mono: 13px;
+    --ds-text-ui: 15px;
+    --ds-text-lg: 17px;
+    --ds-text-xl: 22px;
+    --ds-text-2xl: 28px;
+    --ds-leading-ui: 1.45;
+    --ds-leading-lg: 1.4;
+  }
+
+  [data-theme="dark"] {
+    --ds-color-accent: #EFA544;
+    --ds-color-accent-hover: #DB922F;
+    --ds-color-on-accent: #121417;
+    --ds-color-surface: #121417;
+    --ds-color-surface-raised: #1B1E23;
+    --ds-color-surface-sunken: #0D0F12;
+    --ds-color-on-surface: #F4F6F8;
+    --ds-color-muted: #9AA3B1;
+    --ds-color-border: #22262C;
+    --ds-color-border-strong: #6A717C;
+    --ds-color-focus: #EFA544;
+    --ds-color-success: #34D399;
+    --ds-color-success-subtle: #09291D;
+    --ds-color-warning: #FDE047;
+    --ds-color-warning-subtle: #292306;
+    --ds-color-danger: #F25050;
+    --ds-color-danger-subtle: #2F1614;
+    --ds-color-info: #60A5FA;
+    --ds-color-info-subtle: #132438;
+    --ds-color-approval: #FBBF24;
+    --ds-color-approval-subtle: #2D2106;
+    --ds-color-blocked: #B285F8;
+    --ds-color-blocked-subtle: #261D35;
+    --ds-color-peer: #06B6D4;
+    --ds-color-peer-subtle: #002830;
+    --ds-color-tainted: #FB7C2E;
+    --ds-color-tainted-subtle: #341C0F;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-theme="auto"] {
+      --ds-color-accent: #EFA544;
+      --ds-color-accent-hover: #DB922F;
+      --ds-color-on-accent: #121417;
+      --ds-color-surface: #121417;
+      --ds-color-surface-raised: #1B1E23;
+      --ds-color-surface-sunken: #0D0F12;
+      --ds-color-on-surface: #F4F6F8;
+      --ds-color-muted: #9AA3B1;
+      --ds-color-border: #22262C;
+      --ds-color-border-strong: #6A717C;
+      --ds-color-focus: #EFA544;
+      --ds-color-success: #34D399;
+      --ds-color-success-subtle: #09291D;
+      --ds-color-warning: #FDE047;
+      --ds-color-warning-subtle: #292306;
+      --ds-color-danger: #F25050;
+      --ds-color-danger-subtle: #2F1614;
+      --ds-color-info: #60A5FA;
+      --ds-color-info-subtle: #132438;
+      --ds-color-approval: #FBBF24;
+      --ds-color-approval-subtle: #2D2106;
+      --ds-color-blocked: #B285F8;
+      --ds-color-blocked-subtle: #261D35;
+      --ds-color-peer: #06B6D4;
+      --ds-color-peer-subtle: #002830;
+      --ds-color-tainted: #FB7C2E;
+      --ds-color-tainted-subtle: #341C0F;
+    }
+  }
+}

@@ -1,0 +1,124 @@
+/*
+ * Look B, calm and native: the platform's own typeface, tonal filled surfaces, pill-shaped controls and a monochrome primary action.
+ * Default mode: dark.
+ *
+ * An exploration, not a release. It changes values only. Adopting it means changing a rule: rules/never.md and
+ * rules/principles.md ban system-ui as the brand typeface, and this look uses it on purpose, so that on an Apple
+ * device the app is set in SF Pro and SF Mono, as the platform's own apps are.
+ *   type        system-ui with -apple-system; ui-monospace for code. ui 15px, lg 17, xl 22, 2xl 28.
+ *   accent      near-white in dark and near-black in light, as a chat app's Send button; the primary action is
+ *               told apart by its fill, the one solid light shape on a dark screen. Amber leaves the interface;
+ *               the focus ring is a system blue so it is never mistaken for a status.
+ *   surfaces    neutral greys with no warm or cool cast; surface-raised is a clear step above surface, so a block
+ *               reads by its fill.
+ *   border      almost the colour of surface-raised, so outlines all but vanish; border-strong stays at 3:1.
+ *   radius      radius-md 22px, half the 44px control height, so every button of normal size is a pill and a
+ *               card or the composer is generously round; radius-sm 10px.
+ * Every status colour is Botbench's.
+ */
+
+@layer ds.theme {
+  :root {
+    --ds-font-ui: system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --ds-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --ds-color-accent: #1C1C1E;
+    --ds-color-accent-hover: #3A3A3C;
+    --ds-color-on-accent: #FFFFFF;
+    --ds-color-surface: #F2F2F7;
+    --ds-color-surface-raised: #FFFFFF;
+    --ds-color-surface-sunken: #EDEDF1;
+    --ds-color-on-surface: #1C1C1E;
+    --ds-color-muted: #636366;
+    --ds-color-border: #E6E6EB;
+    --ds-color-border-strong: #86868B;
+    --ds-color-focus: #0066CC;
+    --ds-color-success: #037A54;
+    --ds-color-success-subtle: #DCF8E9;
+    --ds-color-warning: #736C02;
+    --ds-color-warning-subtle: #F3F2D7;
+    --ds-color-danger: #BA1C1C;
+    --ds-color-danger-subtle: #FEEBE8;
+    --ds-color-info: #2360E8;
+    --ds-color-info-subtle: #E9F0FF;
+    --ds-color-approval: #8F6202;
+    --ds-color-approval-subtle: #FEF3C7;
+    --ds-color-blocked: #6A31C4;
+    --ds-color-blocked-subtle: #F1EDFF;
+    --ds-color-peer: #03748F;
+    --ds-color-peer-subtle: #DCF5FE;
+    --ds-color-tainted: #BC4100;
+    --ds-color-tainted-subtle: #FFEBE5;
+    --ds-radius-sm: 10px;
+    --ds-radius-md: 22px;
+    --ds-text-xs: 12px;
+    --ds-text-mono: 13px;
+    --ds-text-ui: 15px;
+    --ds-text-lg: 17px;
+    --ds-text-xl: 22px;
+    --ds-text-2xl: 28px;
+    --ds-leading-ui: 1.45;
+    --ds-leading-lg: 1.4;
+  }
+
+  [data-theme="dark"] {
+    --ds-color-accent: #F5F5F7;
+    --ds-color-accent-hover: #D8D8DC;
+    --ds-color-on-accent: #161618;
+    --ds-color-surface: #161618;
+    --ds-color-surface-raised: #212124;
+    --ds-color-surface-sunken: #0F0F10;
+    --ds-color-on-surface: #F5F5F7;
+    --ds-color-muted: #A1A1A8;
+    --ds-color-border: #29292D;
+    --ds-color-border-strong: #75757C;
+    --ds-color-focus: #4C9DFF;
+    --ds-color-success: #34D399;
+    --ds-color-success-subtle: #09291D;
+    --ds-color-warning: #FDE047;
+    --ds-color-warning-subtle: #292306;
+    --ds-color-danger: #F25050;
+    --ds-color-danger-subtle: #2F1614;
+    --ds-color-info: #60A5FA;
+    --ds-color-info-subtle: #132438;
+    --ds-color-approval: #FBBF24;
+    --ds-color-approval-subtle: #2D2106;
+    --ds-color-blocked: #B285F8;
+    --ds-color-blocked-subtle: #261D35;
+    --ds-color-peer: #06B6D4;
+    --ds-color-peer-subtle: #002830;
+    --ds-color-tainted: #FB7C2E;
+    --ds-color-tainted-subtle: #341C0F;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-theme="auto"] {
+      --ds-color-accent: #F5F5F7;
+      --ds-color-accent-hover: #D8D8DC;
+      --ds-color-on-accent: #161618;
+      --ds-color-surface: #161618;
+      --ds-color-surface-raised: #212124;
+      --ds-color-surface-sunken: #0F0F10;
+      --ds-color-on-surface: #F5F5F7;
+      --ds-color-muted: #A1A1A8;
+      --ds-color-border: #29292D;
+      --ds-color-border-strong: #75757C;
+      --ds-color-focus: #4C9DFF;
+      --ds-color-success: #34D399;
+      --ds-color-success-subtle: #09291D;
+      --ds-color-warning: #FDE047;
+      --ds-color-warning-subtle: #292306;
+      --ds-color-danger: #F25050;
+      --ds-color-danger-subtle: #2F1614;
+      --ds-color-info: #60A5FA;
+      --ds-color-info-subtle: #132438;
+      --ds-color-approval: #FBBF24;
+      --ds-color-approval-subtle: #2D2106;
+      --ds-color-blocked: #B285F8;
+      --ds-color-blocked-subtle: #261D35;
+      --ds-color-peer: #06B6D4;
+      --ds-color-peer-subtle: #002830;
+      --ds-color-tainted: #FB7C2E;
+      --ds-color-tainted-subtle: #341C0F;
+    }
+  }
+}
