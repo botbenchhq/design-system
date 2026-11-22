@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.8.2
+
+Two composer fixes. A visually hidden span after a long value in a composer chip no longer widens the page at 390px: the value is now the span's containing block, so it is clipped with it. The reason under a disabled Send is drawn in the muted colour, so it reads as secondary. A consumer only needs to sync.
+
 ## 0.8.1
 
 Four components draw the calmer look by fills rather than outlines, in every theme. The secondary button has a tonal fill (`surface-sunken`) in place of the raised one, so it still reads as a button on a raised card where a theme's border is faint; hover draws its strong border and pressing lifts it to the raised fill. The one-block composer is shown by its raised fill and the faint border in place of the strong one, and its edge takes the focus colour while the textarea has focus; Add context in its bar is round, with no border at rest. Elapsed times in `tool-call`, `step-group` and `now-doing` are set in the interface font with figures of one width in place of mono; commands, paths and code stay mono. In an open step group, a step that succeeded shows only its check: the word Succeeded is cut from view and kept for a screen reader. No class, token, attribute or rule was renamed or removed, the markup is unchanged, and a consumer only needs to sync.
