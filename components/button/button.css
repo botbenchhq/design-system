@@ -1,6 +1,7 @@
 /*
  * Button: an action the reader takes on the current view.
- * The plain class is the secondary button. A modifier changes its emphasis or its size.
+ * The plain class is the secondary button: a tonal fill a step from the page and from a raised card, so it
+ * reads as a button even where a theme draws its border faintly. A modifier changes its emphasis or its size.
  */
 
 @layer ds.components {
@@ -15,7 +16,7 @@
     padding: var(--ds-space-xs) var(--ds-space-lg);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-md);
-    background-color: var(--ds-color-surface-raised);
+    background-color: var(--ds-color-surface-sunken);
     color: var(--ds-color-on-surface);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-ui);
@@ -67,8 +68,17 @@
   }
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  /*
+   * The secondary button already has the sunken fill, so hover draws the strong border on it and pressed lifts it
+   * to the raised fill. A quiet button takes the sunken fill on hover and when pressed, with no border on hover.
+   */
   @media (hover: hover) {
     .ds-button:hover {
+      border-color: var(--ds-color-border-strong);
+    }
+
+    .ds-button--quiet:hover {
+      border-color: transparent;
       background-color: var(--ds-color-surface-sunken);
     }
 
@@ -78,12 +88,17 @@
     }
 
     .ds-button--danger:hover {
+      border-color: var(--ds-color-danger);
       background-color: var(--ds-color-danger-subtle);
     }
   }
 
   .ds-button:active {
     border-color: var(--ds-color-border-strong);
+    background-color: var(--ds-color-surface-raised);
+  }
+
+  .ds-button--quiet:active {
     background-color: var(--ds-color-surface-sunken);
   }
 

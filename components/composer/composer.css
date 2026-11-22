@@ -91,6 +91,8 @@
 
   /*
    * The composer as one block: the textarea on top with no border of its own, and the bar under it.
+   * The block is shown by its raised fill, with only the faint border at rest. While the textarea has focus
+   * the block's edge takes the focus colour as well as the textarea's own ring.
    * The reason and the error stay outside the block, under it.
    */
   .ds-composer__box {
@@ -100,9 +102,14 @@
     min-width: 0;
     padding: var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-color: var(--ds-color-border-strong);
+    border-color: var(--ds-color-border);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-surface-raised);
+    transition: border-color var(--ds-duration-fast) var(--ds-ease);
+  }
+
+  .ds-composer__box:has(> .ds-composer__input:focus-visible) {
+    border-color: var(--ds-color-focus);
   }
 
   .ds-composer__box > .ds-composer__input {
@@ -123,6 +130,15 @@
 
   .ds-composer__bar > :not(.ds-composer__controls) {
     flex: none;
+  }
+
+  /*
+   * Add context, the first control of the bar: a round tonal button with no border at rest, inside the block's
+   * own edge. The selector is kept weak, so the button's hover, pressed and unavailable borders still show.
+   */
+  .ds-composer__bar > :where(:first-child) {
+    border-color: transparent;
+    border-radius: var(--ds-radius-full);
   }
 
   /* Two lines of chips keep 12px apart, so their 44px pointer targets do not overlap. */

@@ -115,10 +115,11 @@
     animation: ds-tool-call-turn calc(var(--ds-duration-slow) * 4) steps(8) infinite;
   }
 
+  /* A time is not code: it is set in the interface font, with figures of one width so it does not jitter as it counts. */
   .ds-tool-call__duration {
     color: var(--ds-color-muted);
-    font-family: var(--ds-font-mono);
     font-size: var(--ds-text-xs);
+    font-variant-numeric: tabular-nums;
     line-height: var(--ds-leading-xs);
     white-space: nowrap;
   }
@@ -305,6 +306,18 @@
     mask-image: url("icons/circle-check.svg");
   }
 
+  /*
+   * A step that succeeded, in the list of an open step group (a details element holding an ol of rows):
+   * the group's summary already says the steps went well, so the word is cut from view and only the check shows.
+   * It stays in the text, so a screen reader still hears Succeeded. Every other state keeps its word.
+   */
+  :where(details[open] > ol > li) > .ds-tool-call--row[data-state="succeeded"] .ds-tool-call__status {
+    display: inline-block;
+    width: var(--ds-space-lg);
+    overflow: hidden;
+    vertical-align: text-bottom;
+  }
+
   .ds-tool-call[data-state="failed"] .ds-tool-call__status {
     color: var(--ds-color-danger);
   }
@@ -339,7 +352,6 @@
     grid-row: 1;
     grid-column: 2;
     line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
-    font-variant-numeric: tabular-nums;
   }
 
   /* Why it failed, was declined or did not run: a second line of the summary, so closing the details never hides it. */

@@ -62,10 +62,9 @@
     font-weight: var(--ds-weight-medium);
   }
 
-  /* The time so far. It counts up, and is never announced. */
+  /* The time so far, in the interface font with figures of one width. It counts up, and is never announced. */
   .ds-now-doing__elapsed {
     color: var(--ds-color-muted);
-    font-family: var(--ds-font-mono);
     font-size: var(--ds-text-xs);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;

@@ -57,13 +57,13 @@
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   @media (hover: hover) {
     .ds-file-upload__input:hover ~ .ds-file-upload__prompt > .ds-file-upload__button {
-      background-color: var(--ds-color-surface-sunken);
+      border-color: var(--ds-color-border-strong);
     }
   }
 
   .ds-file-upload__input:active ~ .ds-file-upload__prompt > .ds-file-upload__button {
     border-color: var(--ds-color-border-strong);
-    background-color: var(--ds-color-surface-sunken);
+    background-color: var(--ds-color-surface-raised);
   }
 
   /*

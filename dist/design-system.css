@@ -1617,7 +1617,8 @@
 
 /*
  * Button: an action the reader takes on the current view.
- * The plain class is the secondary button. A modifier changes its emphasis or its size.
+ * The plain class is the secondary button: a tonal fill a step from the page and from a raised card, so it
+ * reads as a button even where a theme draws its border faintly. A modifier changes its emphasis or its size.
  */
 
 @layer ds.components {
@@ -1632,7 +1633,7 @@
     padding: var(--ds-space-xs) var(--ds-space-lg);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-md);
-    background-color: var(--ds-color-surface-raised);
+    background-color: var(--ds-color-surface-sunken);
     color: var(--ds-color-on-surface);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-ui);
@@ -1684,8 +1685,17 @@
   }
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  /*
+   * The secondary button already has the sunken fill, so hover draws the strong border on it and pressed lifts it
+   * to the raised fill. A quiet button takes the sunken fill on hover and when pressed, with no border on hover.
+   */
   @media (hover: hover) {
     .ds-button:hover {
+      border-color: var(--ds-color-border-strong);
+    }
+
+    .ds-button--quiet:hover {
+      border-color: transparent;
       background-color: var(--ds-color-surface-sunken);
     }
 
@@ -1695,12 +1705,17 @@
     }
 
     .ds-button--danger:hover {
+      border-color: var(--ds-color-danger);
       background-color: var(--ds-color-danger-subtle);
     }
   }
 
   .ds-button:active {
     border-color: var(--ds-color-border-strong);
+    background-color: var(--ds-color-surface-raised);
+  }
+
+  .ds-button--quiet:active {
     background-color: var(--ds-color-surface-sunken);
   }
 
@@ -2819,6 +2834,8 @@
 
   /*
    * The composer as one block: the textarea on top with no border of its own, and the bar under it.
+   * The block is shown by its raised fill, with only the faint border at rest. While the textarea has focus
+   * the block's edge takes the focus colour as well as the textarea's own ring.
    * The reason and the error stay outside the block, under it.
    */
   .ds-composer__box {
@@ -2828,9 +2845,14 @@
     min-width: 0;
     padding: var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-color: var(--ds-color-border-strong);
+    border-color: var(--ds-color-border);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-surface-raised);
+    transition: border-color var(--ds-duration-fast) var(--ds-ease);
+  }
+
+  .ds-composer__box:has(> .ds-composer__input:focus-visible) {
+    border-color: var(--ds-color-focus);
   }
 
   .ds-composer__box > .ds-composer__input {
@@ -2851,6 +2873,15 @@
 
   .ds-composer__bar > :not(.ds-composer__controls) {
     flex: none;
+  }
+
+  /*
+   * Add context, the first control of the bar: a round tonal button with no border at rest, inside the block's
+   * own edge. The selector is kept weak, so the button's hover, pressed and unavailable borders still show.
+   */
+  .ds-composer__bar > :where(:first-child) {
+    border-color: transparent;
+    border-radius: var(--ds-radius-full);
   }
 
   /* Two lines of chips keep 12px apart, so their 44px pointer targets do not overlap. */
@@ -4459,13 +4490,13 @@
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   @media (hover: hover) {
     .ds-file-upload__input:hover ~ .ds-file-upload__prompt > .ds-file-upload__button {
-      background-color: var(--ds-color-surface-sunken);
+      border-color: var(--ds-color-border-strong);
     }
   }
 
   .ds-file-upload__input:active ~ .ds-file-upload__prompt > .ds-file-upload__button {
     border-color: var(--ds-color-border-strong);
-    background-color: var(--ds-color-surface-sunken);
+    background-color: var(--ds-color-surface-raised);
   }
 
   /*
@@ -5932,10 +5963,9 @@
     font-weight: var(--ds-weight-medium);
   }
 
-  /* The time so far. It counts up, and is never announced. */
+  /* The time so far, in the interface font with figures of one width. It counts up, and is never announced. */
   .ds-now-doing__elapsed {
     color: var(--ds-color-muted);
-    font-family: var(--ds-font-mono);
     font-size: var(--ds-text-xs);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
@@ -8758,10 +8788,9 @@
     animation: ds-step-group-turn calc(var(--ds-duration-slow) * 4) steps(8) infinite;
   }
 
-  /* How long the steps took together, or have taken so far. */
+  /* How long the steps took together, or have taken so far. The interface font, with figures of one width. */
   .ds-step-group__duration {
     color: var(--ds-color-muted);
-    font-family: var(--ds-font-mono);
     font-size: var(--ds-text-xs);
     line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     font-variant-numeric: tabular-nums;
@@ -9908,10 +9937,11 @@
     animation: ds-tool-call-turn calc(var(--ds-duration-slow) * 4) steps(8) infinite;
   }
 
+  /* A time is not code: it is set in the interface font, with figures of one width so it does not jitter as it counts. */
   .ds-tool-call__duration {
     color: var(--ds-color-muted);
-    font-family: var(--ds-font-mono);
     font-size: var(--ds-text-xs);
+    font-variant-numeric: tabular-nums;
     line-height: var(--ds-leading-xs);
     white-space: nowrap;
   }
@@ -10098,6 +10128,18 @@
     mask-image: url("icons/circle-check.svg");
   }
 
+  /*
+   * A step that succeeded, in the list of an open step group (a details element holding an ol of rows):
+   * the group's summary already says the steps went well, so the word is cut from view and only the check shows.
+   * It stays in the text, so a screen reader still hears Succeeded. Every other state keeps its word.
+   */
+  :where(details[open] > ol > li) > .ds-tool-call--row[data-state="succeeded"] .ds-tool-call__status {
+    display: inline-block;
+    width: var(--ds-space-lg);
+    overflow: hidden;
+    vertical-align: text-bottom;
+  }
+
   .ds-tool-call[data-state="failed"] .ds-tool-call__status {
     color: var(--ds-color-danger);
   }
@@ -10132,7 +10174,6 @@
     grid-row: 1;
     grid-column: 2;
     line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
-    font-variant-numeric: tabular-nums;
   }
 
   /* Why it failed, was declined or did not run: a second line of the summary, so closing the details never hides it. */

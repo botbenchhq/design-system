@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.8.1
+
+Four components draw the calmer look by fills rather than outlines, in every theme. The secondary button has a tonal fill (`surface-sunken`) in place of the raised one, so it still reads as a button on a raised card where a theme's border is faint; hover draws its strong border and pressing lifts it to the raised fill. The one-block composer is shown by its raised fill and the faint border in place of the strong one, and its edge takes the focus colour while the textarea has focus; Add context in its bar is round, with no border at rest. Elapsed times in `tool-call`, `step-group` and `now-doing` are set in the interface font with figures of one width in place of mono; commands, paths and code stay mono. In an open step group, a step that succeeded shows only its check: the word Succeeded is cut from view and kept for a screen reader. No class, token, attribute or rule was renamed or removed, the markup is unchanged, and a consumer only needs to sync.
+
 ## 0.8.0
 
 The Botbench theme has a new look, calm and native. It sets the platform's own typeface (SF Pro on an Apple device), neutral grey surfaces, near-invisible outlines, a 22px medium radius so a normal button is a pill, 15px body text, a near-white primary action in dark and near-black in light, and a blue focus ring. Amber is no longer the accent; it remains the colour of Needs input. The status colours are unchanged. The rule against `system-ui` now bans naming a typeface in an app; a theme may choose the platform font through the font tokens. No class, token or rule was renamed or removed. An app that links the Botbench theme only needs to sync; one that copied the theme's `theme-color` values or its token block into its own files should copy them again from `themes/botbench.json` and `themes/botbench.design-tokens.md`.
