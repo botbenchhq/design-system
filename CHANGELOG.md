@@ -17,6 +17,10 @@ Fixes for the defects an independent audit confirmed: menus and listboxes by key
 - **Examples.** A data table of eight agents with names up to 30 characters, in the scroll wrapper, and an app shell table view in the wide main column. The menu, context menu, split button and listbox examples are wrapped in the new elements.
 - **Tests.** Keyboard tests for the menu, the context menu, the split button's menu and the listbox; the computed colour scheme in every mode under the Botbench theme; a 320px sweep over every page; and tables of eight agents at 1280px and 390px.
 
+## 0.7.1
+
+The status set gains four states, so an app no longer has to choose its own icons for them: Failed (circle-x, danger), Done (check, success), Accepted (thumbs-up, success) and Rejected (x, neutral). One icon joins the sprite: `circle-x`. Nothing else changes, and a consumer only needs to sync.
+
 ## 0.7.0
 
 Themes, four status roles for agent work, and one icon and tone for each state of a run.
