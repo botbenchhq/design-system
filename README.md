@@ -37,6 +37,7 @@ Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start 
 | `components-index.json` | One short entry per component and pattern: name, kind, title, purpose, status and classes. Read it to choose, then open the one entry in `components.json`. |
 | `gallery/` | A static page per component and per page pattern showing every variant and state, with a do and a don't. Serve `dist/` and open `/gallery/`. |
 | `behaviors/` | Seven optional ES modules with no dependencies, for an app without a framework. `tabs.js` defines `<ds-tabs>`, `combobox.js` defines `<ds-combobox>`, `command-palette.js` defines `<ds-command-palette>`, `elapsed.js` defines `<ds-elapsed>`, `transcript.js` defines `<ds-transcript>`, `menu.js` defines `<ds-menu>` and `listbox.js` defines `<ds-listbox>`. Each does what its component needs from script. |
+| `react/` | Two files of TypeScript source for a React 19 app: `busy-button.tsx`, a button with a busy state, and `use-transcript.ts`, a hook that follows a transcript as `<ds-transcript>` does. Import them from the copy or copy them into the app. See "React source" in `docs/consumer-guide.md`. |
 | `fonts/` | IBM Plex Sans and IBM Plex Mono, with their licence. `design-system.css` loads them by relative URL, so keep the folder beside it. |
 | `icons.svg` | The icon sprite. Each icon is a `<symbol>` with the id `ds-icon-` and its name. |
 | `icons/` | The same icons as single files, for CSS that needs one as a mask or background, with their licence. |

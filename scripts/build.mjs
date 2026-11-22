@@ -1,4 +1,4 @@
-// Generates everything in dist/ from tokens/, themes/, base/, components/, patterns/, gallery/, behaviors/, checker/, rules/, hooks/ and scripts/migrate-prefix.mjs. Run with `npm run build`.
+// Generates everything in dist/ from tokens/, themes/, base/, components/, patterns/, gallery/, behaviors/, react/, checker/, rules/, hooks/ and scripts/migrate-prefix.mjs. Run with `npm run build`.
 // `npm run vendor` refreshes the font and icon files under base/ from node_modules.
 
 import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
@@ -897,6 +897,8 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   }
   // The optional behaviour modules, for an app without a framework.
   for (const name of behaviors) files[`behaviors/${name}`] = readFileSync(join(root, "behaviors", name));
+  // The React source an app copies in. It is never bundled or compiled here.
+  for (const name of listFiles(join(root, "react"))) files[`react/${name}`] = readFileSync(join(root, "react", name));
   for (const name of listFiles(join(root, "hooks"))) files[`hooks/${name}`] = readFileSync(join(root, "hooks", name));
 
   rmSync(outDir, { recursive: true, force: true });
