@@ -19,38 +19,38 @@
   ],
   "variants": [
     { "name": "stacked", "use": "The default, with no modifier class. Columns at 768px and wider. Below that each row is a block: its th is the block's title and each td prints the label in its data-label attribute beside its value. The header row is not drawn." },
-    { "name": "scroll", "class": "gw-data-table--scroll", "use": "Columns at every width. Put the table inside a div with the class gw-data-table__scroll, which scrolls sideways when the columns do not fit. Cells do not wrap." },
-    { "name": "sticky", "class": "gw-data-table--sticky", "use": "The header row stays at the top of whatever scrolls the table up and down, on the page surface. It has no effect inside gw-data-table__scroll unless the app gives that wrapper a height, and none in the stacked layout below 768px." }
+    { "name": "scroll", "class": "ds-data-table--scroll", "use": "Columns at every width. Put the table inside a div with the class ds-data-table__scroll, which scrolls sideways when the columns do not fit. Cells do not wrap." },
+    { "name": "sticky", "class": "ds-data-table--sticky", "use": "The header row stays at the top of whatever scrolls the table up and down, on the page surface. It has no effect inside ds-data-table__scroll unless the app gives that wrapper a height, and none in the stacked layout below 768px." }
   ],
   "sizes": [],
   "states": ["default", "hover", "focus-visible", "active", "sorted", "open", "selected", "empty", "loading", "error"],
   "accessibility": [
-    "Use a table with a caption, gw-data-table__caption, that says what the rows are. Column headers are th scope=\"col\" in a thead, and the cell that names each row is a th scope=\"row\". Do not build a table from divs.",
+    "Use a table with a caption, ds-data-table__caption, that says what the rows are. Column headers are th scope=\"col\" in a thead, and the cell that names each row is a th scope=\"row\". Do not build a table from divs.",
     "Give every td a data-label attribute holding the text of its column header. Below 768px the stylesheet prints it beside the value, and it is read out with the value. Leave it off the action cell, a detail cell and a state cell.",
     "A cell holds one run of text or one element. In the stacked layout a second element would start a new line under the label.",
-    "A column of numbers carries gw-data-table__numeric on its th and on every td: right-aligned, in tabular figures, each number with its unit.",
-    "A sortable header is a button with the class gw-data-table__sort inside the th, holding the header's words. Set aria-sort=\"ascending\" or aria-sort=\"descending\" on the th of the one column the rows are ordered by, and leave it off the others. The stylesheet draws the direction from that attribute. The app reorders the rows and moves the attribute, and the caption or a role=\"status\" line says the new order.",
-    "A row has at most one action: a small quiet button in a td with the class gw-data-table__action, the last cell of the row, under a th whose text is in a gw-visually-hidden span. When every row's button has the same words, add an aria-label that starts with those words and names the row. The cell pads the 32px button out to 44px, so its pointer target fits the row and a one-line row is no taller.",
-    "A row that expands has a button with the class gw-data-table__expand in its th, holding the words that name the row, with aria-expanded and with aria-controls pointing at the next row. That next row is a tr with the class gw-data-table__detail holding one td that spans every column. The app sets aria-expanded to true or false and nothing else: the stylesheet does not draw the detail row while the button says false. Do not use the hidden attribute on the detail row.",
+    "A column of numbers carries ds-data-table__numeric on its th and on every td: right-aligned, in tabular figures, each number with its unit.",
+    "A sortable header is a button with the class ds-data-table__sort inside the th, holding the header's words. Set aria-sort=\"ascending\" or aria-sort=\"descending\" on the th of the one column the rows are ordered by, and leave it off the others. The stylesheet draws the direction from that attribute. The app reorders the rows and moves the attribute, and the caption or a role=\"status\" line says the new order.",
+    "A row has at most one action: a small quiet button in a td with the class ds-data-table__action, the last cell of the row, under a th whose text is in a ds-visually-hidden span. When every row's button has the same words, add an aria-label that starts with those words and names the row. The cell pads the 32px button out to 44px, so its pointer target fits the row and a one-line row is no taller.",
+    "A row that expands has a button with the class ds-data-table__expand in its th, holding the words that name the row, with aria-expanded and with aria-controls pointing at the next row. That next row is a tr with the class ds-data-table__detail holding one td that spans every column. The app sets aria-expanded to true or false and nothing else: the stylesheet does not draw the detail row while the button says false. Do not use the hidden attribute on the detail row.",
     "Mark the selected row with aria-selected=\"true\" on its tr. It is drawn with a bar at its start as well as a shade.",
-    "With no rows, while loading and after a failure, keep the caption and the header and put one row in the tbody whose single td has the class gw-data-table__state and spans every column. Empty: a gw-data-table__message sentence saying why, and at most one small button. Loading: a spinner with role=\"status\", and aria-busy=\"true\" on the table. Error: a gw-data-table__message with role=\"alert\" that says what to do, and a small Retry button. The stylesheet draws the failure's icon.",
+    "With no rows, while loading and after a failure, keep the caption and the header and put one row in the tbody whose single td has the class ds-data-table__state and spans every column. Empty: a ds-data-table__message sentence saying why, and at most one small button. Loading: a spinner with role=\"status\", and aria-busy=\"true\" on the table. Error: a ds-data-table__message with role=\"alert\" that says what to do, and a small Retry button. The stylesheet draws the failure's icon.",
     "A status in a cell is written in words. One badge may hold it.",
     "The wrapper of the scroll variant carries tabindex=\"0\", role=\"region\" and aria-labelledby pointing at the caption's id, so a keyboard can scroll it with the arrow keys. Give each such table on a view a different caption.",
     "Tab moves through the header buttons, then each row's expand button and action, in order. Enter and Space activate them. There are no arrow-key bindings between cells."
   ],
   "icons": ["chevron-down", "chevron-right", "chevron-up", "chevrons-up-down", "circle-alert"],
   "classes": [
-    "gw-data-table",
-    "gw-data-table--scroll",
-    "gw-data-table--sticky",
-    "gw-data-table__action",
-    "gw-data-table__caption",
-    "gw-data-table__detail",
-    "gw-data-table__expand",
-    "gw-data-table__message",
-    "gw-data-table__numeric",
-    "gw-data-table__scroll",
-    "gw-data-table__sort",
-    "gw-data-table__state"
+    "ds-data-table",
+    "ds-data-table--scroll",
+    "ds-data-table--sticky",
+    "ds-data-table__action",
+    "ds-data-table__caption",
+    "ds-data-table__detail",
+    "ds-data-table__expand",
+    "ds-data-table__message",
+    "ds-data-table__numeric",
+    "ds-data-table__scroll",
+    "ds-data-table__sort",
+    "ds-data-table__state"
   ]
 }

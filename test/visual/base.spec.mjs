@@ -15,18 +15,18 @@ const PAGE = `<!doctype html>
   <head>
     <meta charset="utf-8">
     <title>Base</title>
-    <link rel="stylesheet" href="/groundwork.css">
+    <link rel="stylesheet" href="/design-system.css">
   </head>
   <body>
-    <main class="gw-container">
-      <div class="gw-stack" id="stack">
+    <main class="ds-container">
+      <div class="ds-stack" id="stack">
         <h1>Heading</h1>
         <p>Body text with <code>code</code> in it.</p>
-        <div class="gw-cluster gw-gap-xl" id="cluster">
+        <div class="ds-cluster ds-gap-xl" id="cluster">
           <button type="button" id="first">First</button>
           <button type="button">Second</button>
         </div>
-        <svg id="icon" width="24" height="24" aria-hidden="true"><use href="/icons.svg#gw-icon-check"></use></svg>
+        <svg id="icon" width="24" height="24" aria-hidden="true"><use href="/icons.svg#ds-icon-check"></use></svg>
       </div>
     </main>
   </body>
@@ -37,15 +37,15 @@ const LONG_WORD = `/Users/${"a".repeat(90 - "/Users/".length)}`;
 
 // Where a message from outside the app lands: [component, example, the elements that take the text].
 const LONG_TEXT_PLACES = [
-  ["field", "invalid", ".gw-field__description, .gw-field__error"],
-  ["alert", "with-action", ".gw-alert__title, .gw-alert__body"],
-  ["page-header", "default", ".gw-page-header__description"],
-  ["empty-state", "default", ".gw-empty-state__title"],
-  ["diff", "truncated", ".gw-diff__note"],
-  ["banner", "info", ".gw-banner__text"],
-  ["toast", "tones", ".gw-toast__message"],
-  ["list", "navigating", ".gw-list__primary, .gw-list__secondary"],
-  ["key-value", "default", ".gw-key-value__value"],
+  ["field", "invalid", ".ds-field__description, .ds-field__error"],
+  ["alert", "with-action", ".ds-alert__title, .ds-alert__body"],
+  ["page-header", "default", ".ds-page-header__description"],
+  ["empty-state", "default", ".ds-empty-state__title"],
+  ["diff", "truncated", ".ds-diff__note"],
+  ["banner", "info", ".ds-banner__text"],
+  ["toast", "tones", ".ds-toast__message"],
+  ["list", "navigating", ".ds-list__primary, .ds-list__secondary"],
+  ["key-value", "default", ".ds-key-value__value"],
 ];
 
 // A bare page holding one example of each of those components, as an app would compose them.
@@ -62,10 +62,10 @@ function longTextPage() {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Long words</title>
-    <link rel="stylesheet" href="/groundwork.css">
+    <link rel="stylesheet" href="/design-system.css">
   </head>
   <body>
-    <main class="gw-container gw-stack">
+    <main class="ds-container ds-stack">
       <h1 id="plain-h1">Long words</h1>
       <h2 id="plain-h2">A section</h2>
       <h3 id="plain-h3">A part of it</h3>
@@ -143,8 +143,8 @@ test("layout spacing comes from the spacing tokens", async ({ page }) => {
   expect(await computed(page, "body", "margin-top")).toBe("0px");
   expect(await computed(page, "#stack", "row-gap")).toBe("12px");
   expect(await computed(page, "#cluster", "column-gap")).toBe("24px");
-  expect(await computed(page, ".gw-container", "padding-left")).toBe("16px");
-  expect(await computed(page, ".gw-container", "max-width")).toBe("720px");
+  expect(await computed(page, ".ds-container", "padding-left")).toBe("16px");
+  expect(await computed(page, ".ds-container", "max-width")).toBe("720px");
   // The reset's border defaults: adding a width alone draws a solid line in the border colour.
   expect(await computed(page, "#first", "border-top-width")).toBe("0px");
   expect(await computed(page, "#first", "border-top-style")).toBe("solid");
@@ -173,7 +173,7 @@ test.describe("with reduced motion requested", () => {
     await page.goto(origin);
     await page.addStyleTag({
       content: `
-        @layer gw.components { #first { transition: opacity 240ms; } }
+        @layer ds.components { #first { transition: opacity 240ms; } }
         h1 { transition: color 240ms !important; }
       `,
     });
@@ -184,7 +184,7 @@ test.describe("with reduced motion requested", () => {
 
 test("without reduced motion a transition keeps its duration", async ({ page }) => {
   await page.goto(origin);
-  await page.addStyleTag({ content: "@layer gw.components { #first { transition: opacity 240ms; } }" });
+  await page.addStyleTag({ content: "@layer ds.components { #first { transition: opacity 240ms; } }" });
   expect(await computed(page, "#first", "transition-duration")).toBe("0.24s");
 });
 
@@ -226,7 +226,7 @@ for (const width of [390, 1280]) {
     const [h1, h2, h3, body] = [await size("#plain-h1"), await size("#plain-h2"), await size("#plain-h3"), await size("body")];
     expect([h1, h2, h3]).toEqual([24, 20, 16]);
     expect(h3).toBeGreaterThan(body);
-    expect(await size(".gw-page-header__title")).toBeGreaterThan(h2);
-    expect(await size(".gw-page-header__title")).toBe(h1);
+    expect(await size(".ds-page-header__title")).toBeGreaterThan(h2);
+    expect(await size(".ds-page-header__title")).toBe(h1);
   });
 }

@@ -60,13 +60,13 @@ test("metadata missing a field fails the build and names the field", () => {
 
 test("a class in the metadata that the stylesheet does not define fails the build, and so does the reverse", () => {
   const listed = buildWith((folder) =>
-    edit(join(folder, "meta.json"), (json) => JSON.stringify({ ...JSON.parse(json), classes: [...JSON.parse(json).classes, "gw-button--large"] })),
+    edit(join(folder, "meta.json"), (json) => JSON.stringify({ ...JSON.parse(json), classes: [...JSON.parse(json).classes, "ds-button--large"] })),
   );
-  assert.throws(listed, /components\/button: .*gw-button--large/);
+  assert.throws(listed, /components\/button: .*ds-button--large/);
   const defined = buildWith((folder) =>
-    edit(join(folder, "button.css"), (css) => css.replace(".gw-button--quiet", ".gw-button--ghost")),
+    edit(join(folder, "button.css"), (css) => css.replace(".ds-button--quiet", ".ds-button--ghost")),
   );
-  assert.throws(defined, /components\/button: .*gw-button--ghost/);
+  assert.throws(defined, /components\/button: .*ds-button--ghost/);
 });
 
 test("components.json has one entry per folder, each with every metadata field and its do examples' markup", () => {
@@ -133,10 +133,10 @@ test("the app shell pattern puts the pending tray in the header's tray, both nav
   const dos = shell.examples.filter((example) => !example.dont);
   assert.deepEqual(dos.map((example) => example.id), ["list", "empty"]);
   for (const { id, html } of dos) {
-    assert.match(html, /<div class="gw-app-header__tray">\s*<div class="gw-pending-tray"/, id);
-    assert.match(html, /<div class="gw-sidebar-layout gw-app-shell__body">\s*<nav class="gw-sidebar-nav"[\s\S]*<\/nav>\s*<div class="gw-container gw-app-shell__main">\s*<header class="gw-page-header">/, id);
-    assert.match(html, /<\/div>\s*<nav class="gw-tab-bar"[\s\S]*<\/nav>\s*<\/div>\s*<\/div>$/, id);
-    assert.deepEqual(html.match(/<h1[^>]*>/g), ['<h1 class="gw-page-header__title">'], id);
+    assert.match(html, /<div class="ds-app-header__tray">\s*<div class="ds-pending-tray"/, id);
+    assert.match(html, /<div class="ds-sidebar-layout ds-app-shell__body">\s*<nav class="ds-sidebar-nav"[\s\S]*<\/nav>\s*<div class="ds-container ds-app-shell__main">\s*<header class="ds-page-header">/, id);
+    assert.match(html, /<\/div>\s*<nav class="ds-tab-bar"[\s\S]*<\/nav>\s*<\/div>\s*<\/div>$/, id);
+    assert.deepEqual(html.match(/<h1[^>]*>/g), ['<h1 class="ds-page-header__title">'], id);
   }
   const dont = shell.examples.find((example) => example.dont);
   assert.equal(dont.dont, "review");
@@ -148,8 +148,8 @@ test("the sign-in pattern takes its password from the password field component",
   for (const { id, html } of signIn.examples) {
     const passwords = html.match(/<input[^>]*type="password"[^>]*>/g);
     assert.ok(passwords.length > 0, id);
-    for (const input of passwords) assert.match(input, /class="gw-field__control gw-password-field__input"/, id);
-    assert.match(html, /<div class="gw-password-field">\s*<input[^>]*>\s*<button type="button" class="gw-password-field__toggle"/, id);
+    for (const input of passwords) assert.match(input, /class="ds-field__control ds-password-field__input"/, id);
+    assert.match(html, /<div class="ds-password-field">\s*<input[^>]*>\s*<button type="button" class="ds-password-field__toggle"/, id);
   }
 });
 
@@ -157,12 +157,12 @@ test("an approval has one Decline button, with the optional note before the acti
   const approval = readComponents(repoRoot).find((component) => component.name === "approval");
   const note = approval.examples.find((example) => example.id === "decline-note").html;
   assert.equal(note.match(/>Decline[^<]*<\/button>/g).length, 1);
-  assert.ok(note.indexOf("gw-approval__note") < note.indexOf("gw-approval__actions"));
-  assert.doesNotMatch(note.slice(note.indexOf("gw-approval__note"), note.indexOf("gw-approval__actions")), /<button/);
+  assert.ok(note.indexOf("ds-approval__note") < note.indexOf("ds-approval__actions"));
+  assert.doesNotMatch(note.slice(note.indexOf("ds-approval__note"), note.indexOf("ds-approval__actions")), /<button/);
   const bare = approval.examples.find((example) => example.id === "no-risk-line");
   assert.ok(bare && !bare.dont);
-  assert.doesNotMatch(bare.html, /gw-approval__risk/);
-  assert.match(approval.meta.accessibility.join(" "), /risk line, gw-approval__risk, is optional/);
+  assert.doesNotMatch(bare.html, /ds-approval__risk/);
+  assert.match(approval.meta.accessibility.join(" "), /risk line, ds-approval__risk, is optional/);
 });
 
 test("a message has a row for the start of a session, a question, an answered request and an error, each labelled in words", () => {
@@ -174,33 +174,33 @@ test("a message has a row for the start of a session, a question, an answered re
     error: ["Error"],
   };
   for (const [kind, expected] of Object.entries(labels)) {
-    const modifier = `gw-message--${kind}`;
+    const modifier = `ds-message--${kind}`;
     assert.ok(message.meta.variants.some((variant) => variant.name === kind && variant.class === modifier), kind);
     const example = message.examples.find((candidate) => candidate.id === kind);
     assert.ok(example && !example.dont, `no do example named ${kind}`);
-    const rows = [...example.html.matchAll(new RegExp(`<li class="gw-message ${modifier}">\\s*<span class="gw-message__label">(?:<svg class="gw-message__icon" aria-hidden="true"><use href="icons\\.svg#gw-icon-[a-z-]+"></use></svg>)?([^<]+)</span>`, "g"))];
+    const rows = [...example.html.matchAll(new RegExp(`<li class="ds-message ${modifier}">\\s*<span class="ds-message__label">(?:<svg class="ds-message__icon" aria-hidden="true"><use href="icons\\.svg#ds-icon-[a-z-]+"></use></svg>)?([^<]+)</span>`, "g"))];
     assert.deepEqual(rows.map(([, label]) => label), expected, kind);
   }
   // One modifier covers every way a request was resolved: the label carries the word and an icon, and the text says by whom.
   const decision = message.examples.find((candidate) => candidate.id === "decision").html;
-  assert.equal(decision.match(/<svg class="gw-message__icon"/g).length, 4);
-  assert.deepEqual([...decision.matchAll(/<p class="gw-message__body">([^<]+)</g)].map(([, text]) => /\b(you|Dana Okafor)\b/.test(text)), [true, true, true, true]);
+  assert.equal(decision.match(/<svg class="ds-message__icon"/g).length, 4);
+  assert.deepEqual([...decision.matchAll(/<p class="ds-message__body">([^<]+)</g)].map(([, text]) => /\b(you|Dana Okafor)\b/.test(text)), [true, true, true, true]);
   assert.equal(message.meta.classes.filter((name) => /allowed|declined|approved|standing/.test(name)).length, 0);
 
   // A tool call is the tool call component in its row form: the status, a plain summary and one plain sentence, with the raw arguments behind the disclosure.
   const described = message.examples.find((candidate) => candidate.id === "tool-call-described").html;
-  assert.match(described, /<li class="gw-message gw-message--tool-call">\s*<div class="gw-tool-call gw-tool-call--row" data-state="succeeded">\s*<details class="gw-tool-call__details">\s*<summary class="gw-tool-call__summary">\s*<span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded<\/span> Ran <code class="gw-tool-call__target">[^<]+<\/code><\/span>\s*<span class="gw-tool-call__duration">[^<]+<\/span>\s*<span class="gw-tool-call__note">[^<{]+<\/span>\s*<\/summary>\s*<div class="gw-tool-call__body">\s*<p class="gw-tool-call__label">Arguments<\/p>\s*<pre class="gw-tool-call__code">\{/);
+  assert.match(described, /<li class="ds-message ds-message--tool-call">\s*<div class="ds-tool-call ds-tool-call--row" data-state="succeeded">\s*<details class="ds-tool-call__details">\s*<summary class="ds-tool-call__summary">\s*<span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded<\/span> Ran <code class="ds-tool-call__target">[^<]+<\/code><\/span>\s*<span class="ds-tool-call__duration">[^<]+<\/span>\s*<span class="ds-tool-call__note">[^<{]+<\/span>\s*<\/summary>\s*<div class="ds-tool-call__body">\s*<p class="ds-tool-call__label">Arguments<\/p>\s*<pre class="ds-tool-call__code">\{/);
   assert.match(message.meta.variants.find((variant) => variant.name === "tool-call").use, /not as raw JSON/);
   // One way to show a tool call in a transcript: no do example writes a tool-call row the earlier way.
   for (const component of readComponents(repoRoot)) {
     for (const example of component.examples.filter((candidate) => !candidate.dont)) {
-      const rows = example.html.match(/<li class="gw-message gw-message--tool-call">\s*<[a-z]+ class="[^"]*"/g) ?? [];
-      for (const row of rows) assert.match(row, /class="gw-tool-call gw-tool-call--row"$/, `${component.name} ${example.id}`);
+      const rows = example.html.match(/<li class="ds-message ds-message--tool-call">\s*<[a-z]+ class="[^"]*"/g) ?? [];
+      for (const row of rows) assert.match(row, /class="ds-tool-call ds-tool-call--row"$/, `${component.name} ${example.id}`);
     }
   }
 
   // An error is told from a denial by its word and by its icon.
-  assert.match(message.css, /\.gw-message--error > \.gw-message__label::before \{\s*mask-image: url\("icons\/triangle-alert\.svg"\)/);
+  assert.match(message.css, /\.ds-message--error > \.ds-message__label::before \{\s*mask-image: url\("icons\/triangle-alert\.svg"\)/);
 });
 
 test("the data-state contract in the consumer guide matches the metadata and every example, and failed or waiting tool calls are shown open", () => {
@@ -221,11 +221,11 @@ test("the data-state contract in the consumer guide matches the metadata and eve
 
   // The element that carries data-state in an example, by its class, and the component whose contract applies.
   const carrier = (classes) =>
-    classes.includes("gw-tool-call") ? "tool-call"
-    : classes.includes("gw-step-group__callout") ? "step-group"
-    : classes.includes("gw-now-doing") ? "now-doing"
-    : classes.includes("gw-run-timeline__station") ? "run-timeline"
-    : classes.includes("gw-message") && !classes.some((name) => name.startsWith("gw-message--")) ? "message"
+    classes.includes("ds-tool-call") ? "tool-call"
+    : classes.includes("ds-step-group__callout") ? "step-group"
+    : classes.includes("ds-now-doing") ? "now-doing"
+    : classes.includes("ds-run-timeline__station") ? "run-timeline"
+    : classes.includes("ds-message") && !classes.some((name) => name.startsWith("ds-message--")) ? "message"
     : null;
   for (const folder of [...components, ...readPatterns(repoRoot)]) {
     for (const example of folder.examples) {
@@ -236,13 +236,13 @@ test("the data-state contract in the consumer guide matches the metadata and eve
       }
       if (example.dont) continue;
       // In a do example a tool call that failed or awaits approval is drawn open, except where the reader closed it.
-      for (const [, state, details] of example.html.matchAll(/class="gw-tool-call[^"]*" data-state="(failed|awaiting-approval)"[^>]*>\s*(<details[^>]*>)/g)) {
+      for (const [, state, details] of example.html.matchAll(/class="ds-tool-call[^"]*" data-state="(failed|awaiting-approval)"[^>]*>\s*(<details[^>]*>)/g)) {
         if (example.id === "approval-closed") continue;
         assert.match(details, / open>$/, `${folder.name} ${example.id}: a ${state} tool call is closed`);
       }
       // One way to show a tool call in a transcript, in the patterns too.
-      for (const row of example.html.match(/<li class="gw-message gw-message--tool-call">\s*<[a-z]+ class="[^"]*"/g) ?? []) {
-        assert.match(row, /class="gw-tool-call gw-tool-call--row"$/, `${folder.name} ${example.id}`);
+      for (const row of example.html.match(/<li class="ds-message ds-message--tool-call">\s*<[a-z]+ class="[^"]*"/g) ?? []) {
+        assert.match(row, /class="ds-tool-call ds-tool-call--row"$/, `${folder.name} ${example.id}`);
       }
     }
   }
@@ -250,11 +250,11 @@ test("the data-state contract in the consumer guide matches the metadata and eve
 
 test("the check list has a timed-out result, in words with the limit and its own icon, apart from failed", () => {
   const list = readComponents(repoRoot).find((component) => component.name === "check-list");
-  assert.ok(list.meta.variants.some((variant) => variant.name === "timed out" && variant.class === "gw-check-list__result--timed-out"));
+  assert.ok(list.meta.variants.some((variant) => variant.name === "timed out" && variant.class === "ds-check-list__result--timed-out"));
   const { html } = list.examples.find((example) => example.id === "timed-out");
-  assert.match(html, /<span class="gw-check-list__result gw-check-list__result--timed-out">Timed out after 10 min<\/span>/);
-  assert.doesNotMatch(html, /gw-check-list__result--failed/);
-  const mark = (modifier) => list.css.match(new RegExp(`\\.gw-check-list__result--${modifier}::before \\{\\s*mask-image: url\\("icons/([a-z-]+)\\.svg"\\)`))[1];
+  assert.match(html, /<span class="ds-check-list__result ds-check-list__result--timed-out">Timed out after 10 min<\/span>/);
+  assert.doesNotMatch(html, /ds-check-list__result--failed/);
+  const mark = (modifier) => list.css.match(new RegExp(`\\.ds-check-list__result--${modifier}::before \\{\\s*mask-image: url\\("icons/([a-z-]+)\\.svg"\\)`))[1];
   assert.equal(mark("timed-out"), "triangle-alert");
   assert.notEqual(mark("timed-out"), mark("failed"));
 });
@@ -262,11 +262,11 @@ test("the check list has a timed-out result, in words with the limit and its own
 test("the activity feed has a newest-first example: the order in words, times going back, and Show older activity at the end", () => {
   const feed = readComponents(repoRoot).find((component) => component.name === "activity-feed");
   const { html } = feed.examples.find((example) => example.id === "newest-first");
-  assert.match(html, /<p class="gw-visually-hidden">The newest entry is first\.<\/p>/);
+  assert.match(html, /<p class="ds-visually-hidden">The newest entry is first\.<\/p>/);
   const times = [...html.matchAll(/datetime="([^"]+)"/g)].map(([, time]) => time);
   assert.ok(times.length > 3);
   assert.deepEqual(times, [...times].sort().reverse());
-  assert.ok(html.indexOf("gw-activity-feed__more") > html.lastIndexOf("gw-activity-feed__day"));
+  assert.ok(html.indexOf("ds-activity-feed__more") > html.lastIndexOf("ds-activity-feed__day"));
   assert.match(html, /Show older activity\s*<\/button>\s*<\/div>\s*<\/section>/);
   assert.doesNotMatch(html, /role="log"/);
 });
@@ -283,24 +283,24 @@ test("the app header and the page header agree on which carries the h1", () => {
   assert.match(meta("app-header"), /the page header's title is the h1/);
   assert.match(meta("page-header"), /the view's one h1/);
   const tray = readComponents(repoRoot).find((component) => component.name === "app-header").examples.find((example) => example.id === "pending-tray");
-  assert.match(tray.html, /<div class="gw-app-header__tray">\s*<div class="gw-pending-tray" aria-live="polite" aria-atomic="true">/);
+  assert.match(tray.html, /<div class="ds-app-header__tray">\s*<div class="ds-pending-tray" aria-live="polite" aria-atomic="true">/);
 });
 
 test("pattern styles are bundled after every component, inside the components layer", () => {
-  const css = readFileSync(join(dist, "groundwork.css"), "utf8");
-  const lastComponent = css.lastIndexOf(`.gw-${folders.at(-1)}`);
+  const css = readFileSync(join(dist, "design-system.css"), "utf8");
+  const lastComponent = css.lastIndexOf(`.ds-${folders.at(-1)}`);
   for (const pattern of readPatterns(repoRoot)) {
-    assert.match(pattern.css, /@layer gw\.components/);
-    assert.ok(css.indexOf(`.gw-${pattern.name}`) > lastComponent, `${pattern.name} is bundled before a component`);
+    assert.match(pattern.css, /@layer ds\.components/);
+    assert.ok(css.indexOf(`.ds-${pattern.name}`) > lastComponent, `${pattern.name} is bundled before a component`);
   }
 });
 
 test("a pattern's gallery page lays its examples out in one column, and the index lists patterns after components", () => {
   for (const name of patternFolders) {
     const html = readFileSync(join(dist, "gallery", `${name}.html`), "utf8");
-    assert.match(html, /<h2>Examples<\/h2>\n<div class="gw-grid">/, name);
+    assert.match(html, /<h2>Examples<\/h2>\n<div class="ds-grid">/, name);
   }
-  assert.match(readFileSync(join(dist, "gallery", "button.html"), "utf8"), /<h2>Examples<\/h2>\n<div class="gw-grid gw-grid-2">/);
+  assert.match(readFileSync(join(dist, "gallery", "button.html"), "utf8"), /<h2>Examples<\/h2>\n<div class="ds-grid ds-grid-2">/);
   const index = readFileSync(join(dist, "gallery", "index.html"), "utf8");
   const heading = index.indexOf("<h2>Page patterns</h2>");
   assert.ok(heading > index.lastIndexOf(`href="${folders.at(-1)}.html"`));
@@ -322,7 +322,7 @@ test("a pattern without its kind, a component with the kind of a pattern, and a 
   cpSync(join(twin, "components", "button"), folder, { recursive: true });
   renameSync(join(folder, "button.css"), join(folder, "sign-in.css"));
   for (const file of ["sign-in.css", "examples.html", "meta.json"]) {
-    edit(join(folder, file), (text) => text.replaceAll("gw-button", "gw-sign-in").replace('"name": "button"', '"name": "sign-in"'));
+    edit(join(folder, file), (text) => text.replaceAll("ds-button", "ds-sign-in").replace('"name": "button"', '"name": "sign-in"'));
   }
   assert.throws(() => build({ root: twin, outDir: tempDir() }), /patterns\/sign-in: components\/sign-in has the same name/);
 });
@@ -335,7 +335,7 @@ test("a pattern folder that breaks the contract fails the build and is named", (
 
 test("every gallery page loads each behaviour module, in order", () => {
   const modules = readdirSync(join(repoRoot, "behaviors")).filter((name) => name.endsWith(".js")).sort();
-  assert.deepEqual(modules, ["combobox.js", "command-palette.js", "elapsed.js", "groundwork.js", "transcript.js"]);
+  assert.deepEqual(modules, ["combobox.js", "command-palette.js", "elapsed.js", "tabs.js", "transcript.js"]);
   const tags = modules.map((name) => `<script type="module" src="../behaviors/${name}"></script>`).join("\n");
   for (const name of readdirSync(join(dist, "gallery")).filter((file) => file.endsWith(".html"))) {
     assert.ok(readFileSync(join(dist, "gallery", name), "utf8").includes(tags), name);
@@ -348,7 +348,7 @@ test("the manifest lists every component class, every pattern class and every ba
   const { components, patterns } = JSON.parse(readFileSync(join(dist, "components.json"), "utf8"));
   assert.ok(patterns.flatMap((pattern) => pattern.classes).length > 0);
   for (const name of [...components, ...patterns].flatMap((component) => component.classes)) assert.ok(classes.includes(name), name);
-  for (const name of ["gw-stack", "gw-cluster", "gw-split", "gw-grid", "gw-grid-3", "gw-sidebar-layout", "gw-container-narrow", "gw-gap-2xl"]) {
+  for (const name of ["ds-stack", "ds-cluster", "ds-split", "ds-grid", "ds-grid-3", "ds-sidebar-layout", "ds-container-narrow", "ds-gap-2xl"]) {
     assert.ok(classes.includes(name), name);
   }
   assert.deepEqual(classes, [...new Set(classes)].sort());
@@ -360,13 +360,13 @@ test("a new folder alone adds a component to the stylesheet, the index, the mani
   cpSync(join(root, "components", "button"), folder, { recursive: true });
   renameSync(join(folder, "button.css"), join(folder, "chip.css"));
   for (const file of ["chip.css", "examples.html", "meta.json"]) {
-    edit(join(folder, file), (text) => text.replaceAll("gw-button", "gw-chip").replace('"name": "button"', '"name": "chip"'));
+    edit(join(folder, file), (text) => text.replaceAll("ds-button", "ds-chip").replace('"name": "button"', '"name": "chip"'));
   }
   const outDir = tempDir();
   build({ root, outDir });
-  assert.match(readFileSync(join(outDir, "groundwork.css"), "utf8"), /\.gw-chip--primary/);
+  assert.match(readFileSync(join(outDir, "design-system.css"), "utf8"), /\.ds-chip--primary/);
   assert.ok(JSON.parse(readFileSync(join(outDir, "components.json"), "utf8")).components.some((component) => component.name === "chip"));
-  assert.ok(JSON.parse(readFileSync(join(outDir, "manifest.json"), "utf8")).classes.includes("gw-chip"));
+  assert.ok(JSON.parse(readFileSync(join(outDir, "manifest.json"), "utf8")).classes.includes("ds-chip"));
   assert.ok(existsSync(join(outDir, "gallery", "chip.html")));
   assert.match(readFileSync(join(outDir, "gallery", "index.html"), "utf8"), /href="chip\.html"/);
 });
@@ -378,7 +378,7 @@ test("every gallery page links the stylesheet relatively and carries no inline s
   for (const name of pages) {
     // Don't examples may show a banned pattern, so only the page around them is held to the rule.
     const html = readFileSync(join(gallery, name), "utf8").replace(/<figure data-gallery="dont"[\s\S]*?<\/figure>/g, "");
-    assert.match(html, /<link rel="stylesheet" href="\.\.\/groundwork\.css">/);
+    assert.match(html, /<link rel="stylesheet" href="\.\.\/design-system\.css">/);
     assert.doesNotMatch(html, /\sstyle=|<style\b/);
     assert.doesNotMatch(html, /<script(?![^>]*\bsrc=)[^>]*>/);
   }

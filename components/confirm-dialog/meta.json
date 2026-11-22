@@ -16,20 +16,20 @@
   "sizes": [],
   "states": ["open", "busy", "error"],
   "accessibility": [
-    "Use the dialog markup with both classes on the dialog element, gw-dialog and gw-confirm-dialog, and add role=\"alertdialog\". A screen reader then reads the question and its description at once, where a plain dialog would read only the title.",
-    "Point aria-labelledby at the title and aria-describedby at gw-dialog__body, so the list of what is lost is part of what is read.",
-    "The title names the thing: Delete the workspace api-refactor? The body says what will be lost, one thing per gw-confirm-dialog__loss, and that it cannot be undone. Say what is kept when the reader might fear for it.",
+    "Use the dialog markup with both classes on the dialog element, ds-dialog and ds-confirm-dialog, and add role=\"alertdialog\". A screen reader then reads the question and its description at once, where a plain dialog would read only the title.",
+    "Point aria-labelledby at the title and aria-describedby at ds-dialog__body, so the list of what is lost is part of what is read.",
+    "The title names the thing: Delete the workspace api-refactor? The body says what will be lost, one thing per ds-confirm-dialog__loss, and that it cannot be undone. Say what is kept when the reader might fear for it.",
     "Cancel is the first button and the destructive button the second. Open with showModal(), which moves focus to the first button, so focus starts on Cancel. Never put autofocus on the destructive button.",
-    "The destructive button is gw-button gw-button--danger and repeats the verb and the thing: Delete workspace. It is never gw-button--primary, and a confirm dialog has no primary button.",
-    "The footer carries gw-dialog__footer and gw-confirm-dialog__actions, which holds Cancel at the start and the destructive button at the far end.",
+    "The destructive button is ds-button ds-button--danger and repeats the verb and the thing: Delete workspace. It is never ds-button--primary, and a confirm dialog has no primary button.",
+    "The footer carries ds-dialog__footer and ds-confirm-dialog__actions, which holds Cancel at the start and the destructive button at the far end.",
     "Escape cancels. Both buttons close the dialog through the form with method=\"dialog\", and the app deletes only when dialog.returnValue is the destructive button's value.",
     "While deleting, set aria-busy=\"true\" on the destructive button, change its label and disable Cancel. If it fails, keep the dialog open and put an alert with role=\"alert\" at the top of the body saying that nothing was deleted and what to do."
   ],
   "icons": ["x"],
   "classes": [
-    "gw-confirm-dialog",
-    "gw-confirm-dialog__actions",
-    "gw-confirm-dialog__loss",
-    "gw-confirm-dialog__losses"
+    "ds-confirm-dialog",
+    "ds-confirm-dialog__actions",
+    "ds-confirm-dialog__loss",
+    "ds-confirm-dialog__losses"
   ]
 }

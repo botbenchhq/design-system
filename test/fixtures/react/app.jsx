@@ -9,7 +9,7 @@ const ACTIONS = [
 ];
 
 function Button({ emphasis = "secondary", children }) {
-  const classes = emphasis === "primary" ? "gw-button gw-button--primary" : "gw-button";
+  const classes = emphasis === "primary" ? "ds-button ds-button--primary" : "ds-button";
   return (
     <button type="button" className={classes}>
       {children}
@@ -21,7 +21,7 @@ const PrimaryButton = (props) => <Button emphasis="primary" {...props} />;
 
 function Toolbar() {
   return (
-    <div className="gw-cluster">
+    <div className="ds-cluster">
       <Button>Preview</Button>
       {ACTIONS.map((action) => (
         <PrimaryButton key={action.id}>{action.label}</PrimaryButton>
@@ -32,8 +32,8 @@ function Toolbar() {
 
 function App() {
   return (
-    <main className="gw-container gw-stack">
-      <div className="gw-split">
+    <main className="ds-container ds-stack">
+      <div className="ds-split">
         <h1>Draft</h1>
         <Toolbar />
       </div>

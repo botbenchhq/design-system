@@ -21,23 +21,23 @@
   ],
   "states": ["default", "hover", "focus-visible", "dragover", "busy", "error", "disabled"],
   "accessibility": [
-    "Inside gw-field, after the label, put a div with gw-file-upload. It holds an input type=\"file\" with gw-file-upload__input, then a div with gw-file-upload__prompt and aria-hidden=\"true\". The label's for attribute matches the input's id, so a screen reader hears the label and the browser's own file button.",
-    "The prompt is what sighted readers see in place of the browser's button: a span with gw-button and gw-file-upload__button, such as Choose files, and a span of plain words, such as or drop them here. It is a picture of the input, not a second control, so it is hidden from assistive technology and takes no pointer events.",
+    "Inside ds-field, after the label, put a div with ds-file-upload. It holds an input type=\"file\" with ds-file-upload__input, then a div with ds-file-upload__prompt and aria-hidden=\"true\". The label's for attribute matches the input's id, so a screen reader hears the label and the browser's own file button.",
+    "The prompt is what sighted readers see in place of the browser's button: a span with ds-button and ds-file-upload__button, such as Choose files, and a span of plain words, such as or drop them here. It is a picture of the input, not a second control, so it is hidden from assistive technology and takes no pointer events.",
     "The input covers the whole area. A press or a drop anywhere on it reaches the input itself, so choosing and dropping both work with no script, and Tab, Enter and Space are the browser's own.",
-    "Say what is accepted in words in a gw-field__description linked with aria-describedby: the kinds of file, how many, and the size limit with its unit. Set accept on the input to the same kinds. Check type and size again on the server.",
-    "Dragover is the one state the app sets: add the data-dragover attribute to the gw-file-upload element on dragenter and dragover, and remove it on dragleave and drop. The border turns solid and the area is shaded. The app may also change the prompt's words, such as Drop to add 2 files.",
-    "List the chosen files under the description in a ul with gw-cluster, gw-gap-md and gw-file-upload__files and an aria-label such as Files chosen. Each file is an attachment chip, copied from that component: its name, its size in words and a remove button that names the file.",
+    "Say what is accepted in words in a ds-field__description linked with aria-describedby: the kinds of file, how many, and the size limit with its unit. Set accept on the input to the same kinds. Check type and size again on the server.",
+    "Dragover is the one state the app sets: add the data-dragover attribute to the ds-file-upload element on dragenter and dragover, and remove it on dragleave and drop. The border turns solid and the area is shaded. The app may also change the prompt's words, such as Drop to add 2 files.",
+    "List the chosen files under the description in a ul with ds-cluster, ds-gap-md and ds-file-upload__files and an aria-label such as Files chosen. Each file is an attachment chip, copied from that component: its name, its size in words and a remove button that names the file.",
     "While files upload, each chip carries aria-busy=\"true\" and a progress element, as the attachment chip describes, and the description, with role=\"status\", says how many are done. The reader can still add files.",
-    "A file that cannot be added at all has no chip: set aria-invalid=\"true\" on the input and add a gw-field__error with role=\"alert\" that names the file, says why and says what to add. A file that was added and then failed keeps its chip, with the chip's own error. Remove aria-invalid when the reader next chooses a file.",
+    "A file that cannot be added at all has no chip: set aria-invalid=\"true\" on the input and add a ds-field__error with role=\"alert\" that names the file, says why and says what to add. A file that was added and then failed keeps its chip, with the chip's own error. Remove aria-invalid when the reader next chooses a file.",
     "After a file is removed, move focus to the next chip's remove button, or to the input when none is left.",
     "Set the disabled attribute on the input when no more files can be added, and say why in the description."
   ],
   "icons": ["file", "image", "x"],
   "classes": [
-    "gw-file-upload",
-    "gw-file-upload__button",
-    "gw-file-upload__files",
-    "gw-file-upload__input",
-    "gw-file-upload__prompt"
+    "ds-file-upload",
+    "ds-file-upload__button",
+    "ds-file-upload__files",
+    "ds-file-upload__input",
+    "ds-file-upload__prompt"
   ]
 }

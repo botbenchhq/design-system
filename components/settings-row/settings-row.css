@@ -4,126 +4,126 @@
  * A row whose control is a switch holds the switch component alone, which is already laid out this way.
  */
 
-@layer gw.components {
-  .gw-settings-row__group {
+@layer ds.components {
+  .ds-settings-row__group {
     display: flex;
     flex-direction: column;
     min-width: 0;
   }
 
-  .gw-settings-row__heading {
-    padding-bottom: var(--gw-space-sm);
-    border-bottom-width: var(--gw-border-width);
-    border-bottom-color: var(--gw-color-border-strong);
-    font-size: var(--gw-text-lg);
-    font-weight: var(--gw-weight-semibold);
-    line-height: var(--gw-leading-lg);
+  .ds-settings-row__heading {
+    padding-bottom: var(--ds-space-sm);
+    border-bottom-width: var(--ds-border-width);
+    border-bottom-color: var(--ds-color-border-strong);
+    font-size: var(--ds-text-lg);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-lg);
   }
 
   /* At compact widths the control sits under the text and is as wide as the row. */
-  .gw-settings-row {
+  .ds-settings-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     min-width: 0;
   }
 
-  .gw-settings-row + .gw-settings-row {
-    border-top-width: var(--gw-border-width);
+  .ds-settings-row + .ds-settings-row {
+    border-top-width: var(--ds-border-width);
   }
 
   /* The same space above and below the label as the switch gives its own, so every row's first line sits level. */
-  .gw-settings-row__text {
+  .ds-settings-row__text {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
     min-width: 0;
-    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
+    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
-  .gw-settings-row__label {
-    font-weight: var(--gw-weight-medium);
+  .ds-settings-row__label {
+    font-weight: var(--ds-weight-medium);
     overflow-wrap: anywhere;
   }
 
-  .gw-settings-row__description {
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+  .ds-settings-row__description {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
     overflow-wrap: anywhere;
   }
 
-  .gw-settings-row__control {
+  .ds-settings-row__control {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     min-width: 0;
-    padding-bottom: var(--gw-space-md);
+    padding-bottom: var(--ds-space-md);
   }
 
   /* A select fills the row at compact widths, where a thumb reaches it more easily. */
-  .gw-settings-row__control > :not(button, a, p) {
+  .ds-settings-row__control > :not(button, a, p) {
     align-self: stretch;
   }
 
   /* A status in words in place of a control, such as who is signed in. */
-  .gw-settings-row__status {
+  .ds-settings-row__status {
     overflow-wrap: anywhere;
   }
 
   /* A setting that deletes or cannot be undone. The mark is drawn here, so the row is never set apart by colour alone. */
-  .gw-settings-row--danger .gw-settings-row__label {
+  .ds-settings-row--danger .ds-settings-row__label {
     display: flex;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
   }
 
-  .gw-settings-row--danger .gw-settings-row__label::before {
+  .ds-settings-row--danger .ds-settings-row__label::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
-    background-color: var(--gw-color-danger);
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    background-color: var(--ds-color-danger);
     mask: url("icons/triangle-alert.svg") center / contain no-repeat;
   }
 
   /* What went wrong when a change was not saved, under the whole row. */
-  .gw-settings-row__error {
+  .ds-settings-row__error {
     display: flex;
-    gap: var(--gw-space-xs);
-    padding-bottom: var(--gw-space-md);
-    color: var(--gw-color-danger);
+    gap: var(--ds-space-xs);
+    padding-bottom: var(--ds-space-md);
+    color: var(--ds-color-danger);
     overflow-wrap: anywhere;
   }
 
-  .gw-settings-row__error::before {
+  .ds-settings-row__error::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     background-color: currentColor;
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }
 
   /* At the regular width the control is at the far end of the row, centred on the text. */
   @media (min-width: 768px) {
-    .gw-settings-row {
+    .ds-settings-row {
       grid-template-columns: minmax(0, 1fr) auto;
-      column-gap: var(--gw-space-xl);
+      column-gap: var(--ds-space-xl);
     }
 
-    .gw-settings-row > :only-child,
-    .gw-settings-row__error {
+    .ds-settings-row > :only-child,
+    .ds-settings-row__error {
       grid-column: 1 / -1;
     }
 
-    .gw-settings-row__control {
+    .ds-settings-row__control {
       align-items: flex-end;
       justify-content: center;
-      min-width: calc(var(--gw-size-column) / 2);
-      min-height: var(--gw-size-touch);
+      min-width: calc(var(--ds-size-column) / 2);
+      min-height: var(--ds-size-touch);
       padding-bottom: 0;
     }
 
-    .gw-settings-row__status {
+    .ds-settings-row__status {
       text-align: end;
     }
   }

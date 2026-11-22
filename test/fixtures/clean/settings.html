@@ -3,28 +3,28 @@
   <head>
     <meta charset="utf-8">
     <title>Settings</title>
-    <link rel="stylesheet" href="/groundwork.css">
+    <link rel="stylesheet" href="/design-system.css">
   </head>
   <body>
-    <main class="gw-container gw-stack">
+    <main class="ds-container ds-stack">
       <h1>Settings</h1>
-      <form class="gw-stack">
+      <form class="ds-stack">
         <label>Workspace name <input type="text" name="name"></label>
         <label>Default branch <input type="text" name="branch"></label>
-        <details data-gw-advanced>
+        <details data-ds-advanced>
           <summary>Advanced</summary>
-          <div class="gw-stack">
+          <div class="ds-stack">
             <label>Request timeout in seconds <input type="text" name="timeout"></label>
             <details>
               <summary>Proxy</summary>
               <label>Proxy address <input type="text" name="proxy"></label>
             </details>
-            <button type="button" class="gw-button" data-gw-critical>Delete workspace</button>
+            <button type="button" class="ds-button" data-ds-critical>Delete workspace</button>
           </div>
         </details>
-        <div class="gw-split">
-          <button type="button" class="gw-button">Delete workspace</button>
-          <button type="submit" class="gw-button gw-button--primary">Save</button>
+        <div class="ds-split">
+          <button type="button" class="ds-button">Delete workspace</button>
+          <button type="submit" class="ds-button ds-button--primary">Save</button>
         </div>
       </form>
     </main>

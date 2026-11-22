@@ -3,51 +3,51 @@
  * The plain class is the neutral tone. A modifier changes the tone, and the words always carry the meaning.
  */
 
-@layer gw.components {
-  .gw-badge {
+@layer ds.components {
+  .ds-badge {
     display: inline-flex;
     flex: none;
     align-items: center;
-    gap: var(--gw-space-xs);
-    min-height: var(--gw-space-xl);
-    padding-inline: var(--gw-space-sm);
-    border-width: var(--gw-border-width);
-    border-radius: var(--gw-radius-sm);
-    background-color: var(--gw-color-surface-sunken);
-    color: var(--gw-color-on-surface);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-medium);
-    line-height: var(--gw-leading-xs);
+    gap: var(--ds-space-xs);
+    min-height: var(--ds-space-xl);
+    padding-inline: var(--ds-space-sm);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-sm);
+    background-color: var(--ds-color-surface-sunken);
+    color: var(--ds-color-on-surface);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-xs);
     white-space: nowrap;
   }
 
-  .gw-badge--info {
+  .ds-badge--info {
     border-color: transparent;
-    background-color: var(--gw-color-info-subtle);
-    color: var(--gw-color-info);
+    background-color: var(--ds-color-info-subtle);
+    color: var(--ds-color-info);
   }
 
-  .gw-badge--success {
+  .ds-badge--success {
     border-color: transparent;
-    background-color: var(--gw-color-success-subtle);
-    color: var(--gw-color-success);
+    background-color: var(--ds-color-success-subtle);
+    color: var(--ds-color-success);
   }
 
-  .gw-badge--warning {
+  .ds-badge--warning {
     border-color: transparent;
-    background-color: var(--gw-color-warning-subtle);
-    color: var(--gw-color-warning);
+    background-color: var(--ds-color-warning-subtle);
+    color: var(--ds-color-warning);
   }
 
-  .gw-badge--danger {
+  .ds-badge--danger {
     border-color: transparent;
-    background-color: var(--gw-color-danger-subtle);
-    color: var(--gw-color-danger);
+    background-color: var(--ds-color-danger-subtle);
+    color: var(--ds-color-danger);
   }
 
-  .gw-badge__icon {
+  .ds-badge__icon {
     flex: none;
-    width: var(--gw-space-md);
-    height: var(--gw-space-md);
+    width: var(--ds-space-md);
+    height: var(--ds-space-md);
   }
 }

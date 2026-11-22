@@ -7,7 +7,7 @@
           {
             "type": "command",
             "command": "node",
-            "args": ["${CLAUDE_PROJECT_DIR}/vendor/groundwork/hooks/claude-hook.mjs", "${CLAUDE_PROJECT_DIR}/groundwork.config.json"]
+            "args": ["${CLAUDE_PROJECT_DIR}/vendor/design-system/hooks/claude-hook.mjs", "${CLAUDE_PROJECT_DIR}/design-system.config.json"]
           }
         ]
       }
@@ -19,7 +19,7 @@
           {
             "type": "command",
             "command": "node",
-            "args": ["${CLAUDE_PROJECT_DIR}/vendor/groundwork/hooks/claude-hook.mjs", "${CLAUDE_PROJECT_DIR}/groundwork.config.json"]
+            "args": ["${CLAUDE_PROJECT_DIR}/vendor/design-system/hooks/claude-hook.mjs", "${CLAUDE_PROJECT_DIR}/design-system.config.json"]
           }
         ]
       }

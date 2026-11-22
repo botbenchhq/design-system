@@ -1,91 +1,91 @@
 <div data-example="default" data-title="Label and description" data-state="default" data-reason="The label is a label element tied to the input, so a press on the words ticks the box and a screen reader reads them as its name. The description says what ticking it will do.">
-  <div class="gw-checkbox">
-    <input class="gw-checkbox__input" type="checkbox" id="checkbox-default-tests" name="run-tests" aria-describedby="checkbox-default-description">
-    <label class="gw-checkbox__label" for="checkbox-default-tests">Run the tests before opening a pull request</label>
-    <p class="gw-checkbox__description" id="checkbox-default-description">Runs npm test in the task's worktree. A failed run stops the pull request.</p>
+  <div class="ds-checkbox">
+    <input class="ds-checkbox__input" type="checkbox" id="checkbox-default-tests" name="run-tests" aria-describedby="checkbox-default-description">
+    <label class="ds-checkbox__label" for="checkbox-default-tests">Run the tests before opening a pull request</label>
+    <p class="ds-checkbox__description" id="checkbox-default-description">Runs npm test in the task's worktree. A failed run stops the pull request.</p>
   </div>
 </div>
 
 <div data-example="checked" data-title="Checked" data-state="checked">
-  <div class="gw-checkbox">
-    <input class="gw-checkbox__input" type="checkbox" id="checkbox-checked-draft" name="draft" checked>
-    <label class="gw-checkbox__label" for="checkbox-checked-draft">Open the pull request as a draft</label>
+  <div class="ds-checkbox">
+    <input class="ds-checkbox__input" type="checkbox" id="checkbox-checked-draft" name="draft" checked>
+    <label class="ds-checkbox__label" for="checkbox-checked-draft">Open the pull request as a draft</label>
   </div>
 </div>
 
 <div data-example="group" data-title="A group with a legend">
-  <fieldset class="gw-checkbox__group">
-    <legend class="gw-checkbox__legend">Checks to run after each change</legend>
-    <div class="gw-checkbox">
-      <input class="gw-checkbox__input" type="checkbox" id="checkbox-group-lint" name="checks" value="lint" checked>
-      <label class="gw-checkbox__label" for="checkbox-group-lint">Lint</label>
+  <fieldset class="ds-checkbox__group">
+    <legend class="ds-checkbox__legend">Checks to run after each change</legend>
+    <div class="ds-checkbox">
+      <input class="ds-checkbox__input" type="checkbox" id="checkbox-group-lint" name="checks" value="lint" checked>
+      <label class="ds-checkbox__label" for="checkbox-group-lint">Lint</label>
     </div>
-    <div class="gw-checkbox">
-      <input class="gw-checkbox__input" type="checkbox" id="checkbox-group-unit" name="checks" value="unit" checked>
-      <label class="gw-checkbox__label" for="checkbox-group-unit">Unit tests</label>
+    <div class="ds-checkbox">
+      <input class="ds-checkbox__input" type="checkbox" id="checkbox-group-unit" name="checks" value="unit" checked>
+      <label class="ds-checkbox__label" for="checkbox-group-unit">Unit tests</label>
     </div>
-    <div class="gw-checkbox">
-      <input class="gw-checkbox__input" type="checkbox" id="checkbox-group-integration" name="checks" value="integration" aria-describedby="checkbox-group-integration-description">
-      <label class="gw-checkbox__label" for="checkbox-group-integration">Integration tests</label>
-      <p class="gw-checkbox__description" id="checkbox-group-integration-description">About 6 minutes on acme/api. Needs Docker in the workspace.</p>
+    <div class="ds-checkbox">
+      <input class="ds-checkbox__input" type="checkbox" id="checkbox-group-integration" name="checks" value="integration" aria-describedby="checkbox-group-integration-description">
+      <label class="ds-checkbox__label" for="checkbox-group-integration">Integration tests</label>
+      <p class="ds-checkbox__description" id="checkbox-group-integration-description">About 6 minutes on acme/api. Needs Docker in the workspace.</p>
     </div>
   </fieldset>
 </div>
 
 <div data-example="indeterminate" data-title="Indeterminate" data-state="indeterminate">
-  <div class="gw-checkbox">
-    <input class="gw-checkbox__input" type="checkbox" id="checkbox-indeterminate-all" name="select-all" aria-describedby="checkbox-indeterminate-description">
-    <label class="gw-checkbox__label" for="checkbox-indeterminate-all">Select all runs</label>
-    <p class="gw-checkbox__description" id="checkbox-indeterminate-description">2 of 14 runs selected.</p>
+  <div class="ds-checkbox">
+    <input class="ds-checkbox__input" type="checkbox" id="checkbox-indeterminate-all" name="select-all" aria-describedby="checkbox-indeterminate-description">
+    <label class="ds-checkbox__label" for="checkbox-indeterminate-all">Select all runs</label>
+    <p class="ds-checkbox__description" id="checkbox-indeterminate-description">2 of 14 runs selected.</p>
   </div>
 </div>
 
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <div class="gw-stack gw-gap-xs">
-    <div class="gw-checkbox">
-      <input class="gw-checkbox__input" type="checkbox" id="checkbox-hover-lint" name="checks" value="lint">
-      <label class="gw-checkbox__label" for="checkbox-hover-lint">Lint</label>
+  <div class="ds-stack ds-gap-xs">
+    <div class="ds-checkbox">
+      <input class="ds-checkbox__input" type="checkbox" id="checkbox-hover-lint" name="checks" value="lint">
+      <label class="ds-checkbox__label" for="checkbox-hover-lint">Lint</label>
     </div>
-    <div class="gw-checkbox">
-      <input class="gw-checkbox__input" type="checkbox" id="checkbox-hover-unit" name="checks" value="unit" checked>
-      <label class="gw-checkbox__label" for="checkbox-hover-unit">Unit tests</label>
+    <div class="ds-checkbox">
+      <input class="ds-checkbox__input" type="checkbox" id="checkbox-hover-unit" name="checks" value="unit" checked>
+      <label class="ds-checkbox__label" for="checkbox-hover-unit">Unit tests</label>
     </div>
   </div>
 </div>
 
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <div class="gw-checkbox">
-    <input class="gw-checkbox__input" type="checkbox" id="checkbox-focus-draft" name="draft" checked>
-    <label class="gw-checkbox__label" for="checkbox-focus-draft">Open the pull request as a draft</label>
+  <div class="ds-checkbox">
+    <input class="ds-checkbox__input" type="checkbox" id="checkbox-focus-draft" name="draft" checked>
+    <label class="ds-checkbox__label" for="checkbox-focus-draft">Open the pull request as a draft</label>
   </div>
 </div>
 
 <div data-example="disabled" data-title="Disabled" data-state="disabled">
-  <fieldset class="gw-checkbox__group">
-    <legend class="gw-checkbox__legend">Branch protection</legend>
-    <div class="gw-checkbox">
-      <input class="gw-checkbox__input" type="checkbox" id="checkbox-disabled-force" name="protection" value="force-push" disabled aria-describedby="checkbox-disabled-force-description">
-      <label class="gw-checkbox__label" for="checkbox-disabled-force">Allow force-push to main</label>
-      <p class="gw-checkbox__description" id="checkbox-disabled-force-description">Only a repository owner can change this.</p>
+  <fieldset class="ds-checkbox__group">
+    <legend class="ds-checkbox__legend">Branch protection</legend>
+    <div class="ds-checkbox">
+      <input class="ds-checkbox__input" type="checkbox" id="checkbox-disabled-force" name="protection" value="force-push" disabled aria-describedby="checkbox-disabled-force-description">
+      <label class="ds-checkbox__label" for="checkbox-disabled-force">Allow force-push to main</label>
+      <p class="ds-checkbox__description" id="checkbox-disabled-force-description">Only a repository owner can change this.</p>
     </div>
-    <div class="gw-checkbox">
-      <input class="gw-checkbox__input" type="checkbox" id="checkbox-disabled-review" name="protection" value="review" checked disabled>
-      <label class="gw-checkbox__label" for="checkbox-disabled-review">Require a review before merging</label>
+    <div class="ds-checkbox">
+      <input class="ds-checkbox__input" type="checkbox" id="checkbox-disabled-review" name="protection" value="review" checked disabled>
+      <label class="ds-checkbox__label" for="checkbox-disabled-review">Require a review before merging</label>
     </div>
   </fieldset>
 </div>
 
 <div data-example="invalid" data-title="Invalid" data-state="invalid">
-  <div class="gw-checkbox">
-    <input class="gw-checkbox__input" type="checkbox" id="checkbox-invalid-read" name="confirm-read" required aria-invalid="true" aria-describedby="checkbox-invalid-error">
-    <label class="gw-checkbox__label" for="checkbox-invalid-read">I have read the 3 commits this will remove from main</label>
-    <p class="gw-checkbox__error" id="checkbox-invalid-error">Tick the box to confirm you have read the commits, then force-push again.</p>
+  <div class="ds-checkbox">
+    <input class="ds-checkbox__input" type="checkbox" id="checkbox-invalid-read" name="confirm-read" required aria-invalid="true" aria-describedby="checkbox-invalid-error">
+    <label class="ds-checkbox__label" for="checkbox-invalid-read">I have read the 3 commits this will remove from main</label>
+    <p class="ds-checkbox__error" id="checkbox-invalid-error">Tick the box to confirm you have read the commits, then force-push again.</p>
   </div>
 </div>
 
 <div data-example="unlinked-label" data-title="Text beside the box that is not its label" data-dont="review" data-reason="The words are a span, not a label tied to the input. A press on them does nothing, and a screen reader announces a checkbox with no name.">
-  <div class="gw-checkbox">
-    <input class="gw-checkbox__input" type="checkbox" name="draft">
-    <span class="gw-checkbox__label">Open the pull request as a draft</span>
+  <div class="ds-checkbox">
+    <input class="ds-checkbox__input" type="checkbox" name="draft">
+    <span class="ds-checkbox__label">Open the pull request as a draft</span>
   </div>
 </div>

@@ -15,7 +15,7 @@
   ],
   "variants": [
     { "name": "actions", "use": "The default, with no modifier class. Buttons stack at full width below 768px and form a row at the far end from 768px. Write them in the order they are read, with the primary button last." },
-    { "name": "attached", "class": "gw-button-group--attached", "use": "One row at every width, with shared borders and rounded outer corners only. For secondary buttons and icon buttons with short labels. It does not wrap, so keep it narrow enough for a phone." }
+    { "name": "attached", "class": "ds-button-group--attached", "use": "One row at every width, with shared borders and rounded outer corners only. For secondary buttons and icon buttons with short labels. It does not wrap, so keep it narrow enough for a phone." }
   ],
   "sizes": [],
   "states": ["default", "focus-visible", "disabled"],
@@ -27,5 +27,5 @@
     "In an attached group the focused button is drawn above its neighbours, so its focus ring is whole."
   ],
   "icons": ["chevron-left", "chevron-right"],
-  "classes": ["gw-button-group", "gw-button-group--attached"]
+  "classes": ["ds-button-group", "ds-button-group--attached"]
 }

@@ -15,31 +15,31 @@
   ],
   "variants": [
     { "name": "previous and next", "use": "The default: the status and the two buttons. The whole component at phone width." },
-    { "name": "numbered", "use": "Adds a gw-pagination__pages list between Previous and Next. It is shown at 768px and up, so the status must still say the position. Show the first page, the last, the current one and its neighbours, with a gw-pagination__gap where pages are left out, seven items at most." }
+    { "name": "numbered", "use": "Adds a ds-pagination__pages list between Previous and Next. It is shown at 768px and up, so the status must still say the position. Show the first page, the last, the current one and its neighbours, with a ds-pagination__gap where pages are left out, seven items at most." }
   ],
   "sizes": [
     { "name": "default", "use": "Every control is 44px tall and at least 44px wide. Below 768px the row is Previous, the status, Next. At 768px and up the status leads and the controls sit together at the far end." }
   ],
   "states": ["default", "current", "disabled", "hover", "focus-visible", "active"],
   "accessibility": [
-    "Use a nav element with an aria-label that says what is paged, such as Pages of runs. It holds the status and then gw-pagination__controls.",
-    "The status is a p with the gw-pagination__status class that reads Page 3 of 12. The app writes both numbers. It comes first in the markup and is drawn between the buttons at phone width.",
-    "Previous and Next are links with the gw-button class, plus gw-pagination__previous or gw-pagination__next, and rel=\"prev\" or rel=\"next\". Each has its word as text, then page in a gw-visually-hidden span, so its name is Previous page or Next page. The chevron is decoration and carries aria-hidden=\"true\".",
+    "Use a nav element with an aria-label that says what is paged, such as Pages of runs. It holds the status and then ds-pagination__controls.",
+    "The status is a p with the ds-pagination__status class that reads Page 3 of 12. The app writes both numbers. It comes first in the markup and is drawn between the buttons at phone width.",
+    "Previous and Next are links with the ds-button class, plus ds-pagination__previous or ds-pagination__next, and rel=\"prev\" or rel=\"next\". Each has its word as text, then page in a ds-visually-hidden span, so its name is Previous page or Next page. The chevron is decoration and carries aria-hidden=\"true\".",
     "On the first page Previous has no href, and takes role=\"link\" and aria-disabled=\"true\". On the last page Next does. It stays in place so the buttons do not move, is announced as unavailable, and is not a tab stop.",
     "When the app pages in place with script instead of addresses, use button elements with the same classes and the disabled attribute at the ends, then move focus to the heading of the list after each change.",
-    "A numbered page is a link with the gw-pagination__page class inside an li, holding Page in a gw-visually-hidden span and then the number. Set aria-current=\"page\" on the current one, which draws its border and heavier number. A gap is an li with the gw-pagination__gap class and aria-hidden=\"true\".",
+    "A numbered page is a link with the ds-pagination__page class inside an li, holding Page in a ds-visually-hidden span and then the number. Set aria-current=\"page\" on the current one, which draws its border and heavier number. A gap is an li with the ds-pagination__gap class and aria-hidden=\"true\".",
     "Tab moves through the controls in order and Enter follows one. Both come from the link element.",
     "The component needs no script."
   ],
   "icons": ["chevron-left", "chevron-right"],
   "classes": [
-    "gw-pagination",
-    "gw-pagination__controls",
-    "gw-pagination__gap",
-    "gw-pagination__next",
-    "gw-pagination__page",
-    "gw-pagination__pages",
-    "gw-pagination__previous",
-    "gw-pagination__status"
+    "ds-pagination",
+    "ds-pagination__controls",
+    "ds-pagination__gap",
+    "ds-pagination__next",
+    "ds-pagination__page",
+    "ds-pagination__pages",
+    "ds-pagination__previous",
+    "ds-pagination__status"
   ]
 }

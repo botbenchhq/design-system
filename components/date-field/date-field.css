@@ -1,28 +1,28 @@
 /*
  * Date field: a native date or date and time input as the control of a field. The input also
- * carries gw-field__control, which draws the border, the fill and the invalid, read-only and
+ * carries ds-field__control, which draws the border, the fill and the invalid, read-only and
  * disabled states. The browser supplies the calendar, the segments and their keys.
  *
  * This stylesheet is bundled before the field's, so it sets only properties the field leaves alone.
  */
 
-@layer gw.components {
+@layer ds.components {
   /*
    * A date is short, so the control is no wider than five pointer targets, because there is no token
    * for a control's width. Without the native appearance, iOS keeps the field's height and border.
    */
-  .gw-date-field {
+  .ds-date-field {
     appearance: none;
-    max-width: calc(var(--gw-size-touch) * 5);
+    max-width: calc(var(--ds-size-touch) * 5);
     font-variant-numeric: tabular-nums;
   }
 
-  .gw-date-field[type="datetime-local"] {
-    max-width: calc(var(--gw-size-touch) * 6.5);
+  .ds-date-field[type="datetime-local"] {
+    max-width: calc(var(--ds-size-touch) * 6.5);
   }
 
   /* iOS centres the value. It starts where every other field's text starts. */
-  .gw-date-field::-webkit-date-and-time-value {
+  .ds-date-field::-webkit-date-and-time-value {
     text-align: start;
   }
 
@@ -30,15 +30,15 @@
    * The button that opens the calendar. The padding widens its pointer target and the
    * negative margins give the room back, so the control stays one target tall.
    */
-  .gw-date-field::-webkit-calendar-picker-indicator {
-    margin-block: calc(var(--gw-space-md) * -1);
-    margin-inline: 0 calc(var(--gw-space-md) * -1);
-    padding: var(--gw-space-md);
-    border-radius: var(--gw-radius-sm);
+  .ds-date-field::-webkit-calendar-picker-indicator {
+    margin-block: calc(var(--ds-space-md) * -1);
+    margin-inline: 0 calc(var(--ds-space-md) * -1);
+    padding: var(--ds-space-md);
+    border-radius: var(--ds-radius-sm);
     cursor: pointer;
   }
 
-  .gw-date-field:disabled::-webkit-calendar-picker-indicator {
+  .ds-date-field:disabled::-webkit-calendar-picker-indicator {
     cursor: default;
   }
 }

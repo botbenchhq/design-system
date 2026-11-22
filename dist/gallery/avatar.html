@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Avatar - Groundwork gallery</title>
-<link rel="stylesheet" href="../groundwork.css">
+<title>Avatar - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -26,17 +26,17 @@
 </header>
 <section>
 <h2>Examples</h2>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Initials, with the name beside the mark</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Initials, with the name beside the mark</h3>
 <p data-gallery="state">State: <code>default</code></p>
 <p>The name is written out next to the mark, so nobody has to work out who MO is, and the mark is hidden from a screen reader so the name is read once. The mark is a plain square on a flat surface.</p>
 </figcaption>
 <div data-example="default" data-title="Initials, with the name beside the mark" data-state="default" data-reason="The name is written out next to the mark, so nobody has to work out who MO is, and the mark is hidden from a screen reader so the name is read once. The mark is a plain square on a flat surface.">
-  <span class="gw-avatar">
-    <span class="gw-avatar__mark" aria-hidden="true">MO</span>
-    <span class="gw-avatar__name">Maya Okafor</span>
+  <span class="ds-avatar">
+    <span class="ds-avatar__mark" aria-hidden="true">MO</span>
+    <span class="ds-avatar__name">Maya Okafor</span>
   </span>
 </div>
 </figure>
@@ -45,11 +45,11 @@
 <h3>An icon, for an agent</h3>
 </figcaption>
 <div data-example="agent" data-title="An icon, for an agent">
-  <span class="gw-avatar">
-    <span class="gw-avatar__mark" aria-hidden="true">
-      <svg class="gw-avatar__icon"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+  <span class="ds-avatar">
+    <span class="ds-avatar__mark" aria-hidden="true">
+      <svg class="ds-avatar__icon"><use href="../icons.svg#ds-icon-terminal"></use></svg>
     </span>
-    <span class="gw-avatar__name">Claude Code, implementer</span>
+    <span class="ds-avatar__name">Claude Code, implementer</span>
   </span>
 </div>
 </figure>
@@ -58,9 +58,9 @@
 <h3>An image, with an empty alt because the name is beside it</h3>
 </figcaption>
 <div data-example="image" data-title="An image, with an empty alt because the name is beside it">
-  <span class="gw-avatar">
-    <img class="gw-avatar__mark" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d8d3c8'/%3E%3Ccircle cx='16' cy='12' r='6' fill='%235c5850'/%3E%3Cpath d='M3 34a13 13 0 0 1 26 0z' fill='%235c5850'/%3E%3C/svg%3E" alt="" width="32" height="32">
-    <span class="gw-avatar__name">Tomás Reyes</span>
+  <span class="ds-avatar">
+    <img class="ds-avatar__mark" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d8d3c8'/%3E%3Ccircle cx='16' cy='12' r='6' fill='%235c5850'/%3E%3Cpath d='M3 34a13 13 0 0 1 26 0z' fill='%235c5850'/%3E%3C/svg%3E" alt="" width="32" height="32">
+    <span class="ds-avatar__name">Tomás Reyes</span>
   </span>
 </div>
 </figure>
@@ -69,20 +69,20 @@
 <h3>Small, for a dense row or a line of text</h3>
 </figcaption>
 <div data-example="small" data-title="Small, for a dense row or a line of text">
-  <div class="gw-stack gw-gap-sm">
-    <span class="gw-avatar gw-avatar--small">
-      <span class="gw-avatar__mark" aria-hidden="true">MO</span>
-      <span class="gw-avatar__name">Maya Okafor</span>
+  <div class="ds-stack ds-gap-sm">
+    <span class="ds-avatar ds-avatar--small">
+      <span class="ds-avatar__mark" aria-hidden="true">MO</span>
+      <span class="ds-avatar__name">Maya Okafor</span>
     </span>
-    <span class="gw-avatar gw-avatar--small">
-      <span class="gw-avatar__mark" aria-hidden="true">
-        <svg class="gw-avatar__icon"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+    <span class="ds-avatar ds-avatar--small">
+      <span class="ds-avatar__mark" aria-hidden="true">
+        <svg class="ds-avatar__icon"><use href="../icons.svg#ds-icon-terminal"></use></svg>
       </span>
-      <span class="gw-avatar__name">Claude Code, reviewer</span>
+      <span class="ds-avatar__name">Claude Code, reviewer</span>
     </span>
-    <span class="gw-avatar gw-avatar--small">
-      <img class="gw-avatar__mark" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d8d3c8'/%3E%3Ccircle cx='16' cy='12' r='6' fill='%235c5850'/%3E%3Cpath d='M3 34a13 13 0 0 1 26 0z' fill='%235c5850'/%3E%3C/svg%3E" alt="" width="24" height="24">
-      <span class="gw-avatar__name">Tomás Reyes</span>
+    <span class="ds-avatar ds-avatar--small">
+      <img class="ds-avatar__mark" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d8d3c8'/%3E%3Ccircle cx='16' cy='12' r='6' fill='%235c5850'/%3E%3Cpath d='M3 34a13 13 0 0 1 26 0z' fill='%235c5850'/%3E%3C/svg%3E" alt="" width="24" height="24">
+      <span class="ds-avatar__name">Tomás Reyes</span>
     </span>
   </div>
 </div>
@@ -92,12 +92,12 @@
 <h3>A mark with no visible name, named for a screen reader</h3>
 </figcaption>
 <div data-example="mark-only" data-title="A mark with no visible name, named for a screen reader">
-  <div class="gw-cluster">
-    <span class="gw-avatar">
-      <span class="gw-avatar__mark" role="img" aria-label="Maya Okafor">MO</span>
+  <div class="ds-cluster">
+    <span class="ds-avatar">
+      <span class="ds-avatar__mark" role="img" aria-label="Maya Okafor">MO</span>
     </span>
-    <span class="gw-avatar">
-      <img class="gw-avatar__mark" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d8d3c8'/%3E%3Ccircle cx='16' cy='12' r='6' fill='%235c5850'/%3E%3Cpath d='M3 34a13 13 0 0 1 26 0z' fill='%235c5850'/%3E%3C/svg%3E" alt="Tomás Reyes" width="32" height="32">
+    <span class="ds-avatar">
+      <img class="ds-avatar__mark" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d8d3c8'/%3E%3Ccircle cx='16' cy='12' r='6' fill='%235c5850'/%3E%3Cpath d='M3 34a13 13 0 0 1 26 0z' fill='%235c5850'/%3E%3C/svg%3E" alt="Tomás Reyes" width="32" height="32">
     </span>
     <p>approved task 41</p>
   </div>
@@ -105,21 +105,21 @@
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Marks alone, with no names anywhere</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Marks alone, with no names anywhere</h3>
 <p>Initials do not identify anyone to a new teammate, two people can share them, and with no name and no label a screen reader reads letters or nothing. Show the name beside the mark unless it is already written right next to it.</p>
 <p>Caught in review, not by the checker.</p>
 </figcaption>
 <div data-example="initials-only" data-title="Marks alone, with no names anywhere" data-dont="review" data-reason="Initials do not identify anyone to a new teammate, two people can share them, and with no name and no label a screen reader reads letters or nothing. Show the name beside the mark unless it is already written right next to it.">
-  <div class="gw-cluster">
-    <span class="gw-avatar"><span class="gw-avatar__mark">MO</span></span>
-    <span class="gw-avatar"><span class="gw-avatar__mark">TR</span></span>
-    <span class="gw-avatar"><span class="gw-avatar__mark">MO</span></span>
+  <div class="ds-cluster">
+    <span class="ds-avatar"><span class="ds-avatar__mark">MO</span></span>
+    <span class="ds-avatar"><span class="ds-avatar__mark">TR</span></span>
+    <span class="ds-avatar"><span class="ds-avatar__mark">MO</span></span>
   </div>
 </div>
 </figure>
 </div>
 </section>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
@@ -141,11 +141,11 @@
 <h2>Variants</h2>
 <dl>
 <dt>initials</dt>
-<dd>The default. One or two capital letters in a span with the class gw-avatar__mark.</dd>
+<dd>The default. One or two capital letters in a span with the class ds-avatar__mark.</dd>
 <dt>icon</dt>
-<dd>An svg with the class gw-avatar__icon inside the mark, for an agent or a system actor.</dd>
+<dd>An svg with the class ds-avatar__icon inside the mark, for an agent or a system actor.</dd>
 <dt>image</dt>
-<dd>An img with the class gw-avatar__mark in place of the span. It needs an alt attribute, width and height. The picture is cropped to the square.</dd>
+<dd>An img with the class ds-avatar__mark in place of the span. It needs an alt attribute, width and height. The picture is cropped to the square.</dd>
 </dl>
 </section>
 <section>
@@ -153,14 +153,14 @@
 <dl>
 <dt>default</dt>
 <dd>A 32px mark with the name in medium weight.</dd>
-<dt>small <code>gw-avatar--small</code></dt>
+<dt>small <code>ds-avatar--small</code></dt>
 <dd>A 24px mark with the name at normal weight, for dense rows and lines of text.</dd>
 </dl>
 </section>
 <section>
 <h2>Accessibility</h2>
 <ul>
-<li>Use a span with the class gw-avatar holding the mark and then the name in a span with the class gw-avatar__name. The name is visible by default and is what a screen reader reads.</li>
+<li>Use a span with the class ds-avatar holding the mark and then the name in a span with the class ds-avatar__name. The name is visible by default and is what a screen reader reads.</li>
 <li>Beside a visible name the mark is decoration: give a span mark aria-hidden=&quot;true&quot;, and an image mark alt=&quot;&quot;. The alt attribute is always present on an img.</li>
 <li>With no visible name, the mark must carry the name: role=&quot;img&quot; and aria-label on a span mark, or the name as the alt text of an image mark.</li>
 <li>Say what kind of actor it is in words when it matters, such as Claude Code, implementer. The icon alone does not say it.</li>
@@ -172,11 +172,11 @@
 <section>
 <h2>Classes</h2>
 <ul>
-<li><code>gw-avatar</code></li>
-<li><code>gw-avatar--small</code></li>
-<li><code>gw-avatar__icon</code></li>
-<li><code>gw-avatar__mark</code></li>
-<li><code>gw-avatar__name</code></li>
+<li><code>ds-avatar</code></li>
+<li><code>ds-avatar--small</code></li>
+<li><code>ds-avatar__icon</code></li>
+<li><code>ds-avatar__mark</code></li>
+<li><code>ds-avatar__name</code></li>
 </ul>
 </section>
 </div>

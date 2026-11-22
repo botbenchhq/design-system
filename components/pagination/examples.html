@@ -1,108 +1,108 @@
 <div data-example="default" data-title="Previous, position and next" data-state="default" data-reason="The position is written in words with its total, so the reader knows how much is left, and Previous and Next are named in text. At phone width this is the whole component.">
-  <nav class="gw-pagination" aria-label="Pages of runs">
-    <p class="gw-pagination__status">Page 3 of 12</p>
-    <div class="gw-pagination__controls">
-      <a class="gw-button gw-pagination__previous" href="/runs?page=2" rel="prev">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
-        Previous<span class="gw-visually-hidden"> page</span>
+  <nav class="ds-pagination" aria-label="Pages of runs">
+    <p class="ds-pagination__status">Page 3 of 12</p>
+    <div class="ds-pagination__controls">
+      <a class="ds-button ds-pagination__previous" href="/runs?page=2" rel="prev">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-left"></use></svg>
+        Previous<span class="ds-visually-hidden"> page</span>
       </a>
-      <a class="gw-button gw-pagination__next" href="/runs?page=4" rel="next">
-        Next<span class="gw-visually-hidden"> page</span>
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-right"></use></svg>
+      <a class="ds-button ds-pagination__next" href="/runs?page=4" rel="next">
+        Next<span class="ds-visually-hidden"> page</span>
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-right"></use></svg>
       </a>
     </div>
   </nav>
 </div>
 
 <div data-example="numbered" data-title="With numbered pages, shown at 768px and up" data-state="current">
-  <nav class="gw-pagination" aria-label="Pages of tasks">
-    <p class="gw-pagination__status">Page 3 of 12</p>
-    <div class="gw-pagination__controls">
-      <a class="gw-button gw-pagination__previous" href="/tasks?page=2" rel="prev">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
-        Previous<span class="gw-visually-hidden"> page</span>
+  <nav class="ds-pagination" aria-label="Pages of tasks">
+    <p class="ds-pagination__status">Page 3 of 12</p>
+    <div class="ds-pagination__controls">
+      <a class="ds-button ds-pagination__previous" href="/tasks?page=2" rel="prev">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-left"></use></svg>
+        Previous<span class="ds-visually-hidden"> page</span>
       </a>
-      <ol class="gw-pagination__pages">
-        <li><a class="gw-pagination__page" href="/tasks?page=1"><span class="gw-visually-hidden">Page </span>1</a></li>
-        <li><a class="gw-pagination__page" href="/tasks?page=2"><span class="gw-visually-hidden">Page </span>2</a></li>
-        <li><a class="gw-pagination__page" href="/tasks?page=3" aria-current="page"><span class="gw-visually-hidden">Page </span>3</a></li>
-        <li><a class="gw-pagination__page" href="/tasks?page=4"><span class="gw-visually-hidden">Page </span>4</a></li>
-        <li class="gw-pagination__gap" aria-hidden="true">…</li>
-        <li><a class="gw-pagination__page" href="/tasks?page=12"><span class="gw-visually-hidden">Page </span>12</a></li>
+      <ol class="ds-pagination__pages">
+        <li><a class="ds-pagination__page" href="/tasks?page=1"><span class="ds-visually-hidden">Page </span>1</a></li>
+        <li><a class="ds-pagination__page" href="/tasks?page=2"><span class="ds-visually-hidden">Page </span>2</a></li>
+        <li><a class="ds-pagination__page" href="/tasks?page=3" aria-current="page"><span class="ds-visually-hidden">Page </span>3</a></li>
+        <li><a class="ds-pagination__page" href="/tasks?page=4"><span class="ds-visually-hidden">Page </span>4</a></li>
+        <li class="ds-pagination__gap" aria-hidden="true">…</li>
+        <li><a class="ds-pagination__page" href="/tasks?page=12"><span class="ds-visually-hidden">Page </span>12</a></li>
       </ol>
-      <a class="gw-button gw-pagination__next" href="/tasks?page=4" rel="next">
-        Next<span class="gw-visually-hidden"> page</span>
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-right"></use></svg>
+      <a class="ds-button ds-pagination__next" href="/tasks?page=4" rel="next">
+        Next<span class="ds-visually-hidden"> page</span>
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-right"></use></svg>
       </a>
     </div>
   </nav>
 </div>
 
 <div data-example="first-page" data-title="First page: Previous is unavailable" data-state="disabled">
-  <nav class="gw-pagination" aria-label="Pages of branches">
-    <p class="gw-pagination__status">Page 1 of 12</p>
-    <div class="gw-pagination__controls">
-      <a class="gw-button gw-pagination__previous" role="link" aria-disabled="true">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
-        Previous<span class="gw-visually-hidden"> page</span>
+  <nav class="ds-pagination" aria-label="Pages of branches">
+    <p class="ds-pagination__status">Page 1 of 12</p>
+    <div class="ds-pagination__controls">
+      <a class="ds-button ds-pagination__previous" role="link" aria-disabled="true">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-left"></use></svg>
+        Previous<span class="ds-visually-hidden"> page</span>
       </a>
-      <a class="gw-button gw-pagination__next" href="/branches?page=2" rel="next">
-        Next<span class="gw-visually-hidden"> page</span>
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-right"></use></svg>
+      <a class="ds-button ds-pagination__next" href="/branches?page=2" rel="next">
+        Next<span class="ds-visually-hidden"> page</span>
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-right"></use></svg>
       </a>
     </div>
   </nav>
 </div>
 
 <div data-example="last-page" data-title="Last page: Next is unavailable">
-  <nav class="gw-pagination" aria-label="Pages of approvals">
-    <p class="gw-pagination__status">Page 5 of 5</p>
-    <div class="gw-pagination__controls">
-      <a class="gw-button gw-pagination__previous" href="/approvals?page=4" rel="prev">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
-        Previous<span class="gw-visually-hidden"> page</span>
+  <nav class="ds-pagination" aria-label="Pages of approvals">
+    <p class="ds-pagination__status">Page 5 of 5</p>
+    <div class="ds-pagination__controls">
+      <a class="ds-button ds-pagination__previous" href="/approvals?page=4" rel="prev">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-left"></use></svg>
+        Previous<span class="ds-visually-hidden"> page</span>
       </a>
-      <ol class="gw-pagination__pages">
-        <li><a class="gw-pagination__page" href="/approvals?page=1"><span class="gw-visually-hidden">Page </span>1</a></li>
-        <li><a class="gw-pagination__page" href="/approvals?page=2"><span class="gw-visually-hidden">Page </span>2</a></li>
-        <li><a class="gw-pagination__page" href="/approvals?page=3"><span class="gw-visually-hidden">Page </span>3</a></li>
-        <li><a class="gw-pagination__page" href="/approvals?page=4"><span class="gw-visually-hidden">Page </span>4</a></li>
-        <li><a class="gw-pagination__page" href="/approvals?page=5" aria-current="page"><span class="gw-visually-hidden">Page </span>5</a></li>
+      <ol class="ds-pagination__pages">
+        <li><a class="ds-pagination__page" href="/approvals?page=1"><span class="ds-visually-hidden">Page </span>1</a></li>
+        <li><a class="ds-pagination__page" href="/approvals?page=2"><span class="ds-visually-hidden">Page </span>2</a></li>
+        <li><a class="ds-pagination__page" href="/approvals?page=3"><span class="ds-visually-hidden">Page </span>3</a></li>
+        <li><a class="ds-pagination__page" href="/approvals?page=4"><span class="ds-visually-hidden">Page </span>4</a></li>
+        <li><a class="ds-pagination__page" href="/approvals?page=5" aria-current="page"><span class="ds-visually-hidden">Page </span>5</a></li>
       </ol>
-      <a class="gw-button gw-pagination__next" role="link" aria-disabled="true">
-        Next<span class="gw-visually-hidden"> page</span>
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-right"></use></svg>
+      <a class="ds-button ds-pagination__next" role="link" aria-disabled="true">
+        Next<span class="ds-visually-hidden"> page</span>
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-right"></use></svg>
       </a>
     </div>
   </nav>
 </div>
 
 <div data-example="with-list" data-title="Under the list it pages">
-  <div class="gw-stack">
-    <ul class="gw-list">
-      <li class="gw-list__row">
-        <a class="gw-list__link" href="/runs/4161">
-          <span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">fix/login-timeout</span></span>
-          <span class="gw-list__meta">Run 4161</span>
+  <div class="ds-stack">
+    <ul class="ds-list">
+      <li class="ds-list__row">
+        <a class="ds-list__link" href="/runs/4161">
+          <span class="ds-list__body"><span class="ds-list__primary">Refuse a session token older than 30 minutes</span><span class="ds-list__secondary">fix/login-timeout</span></span>
+          <span class="ds-list__meta">Run 4161</span>
         </a>
       </li>
-      <li class="gw-list__row">
-        <a class="gw-list__link" href="/runs/4160">
-          <span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">feat/webhook-rate-limit</span></span>
-          <span class="gw-list__meta">Run 4160</span>
+      <li class="ds-list__row">
+        <a class="ds-list__link" href="/runs/4160">
+          <span class="ds-list__body"><span class="ds-list__primary">Limit webhook deliveries to 20 a second</span><span class="ds-list__secondary">feat/webhook-rate-limit</span></span>
+          <span class="ds-list__meta">Run 4160</span>
         </a>
       </li>
     </ul>
-    <nav class="gw-pagination" aria-label="Pages of finished runs">
-      <p class="gw-pagination__status">Page 2 of 9</p>
-      <div class="gw-pagination__controls">
-        <a class="gw-button gw-pagination__previous" href="/runs/finished?page=1" rel="prev">
-          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
-          Previous<span class="gw-visually-hidden"> page</span>
+    <nav class="ds-pagination" aria-label="Pages of finished runs">
+      <p class="ds-pagination__status">Page 2 of 9</p>
+      <div class="ds-pagination__controls">
+        <a class="ds-button ds-pagination__previous" href="/runs/finished?page=1" rel="prev">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-left"></use></svg>
+          Previous<span class="ds-visually-hidden"> page</span>
         </a>
-        <a class="gw-button gw-pagination__next" href="/runs/finished?page=3" rel="next">
-          Next<span class="gw-visually-hidden"> page</span>
-          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-right"></use></svg>
+        <a class="ds-button ds-pagination__next" href="/runs/finished?page=3" rel="next">
+          Next<span class="ds-visually-hidden"> page</span>
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-right"></use></svg>
         </a>
       </div>
     </nav>
@@ -110,80 +110,80 @@
 </div>
 
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <nav class="gw-pagination" aria-label="Pages of workspaces">
-    <p class="gw-pagination__status">Page 2 of 4</p>
-    <div class="gw-pagination__controls">
-      <a class="gw-button gw-pagination__previous" href="/workspaces?page=1" rel="prev">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
-        Previous<span class="gw-visually-hidden"> page</span>
+  <nav class="ds-pagination" aria-label="Pages of workspaces">
+    <p class="ds-pagination__status">Page 2 of 4</p>
+    <div class="ds-pagination__controls">
+      <a class="ds-button ds-pagination__previous" href="/workspaces?page=1" rel="prev">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-left"></use></svg>
+        Previous<span class="ds-visually-hidden"> page</span>
       </a>
-      <ol class="gw-pagination__pages">
-        <li><a class="gw-pagination__page" href="/workspaces?page=1"><span class="gw-visually-hidden">Page </span>1</a></li>
-        <li><a class="gw-pagination__page" href="/workspaces?page=2" aria-current="page"><span class="gw-visually-hidden">Page </span>2</a></li>
-        <li><a class="gw-pagination__page" href="/workspaces?page=3"><span class="gw-visually-hidden">Page </span>3</a></li>
-        <li><a class="gw-pagination__page" href="/workspaces?page=4"><span class="gw-visually-hidden">Page </span>4</a></li>
+      <ol class="ds-pagination__pages">
+        <li><a class="ds-pagination__page" href="/workspaces?page=1"><span class="ds-visually-hidden">Page </span>1</a></li>
+        <li><a class="ds-pagination__page" href="/workspaces?page=2" aria-current="page"><span class="ds-visually-hidden">Page </span>2</a></li>
+        <li><a class="ds-pagination__page" href="/workspaces?page=3"><span class="ds-visually-hidden">Page </span>3</a></li>
+        <li><a class="ds-pagination__page" href="/workspaces?page=4"><span class="ds-visually-hidden">Page </span>4</a></li>
       </ol>
-      <a class="gw-button gw-pagination__next" href="/workspaces?page=3" rel="next">
-        Next<span class="gw-visually-hidden"> page</span>
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-right"></use></svg>
+      <a class="ds-button ds-pagination__next" href="/workspaces?page=3" rel="next">
+        Next<span class="ds-visually-hidden"> page</span>
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-right"></use></svg>
       </a>
     </div>
   </nav>
 </div>
 
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <nav class="gw-pagination" aria-label="Pages of repositories">
-    <p class="gw-pagination__status">Page 2 of 4</p>
-    <div class="gw-pagination__controls">
-      <a class="gw-button gw-pagination__previous" href="/repositories?page=1" rel="prev">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
-        Previous<span class="gw-visually-hidden"> page</span>
+  <nav class="ds-pagination" aria-label="Pages of repositories">
+    <p class="ds-pagination__status">Page 2 of 4</p>
+    <div class="ds-pagination__controls">
+      <a class="ds-button ds-pagination__previous" href="/repositories?page=1" rel="prev">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-left"></use></svg>
+        Previous<span class="ds-visually-hidden"> page</span>
       </a>
-      <ol class="gw-pagination__pages">
-        <li><a class="gw-pagination__page" href="/repositories?page=1"><span class="gw-visually-hidden">Page </span>1</a></li>
-        <li><a class="gw-pagination__page" href="/repositories?page=2" aria-current="page"><span class="gw-visually-hidden">Page </span>2</a></li>
-        <li><a class="gw-pagination__page" href="/repositories?page=3"><span class="gw-visually-hidden">Page </span>3</a></li>
-        <li><a class="gw-pagination__page" href="/repositories?page=4"><span class="gw-visually-hidden">Page </span>4</a></li>
+      <ol class="ds-pagination__pages">
+        <li><a class="ds-pagination__page" href="/repositories?page=1"><span class="ds-visually-hidden">Page </span>1</a></li>
+        <li><a class="ds-pagination__page" href="/repositories?page=2" aria-current="page"><span class="ds-visually-hidden">Page </span>2</a></li>
+        <li><a class="ds-pagination__page" href="/repositories?page=3"><span class="ds-visually-hidden">Page </span>3</a></li>
+        <li><a class="ds-pagination__page" href="/repositories?page=4"><span class="ds-visually-hidden">Page </span>4</a></li>
       </ol>
-      <a class="gw-button gw-pagination__next" href="/repositories?page=3" rel="next">
-        Next<span class="gw-visually-hidden"> page</span>
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-right"></use></svg>
+      <a class="ds-button ds-pagination__next" href="/repositories?page=3" rel="next">
+        Next<span class="ds-visually-hidden"> page</span>
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-right"></use></svg>
       </a>
     </div>
   </nav>
 </div>
 
 <div data-example="active" data-title="Pressed" data-state="active">
-  <nav class="gw-pagination" aria-label="Pages of commits">
-    <p class="gw-pagination__status">Page 2 of 4</p>
-    <div class="gw-pagination__controls">
-      <a class="gw-button gw-pagination__previous" href="/commits?page=1" rel="prev">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
-        Previous<span class="gw-visually-hidden"> page</span>
+  <nav class="ds-pagination" aria-label="Pages of commits">
+    <p class="ds-pagination__status">Page 2 of 4</p>
+    <div class="ds-pagination__controls">
+      <a class="ds-button ds-pagination__previous" href="/commits?page=1" rel="prev">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-left"></use></svg>
+        Previous<span class="ds-visually-hidden"> page</span>
       </a>
-      <ol class="gw-pagination__pages">
-        <li><a class="gw-pagination__page" href="/commits?page=1"><span class="gw-visually-hidden">Page </span>1</a></li>
-        <li><a class="gw-pagination__page" href="/commits?page=2" aria-current="page"><span class="gw-visually-hidden">Page </span>2</a></li>
-        <li><a class="gw-pagination__page" href="/commits?page=3"><span class="gw-visually-hidden">Page </span>3</a></li>
-        <li><a class="gw-pagination__page" href="/commits?page=4"><span class="gw-visually-hidden">Page </span>4</a></li>
+      <ol class="ds-pagination__pages">
+        <li><a class="ds-pagination__page" href="/commits?page=1"><span class="ds-visually-hidden">Page </span>1</a></li>
+        <li><a class="ds-pagination__page" href="/commits?page=2" aria-current="page"><span class="ds-visually-hidden">Page </span>2</a></li>
+        <li><a class="ds-pagination__page" href="/commits?page=3"><span class="ds-visually-hidden">Page </span>3</a></li>
+        <li><a class="ds-pagination__page" href="/commits?page=4"><span class="ds-visually-hidden">Page </span>4</a></li>
       </ol>
-      <a class="gw-button gw-pagination__next" href="/commits?page=3" rel="next">
-        Next<span class="gw-visually-hidden"> page</span>
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-right"></use></svg>
+      <a class="ds-button ds-pagination__next" href="/commits?page=3" rel="next">
+        Next<span class="ds-visually-hidden"> page</span>
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-right"></use></svg>
       </a>
     </div>
   </nav>
 </div>
 
 <div data-example="arrows-and-numbers" data-title="Arrows with no words and a bare count" data-dont="review" data-reason="An arrow alone has no name for a screen reader, and 3 / 12 does not say of what. Write Previous and Next as text and the position as Page 3 of 12.">
-  <nav class="gw-pagination" aria-label="Pages of pull requests">
-    <p class="gw-pagination__status">3 / 12</p>
-    <div class="gw-pagination__controls">
-      <a class="gw-button gw-pagination__previous" href="/pulls?page=2">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
+  <nav class="ds-pagination" aria-label="Pages of pull requests">
+    <p class="ds-pagination__status">3 / 12</p>
+    <div class="ds-pagination__controls">
+      <a class="ds-button ds-pagination__previous" href="/pulls?page=2">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-left"></use></svg>
       </a>
-      <a class="gw-button gw-pagination__next" href="/pulls?page=4">
-        <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-right"></use></svg>
+      <a class="ds-button ds-pagination__next" href="/pulls?page=4">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-right"></use></svg>
       </a>
     </div>
   </nav>

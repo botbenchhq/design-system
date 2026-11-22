@@ -19,52 +19,52 @@
     },
     {
       "name": "session-start",
-      "class": "gw-message--session-start",
+      "class": "ds-message--session-start",
       "use": "A quiet first row saying that the session started, and where: the branch, the directory, the agent. Label it Session."
     },
     {
       "name": "user",
-      "class": "gw-message--user",
+      "class": "ds-message--user",
       "use": "A prompt the reader sent. Label it You."
     },
     {
       "name": "question",
-      "class": "gw-message--question",
+      "class": "ds-message--question",
       "use": "A question the agent asks the reader, when the run waits on the answer. Label it Question, waiting on you, and once it is answered label it Question and show the answer as the next user row. A request for permission to run something is not a question: use an approval."
     },
     {
       "name": "tool-call",
-      "class": "gw-message--tool-call",
-      "use": "A tool the agent was asked to run. The row holds one thing: the tool call component with its row modifier, gw-tool-call gw-tool-call--row, and its data-state. That component draws the status, the plain summary written as what was done and not as raw JSON, the time, the agent's reason and the disclosure with the arguments and the output. This is the one way to show a tool call in a transcript. A row written the earlier way, with gw-message__label, gw-message__tool, gw-message__command and a gw-message__details element, is still drawn."
+      "class": "ds-message--tool-call",
+      "use": "A tool the agent was asked to run. The row holds one thing: the tool call component with its row modifier, ds-tool-call ds-tool-call--row, and its data-state. That component draws the status, the plain summary written as what was done and not as raw JSON, the time, the agent's reason and the disclosure with the arguments and the output. This is the one way to show a tool call in a transcript. A row written the earlier way, with ds-message__label, ds-message__tool, ds-message__command and a ds-message__details element, is still drawn."
     },
     {
       "name": "tool-result",
-      "class": "gw-message--tool-result",
+      "class": "ds-message--tool-result",
       "use": "What a tool returned, as a row of its own. A call shown with the tool call component keeps its output inside its own details, so a new transcript does not need this row. It stays for a result shown apart from its call: show the first lines, and put the rest in a details element whose summary reads Show full output."
     },
     {
       "name": "decision",
-      "class": "gw-message--decision",
-      "use": "A permission request that was resolved. The label says how, in words beside an icon from the sprite in gw-message__icon: Allowed with check, Declined with x, Pre-approved with circle-check for a command on the task's approved list, or Allowed by a standing permission with circle-check. Then the tool and the command, then one sentence saying by whom and when: who allowed or declined it and their note, who set the approved list, or who granted the standing permission. For the last two, say that nobody was asked."
+      "class": "ds-message--decision",
+      "use": "A permission request that was resolved. The label says how, in words beside an icon from the sprite in ds-message__icon: Allowed with check, Declined with x, Pre-approved with circle-check for a command on the task's approved list, or Allowed by a standing permission with circle-check. Then the tool and the command, then one sentence saying by whom and when: who allowed or declined it and their note, who set the approved list, or who granted the standing permission. For the last two, say that nobody was asked."
     },
     {
       "name": "denied",
-      "class": "gw-message--denied",
+      "class": "ds-message--denied",
       "use": "A call the permission rules refused without asking. Say what was not run and why. For a request a person declined, use the decision row."
     },
     {
       "name": "error",
-      "class": "gw-message--error",
+      "class": "ds-message--error",
       "use": "Something that failed: a tool that crashed, a lost connection, a limit reached. Say what failed, what state the work is in and what to do next. It is not for a refused call, which is the denied row."
     },
     {
       "name": "usage",
-      "class": "gw-message--usage",
+      "class": "ds-message--usage",
       "use": "A quiet line of figures for the turn, such as tokens and duration."
     },
     {
       "name": "turn-end",
-      "class": "gw-message--turn-end",
+      "class": "ds-message--turn-end",
       "use": "A quiet closing row under a rule, saying that the turn finished and how: completed, stopped or ended with an error."
     }
   ],
@@ -82,10 +82,10 @@
   ],
   "accessibility": [
     "Each row is an li in an ol or ul. When rows are added while the reader watches, wrap the list in an element with role=\"log\", aria-live=\"off\" and an accessible name. The log role tells assistive technology what the region is, and aria-live=\"off\" keeps it from reading every row and every word as it lands. What matters is announced from the view's one status region: see the activity announcer.",
-    "Every row but a tool call starts with gw-message__label, which says the kind in words: Session, You, Claude Code, Question, Tool result, Allowed, Declined, Pre-approved, Allowed by a standing permission, Denied, Error, Usage, End. A tool-call row holds the tool call component, whose line starts with its status in words. The kind is never the colour or an icon alone. The icons of the denied and error rows are drawn by the stylesheet, and the icon of an answered request is an svg with gw-message__icon and aria-hidden=\"true\" inside the label.",
+    "Every row but a tool call starts with ds-message__label, which says the kind in words: Session, You, Claude Code, Question, Tool result, Allowed, Declined, Pre-approved, Allowed by a standing permission, Denied, Error, Usage, End. A tool-call row holds the tool call component, whose line starts with its status in words. The kind is never the colour or an icon alone. The icons of the denied and error rows are drawn by the stylesheet, and the icon of an answered request is an svg with ds-message__icon and aria-hidden=\"true\" inside the label.",
     "A question row that waits says so in its label, Question, waiting on you. Once it is answered the label reads Question alone.",
-    "While the agent's text arrives, set data-state=\"streaming\" and aria-busy=\"true\" on the row, append to the text of gw-message__body without rebuilding it, and keep a span with gw-message__caret and aria-hidden=\"true\" as its last child. Never put aria-live on the growing text. When the reply ends set data-state=\"done\" and remove the caret and aria-busy.",
-    "When the reader stops the reply, keep the text that arrived, set data-state=\"stopped\" and add a p with gw-message__state after the body that starts with the word Stopped. When the connection or the process is lost, set data-state=\"interrupted\", say so in gw-message__state starting with the word Interrupted, and put a Retry button with gw-button gw-button--small after it. While the app tries to resume, set data-state=\"reconnecting\" and say Reconnecting in gw-message__state: the text stays, and nothing is added twice. The stylesheet draws an icon beside each of the three from data-state.",
+    "While the agent's text arrives, set data-state=\"streaming\" and aria-busy=\"true\" on the row, append to the text of ds-message__body without rebuilding it, and keep a span with ds-message__caret and aria-hidden=\"true\" as its last child. Never put aria-live on the growing text. When the reply ends set data-state=\"done\" and remove the caret and aria-busy.",
+    "When the reader stops the reply, keep the text that arrived, set data-state=\"stopped\" and add a p with ds-message__state after the body that starts with the word Stopped. When the connection or the process is lost, set data-state=\"interrupted\", say so in ds-message__state starting with the word Interrupted, and put a Retry button with ds-button ds-button--small after it. While the app tries to resume, set data-state=\"reconnecting\" and say Reconnecting in ds-message__state: the text stays, and nothing is added twice. The stylesheet draws an icon beside each of the three from data-state.",
     "Only the caret and the reconnecting mark move, and under prefers-reduced-motion both are still.",
     "Write transcript text as text, never as markup, and write out characters that cannot be seen.",
     "Collapsed arguments and long output use a native details element, with no script. Its summary holds text that says what is inside. Enter and Space open and close it, and its pointer target is 44px tall.",
@@ -105,26 +105,26 @@
     "x"
   ],
   "classes": [
-    "gw-message",
-    "gw-message--decision",
-    "gw-message--denied",
-    "gw-message--error",
-    "gw-message--question",
-    "gw-message--session-start",
-    "gw-message--tool-call",
-    "gw-message--tool-result",
-    "gw-message--turn-end",
-    "gw-message--usage",
-    "gw-message--user",
-    "gw-message__body",
-    "gw-message__caret",
-    "gw-message__code",
-    "gw-message__command",
-    "gw-message__details",
-    "gw-message__icon",
-    "gw-message__label",
-    "gw-message__state",
-    "gw-message__summary",
-    "gw-message__tool"
+    "ds-message",
+    "ds-message--decision",
+    "ds-message--denied",
+    "ds-message--error",
+    "ds-message--question",
+    "ds-message--session-start",
+    "ds-message--tool-call",
+    "ds-message--tool-result",
+    "ds-message--turn-end",
+    "ds-message--usage",
+    "ds-message--user",
+    "ds-message__body",
+    "ds-message__caret",
+    "ds-message__code",
+    "ds-message__command",
+    "ds-message__details",
+    "ds-message__icon",
+    "ds-message__label",
+    "ds-message__state",
+    "ds-message__summary",
+    "ds-message__tool"
   ]
 }

@@ -2,7 +2,7 @@
 
 import { ancestors, classesOf, views } from "./tree.mjs";
 
-const SYSTEM_PREFIX = "gw-";
+const SYSTEM_PREFIX = "ds-";
 const FORM_CONTROL_TAGS = ["button", "select", "textarea"];
 
 // A button or a form control. A link is not counted, and neither is a hidden input.

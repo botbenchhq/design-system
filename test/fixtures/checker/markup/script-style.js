@@ -1,3 +1,3 @@
 export function setProgress(bar, fraction) {
-  bar.style.setProperty("--gw-progress", `${fraction * 100}%`);
+  bar.style.setProperty("--ds-progress", `${fraction * 100}%`);
 }

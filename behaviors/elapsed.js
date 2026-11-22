@@ -1,7 +1,7 @@
 // Elapsed time that counts up by itself, for an app without a framework.
 // One ES module with no dependencies: <script type="module" src="behaviors/elapsed.js"></script>
 //
-// <gw-elapsed datetime="2026-11-22T09:59:18Z">42 s</gw-elapsed> shows the time since its datetime attribute
+// <ds-elapsed datetime="2026-11-22T09:59:18Z">42 s</ds-elapsed> shows the time since its datetime attribute
 // and writes it again once a second: 42 s, then 1 min 5 s, then 1 h 4 min. The text in the markup is what the
 // reader sees until the module loads. It stops counting, and keeps what it shows, when its data-state attribute
 // becomes anything but "running". With a duration attribute, an ISO 8601 duration such as PT2.4S, it shows that
@@ -38,7 +38,7 @@ function format(ms, finished) {
   return `${seconds} s`;
 }
 
-class GwElapsed extends HTMLElement {
+class DsElapsed extends HTMLElement {
   static observedAttributes = ["datetime", "duration", "data-state"];
 
   connectedCallback() {
@@ -86,4 +86,4 @@ class GwElapsed extends HTMLElement {
   }
 }
 
-if (!customElements.get("gw-elapsed")) customElements.define("gw-elapsed", GwElapsed);
+if (!customElements.get("ds-elapsed")) customElements.define("ds-elapsed", DsElapsed);

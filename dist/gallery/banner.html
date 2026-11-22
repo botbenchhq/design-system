@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Banner - Groundwork gallery</title>
-<link rel="stylesheet" href="../groundwork.css">
+<title>Banner - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -26,15 +26,15 @@
 </header>
 <section>
 <h2>Examples</h2>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <figure data-gallery="specimen">
 <figcaption>
 <h3>Info</h3>
 <p data-gallery="state">State: <code>default</code></p>
 </figcaption>
 <div data-example="info" data-title="Info" data-state="default">
-  <div class="gw-banner" role="status">
-    <p class="gw-banner__text">Botbench restarts at 22:00 UTC for an update. Runs in progress finish first.</p>
+  <div class="ds-banner" role="status">
+    <p class="ds-banner__text">Botbench restarts at 22:00 UTC for an update. Runs in progress finish first.</p>
   </div>
 </div>
 </figure>
@@ -43,8 +43,8 @@
 <h3>Warning</h3>
 </figcaption>
 <div data-example="warning" data-title="Warning">
-  <div class="gw-banner gw-banner--warning" role="status">
-    <p class="gw-banner__text">Connection lost. Reconnecting…</p>
+  <div class="ds-banner ds-banner--warning" role="status">
+    <p class="ds-banner__text">Connection lost. Reconnecting…</p>
   </div>
 </div>
 </figure>
@@ -53,21 +53,21 @@
 <h3>Danger</h3>
 </figcaption>
 <div data-example="danger" data-title="Danger">
-  <div class="gw-banner gw-banner--danger" role="alert">
-    <p class="gw-banner__text">The agent host is not responding. All runs are paused.</p>
+  <div class="ds-banner ds-banner--danger" role="alert">
+    <p class="ds-banner__text">The agent host is not responding. All runs are paused.</p>
   </div>
 </div>
 </figure>
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> With one action</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> With one action</h3>
 <p>The message says what happened in plain words, and the one action is the one thing the reader can do about it. The icon marks the tone as well as the colour.</p>
 </figcaption>
 <div data-example="action" data-title="With one action" data-reason="The message says what happened in plain words, and the one action is the one thing the reader can do about it. The icon marks the tone as well as the colour.">
-  <div class="gw-banner gw-banner--danger" role="alert">
-    <p class="gw-banner__text">Could not reconnect after 5 attempts.</p>
-    <div class="gw-banner__actions">
-      <button type="button" class="gw-button gw-button--small">Retry</button>
+  <div class="ds-banner ds-banner--danger" role="alert">
+    <p class="ds-banner__text">Could not reconnect after 5 attempts.</p>
+    <div class="ds-banner__actions">
+      <button type="button" class="ds-button ds-button--small">Retry</button>
     </div>
   </div>
 </div>
@@ -77,11 +77,11 @@
 <h3>With dismiss</h3>
 </figcaption>
 <div data-example="dismiss" data-title="With dismiss">
-  <div class="gw-banner" role="status">
-    <p class="gw-banner__text">Connection restored. 2 runs resumed.</p>
-    <div class="gw-banner__actions">
-      <button type="button" class="gw-banner__dismiss" aria-label="Dismiss">
-        <svg class="gw-banner__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+  <div class="ds-banner" role="status">
+    <p class="ds-banner__text">Connection restored. 2 runs resumed.</p>
+    <div class="ds-banner__actions">
+      <button type="button" class="ds-banner__dismiss" aria-label="Dismiss">
+        <svg class="ds-banner__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>
       </button>
     </div>
   </div>
@@ -92,12 +92,12 @@
 <h3>With an action and dismiss</h3>
 </figcaption>
 <div data-example="action-and-dismiss" data-title="With an action and dismiss">
-  <div class="gw-banner gw-banner--warning" role="status">
-    <p class="gw-banner__text">Your session ends in 5 minutes. Unsaved task drafts will be lost.</p>
-    <div class="gw-banner__actions">
-      <button type="button" class="gw-button gw-button--small">Stay signed in</button>
-      <button type="button" class="gw-banner__dismiss" aria-label="Dismiss">
-        <svg class="gw-banner__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+  <div class="ds-banner ds-banner--warning" role="status">
+    <p class="ds-banner__text">Your session ends in 5 minutes. Unsaved task drafts will be lost.</p>
+    <div class="ds-banner__actions">
+      <button type="button" class="ds-button ds-button--small">Stay signed in</button>
+      <button type="button" class="ds-banner__dismiss" aria-label="Dismiss">
+        <svg class="ds-banner__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>
       </button>
     </div>
   </div>
@@ -109,10 +109,10 @@
 <p data-gallery="state">State: <code>busy</code></p>
 </figcaption>
 <div data-example="busy" data-title="While the action runs" data-state="busy">
-  <div class="gw-banner gw-banner--danger" role="alert">
-    <p class="gw-banner__text">Could not reconnect after 5 attempts.</p>
-    <div class="gw-banner__actions">
-      <button type="button" class="gw-button gw-button--small" aria-busy="true">Retrying</button>
+  <div class="ds-banner ds-banner--danger" role="alert">
+    <p class="ds-banner__text">Could not reconnect after 5 attempts.</p>
+    <div class="ds-banner__actions">
+      <button type="button" class="ds-button ds-button--small" aria-busy="true">Retrying</button>
     </div>
   </div>
 </div>
@@ -123,12 +123,12 @@
 <p data-gallery="state">State: <code>hover</code></p>
 </figcaption>
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <div class="gw-banner gw-banner--warning" role="status">
-    <p class="gw-banner__text">Connection lost. Reconnecting…</p>
-    <div class="gw-banner__actions">
-      <button type="button" class="gw-button gw-button--small">Retry now</button>
-      <button type="button" class="gw-banner__dismiss" aria-label="Dismiss">
-        <svg class="gw-banner__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+  <div class="ds-banner ds-banner--warning" role="status">
+    <p class="ds-banner__text">Connection lost. Reconnecting…</p>
+    <div class="ds-banner__actions">
+      <button type="button" class="ds-button ds-button--small">Retry now</button>
+      <button type="button" class="ds-banner__dismiss" aria-label="Dismiss">
+        <svg class="ds-banner__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>
       </button>
     </div>
   </div>
@@ -140,12 +140,12 @@
 <p data-gallery="state">State: <code>focus-visible</code></p>
 </figcaption>
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <div class="gw-banner gw-banner--warning" role="status">
-    <p class="gw-banner__text">Connection lost. Reconnecting…</p>
-    <div class="gw-banner__actions">
-      <button type="button" class="gw-button gw-button--small">Retry now</button>
-      <button type="button" class="gw-banner__dismiss" aria-label="Dismiss">
-        <svg class="gw-banner__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+  <div class="ds-banner ds-banner--warning" role="status">
+    <p class="ds-banner__text">Connection lost. Reconnecting…</p>
+    <div class="ds-banner__actions">
+      <button type="button" class="ds-button ds-button--small">Retry now</button>
+      <button type="button" class="ds-banner__dismiss" aria-label="Dismiss">
+        <svg class="ds-banner__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>
       </button>
     </div>
   </div>
@@ -157,12 +157,12 @@
 <p data-gallery="state">State: <code>active</code></p>
 </figcaption>
 <div data-example="active" data-title="Pressed" data-state="active">
-  <div class="gw-banner gw-banner--warning" role="status">
-    <p class="gw-banner__text">Connection lost. Reconnecting…</p>
-    <div class="gw-banner__actions">
-      <button type="button" class="gw-button gw-button--small">Retry now</button>
-      <button type="button" class="gw-banner__dismiss" aria-label="Dismiss">
-        <svg class="gw-banner__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+  <div class="ds-banner ds-banner--warning" role="status">
+    <p class="ds-banner__text">Connection lost. Reconnecting…</p>
+    <div class="ds-banner__actions">
+      <button type="button" class="ds-button ds-button--small">Retry now</button>
+      <button type="button" class="ds-banner__dismiss" aria-label="Dismiss">
+        <svg class="ds-banner__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>
       </button>
     </div>
   </div>
@@ -170,36 +170,36 @@
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Two actions</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Two actions</h3>
 <p>A banner has room for one action, and a second makes the reader stop and choose while the app is in trouble. Keep the one that fixes the condition and put the rest in the view it leads to.</p>
 <p>Caught in review, not by the checker.</p>
 </figcaption>
 <div data-example="two-actions" data-title="Two actions" data-dont="review" data-reason="A banner has room for one action, and a second makes the reader stop and choose while the app is in trouble. Keep the one that fixes the condition and put the rest in the view it leads to.">
-  <div class="gw-banner gw-banner--danger" role="alert">
-    <p class="gw-banner__text">Could not reconnect after 5 attempts.</p>
-    <div class="gw-banner__actions">
-      <button type="button" class="gw-button gw-button--small">Retry</button>
-      <button type="button" class="gw-button gw-button--small">Work offline</button>
-      <button type="button" class="gw-button gw-button--small">View status page</button>
+  <div class="ds-banner ds-banner--danger" role="alert">
+    <p class="ds-banner__text">Could not reconnect after 5 attempts.</p>
+    <div class="ds-banner__actions">
+      <button type="button" class="ds-button ds-button--small">Retry</button>
+      <button type="button" class="ds-button ds-button--small">Work offline</button>
+      <button type="button" class="ds-button ds-button--small">View status page</button>
     </div>
   </div>
 </div>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A success tone</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> A success tone</h3>
 <p>A banner reports a condition of the whole app that is still true. A finished action is over, so confirm it where it happened, and use the info tone when the app recovers.</p>
 <p>Checker rule: <code>unknown-class</code></p>
 </figcaption>
 <div data-example="success-tone" data-title="A success tone" data-dont="unknown-class" data-reason="A banner reports a condition of the whole app that is still true. A finished action is over, so confirm it where it happened, and use the info tone when the app recovers.">
-  <div class="gw-banner gw-banner--success" role="status">
-    <p class="gw-banner__text">Task 412 was saved.</p>
+  <div class="ds-banner ds-banner--success" role="status">
+    <p class="ds-banner__text">Task 412 was saved.</p>
   </div>
 </div>
 </figure>
 </div>
 </section>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
@@ -223,9 +223,9 @@
 <dl>
 <dt>info</dt>
 <dd>The default, with no modifier class. Something the reader should know that needs no action, such as a planned restart or a restored connection. Set role=&quot;status&quot;.</dd>
-<dt>warning <code>gw-banner--warning</code></dt>
+<dt>warning <code>ds-banner--warning</code></dt>
 <dd>Something is degraded or about to go wrong and the app is still usable, such as Reconnecting. Set role=&quot;status&quot;.</dd>
-<dt>danger <code>gw-banner--danger</code></dt>
+<dt>danger <code>ds-banner--danger</code></dt>
 <dd>Something has failed and work is blocked until it is fixed. Set role=&quot;alert&quot;.</dd>
 </dl>
 </section>
@@ -243,7 +243,7 @@
 <li>Keep the banner element in the page and change its text, or add the banner with its text already in it. Either way the message is announced once.</li>
 <li>Do not set aria-busy on the banner. A screen reader holds back the announcement of a busy region. While the action runs, set aria-busy=&quot;true&quot; on the action button and change its label, such as Retrying.</li>
 <li>The stylesheet draws the tone's icon, so the tone never depends on colour and needs no markup. The text carries the whole message.</li>
-<li>The action and the dismiss button sit together in a gw-banner__actions element after the text. The action is one gw-button gw-button--small, with a label that says what it does. Do not make it primary.</li>
+<li>The action and the dismiss button sit together in a ds-banner__actions element after the text. The action is one ds-button ds-button--small, with a label that says what it does. Do not make it primary.</li>
 <li>The dismiss button is a button with aria-label=&quot;Dismiss&quot;, and its icon carries aria-hidden=&quot;true&quot;. Offer it only when the message is safe to lose. When it is pressed, move focus to the main content.</li>
 <li>Tab reaches the action and then the dismiss button, in that order. Enter and Space press them.</li>
 <li>The banner does not take focus when it appears, so it never interrupts typing.</li>
@@ -252,13 +252,13 @@
 <section>
 <h2>Classes</h2>
 <ul>
-<li><code>gw-banner</code></li>
-<li><code>gw-banner--danger</code></li>
-<li><code>gw-banner--warning</code></li>
-<li><code>gw-banner__actions</code></li>
-<li><code>gw-banner__dismiss</code></li>
-<li><code>gw-banner__icon</code></li>
-<li><code>gw-banner__text</code></li>
+<li><code>ds-banner</code></li>
+<li><code>ds-banner--danger</code></li>
+<li><code>ds-banner--warning</code></li>
+<li><code>ds-banner__actions</code></li>
+<li><code>ds-banner__dismiss</code></li>
+<li><code>ds-banner__icon</code></li>
+<li><code>ds-banner__text</code></li>
 </ul>
 </section>
 </div>

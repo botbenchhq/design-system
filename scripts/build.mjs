@@ -1,4 +1,4 @@
-// Generates everything in dist/ from tokens/, base/, components/, patterns/, gallery/, behaviors/, checker/, rules/ and hooks/. Run with `npm run build`.
+// Generates everything in dist/ from tokens/, base/, components/, patterns/, gallery/, behaviors/, checker/, rules/, hooks/ and scripts/migrate-prefix.mjs. Run with `npm run build`.
 // `npm run vendor` refreshes the font and icon files under base/ from node_modules.
 
 import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
@@ -8,9 +8,9 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 
-const LAYERS = ["gw.reset", "gw.tokens", "gw.base", "gw.components"];
+const LAYERS = ["ds.reset", "ds.tokens", "ds.base", "ds.components"];
 
-// Longer prefixes first, so --gw-border-width is not read as a colour named "border".
+// Longer prefixes first, so --ds-border-width is not read as a colour named "border".
 const CATEGORIES = [
   "border-width", "breakpoint", "color", "duration", "ease", "font", "leading",
   "radius", "shadow", "size", "space", "text", "weight", "z",
@@ -96,9 +96,9 @@ export function validateTheme(css, knownNames) {
 }
 
 function categoryOf(name) {
-  const rest = name.slice("--gw-".length);
+  const rest = name.slice("--ds-".length);
   const category = CATEGORIES.find((prefix) => rest === prefix || rest.startsWith(`${prefix}-`));
-  if (!name.startsWith("--gw-") || !category) throw new Error(`${name} is not in a known token category`);
+  if (!name.startsWith("--ds-") || !category) throw new Error(`${name} is not in a known token category`);
   return { category, key: rest === category ? "DEFAULT" : rest.slice(category.length + 1) };
 }
 
@@ -155,7 +155,7 @@ function checkContrast(tokens, pairs) {
   return report;
 }
 
-// { color: { accent: "--gw-color-accent", … }, … } in source order.
+// { color: { accent: "--ds-color-accent", … }, … } in source order.
 function groupByCategory(names) {
   const groups = {};
   for (const name of names) {
@@ -264,7 +264,7 @@ function tokenData(groups, tokens) {
     data[category] = {};
     for (const [key, name] of Object.entries(names)) {
       const token = { $type, $value: convert(name, tokens.light[name]) };
-      if (name in tokens.dark) token.$extensions = { groundwork: { dark: convert(name, tokens.dark[name]) } };
+      if (name in tokens.dark) token.$extensions = { "design-system": { dark: convert(name, tokens.dark[name]) } };
       data[category][key] = token;
     }
   }
@@ -300,7 +300,7 @@ function designTokens(groups, tokens) {
   }
   const block = {
     version: "alpha",
-    name: "Groundwork",
+    name: "Design system",
     colors: values("color", tokens.light, quote),
     "colors-dark": values("color", tokens.dark, quote),
     typography,
@@ -337,7 +337,7 @@ function manifest(groups, tokens, classes, rules) {
       .filter((value) => value !== undefined);
   }
   return {
-    prefix: "gw",
+    prefix: "ds",
     layers: LAYERS,
     breakpoint: tokens.light[groups.breakpoint.DEFAULT],
     tokens: names,
@@ -360,7 +360,7 @@ function symbol(name, svg) {
     .filter(([, attribute]) => SYMBOL_ATTRIBUTES.includes(attribute))
     .map(([pair]) => pair);
   const shapes = body.trim().split(/\s*\n\s*/).join("");
-  return `  <symbol id="gw-icon-${name}" ${attributes.join(" ")}>${shapes}</symbol>\n`;
+  return `  <symbol id="ds-icon-${name}" ${attributes.join(" ")}>${shapes}</symbol>\n`;
 }
 
 function sprite(icons) {
@@ -376,18 +376,18 @@ function domBundle(checker, readingColumn) {
     return `// ${name}\n${source.replace(/^import [^;]+;\n/gm, "").replace(/^export /gm, "").trim()}\n`;
   });
   return [
-    "// Generated from checker/. Defines gwCheckDom(root, { appPrefix }), which returns the structural findings of the rendered page.",
+    "// Generated from checker/. Defines dsCheckDom(root, { appPrefix }), which returns the structural findings of the rendered page.",
     "(() => {",
     '"use strict";',
     ...modules,
-    `globalThis.gwCheckDom = (root = document.documentElement, options = {}) => checkDom(root, ${parseFloat(readingColumn)}, options ?? {});`,
+    `globalThis.dsCheckDom = (root = document.documentElement, options = {}) => checkDom(root, ${parseFloat(readingColumn)}, options ?? {});`,
     "})();",
     "",
   ].join("\n");
 }
 
 const withoutComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
-const classesIn = (css) => [...new Set([...withoutComments(css).matchAll(/\.(gw-[\w-]+)/g)].map(([, name]) => name))].sort();
+const classesIn = (css) => [...new Set([...withoutComments(css).matchAll(/\.(ds-[\w-]+)/g)].map(([, name]) => name))].sort();
 
 const ENTITIES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
 const escapeHtml = (text) => text.replace(/[&<>"]/g, (character) => ENTITIES[character]);
@@ -447,7 +447,7 @@ function parseExamples(source) {
 function iconsIn(css, examples) {
   const names = [
     ...[...withoutComments(css).matchAll(/url\("icons\/([\w-]+)\.svg"\)/g)].map(([, name]) => name),
-    ...examples.flatMap((example) => [...example.html.matchAll(/icons\.svg#gw-icon-([\w-]+)/g)].map(([, name]) => name)),
+    ...examples.flatMap((example) => [...example.html.matchAll(/icons\.svg#ds-icon-([\w-]+)/g)].map(([, name]) => name)),
   ];
   return [...new Set(names)].sort();
 }
@@ -466,11 +466,11 @@ function checkComponent(name, { meta, css, examples }, iconNames, kind = "compon
   if (meta.name !== name) throw new Error(`meta.json has the name "${meta.name}", which is not the folder name`);
   if (!STATUSES.includes(meta.status)) throw new Error(`meta.json has the status "${meta.status}". It is ${STATUSES.join(" or ")}`);
 
-  if (!withoutComments(css).includes("@layer gw.components")) throw new Error(`${name}.css must put its rules in @layer gw.components`);
+  if (!withoutComments(css).includes("@layer ds.components")) throw new Error(`${name}.css must put its rules in @layer ds.components`);
   const defined = classesIn(css);
-  const foreign = defined.filter((item) => item !== `gw-${name}` && !/^(?:__|--)/.test(item.slice(`gw-${name}`.length)));
+  const foreign = defined.filter((item) => item !== `ds-${name}` && !/^(?:__|--)/.test(item.slice(`ds-${name}`.length)));
   if (foreign.length > 0) {
-    throw new Error(`${name}.css defines ${foreign.join(", ")}. Its classes are gw-${name}, gw-${name}__part and gw-${name}--variant`);
+    throw new Error(`${name}.css defines ${foreign.join(", ")}. Its classes are ds-${name}, ds-${name}__part and ds-${name}--variant`);
   }
   const unlisted = defined.filter((item) => !meta.classes.includes(item));
   const undefinedClasses = meta.classes.filter((item) => !defined.includes(item));
@@ -569,7 +569,7 @@ function shortIndex(folders) {
   }));
 }
 
-const galleryIcon = (name) => `<svg aria-hidden="true"><use href="../icons.svg#gw-icon-${name}"></use></svg>`;
+const galleryIcon = (name) => `<svg aria-hidden="true"><use href="../icons.svg#ds-icon-${name}"></use></svg>`;
 
 // Every gallery page loads each behaviour module, so an example wrapped in one of their elements works.
 function galleryPage(title, body, behaviors) {
@@ -579,14 +579,14 @@ function galleryPage(title, body, behaviors) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escapeHtml(title)}</title>
-<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 ${behaviors.map((name) => `<script type="module" src="../behaviors/${name}"></script>`).join("\n")}
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -620,7 +620,7 @@ function galleryExample(example) {
 
 // A pattern is a whole screen, so its examples run down the page in one column. A component's sit two abreast.
 function galleryComponent({ meta, examples }, behaviors) {
-  const columns = meta.kind === "pattern" ? "gw-grid" : "gw-grid gw-grid-2";
+  const columns = meta.kind === "pattern" ? "ds-grid" : "ds-grid ds-grid-2";
   const options = (heading, items) =>
     items.length === 0
       ? []
@@ -631,10 +631,10 @@ function galleryComponent({ meta, examples }, behaviors) {
           ),
           "</dl>\n</section>",
         ];
-  return galleryPage(`${meta.title} - Groundwork gallery`, [
+  return galleryPage(`${meta.title} - Design system gallery`, [
     `<header>\n<h1>${escapeHtml(meta.title)}</h1>\n<p>${escapeHtml(meta.purpose)}</p>\n<p data-gallery="status">Status: ${meta.status}</p>\n</header>`,
     `<section>\n<h2>Examples</h2>\n<div class="${columns}">\n${examples.map(galleryExample).join("\n")}\n</div>\n</section>`,
-    `<div class="gw-grid gw-grid-2">`,
+    `<div class="ds-grid ds-grid-2">`,
     `<section>\n<h2>When to use it</h2>\n${galleryList(meta.whenToUse)}\n</section>`,
     `<section>\n<h2>When not to use it</h2>\n${galleryList(meta.whenNotToUse)}\n</section>`,
     ...options("Variants", meta.variants),
@@ -651,7 +651,7 @@ function galleryIndex(components, patterns, behaviors) {
       ({ name, meta }) =>
         `<li><a href="${name}.html">${escapeHtml(meta.title)}</a> <span>${escapeHtml(meta.purpose)}</span> <span data-gallery="status">${meta.status}</span></li>`,
     );
-  return galleryPage("Groundwork gallery", [
+  return galleryPage("Design system gallery", [
     "<header>\n<h1>Components</h1>\n<p>Each page shows a component in every variant and state, with a do and a don't.</p>\n</header>",
     `<ul data-gallery="index">\n${rows(components).join("\n")}\n</ul>`,
     ...(patterns.length === 0
@@ -718,7 +718,7 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   const files = {
     "tokens.css": source,
     // Patterns come after every component, so a pattern's layout wins over a component it arranges.
-    "groundwork.css": [source, ...baseStyles, ...folders.map(({ css }) => css)].join("\n"),
+    "design-system.css": [source, ...baseStyles, ...folders.map(({ css }) => css)].join("\n"),
     "icons.svg": sprite(icons),
     "icons/LICENSE": readFileSync(join(base, "icons", "LICENSE")),
     "tokens.json": json(tokenData(groups, tokens)),
@@ -743,6 +743,8 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
     files[`checker/${name}`] = readFileSync(join(checker, name));
   }
   files["check-dom.js"] = domBundle(checker, tokens.light[groups.size.column]);
+  // The codemod an app runs once over its own source when it moves from 0.5 to the ds prefix.
+  files["migrate-prefix.mjs"] = readFileSync(join(root, "scripts", "migrate-prefix.mjs"));
   for (const name of listFiles(join(root, "rules")).filter((file) => file.endsWith(".md"))) {
     files[`rules/${name}`] = readFileSync(join(root, "rules", name));
   }
@@ -760,7 +762,7 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
 
 // Names of files in distDir that differ from what the sources under root build now.
 export function staleFiles({ root = repoRoot, distDir = join(root, "dist") } = {}) {
-  const fresh = mkdtempSync(join(tmpdir(), "groundwork-build-"));
+  const fresh = mkdtempSync(join(tmpdir(), "design-system-build-"));
   try {
     build({ root, outDir: fresh });
     const read = (dir, name) => readFileSync(join(dir, name), { flag: "r" });

@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Popover - Groundwork gallery</title>
-<link rel="stylesheet" href="../groundwork.css">
+<title>Popover - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -26,21 +26,21 @@
 </header>
 <section>
 <h2>Examples</h2>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Supplementary facts</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Supplementary facts</h3>
 <p data-gallery="state">State: <code>open</code></p>
 <p>The run's cost is detail most readers can do without, so it waits behind a button that says what it holds. The page stays usable while the popover is open, and a press outside or Escape closes it.</p>
 </figcaption>
 <div data-example="default" data-title="Supplementary facts" data-state="open" data-gallery-frame="short" data-gallery-open data-reason="The run's cost is detail most readers can do without, so it waits behind a button that says what it holds. The page stays usable while the popover is open, and a press outside or Escape closes it.">
-  <button type="button" class="gw-button" popovertarget="popover-default">Show run cost</button>
-  <div class="gw-popover" id="popover-default" popover aria-labelledby="popover-default-title">
-    <h2 class="gw-popover__title" id="popover-default-title">Cost of run 7</h2>
-    <ul class="gw-popover__facts">
-      <li class="gw-popover__fact"><span class="gw-popover__term">Input</span> <span>412,000 tokens</span></li>
-      <li class="gw-popover__fact"><span class="gw-popover__term">Output</span> <span>18,400 tokens</span></li>
-      <li class="gw-popover__fact"><span class="gw-popover__term">Total</span> <span>$0.84 for this run</span></li>
+  <button type="button" class="ds-button" popovertarget="popover-default">Show run cost</button>
+  <div class="ds-popover" id="popover-default" popover aria-labelledby="popover-default-title">
+    <h2 class="ds-popover__title" id="popover-default-title">Cost of run 7</h2>
+    <ul class="ds-popover__facts">
+      <li class="ds-popover__fact"><span class="ds-popover__term">Input</span> <span>412,000 tokens</span></li>
+      <li class="ds-popover__fact"><span class="ds-popover__term">Output</span> <span>18,400 tokens</span></li>
+      <li class="ds-popover__fact"><span class="ds-popover__term">Total</span> <span>$0.84 for this run</span></li>
     </ul>
   </div>
 </div>
@@ -50,16 +50,16 @@
 <h3>A small form</h3>
 </figcaption>
 <div data-example="form" data-title="A small form" data-gallery-frame data-gallery-open>
-  <button type="button" class="gw-button" popovertarget="popover-form">Rename task</button>
-  <div class="gw-popover" id="popover-form" popover aria-labelledby="popover-form-title">
-    <h2 class="gw-popover__title" id="popover-form-title">Rename task 41</h2>
-    <div class="gw-field">
-      <label class="gw-field__label" for="popover-form-name">Task title</label>
-      <input class="gw-field__control" id="popover-form-name" type="text" name="title" autocomplete="off" value="Fix the session refresh">
+  <button type="button" class="ds-button" popovertarget="popover-form">Rename task</button>
+  <div class="ds-popover" id="popover-form" popover aria-labelledby="popover-form-title">
+    <h2 class="ds-popover__title" id="popover-form-title">Rename task 41</h2>
+    <div class="ds-field">
+      <label class="ds-field__label" for="popover-form-name">Task title</label>
+      <input class="ds-field__control" id="popover-form-name" type="text" name="title" autocomplete="off" value="Fix the session refresh">
     </div>
-    <div class="gw-popover__actions">
-      <button type="button" class="gw-button gw-button--primary">Save title</button>
-      <button type="button" class="gw-button" popovertarget="popover-form" popovertargetaction="hide">Cancel</button>
+    <div class="ds-popover__actions">
+      <button type="button" class="ds-button ds-button--primary">Save title</button>
+      <button type="button" class="ds-button" popovertarget="popover-form" popovertargetaction="hide">Cancel</button>
     </div>
   </div>
 </div>
@@ -69,8 +69,8 @@
 <h3>A short explanation</h3>
 </figcaption>
 <div data-example="text" data-title="A short explanation" data-gallery-frame="short" data-gallery-open>
-  <button type="button" class="gw-button gw-button--quiet" popovertarget="popover-text">What is a worktree?</button>
-  <div class="gw-popover" id="popover-text" popover>
+  <button type="button" class="ds-button ds-button--quiet" popovertarget="popover-text">What is a worktree?</button>
+  <div class="ds-popover" id="popover-text" popover>
     <p>A worktree is a second checkout of the repository in its own directory. Each task gets one, so two agents never edit the same files.</p>
   </div>
 </div>
@@ -81,10 +81,10 @@
 <p data-gallery="state">State: <code>loading</code></p>
 </figcaption>
 <div data-example="loading" data-title="Loading the content" data-state="loading" data-gallery-frame="short" data-gallery-open>
-  <button type="button" class="gw-button" popovertarget="popover-loading">Show run cost</button>
-  <div class="gw-popover" id="popover-loading" popover aria-labelledby="popover-loading-title">
-    <h2 class="gw-popover__title" id="popover-loading-title">Cost of run 7</h2>
-    <p class="gw-spinner" role="status">Loading the cost</p>
+  <button type="button" class="ds-button" popovertarget="popover-loading">Show run cost</button>
+  <div class="ds-popover" id="popover-loading" popover aria-labelledby="popover-loading-title">
+    <h2 class="ds-popover__title" id="popover-loading-title">Cost of run 7</h2>
+    <p class="ds-spinner" role="status">Loading the cost</p>
   </div>
 </div>
 </figure>
@@ -94,33 +94,33 @@
 <p data-gallery="state">State: <code>error</code></p>
 </figcaption>
 <div data-example="error" data-title="The content could not be loaded" data-state="error" data-gallery-frame="short" data-gallery-open>
-  <button type="button" class="gw-button" popovertarget="popover-error">Show run cost</button>
-  <div class="gw-popover" id="popover-error" popover aria-labelledby="popover-error-title">
-    <h2 class="gw-popover__title" id="popover-error-title">Cost of run 7</h2>
+  <button type="button" class="ds-button" popovertarget="popover-error">Show run cost</button>
+  <div class="ds-popover" id="popover-error" popover aria-labelledby="popover-error-title">
+    <h2 class="ds-popover__title" id="popover-error-title">Cost of run 7</h2>
     <p>The cost could not be loaded: the server did not answer. Close this and open it again to retry.</p>
   </div>
 </div>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> The only way to answer a request</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> The only way to answer a request</h3>
 <p>The agent is blocked until the reader answers, and here the answer is hidden behind a button and closes on any stray press outside. A popover holds supplementary content only. Show a request as an approval in the view.</p>
 <p>Caught in review, not by the checker.</p>
 </figcaption>
 <div data-example="only-way" data-title="The only way to answer a request" data-dont="review" data-gallery-frame="short" data-gallery-open data-reason="The agent is blocked until the reader answers, and here the answer is hidden behind a button and closes on any stray press outside. A popover holds supplementary content only. Show a request as an approval in the view.">
-  <button type="button" class="gw-button" popovertarget="popover-only-way">1 request</button>
-  <div class="gw-popover" id="popover-only-way" popover>
+  <button type="button" class="ds-button" popovertarget="popover-only-way">1 request</button>
+  <div class="ds-popover" id="popover-only-way" popover>
     <p>Claude Code asks to run <code>rm -rf ../shared-config/.cache</code></p>
-    <div class="gw-popover__actions">
-      <button type="button" class="gw-button">Allow</button>
-      <button type="button" class="gw-button">Decline</button>
+    <div class="ds-popover__actions">
+      <button type="button" class="ds-button">Allow</button>
+      <button type="button" class="ds-button">Decline</button>
     </div>
   </div>
 </div>
 </figure>
 </div>
 </section>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
@@ -153,12 +153,12 @@
 <section>
 <h2>Classes</h2>
 <ul>
-<li><code>gw-popover</code></li>
-<li><code>gw-popover__actions</code></li>
-<li><code>gw-popover__fact</code></li>
-<li><code>gw-popover__facts</code></li>
-<li><code>gw-popover__term</code></li>
-<li><code>gw-popover__title</code></li>
+<li><code>ds-popover</code></li>
+<li><code>ds-popover__actions</code></li>
+<li><code>ds-popover__fact</code></li>
+<li><code>ds-popover__facts</code></li>
+<li><code>ds-popover__term</code></li>
+<li><code>ds-popover__title</code></li>
 </ul>
 </section>
 </div>

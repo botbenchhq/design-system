@@ -1,6 +1,6 @@
 ---
 version: alpha
-name: Groundwork
+name: Design system
 colors:
   accent: "#1A1A1A"
   accent-hover: "#3D3D3A"

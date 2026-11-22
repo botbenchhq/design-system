@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>App header - Groundwork gallery</title>
-<link rel="stylesheet" href="../groundwork.css">
+<title>App header - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -26,22 +26,22 @@
 </header>
 <section>
 <h2>Examples</h2>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Product name and actions</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Product name and actions</h3>
 <p data-gallery="state">State: <code>default</code></p>
 <p>The name leads the row and links to the first screen. Each action is an icon with a name a screen reader can read, and none of them is primary, so the view below keeps its one main action.</p>
 </figcaption>
 <div data-example="name-and-actions" data-title="Product name and actions" data-state="default" data-reason="The name leads the row and links to the first screen. Each action is an icon with a name a screen reader can read, and none of them is primary, so the view below keeps its one main action.">
-  <header class="gw-app-header">
-    <a class="gw-app-header__name" href="/">Botbench</a>
-    <div class="gw-app-header__actions">
-      <a class="gw-app-header__action" href="/search" aria-label="Search tasks">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+  <header class="ds-app-header">
+    <a class="ds-app-header__name" href="/">Botbench</a>
+    <div class="ds-app-header__actions">
+      <a class="ds-app-header__action" href="/search" aria-label="Search tasks">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-search"></use></svg>
       </a>
-      <button type="button" class="gw-app-header__action" aria-label="Open menu">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-menu"></use></svg>
+      <button type="button" class="ds-app-header__action" aria-label="Open menu">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-menu"></use></svg>
       </button>
     </div>
   </header>
@@ -52,12 +52,12 @@
 <h3>Back link and view title</h3>
 </figcaption>
 <div data-example="back-and-title" data-title="Back link and view title">
-  <header class="gw-app-header">
-    <a class="gw-app-header__back" href="/tasks">
-      <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <header class="ds-app-header">
+    <a class="ds-app-header__back" href="/tasks">
+      <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
       Tasks
     </a>
-    <h1 class="gw-app-header__title">Fix the login timeout</h1>
+    <h1 class="ds-app-header__title">Fix the login timeout</h1>
   </header>
 </div>
 </figure>
@@ -66,14 +66,14 @@
 <h3>Icon-only back link, title and one action</h3>
 </figcaption>
 <div data-example="back-title-action" data-title="Icon-only back link, title and one action">
-  <header class="gw-app-header">
-    <a class="gw-app-header__back" href="/runs" aria-label="Back to runs">
-      <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <header class="ds-app-header">
+    <a class="ds-app-header__back" href="/runs" aria-label="Back to runs">
+      <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
     </a>
-    <h1 class="gw-app-header__title">Run 2291</h1>
-    <div class="gw-app-header__actions">
-      <button type="button" class="gw-app-header__action" aria-label="More actions for run 2291">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg>
+    <h1 class="ds-app-header__title">Run 2291</h1>
+    <div class="ds-app-header__actions">
+      <button type="button" class="ds-app-header__action" aria-label="More actions for run 2291">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-ellipsis"></use></svg>
       </button>
     </div>
   </header>
@@ -84,14 +84,14 @@
 <h3>A title longer than the row</h3>
 </figcaption>
 <div data-example="long-title" data-title="A title longer than the row">
-  <header class="gw-app-header">
-    <a class="gw-app-header__back" href="/tasks" aria-label="Back to tasks">
-      <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <header class="ds-app-header">
+    <a class="ds-app-header__back" href="/tasks" aria-label="Back to tasks">
+      <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
     </a>
-    <h1 class="gw-app-header__title">Fix the login timeout on the mobile sign-in screen when the session cookie has expired</h1>
-    <div class="gw-app-header__actions">
-      <button type="button" class="gw-app-header__action" aria-label="More actions for this task">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg>
+    <h1 class="ds-app-header__title">Fix the login timeout on the mobile sign-in screen when the session cookie has expired</h1>
+    <div class="ds-app-header__actions">
+      <button type="button" class="ds-app-header__action" aria-label="More actions for this task">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-ellipsis"></use></svg>
       </button>
     </div>
   </header>
@@ -102,17 +102,17 @@
 <h3>With the approvals tray</h3>
 </figcaption>
 <div data-example="tray" data-title="With the approvals tray">
-  <header class="gw-app-header">
-    <a class="gw-app-header__name" href="/">Botbench</a>
-    <div class="gw-app-header__actions">
-      <a class="gw-app-header__action" href="/search" aria-label="Search tasks">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+  <header class="ds-app-header">
+    <a class="ds-app-header__name" href="/">Botbench</a>
+    <div class="ds-app-header__actions">
+      <a class="ds-app-header__action" href="/search" aria-label="Search tasks">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-search"></use></svg>
       </a>
     </div>
-    <div class="gw-app-header__tray">
-      <div class="gw-split">
+    <div class="ds-app-header__tray">
+      <div class="ds-split">
         <p>2 approvals waiting. The oldest is 6 minutes old.</p>
-        <a class="gw-button gw-button--small" href="/approvals">Review approvals</a>
+        <a class="ds-button ds-button--small" href="/approvals">Review approvals</a>
       </div>
     </div>
   </header>
@@ -123,16 +123,16 @@
 <h3>With the pending tray in the tray</h3>
 </figcaption>
 <div data-example="pending-tray" data-title="With the pending tray in the tray">
-  <header class="gw-app-header">
-    <a class="gw-app-header__name" href="/">Botbench</a>
-    <div class="gw-app-header__actions">
-      <a class="gw-app-header__action" href="/search" aria-label="Search tasks">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+  <header class="ds-app-header">
+    <a class="ds-app-header__name" href="/">Botbench</a>
+    <div class="ds-app-header__actions">
+      <a class="ds-app-header__action" href="/search" aria-label="Search tasks">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-search"></use></svg>
       </a>
     </div>
-    <div class="gw-app-header__tray">
-      <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
-        <a class="gw-pending-tray__link" href="/approvals"><span class="gw-pending-tray__count">2</span> approvals waiting</a>
+    <div class="ds-app-header__tray">
+      <div class="ds-pending-tray" aria-live="polite" aria-atomic="true">
+        <a class="ds-pending-tray__link" href="/approvals"><span class="ds-pending-tray__count">2</span> approvals waiting</a>
       </div>
     </div>
   </header>
@@ -144,14 +144,14 @@
 <p data-gallery="state">State: <code>empty</code></p>
 </figcaption>
 <div data-example="empty" data-title="Tray with nothing waiting" data-state="empty">
-  <header class="gw-app-header">
-    <a class="gw-app-header__name" href="/">Botbench</a>
-    <div class="gw-app-header__actions">
-      <a class="gw-app-header__action" href="/search" aria-label="Search tasks">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+  <header class="ds-app-header">
+    <a class="ds-app-header__name" href="/">Botbench</a>
+    <div class="ds-app-header__actions">
+      <a class="ds-app-header__action" href="/search" aria-label="Search tasks">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-search"></use></svg>
       </a>
     </div>
-    <div class="gw-app-header__tray"></div>
+    <div class="ds-app-header__tray"></div>
   </header>
 </div>
 </figure>
@@ -160,12 +160,12 @@
 <h3>Sticky</h3>
 </figcaption>
 <div data-example="sticky" data-title="Sticky">
-  <header class="gw-app-header gw-app-header--sticky">
-    <a class="gw-app-header__back" href="/branches">
-      <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <header class="ds-app-header ds-app-header--sticky">
+    <a class="ds-app-header__back" href="/branches">
+      <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
       Branches
     </a>
-    <h1 class="gw-app-header__title">fix/login-timeout</h1>
+    <h1 class="ds-app-header__title">fix/login-timeout</h1>
   </header>
 </div>
 </figure>
@@ -175,15 +175,15 @@
 <p data-gallery="state">State: <code>hover</code></p>
 </figcaption>
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <header class="gw-app-header">
-    <a class="gw-app-header__back" href="/tasks">
-      <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <header class="ds-app-header">
+    <a class="ds-app-header__back" href="/tasks">
+      <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
       Tasks
     </a>
-    <h1 class="gw-app-header__title">Task 412</h1>
-    <div class="gw-app-header__actions">
-      <button type="button" class="gw-app-header__action" aria-label="Search this task">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+    <h1 class="ds-app-header__title">Task 412</h1>
+    <div class="ds-app-header__actions">
+      <button type="button" class="ds-app-header__action" aria-label="Search this task">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-search"></use></svg>
       </button>
     </div>
   </header>
@@ -195,15 +195,15 @@
 <p data-gallery="state">State: <code>focus-visible</code></p>
 </figcaption>
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <header class="gw-app-header">
-    <a class="gw-app-header__back" href="/tasks">
-      <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <header class="ds-app-header">
+    <a class="ds-app-header__back" href="/tasks">
+      <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
       Tasks
     </a>
-    <h1 class="gw-app-header__title">Task 412</h1>
-    <div class="gw-app-header__actions">
-      <button type="button" class="gw-app-header__action" aria-label="Search this task">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+    <h1 class="ds-app-header__title">Task 412</h1>
+    <div class="ds-app-header__actions">
+      <button type="button" class="ds-app-header__action" aria-label="Search this task">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-search"></use></svg>
       </button>
     </div>
   </header>
@@ -215,15 +215,15 @@
 <p data-gallery="state">State: <code>active</code></p>
 </figcaption>
 <div data-example="active" data-title="Pressed" data-state="active">
-  <header class="gw-app-header">
-    <a class="gw-app-header__back" href="/tasks">
-      <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <header class="ds-app-header">
+    <a class="ds-app-header__back" href="/tasks">
+      <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
       Tasks
     </a>
-    <h1 class="gw-app-header__title">Task 412</h1>
-    <div class="gw-app-header__actions">
-      <button type="button" class="gw-app-header__action" aria-label="Search this task">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+    <h1 class="ds-app-header__title">Task 412</h1>
+    <div class="ds-app-header__actions">
+      <button type="button" class="ds-app-header__action" aria-label="Search this task">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-search"></use></svg>
       </button>
     </div>
   </header>
@@ -235,14 +235,14 @@
 <p data-gallery="state">State: <code>disabled</code></p>
 </figcaption>
 <div data-example="disabled" data-title="Unavailable action" data-state="disabled">
-  <header class="gw-app-header">
-    <a class="gw-app-header__name" href="/">Botbench</a>
-    <div class="gw-app-header__actions">
-      <button type="button" class="gw-app-header__action" aria-label="Search tasks" disabled>
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+  <header class="ds-app-header">
+    <a class="ds-app-header__name" href="/">Botbench</a>
+    <div class="ds-app-header__actions">
+      <button type="button" class="ds-app-header__action" aria-label="Search tasks" disabled>
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-search"></use></svg>
       </button>
-      <button type="button" class="gw-app-header__action" aria-label="Open menu">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-menu"></use></svg>
+      <button type="button" class="ds-app-header__action" aria-label="Open menu">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-menu"></use></svg>
       </button>
     </div>
   </header>
@@ -250,40 +250,40 @@
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A primary button in the header</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> A primary button in the header</h3>
 <p>The header is on every screen, so a primary button in it competes with the main action of whichever view is open. Keep header actions quiet and leave the primary to the view.</p>
 <p>Checker rule: <code>one-primary-action</code></p>
 </figcaption>
-<div data-example="primary-in-header" data-title="A primary button in the header" data-dont="one-primary-action" data-reason="The header is on every screen, so a primary button in it competes with the main action of whichever view is open. Keep header actions quiet and leave the primary to the view." class="gw-stack">
-  <header class="gw-app-header">
-    <a class="gw-app-header__name" href="/">Botbench</a>
-    <div class="gw-app-header__actions">
-      <a class="gw-button gw-button--primary" href="/tasks/new">New task</a>
+<div data-example="primary-in-header" data-title="A primary button in the header" data-dont="one-primary-action" data-reason="The header is on every screen, so a primary button in it competes with the main action of whichever view is open. Keep header actions quiet and leave the primary to the view." class="ds-stack">
+  <header class="ds-app-header">
+    <a class="ds-app-header__name" href="/">Botbench</a>
+    <div class="ds-app-header__actions">
+      <a class="ds-button ds-button--primary" href="/tasks/new">New task</a>
     </div>
   </header>
-  <div class="gw-cluster">
-    <button type="button" class="gw-button gw-button--primary">Approve command</button>
+  <div class="ds-cluster">
+    <button type="button" class="ds-button ds-button--primary">Approve command</button>
   </div>
 </div>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Icon-only controls with no name</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Icon-only controls with no name</h3>
 <p>An icon with no aria-label is announced only as link or button, so a screen reader user cannot tell back from search from menu.</p>
 <p>Caught in review, not by the checker.</p>
 </figcaption>
 <div data-example="unnamed-actions" data-title="Icon-only controls with no name" data-dont="review" data-reason="An icon with no aria-label is announced only as link or button, so a screen reader user cannot tell back from search from menu.">
-  <header class="gw-app-header">
-    <a class="gw-app-header__back" href="/tasks">
-      <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+  <header class="ds-app-header">
+    <a class="ds-app-header__back" href="/tasks">
+      <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-chevron-left"></use></svg>
     </a>
-    <h1 class="gw-app-header__title">Task 412</h1>
-    <div class="gw-app-header__actions">
-      <button type="button" class="gw-app-header__action">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+    <h1 class="ds-app-header__title">Task 412</h1>
+    <div class="ds-app-header__actions">
+      <button type="button" class="ds-app-header__action">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-search"></use></svg>
       </button>
-      <button type="button" class="gw-app-header__action">
-        <svg class="gw-app-header__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-menu"></use></svg>
+      <button type="button" class="ds-app-header__action">
+        <svg class="ds-app-header__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-menu"></use></svg>
       </button>
     </div>
   </header>
@@ -291,7 +291,7 @@
 </figure>
 </div>
 </section>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
@@ -314,7 +314,7 @@
 <dl>
 <dt>default</dt>
 <dd>Scrolls away with the page. Use it when the screen is short or the header holds nothing the reader needs while scrolling.</dd>
-<dt>sticky <code>gw-app-header--sticky</code></dt>
+<dt>sticky <code>ds-app-header--sticky</code></dt>
 <dd>Stays at the top while the page scrolls. Use it when the back link, the actions or the tray must stay in reach.</dd>
 </dl>
 </section>
@@ -330,8 +330,8 @@
 <ul>
 <li>Use a header element. Outside main it is the page's banner landmark, so a page has one.</li>
 <li>The product name is a link to the first screen. It is not a heading.</li>
-<li>A view has one h1. When the view has a page header, the page header's title is the h1 and the app header shows the product name. Only a view with no page header, such as a detail screen with a back link, puts its title in gw-app-header__title as the h1. Never write the title as an h1 in both.</li>
-<li>The tray, gw-app-header__tray, is where the pending tray goes: put the pending tray's div inside it, on every signed-in screen.</li>
+<li>A view has one h1. When the view has a page header, the page header's title is the h1 and the app header shows the product name. Only a view with no page header, such as a detail screen with a back link, puts its title in ds-app-header__title as the h1. Never write the title as an h1 in both.</li>
+<li>The tray, ds-app-header__tray, is where the pending tray goes: put the pending tray's div inside it, on every signed-in screen.</li>
 <li>The back link names where it goes: visible text such as Tasks, or aria-label=&quot;Back to tasks&quot; when it is only the icon.</li>
 <li>An icon-only action has an aria-label that says what it does and to what, such as Search tasks. Its icon carries aria-hidden=&quot;true&quot;.</li>
 <li>Use a link for an action that goes to another view and a button for one that acts on this view.</li>
@@ -344,15 +344,15 @@
 <section>
 <h2>Classes</h2>
 <ul>
-<li><code>gw-app-header</code></li>
-<li><code>gw-app-header--sticky</code></li>
-<li><code>gw-app-header__action</code></li>
-<li><code>gw-app-header__actions</code></li>
-<li><code>gw-app-header__back</code></li>
-<li><code>gw-app-header__icon</code></li>
-<li><code>gw-app-header__name</code></li>
-<li><code>gw-app-header__title</code></li>
-<li><code>gw-app-header__tray</code></li>
+<li><code>ds-app-header</code></li>
+<li><code>ds-app-header--sticky</code></li>
+<li><code>ds-app-header__action</code></li>
+<li><code>ds-app-header__actions</code></li>
+<li><code>ds-app-header__back</code></li>
+<li><code>ds-app-header__icon</code></li>
+<li><code>ds-app-header__name</code></li>
+<li><code>ds-app-header__title</code></li>
+<li><code>ds-app-header__tray</code></li>
 </ul>
 </section>
 </div>

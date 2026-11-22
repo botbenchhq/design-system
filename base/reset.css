@@ -4,14 +4,14 @@
  * zero-width solid border that a width utility alone makes visible.
  */
 
-@layer gw.reset {
+@layer ds.reset {
   *,
   ::before,
   ::after,
   ::backdrop,
   ::file-selector-button {
     box-sizing: border-box;
-    border: 0 solid var(--gw-color-border);
+    border: 0 solid var(--ds-color-border);
   }
 
   :root {
@@ -73,7 +73,7 @@
   hr {
     height: 0;
     color: inherit;
-    border-top-width: var(--gw-border-width);
+    border-top-width: var(--ds-border-width);
   }
 
   a {
@@ -123,7 +123,7 @@
 
   ::placeholder {
     opacity: 1;
-    color: var(--gw-color-muted);
+    color: var(--ds-color-muted);
   }
 
   summary {

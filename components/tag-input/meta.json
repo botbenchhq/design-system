@@ -19,19 +19,19 @@
   ],
   "states": ["default", "focus", "empty", "invalid", "disabled"],
   "accessibility": [
-    "Inside gw-field, after the label, put a div with gw-tag-input. It holds a ul with gw-tag-input__tags and an aria-label that says what the values are, such as Labels added, then an input type=\"text\" with gw-tag-input__input. The label's for attribute matches the input's id.",
-    "Each value is an li with the class gw-tag holding its text and a button with gw-tag__remove, copied from the tag component. The button's aria-label names the value: Remove label: backend. Keep the ul in the markup when it is empty.",
-    "Say which key adds a value in a gw-field__description linked with aria-describedby: Enter always, and a comma only where a value cannot hold one. On a phone, enterkeyhint=\"done\" labels the key.",
+    "Inside ds-field, after the label, put a div with ds-tag-input. It holds a ul with ds-tag-input__tags and an aria-label that says what the values are, such as Labels added, then an input type=\"text\" with ds-tag-input__input. The label's for attribute matches the input's id.",
+    "Each value is an li with the class ds-tag holding its text and a button with ds-tag__remove, copied from the tag component. The button's aria-label names the value: Remove label: backend. Keep the ul in the markup when it is empty.",
+    "Say which key adds a value in a ds-field__description linked with aria-describedby: Enter always, and a comma only where a value cannot hold one. On a phone, enterkeyhint=\"done\" labels the key.",
     "The app wires the keys: on Enter or the separator it trims what was typed, appends an li, empties the input and prevents the form from being sent. A pasted list is split on the separator. Backspace in the empty input removes the last tag. Typing the same value twice adds nothing.",
-    "After a value is added or removed, say so in a gw-visually-hidden element with role=\"status\", such as backend added, 3 labels. After a remove button is pressed, move focus to the next tag's button, or to the input when none is left.",
-    "For a value that cannot be added, leave it in the input, set aria-invalid=\"true\" on the input and link a gw-field__error that repeats the value and says what to type. The box's border turns to the danger colour and the error's icon marks it as well.",
+    "After a value is added or removed, say so in a ds-visually-hidden element with role=\"status\", such as backend added, 3 labels. After a remove button is pressed, move focus to the next tag's button, or to the input when none is left.",
+    "For a value that cannot be added, leave it in the input, set aria-invalid=\"true\" on the input and link a ds-field__error that repeats the value and says what to type. The box's border turns to the danger colour and the error's icon marks it as well.",
     "Send the values with the form as one hidden input per value, or as the app's own state. The text input holds only the value being typed.",
     "Tab reaches each remove button and then the input. Set disabled on the input and on every remove button when the values cannot change."
   ],
   "icons": [],
   "classes": [
-    "gw-tag-input",
-    "gw-tag-input__input",
-    "gw-tag-input__tags"
+    "ds-tag-input",
+    "ds-tag-input__input",
+    "ds-tag-input__tags"
   ]
 }

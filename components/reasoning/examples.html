@@ -1,7 +1,7 @@
 <div data-example="closed" data-title="Closed, as it starts" data-state="default" data-reason="The reader came for the answer, so the reasoning starts closed. Its summary says what is inside and how long it is, which is enough to decide whether to open it.">
-  <details class="gw-reasoning">
-    <summary class="gw-reasoning__summary">Reasoning, 14 lines</summary>
-    <div class="gw-reasoning__body">
+  <details class="ds-reasoning">
+    <summary class="ds-reasoning__summary">Reasoning, 14 lines</summary>
+    <div class="ds-reasoning__body">
       <p>The cookie expires after 15 minutes, which matches the access token lifetime, so the refresh is not happening.</p>
       <p>startRefreshTimer is called from one place, the sign-in handler. A reload restores the session from the cookie and never passes through that handler.</p>
       <p>Starting the timer wherever a valid session is loaded covers both paths. The reload case needs a test, because the current tests only sign in fresh.</p>
@@ -10,9 +10,9 @@
 </div>
 
 <div data-example="open" data-title="Open" data-state="open">
-  <details class="gw-reasoning" open>
-    <summary class="gw-reasoning__summary">Reasoning, 9 lines</summary>
-    <div class="gw-reasoning__body">
+  <details class="ds-reasoning" open>
+    <summary class="ds-reasoning__summary">Reasoning, 9 lines</summary>
+    <div class="ds-reasoning__body">
       <p>The cookie expires after 15 minutes, which matches the access token lifetime, so the refresh is not happening.</p>
       <p>startRefreshTimer is called from one place, the sign-in handler. A reload restores the session from the cookie and never passes through that handler.</p>
       <p>Starting the timer wherever a valid session is loaded covers both paths. The reload case needs a test, because the current tests only sign in fresh.</p>
@@ -21,9 +21,9 @@
 </div>
 
 <div data-example="plan" data-title="Plan notes">
-  <details class="gw-reasoning" open>
-    <summary class="gw-reasoning__summary">Plan, 4 steps</summary>
-    <ol class="gw-reasoning__body">
+  <details class="ds-reasoning" open>
+    <summary class="ds-reasoning__summary">Plan, 4 steps</summary>
+    <ol class="ds-reasoning__body">
       <li>1. Reproduce the expiry with a test that reloads a signed-in session.</li>
       <li>2. Start the refresh timer in loadSession when the session is still valid.</li>
       <li>3. Run the auth tests.</li>
@@ -33,59 +33,59 @@
 </div>
 
 <div data-example="in-transcript" data-title="Above the answer in a transcript">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--user">
-      <span class="gw-message__label">You</span>
-      <p class="gw-message__body">The session cookie expires after 15 minutes even while the tab is active. Find out why.</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--user">
+      <span class="ds-message__label">You</span>
+      <p class="ds-message__body">The session cookie expires after 15 minutes even while the tab is active. Find out why.</p>
     </li>
-    <li class="gw-message">
-      <span class="gw-message__label">Claude Code</span>
-      <details class="gw-reasoning">
-        <summary class="gw-reasoning__summary">Reasoning, 14 lines</summary>
-        <div class="gw-reasoning__body">
+    <li class="ds-message">
+      <span class="ds-message__label">Claude Code</span>
+      <details class="ds-reasoning">
+        <summary class="ds-reasoning__summary">Reasoning, 14 lines</summary>
+        <div class="ds-reasoning__body">
           <p>The cookie expires after 15 minutes, which matches the access token lifetime, so the refresh is not happening.</p>
           <p>startRefreshTimer is called from one place, the sign-in handler. A reload never passes through it.</p>
         </div>
       </details>
-      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid session is loaded and add a test for the reload case.</p>
+      <p class="ds-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid session is loaded and add a test for the reload case.</p>
     </li>
   </ol>
 </div>
 
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <details class="gw-reasoning">
-    <summary class="gw-reasoning__summary">Reasoning, 14 lines</summary>
-    <div class="gw-reasoning__body">
+  <details class="ds-reasoning">
+    <summary class="ds-reasoning__summary">Reasoning, 14 lines</summary>
+    <div class="ds-reasoning__body">
       <p>The cookie expires after 15 minutes, which matches the access token lifetime, so the refresh is not happening.</p>
     </div>
   </details>
 </div>
 
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <details class="gw-reasoning">
-    <summary class="gw-reasoning__summary">Plan, 4 steps</summary>
-    <div class="gw-reasoning__body">
+  <details class="ds-reasoning">
+    <summary class="ds-reasoning__summary">Plan, 4 steps</summary>
+    <div class="ds-reasoning__body">
       <p>Reproduce the expiry with a test, start the timer in loadSession, run the auth tests, then open a pull request.</p>
     </div>
   </details>
 </div>
 
 <div data-example="vague-summary" data-title="A summary that does not say what is inside" data-dont="review" data-reason="Show more could hold anything, and gives no hint of how much there is to read. Name the content and its length: Reasoning, 14 lines.">
-  <details class="gw-reasoning">
-    <summary class="gw-reasoning__summary">Show more</summary>
-    <div class="gw-reasoning__body">
+  <details class="ds-reasoning">
+    <summary class="ds-reasoning__summary">Show more</summary>
+    <div class="ds-reasoning__body">
       <p>The cookie expires after 15 minutes, which matches the access token lifetime, so the refresh is not happening.</p>
     </div>
   </details>
 </div>
 
 <div data-example="action-inside" data-title="An action inside the reasoning" data-dont="hidden-critical-action" data-reason="The reasoning is closed until someone opens it, so an action placed in it is invisible to most readers. Reasoning holds text only, and the action goes beside the answer.">
-  <details class="gw-reasoning">
-    <summary class="gw-reasoning__summary">Reasoning, 6 lines</summary>
-    <div class="gw-reasoning__body">
+  <details class="ds-reasoning">
+    <summary class="ds-reasoning__summary">Reasoning, 6 lines</summary>
+    <div class="ds-reasoning__body">
       <p>The fix is ready and the auth tests pass. The branch can be merged once the pull request is approved.</p>
-      <div class="gw-cluster">
-        <button type="button" class="gw-button" data-gw-critical>Approve pull request</button>
+      <div class="ds-cluster">
+        <button type="button" class="ds-button" data-ds-critical>Approve pull request</button>
       </div>
     </div>
   </details>

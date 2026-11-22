@@ -22,10 +22,10 @@ const components = [...index.components.map(({ name }) => name), ...patterns];
 // In a rules file, a code span holding one lower-case hyphenated word is a component name, a checker rule ID,
 // a system class or a data- or aria- attribute. Anything else in a code span carries a dot, a space or punctuation.
 const WORD_SPAN = /`([a-z][a-z0-9]*(?:-[a-z0-9]+)*)`/g;
-// A system class anywhere in the text. A custom property (--gw-…) and an attribute (data-gw-…) are not classes.
-const SYSTEM_CLASS = /(?<![\w-])gw-[a-z0-9]+(?:(?:__|--|-)[a-z0-9]+)*/g;
+// A system class anywhere in the text. A custom property (--ds-…) and an attribute (data-ds-…) are not classes.
+const SYSTEM_CLASS = /(?<![\w-])ds-[a-z0-9]+(?:(?:__|--|-)[a-z0-9]+)*/g;
 // The keyword of an inline waiver.
-const NOT_A_CLASS = ["gw-waive"];
+const NOT_A_CLASS = ["ds-waive"];
 
 test("the rules are copied into dist/rules/ unchanged", () => {
   for (const name of files) assert.equal(readFileSync(join(dist, "rules", name), "utf8"), text[name], name);
@@ -96,6 +96,6 @@ test("every rule ID the checker can emit has an entry with a fix in the rules fi
 });
 
 test("the visually hidden class is part of the system", () => {
-  assert.ok(manifest.classes.includes("gw-visually-hidden"));
-  assert.match(readFileSync(join(dist, "groundwork.css"), "utf8"), /\.gw-visually-hidden \{/);
+  assert.ok(manifest.classes.includes("ds-visually-hidden"));
+  assert.match(readFileSync(join(dist, "design-system.css"), "utf8"), /\.ds-visually-hidden \{/);
 });

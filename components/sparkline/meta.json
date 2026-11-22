@@ -15,28 +15,28 @@
     "As decoration on a card or a heading."
   ],
   "variants": [
-    { "name": "with words", "use": "The default. gw-sparkline__text after the drawing says the trend, the period and the latest value in a short visible line." },
-    { "name": "words for screen readers only", "use": "The same sentence in a span with gw-visually-hidden in place of gw-sparkline__text, where the value and the period are already visible in the same row and a table has no room for the line of text." }
+    { "name": "with words", "use": "The default. ds-sparkline__text after the drawing says the trend, the period and the latest value in a short visible line." },
+    { "name": "words for screen readers only", "use": "The same sentence in a span with ds-visually-hidden in place of ds-sparkline__text, where the value and the period are already visible in the same row and a table has no room for the line of text." }
   ],
   "sizes": [
     { "name": "default", "use": "64px wide and 16px tall, with a 1.5px line. It fits a table row and a line of text without adding height." }
   ],
   "states": ["default", "empty"],
   "accessibility": [
-    "Use a span with the class gw-sparkline holding the svg and then the words. The svg carries aria-hidden=\"true\" and focusable=\"false\": the drawing is not announced, and the words carry everything it shows.",
-    "The words are required. They say the direction, the period and the latest value with its unit, such as Rising over the last 7 runs, now 6 min 12 s. Put them in gw-sparkline__text, or in gw-visually-hidden when the same row already shows the value. Direction is a word, Rising, Falling or Steady, never the line's slope or a colour alone.",
-    "The app generates the svg: viewBox=\"0 0 64 16\", one polyline with the class gw-sparkline__line, and one circle with the class gw-sparkline__last and r=\"2\" on the last point. Spread the points evenly from x=2 to x=62 and scale the values so the lowest is at y=14 and the highest at y=2. When every value is the same, draw the line at y=8.",
+    "Use a span with the class ds-sparkline holding the svg and then the words. The svg carries aria-hidden=\"true\" and focusable=\"false\": the drawing is not announced, and the words carry everything it shows.",
+    "The words are required. They say the direction, the period and the latest value with its unit, such as Rising over the last 7 runs, now 6 min 12 s. Put them in ds-sparkline__text, or in ds-visually-hidden when the same row already shows the value. Direction is a word, Rising, Falling or Steady, never the line's slope or a colour alone.",
+    "The app generates the svg: viewBox=\"0 0 64 16\", one polyline with the class ds-sparkline__line, and one circle with the class ds-sparkline__last and r=\"2\" on the last point. Spread the points evenly from x=2 to x=62 and scale the values so the lowest is at y=14 and the highest at y=2. When every value is the same, draw the line at y=8.",
     "The line and the dot are drawn in the main text colour through currentColor, in both themes. Do not set a stroke or fill attribute, and do not add a fill under the line, a gradient, grid lines or an animation.",
     "Do not colour the line by whether the change is good or bad. If that judgement matters, write it in the words.",
-    "With fewer than two values there is no line. Leave the svg out and write that in gw-sparkline__text: Not enough runs for a trend yet.",
+    "With fewer than two values there is no line. Leave the svg out and write that in ds-sparkline__text: Not enough runs for a trend yet.",
     "The component has no controls and needs no script beyond generating the points."
   ],
   "icons": [],
   "classes": [
-    "gw-sparkline",
-    "gw-sparkline__chart",
-    "gw-sparkline__last",
-    "gw-sparkline__line",
-    "gw-sparkline__text"
+    "ds-sparkline",
+    "ds-sparkline__chart",
+    "ds-sparkline__last",
+    "ds-sparkline__line",
+    "ds-sparkline__text"
   ]
 }

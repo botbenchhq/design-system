@@ -4,11 +4,11 @@
  * joins the two, so the link sits with the message and not a whole section away from it.
  */
 
-@layer gw.components {
-  .gw-not-found {
+@layer ds.components {
+  .ds-not-found {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    max-width: var(--gw-size-column);
+    max-width: var(--ds-size-column);
   }
 }

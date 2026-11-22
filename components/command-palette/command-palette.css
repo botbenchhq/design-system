@@ -5,144 +5,144 @@
  * The input is a combobox that controls the list. Filtering and the arrow keys are script: see the metadata.
  */
 
-@layer gw.components {
-  .gw-command-palette {
+@layer ds.components {
+  .ds-command-palette {
     display: flex;
     flex-direction: column;
     min-width: 0;
   }
 
   /* The input and the button that closes the palette, which a touch screen has no Escape key for. */
-  .gw-command-palette__search {
+  .ds-command-palette__search {
     display: flex;
     align-items: flex-start;
-    gap: var(--gw-space-sm);
-    padding: var(--gw-space-md);
-    border-bottom-width: var(--gw-border-width);
+    gap: var(--ds-space-sm);
+    padding: var(--ds-space-md);
+    border-bottom-width: var(--ds-border-width);
   }
 
-  .gw-command-palette__field {
+  .ds-command-palette__field {
     flex: 1;
     min-width: 0;
   }
 
   /* The list scrolls inside the dialog, so the input stays in view above it. */
-  .gw-command-palette__list {
+  .ds-command-palette__list {
     display: flex;
     flex-direction: column;
-    max-height: min(calc(var(--gw-size-touch) * 8), 50dvh);
-    padding: var(--gw-space-xs);
+    max-height: min(calc(var(--ds-size-touch) * 8), 50dvh);
+    padding: var(--ds-space-xs);
     overflow-y: auto;
   }
 
-  .gw-command-palette__group {
+  .ds-command-palette__group {
     display: flex;
     flex-direction: column;
   }
 
-  .gw-command-palette__label {
-    padding: var(--gw-space-sm) var(--gw-space-md) var(--gw-space-xs);
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-medium);
-    line-height: var(--gw-leading-xs);
+  .ds-command-palette__label {
+    padding: var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-xs);
     overflow-wrap: anywhere;
   }
 
-  .gw-command-palette__option {
+  .ds-command-palette__option {
     position: relative;
     display: flex;
     align-items: center;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
     width: 100%;
-    min-height: var(--gw-size-touch);
-    padding: var(--gw-space-xs) var(--gw-space-md);
-    border-radius: var(--gw-radius-sm);
+    min-height: var(--ds-size-touch);
+    padding: var(--ds-space-xs) var(--ds-space-md);
+    border-radius: var(--ds-radius-sm);
     text-align: start;
     overflow-wrap: anywhere;
-    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+    transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }
 
-  .gw-command-palette__icon {
+  .ds-command-palette__icon {
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
-    color: var(--gw-color-muted);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
+    color: var(--ds-color-muted);
   }
 
-  .gw-command-palette__name {
+  .ds-command-palette__name {
     flex: 1;
     min-width: 0;
   }
 
   /* The keys that run the command without the palette, as a hint at the end of its row. */
-  .gw-command-palette__shortcut {
+  .ds-command-palette__shortcut {
     flex: none;
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
     white-space: nowrap;
   }
 
   /* Nothing matches, or the commands are on their way: a sentence where the list would be. */
-  .gw-command-palette__message {
-    padding: var(--gw-space-lg);
+  .ds-command-palette__message {
+    padding: var(--ds-space-lg);
     overflow-wrap: anywhere;
   }
 
   /* A layered display value would otherwise beat the hidden attribute, which is how a command is filtered out. */
-  .gw-command-palette__list[hidden],
-  .gw-command-palette__group[hidden],
-  .gw-command-palette__option[hidden],
-  .gw-command-palette__message[hidden] {
+  .ds-command-palette__list[hidden],
+  .ds-command-palette__group[hidden],
+  .ds-command-palette__option[hidden],
+  .ds-command-palette__message[hidden] {
     display: none;
   }
 
   /* The quiet parts turn to the main text colour wherever the row is shaded, so they keep their contrast. */
   @media (hover: hover) {
-    .gw-command-palette__option:hover {
-      background-color: var(--gw-color-surface-sunken);
+    .ds-command-palette__option:hover {
+      background-color: var(--ds-color-surface-sunken);
     }
 
-    .gw-command-palette__option:hover > :is(.gw-command-palette__icon, .gw-command-palette__shortcut) {
-      color: var(--gw-color-on-surface);
+    .ds-command-palette__option:hover > :is(.ds-command-palette__icon, .ds-command-palette__shortcut) {
+      color: var(--ds-color-on-surface);
     }
   }
 
-  .gw-command-palette__option:active {
-    background-color: var(--gw-color-surface-sunken);
+  .ds-command-palette__option:active {
+    background-color: var(--ds-color-surface-sunken);
   }
 
   /* The command Enter would run: a bar at its start as well as a shade. */
-  .gw-command-palette__option[aria-selected="true"] {
-    background-color: var(--gw-color-surface-sunken);
+  .ds-command-palette__option[aria-selected="true"] {
+    background-color: var(--ds-color-surface-sunken);
   }
 
-  .gw-command-palette__option[aria-selected="true"]::before {
+  .ds-command-palette__option[aria-selected="true"]::before {
     content: "";
     position: absolute;
     inset-block: 0;
     inset-inline-start: 0;
-    width: calc(var(--gw-border-width) * 2);
-    border-radius: var(--gw-radius-sm);
-    background-color: var(--gw-color-accent);
+    width: calc(var(--ds-border-width) * 2);
+    border-radius: var(--ds-radius-sm);
+    background-color: var(--ds-color-accent);
   }
 
-  .gw-command-palette__option[aria-selected="true"] > :is(.gw-command-palette__icon, .gw-command-palette__shortcut) {
-    color: var(--gw-color-on-surface);
+  .ds-command-palette__option[aria-selected="true"] > :is(.ds-command-palette__icon, .ds-command-palette__shortcut) {
+    color: var(--ds-color-on-surface);
   }
 
   /* After hover, active and selected, so an unavailable command never answers the pointer. */
-  .gw-command-palette__option[aria-disabled="true"] {
-    color: var(--gw-color-muted);
+  .ds-command-palette__option[aria-disabled="true"] {
+    color: var(--ds-color-muted);
     cursor: default;
   }
 
-  .gw-command-palette__option[aria-disabled="true"]:not([aria-selected="true"]) {
+  .ds-command-palette__option[aria-disabled="true"]:not([aria-selected="true"]) {
     background-color: transparent;
   }
 
-  .gw-command-palette__option[aria-disabled="true"] > :is(.gw-command-palette__icon, .gw-command-palette__shortcut) {
-    color: var(--gw-color-muted);
+  .ds-command-palette__option[aria-disabled="true"] > :is(.ds-command-palette__icon, .ds-command-palette__shortcut) {
+    color: var(--ds-color-muted);
   }
 }

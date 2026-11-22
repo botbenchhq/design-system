@@ -1,93 +1,93 @@
 <div data-example="default" data-title="Deleting a workspace" data-state="open" data-gallery-frame data-reason="The title names the thing, the body lists what will be lost in plain words and says what is kept, and the button repeats the verb. Cancel comes first, so focus lands on it when the dialog opens and a stray Enter deletes nothing.">
-  <dialog class="gw-dialog gw-confirm-dialog" id="confirm-dialog-default" role="alertdialog" aria-labelledby="confirm-dialog-default-title" aria-describedby="confirm-dialog-default-body" open>
-    <form class="gw-dialog__panel" method="dialog">
-      <h2 class="gw-dialog__title" id="confirm-dialog-default-title">Delete the workspace api-refactor?</h2>
-      <div class="gw-dialog__body" id="confirm-dialog-default-body">
+  <dialog class="ds-dialog ds-confirm-dialog" id="confirm-dialog-default" role="alertdialog" aria-labelledby="confirm-dialog-default-title" aria-describedby="confirm-dialog-default-body" open>
+    <form class="ds-dialog__panel" method="dialog">
+      <h2 class="ds-dialog__title" id="confirm-dialog-default-title">Delete the workspace api-refactor?</h2>
+      <div class="ds-dialog__body" id="confirm-dialog-default-body">
         <p>This removes the workspace from this machine and cannot be undone. You will lose:</p>
-        <ul class="gw-confirm-dialog__losses">
-          <li class="gw-confirm-dialog__loss">3 changed files that were never committed</li>
-          <li class="gw-confirm-dialog__loss">The branch fix/session-refresh, which was never pushed</li>
-          <li class="gw-confirm-dialog__loss">The transcripts of 4 runs</li>
+        <ul class="ds-confirm-dialog__losses">
+          <li class="ds-confirm-dialog__loss">3 changed files that were never committed</li>
+          <li class="ds-confirm-dialog__loss">The branch fix/session-refresh, which was never pushed</li>
+          <li class="ds-confirm-dialog__loss">The transcripts of 4 runs</li>
         </ul>
         <p>The repository acme/api and its pull requests stay as they are.</p>
       </div>
-      <div class="gw-dialog__footer gw-confirm-dialog__actions">
-        <button type="submit" class="gw-button" value="cancel">Cancel</button>
-        <button type="submit" class="gw-button gw-button--danger" value="delete">Delete workspace</button>
+      <div class="ds-dialog__footer ds-confirm-dialog__actions">
+        <button type="submit" class="ds-button" value="cancel">Cancel</button>
+        <button type="submit" class="ds-button ds-button--danger" value="delete">Delete workspace</button>
       </div>
     </form>
   </dialog>
 </div>
 
 <div data-example="one-loss" data-title="One thing lost" data-gallery-frame="short">
-  <dialog class="gw-dialog gw-confirm-dialog" id="confirm-dialog-one-loss" role="alertdialog" aria-labelledby="confirm-dialog-one-loss-title" aria-describedby="confirm-dialog-one-loss-body" open>
-    <form class="gw-dialog__panel" method="dialog">
-      <h2 class="gw-dialog__title" id="confirm-dialog-one-loss-title">Discard the draft prompt?</h2>
-      <div class="gw-dialog__body" id="confirm-dialog-one-loss-body">
+  <dialog class="ds-dialog ds-confirm-dialog" id="confirm-dialog-one-loss" role="alertdialog" aria-labelledby="confirm-dialog-one-loss-title" aria-describedby="confirm-dialog-one-loss-body" open>
+    <form class="ds-dialog__panel" method="dialog">
+      <h2 class="ds-dialog__title" id="confirm-dialog-one-loss-title">Discard the draft prompt?</h2>
+      <div class="ds-dialog__body" id="confirm-dialog-one-loss-body">
         <p>The 214 words you wrote for task 41 are removed. This cannot be undone.</p>
       </div>
-      <div class="gw-dialog__footer gw-confirm-dialog__actions">
-        <button type="submit" class="gw-button" value="cancel">Keep editing</button>
-        <button type="submit" class="gw-button gw-button--danger" value="discard">Discard draft</button>
+      <div class="ds-dialog__footer ds-confirm-dialog__actions">
+        <button type="submit" class="ds-button" value="cancel">Keep editing</button>
+        <button type="submit" class="ds-button ds-button--danger" value="discard">Discard draft</button>
       </div>
     </form>
   </dialog>
 </div>
 
 <div data-example="busy" data-title="Deleting" data-state="busy" data-gallery-frame>
-  <dialog class="gw-dialog gw-confirm-dialog" id="confirm-dialog-busy" role="alertdialog" aria-labelledby="confirm-dialog-busy-title" aria-describedby="confirm-dialog-busy-body" open>
-    <form class="gw-dialog__panel" method="dialog">
-      <h2 class="gw-dialog__title" id="confirm-dialog-busy-title">Delete the workspace api-refactor?</h2>
-      <div class="gw-dialog__body" id="confirm-dialog-busy-body">
+  <dialog class="ds-dialog ds-confirm-dialog" id="confirm-dialog-busy" role="alertdialog" aria-labelledby="confirm-dialog-busy-title" aria-describedby="confirm-dialog-busy-body" open>
+    <form class="ds-dialog__panel" method="dialog">
+      <h2 class="ds-dialog__title" id="confirm-dialog-busy-title">Delete the workspace api-refactor?</h2>
+      <div class="ds-dialog__body" id="confirm-dialog-busy-body">
         <p>This removes the workspace from this machine and cannot be undone. You will lose:</p>
-        <ul class="gw-confirm-dialog__losses">
-          <li class="gw-confirm-dialog__loss">3 changed files that were never committed</li>
-          <li class="gw-confirm-dialog__loss">The branch fix/session-refresh, which was never pushed</li>
+        <ul class="ds-confirm-dialog__losses">
+          <li class="ds-confirm-dialog__loss">3 changed files that were never committed</li>
+          <li class="ds-confirm-dialog__loss">The branch fix/session-refresh, which was never pushed</li>
         </ul>
       </div>
-      <div class="gw-dialog__footer gw-confirm-dialog__actions">
-        <button type="submit" class="gw-button" value="cancel" disabled>Cancel</button>
-        <button type="submit" class="gw-button gw-button--danger" value="delete" aria-busy="true">Deleting workspace</button>
+      <div class="ds-dialog__footer ds-confirm-dialog__actions">
+        <button type="submit" class="ds-button" value="cancel" disabled>Cancel</button>
+        <button type="submit" class="ds-button ds-button--danger" value="delete" aria-busy="true">Deleting workspace</button>
       </div>
     </form>
   </dialog>
 </div>
 
 <div data-example="error" data-title="The delete failed" data-state="error" data-gallery-frame>
-  <dialog class="gw-dialog gw-confirm-dialog" id="confirm-dialog-error" role="alertdialog" aria-labelledby="confirm-dialog-error-title" aria-describedby="confirm-dialog-error-body" open>
-    <form class="gw-dialog__panel" method="dialog">
-      <h2 class="gw-dialog__title" id="confirm-dialog-error-title">Delete the workspace api-refactor?</h2>
-      <div class="gw-dialog__body" id="confirm-dialog-error-body">
-        <div class="gw-alert gw-alert--danger" role="alert">
-          <div class="gw-alert__content">
-            <p class="gw-alert__label">Error</p>
-            <p class="gw-alert__body">Nothing was deleted: a run is still using the worktree. Stop run 7, then delete the workspace again.</p>
+  <dialog class="ds-dialog ds-confirm-dialog" id="confirm-dialog-error" role="alertdialog" aria-labelledby="confirm-dialog-error-title" aria-describedby="confirm-dialog-error-body" open>
+    <form class="ds-dialog__panel" method="dialog">
+      <h2 class="ds-dialog__title" id="confirm-dialog-error-title">Delete the workspace api-refactor?</h2>
+      <div class="ds-dialog__body" id="confirm-dialog-error-body">
+        <div class="ds-alert ds-alert--danger" role="alert">
+          <div class="ds-alert__content">
+            <p class="ds-alert__label">Error</p>
+            <p class="ds-alert__body">Nothing was deleted: a run is still using the worktree. Stop run 7, then delete the workspace again.</p>
           </div>
         </div>
         <p>This removes the workspace from this machine and cannot be undone. You will lose:</p>
-        <ul class="gw-confirm-dialog__losses">
-          <li class="gw-confirm-dialog__loss">3 changed files that were never committed</li>
-          <li class="gw-confirm-dialog__loss">The branch fix/session-refresh, which was never pushed</li>
+        <ul class="ds-confirm-dialog__losses">
+          <li class="ds-confirm-dialog__loss">3 changed files that were never committed</li>
+          <li class="ds-confirm-dialog__loss">The branch fix/session-refresh, which was never pushed</li>
         </ul>
       </div>
-      <div class="gw-dialog__footer gw-confirm-dialog__actions">
-        <button type="submit" class="gw-button" value="cancel">Cancel</button>
-        <button type="submit" class="gw-button gw-button--danger" value="delete">Delete workspace</button>
+      <div class="ds-dialog__footer ds-confirm-dialog__actions">
+        <button type="submit" class="ds-button" value="cancel">Cancel</button>
+        <button type="submit" class="ds-button ds-button--danger" value="delete">Delete workspace</button>
       </div>
     </form>
   </dialog>
 </div>
 
 <div data-example="vague" data-title="A vague question with the destructive button first" data-dont="review" data-gallery-frame="short" data-reason="The reader cannot tell what Yes will destroy, and Yes comes first, so focus lands on it and a stray Enter deletes the workspace. Name the thing, list what is lost, repeat the verb on the button and put Cancel first.">
-  <dialog class="gw-dialog gw-confirm-dialog" id="confirm-dialog-vague" role="alertdialog" aria-labelledby="confirm-dialog-vague-title" open>
-    <form class="gw-dialog__panel" method="dialog">
-      <h2 class="gw-dialog__title" id="confirm-dialog-vague-title">Are you sure?</h2>
-      <div class="gw-dialog__body">
+  <dialog class="ds-dialog ds-confirm-dialog" id="confirm-dialog-vague" role="alertdialog" aria-labelledby="confirm-dialog-vague-title" open>
+    <form class="ds-dialog__panel" method="dialog">
+      <h2 class="ds-dialog__title" id="confirm-dialog-vague-title">Are you sure?</h2>
+      <div class="ds-dialog__body">
         <p>This action cannot be undone.</p>
       </div>
-      <div class="gw-dialog__footer gw-confirm-dialog__actions">
-        <button type="submit" class="gw-button gw-button--danger" value="yes">Yes</button>
-        <button type="submit" class="gw-button" value="no">No</button>
+      <div class="ds-dialog__footer ds-confirm-dialog__actions">
+        <button type="submit" class="ds-button ds-button--danger" value="yes">Yes</button>
+        <button type="submit" class="ds-button" value="no">No</button>
       </div>
     </form>
   </dialog>

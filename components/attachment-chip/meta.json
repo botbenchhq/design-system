@@ -15,32 +15,32 @@
   ],
   "variants": [
     { "name": "file", "use": "The file icon, for anything that is not an image." },
-    { "name": "image", "use": "The image icon, with a gw-visually-hidden span reading Image before the name, so the kind is not the icon alone." }
+    { "name": "image", "use": "The image icon, with a ds-visually-hidden span reading Image before the name, so the kind is not the icon alone." }
   ],
   "sizes": [],
   "states": ["default", "hover", "focus-visible", "busy", "error", "disabled"],
   "accessibility": [
-    "Each chip is an li with the class gw-attachment-chip, in a ul with an aria-label such as Attachments. Lay the ul out with gw-cluster gw-gap-md: the 12px gap keeps the remove buttons' 44px pointer targets on two rows from overlapping.",
-    "Write the whole file name as text, split into gw-attachment-chip__start and gw-attachment-chip__end with no white space between the spans. The end part is the last few characters with the extension. The stylesheet cuts the middle from view only, so a screen reader still reads the whole name.",
+    "Each chip is an li with the class ds-attachment-chip, in a ul with an aria-label such as Attachments. Lay the ul out with ds-cluster ds-gap-md: the 12px gap keeps the remove buttons' 44px pointer targets on two rows from overlapping.",
+    "Write the whole file name as text, split into ds-attachment-chip__start and ds-attachment-chip__end with no white space between the spans. The end part is the last few characters with the extension. The stylesheet cuts the middle from view only, so a screen reader still reads the whole name.",
     "Write the size with its unit, such as 48 KB or 2.1 MB.",
-    "The remove control is a button element with type=\"button\" and the class gw-attachment-chip__remove, holding the x icon with aria-hidden=\"true\" and a gw-visually-hidden span that names the file: Remove session-trace.log. It is drawn 24px square and its pointer target is 44px each way.",
-    "While the file uploads, set aria-busy=\"true\" on the li and add a native progress element with the class gw-attachment-chip__progress as its last child, with value and max set from the upload and an aria-label such as Uploading session-trace.log. Leave value off until the first figure arrives. Put the percentage and the size in gw-attachment-chip__size, and name the button Cancel the upload of and the file.",
-    "When the upload fails, remove aria-busy and the progress element and add a p with the class gw-attachment-chip__error and role=\"alert\" as the last child. It says what happened and what to do, such as Not attached: files can be up to 10 MB. Remove it and attach a smaller file. Its icon and the chip's outline are drawn by the stylesheet.",
+    "The remove control is a button element with type=\"button\" and the class ds-attachment-chip__remove, holding the x icon with aria-hidden=\"true\" and a ds-visually-hidden span that names the file: Remove session-trace.log. It is drawn 24px square and its pointer target is 44px each way.",
+    "While the file uploads, set aria-busy=\"true\" on the li and add a native progress element with the class ds-attachment-chip__progress as its last child, with value and max set from the upload and an aria-label such as Uploading session-trace.log. Leave value off until the first figure arrives. Put the percentage and the size in ds-attachment-chip__size, and name the button Cancel the upload of and the file.",
+    "When the upload fails, remove aria-busy and the progress element and add a p with the class ds-attachment-chip__error and role=\"alert\" as the last child. It says what happened and what to do, such as Not attached: files can be up to 10 MB. Remove it and attach a smaller file. Its icon and the chip's outline are drawn by the stylesheet.",
     "While the prompt is being sent, set the disabled attribute on each remove button.",
     "After a chip is removed, move focus to the next chip's remove button, or to the composer when none is left.",
     "Tab reaches each remove button. Enter and Space activate it. The component needs no script of its own: the app sets aria-busy, the progress value, the text and the disabled attribute."
   ],
   "icons": ["circle-alert", "file", "image", "x"],
   "classes": [
-    "gw-attachment-chip",
-    "gw-attachment-chip__end",
-    "gw-attachment-chip__error",
-    "gw-attachment-chip__icon",
-    "gw-attachment-chip__name",
-    "gw-attachment-chip__progress",
-    "gw-attachment-chip__remove",
-    "gw-attachment-chip__remove-icon",
-    "gw-attachment-chip__size",
-    "gw-attachment-chip__start"
+    "ds-attachment-chip",
+    "ds-attachment-chip__end",
+    "ds-attachment-chip__error",
+    "ds-attachment-chip__icon",
+    "ds-attachment-chip__name",
+    "ds-attachment-chip__progress",
+    "ds-attachment-chip__remove",
+    "ds-attachment-chip__remove-icon",
+    "ds-attachment-chip__size",
+    "ds-attachment-chip__start"
   ]
 }

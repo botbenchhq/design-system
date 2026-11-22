@@ -19,8 +19,8 @@
   "sizes": [],
   "states": ["default", "error", "review"],
   "accessibility": [
-    "In an app the element with gw-multi-step-form is the main element. The h1 names the whole task and is the same on every step. Each step is one form, with an h2 that names the step.",
-    "gw-multi-step-form__step is a p directly above the h2 that reads Step 2 of 4, in words. When a step loads, move focus to the h2, which takes tabindex=\"-1\", so a screen reader reads the step's name, and put the step in the document title.",
+    "In an app the element with ds-multi-step-form is the main element. The h1 names the whole task and is the same on every step. Each step is one form, with an h2 that names the step.",
+    "ds-multi-step-form__step is a p directly above the h2 that reads Step 2 of 4, in words. When a step loads, move focus to the h2, which takes tabindex=\"-1\", so a screen reader reads the step's name, and put the step in the document title.",
     "To show the named steps above the form, with the completed and current ones marked, use the stepper component. Keep the step line in words as well.",
     "Every step ends with a button group. The secondary action comes first: Back, a link to the previous step that keeps what was typed, or Cancel on the first step. The primary action comes last: Continue on every step but the last.",
     "The last step is the review. It shows every answer in a key-value list, in the order the steps asked for them, then one sentence on what the final action does. Its primary button is a specific verb and what it acts on, such as Start task, never Submit or Finish.",
@@ -31,5 +31,5 @@
     "Tab moves through the fields in order, then Back, then the primary action. Enter in a text input sends the step. The pattern needs no script of its own."
   ],
   "icons": [],
-  "classes": ["gw-multi-step-form", "gw-multi-step-form__step"]
+  "classes": ["ds-multi-step-form", "ds-multi-step-form__step"]
 }

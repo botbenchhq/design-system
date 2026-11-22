@@ -5,20 +5,20 @@
  * This file adds only what the set needs: the rules between sections and summaries that run edge to edge.
  */
 
-@layer gw.components {
-  .gw-accordion {
+@layer ds.components {
+  .ds-accordion {
     display: flex;
     flex-direction: column;
     min-width: 0;
-    border-block-width: var(--gw-border-width);
+    border-block-width: var(--ds-border-width);
   }
 
-  .gw-accordion__section + .gw-accordion__section {
-    border-top-width: var(--gw-border-width);
+  .ds-accordion__section + .ds-accordion__section {
+    border-top-width: var(--ds-border-width);
   }
 
   /* Between two rules a rounded shade would look like a button inside the row, so the summary is square. */
-  .gw-accordion__section > summary {
+  .ds-accordion__section > summary {
     border-radius: 0;
   }
 }

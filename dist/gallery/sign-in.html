@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sign in - Groundwork gallery</title>
-<link rel="stylesheet" href="../groundwork.css">
+<title>Sign in - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
 <link rel="stylesheet" href="gallery.css">
 <script src="gallery.js"></script>
 <script type="module" src="../behaviors/combobox.js"></script>
 <script type="module" src="../behaviors/command-palette.js"></script>
 <script type="module" src="../behaviors/elapsed.js"></script>
-<script type="module" src="../behaviors/groundwork.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
 <script type="module" src="../behaviors/transcript.js"></script>
 </head>
 <body>
 <header data-gallery="bar">
-<a href="index.html">Groundwork gallery</a>
+<a href="index.html">Design system gallery</a>
 <nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
 </header>
 <main data-gallery="page">
@@ -26,79 +26,79 @@
 </header>
 <section>
 <h2>Examples</h2>
-<div class="gw-grid">
+<div class="ds-grid">
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Sign in</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Sign in</h3>
 <p data-gallery="state">State: <code>default</code></p>
 <p>The screen does one thing. It names the product, says in one sentence which account to use, and asks for two fields. Sign in is the only primary action, and help is a quiet link after it. Nothing else is on the page to read first.</p>
 </figcaption>
 <div data-example="default" data-title="Sign in" data-state="default" data-gallery-frame data-reason="The screen does one thing. It names the product, says in one sentence which account to use, and asks for two fields. Sign in is the only primary action, and help is a quiet link after it. Nothing else is on the page to read first.">
-  <div class="gw-sign-in">
-    <p class="gw-sign-in__product">Botbench</p>
-    <div class="gw-stack gw-gap-sm">
+  <div class="ds-sign-in">
+    <p class="ds-sign-in__product">Botbench</p>
+    <div class="ds-stack ds-gap-sm">
       <h1>Sign in</h1>
       <p>Use the account your administrator created for you on this server.</p>
     </div>
-    <form class="gw-stack gw-gap-lg" action="/sign-in" method="post">
-      <div class="gw-field">
-        <label class="gw-field__label" for="sign-in-default-email">Email</label>
-        <input class="gw-field__control" id="sign-in-default-email" type="email" name="email" required autocomplete="username">
+    <form class="ds-stack ds-gap-lg" action="/sign-in" method="post">
+      <div class="ds-field">
+        <label class="ds-field__label" for="sign-in-default-email">Email</label>
+        <input class="ds-field__control" id="sign-in-default-email" type="email" name="email" required autocomplete="username">
       </div>
-      <div class="gw-field">
-        <label class="gw-field__label" for="sign-in-default-password">Password</label>
-        <div class="gw-password-field">
-          <input class="gw-field__control gw-password-field__input" id="sign-in-default-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false">
-          <button type="button" class="gw-password-field__toggle" aria-controls="sign-in-default-password">
-            <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the password</span></span>
-            <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the password</span></span>
+      <div class="ds-field">
+        <label class="ds-field__label" for="sign-in-default-password">Password</label>
+        <div class="ds-password-field">
+          <input class="ds-field__control ds-password-field__input" id="sign-in-default-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false">
+          <button type="button" class="ds-password-field__toggle" aria-controls="sign-in-default-password">
+            <span class="ds-password-field__show">Show<span class="ds-visually-hidden"> the password</span></span>
+            <span class="ds-password-field__hide">Hide<span class="ds-visually-hidden"> the password</span></span>
           </button>
         </div>
       </div>
-      <button type="submit" class="gw-button gw-button--primary">Sign in</button>
+      <button type="submit" class="ds-button ds-button--primary">Sign in</button>
     </form>
-    <p><a class="gw-link gw-link--quiet" href="/sign-in/help">Get help signing in</a></p>
+    <p><a class="ds-link ds-link--quiet" href="/sign-in/help">Get help signing in</a></p>
   </div>
 </div>
 </figure>
 <figure data-gallery="do">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> The sign-in was refused</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> The sign-in was refused</h3>
 <p data-gallery="state">State: <code>error</code></p>
 <p>The alert says what happened and the two things the reader can do about it, and the email they typed is kept. It does not say which of the two fields was wrong, so the screen gives nothing away about which accounts exist.</p>
 </figcaption>
 <div data-example="rejected" data-title="The sign-in was refused" data-state="error" data-gallery-frame data-reason="The alert says what happened and the two things the reader can do about it, and the email they typed is kept. It does not say which of the two fields was wrong, so the screen gives nothing away about which accounts exist.">
-  <div class="gw-sign-in">
-    <p class="gw-sign-in__product">Botbench</p>
-    <div class="gw-stack gw-gap-sm">
+  <div class="ds-sign-in">
+    <p class="ds-sign-in__product">Botbench</p>
+    <div class="ds-stack ds-gap-sm">
       <h1>Sign in</h1>
       <p>Use the account your administrator created for you on this server.</p>
     </div>
-    <form class="gw-stack gw-gap-lg" action="/sign-in" method="post">
-      <div class="gw-alert gw-alert--danger" role="alert" id="sign-in-rejected-alert">
-        <div class="gw-alert__content">
-          <p class="gw-alert__label">Error</p>
-          <p class="gw-alert__title">That email and password do not match an account</p>
-          <p class="gw-alert__body">Check both and try again. If you have forgotten the password, your administrator can reset it. 3 tries are left before sign-in pauses for 15 minutes.</p>
+    <form class="ds-stack ds-gap-lg" action="/sign-in" method="post">
+      <div class="ds-alert ds-alert--danger" role="alert" id="sign-in-rejected-alert">
+        <div class="ds-alert__content">
+          <p class="ds-alert__label">Error</p>
+          <p class="ds-alert__title">That email and password do not match an account</p>
+          <p class="ds-alert__body">Check both and try again. If you have forgotten the password, your administrator can reset it. 3 tries are left before sign-in pauses for 15 minutes.</p>
         </div>
       </div>
-      <div class="gw-field">
-        <label class="gw-field__label" for="sign-in-rejected-email">Email</label>
-        <input class="gw-field__control" id="sign-in-rejected-email" type="email" name="email" required autocomplete="username" value="maya.okafor@acme.example" aria-describedby="sign-in-rejected-alert">
+      <div class="ds-field">
+        <label class="ds-field__label" for="sign-in-rejected-email">Email</label>
+        <input class="ds-field__control" id="sign-in-rejected-email" type="email" name="email" required autocomplete="username" value="maya.okafor@acme.example" aria-describedby="sign-in-rejected-alert">
       </div>
-      <div class="gw-field">
-        <label class="gw-field__label" for="sign-in-rejected-password">Password</label>
-        <div class="gw-password-field">
-          <input class="gw-field__control gw-password-field__input" id="sign-in-rejected-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false" aria-describedby="sign-in-rejected-alert">
-          <button type="button" class="gw-password-field__toggle" aria-controls="sign-in-rejected-password">
-            <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the password</span></span>
-            <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the password</span></span>
+      <div class="ds-field">
+        <label class="ds-field__label" for="sign-in-rejected-password">Password</label>
+        <div class="ds-password-field">
+          <input class="ds-field__control ds-password-field__input" id="sign-in-rejected-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false" aria-describedby="sign-in-rejected-alert">
+          <button type="button" class="ds-password-field__toggle" aria-controls="sign-in-rejected-password">
+            <span class="ds-password-field__show">Show<span class="ds-visually-hidden"> the password</span></span>
+            <span class="ds-password-field__hide">Hide<span class="ds-visually-hidden"> the password</span></span>
           </button>
         </div>
       </div>
-      <button type="submit" class="gw-button gw-button--primary">Sign in</button>
+      <button type="submit" class="ds-button ds-button--primary">Sign in</button>
     </form>
-    <p><a class="gw-link gw-link--quiet" href="/sign-in/help?email=maya.okafor%40acme.example">Get help signing in</a></p>
+    <p><a class="ds-link ds-link--quiet" href="/sign-in/help?email=maya.okafor%40acme.example">Get help signing in</a></p>
   </div>
 </div>
 </figure>
@@ -108,61 +108,61 @@
 <p data-gallery="state">State: <code>busy</code></p>
 </figcaption>
 <div data-example="signing-in" data-title="Signing in" data-state="busy" data-gallery-frame>
-  <div class="gw-sign-in">
-    <p class="gw-sign-in__product">Botbench</p>
-    <div class="gw-stack gw-gap-sm">
+  <div class="ds-sign-in">
+    <p class="ds-sign-in__product">Botbench</p>
+    <div class="ds-stack ds-gap-sm">
       <h1>Sign in</h1>
       <p>Use the account your administrator created for you on this server.</p>
     </div>
-    <form class="gw-stack gw-gap-lg" action="/sign-in" method="post">
-      <div class="gw-field">
-        <label class="gw-field__label" for="sign-in-busy-email">Email</label>
-        <input class="gw-field__control" id="sign-in-busy-email" type="email" name="email" required autocomplete="username" value="maya.okafor@acme.example" readonly>
+    <form class="ds-stack ds-gap-lg" action="/sign-in" method="post">
+      <div class="ds-field">
+        <label class="ds-field__label" for="sign-in-busy-email">Email</label>
+        <input class="ds-field__control" id="sign-in-busy-email" type="email" name="email" required autocomplete="username" value="maya.okafor@acme.example" readonly>
       </div>
-      <div class="gw-field">
-        <label class="gw-field__label" for="sign-in-busy-password">Password</label>
-        <div class="gw-password-field">
-          <input class="gw-field__control gw-password-field__input" id="sign-in-busy-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse-battery" readonly>
-          <button type="button" class="gw-password-field__toggle" aria-controls="sign-in-busy-password" disabled>
-            <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the password</span></span>
-            <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the password</span></span>
+      <div class="ds-field">
+        <label class="ds-field__label" for="sign-in-busy-password">Password</label>
+        <div class="ds-password-field">
+          <input class="ds-field__control ds-password-field__input" id="sign-in-busy-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false" value="correct-horse-battery" readonly>
+          <button type="button" class="ds-password-field__toggle" aria-controls="sign-in-busy-password" disabled>
+            <span class="ds-password-field__show">Show<span class="ds-visually-hidden"> the password</span></span>
+            <span class="ds-password-field__hide">Hide<span class="ds-visually-hidden"> the password</span></span>
           </button>
         </div>
       </div>
-      <button type="submit" class="gw-button gw-button--primary" aria-busy="true">Signing in</button>
+      <button type="submit" class="ds-button ds-button--primary" aria-busy="true">Signing in</button>
     </form>
-    <p><a class="gw-link gw-link--quiet" href="/sign-in/help">Get help signing in</a></p>
+    <p><a class="ds-link ds-link--quiet" href="/sign-in/help">Get help signing in</a></p>
   </div>
 </div>
 </figure>
 <figure data-gallery="dont">
 <figcaption>
-<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Two ways in, both primary</h3>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Two ways in, both primary</h3>
 <p>Sign in and Create an account compete, and the reader who came to sign in has to read both. The screen has one task and one primary action. Anything else, such as asking for an account, is a quiet link after it.</p>
 <p>Checker rule: <code>one-primary-action</code></p>
 </figcaption>
 <div data-example="two-primaries" data-title="Two ways in, both primary" data-dont="one-primary-action" data-gallery-frame="short" data-reason="Sign in and Create an account compete, and the reader who came to sign in has to read both. The screen has one task and one primary action. Anything else, such as asking for an account, is a quiet link after it.">
-  <div class="gw-sign-in">
-    <p class="gw-sign-in__product">Botbench</p>
+  <div class="ds-sign-in">
+    <p class="ds-sign-in__product">Botbench</p>
     <h1>Sign in</h1>
-    <form class="gw-stack gw-gap-lg" action="/sign-in" method="post">
-      <div class="gw-field">
-        <label class="gw-field__label" for="sign-in-two-email">Email</label>
-        <input class="gw-field__control" id="sign-in-two-email" type="email" name="email" required autocomplete="username">
+    <form class="ds-stack ds-gap-lg" action="/sign-in" method="post">
+      <div class="ds-field">
+        <label class="ds-field__label" for="sign-in-two-email">Email</label>
+        <input class="ds-field__control" id="sign-in-two-email" type="email" name="email" required autocomplete="username">
       </div>
-      <div class="gw-field">
-        <label class="gw-field__label" for="sign-in-two-password">Password</label>
-        <div class="gw-password-field">
-          <input class="gw-field__control gw-password-field__input" id="sign-in-two-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false">
-          <button type="button" class="gw-password-field__toggle" aria-controls="sign-in-two-password">
-            <span class="gw-password-field__show">Show<span class="gw-visually-hidden"> the password</span></span>
-            <span class="gw-password-field__hide">Hide<span class="gw-visually-hidden"> the password</span></span>
+      <div class="ds-field">
+        <label class="ds-field__label" for="sign-in-two-password">Password</label>
+        <div class="ds-password-field">
+          <input class="ds-field__control ds-password-field__input" id="sign-in-two-password" type="password" name="password" required autocomplete="current-password" autocapitalize="none" spellcheck="false">
+          <button type="button" class="ds-password-field__toggle" aria-controls="sign-in-two-password">
+            <span class="ds-password-field__show">Show<span class="ds-visually-hidden"> the password</span></span>
+            <span class="ds-password-field__hide">Hide<span class="ds-visually-hidden"> the password</span></span>
           </button>
         </div>
       </div>
-      <div class="gw-button-group">
-        <a class="gw-button gw-button--primary" href="/accounts/new">Create an account</a>
-        <button type="submit" class="gw-button gw-button--primary">Sign in</button>
+      <div class="ds-button-group">
+        <a class="ds-button ds-button--primary" href="/accounts/new">Create an account</a>
+        <button type="submit" class="ds-button ds-button--primary">Sign in</button>
       </div>
     </form>
   </div>
@@ -170,7 +170,7 @@
 </figure>
 </div>
 </section>
-<div class="gw-grid gw-grid-2">
+<div class="ds-grid ds-grid-2">
 <section>
 <h2>When to use it</h2>
 <ul>
@@ -190,8 +190,8 @@
 <section>
 <h2>Accessibility</h2>
 <ul>
-<li>In an app the element with gw-sign-in is the main element, and it is the only landmark on the page. The column starts at the leading edge of the page and is never centred.</li>
-<li>gw-sign-in__product is a p holding the product's name. The h1 after it reads Sign in, and one sentence under it says which account to use. There is no other copy.</li>
+<li>In an app the element with ds-sign-in is the main element, and it is the only landmark on the page. The column starts at the leading edge of the page and is never centred.</li>
+<li>ds-sign-in__product is a p holding the product's name. The h1 after it reads Sign in, and one sentence under it says which account to use. There is no other copy.</li>
 <li>The fields are in one form. The email input has type=&quot;email&quot; and autocomplete=&quot;username&quot;. The password is the catalogue's password field, with autocomplete=&quot;current-password&quot;, so a password manager can fill both and the reader can show what they typed before sending it. Neither uses a placeholder as its label.</li>
 <li>Sign in is the form's submit button and the screen's one primary action. The link for trouble signing in is a quiet link after the form, and it names what it does.</li>
 <li>When the sign-in is refused, keep the email, clear the password, and add an alert with role=&quot;alert&quot; as the first thing in the form. Its title says what happened and its body says what to do. Link it from both inputs with aria-describedby, and move focus to the password input. Do not say which field was wrong.</li>
@@ -202,8 +202,8 @@
 <section>
 <h2>Classes</h2>
 <ul>
-<li><code>gw-sign-in</code></li>
-<li><code>gw-sign-in__product</code></li>
+<li><code>ds-sign-in</code></li>
+<li><code>ds-sign-in__product</code></li>
 </ul>
 </section>
 </div>

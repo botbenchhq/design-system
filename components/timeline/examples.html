@@ -1,84 +1,84 @@
 <div data-example="default" data-title="What happened in a run, in order" data-state="default" data-reason="It is an ordered list, so a screen reader announces how many events there are and where the reader is among them. Each event gives its time, who acted and what happened in words, and the rail and marks are drawn by the stylesheet as decoration.">
-  <ol class="gw-timeline">
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:02">14:02</time> <span class="gw-timeline__actor">Maya Okafor</span></p>
-      <p class="gw-timeline__event">Started task 41, Fix the session refresh, on acme/api</p>
+  <ol class="ds-timeline">
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:02">14:02</time> <span class="ds-timeline__actor">Maya Okafor</span></p>
+      <p class="ds-timeline__event">Started task 41, Fix the session refresh, on acme/api</p>
     </li>
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:02">14:02</time> <span class="gw-timeline__actor">Claude Code, implementer</span></p>
-      <p class="gw-timeline__event">Created the worktree /srv/workspaces/acme-api from main at 9f2c1ab</p>
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:02">14:02</time> <span class="ds-timeline__actor">Claude Code, implementer</span></p>
+      <p class="ds-timeline__event">Created the worktree /srv/workspaces/acme-api from main at 9f2c1ab</p>
     </li>
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:09">14:09</time> <span class="gw-timeline__actor">Claude Code, implementer</span></p>
-      <p class="gw-timeline__event">Ran <code>npm test</code>: 212 passed, 1 failed</p>
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:09">14:09</time> <span class="ds-timeline__actor">Claude Code, implementer</span></p>
+      <p class="ds-timeline__event">Ran <code>npm test</code>: 212 passed, 1 failed</p>
     </li>
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:16">14:16</time> <span class="gw-timeline__actor">Claude Code, implementer</span></p>
-      <p class="gw-timeline__event">Committed 3 files to fix/session-refresh</p>
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:16">14:16</time> <span class="ds-timeline__actor">Claude Code, implementer</span></p>
+      <p class="ds-timeline__event">Committed 3 files to fix/session-refresh</p>
     </li>
   </ol>
 </div>
 
 <div data-example="current" data-title="A run in progress, with the current step marked in words" data-state="current">
-  <ol class="gw-timeline">
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:16">14:16</time> <span class="gw-timeline__actor">Claude Code, implementer</span></p>
-      <p class="gw-timeline__event">Committed 3 files to fix/session-refresh</p>
+  <ol class="ds-timeline">
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:16">14:16</time> <span class="ds-timeline__actor">Claude Code, implementer</span></p>
+      <p class="ds-timeline__event">Committed 3 files to fix/session-refresh</p>
     </li>
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:17">14:17</time> <span class="gw-timeline__actor">Claude Code, reviewer</span></p>
-      <p class="gw-timeline__event">Read the diff and asked for a test of the reload case</p>
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:17">14:17</time> <span class="ds-timeline__actor">Claude Code, reviewer</span></p>
+      <p class="ds-timeline__event">Read the diff and asked for a test of the reload case</p>
     </li>
-    <li class="gw-timeline__item" aria-current="step">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:21">14:21</time> <span class="gw-timeline__actor">Claude Code, implementer</span> <span class="gw-timeline__current">Current step</span></p>
-      <p class="gw-timeline__event">Asked to run <code>npm run test:integration</code> and is waiting for your answer</p>
+    <li class="ds-timeline__item" aria-current="step">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:21">14:21</time> <span class="ds-timeline__actor">Claude Code, implementer</span> <span class="ds-timeline__current">Current step</span></p>
+      <p class="ds-timeline__event">Asked to run <code>npm run test:integration</code> and is waiting for your answer</p>
     </li>
   </ol>
 </div>
 
 <div data-example="dense" data-title="Dense, for a long log of short events">
-  <ol class="gw-timeline gw-timeline--dense">
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:02">14:02</time> <span class="gw-timeline__actor">Maya Okafor</span></p>
-      <p class="gw-timeline__event">Started task 41</p>
+  <ol class="ds-timeline ds-timeline--dense">
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:02">14:02</time> <span class="ds-timeline__actor">Maya Okafor</span></p>
+      <p class="ds-timeline__event">Started task 41</p>
     </li>
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:02">14:02</time> <span class="gw-timeline__actor">Claude Code</span></p>
-      <p class="gw-timeline__event">Created the worktree</p>
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:02">14:02</time> <span class="ds-timeline__actor">Claude Code</span></p>
+      <p class="ds-timeline__event">Created the worktree</p>
     </li>
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:04">14:04</time> <span class="gw-timeline__actor">Claude Code</span></p>
-      <p class="gw-timeline__event">Read 14 files in src/auth</p>
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:04">14:04</time> <span class="ds-timeline__actor">Claude Code</span></p>
+      <p class="ds-timeline__event">Read 14 files in src/auth</p>
     </li>
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:09">14:09</time> <span class="gw-timeline__actor">Claude Code</span></p>
-      <p class="gw-timeline__event">Ran npm test: 212 passed, 1 failed</p>
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:09">14:09</time> <span class="ds-timeline__actor">Claude Code</span></p>
+      <p class="ds-timeline__event">Ran npm test: 212 passed, 1 failed</p>
     </li>
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:12">14:12</time> <span class="gw-timeline__actor">Claude Code</span></p>
-      <p class="gw-timeline__event">Edited src/auth/session.ts</p>
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:12">14:12</time> <span class="ds-timeline__actor">Claude Code</span></p>
+      <p class="ds-timeline__event">Edited src/auth/session.ts</p>
     </li>
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:15">14:15</time> <span class="gw-timeline__actor">Claude Code</span></p>
-      <p class="gw-timeline__event">Ran npm test: 213 passed</p>
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:15">14:15</time> <span class="ds-timeline__actor">Claude Code</span></p>
+      <p class="ds-timeline__event">Ran npm test: 213 passed</p>
     </li>
-    <li class="gw-timeline__item" aria-current="step">
-      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:16">14:16</time> <span class="gw-timeline__actor">Claude Code</span> <span class="gw-timeline__current">Current step</span></p>
-      <p class="gw-timeline__event">Waiting for approval to push fix/session-refresh</p>
+    <li class="ds-timeline__item" aria-current="step">
+      <p class="ds-timeline__meta"><time class="ds-timeline__time" datetime="2026-03-14T14:16">14:16</time> <span class="ds-timeline__actor">Claude Code</span> <span class="ds-timeline__current">Current step</span></p>
+      <p class="ds-timeline__event">Waiting for approval to push fix/session-refresh</p>
     </li>
   </ol>
 </div>
 
 <div data-example="marks-only" data-title="A rail of marks with the facts left out" data-dont="review" data-reason="With no time and no actor an event cannot be checked against a log or a colleague's memory, and the filled mark alone says which step is current only to someone who can see it. Give every event its time and actor, and write Current step in words.">
-  <ol class="gw-timeline">
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__event">Worktree created</p>
+  <ol class="ds-timeline">
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__event">Worktree created</p>
     </li>
-    <li class="gw-timeline__item">
-      <p class="gw-timeline__event">Tests run</p>
+    <li class="ds-timeline__item">
+      <p class="ds-timeline__event">Tests run</p>
     </li>
-    <li class="gw-timeline__item" aria-current="step">
-      <p class="gw-timeline__event">Waiting</p>
+    <li class="ds-timeline__item" aria-current="step">
+      <p class="ds-timeline__event">Waiting</p>
     </li>
   </ol>
 </div>

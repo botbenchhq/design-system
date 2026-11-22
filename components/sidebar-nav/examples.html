@@ -1,127 +1,127 @@
 <div data-example="sections" data-title="Sections, with a footer" data-state="default" data-reason="Each item has an icon and a text label, and each section says what its items share. The current item carries aria-current, which draws the bar and the heavier label and tells a screen reader where the reader is.">
-  <nav class="gw-sidebar-nav" aria-label="Main">
-    <div class="gw-sidebar-nav__section">
-      <p class="gw-sidebar-nav__heading" id="sidebar-nav-sections-work">Work</p>
-      <ul class="gw-sidebar-nav__items" aria-labelledby="sidebar-nav-sections-work">
+  <nav class="ds-sidebar-nav" aria-label="Main">
+    <div class="ds-sidebar-nav__section">
+      <p class="ds-sidebar-nav__heading" id="sidebar-nav-sections-work">Work</p>
+      <ul class="ds-sidebar-nav__items" aria-labelledby="sidebar-nav-sections-work">
         <li>
-          <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
-            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
-            <span class="gw-sidebar-nav__label">Runs</span>
+          <a class="ds-sidebar-nav__item" href="/runs" aria-current="page">
+            <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg>
+            <span class="ds-sidebar-nav__label">Runs</span>
           </a>
         </li>
         <li>
-          <a class="gw-sidebar-nav__item" href="/tasks">
-            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
-            <span class="gw-sidebar-nav__label">Tasks</span>
+          <a class="ds-sidebar-nav__item" href="/tasks">
+            <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
+            <span class="ds-sidebar-nav__label">Tasks</span>
           </a>
         </li>
         <li>
-          <a class="gw-sidebar-nav__item" href="/approvals">
-            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>
-            <span class="gw-sidebar-nav__label">Approvals</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="gw-sidebar-nav__section">
-      <p class="gw-sidebar-nav__heading" id="sidebar-nav-sections-repository">Repository</p>
-      <ul class="gw-sidebar-nav__items" aria-labelledby="sidebar-nav-sections-repository">
-        <li>
-          <a class="gw-sidebar-nav__item" href="/branches">
-            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-            <span class="gw-sidebar-nav__label">Branches</span>
-          </a>
-        </li>
-        <li>
-          <a class="gw-sidebar-nav__item" href="/workspaces">
-            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-folder"></use></svg>
-            <span class="gw-sidebar-nav__label">Workspaces</span>
+          <a class="ds-sidebar-nav__item" href="/approvals">
+            <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>
+            <span class="ds-sidebar-nav__label">Approvals</span>
           </a>
         </li>
       </ul>
     </div>
-    <div class="gw-sidebar-nav__footer">
-      <p class="gw-sidebar-nav__note">acme/api on runner build-03</p>
+    <div class="ds-sidebar-nav__section">
+      <p class="ds-sidebar-nav__heading" id="sidebar-nav-sections-repository">Repository</p>
+      <ul class="ds-sidebar-nav__items" aria-labelledby="sidebar-nav-sections-repository">
+        <li>
+          <a class="ds-sidebar-nav__item" href="/branches">
+            <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+            <span class="ds-sidebar-nav__label">Branches</span>
+          </a>
+        </li>
+        <li>
+          <a class="ds-sidebar-nav__item" href="/workspaces">
+            <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-folder"></use></svg>
+            <span class="ds-sidebar-nav__label">Workspaces</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="ds-sidebar-nav__footer">
+      <p class="ds-sidebar-nav__note">acme/api on runner build-03</p>
     </div>
   </nav>
 </div>
 
-<div data-example="in-layout" data-title="Beside the content, with the tab bar for phone width" data-reason="The sidebar is the first child of gw-sidebar-layout and shows at 768px and up. Below that it is not shown and the tab bar lists the main destinations, so both are in the markup and the reader meets one of them.">
-  <div class="gw-stack gw-gap-lg">
-    <div class="gw-sidebar-layout">
-      <nav class="gw-sidebar-nav" aria-label="Acme API">
-        <ul class="gw-sidebar-nav__items">
+<div data-example="in-layout" data-title="Beside the content, with the tab bar for phone width" data-reason="The sidebar is the first child of ds-sidebar-layout and shows at 768px and up. Below that it is not shown and the tab bar lists the main destinations, so both are in the markup and the reader meets one of them.">
+  <div class="ds-stack ds-gap-lg">
+    <div class="ds-sidebar-layout">
+      <nav class="ds-sidebar-nav" aria-label="Acme API">
+        <ul class="ds-sidebar-nav__items">
           <li>
-            <a class="gw-sidebar-nav__item" href="/runs">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
-              <span class="gw-sidebar-nav__label">Runs</span>
+            <a class="ds-sidebar-nav__item" href="/runs">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg>
+              <span class="ds-sidebar-nav__label">Runs</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/tasks" aria-current="page">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
-              <span class="gw-sidebar-nav__label">Tasks</span>
+            <a class="ds-sidebar-nav__item" href="/tasks" aria-current="page">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
+              <span class="ds-sidebar-nav__label">Tasks</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/branches">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-              <span class="gw-sidebar-nav__label">Branches</span>
+            <a class="ds-sidebar-nav__item" href="/branches">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+              <span class="ds-sidebar-nav__label">Branches</span>
             </a>
           </li>
           <li>
-            <a class="gw-sidebar-nav__item" href="/approvals">
-              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>
-              <span class="gw-sidebar-nav__label">Approvals</span>
+            <a class="ds-sidebar-nav__item" href="/approvals">
+              <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>
+              <span class="ds-sidebar-nav__label">Approvals</span>
             </a>
           </li>
         </ul>
       </nav>
-      <div class="gw-stack">
+      <div class="ds-stack">
         <h3>Tasks</h3>
         <p>4 tasks are running on acme/api and 2 are waiting for a runner.</p>
       </div>
     </div>
-    <nav class="gw-tab-bar" aria-label="Acme API">
-      <a class="gw-tab-bar__item" href="/runs">
-        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
-        <span class="gw-tab-bar__label">Runs</span>
+    <nav class="ds-tab-bar" aria-label="Acme API">
+      <a class="ds-tab-bar__item" href="/runs">
+        <svg class="ds-tab-bar__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg>
+        <span class="ds-tab-bar__label">Runs</span>
       </a>
-      <a class="gw-tab-bar__item" href="/tasks" aria-current="page">
-        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
-        <span class="gw-tab-bar__label">Tasks</span>
+      <a class="ds-tab-bar__item" href="/tasks" aria-current="page">
+        <svg class="ds-tab-bar__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
+        <span class="ds-tab-bar__label">Tasks</span>
       </a>
-      <a class="gw-tab-bar__item" href="/branches">
-        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-        <span class="gw-tab-bar__label">Branches</span>
+      <a class="ds-tab-bar__item" href="/branches">
+        <svg class="ds-tab-bar__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+        <span class="ds-tab-bar__label">Branches</span>
       </a>
-      <a class="gw-tab-bar__item" href="/approvals">
-        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>
-        <span class="gw-tab-bar__label">Approvals</span>
+      <a class="ds-tab-bar__item" href="/approvals">
+        <svg class="ds-tab-bar__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>
+        <span class="ds-tab-bar__label">Approvals</span>
       </a>
     </nav>
   </div>
 </div>
 
 <div data-example="flat" data-title="One list, no sections">
-  <nav class="gw-sidebar-nav" aria-label="Screens">
-    <ul class="gw-sidebar-nav__items">
+  <nav class="ds-sidebar-nav" aria-label="Screens">
+    <ul class="ds-sidebar-nav__items">
       <li>
-        <a class="gw-sidebar-nav__item" href="/runs">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
-          <span class="gw-sidebar-nav__label">Runs</span>
+        <a class="ds-sidebar-nav__item" href="/runs">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg>
+          <span class="ds-sidebar-nav__label">Runs</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/tasks">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
-          <span class="gw-sidebar-nav__label">Tasks</span>
+        <a class="ds-sidebar-nav__item" href="/tasks">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
+          <span class="ds-sidebar-nav__label">Tasks</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/approvals" aria-current="page">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>
-          <span class="gw-sidebar-nav__label">Approvals</span>
+        <a class="ds-sidebar-nav__item" href="/approvals" aria-current="page">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>
+          <span class="ds-sidebar-nav__label">Approvals</span>
         </a>
       </li>
     </ul>
@@ -129,26 +129,26 @@
 </div>
 
 <div data-example="current" data-title="Current item" data-state="current">
-  <nav class="gw-sidebar-nav" aria-label="Workspace">
-    <div class="gw-sidebar-nav__section">
-      <p class="gw-sidebar-nav__heading" id="sidebar-nav-current-work">Work</p>
-      <ul class="gw-sidebar-nav__items" aria-labelledby="sidebar-nav-current-work">
+  <nav class="ds-sidebar-nav" aria-label="Workspace">
+    <div class="ds-sidebar-nav__section">
+      <p class="ds-sidebar-nav__heading" id="sidebar-nav-current-work">Work</p>
+      <ul class="ds-sidebar-nav__items" aria-labelledby="sidebar-nav-current-work">
         <li>
-          <a class="gw-sidebar-nav__item" href="/runs">
-            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
-            <span class="gw-sidebar-nav__label">Runs</span>
+          <a class="ds-sidebar-nav__item" href="/runs">
+            <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg>
+            <span class="ds-sidebar-nav__label">Runs</span>
           </a>
         </li>
         <li>
-          <a class="gw-sidebar-nav__item" href="/tasks">
-            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
-            <span class="gw-sidebar-nav__label">Tasks</span>
+          <a class="ds-sidebar-nav__item" href="/tasks">
+            <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
+            <span class="ds-sidebar-nav__label">Tasks</span>
           </a>
         </li>
         <li>
-          <a class="gw-sidebar-nav__item" href="/approvals" aria-current="page">
-            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>
-            <span class="gw-sidebar-nav__label">Approvals</span>
+          <a class="ds-sidebar-nav__item" href="/approvals" aria-current="page">
+            <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>
+            <span class="ds-sidebar-nav__label">Approvals</span>
           </a>
         </li>
       </ul>
@@ -157,39 +157,39 @@
 </div>
 
 <div data-example="footer-items" data-title="A footer that holds items">
-  <nav class="gw-sidebar-nav" aria-label="Project">
-    <ul class="gw-sidebar-nav__items">
+  <nav class="ds-sidebar-nav" aria-label="Project">
+    <ul class="ds-sidebar-nav__items">
       <li>
-        <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
-          <span class="gw-sidebar-nav__label">Runs</span>
+        <a class="ds-sidebar-nav__item" href="/runs" aria-current="page">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg>
+          <span class="ds-sidebar-nav__label">Runs</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/tasks">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
-          <span class="gw-sidebar-nav__label">Tasks</span>
+        <a class="ds-sidebar-nav__item" href="/tasks">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
+          <span class="ds-sidebar-nav__label">Tasks</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/branches">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-          <span class="gw-sidebar-nav__label">Branches</span>
+        <a class="ds-sidebar-nav__item" href="/branches">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+          <span class="ds-sidebar-nav__label">Branches</span>
         </a>
       </li>
     </ul>
-    <div class="gw-sidebar-nav__footer">
-      <ul class="gw-sidebar-nav__items">
+    <div class="ds-sidebar-nav__footer">
+      <ul class="ds-sidebar-nav__items">
         <li>
-          <a class="gw-sidebar-nav__item" href="/search">
-            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
-            <span class="gw-sidebar-nav__label">Search</span>
+          <a class="ds-sidebar-nav__item" href="/search">
+            <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-search"></use></svg>
+            <span class="ds-sidebar-nav__label">Search</span>
           </a>
         </li>
         <li>
-          <a class="gw-sidebar-nav__item" href="/runner">
-            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-info"></use></svg>
-            <span class="gw-sidebar-nav__label">About this runner</span>
+          <a class="ds-sidebar-nav__item" href="/runner">
+            <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-info"></use></svg>
+            <span class="ds-sidebar-nav__label">About this runner</span>
           </a>
         </li>
       </ul>
@@ -198,24 +198,24 @@
 </div>
 
 <div data-example="long-label" data-title="A label longer than the column">
-  <nav class="gw-sidebar-nav" aria-label="Repository">
-    <ul class="gw-sidebar-nav__items">
+  <nav class="ds-sidebar-nav" aria-label="Repository">
+    <ul class="ds-sidebar-nav__items">
       <li>
-        <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
-          <span class="gw-sidebar-nav__label">Runs</span>
+        <a class="ds-sidebar-nav__item" href="/runs" aria-current="page">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg>
+          <span class="ds-sidebar-nav__label">Runs</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/approvals">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>
-          <span class="gw-sidebar-nav__label">Approvals waiting for an answer</span>
+        <a class="ds-sidebar-nav__item" href="/approvals">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>
+          <span class="ds-sidebar-nav__label">Approvals waiting for an answer</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/workspaces">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-folder"></use></svg>
-          <span class="gw-sidebar-nav__label">Workspaces</span>
+        <a class="ds-sidebar-nav__item" href="/workspaces">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-folder"></use></svg>
+          <span class="ds-sidebar-nav__label">Workspaces</span>
         </a>
       </li>
     </ul>
@@ -223,24 +223,24 @@
 </div>
 
 <div data-example="hover" data-title="Hover" data-state="hover">
-  <nav class="gw-sidebar-nav" aria-label="App">
-    <ul class="gw-sidebar-nav__items">
+  <nav class="ds-sidebar-nav" aria-label="App">
+    <ul class="ds-sidebar-nav__items">
       <li>
-        <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
-          <span class="gw-sidebar-nav__label">Runs</span>
+        <a class="ds-sidebar-nav__item" href="/runs" aria-current="page">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg>
+          <span class="ds-sidebar-nav__label">Runs</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/tasks">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
-          <span class="gw-sidebar-nav__label">Tasks</span>
+        <a class="ds-sidebar-nav__item" href="/tasks">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
+          <span class="ds-sidebar-nav__label">Tasks</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/branches">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-          <span class="gw-sidebar-nav__label">Branches</span>
+        <a class="ds-sidebar-nav__item" href="/branches">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+          <span class="ds-sidebar-nav__label">Branches</span>
         </a>
       </li>
     </ul>
@@ -248,24 +248,24 @@
 </div>
 
 <div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
-  <nav class="gw-sidebar-nav" aria-label="Destinations">
-    <ul class="gw-sidebar-nav__items">
+  <nav class="ds-sidebar-nav" aria-label="Destinations">
+    <ul class="ds-sidebar-nav__items">
       <li>
-        <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
-          <span class="gw-sidebar-nav__label">Runs</span>
+        <a class="ds-sidebar-nav__item" href="/runs" aria-current="page">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg>
+          <span class="ds-sidebar-nav__label">Runs</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/tasks">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
-          <span class="gw-sidebar-nav__label">Tasks</span>
+        <a class="ds-sidebar-nav__item" href="/tasks">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
+          <span class="ds-sidebar-nav__label">Tasks</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/branches">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-          <span class="gw-sidebar-nav__label">Branches</span>
+        <a class="ds-sidebar-nav__item" href="/branches">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+          <span class="ds-sidebar-nav__label">Branches</span>
         </a>
       </li>
     </ul>
@@ -273,24 +273,24 @@
 </div>
 
 <div data-example="active" data-title="Pressed" data-state="active">
-  <nav class="gw-sidebar-nav" aria-label="Views">
-    <ul class="gw-sidebar-nav__items">
+  <nav class="ds-sidebar-nav" aria-label="Views">
+    <ul class="ds-sidebar-nav__items">
       <li>
-        <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
-          <span class="gw-sidebar-nav__label">Runs</span>
+        <a class="ds-sidebar-nav__item" href="/runs" aria-current="page">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg>
+          <span class="ds-sidebar-nav__label">Runs</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/tasks">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
-          <span class="gw-sidebar-nav__label">Tasks</span>
+        <a class="ds-sidebar-nav__item" href="/tasks">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
+          <span class="ds-sidebar-nav__label">Tasks</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/branches">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
-          <span class="gw-sidebar-nav__label">Branches</span>
+        <a class="ds-sidebar-nav__item" href="/branches">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+          <span class="ds-sidebar-nav__label">Branches</span>
         </a>
       </li>
     </ul>
@@ -298,24 +298,24 @@
 </div>
 
 <div data-example="current-class" data-title="A class for the current item" data-dont="unknown-class" data-reason="The current item is marked with aria-current on the link, which a screen reader also reads. A class marks nothing here, and it leaves the reader unable to hear where they are.">
-  <nav class="gw-sidebar-nav" aria-label="Main navigation">
-    <ul class="gw-sidebar-nav__items">
+  <nav class="ds-sidebar-nav" aria-label="Main navigation">
+    <ul class="ds-sidebar-nav__items">
       <li>
-        <a class="gw-sidebar-nav__item gw-sidebar-nav__item--current" href="/runs">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
-          <span class="gw-sidebar-nav__label">Runs</span>
+        <a class="ds-sidebar-nav__item ds-sidebar-nav__item--current" href="/runs">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg>
+          <span class="ds-sidebar-nav__label">Runs</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/tasks">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
-          <span class="gw-sidebar-nav__label">Tasks</span>
+        <a class="ds-sidebar-nav__item" href="/tasks">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
+          <span class="ds-sidebar-nav__label">Tasks</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/approvals">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>
-          <span class="gw-sidebar-nav__label">Approvals</span>
+        <a class="ds-sidebar-nav__item" href="/approvals">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>
+          <span class="ds-sidebar-nav__label">Approvals</span>
         </a>
       </li>
     </ul>
@@ -323,24 +323,24 @@
 </div>
 
 <div data-example="unbuilt-screen" data-title="An item for a screen that does not exist yet" data-dont="review" data-reason="A greyed item promises a screen the app does not have, and the reader cannot tell why it will not open. List only the screens that exist, and add the item when the screen ships.">
-  <nav class="gw-sidebar-nav" aria-label="Main screens">
-    <ul class="gw-sidebar-nav__items">
+  <nav class="ds-sidebar-nav" aria-label="Main screens">
+    <ul class="ds-sidebar-nav__items">
       <li>
-        <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
-          <span class="gw-sidebar-nav__label">Runs</span>
+        <a class="ds-sidebar-nav__item" href="/runs" aria-current="page">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg>
+          <span class="ds-sidebar-nav__label">Runs</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" href="/tasks">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
-          <span class="gw-sidebar-nav__label">Tasks</span>
+        <a class="ds-sidebar-nav__item" href="/tasks">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
+          <span class="ds-sidebar-nav__label">Tasks</span>
         </a>
       </li>
       <li>
-        <a class="gw-sidebar-nav__item" role="link" aria-disabled="true">
-          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
-          <span class="gw-sidebar-nav__label">Search (coming soon)</span>
+        <a class="ds-sidebar-nav__item" role="link" aria-disabled="true">
+          <svg class="ds-sidebar-nav__icon" aria-hidden="true"><use href="icons.svg#ds-icon-search"></use></svg>
+          <span class="ds-sidebar-nav__label">Search (coming soon)</span>
         </a>
       </li>
     </ul>

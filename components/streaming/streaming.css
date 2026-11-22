@@ -3,40 +3,40 @@
  * The mark is drawn by the stylesheet, and the words are what a screen reader announces.
  */
 
-@layer gw.components {
-  .gw-streaming {
+@layer ds.components {
+  .ds-streaming {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    column-gap: var(--gw-space-sm);
+    column-gap: var(--ds-space-sm);
     min-width: 0;
-    color: var(--gw-color-muted);
+    color: var(--ds-color-muted);
   }
 
   /* The same stepped loader a busy button shows, so working looks the same everywhere. */
-  .gw-streaming::before {
+  .ds-streaming::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
     background-color: currentColor;
     mask: url("icons/loader.svg") center / contain no-repeat;
-    animation: gw-streaming-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+    animation: ds-streaming-turn calc(var(--ds-duration-slow) * 4) steps(8) infinite;
   }
 
   /* As the last row of a transcript, it takes the padding of a message row and lines up with the labels. */
-  .gw-streaming--row {
-    padding: var(--gw-space-sm) var(--gw-space-md);
+  .ds-streaming--row {
+    padding: var(--ds-space-sm) var(--ds-space-md);
   }
 
   /* Figures that change often, such as elapsed time. They sit outside the status text. */
-  .gw-streaming__detail {
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+  .ds-streaming__detail {
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
   }
 
-  @keyframes gw-streaming-turn {
+  @keyframes ds-streaming-turn {
     to {
       rotate: 1turn;
     }
@@ -44,7 +44,7 @@
 
   /* The mark stays, still, and the words carry the meaning. */
   @media (prefers-reduced-motion: reduce) {
-    .gw-streaming::before {
+    .ds-streaming::before {
       animation: none;
     }
   }

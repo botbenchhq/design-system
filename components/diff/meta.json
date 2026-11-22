@@ -6,7 +6,7 @@
   "whenToUse": [
     "To show what a task changed in one file, before the reader decides on it.",
     "One diff per file. For several files, list them and put each diff in a row disclosure.",
-    "The counts alone, gw-diff__counts, beside a file's name in a list row or a disclosure summary."
+    "The counts alone, ds-diff__counts, beside a file's name in a list row or a disclosure summary."
   ],
   "whenNotToUse": [
     "For a file's contents with no change, or for a command's output. Use the code block.",
@@ -17,31 +17,31 @@
   "sizes": [],
   "states": ["default", "focus-visible", "loading", "error", "empty"],
   "accessibility": [
-    "Use a figure. Its figcaption, gw-diff__header, holds the path in a code element and the counts. Leave the header out when the diff sits under a summary that already shows both.",
-    "Write each count as a sign and a number followed by a gw-diff__label span that finishes it in words, such as +7 and lines added. The label is hidden from sight and read by a screen reader.",
+    "Use a figure. Its figcaption, ds-diff__header, holds the path in a code element and the counts. Leave the header out when the diff sits under a summary that already shows both.",
+    "Write each count as a sign and a number followed by a ds-diff__label span that finishes it in words, such as +7 and lines added. The label is hidden from sight and read by a screen reader.",
     "The body is a pre with tabindex=\"0\", role=\"group\" and an aria-label naming the file, so it can take focus and the arrow keys scroll it sideways. The page itself never scrolls sideways.",
-    "Each line is a gw-diff__line holding a gw-diff__sign cell and a gw-diff__text cell. Use an ins element for an added line and a del element for a removed one, with the plus or minus as the sign. A context line and a hunk header are spans, with a space as the sign.",
+    "Each line is a ds-diff__line holding a ds-diff__sign cell and a ds-diff__text cell. Use an ins element for an added line and a del element for a removed one, with the plus or minus as the sign. A context line and a hunk header are spans, with a space as the sign.",
     "Never leave out the sign. The shading alone does not mark a line for someone who cannot tell the colours apart.",
-    "While the diff is fetched, set aria-busy=\"true\" on the figure and put a gw-diff__note with role=\"status\" in place of the body. When it fails, use a note with role=\"alert\" that says why. The stylesheet adds the failure's icon.",
-    "When a file changed with no line to show, or the diff is cut short, say so in a plain gw-diff__note."
+    "While the diff is fetched, set aria-busy=\"true\" on the figure and put a ds-diff__note with role=\"status\" in place of the body. When it fails, use a note with role=\"alert\" that says why. The stylesheet adds the failure's icon.",
+    "When a file changed with no line to show, or the diff is cut short, say so in a plain ds-diff__note."
   ],
   "icons": ["circle-alert"],
   "classes": [
-    "gw-diff",
-    "gw-diff__added",
-    "gw-diff__body",
-    "gw-diff__counts",
-    "gw-diff__header",
-    "gw-diff__label",
-    "gw-diff__line",
-    "gw-diff__line--added",
-    "gw-diff__line--hunk",
-    "gw-diff__line--removed",
-    "gw-diff__lines",
-    "gw-diff__note",
-    "gw-diff__path",
-    "gw-diff__removed",
-    "gw-diff__sign",
-    "gw-diff__text"
+    "ds-diff",
+    "ds-diff__added",
+    "ds-diff__body",
+    "ds-diff__counts",
+    "ds-diff__header",
+    "ds-diff__label",
+    "ds-diff__line",
+    "ds-diff__line--added",
+    "ds-diff__line--hunk",
+    "ds-diff__line--removed",
+    "ds-diff__lines",
+    "ds-diff__note",
+    "ds-diff__path",
+    "ds-diff__removed",
+    "ds-diff__sign",
+    "ds-diff__text"
   ]
 }

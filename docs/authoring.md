@@ -12,7 +12,7 @@ A component is one folder, `components/<name>/`, holding three hand-written file
 
 `<name>` is lower case with hyphens, and is the same in the folder name, the stylesheet name, the class prefix and `meta.json`.
 
-Nothing else needs editing. `npm run build` reads every folder and adds the component to `dist/groundwork.css`, `dist/components.json`, `dist/components-index.json`, the `classes` list in `dist/manifest.json` and the gallery in `dist/gallery/`. The build fails, naming the folder, when a folder breaks a rule on this page that it can check.
+Nothing else needs editing. `npm run build` reads every folder and adds the component to `dist/design-system.css`, `dist/components.json`, `dist/components-index.json`, the `classes` list in `dist/manifest.json` and the gallery in `dist/gallery/`. The build fails, naming the folder, when a folder breaks a rule on this page that it can check.
 
 ## What a component may be
 
@@ -24,24 +24,24 @@ Nothing else needs editing. `npm run build` reads every folder and adds the comp
 ## The stylesheet
 
 ```css
-@layer gw.components {
-  .gw-card { … }
-  .gw-card__title { … }
-  .gw-card--sunken { … }
+@layer ds.components {
+  .ds-card { … }
+  .ds-card__title { … }
+  .ds-card--sunken { … }
 }
 ```
 
-- Every rule is inside `@layer gw.components`.
-- Class names are `gw-<name>` for the block, `gw-<name>__part` for an element inside it and `gw-<name>--variant` for a variant or size. A stylesheet defines no class outside its own name.
-- One element may carry the classes of two components when one composes the other. A textarea and a select are the control of a field, so each sits on the same element as `gw-field__control` and adds to it. The build bundles component stylesheets in alphabetical order of folder name, and such a pair relies on that order: the component that adds must sort after the one it builds on.
-- Values are tokens: `var(--gw-…)` for every colour, font, type size, spacing, radius, shadow, duration and layer. Do not write a raw colour or length where a token exists, and do not declare a custom property. A calculation on a token is allowed, such as `calc(var(--gw-border-width) * 2)`.
+- Every rule is inside `@layer ds.components`.
+- Class names are `ds-<name>` for the block, `ds-<name>__part` for an element inside it and `ds-<name>--variant` for a variant or size. A stylesheet defines no class outside its own name.
+- One element may carry the classes of two components when one composes the other. A textarea and a select are the control of a field, so each sits on the same element as `ds-field__control` and adds to it. The build bundles component stylesheets in alphabetical order of folder name, and such a pair relies on that order: the component that adds must sort after the one it builds on.
+- Values are tokens: `var(--ds-…)` for every colour, font, type size, spacing, radius, shadow, duration and layer. Do not write a raw colour or length where a token exists, and do not declare a custom property. A calculation on a token is allowed, such as `calc(var(--ds-border-width) * 2)`.
 - No gradient, blur, backdrop filter, blend mode or text clipped to a background.
 - The only width in a media query is 768px, written as the number: `@media (min-width: 768px)`. Style the compact layout first.
 - Do not restyle the focus ring. The base layer draws one ring for every focusable element.
 - Put hover styles inside `@media (hover: hover)`, so a touch screen does not keep them after a tap.
 - A transition names its properties and takes its duration and easing from tokens. Anything that animates on its own stops under `@media (prefers-reduced-motion: reduce)`.
-- Text inherits `overflow-wrap: break-word` from the base layer, so a long unbroken word breaks inside a block. That is not enough for an element that is only as wide as its text, or for text that is a flex item beside an icon: give those `overflow-wrap: anywhere` as well, as `gw-alert__body` and `gw-field__error` do. A browser test puts a 90-character path in the places a message lands and fails when the page scrolls sideways at 390px.
-- An icon the stylesheet draws itself is a mask over `currentColor`, from a single icon file: `mask: url("icons/loader.svg") center / contain no-repeat`. The path is relative to `dist/groundwork.css`.
+- Text inherits `overflow-wrap: break-word` from the base layer, so a long unbroken word breaks inside a block. That is not enough for an element that is only as wide as its text, or for text that is a flex item beside an icon: give those `overflow-wrap: anywhere` as well, as `ds-alert__body` and `ds-field__error` do. A browser test puts a 90-character path in the places a message lands and fails when the page scrolls sideways at 390px.
+- An icon the stylesheet draws itself is a mask over `currentColor`, from a single icon file: `mask: url("icons/loader.svg") center / contain no-repeat`. The path is relative to `dist/design-system.css`.
 
 ### State
 
@@ -66,19 +66,19 @@ No component relies on a `style` attribute. The apps' content security policies 
 
 ### Pointer targets
 
-Every control is at least 44px in both directions, which is `var(--gw-size-touch)`. Set it as `min-height` and `min-width`.
+Every control is at least 44px in both directions, which is `var(--ds-size-touch)`. Set it as `min-height` and `min-width`.
 
-A control drawn smaller, for a dense row or a toolbar, reaches 44px through a padded hit area: an invisible box centred on the control that takes the press without adding height to the row. `gw-button--small` is the pattern.
+A control drawn smaller, for a dense row or a toolbar, reaches 44px through a padded hit area: an invisible box centred on the control that takes the press without adding height to the row. `ds-button--small` is the pattern.
 
 ```css
-.gw-button { position: relative; }
+.ds-button { position: relative; }
 
-.gw-button--small::after {
+.ds-button--small::after {
   content: "";
   position: absolute;
   top: 50%;
   inset-inline: 0;
-  height: var(--gw-size-touch);
+  height: var(--ds-size-touch);
   translate: 0 -50%;
 }
 ```
@@ -89,7 +89,7 @@ The browser test measures the target, not the drawn box. It checks that the four
 
 ### Status is never colour alone
 
-A status, an error or a required marker is always text or an icon as well as a colour. `gw-field__error` draws its icon in the stylesheet so that no markup can leave it out.
+A status, an error or a required marker is always text or an icon as well as a colour. `ds-field__error` draws its icon in the stylesheet so that no markup can leave it out.
 
 ### Tooltips and hover cards
 
@@ -101,16 +101,16 @@ A tooltip or hover card holds supplementary information only. Nothing the reader
 
 ```html
 <div data-example="one-primary" data-title="One primary action" data-reason="The view has one main action, and the primary button marks it.">
-  <div class="gw-cluster">
-    <button type="button" class="gw-button gw-button--primary">Start task</button>
-    <button type="button" class="gw-button">Save as template</button>
+  <div class="ds-cluster">
+    <button type="button" class="ds-button ds-button--primary">Start task</button>
+    <button type="button" class="ds-button">Save as template</button>
   </div>
 </div>
 
 <div data-example="two-primaries" data-title="Two primary actions" data-dont="one-primary-action" data-reason="Two primary buttons compete, and the reader has to work out which one matters.">
-  <div class="gw-cluster">
-    <button type="button" class="gw-button gw-button--primary">Start task</button>
-    <button type="button" class="gw-button gw-button--primary">Save as template</button>
+  <div class="ds-cluster">
+    <button type="button" class="ds-button ds-button--primary">Start task</button>
+    <button type="button" class="ds-button ds-button--primary">Save as template</button>
   </div>
 </div>
 ```
@@ -125,7 +125,7 @@ The wrapper element is any element. Its attributes, written with double quotes:
 | `data-dont` | On a don't example | The id of the checker rule the example breaks, or `review` when no rule can catch it. |
 | `data-reason` | On every don't, and on the do paired with one | One or two sentences on why. |
 
-The wrapper is not part of the component: what an agent copies is the markup inside it. So a layout class the example needs, such as `gw-cluster` or `gw-stack`, goes on an element inside the wrapper, not on the wrapper itself, where it would be lost from the copied markup. Some existing examples carry a layout class on the wrapper. Do not copy that.
+The wrapper is not part of the component: what an agent copies is the markup inside it. So a layout class the example needs, such as `ds-cluster` or `ds-stack`, goes on an element inside the wrapper, not on the wrapper itself, where it would be lost from the copied markup. Some existing examples carry a layout class on the wrapper. Do not copy that.
 
 Rules for the set of examples:
 
@@ -140,10 +140,10 @@ Rules for the set of examples:
 - All the examples of a component share one gallery page. Give each landmark a label that is unique on that page, such as a different `aria-label` on each `nav`, or axe reports the duplicates.
 - A control inside a closed `<details>` cannot be hit-tested, so the pointer-target test cannot measure it. In a do example, keep controls out of collapsed content or give the element the `open` attribute.
 - A component with no controls, such as a badge or a spinner, is fine. Its examples have no pointer targets to measure.
-- Reference an icon as `icons.svg#gw-icon-<name>`, with no directory. The gallery adds its own path, and an app adds the path it serves the system from.
+- Reference an icon as `icons.svg#ds-icon-<name>`, with no directory. The gallery adds its own path, and an app adds the path it serves the system from.
 
 ```html
-<svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-plus"></use></svg>
+<svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
 ```
 
 - Copy is specific and plain, as it would be in a real screen: "Start task", "Repository", "Put a slash between the owner and the name." No "Click me", no placeholder text, no emoji.
@@ -153,11 +153,11 @@ Rules for the set of examples:
 A page pattern is a whole screen composed from components: a settings page, a sign-in screen, a list with its detail. It shows an agent how the components go together, so a new screen starts from a finished one. It lives in `patterns/<name>/` and holds the same three files as a component, built to everything on this page, with these differences:
 
 - `meta.json` has one more field, `"kind": "pattern"`. The build fails when a folder in `patterns/` leaves it out, and when a folder in `components/` has it.
-- The stylesheet is minimal. A pattern arranges components and does not restyle them, so it holds only the layout the screen needs under `gw-<name>`, and often only a class or two. Reach for the layout classes of the base layer first.
+- The stylesheet is minimal. A pattern arranges components and does not restyle them, so it holds only the layout the screen needs under `ds-<name>`, and often only a class or two. Reach for the layout classes of the base layer first.
 - Each example is a whole screen in one state. The components inside it keep the markup of their own examples.
 - A pattern cannot take the name of a component: the two share the class list, the index and the gallery.
 
-The build bundles pattern stylesheets into `dist/groundwork.css` after every component, in the same `@layer gw.components`, so a pattern's layout wins over a component it arranges. It lists patterns in the `patterns` array of `dist/components.json`, each entry holding the metadata fields, `kind` and the do examples. The `components` array holds components only, as it always has. Pattern classes join the `classes` list of `dist/manifest.json`.
+The build bundles pattern stylesheets into `dist/design-system.css` after every component, in the same `@layer ds.components`, so a pattern's layout wins over a component it arranges. It lists patterns in the `patterns` array of `dist/components.json`, each entry holding the metadata fields, `kind` and the do examples. The `components` array holds components only, as it always has. Pattern classes join the `classes` list of `dist/manifest.json`.
 
 In the gallery a pattern has a page of its own, listed after the components on the index. Its examples run down the page in one column, not two abreast, because each is a whole screen. `data-gallery-frame` on an example gives it room and keeps anything fixed inside it. Name every pattern in `rules/choosing-components.md`, with when to start from it.
 
@@ -183,7 +183,7 @@ In the gallery a pattern has a page of its own, listed after the components on t
 An entry in `variants` or `sizes` is `{ "name", "class", "use" }`: the name, the modifier class that selects it and when to choose it. Leave out `class` for the default, which needs no modifier.
 
 ```json
-{ "name": "primary", "class": "gw-button--primary", "use": "The one main action of a view, dialog or popover." }
+{ "name": "primary", "class": "ds-button--primary", "use": "The one main action of a view, dialog or popover." }
 ```
 
 The build copies these fields into `dist/components.json`, with the markup of each do example, which is where an agent looks a component up before writing markup. Write them for that reader. It copies `name`, `title`, `purpose`, `status` and `classes` into `dist/components-index.json`, the short list an agent searches first, so the purpose must say by itself what the component is for.
@@ -195,7 +195,7 @@ The build stops, naming the folder, when:
 - one of the three files is missing, or `meta.json` is not valid JSON;
 - a pattern has no `"kind": "pattern"`, a component has it, or a pattern has the name of a component;
 - a metadata field is missing or of the wrong type, the name is not the folder name, or the status is not `draft` or `stable`;
-- the stylesheet is not in `@layer gw.components`, or defines a class outside `gw-<name>`, `gw-<name>__…` and `gw-<name>--…`;
+- the stylesheet is not in `@layer ds.components`, or defines a class outside `ds-<name>`, `ds-<name>__…` and `ds-<name>--…`;
 - the classes the stylesheet defines and the `classes` list differ;
 - `examples.html` holds anything outside an element with `data-example`, an example has no `data-title`, or two share an id;
 - there is no do example, no don't example, a don't without `data-reason`, or no do with `data-reason`;

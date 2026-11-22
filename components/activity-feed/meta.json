@@ -20,28 +20,28 @@
   "states": ["default", "busy", "loading", "empty", "error"],
   "accessibility": [
     "Use a section with an aria-label that names what the activity belongs to, such as Activity for task 41. Each label is unique in the view.",
-    "Inside it, each day is a div with the class gw-activity-feed__day: a heading, at the level under the heading the feed sits beneath (h2 directly under the view's h1, h3 inside a section headed by an h2), that names the day in words such as Today, 22 November, then an ol of entries, oldest first.",
-    "An entry is an li holding a time element with a datetime attribute, then a p with the actor in gw-activity-feed__actor followed by a verb phrase that names the thing acted on, then optionally one gw-activity-feed__evidence holding a source chip or a short gw-activity-feed__excerpt.",
+    "Inside it, each day is a div with the class ds-activity-feed__day: a heading, at the level under the heading the feed sits beneath (h2 directly under the view's h1, h3 inside a section headed by an h2), that names the day in words such as Today, 22 November, then an ol of entries, oldest first.",
+    "An entry is an li holding a time element with a datetime attribute, then a p with the actor in ds-activity-feed__actor followed by a verb phrase that names the thing acted on, then optionally one ds-activity-feed__evidence holding a source chip or a short ds-activity-feed__excerpt.",
     "When entries are appended while the reader watches, put role=\"log\" on the section. A log is announced politely, entry by entry, and needs no script beyond adding the li. Keep role=\"log\" off a feed that only changes when the reader asks.",
     "Use role=\"feed\" only when the app loads entries as the reader scrolls and implements the feed keyboard contract itself: each entry an article with aria-posinset and aria-setsize, and Page Down and Page Up moving between entries. The component does not provide that behaviour.",
-    "A long feed shows the latest entries. Earlier ones come in through one quiet small button, Show earlier activity, with a chevron-up icon, in gw-activity-feed__more above the first day. While they are fetched, set aria-busy=\"true\" on the button and on the section, and change the button's words to Loading earlier activity. Afterwards move focus to the first entry that was added, so the reader continues from there.",
-    "For a paged log, write the feed newest first: the latest day first, and inside each day the latest entry first, in an ol with the reversed attribute. Say the order in words, in the heading above the feed or in a first child p with the class gw-visually-hidden reading The newest entry is first. Older entries come in through the same quiet small button, now reading Show older activity with a chevron-down icon, in gw-activity-feed__more after the last day. Afterwards move focus to the first entry that was added. Do not put role=\"log\" on a newest-first feed: a log is announced as entries are added at its end.",
+    "A long feed shows the latest entries. Earlier ones come in through one quiet small button, Show earlier activity, with a chevron-up icon, in ds-activity-feed__more above the first day. While they are fetched, set aria-busy=\"true\" on the button and on the section, and change the button's words to Loading earlier activity. Afterwards move focus to the first entry that was added, so the reader continues from there.",
+    "For a paged log, write the feed newest first: the latest day first, and inside each day the latest entry first, in an ol with the reversed attribute. Say the order in words, in the heading above the feed or in a first child p with the class ds-visually-hidden reading The newest entry is first. Older entries come in through the same quiet small button, now reading Show older activity with a chevron-down icon, in ds-activity-feed__more after the last day. Afterwards move focus to the first entry that was added. Do not put role=\"log\" on a newest-first feed: a log is announced as entries are added at its end.",
     "For the first fetch, an empty feed and a failed fetch, the section holds a spinner, a compact empty state or an error state in place of the days.",
     "An excerpt is text, never markup, and is short: one command or one line of output. Longer output belongs in a tool call.",
     "Tab reaches the Show earlier activity or Show older activity button and any source chips, in order. Entries themselves take no focus."
   ],
   "icons": ["chevron-down", "chevron-up", "file", "git-commit-horizontal"],
   "classes": [
-    "gw-activity-feed",
-    "gw-activity-feed__actor",
-    "gw-activity-feed__day",
-    "gw-activity-feed__entries",
-    "gw-activity-feed__entry",
-    "gw-activity-feed__evidence",
-    "gw-activity-feed__excerpt",
-    "gw-activity-feed__heading",
-    "gw-activity-feed__more",
-    "gw-activity-feed__text",
-    "gw-activity-feed__time"
+    "ds-activity-feed",
+    "ds-activity-feed__actor",
+    "ds-activity-feed__day",
+    "ds-activity-feed__entries",
+    "ds-activity-feed__entry",
+    "ds-activity-feed__evidence",
+    "ds-activity-feed__excerpt",
+    "ds-activity-feed__heading",
+    "ds-activity-feed__more",
+    "ds-activity-feed__text",
+    "ds-activity-feed__time"
   ]
 }

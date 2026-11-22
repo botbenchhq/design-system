@@ -1,132 +1,132 @@
 <div data-example="tones" data-title="Tones" data-state="default">
-  <div class="gw-cluster">
-    <span class="gw-badge">Draft</span>
-    <span class="gw-badge gw-badge--info">Running</span>
-    <span class="gw-badge gw-badge--success">Merged</span>
-    <span class="gw-badge gw-badge--warning">Needs an answer</span>
-    <span class="gw-badge gw-badge--danger">Failed</span>
+  <div class="ds-cluster">
+    <span class="ds-badge">Draft</span>
+    <span class="ds-badge ds-badge--info">Running</span>
+    <span class="ds-badge ds-badge--success">Merged</span>
+    <span class="ds-badge ds-badge--warning">Needs an answer</span>
+    <span class="ds-badge ds-badge--danger">Failed</span>
   </div>
 </div>
 
 <div data-example="with-icon" data-title="With an icon">
-  <div class="gw-cluster">
-    <span class="gw-badge">
-      <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
+  <div class="ds-cluster">
+    <span class="ds-badge">
+      <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
       No pull request
     </span>
-    <span class="gw-badge gw-badge--info">
-      <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-loader"></use></svg>
+    <span class="ds-badge ds-badge--info">
+      <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-loader"></use></svg>
       Tests running
     </span>
-    <span class="gw-badge gw-badge--success">
-      <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>
+    <span class="ds-badge ds-badge--success">
+      <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>
       Tests passed
     </span>
-    <span class="gw-badge gw-badge--warning">
-      <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-triangle-alert"></use></svg>
+    <span class="ds-badge ds-badge--warning">
+      <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-triangle-alert"></use></svg>
       Out of date with main
     </span>
-    <span class="gw-badge gw-badge--danger">
-      <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-alert"></use></svg>
+    <span class="ds-badge ds-badge--danger">
+      <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-alert"></use></svg>
       Tests failed
     </span>
   </div>
 </div>
 
 <div data-example="stations" data-title="One badge per row: a task's station in words" data-reason="Each row carries one badge, and it says where the task stands in words. Everything else about the task is plain text, so the badge is the one thing the eye lands on.">
-  <ul class="gw-list">
-    <li class="gw-list__row">
-      <div class="gw-list__content">
-        <span class="gw-list__body">
-          <span class="gw-list__primary">Fix the login timeout</span>
-          <span class="gw-list__secondary">acme/api · fix/login-timeout</span>
+  <ul class="ds-list">
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Fix the login timeout</span>
+          <span class="ds-list__secondary">acme/api · fix/login-timeout</span>
         </span>
-        <span class="gw-badge">
-          <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-ellipsis"></use></svg>
+        <span class="ds-badge">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-ellipsis"></use></svg>
           Queued
         </span>
       </div>
     </li>
-    <li class="gw-list__row">
-      <div class="gw-list__content">
-        <span class="gw-list__body">
-          <span class="gw-list__primary">Add rate limiting to the webhook endpoint</span>
-          <span class="gw-list__secondary">acme/api · feat/webhook-rate-limit</span>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Add rate limiting to the webhook endpoint</span>
+          <span class="ds-list__secondary">acme/api · feat/webhook-rate-limit</span>
         </span>
-        <span class="gw-badge gw-badge--info">
-          <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-loader"></use></svg>
+        <span class="ds-badge ds-badge--info">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-loader"></use></svg>
           Building
         </span>
       </div>
     </li>
-    <li class="gw-list__row">
-      <div class="gw-list__content">
-        <span class="gw-list__body">
-          <span class="gw-list__primary">Upgrade Postgres client to 8.13</span>
-          <span class="gw-list__secondary">acme/billing · chore/pg-8-13</span>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Upgrade Postgres client to 8.13</span>
+          <span class="ds-list__secondary">acme/billing · chore/pg-8-13</span>
         </span>
-        <span class="gw-badge gw-badge--info">
-          <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
+        <span class="ds-badge ds-badge--info">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-search"></use></svg>
           Verifying
         </span>
       </div>
     </li>
-    <li class="gw-list__row">
-      <div class="gw-list__content">
-        <span class="gw-list__body">
-          <span class="gw-list__primary">Move session storage to Redis</span>
-          <span class="gw-list__secondary">acme/api · feat/redis-sessions</span>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Move session storage to Redis</span>
+          <span class="ds-list__secondary">acme/api · feat/redis-sessions</span>
         </span>
-        <span class="gw-badge gw-badge--info">
-          <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg>
+        <span class="ds-badge ds-badge--info">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
           Reviewing
         </span>
       </div>
     </li>
-    <li class="gw-list__row">
-      <div class="gw-list__content">
-        <span class="gw-list__body">
-          <span class="gw-list__primary">Remove the legacy invoice exporter</span>
-          <span class="gw-list__secondary">acme/billing · chore/drop-invoice-export</span>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Remove the legacy invoice exporter</span>
+          <span class="ds-list__secondary">acme/billing · chore/drop-invoice-export</span>
         </span>
-        <span class="gw-badge gw-badge--warning">
-          <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-alert"></use></svg>
+        <span class="ds-badge ds-badge--warning">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-alert"></use></svg>
           Awaiting decision
         </span>
       </div>
     </li>
-    <li class="gw-list__row">
-      <div class="gw-list__content">
-        <span class="gw-list__body">
-          <span class="gw-list__primary">Add dark theme to the settings screen</span>
-          <span class="gw-list__secondary">acme/web · feat/settings-dark</span>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Add dark theme to the settings screen</span>
+          <span class="ds-list__secondary">acme/web · feat/settings-dark</span>
         </span>
-        <span class="gw-badge gw-badge--warning">
-          <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-triangle-alert"></use></svg>
+        <span class="ds-badge ds-badge--warning">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-triangle-alert"></use></svg>
           Blocked
         </span>
       </div>
     </li>
-    <li class="gw-list__row">
-      <div class="gw-list__content">
-        <span class="gw-list__body">
-          <span class="gw-list__primary">Paginate the audit log</span>
-          <span class="gw-list__secondary">acme/api · feat/audit-log-pages</span>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Paginate the audit log</span>
+          <span class="ds-list__secondary">acme/api · feat/audit-log-pages</span>
         </span>
-        <span class="gw-badge gw-badge--danger">
-          <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+        <span class="ds-badge ds-badge--danger">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-x"></use></svg>
           Interrupted
         </span>
       </div>
     </li>
-    <li class="gw-list__row">
-      <div class="gw-list__content">
-        <span class="gw-list__body">
-          <span class="gw-list__primary">Fix the off-by-one in the retry counter</span>
-          <span class="gw-list__secondary">acme/api · fix/retry-count</span>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Fix the off-by-one in the retry counter</span>
+          <span class="ds-list__secondary">acme/api · fix/retry-count</span>
         </span>
-        <span class="gw-badge gw-badge--success">
-          <svg class="gw-badge__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>
+        <span class="ds-badge ds-badge--success">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>
           Decided
         </span>
       </div>
@@ -135,14 +135,14 @@
 </div>
 
 <div data-example="clutter" data-title="A badge for every fact" data-dont="excess-badges" data-reason="When every fact about the task is a badge, none of them stands out and the one status that matters is lost. Keep the badge for the station and write the rest as plain text.">
-  <div class="gw-cluster">
-    <span class="gw-badge gw-badge--info">Building</span>
-    <span class="gw-badge">acme/api</span>
-    <span class="gw-badge">fix/login-timeout</span>
-    <span class="gw-badge gw-badge--success">3 files</span>
-    <span class="gw-badge gw-badge--success">12 added</span>
-    <span class="gw-badge gw-badge--danger">3 removed</span>
-    <span class="gw-badge gw-badge--warning">Attempt 2</span>
-    <span class="gw-badge">2 min ago</span>
+  <div class="ds-cluster">
+    <span class="ds-badge ds-badge--info">Building</span>
+    <span class="ds-badge">acme/api</span>
+    <span class="ds-badge">fix/login-timeout</span>
+    <span class="ds-badge ds-badge--success">3 files</span>
+    <span class="ds-badge ds-badge--success">12 added</span>
+    <span class="ds-badge ds-badge--danger">3 removed</span>
+    <span class="ds-badge ds-badge--warning">Attempt 2</span>
+    <span class="ds-badge">2 min ago</span>
   </div>
 </div>

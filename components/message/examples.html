@@ -1,88 +1,88 @@
 <div data-example="user" data-title="User prompt" data-state="default">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--user">
-      <span class="gw-message__label">You</span>
-      <p class="gw-message__body">The session cookie expires after 15 minutes even while the tab is active. Find out why and fix it, then run the auth tests.</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--user">
+      <span class="ds-message__label">You</span>
+      <p class="ds-message__body">The session cookie expires after 15 minutes even while the tab is active. Find out why and fix it, then run the auth tests.</p>
     </li>
   </ol>
 </div>
 
 <div data-example="agent" data-title="Agent text">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message">
-      <span class="gw-message__label">Claude Code</span>
-      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid session is loaded and add a test for the reload case.</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message">
+      <span class="ds-message__label">Claude Code</span>
+      <p class="ds-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid session is loaded and add a test for the reload case.</p>
     </li>
   </ol>
 </div>
 
 <div data-example="streaming" data-title="Agent text arriving" data-state="streaming" data-reason="The caret marks where the text is growing and is hidden from assistive technology. The row is not a live region, so a screen reader is not read every word as it lands: the view's one status region says that the agent started and, later, that it finished.">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message" data-state="streaming" aria-busy="true">
-      <span class="gw-message__label">Claude Code</span>
-      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid<span class="gw-message__caret" aria-hidden="true"></span></p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message" data-state="streaming" aria-busy="true">
+      <span class="ds-message__label">Claude Code</span>
+      <p class="ds-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid<span class="ds-message__caret" aria-hidden="true"></span></p>
     </li>
   </ol>
 </div>
 
 <div data-example="stopped" data-title="Stopped by the reader: the text so far is kept" data-state="stopped">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message" data-state="stopped">
-      <span class="gw-message__label">Claude Code</span>
-      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid</p>
-      <p class="gw-message__state">Stopped. You stopped this reply before it was finished.</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message" data-state="stopped">
+      <span class="ds-message__label">Claude Code</span>
+      <p class="ds-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid</p>
+      <p class="ds-message__state">Stopped. You stopped this reply before it was finished.</p>
     </li>
   </ol>
 </div>
 
 <div data-example="interrupted" data-title="Interrupted: the connection or the process was lost" data-state="interrupted">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message" data-state="interrupted">
-      <span class="gw-message__label">Claude Code</span>
-      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid</p>
-      <p class="gw-message__state">Interrupted. The connection to the runner was lost, so this reply is not finished.</p>
-      <button type="button" class="gw-button gw-button--small">Retry</button>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message" data-state="interrupted">
+      <span class="ds-message__label">Claude Code</span>
+      <p class="ds-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid</p>
+      <p class="ds-message__state">Interrupted. The connection to the runner was lost, so this reply is not finished.</p>
+      <button type="button" class="ds-button ds-button--small">Retry</button>
     </li>
   </ol>
 </div>
 
 <div data-example="reconnecting" data-title="Reconnecting: the text so far stays where it is" data-state="reconnecting">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message" data-state="reconnecting">
-      <span class="gw-message__label">Claude Code</span>
-      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid</p>
-      <p class="gw-message__state">Reconnecting to the runner. The reply will carry on from here.</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message" data-state="reconnecting">
+      <span class="ds-message__label">Claude Code</span>
+      <p class="ds-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid</p>
+      <p class="ds-message__state">Reconnecting to the runner. The reply will carry on from here.</p>
     </li>
   </ol>
 </div>
 
 <div data-example="done" data-title="Done: no mark" data-state="done">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message" data-state="done">
-      <span class="gw-message__label">Claude Code</span>
-      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid session is loaded and add a test for the reload case.</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message" data-state="done">
+      <span class="ds-message__label">Claude Code</span>
+      <p class="ds-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid session is loaded and add a test for the reload case.</p>
     </li>
   </ol>
 </div>
 
 <div data-example="tool-call" data-title="Tool calls" data-reason="A tool call in a transcript is always this: a row of the tool-call kind whose content is the tool call component with its row modifier. The line says what was done in plain words, and the arguments and the output are behind the row's one disclosure.">
-  <ol class="gw-stack gw-gap-xs">
-    <li class="gw-message gw-message--tool-call">
-      <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-        <details class="gw-tool-call__details">
-          <summary class="gw-tool-call__summary">
-            <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth/session.test.ts</code></span>
-            <span class="gw-tool-call__duration">2.4 s</span>
+  <ol class="ds-stack ds-gap-xs">
+    <li class="ds-message ds-message--tool-call">
+      <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+        <details class="ds-tool-call__details">
+          <summary class="ds-tool-call__summary">
+            <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">npm test -- --run src/auth/session.test.ts</code></span>
+            <span class="ds-tool-call__duration">2.4 s</span>
           </summary>
-          <div class="gw-tool-call__body">
-            <p class="gw-tool-call__label">Arguments</p>
-            <pre class="gw-tool-call__code">{
+          <div class="ds-tool-call__body">
+            <p class="ds-tool-call__label">Arguments</p>
+            <pre class="ds-tool-call__code">{
   "command": "npm test -- --run src/auth/session.test.ts",
   "description": "Run the session tests to confirm the reload case passes.",
   "timeout": 120000
 }</pre>
-            <p class="gw-tool-call__label">Output, 6 lines</p>
-            <pre class="gw-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
+            <p class="ds-tool-call__label">Output, 6 lines</p>
+            <pre class="ds-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
 
  ✓ src/auth/session.test.ts (14 tests) 212ms
 
@@ -92,18 +92,18 @@
         </details>
       </div>
     </li>
-    <li class="gw-message gw-message--tool-call">
-      <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-        <details class="gw-tool-call__details">
-          <summary class="gw-tool-call__summary">
-            <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Read <code class="gw-tool-call__target">src/auth/session.ts</code></span>
-            <span class="gw-tool-call__duration">12 ms</span>
+    <li class="ds-message ds-message--tool-call">
+      <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+        <details class="ds-tool-call__details">
+          <summary class="ds-tool-call__summary">
+            <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Read <code class="ds-tool-call__target">src/auth/session.ts</code></span>
+            <span class="ds-tool-call__duration">12 ms</span>
           </summary>
-          <div class="gw-tool-call__body">
-            <p class="gw-tool-call__label">Arguments</p>
-            <pre class="gw-tool-call__code">{ "file_path": "src/auth/session.ts" }</pre>
-            <p class="gw-tool-call__label">Output, first 2 of 184 lines</p>
-            <pre class="gw-tool-call__code">import { readCookie } from "./cookie.ts";
+          <div class="ds-tool-call__body">
+            <p class="ds-tool-call__label">Arguments</p>
+            <pre class="ds-tool-call__code">{ "file_path": "src/auth/session.ts" }</pre>
+            <p class="ds-tool-call__label">Output, first 2 of 184 lines</p>
+            <pre class="ds-tool-call__code">import { readCookie } from "./cookie.ts";
 import { startRefreshTimer } from "./refresh.ts";</pre>
           </div>
         </details>
@@ -113,24 +113,24 @@ import { startRefreshTimer } from "./refresh.ts";</pre>
 </div>
 
 <div data-example="tool-call-described" data-title="Tool call with the agent's reason under the line" data-reason="The row reads as what the agent did and why: the status, a plain summary with the command in mono, then one plain sentence. The raw arguments are one press away for the reader who wants them, and are never the row itself.">
-  <ol class="gw-stack gw-gap-xs">
-    <li class="gw-message gw-message--tool-call">
-      <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-        <details class="gw-tool-call__details">
-          <summary class="gw-tool-call__summary">
-            <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth/session.test.ts</code></span>
-            <span class="gw-tool-call__duration">2.4 s</span>
-            <span class="gw-tool-call__note">Run the session tests to confirm the reload case passes.</span>
+  <ol class="ds-stack ds-gap-xs">
+    <li class="ds-message ds-message--tool-call">
+      <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+        <details class="ds-tool-call__details">
+          <summary class="ds-tool-call__summary">
+            <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">npm test -- --run src/auth/session.test.ts</code></span>
+            <span class="ds-tool-call__duration">2.4 s</span>
+            <span class="ds-tool-call__note">Run the session tests to confirm the reload case passes.</span>
           </summary>
-          <div class="gw-tool-call__body">
-            <p class="gw-tool-call__label">Arguments</p>
-            <pre class="gw-tool-call__code">{
+          <div class="ds-tool-call__body">
+            <p class="ds-tool-call__label">Arguments</p>
+            <pre class="ds-tool-call__code">{
   "command": "npm test -- --run src/auth/session.test.ts",
   "description": "Run the session tests to confirm the reload case passes.",
   "timeout": 120000
 }</pre>
-            <p class="gw-tool-call__label">Output, 6 lines</p>
-            <pre class="gw-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
+            <p class="ds-tool-call__label">Output, 6 lines</p>
+            <pre class="ds-tool-call__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
 
  ✓ src/auth/session.test.ts (14 tests) 212ms
 
@@ -144,23 +144,23 @@ import { startRefreshTimer } from "./refresh.ts";</pre>
 </div>
 
 <div data-example="tool-call-open" data-title="Tool call with its details open" data-state="open">
-  <ol class="gw-stack gw-gap-xs">
-    <li class="gw-message gw-message--tool-call">
-      <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-        <details class="gw-tool-call__details" open>
-          <summary class="gw-tool-call__summary">
-            <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Searched for <code class="gw-tool-call__target">startRefreshTimer</code> in <code class="gw-tool-call__target">src</code></span>
-            <span class="gw-tool-call__duration">41 ms</span>
+  <ol class="ds-stack ds-gap-xs">
+    <li class="ds-message ds-message--tool-call">
+      <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+        <details class="ds-tool-call__details" open>
+          <summary class="ds-tool-call__summary">
+            <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Searched for <code class="ds-tool-call__target">startRefreshTimer</code> in <code class="ds-tool-call__target">src</code></span>
+            <span class="ds-tool-call__duration">41 ms</span>
           </summary>
-          <div class="gw-tool-call__body">
-            <p class="gw-tool-call__label">Arguments</p>
-            <pre class="gw-tool-call__code">{
+          <div class="ds-tool-call__body">
+            <p class="ds-tool-call__label">Arguments</p>
+            <pre class="ds-tool-call__code">{
   "pattern": "startRefreshTimer",
   "path": "src",
   "output_mode": "files_with_matches"
 }</pre>
-            <p class="gw-tool-call__label">Output, 3 lines</p>
-            <pre class="gw-tool-call__code">src/auth/session.ts
+            <p class="ds-tool-call__label">Output, 3 lines</p>
+            <pre class="ds-tool-call__code">src/auth/session.ts
 src/auth/session.test.ts
 src/routes/sign-in.tsx</pre>
           </div>
@@ -171,10 +171,10 @@ src/routes/sign-in.tsx</pre>
 </div>
 
 <div data-example="tool-result" data-title="Tool result">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--tool-result">
-      <span class="gw-message__label">Tool result</span>
-      <pre class="gw-message__code">src/auth/session.ts
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--tool-result">
+      <span class="ds-message__label">Tool result</span>
+      <pre class="ds-message__code">src/auth/session.ts
 src/auth/session.test.ts
 src/routes/sign-in.tsx</pre>
     </li>
@@ -182,16 +182,16 @@ src/routes/sign-in.tsx</pre>
 </div>
 
 <div data-example="tool-result-long" data-title="Long tool result">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--tool-result">
-      <span class="gw-message__label">Tool result</span>
-      <pre class="gw-message__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--tool-result">
+      <span class="ds-message__label">Tool result</span>
+      <pre class="ds-message__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
 
  ✓ src/auth/session.test.ts (14 tests) 212ms
  ✓ src/auth/refresh.test.ts (9 tests) 87ms</pre>
-      <details class="gw-message__details">
-        <summary class="gw-message__summary">Show full output (38 more lines)</summary>
-        <pre class="gw-message__code"> ✓ src/auth/cookie.test.ts (6 tests) 41ms
+      <details class="ds-message__details">
+        <summary class="ds-message__summary">Show full output (38 more lines)</summary>
+        <pre class="ds-message__code"> ✓ src/auth/cookie.test.ts (6 tests) 41ms
  ✓ src/routes/sign-in.test.tsx (11 tests) 398ms
 
  Test Files  4 passed (4)
@@ -203,17 +203,17 @@ src/routes/sign-in.tsx</pre>
 </div>
 
 <div data-example="long-line" data-title="A long line wraps">
-  <ol class="gw-stack gw-gap-xs">
-    <li class="gw-message gw-message--tool-call">
-      <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
-        <details class="gw-tool-call__details" open>
-          <summary class="gw-tool-call__summary">
-            <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">curl --silent --fail https://registry.npmjs.org/@acme%2Fsession-store/-/session-store-4.12.0-rc.3.tgz --output /srv/workspaces/acme-api/.cache/session-store-4.12.0-rc.3.tgz</code></span>
-            <span class="gw-tool-call__duration">1.2 s</span>
+  <ol class="ds-stack ds-gap-xs">
+    <li class="ds-message ds-message--tool-call">
+      <div class="ds-tool-call ds-tool-call--row" data-state="succeeded">
+        <details class="ds-tool-call__details" open>
+          <summary class="ds-tool-call__summary">
+            <span class="ds-tool-call__title"><span class="ds-tool-call__status">Succeeded</span> Ran <code class="ds-tool-call__target">curl --silent --fail https://registry.npmjs.org/@acme%2Fsession-store/-/session-store-4.12.0-rc.3.tgz --output /srv/workspaces/acme-api/.cache/session-store-4.12.0-rc.3.tgz</code></span>
+            <span class="ds-tool-call__duration">1.2 s</span>
           </summary>
-          <div class="gw-tool-call__body">
-            <p class="gw-tool-call__label">Output, 1 line</p>
-            <pre class="gw-tool-call__code">sha512-Zk3mJ9cQpXr7vT2bN8sLhW4yGdA6fUeR1oKiC5xMtPqVnBwS0aHjYlDg3EuFzOI7rTmXc2Nb9QsKvLpW8yAhJd== /srv/workspaces/acme-api/.cache/session-store-4.12.0-rc.3.tgz</pre>
+          <div class="ds-tool-call__body">
+            <p class="ds-tool-call__label">Output, 1 line</p>
+            <pre class="ds-tool-call__code">sha512-Zk3mJ9cQpXr7vT2bN8sLhW4yGdA6fUeR1oKiC5xMtPqVnBwS0aHjYlDg3EuFzOI7rTmXc2Nb9QsKvLpW8yAhJd== /srv/workspaces/acme-api/.cache/session-store-4.12.0-rc.3.tgz</pre>
           </div>
         </details>
       </div>
@@ -222,120 +222,120 @@ src/routes/sign-in.tsx</pre>
 </div>
 
 <div data-example="denied" data-title="Permission denied" data-reason="The label and its icon say the call was denied, and the text says what was not run and why. The colour only adds to that.">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--denied">
-      <span class="gw-message__label">Denied</span>
-      <span class="gw-message__tool">Bash</span>
-      <code class="gw-message__command">git push --force origin main</code>
-      <p class="gw-message__body">This command was not run. Force pushes to main are blocked by the project's permission rules.</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--denied">
+      <span class="ds-message__label">Denied</span>
+      <span class="ds-message__tool">Bash</span>
+      <code class="ds-message__command">git push --force origin main</code>
+      <p class="ds-message__body">This command was not run. Force pushes to main are blocked by the project's permission rules.</p>
     </li>
   </ol>
 </div>
 
 <div data-example="session-start" data-title="Session started">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--session-start">
-      <span class="gw-message__label">Session</span>
-      <p class="gw-message__body">Started on the branch fix/login-timeout in /srv/workspaces/acme-api, with Claude Code.</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--session-start">
+      <span class="ds-message__label">Session</span>
+      <p class="ds-message__body">Started on the branch fix/login-timeout in /srv/workspaces/acme-api, with Claude Code.</p>
     </li>
   </ol>
 </div>
 
 <div data-example="question" data-title="A question to the reader, waiting on an answer" data-reason="The label says in words that this is a question and that the run waits on the reader. The question is whole, so it can be answered from the composer without scrolling back.">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--question">
-      <span class="gw-message__label">Question, waiting on you</span>
-      <p class="gw-message__body">The reload test needs a signed-in session. Should I add a fixture user to the test database, or reuse the one the sign-in tests create?</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--question">
+      <span class="ds-message__label">Question, waiting on you</span>
+      <p class="ds-message__body">The reload test needs a signed-in session. Should I add a fixture user to the test database, or reuse the one the sign-in tests create?</p>
     </li>
   </ol>
 </div>
 
 <div data-example="decision" data-title="A permission request that was resolved, in each of the four ways" data-reason="The label says how the request was resolved and the text says by whom, so a reader can tell a call somebody allowed from one that ran without anybody being asked.">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--decision">
-      <span class="gw-message__label"><svg class="gw-message__icon" aria-hidden="true"><use href="icons.svg#gw-icon-check"></use></svg>Allowed</span>
-      <span class="gw-message__tool">Bash</span>
-      <code class="gw-message__command">npm install --save-dev @acme/session-fixtures</code>
-      <p class="gw-message__body">Allowed by you at 09:12, for this call only.</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--decision">
+      <span class="ds-message__label"><svg class="ds-message__icon" aria-hidden="true"><use href="icons.svg#ds-icon-check"></use></svg>Allowed</span>
+      <span class="ds-message__tool">Bash</span>
+      <code class="ds-message__command">npm install --save-dev @acme/session-fixtures</code>
+      <p class="ds-message__body">Allowed by you at 09:12, for this call only.</p>
     </li>
-    <li class="gw-message gw-message--decision">
-      <span class="gw-message__label"><svg class="gw-message__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>Declined</span>
-      <span class="gw-message__tool">Bash</span>
-      <code class="gw-message__command">psql $DATABASE_URL -f seed/users.sql</code>
-      <p class="gw-message__body">Declined by Dana Okafor at 09:14, with a note: Seed the test database, not the shared one.</p>
+    <li class="ds-message ds-message--decision">
+      <span class="ds-message__label"><svg class="ds-message__icon" aria-hidden="true"><use href="icons.svg#ds-icon-x"></use></svg>Declined</span>
+      <span class="ds-message__tool">Bash</span>
+      <code class="ds-message__command">psql $DATABASE_URL -f seed/users.sql</code>
+      <p class="ds-message__body">Declined by Dana Okafor at 09:14, with a note: Seed the test database, not the shared one.</p>
     </li>
-    <li class="gw-message gw-message--decision">
-      <span class="gw-message__label"><svg class="gw-message__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>Pre-approved</span>
-      <span class="gw-message__tool">Bash</span>
-      <code class="gw-message__command">npm run test -- --run src/auth</code>
-      <p class="gw-message__body">On this task's approved list, which you set when you started the task. Nobody was asked.</p>
+    <li class="ds-message ds-message--decision">
+      <span class="ds-message__label"><svg class="ds-message__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>Pre-approved</span>
+      <span class="ds-message__tool">Bash</span>
+      <code class="ds-message__command">npm run test -- --run src/auth</code>
+      <p class="ds-message__body">On this task's approved list, which you set when you started the task. Nobody was asked.</p>
     </li>
-    <li class="gw-message gw-message--decision">
-      <span class="gw-message__label"><svg class="gw-message__icon" aria-hidden="true"><use href="icons.svg#gw-icon-circle-check"></use></svg>Allowed by a standing permission</span>
-      <span class="gw-message__tool">Bash</span>
-      <code class="gw-message__command">git fetch origin main</code>
-      <p class="gw-message__body">Dana Okafor granted git fetch in acme/api on 14 November. Nobody was asked.</p>
+    <li class="ds-message ds-message--decision">
+      <span class="ds-message__label"><svg class="ds-message__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>Allowed by a standing permission</span>
+      <span class="ds-message__tool">Bash</span>
+      <code class="ds-message__command">git fetch origin main</code>
+      <p class="ds-message__body">Dana Okafor granted git fetch in acme/api on 14 November. Nobody was asked.</p>
     </li>
   </ol>
 </div>
 
 <div data-example="error" data-title="Something failed">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--error">
-      <span class="gw-message__label">Error</span>
-      <p class="gw-message__body">The runner lost its connection to the workspace, so the test run did not finish. The edits so far are saved on fix/login-timeout. Resume the run to carry on from there.</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--error">
+      <span class="ds-message__label">Error</span>
+      <p class="ds-message__body">The runner lost its connection to the workspace, so the test run did not finish. The edits so far are saved on fix/login-timeout. Resume the run to carry on from there.</p>
     </li>
   </ol>
 </div>
 
 <div data-example="usage" data-title="Usage">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--usage">
-      <span class="gw-message__label">Usage</span>
-      <p class="gw-message__body">18,420 tokens in, 1,264 out, 42 seconds</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--usage">
+      <span class="ds-message__label">Usage</span>
+      <p class="ds-message__body">18,420 tokens in, 1,264 out, 42 seconds</p>
     </li>
   </ol>
 </div>
 
 <div data-example="turn-end" data-title="Turn end">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--turn-end">
-      <span class="gw-message__label">End</span>
-      <p class="gw-message__body">Turn completed.</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--turn-end">
+      <span class="ds-message__label">End</span>
+      <p class="ds-message__body">Turn completed.</p>
     </li>
-    <li class="gw-message gw-message--turn-end">
-      <span class="gw-message__label">End</span>
-      <p class="gw-message__body">Turn stopped before it finished.</p>
+    <li class="ds-message ds-message--turn-end">
+      <span class="ds-message__label">End</span>
+      <p class="ds-message__body">Turn stopped before it finished.</p>
     </li>
-    <li class="gw-message gw-message--turn-end">
-      <span class="gw-message__label">End</span>
-      <p class="gw-message__body">Turn ended with an error: Claude Code's usage limit was reached.</p>
+    <li class="ds-message ds-message--turn-end">
+      <span class="ds-message__label">End</span>
+      <p class="ds-message__body">Turn ended with an error: Claude Code's usage limit was reached.</p>
     </li>
   </ol>
 </div>
 
 <div data-example="transcript" data-title="One turn of a transcript">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--user">
-      <span class="gw-message__label">You</span>
-      <p class="gw-message__body">Run the auth tests and tell me what fails.</p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--user">
+      <span class="ds-message__label">You</span>
+      <p class="ds-message__body">Run the auth tests and tell me what fails.</p>
     </li>
-    <li class="gw-message gw-message--tool-call">
-      <div class="gw-tool-call gw-tool-call--row" data-state="failed">
-        <details class="gw-tool-call__details" open>
-          <summary class="gw-tool-call__summary">
-            <span class="gw-tool-call__title"><span class="gw-tool-call__status">Failed</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
-            <span class="gw-tool-call__duration">3.1 s</span>
-            <span class="gw-tool-call__note">The command exited with code 1. 1 of 30 tests failed.</span>
+    <li class="ds-message ds-message--tool-call">
+      <div class="ds-tool-call ds-tool-call--row" data-state="failed">
+        <details class="ds-tool-call__details" open>
+          <summary class="ds-tool-call__summary">
+            <span class="ds-tool-call__title"><span class="ds-tool-call__status">Failed</span> Ran <code class="ds-tool-call__target">npm test -- --run src/auth</code></span>
+            <span class="ds-tool-call__duration">3.1 s</span>
+            <span class="ds-tool-call__note">The command exited with code 1. 1 of 30 tests failed.</span>
           </summary>
-          <div class="gw-tool-call__body">
-            <p class="gw-tool-call__label">Arguments</p>
-            <pre class="gw-tool-call__code">{
+          <div class="ds-tool-call__body">
+            <p class="ds-tool-call__label">Arguments</p>
+            <pre class="ds-tool-call__code">{
   "command": "npm test -- --run src/auth",
   "description": "Run the auth tests"
 }</pre>
-            <p class="gw-tool-call__label">Output, 4 lines</p>
-            <pre class="gw-tool-call__code"> ✗ src/auth/session.test.ts > keeps the session after a reload
+            <p class="ds-tool-call__label">Output, 4 lines</p>
+            <pre class="ds-tool-call__code"> ✗ src/auth/session.test.ts > keeps the session after a reload
    AssertionError: expected null to be truthy
 
  Test Files  1 failed | 2 passed (3)</pre>
@@ -343,82 +343,82 @@ src/routes/sign-in.tsx</pre>
         </details>
       </div>
     </li>
-    <li class="gw-message" data-state="done">
-      <span class="gw-message__label">Claude Code</span>
-      <p class="gw-message__body">One test fails: the session is lost after a reload, because the refresh timer is not restarted. The other 29 tests pass.</p>
+    <li class="ds-message" data-state="done">
+      <span class="ds-message__label">Claude Code</span>
+      <p class="ds-message__body">One test fails: the session is lost after a reload, because the refresh timer is not restarted. The other 29 tests pass.</p>
     </li>
-    <li class="gw-message gw-message--usage">
-      <span class="gw-message__label">Usage</span>
-      <p class="gw-message__body">9,812 tokens in, 406 out, 17 seconds</p>
+    <li class="ds-message ds-message--usage">
+      <span class="ds-message__label">Usage</span>
+      <p class="ds-message__body">9,812 tokens in, 406 out, 17 seconds</p>
     </li>
-    <li class="gw-message gw-message--turn-end">
-      <span class="gw-message__label">End</span>
-      <p class="gw-message__body">Turn completed.</p>
+    <li class="ds-message ds-message--turn-end">
+      <span class="ds-message__label">End</span>
+      <p class="ds-message__body">Turn completed.</p>
     </li>
   </ol>
 </div>
 
 <div data-example="loading" data-title="A transcript that is loading" data-state="loading">
-  <div class="gw-skeleton gw-skeleton--rows" aria-busy="true">
-    <span class="gw-visually-hidden">Loading the transcript of run 4182</span>
-    <span class="gw-skeleton__row">
-      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
-      <span class="gw-skeleton__line"></span>
+  <div class="ds-skeleton ds-skeleton--rows" aria-busy="true">
+    <span class="ds-visually-hidden">Loading the transcript of run 4182</span>
+    <span class="ds-skeleton__row">
+      <span class="ds-skeleton__line ds-skeleton__line--short"></span>
+      <span class="ds-skeleton__line"></span>
     </span>
-    <span class="gw-skeleton__row">
-      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+    <span class="ds-skeleton__row">
+      <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
     </span>
-    <span class="gw-skeleton__row">
-      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+    <span class="ds-skeleton__row">
+      <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
     </span>
-    <span class="gw-skeleton__row">
-      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
-      <span class="gw-skeleton__line"></span>
-      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+    <span class="ds-skeleton__row">
+      <span class="ds-skeleton__line ds-skeleton__line--short"></span>
+      <span class="ds-skeleton__line"></span>
+      <span class="ds-skeleton__line ds-skeleton__line--medium"></span>
     </span>
   </div>
 </div>
 
 <div data-example="empty" data-title="A transcript with nothing in it yet" data-state="empty">
-  <div class="gw-stack">
-    <div class="gw-empty-state gw-empty-state--compact">
-      <h4 class="gw-empty-state__title">No messages yet</h4>
-      <p class="gw-empty-state__body">Ask Claude Code about acme/api, or start from one of these prompts.</p>
+  <div class="ds-stack">
+    <div class="ds-empty-state ds-empty-state--compact">
+      <h4 class="ds-empty-state__title">No messages yet</h4>
+      <p class="ds-empty-state__body">Ask Claude Code about acme/api, or start from one of these prompts.</p>
     </div>
-    <ul class="gw-suggestion-chips" aria-label="Suggested first prompts">
-      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Explain how sessions are refreshed in src/auth</button></li>
-      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Find out why the session cookie expires after 15 minutes</button></li>
-      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Run the auth tests</button></li>
+    <ul class="ds-suggestion-chips" aria-label="Suggested first prompts">
+      <li><button type="button" class="ds-button ds-suggestion-chips__chip">Explain how sessions are refreshed in src/auth</button></li>
+      <li><button type="button" class="ds-button ds-suggestion-chips__chip">Find out why the session cookie expires after 15 minutes</button></li>
+      <li><button type="button" class="ds-button ds-suggestion-chips__chip">Run the auth tests</button></li>
     </ul>
   </div>
 </div>
 
 <div data-example="colour-only" data-title="A denial marked by colour alone" data-dont="review" data-reason="Without the label, only the red background says this call was denied, and nothing says why. A reader who cannot see the colour takes it for a call that ran.">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--denied">
-      <span class="gw-message__tool">Bash</span>
-      <code class="gw-message__command">git push --force origin main</code>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--denied">
+      <span class="ds-message__tool">Bash</span>
+      <code class="ds-message__command">git push --force origin main</code>
     </li>
   </ol>
 </div>
 
 <div data-example="summary-without-words" data-title="A collapsed result with an empty summary" data-dont="summary-without-text" data-reason="The summary is all a reader sees until they open the row. With no text they cannot tell what is inside, and a screen reader announces an unnamed disclosure.">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message gw-message--tool-result">
-      <span class="gw-message__label">Tool result</span>
-      <details class="gw-message__details">
-        <summary class="gw-message__summary"></summary>
-        <pre class="gw-message__code">{ "file_path": "src/auth/session.ts" }</pre>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message ds-message--tool-result">
+      <span class="ds-message__label">Tool result</span>
+      <details class="ds-message__details">
+        <summary class="ds-message__summary"></summary>
+        <pre class="ds-message__code">{ "file_path": "src/auth/session.ts" }</pre>
       </details>
     </li>
   </ol>
 </div>
 
 <div data-example="live-text" data-title="A live region on the text that is arriving" data-dont="review" data-reason="With aria-live on the growing text a screen reader starts over, or reads fragments, every time a few words land, and the reader cannot do anything else meanwhile. Leave the row silent and announce the start and the end of the reply from the view's one status region.">
-  <ol class="gw-stack gw-gap-sm">
-    <li class="gw-message" data-state="streaming">
-      <span class="gw-message__label">Claude Code</span>
-      <p class="gw-message__body" aria-live="polite" aria-atomic="true">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid<span class="gw-message__caret" aria-hidden="true"></span></p>
+  <ol class="ds-stack ds-gap-sm">
+    <li class="ds-message" data-state="streaming">
+      <span class="ds-message__label">Claude Code</span>
+      <p class="ds-message__body" aria-live="polite" aria-atomic="true">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid<span class="ds-message__caret" aria-hidden="true"></span></p>
     </li>
   </ol>
 </div>

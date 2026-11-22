@@ -14,13 +14,13 @@
   ],
   "variants": [
     { "name": "secondary", "use": "The default, with no modifier class. Any action that is not the main one." },
-    { "name": "primary", "class": "gw-button--primary", "use": "The one main action of a view, dialog or popover." },
-    { "name": "quiet", "class": "gw-button--quiet", "use": "A minor action that should not draw the eye, such as Cancel or View log." },
-    { "name": "danger", "class": "gw-button--danger", "use": "An action that deletes or cannot be undone. The label names what is lost." }
+    { "name": "primary", "class": "ds-button--primary", "use": "The one main action of a view, dialog or popover." },
+    { "name": "quiet", "class": "ds-button--quiet", "use": "A minor action that should not draw the eye, such as Cancel or View log." },
+    { "name": "danger", "class": "ds-button--danger", "use": "An action that deletes or cannot be undone. The label names what is lost." }
   ],
   "sizes": [
     { "name": "default", "use": "44px tall. Use it unless the button sits in a dense row." },
-    { "name": "small", "class": "gw-button--small", "use": "Drawn 32px tall for dense rows and toolbars. Its pointer target is still 44px." }
+    { "name": "small", "class": "ds-button--small", "use": "Drawn 32px tall for dense rows and toolbars. Its pointer target is still 44px." }
   ],
   "states": ["default", "hover", "focus-visible", "active", "disabled", "busy"],
   "accessibility": [
@@ -33,11 +33,11 @@
   ],
   "icons": ["copy", "git-branch", "loader", "plus"],
   "classes": [
-    "gw-button",
-    "gw-button--danger",
-    "gw-button--primary",
-    "gw-button--quiet",
-    "gw-button--small",
-    "gw-button__icon"
+    "ds-button",
+    "ds-button--danger",
+    "ds-button--primary",
+    "ds-button--quiet",
+    "ds-button--small",
+    "ds-button__icon"
   ]
 }

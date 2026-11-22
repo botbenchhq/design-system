@@ -56,7 +56,7 @@ function checkFreshness({ from, to }, shown) {
   } catch {
     return [];
   }
-  return isNewer(source, copy) ? [`Groundwork ${source} is available. ${shown} holds ${copy}. Sync to update.`] : [];
+  return isNewer(source, copy) ? [`The design system ${source} is available. ${shown} holds ${copy}. Sync to update.`] : [];
 }
 
 // What changed between two copies, from their component indexes and rule lists.
@@ -108,12 +108,12 @@ function sync({ from, to }, shown, print) {
   }
 
   if (previous) {
-    print(`Groundwork ${versionOf(to)} -> ${version} in ${shown}`);
+    print(`The design system ${versionOf(to)} -> ${version} in ${shown}`);
     for (const line of changes(from, to)) print(line);
   } else {
     const { components = [] } = readJson(from, "components.json");
     const { rules = [] } = readJson(from, "manifest.json");
-    print(`Groundwork ${version}, first sync into ${shown}: ${components.length} components, ${rules.length} checker rules`);
+    print(`The design system ${version}, first sync into ${shown}: ${components.length} components, ${rules.length} checker rules`);
   }
 
   const removed = Object.keys(previous ?? {}).filter((name) => !(name in hashes));

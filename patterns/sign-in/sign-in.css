@@ -4,19 +4,19 @@
  * catalogue components. This file holds the column and the product's name above the heading.
  */
 
-@layer gw.components {
-  .gw-sign-in {
+@layer ds.components {
+  .ds-sign-in {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-xl);
-    max-width: var(--gw-size-column);
+    gap: var(--ds-space-xl);
+    max-width: var(--ds-size-column);
   }
 
   /* The product's name, set as the app header sets it. */
-  .gw-sign-in__product {
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-mono);
-    font-weight: var(--gw-weight-semibold);
-    line-height: var(--gw-leading-mono);
+  .ds-sign-in__product {
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-mono);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-mono);
   }
 }

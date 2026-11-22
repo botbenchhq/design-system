@@ -16,22 +16,22 @@
   "variants": [],
   "sizes": [
     { "name": "default", "use": "For a whole view. A 16px title, and room above and below." },
-    { "name": "compact", "class": "gw-empty-state--compact", "use": "For a section inside a list or a panel. The title is the size of a row's text and the action is a small button." }
+    { "name": "compact", "class": "ds-empty-state--compact", "use": "For a section inside a list or a panel. The title is the size of a row's text and the action is a small button." }
   ],
   "states": ["empty"],
   "accessibility": [
     "The title is a heading at the level that fits the view's outline, usually h2, or h3 for the compact size inside a section.",
     "The body is one sentence saying what will appear here and how to get it.",
-    "At most one action, inside gw-empty-state__action. It is the primary button only when it is the view's main action. Use a link element when it goes to another view.",
+    "At most one action, inside ds-empty-state__action. It is the primary button only when it is the view's main action. Use a link element when it goes to another view.",
     "It is left-aligned and sits where the data will be. Do not centre it.",
     "When the empty state replaces content after a search or filter, announce the result count in a separate role=\"status\" element, such as 0 runs. The empty state itself takes no role."
   ],
   "icons": ["plus"],
   "classes": [
-    "gw-empty-state",
-    "gw-empty-state--compact",
-    "gw-empty-state__action",
-    "gw-empty-state__body",
-    "gw-empty-state__title"
+    "ds-empty-state",
+    "ds-empty-state--compact",
+    "ds-empty-state__action",
+    "ds-empty-state__body",
+    "ds-empty-state__title"
   ]
 }

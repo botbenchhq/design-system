@@ -1,81 +1,81 @@
 <div data-example="default" data-title="A number with its label and its context" data-state="default" data-reason="The label says what is counted, the value carries its unit, and the line under it gives the comparison that makes the number mean something. The value is one size above body text, so it informs without posing as a headline.">
-  <div class="gw-stat">
-    <p class="gw-stat__label">Median run time</p>
-    <p class="gw-stat__value">6 min 12 s</p>
-    <p class="gw-stat__context">48 seconds faster than last week, across 38 runs</p>
+  <div class="ds-stat">
+    <p class="ds-stat__label">Median run time</p>
+    <p class="ds-stat__value">6 min 12 s</p>
+    <p class="ds-stat__context">48 seconds faster than last week, across 38 runs</p>
   </div>
 </div>
 
 <div data-example="summary" data-title="A few stats above the table they summarise">
-  <div class="gw-grid gw-grid-3">
-    <div class="gw-stat">
-      <p class="gw-stat__label">Runs finished</p>
-      <p class="gw-stat__value">38</p>
-      <p class="gw-stat__context">In acme/api, 8 to 14 March</p>
+  <div class="ds-grid ds-grid-3">
+    <div class="ds-stat">
+      <p class="ds-stat__label">Runs finished</p>
+      <p class="ds-stat__value">38</p>
+      <p class="ds-stat__context">In acme/api, 8 to 14 March</p>
     </div>
-    <div class="gw-stat">
-      <p class="gw-stat__label">Tests failed</p>
-      <p class="gw-stat__value">3 of 214</p>
-      <p class="gw-stat__context">All 3 in src/auth/session.test.ts</p>
+    <div class="ds-stat">
+      <p class="ds-stat__label">Tests failed</p>
+      <p class="ds-stat__value">3 of 214</p>
+      <p class="ds-stat__context">All 3 in src/auth/session.test.ts</p>
     </div>
-    <div class="gw-stat">
-      <p class="gw-stat__label">Spent on runs</p>
-      <p class="gw-stat__value">$31.92</p>
-      <p class="gw-stat__context">$0.84 for each run on average</p>
+    <div class="ds-stat">
+      <p class="ds-stat__label">Spent on runs</p>
+      <p class="ds-stat__value">$31.92</p>
+      <p class="ds-stat__context">$0.84 for each run on average</p>
     </div>
   </div>
 </div>
 
 <div data-example="inline" data-title="Inline: the three parts on one line of text">
-  <div class="gw-stack gw-gap-xs">
-    <div class="gw-stat gw-stat--inline">
-      <p class="gw-stat__label">Tokens used</p>
-      <p class="gw-stat__value">18,420</p>
-      <p class="gw-stat__context">of 50,000 for this run</p>
+  <div class="ds-stack ds-gap-xs">
+    <div class="ds-stat ds-stat--inline">
+      <p class="ds-stat__label">Tokens used</p>
+      <p class="ds-stat__value">18,420</p>
+      <p class="ds-stat__context">of 50,000 for this run</p>
     </div>
-    <div class="gw-stat gw-stat--inline">
-      <p class="gw-stat__label">Files changed</p>
-      <p class="gw-stat__value">3</p>
-      <p class="gw-stat__context">12 lines added, 3 removed</p>
+    <div class="ds-stat ds-stat--inline">
+      <p class="ds-stat__label">Files changed</p>
+      <p class="ds-stat__value">3</p>
+      <p class="ds-stat__context">12 lines added, 3 removed</p>
     </div>
   </div>
 </div>
 
 <div data-example="empty" data-title="Nothing to count yet" data-state="empty">
-  <div class="gw-stat">
-    <p class="gw-stat__label">Runs finished</p>
-    <p class="gw-stat__value">0</p>
-    <p class="gw-stat__context">No task has been started in acme/web since it was connected on 12 March</p>
+  <div class="ds-stat">
+    <p class="ds-stat__label">Runs finished</p>
+    <p class="ds-stat__value">0</p>
+    <p class="ds-stat__context">No task has been started in acme/web since it was connected on 12 March</p>
   </div>
 </div>
 
 <div data-example="loading" data-title="The number is being worked out" data-state="loading">
-  <div class="gw-stat" aria-busy="true">
-    <p class="gw-stat__label">Spent on runs</p>
-    <p class="gw-spinner" role="status">Adding up 38 runs</p>
+  <div class="ds-stat" aria-busy="true">
+    <p class="ds-stat__label">Spent on runs</p>
+    <p class="ds-spinner" role="status">Adding up 38 runs</p>
   </div>
 </div>
 
 <div data-example="error" data-title="The number could not be read" data-state="error">
-  <div class="gw-stat">
-    <p class="gw-stat__label">Spent on runs</p>
-    <p class="gw-stat__context" role="alert">The cost could not be read from the billing service. Reload the page to try again.</p>
+  <div class="ds-stat">
+    <p class="ds-stat__label">Spent on runs</p>
+    <p class="ds-stat__context" role="alert">The cost could not be read from the billing service. Reload the page to try again.</p>
   </div>
 </div>
 
 <div data-example="hero-numbers" data-title="A row of bare numbers" data-dont="review" data-reason="Three numbers with no period, no comparison and no unit are decoration: the reader cannot tell whether 38 is good, or 38 of what. A stat always has its context line, and a view never opens with a row of giant standalone numbers.">
-  <div class="gw-grid gw-grid-3">
-    <div class="gw-stat">
-      <p class="gw-stat__value">38</p>
-      <p class="gw-stat__label">Runs</p>
+  <div class="ds-grid ds-grid-3">
+    <div class="ds-stat">
+      <p class="ds-stat__value">38</p>
+      <p class="ds-stat__label">Runs</p>
     </div>
-    <div class="gw-stat">
-      <p class="gw-stat__value">98.6%</p>
-      <p class="gw-stat__label">Success</p>
+    <div class="ds-stat">
+      <p class="ds-stat__value">98.6%</p>
+      <p class="ds-stat__label">Success</p>
     </div>
-    <div class="gw-stat">
-      <p class="gw-stat__value">1.2M</p>
-      <p class="gw-stat__label">Tokens</p>
+    <div class="ds-stat">
+      <p class="ds-stat__value">1.2M</p>
+      <p class="ds-stat__label">Tokens</p>
     </div>
   </div>
 </div>

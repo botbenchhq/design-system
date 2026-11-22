@@ -16,7 +16,7 @@
   "sizes": [],
   "states": ["default", "started", "needs-approval", "finished", "stopped", "failed"],
   "accessibility": [
-    "Use one p with the class gw-activity-announcer and role=\"status\". It is in the page from the first render and stays there, empty, for as long as the view does. A region added at the moment it is needed is often not announced, and one hidden with the hidden attribute or display none never is.",
+    "Use one p with the class ds-activity-announcer and role=\"status\". It is in the page from the first render and stays there, empty, for as long as the view does. A region added at the moment it is needed is often not announced, and one hidden with the hidden attribute or display none never is.",
     "The transcript is a div with role=\"log\", aria-live=\"off\" and an aria-label that names it, around the ol of rows. The role says what the region is, the name lets the reader find it, and aria-live=\"off\" stops it speaking each row and each word as it lands.",
     "Write one short sentence into the region at each of five moments, and at no other. Started: Claude Code started working. Needs approval: Approval needed: run npm install. Finished: Claude Code finished: ran 4 commands, edited 2 files. Stopped: Stopped. The work so far is kept. Failed: A step failed: npm test exited with code 1. The words are the app's own.",
     "The finished sentence carries the counts for the whole turn, in the same plain words as a step group's summary. That one sentence stands in for every step that was not announced.",
@@ -28,6 +28,6 @@
   ],
   "icons": [],
   "classes": [
-    "gw-activity-announcer"
+    "ds-activity-announcer"
   ]
 }

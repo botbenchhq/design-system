@@ -8,7 +8,7 @@
     "For toggles and familiar icon actions that should stay one press away while the reader works."
   ],
   "whenNotToUse": [
-    "For one or two buttons. Put them in a gw-cluster.",
+    "For one or two buttons. Put them in a ds-cluster.",
     "For the main action of a view. Show it as the primary button, outside the toolbar.",
     "For a choice between views of the same content. Use a segmented control or tabs.",
     "For the destinations of the app. Use the app header or the sidebar nav.",
@@ -16,18 +16,18 @@
   ],
   "variants": [
     { "name": "wrap", "use": "The default, with no modifier class. Groups that do not fit move to a second row." },
-    { "name": "scroll", "class": "gw-toolbar--scroll", "use": "One row that scrolls sideways inside the toolbar, where a second row would push the content down. Put the controls used most first." }
+    { "name": "scroll", "class": "ds-toolbar--scroll", "use": "One row that scrolls sideways inside the toolbar, where a second row would push the content down. Put the controls used most first." }
   ],
   "sizes": [
     { "name": "default", "use": "Each control is 44px tall, and an icon button 44px square. The toolbar is as wide as its controls and never wider than its container." }
   ],
   "states": ["default", "pressed", "hover", "focus-visible", "disabled"],
   "accessibility": [
-    "Use a div with the class gw-toolbar, role=\"toolbar\" and an aria-label that says what the controls act on. Give each toolbar on a page a different label.",
-    "The controls are buttons from the button and icon button components, quiet in emphasis: gw-button gw-button--quiet, with gw-icon-button for an icon alone. Every icon button has a name in aria-label or in gw-visually-hidden text.",
+    "Use a div with the class ds-toolbar, role=\"toolbar\" and an aria-label that says what the controls act on. Give each toolbar on a page a different label.",
+    "The controls are buttons from the button and icon button components, quiet in emphasis: ds-button ds-button--quiet, with ds-icon-button for an icon alone. Every icon button has a name in aria-label or in ds-visually-hidden text.",
     "A toggle carries aria-pressed, \"true\" or \"false\", which the app switches on each press. Its name stays the same in both states.",
-    "Related controls sit in a div with gw-toolbar__group, role=\"group\" and an aria-label. Between groups goes a div with gw-toolbar__separator, role=\"separator\" and aria-orientation=\"vertical\". A short fact, such as Change 3 of 12, goes in a span with gw-toolbar__text.",
-    "For a narrow screen, wrap the least used controls, with their separator, in a div with gw-toolbar__overflow, and add a div with gw-toolbar__more holding an icon button named More actions and a menu with the same actions as items. Below 768px the overflow controls are not rendered and the More button is. At 768px and up it is the other way round.",
+    "Related controls sit in a div with ds-toolbar__group, role=\"group\" and an aria-label. Between groups goes a div with ds-toolbar__separator, role=\"separator\" and aria-orientation=\"vertical\". A short fact, such as Change 3 of 12, goes in a span with ds-toolbar__text.",
+    "For a narrow screen, wrap the least used controls, with their separator, in a div with ds-toolbar__overflow, and add a div with ds-toolbar__more holding an icon button named More actions and a menu with the same actions as items. Below 768px the overflow controls are not rendered and the More button is. At 768px and up it is the other way round.",
     "With no script every control is a tab stop, and Enter and Space activate it. That is complete, if slower than the toolbar pattern.",
     "The roving tabindex is the app's to add. The script sets tabindex=\"-1\" on every control except one, so the toolbar is a single tab stop. Left and Right move focus to the previous and the next control that is rendered and not disabled, and wrap at the ends. Home and End go to the first and the last. On each move the script swaps the tabindex values and calls focus(). Tab leaves the toolbar, and coming back lands on the control that last had focus.",
     "Do not write tabindex=\"-1\" in the markup: without the script those controls could not be reached. The script adds it, and runs again when the 768px change shows or hides controls.",
@@ -35,12 +35,12 @@
   ],
   "icons": ["chevron-down", "chevron-up", "copy", "ellipsis", "external-link", "file", "folder", "image", "search", "terminal"],
   "classes": [
-    "gw-toolbar",
-    "gw-toolbar--scroll",
-    "gw-toolbar__group",
-    "gw-toolbar__more",
-    "gw-toolbar__overflow",
-    "gw-toolbar__separator",
-    "gw-toolbar__text"
+    "ds-toolbar",
+    "ds-toolbar--scroll",
+    "ds-toolbar__group",
+    "ds-toolbar__more",
+    "ds-toolbar__overflow",
+    "ds-toolbar__separator",
+    "ds-toolbar__text"
   ]
 }

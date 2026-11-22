@@ -1,3 +1,3 @@
 export function Action({ kind }: { kind: string }) {
-  return <button className={`gw-button--${kind}`}>Go</button>;
+  return <button className={`ds-button--${kind}`}>Go</button>;
 }

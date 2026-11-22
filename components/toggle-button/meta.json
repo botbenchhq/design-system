@@ -19,14 +19,14 @@
   ],
   "sizes": [
     { "name": "default", "use": "44px tall." },
-    { "name": "small", "class": "gw-button--small", "use": "The button component's small size: drawn 32px tall for a toolbar, with a 44px pointer target. Lay small toggles out with gw-cluster gw-gap-md, so the targets of two wrapped rows do not overlap." }
+    { "name": "small", "class": "ds-button--small", "use": "The button component's small size: drawn 32px tall for a toolbar, with a 44px pointer target. Lay small toggles out with ds-cluster ds-gap-md, so the targets of two wrapped rows do not overlap." }
   ],
   "states": ["default", "pressed", "hover", "focus-visible", "active", "disabled"],
   "accessibility": [
-    "Use a button element with type=\"button\", the classes gw-button and gw-toggle-button, and aria-pressed set to \"true\" or \"false\". The attribute is always present, so a screen reader announces a toggle button in both states.",
+    "Use a button element with type=\"button\", the classes ds-button and ds-toggle-button, and aria-pressed set to \"true\" or \"false\". The attribute is always present, so a screen reader announces a toggle button in both states.",
     "The label names the option and stays the same in both states: Wrap lines, never Unwrap lines. Only aria-pressed changes. An icon is decoration and carries aria-hidden=\"true\".",
     "The app flips aria-pressed on each press and applies the option at once. Nothing else is needed: the styles read aria-pressed only.",
-    "Never add gw-button--primary to show that an option is on.",
+    "Never add ds-button--primary to show that an option is on.",
     "Group related toggles in an element with role=\"group\" and an aria-label that says what they change, such as Diff view options.",
     "Tab reaches each toggle, and Enter and Space flip it. Both come from the button element.",
     "Set the disabled attribute while the option cannot change. The bar stays, so the reader can still see which options were on.",
@@ -34,6 +34,6 @@
   ],
   "icons": ["terminal"],
   "classes": [
-    "gw-toggle-button"
+    "ds-toggle-button"
   ]
 }

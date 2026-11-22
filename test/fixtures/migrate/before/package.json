@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "test": "node vendor/groundwork/checker/check.mjs --config groundwork.config.json && node --test"
+  }
+}

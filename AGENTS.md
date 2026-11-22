@@ -1,29 +1,30 @@
-# Working on Groundwork
+# Working on the design system
 
-Groundwork is a shared design system. Apps copy `dist/` into their own repo and use nothing else from here.
+This repo is a shared design system. Apps copy `dist/` into their own repo and use nothing else from here.
 
 ## Rules
 
 - `dist/` is generated. Never edit a file in it by hand. Change the source, run `npm run build`, and commit the source and the regenerated `dist/` together.
 - `tokens/tokens.css` is the single source for tokens. The Tailwind preset, the token data file, the design token block and the manifest are all derived from it by `scripts/build.mjs`.
 - The token vocabulary is closed. Do not add a token name to solve a local problem. A theme changes values only.
-- Every custom property starts with `--gw-` and every class starts with `gw-`.
+- Every custom property starts with `--ds-` and every class starts with `ds-`.
 - Colour tokens are six-digit hex. No `rgb()`, `oklch()`, `color-mix()` or `light-dark()` in a colour token, because consumers parse computed values as `#rrggbb`.
 - A dark value goes in both the `[data-theme="dark"]` block and the `[data-theme="auto"]` block. The build fails if the two differ.
 - A new text and background combination needs an entry in `tokens/pairs.json`. The build fails when a text pair is below 4.5:1 or a `ui` pair is below 3:1, in either theme.
 - The one breakpoint is 768px. A custom property cannot be used in a media query, so write the number there.
-- `base/` holds the reset, typography, layout primitives, the visually hidden class, focus ring, fonts and icons. The build bundles them with the tokens into `dist/groundwork.css` and copies fonts and icons into `dist/`.
+- `base/` holds the reset, typography, layout primitives, the visually hidden class, focus ring, fonts and icons. The build bundles them with the tokens into `dist/design-system.css` and copies fonts and icons into `dist/`.
 - `components/<name>/` is one component: `<name>.css`, `examples.html` and `meta.json`, all written by hand. `docs/authoring.md` is the contract for them. Read it before adding or changing a component.
 - `patterns/<name>/` is one page pattern: a whole screen composed from components, such as a settings page. It holds the same three files as a component, built to the same contract, with `"kind": "pattern"` in `meta.json` and only the layout CSS the screen needs. A pattern cannot take the name of a component.
 - The build bundles pattern styles after every component, lists patterns in the `patterns` array of `dist/components.json` (the `components` array holds components only), adds their classes to the manifest and gives each a gallery page whose examples run in one column. It also writes `dist/components-index.json`, the short list an agent reads first: name, kind, title, purpose, status and classes of every component and pattern. The gallery index lists patterns after components.
-- To add a component, add its folder and nothing else. The build puts it in `dist/groundwork.css`, `dist/components.json`, the manifest's class list and the gallery, and fails, naming the folder, if the folder breaks the contract.
+- To add a component, add its folder and nothing else. The build puts it in `dist/design-system.css`, `dist/components.json`, the manifest's class list and the gallery, and fails, naming the folder, if the folder breaks the contract.
 - Component styles key off native state and ARIA attributes, never off a class a script would toggle. No component uses an inline `style` attribute.
 - A component whose state has no native or ARIA form takes it from a `data-state` attribute the app sets, with the values listed in its metadata: a tool call's lifecycle, a streaming message, a station of a run. The examples of such a state carry the same value in the wrapper's `data-state`. Every label is app text in the markup, never in the stylesheet.
 - No behaviour module opens or closes a step group. The rule is the app's to apply, and the step group's metadata states it.
-- The gallery script moves the start of every `<gw-elapsed>` in an example by the time since the instant the examples were written at, and the browser tests hold the clock still, so a time that counts up reads the same in every screenshot. Write an example's `datetime` a little before 2026-11-22T10:00:00Z.
+- The gallery script moves the start of every `<ds-elapsed>` in an example by the time since the instant the examples were written at, and the browser tests hold the clock still, so a time that counts up reads the same in every screenshot. Write an example's `datetime` a little before 2026-11-22T10:00:00Z.
 - `gallery/` holds the gallery's own stylesheet and script. They select by element and `data-gallery` attribute, use token values only, and are not part of the system.
-- `behaviors/` holds the optional scripts the system ships, copied to `dist/behaviors/`. Each is a single ES module with no dependencies that defines one element for an app without a framework: `groundwork.js` defines `<gw-tabs>`, `combobox.js` defines `<gw-combobox>`, `command-palette.js` defines `<gw-command-palette>`, `elapsed.js` defines `<gw-elapsed>` and `transcript.js` defines `<gw-transcript>`. A framework app loads none of them and sets the same ARIA attributes itself. A module sets attributes only, never a class or an inline style, and is harmless when loaded twice. `<gw-elapsed>` and `<gw-transcript>` also write text the app gave them the words for, and `<gw-transcript>` sets the scroll position. Every gallery page loads every module in `behaviors/`, in alphabetical order.
+- `behaviors/` holds the optional scripts the system ships, copied to `dist/behaviors/`. Each is a single ES module with no dependencies that defines one element for an app without a framework: `tabs.js` defines `<ds-tabs>`, `combobox.js` defines `<ds-combobox>`, `command-palette.js` defines `<ds-command-palette>`, `elapsed.js` defines `<ds-elapsed>` and `transcript.js` defines `<ds-transcript>`. A framework app loads none of them and sets the same ARIA attributes itself. A module sets attributes only, never a class or an inline style, and is harmless when loaded twice. `<ds-elapsed>` and `<ds-transcript>` also write text the app gave them the words for, and `<ds-transcript>` sets the scroll position. Every gallery page loads every module in `behaviors/`, in alphabetical order.
 - `checker/` is the checker, shipped as source in `dist/checker/`. It has no dependencies.
+- `scripts/migrate-prefix.mjs` is the codemod that moves an app from the `gw` prefix of 0.5 to `ds`. The build copies it to `dist/migrate-prefix.mjs`. It has no dependencies. The checker's `old-prefix` rule reports a name that still has the old prefix.
 - The build reads every rule ID out of the checker's source into the `rules` list of `dist/manifest.json`. It finds an ID written as `id: "…"`, `rule: "…"`, `add(line, "…")` or `scaleCategory("…")`, so write a new rule's ID in one of those forms.
 - `rules/` holds the rules an app's agents read, written by hand and copied to `dist/rules/`. `rules/core.md` is the one file every agent reads, and the build fails when it is longer than 2,400 characters. Put detail in the longer files and point to them from `core.md`.
 - Every rule ID the checker can report has a row in `rules/checker-rules.md`: the ID, what it means and the fix. Add the row with the rule.

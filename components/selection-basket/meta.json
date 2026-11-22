@@ -14,28 +14,28 @@
     "To report what a bulk action did. Use a toast, or the undo toast when it can be taken back."
   ],
   "variants": [
-    { "name": "secondary action", "use": "The default. The bulk action is a gw-button gw-button--small, for a view that already has a primary action." },
-    { "name": "primary action", "use": "The bulk action is a gw-button gw-button--primary gw-button--small. Only when the view has no other primary action while rows are selected." }
+    { "name": "secondary action", "use": "The default. The bulk action is a ds-button ds-button--small, for a view that already has a primary action." },
+    { "name": "primary action", "use": "The bulk action is a ds-button ds-button--primary ds-button--small. Only when the view has no other primary action while rows are selected." }
   ],
   "sizes": [],
   "states": ["default", "busy", "error"],
   "accessibility": [
-    "Use a div with gw-selection-basket, role=\"region\" and an aria-label that says what is selected, such as Selected runs. The region is then a landmark a screen reader can jump to from anywhere in the list.",
-    "gw-selection-basket__selection holds the count and then Clear selection. The count is a p with gw-selection-basket__count and role=\"status\" that says the number and the thing in words: 3 runs selected. The app rewrites it whenever the selection changes, and a screen reader announces the new count.",
+    "Use a div with ds-selection-basket, role=\"region\" and an aria-label that says what is selected, such as Selected runs. The region is then a landmark a screen reader can jump to from anywhere in the list.",
+    "ds-selection-basket__selection holds the count and then Clear selection. The count is a p with ds-selection-basket__count and role=\"status\" that says the number and the thing in words: 3 runs selected. The app rewrites it whenever the selection changes, and a screen reader announces the new count.",
     "Keep the basket in the page from the start with the hidden attribute. On the first selection remove hidden and then set the count's text, so the count is announced. When the selection is cleared, set hidden again and move focus back to the list if it was inside the basket.",
-    "Clear selection is a gw-button gw-button--quiet gw-button--small. It unticks every row and changes nothing else.",
-    "gw-selection-basket__actions holds at most one bulk action as a button whose words name the action and the count, such as Archive 3 runs, and then, when there are more actions, one More button that opens a menu from the menu component. A bulk action that deletes sits last in the menu as a danger item and opens a confirm dialog.",
+    "Clear selection is a ds-button ds-button--quiet ds-button--small. It unticks every row and changes nothing else.",
+    "ds-selection-basket__actions holds at most one bulk action as a button whose words name the action and the count, such as Archive 3 runs, and then, when there are more actions, one More button that opens a menu from the menu component. A bulk action that deletes sits last in the menu as a danger item and opens a confirm dialog.",
     "The buttons are drawn 32px tall and their pointer targets are 44px. The bulk action is never one of two primary buttons in the view.",
-    "While the bulk action runs, set aria-busy=\"true\" on its button, change its words to say what is happening, and disable the other buttons. If it fails, add a p with gw-selection-basket__error and role=\"alert\" as the last child, saying how many were not done and what to do, and keep the selection.",
+    "While the bulk action runs, set aria-busy=\"true\" on its button, change its words to say what is happening, and disable the other buttons. If it fails, add a p with ds-selection-basket__error and role=\"alert\" as the last child, saying how many were not done and what to do, and keep the selection.",
     "The basket sticks to the bottom of the screen while the list it follows is in view, above the home indicator on a phone, so give the list's container enough bottom padding that the last row can scroll clear of it.",
     "Tab reaches Clear selection, the bulk action and More, in that order, after the last row of the list. The menu's keys are those of the menu component."
   ],
   "icons": ["chevron-down", "circle-alert"],
   "classes": [
-    "gw-selection-basket",
-    "gw-selection-basket__actions",
-    "gw-selection-basket__count",
-    "gw-selection-basket__error",
-    "gw-selection-basket__selection"
+    "ds-selection-basket",
+    "ds-selection-basket__actions",
+    "ds-selection-basket__count",
+    "ds-selection-basket__error",
+    "ds-selection-basket__selection"
   ]
 }

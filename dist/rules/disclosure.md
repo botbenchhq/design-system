@@ -12,7 +12,7 @@ Progressive disclosure shows the few things most readers need first and moves th
 
 ## What must never be hidden
 
-- A critical action, such as Delete, Decline or Stop. Mark it with `data-gw-critical`. It appears in the view, or the disclosure that holds it is open by default.
+- A critical action, such as Delete, Decline or Stop. Mark it with `data-ds-critical`. It appears in the view, or the disclosure that holds it is open by default.
 - An error, or the reason something is blocked.
 - A status the reader must act on, such as an approval that waits.
 - The one primary action of the view.
@@ -28,7 +28,7 @@ Progressive disclosure shows the few things most readers need first and moves th
 | The arguments of a tool call and its output | The details part of `tool-call`, which is the content of a tool-call row of `message` |
 | A stretch of consecutive steps in a long run | `step-group`, whose summary counts the steps by kind |
 | The full command or the reason behind a request | The details part of `approval` |
-| The advanced settings of a view | One `disclosure` marked `data-gw-advanced` |
+| The advanced settings of a view | One `disclosure` marked `data-ds-advanced` |
 | A task that needs the whole screen for a moment, or detail beside a selected item | A sheet or an inspector. Neither is in the catalogue yet. Until one is, use a view of its own. |
 
 ## Agent activity
@@ -45,7 +45,7 @@ A reader trusts an agent more when they can see what it did. So a run is never o
 Three things are never behind a fold:
 
 - **A failure.** A failed step says Failed and why on its own line, and its row is shown open. Its group says so in words in its summary, such as "1 command failed", and stays open. A count never hides it.
-- **A pending approval.** Allow and Decline sit in the row, outside its details, each marked `data-gw-critical`. The group that holds the row is open and says "Awaiting your approval" in its summary, and `now-doing` names the wait and links to the row.
+- **A pending approval.** Allow and Decline sit in the row, outside its details, each marked `data-ds-critical`. The group that holds the row is open and says "Awaiting your approval" in its summary, and `now-doing` names the wait and links to the row.
 - **The final answer.** It is the last message row of the turn, outside every group.
 
 The app opens and closes a group through the open attribute, and the rule is exact: open while any step in it is running or awaits approval, and when one has failed. Close a finished group only if the reader has not opened or closed it themselves. A retry is a new row. A failed row is never set back to running.

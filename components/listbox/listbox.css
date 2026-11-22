@@ -4,116 +4,116 @@
  * so the state is a mark as well as a weight. The keyboard is the app's to provide: see the metadata.
  */
 
-@layer gw.components {
-  .gw-listbox {
+@layer ds.components {
+  .ds-listbox {
     display: flex;
     flex-direction: column;
     min-width: 0;
-    padding: var(--gw-space-xs);
-    border-width: var(--gw-border-width);
-    border-color: var(--gw-color-border-strong);
-    border-radius: var(--gw-radius-md);
-    background-color: var(--gw-color-surface-raised);
+    padding: var(--ds-space-xs);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
   }
 
   /* A group of options under a label. A rule sets each group off from the one before. */
-  .gw-listbox__group {
+  .ds-listbox__group {
     display: flex;
     flex-direction: column;
   }
 
-  .gw-listbox__group + .gw-listbox__group {
-    margin-top: var(--gw-space-xs);
-    padding-top: var(--gw-space-xs);
-    border-top-width: var(--gw-border-width);
+  .ds-listbox__group + .ds-listbox__group {
+    margin-top: var(--ds-space-xs);
+    padding-top: var(--ds-space-xs);
+    border-top-width: var(--ds-border-width);
   }
 
-  .gw-listbox__label {
-    padding: var(--gw-space-sm) var(--gw-space-md) var(--gw-space-xs);
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-medium);
-    line-height: var(--gw-leading-xs);
+  .ds-listbox__label {
+    padding: var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-xs);
     overflow-wrap: anywhere;
   }
 
-  .gw-listbox__option {
+  .ds-listbox__option {
     display: flex;
     align-items: center;
-    gap: var(--gw-space-sm);
-    min-height: var(--gw-size-touch);
-    padding: var(--gw-space-xs) var(--gw-space-md);
-    border-radius: var(--gw-radius-sm);
+    gap: var(--ds-space-sm);
+    min-height: var(--ds-size-touch);
+    padding: var(--ds-space-xs) var(--ds-space-md);
+    border-radius: var(--ds-radius-sm);
     cursor: pointer;
     overflow-wrap: anywhere;
-    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+    transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }
 
   /* The slot for the check. Every option keeps it, so the text of all rows lines up. */
-  .gw-listbox__option::before {
+  .ds-listbox__option::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
   }
 
-  .gw-listbox__option[aria-selected="true"] {
-    font-weight: var(--gw-weight-medium);
+  .ds-listbox__option[aria-selected="true"] {
+    font-weight: var(--ds-weight-medium);
   }
 
-  .gw-listbox__option[aria-selected="true"]::before {
+  .ds-listbox__option[aria-selected="true"]::before {
     background-color: currentColor;
     mask: url("icons/check.svg") center / contain no-repeat;
   }
 
   /* A fact about the option at the end of its row, such as how far a branch is ahead. */
-  .gw-listbox__meta {
+  .ds-listbox__meta {
     flex: none;
     margin-inline-start: auto;
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-normal);
-    line-height: var(--gw-leading-xs);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-normal);
+    line-height: var(--ds-leading-xs);
     white-space: nowrap;
   }
 
   /* A sentence in place of the options: there are none, they are loading, or they could not be loaded. */
-  .gw-listbox__note {
+  .ds-listbox__note {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--gw-space-sm);
-    padding: var(--gw-space-sm) var(--gw-space-md);
+    gap: var(--ds-space-sm);
+    padding: var(--ds-space-sm) var(--ds-space-md);
     overflow-wrap: anywhere;
   }
 
   /* The quiet text turns to the main text colour on the shade, so it keeps its contrast. */
   @media (hover: hover) {
-    .gw-listbox__option:hover {
-      background-color: var(--gw-color-surface-sunken);
+    .ds-listbox__option:hover {
+      background-color: var(--ds-color-surface-sunken);
     }
 
-    .gw-listbox__option:hover > .gw-listbox__meta {
-      color: var(--gw-color-on-surface);
+    .ds-listbox__option:hover > .ds-listbox__meta {
+      color: var(--ds-color-on-surface);
     }
   }
 
-  .gw-listbox__option:active {
-    background-color: var(--gw-color-surface-sunken);
+  .ds-listbox__option:active {
+    background-color: var(--ds-color-surface-sunken);
   }
 
-  .gw-listbox__option:active > .gw-listbox__meta {
-    color: var(--gw-color-on-surface);
+  .ds-listbox__option:active > .ds-listbox__meta {
+    color: var(--ds-color-on-surface);
   }
 
   /* After hover and active, so an unavailable option never answers the pointer. */
-  .gw-listbox__option[aria-disabled="true"] {
+  .ds-listbox__option[aria-disabled="true"] {
     background-color: transparent;
-    color: var(--gw-color-muted);
+    color: var(--ds-color-muted);
     cursor: default;
   }
 
-  .gw-listbox__option[aria-disabled="true"] > .gw-listbox__meta {
-    color: var(--gw-color-muted);
+  .ds-listbox__option[aria-disabled="true"] > .ds-listbox__meta {
+    color: var(--ds-color-muted);
   }
 }

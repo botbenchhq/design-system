@@ -3,21 +3,21 @@
  * It has one tone. A status with a tone is a badge.
  */
 
-@layer gw.components {
-  .gw-tag {
+@layer ds.components {
+  .ds-tag {
     display: inline-flex;
     align-items: center;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
     max-width: 100%;
-    min-height: var(--gw-space-xl);
-    padding-inline: var(--gw-space-sm);
-    border-width: var(--gw-border-width);
-    border-color: var(--gw-color-border-strong);
-    border-radius: var(--gw-radius-sm);
-    background-color: var(--gw-color-surface-raised);
-    color: var(--gw-color-on-surface);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+    min-height: var(--ds-space-xl);
+    padding-inline: var(--ds-space-sm);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-sm);
+    background-color: var(--ds-color-surface-raised);
+    color: var(--ds-color-on-surface);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
     overflow-wrap: anywhere;
   }
 
@@ -25,60 +25,60 @@
    * A tag with a remove button keeps 8px clear above and below, so that when tags wrap
    * the 44px pointer targets of two rows of buttons never overlap.
    */
-  .gw-tag:has(> .gw-tag__remove) {
-    margin-block: var(--gw-space-sm);
+  .ds-tag:has(> .ds-tag__remove) {
+    margin-block: var(--ds-space-sm);
   }
 
   /* Drawn as tall as the tag's inside, flush with its end. The cross is drawn here, so the markup holds only the button's name. */
-  .gw-tag__remove {
+  .ds-tag__remove {
     position: relative;
     display: inline-flex;
     flex: none;
     align-items: center;
     justify-content: center;
-    width: calc(var(--gw-space-xl) - var(--gw-border-width) * 2);
-    height: calc(var(--gw-space-xl) - var(--gw-border-width) * 2);
-    margin-inline: var(--gw-space-xs) calc(var(--gw-space-sm) * -1);
-    border-radius: var(--gw-radius-sm);
-    color: var(--gw-color-muted);
+    width: calc(var(--ds-space-xl) - var(--ds-border-width) * 2);
+    height: calc(var(--ds-space-xl) - var(--ds-border-width) * 2);
+    margin-inline: var(--ds-space-xs) calc(var(--ds-space-sm) * -1);
+    border-radius: var(--ds-radius-sm);
+    color: var(--ds-color-muted);
     transition-property: background-color, color;
-    transition-duration: var(--gw-duration-fast);
-    transition-timing-function: var(--gw-ease);
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
   }
 
-  .gw-tag__remove::before {
+  .ds-tag__remove::before {
     content: "";
-    width: var(--gw-space-md);
-    height: var(--gw-space-md);
+    width: var(--ds-space-md);
+    height: var(--ds-space-md);
     background-color: currentColor;
     mask: url("icons/x.svg") center / contain no-repeat;
   }
 
   /* An invisible box centred on the button, which takes the press without making the tag any larger. */
-  .gw-tag__remove::after {
+  .ds-tag__remove::after {
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
-    width: var(--gw-size-touch);
-    height: var(--gw-size-touch);
+    width: var(--ds-size-touch);
+    height: var(--ds-size-touch);
     translate: -50% -50%;
   }
 
   @media (hover: hover) {
-    .gw-tag__remove:hover {
-      background-color: var(--gw-color-surface-sunken);
-      color: var(--gw-color-on-surface);
+    .ds-tag__remove:hover {
+      background-color: var(--ds-color-surface-sunken);
+      color: var(--ds-color-on-surface);
     }
   }
 
-  .gw-tag__remove:active {
-    background-color: var(--gw-color-surface-sunken);
-    color: var(--gw-color-on-surface);
+  .ds-tag__remove:active {
+    background-color: var(--ds-color-surface-sunken);
+    color: var(--ds-color-on-surface);
   }
 
-  .gw-tag__remove:disabled {
+  .ds-tag__remove:disabled {
     background-color: transparent;
-    color: var(--gw-color-border-strong);
+    color: var(--ds-color-border-strong);
   }
 }

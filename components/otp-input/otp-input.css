@@ -1,23 +1,23 @@
 /*
  * One-time-code input: a single text input for a short code sent by message or shown by an
- * authenticator app. It goes on the same element as gw-field__control, which draws the border,
+ * authenticator app. It goes on the same element as ds-field__control, which draws the border,
  * the fill and the invalid and disabled states, so this stylesheet must load after the field's.
  * It is one input, not a row of boxes, so a pasted or auto-filled code lands whole.
  */
 
-@layer gw.components {
+@layer ds.components {
   /*
    * Mono digits a size up, spaced widely so each one can be checked against the message.
    * The start padding is half the spacing wider, which centres the gap around each digit.
    * It is no wider than five and a half pointer targets, because there is no token for a control's width.
    */
-  .gw-otp-input {
-    max-width: calc(var(--gw-size-touch) * 5.5);
-    padding-inline: calc(var(--gw-space-md) + var(--gw-space-md) / 2) var(--gw-space-md);
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-xl);
+  .ds-otp-input {
+    max-width: calc(var(--ds-size-touch) * 5.5);
+    padding-inline: calc(var(--ds-space-md) + var(--ds-space-md) / 2) var(--ds-space-md);
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-xl);
     font-variant-numeric: tabular-nums;
-    line-height: var(--gw-leading-xl);
-    letter-spacing: var(--gw-space-md);
+    line-height: var(--ds-leading-xl);
+    letter-spacing: var(--ds-space-md);
   }
 }

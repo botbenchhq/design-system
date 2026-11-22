@@ -4,60 +4,60 @@
  * A chip that is on is filled and shows a check. One that is off is outlined and shows a plus.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* A fieldset would otherwise refuse to shrink below its longest chip. */
-  .gw-filter-chips {
+  .ds-filter-chips {
     min-width: 0;
   }
 
-  .gw-filter-chips__legend {
-    margin-bottom: var(--gw-space-sm);
-    font-weight: var(--gw-weight-medium);
+  .ds-filter-chips__legend {
+    margin-bottom: var(--ds-space-sm);
+    font-weight: var(--ds-weight-medium);
   }
 
   /* 12px between rows: chips are drawn 32px tall, so the 44px targets of two rows meet and never overlap. */
-  .gw-filter-chips__list {
+  .ds-filter-chips__list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    column-gap: var(--gw-space-sm);
-    row-gap: var(--gw-space-md);
+    column-gap: var(--ds-space-sm);
+    row-gap: var(--ds-space-md);
   }
 
-  .gw-filter-chips__chip {
+  .ds-filter-chips__chip {
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
     max-width: 100%;
-    min-width: var(--gw-size-touch);
-    min-height: var(--gw-space-2xl);
-    padding-inline: var(--gw-space-sm) var(--gw-space-md);
-    border-width: var(--gw-border-width);
-    border-color: var(--gw-color-border-strong);
-    border-radius: var(--gw-radius-full);
-    background-color: var(--gw-color-surface-raised);
-    color: var(--gw-color-on-surface);
+    min-width: var(--ds-size-touch);
+    min-height: var(--ds-space-2xl);
+    padding-inline: var(--ds-space-sm) var(--ds-space-md);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-full);
+    background-color: var(--ds-color-surface-raised);
+    color: var(--ds-color-on-surface);
     overflow-wrap: anywhere;
     transition-property: background-color, border-color, color;
-    transition-duration: var(--gw-duration-fast);
-    transition-timing-function: var(--gw-ease);
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
   }
 
   /* The mark keeps its place in both states, so switching a chip never moves the chips after it. */
-  .gw-filter-chips__chip::before {
+  .ds-filter-chips__chip::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
-    background-color: var(--gw-color-muted);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
+    background-color: var(--ds-color-muted);
     mask: url("icons/plus.svg") center / contain no-repeat;
   }
 
   /* The input lies over the whole chip, border included, so the focus ring is drawn around the chip. */
-  .gw-filter-chips__input {
+  .ds-filter-chips__input {
     position: absolute;
-    inset: calc(var(--gw-border-width) * -1);
+    inset: calc(var(--ds-border-width) * -1);
     appearance: none;
     margin: 0;
     border-radius: inherit;
@@ -65,63 +65,63 @@
   }
 
   /* An invisible box centred on the chip, which takes the press without making the row any taller. */
-  .gw-filter-chips__input::after {
+  .ds-filter-chips__input::after {
     content: "";
     position: absolute;
     top: 50%;
     inset-inline: 0;
-    height: var(--gw-size-touch);
+    height: var(--ds-size-touch);
     translate: 0 -50%;
   }
 
   /* On: a fill and a check, so the state is a shape as well as a colour. */
-  .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked) {
-    border-color: var(--gw-color-accent);
-    background-color: var(--gw-color-accent);
-    color: var(--gw-color-on-accent);
-    font-weight: var(--gw-weight-medium);
+  .ds-filter-chips__chip:has(> .ds-filter-chips__input:checked) {
+    border-color: var(--ds-color-accent);
+    background-color: var(--ds-color-accent);
+    color: var(--ds-color-on-accent);
+    font-weight: var(--ds-weight-medium);
   }
 
-  .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked)::before {
+  .ds-filter-chips__chip:has(> .ds-filter-chips__input:checked)::before {
     background-color: currentColor;
     mask-image: url("icons/check.svg");
   }
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   @media (hover: hover) {
-    .gw-filter-chips__chip:has(> .gw-filter-chips__input:hover) {
-      background-color: var(--gw-color-surface-sunken);
+    .ds-filter-chips__chip:has(> .ds-filter-chips__input:hover) {
+      background-color: var(--ds-color-surface-sunken);
     }
 
-    .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked:hover) {
-      border-color: var(--gw-color-accent-hover);
-      background-color: var(--gw-color-accent-hover);
+    .ds-filter-chips__chip:has(> .ds-filter-chips__input:checked:hover) {
+      border-color: var(--ds-color-accent-hover);
+      background-color: var(--ds-color-accent-hover);
     }
   }
 
-  .gw-filter-chips__chip:has(> .gw-filter-chips__input:active) {
-    background-color: var(--gw-color-surface-sunken);
+  .ds-filter-chips__chip:has(> .ds-filter-chips__input:active) {
+    background-color: var(--ds-color-surface-sunken);
   }
 
-  .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked:active) {
-    border-color: var(--gw-color-accent-hover);
-    background-color: var(--gw-color-accent-hover);
+  .ds-filter-chips__chip:has(> .ds-filter-chips__input:checked:active) {
+    border-color: var(--ds-color-accent-hover);
+    background-color: var(--ds-color-accent-hover);
   }
 
   /* After hover and active, so an unavailable chip never answers the pointer. */
-  .gw-filter-chips__chip:has(> .gw-filter-chips__input:disabled) {
-    border-color: var(--gw-color-border);
+  .ds-filter-chips__chip:has(> .ds-filter-chips__input:disabled) {
+    border-color: var(--ds-color-border);
     background-color: transparent;
-    color: var(--gw-color-muted);
-    font-weight: var(--gw-weight-normal);
+    color: var(--ds-color-muted);
+    font-weight: var(--ds-weight-normal);
   }
 
   /* The border colour as a fill keeps an unavailable chip that is on recognisable, with its check. */
-  .gw-filter-chips__chip:has(> .gw-filter-chips__input:checked:disabled) {
-    background-color: var(--gw-color-border);
+  .ds-filter-chips__chip:has(> .ds-filter-chips__input:checked:disabled) {
+    background-color: var(--ds-color-border);
   }
 
-  .gw-filter-chips__input:disabled {
+  .ds-filter-chips__input:disabled {
     cursor: default;
   }
 }

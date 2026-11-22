@@ -2,9 +2,9 @@
 
 Every rule the checker can report, what it means and how to fix it. The finding itself names the file and line, and often the nearest token or class.
 
-The static scan reads CSS, HTML, JSX, TSX and class names in script. The structural rules read a static HTML file as a tree, and the rendered page through `gwCheckDom()`. The summary line of the static scan ends with the number of rules the checker holds.
+The static scan reads CSS, HTML, JSX, TSX and class names in script. The structural rules read a static HTML file as a tree, and the rendered page through `dsCheckDom()`. The summary line of the static scan ends with the number of rules the checker holds.
 
-No setting switches a rule off. The one exception to a rule is an inline waiver: a comment holding `gw-waive <rule-id>: <reason>`, on the line of the finding or the line before it. Every run prints each waiver.
+No setting switches a rule off. The one exception to a rule is an inline waiver: a comment holding `ds-waive <rule-id>: <reason>`, on the line of the finding or the line before it. Every run prints each waiver.
 
 ## Tokens and properties, in CSS
 
@@ -38,6 +38,7 @@ No setting switches a rule off. The one exception to a rule is an inline waiver:
 | `arbitrary-value` | A utility holds an arbitrary value in square brackets. | Use a utility on the token scale, or a catalogue component. |
 | `undeclared-app-class` | A class with the app's prefix is not listed in the gaps file. | Use a catalogue component, or record the gap in the gaps file. |
 | `inline-style` | An element has an inline style, or script sets one. | Use a component or a class. Script may set a custom property that starts with the system prefix, and nothing else. |
+| `old-prefix` | A class, element, icon id, data attribute, custom property, cascade layer or waiver still has the prefix from before 0.6.0: `gw-…`, `data-gw-…`, `--gw-…` or `gw.…`. It no longer matches anything in the stylesheet. | Run `node vendor/design-system/migrate-prefix.mjs <paths…>` over the app's source, then run the checker again. The finding names the new form. |
 
 ## Structure and disclosure
 
@@ -59,7 +60,7 @@ No setting switches a rule off. The one exception to a rule is an inline waiver:
 | `identical-card-grid` | Three or more sibling cards have the same structure. | Use a list or a table for uniform items, or vary the layout by what each item holds. |
 | `excess-badges` | A view shows eight or more badges outside list rows. | Keep a badge for a status the reader must act on, and write the rest as plain text. |
 | `centred-body-text` | Long text is centred across more than the reading column. | Align body text to the start. Centre only a short line. |
-| `emoji-as-icon` | Interface text contains an emoji. | Use an icon from the icon set, or remove it. Mark content a person wrote with `data-gw-content`. |
+| `emoji-as-icon` | Interface text contains an emoji. | Use an icon from the icon set, or remove it. Mark content a person wrote with `data-ds-content`. |
 | `stock-phrase` | The same stock phrase is on three or more controls in a view. | Name what each control does, in the words of the task. |
 
 ## The run itself
@@ -70,5 +71,5 @@ No waiver covers these.
 |---|---|---|
 | `vendored-file-changed` | A file in the vendored copy is missing or does not match its recorded hash. The run stops here. | Restore the copy by syncing again. Change the system in its own repo. |
 | `parse-error` | A file could not be read, so nothing in it, or nothing after that point, was checked. | Fix the syntax. |
-| `waiver-without-reason` | A waiver names no rule or gives no reason, so it is ignored. | Write it as `gw-waive <rule-id>: <reason>`. |
+| `waiver-without-reason` | A waiver names no rule or gives no reason, so it is ignored. | Write it as `ds-waive <rule-id>: <reason>`. |
 | `unused-waiver` | A waiver matches no finding on its line or the next. | Remove the waiver. |

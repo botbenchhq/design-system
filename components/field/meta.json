@@ -30,11 +30,11 @@
   ],
   "icons": ["circle-alert"],
   "classes": [
-    "gw-field",
-    "gw-field__control",
-    "gw-field__description",
-    "gw-field__error",
-    "gw-field__label",
-    "gw-field__required"
+    "ds-field",
+    "ds-field__control",
+    "ds-field__description",
+    "ds-field__error",
+    "ds-field__label",
+    "ds-field__required"
   ]
 }

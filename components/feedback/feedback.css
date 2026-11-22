@@ -4,73 +4,73 @@
  * This stylesheet adds the pressed look and the layout, so it must load after the button's.
  */
 
-@layer gw.components {
-  .gw-feedback {
+@layer ds.components {
+  .ds-feedback {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
     min-width: 0;
   }
 
   /* The question, then the two choices. The pair moves under the question together when the line is too short for both. */
-  .gw-feedback__row {
+  .ds-feedback__row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    column-gap: var(--gw-space-md);
+    column-gap: var(--ds-space-md);
     min-width: 0;
   }
 
-  .gw-feedback__prompt {
-    color: var(--gw-color-muted);
+  .ds-feedback__prompt {
+    color: var(--ds-color-muted);
   }
 
   /* As tall as a pointer target, so the small buttons' hit areas stay inside it. */
-  .gw-feedback__choices {
+  .ds-feedback__choices {
     display: flex;
     align-items: center;
-    gap: var(--gw-space-sm);
-    min-height: var(--gw-size-touch);
+    gap: var(--ds-space-sm);
+    min-height: var(--ds-size-touch);
   }
 
   /* The chosen button gains an outline, a shade and a heavier label, so the choice is not a colour alone. */
-  .gw-feedback__choice[aria-pressed="true"] {
-    border-color: var(--gw-color-accent);
-    background-color: var(--gw-color-surface-sunken);
-    font-weight: var(--gw-weight-semibold);
+  .ds-feedback__choice[aria-pressed="true"] {
+    border-color: var(--ds-color-accent);
+    background-color: var(--ds-color-surface-sunken);
+    font-weight: var(--ds-weight-semibold);
   }
 
   /* The follow-up field and its button, shown by the app after a choice. */
-  .gw-feedback__note {
+  .ds-feedback__note {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-md);
-    max-width: var(--gw-size-column);
+    gap: var(--ds-space-md);
+    max-width: var(--ds-size-column);
   }
 
   /* The live region. It is in the page from the start, and takes no room until it has words. */
-  .gw-feedback__confirmation {
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+  .ds-feedback__confirmation {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
   }
 
-  .gw-feedback__confirmation:empty {
+  .ds-feedback__confirmation:empty {
     display: none;
   }
 
-  .gw-feedback__error {
+  .ds-feedback__error {
     display: flex;
-    gap: var(--gw-space-xs);
-    color: var(--gw-color-danger);
+    gap: var(--ds-space-xs);
+    color: var(--ds-color-danger);
     overflow-wrap: anywhere;
   }
 
-  .gw-feedback__error::before {
+  .ds-feedback__error::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     background-color: currentColor;
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }

@@ -16,7 +16,7 @@
   "variants": [],
   "sizes": [
     { "name": "default", "use": "A 16px mark with text at the interface size. Inside a list, a panel or a row." },
-    { "name": "large", "class": "gw-spinner--large", "use": "A 24px mark with 16px text. When a whole view is loading." }
+    { "name": "large", "class": "ds-spinner--large", "use": "A 24px mark with 16px text. When a whole view is loading." }
   ],
   "states": ["loading"],
   "accessibility": [
@@ -29,7 +29,7 @@
   ],
   "icons": ["loader"],
   "classes": [
-    "gw-spinner",
-    "gw-spinner--large"
+    "ds-spinner",
+    "ds-spinner--large"
   ]
 }

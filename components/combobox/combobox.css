@@ -1,29 +1,29 @@
 /*
  * Combobox: a text input that filters a list of options shown under it.
- * The input also carries gw-field__control, which draws the border, the fill and the invalid and
+ * The input also carries ds-field__control, which draws the border, the fill and the invalid and
  * disabled states. This stylesheet is bundled before the field's, so where it changes a property
  * the field sets, its selector is the more specific one.
  *
  * Every state is read from an attribute: aria-expanded on the input opens the list, aria-selected
  * on an option marks the active one, and hidden removes an option or the message. So the result is
- * the same whether the gw-combobox element or the app sets them.
+ * the same whether the ds-combobox element or the app sets them.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* Holds the input, and places the icons over it and the panel under it. */
-  .gw-combobox {
+  .ds-combobox {
     position: relative;
     display: block;
   }
 
   /* The chevron says there is a list. It is decoration, and takes no pointer events. */
-  .gw-combobox::after {
+  .ds-combobox::after {
     content: "";
     position: absolute;
     top: 50%;
-    inset-inline-end: var(--gw-space-md);
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    inset-inline-end: var(--ds-space-md);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
     background-color: currentColor;
     mask: url("icons/chevron-down.svg") center / contain no-repeat;
     translate: 0 -50%;
@@ -31,105 +31,105 @@
   }
 
   /* An optional icon at the start, which says what kind of thing is chosen. */
-  .gw-combobox__icon {
+  .ds-combobox__icon {
     position: absolute;
     top: 50%;
-    inset-inline-start: var(--gw-space-md);
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
-    color: var(--gw-color-muted);
+    inset-inline-start: var(--ds-space-md);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
+    color: var(--ds-color-muted);
     translate: 0 -50%;
     pointer-events: none;
   }
 
   /* The end padding keeps a long value clear of the chevron, and the start padding clear of the icon. */
-  .gw-combobox > .gw-combobox__input {
-    padding-inline-end: calc(var(--gw-space-md) * 2 + var(--gw-space-lg));
+  .ds-combobox > .ds-combobox__input {
+    padding-inline-end: calc(var(--ds-space-md) * 2 + var(--ds-space-lg));
     text-overflow: ellipsis;
   }
 
-  .gw-combobox:has(> .gw-combobox__icon) > .gw-combobox__input {
-    padding-inline-start: calc(var(--gw-space-md) + var(--gw-space-lg) + var(--gw-space-sm));
+  .ds-combobox:has(> .ds-combobox__icon) > .ds-combobox__input {
+    padding-inline-start: calc(var(--ds-space-md) + var(--ds-space-lg) + var(--ds-space-sm));
   }
 
   /*
    * The panel under the input: an overlay, so it takes the shadow. It is as wide as the input,
    * and scrolls after five and a half options, so the cut-off sixth shows there are more.
    */
-  .gw-combobox__panel {
+  .ds-combobox__panel {
     position: absolute;
     top: 100%;
     inset-inline: 0;
-    z-index: var(--gw-z-overlay);
+    z-index: var(--ds-z-overlay);
     display: none;
-    max-height: calc(var(--gw-size-touch) * 5.5 + var(--gw-space-xs));
-    margin-top: var(--gw-space-xs);
-    padding: var(--gw-space-xs);
-    border-width: var(--gw-border-width);
-    border-color: var(--gw-color-border-strong);
-    border-radius: var(--gw-radius-md);
+    max-height: calc(var(--ds-size-touch) * 5.5 + var(--ds-space-xs));
+    margin-top: var(--ds-space-xs);
+    padding: var(--ds-space-xs);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-md);
     overflow-y: auto;
-    background-color: var(--gw-color-surface-raised);
-    box-shadow: var(--gw-shadow-overlay);
+    background-color: var(--ds-color-surface-raised);
+    box-shadow: var(--ds-shadow-overlay);
   }
 
   /* Open while the input says its list is expanded, or while the message is shown in place of the list. */
-  .gw-combobox__input[aria-expanded="true"] ~ .gw-combobox__panel,
-  .gw-combobox__panel:has(> .gw-combobox__message:not([hidden])) {
+  .ds-combobox__input[aria-expanded="true"] ~ .ds-combobox__panel,
+  .ds-combobox__panel:has(> .ds-combobox__message:not([hidden])) {
     display: block;
   }
 
-  .gw-combobox__list {
+  .ds-combobox__list {
     display: flex;
     flex-direction: column;
   }
 
-  .gw-combobox__option {
+  .ds-combobox__option {
     position: relative;
     display: flex;
     align-items: center;
-    min-height: var(--gw-size-touch);
-    padding: var(--gw-space-xs) var(--gw-space-md);
-    border-radius: var(--gw-radius-sm);
+    min-height: var(--ds-size-touch);
+    padding: var(--ds-space-xs) var(--ds-space-md);
+    border-radius: var(--ds-radius-sm);
     overflow-wrap: anywhere;
     cursor: pointer;
   }
 
   /* An option that does not match what was typed. A layered display value would otherwise beat the reset's rule for hidden. */
-  .gw-combobox__list[hidden],
-  .gw-combobox__option[hidden] {
+  .ds-combobox__list[hidden],
+  .ds-combobox__option[hidden] {
     display: none;
   }
 
   @media (hover: hover) {
-    .gw-combobox__option:hover {
-      background-color: var(--gw-color-surface-sunken);
+    .ds-combobox__option:hover {
+      background-color: var(--ds-color-surface-sunken);
     }
   }
 
   /* The active option: a fill, and a bar at its start so it is never marked by the fill alone. */
-  .gw-combobox__option[aria-selected="true"] {
-    background-color: var(--gw-color-surface-sunken);
-    font-weight: var(--gw-weight-medium);
+  .ds-combobox__option[aria-selected="true"] {
+    background-color: var(--ds-color-surface-sunken);
+    font-weight: var(--ds-weight-medium);
   }
 
-  .gw-combobox__option[aria-selected="true"]::before {
+  .ds-combobox__option[aria-selected="true"]::before {
     content: "";
     position: absolute;
-    inset-block: var(--gw-space-sm);
+    inset-block: var(--ds-space-sm);
     inset-inline-start: 0;
-    width: calc(var(--gw-border-width) * 2);
+    width: calc(var(--ds-border-width) * 2);
     background-color: currentColor;
   }
 
   /* Shown in place of the list: that nothing matches and what to try, or that the options are loading. */
-  .gw-combobox__message {
-    padding: var(--gw-space-sm) var(--gw-space-md);
-    color: var(--gw-color-muted);
+  .ds-combobox__message {
+    padding: var(--ds-space-sm) var(--ds-space-md);
+    color: var(--ds-color-muted);
     overflow-wrap: anywhere;
   }
 
-  .gw-combobox:has(> .gw-combobox__input:disabled)::after {
-    background-color: var(--gw-color-muted);
+  .ds-combobox:has(> .ds-combobox__input:disabled)::after {
+    background-color: var(--ds-color-muted);
   }
 }

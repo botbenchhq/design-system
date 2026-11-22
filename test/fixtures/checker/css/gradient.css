@@ -1,3 +1,3 @@
 .hero {
-  background: linear-gradient(var(--gw-color-accent), var(--gw-color-surface));
+  background: linear-gradient(var(--ds-color-accent), var(--ds-color-surface));
 }

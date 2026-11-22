@@ -2,6 +2,37 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.6.0
+
+The entries below this one, for 0.5.0 and earlier, use the names of their time: the `gw` prefix, `groundwork.css`, `behaviors/groundwork.js` and `vendor/groundwork/`. They are left as they were released.
+
+A breaking rename with no change in behaviour or appearance. The prefix of the system changes from `gw` to `ds`, and the system is called the design system. Every component, pattern, token, behaviour and rule is as it was in 0.5.0, under its new name. No component, pattern or rule ID was renamed.
+
+- **Migration.** Every old form and its new form, in the order to apply them. A longer form comes before the shorter one it contains. The codemod applies them in this order.
+
+  | Step | 0.5 | 0.6.0 |
+  |---|---|---|
+  | 1 | The vendored folder `vendor/groundwork/` | `vendor/design-system/` |
+  | 2 | The config file `groundwork.config.json` | `design-system.config.json` |
+  | 3 | The stylesheet `groundwork.css` | `design-system.css` |
+  | 4 | The tabs module `behaviors/groundwork.js` | `behaviors/tabs.js` |
+  | 5 | Dark values in `tokens.json` under `$extensions.groundwork` | `$extensions["design-system"]` |
+  | 6 | Data attributes `data-gw-…`: `data-gw-critical`, `data-gw-content`, `data-gw-advanced`, `data-gw-scroller`, `data-gw-jump`, `data-gw-count`, `data-gw-count-one` | `data-ds-…`: `data-ds-critical` and so on |
+  | 7 | Custom properties `--gw-…`, and the anchor name `--gw-tooltip` | `--ds-…` |
+  | 8 | Cascade layers `gw.reset`, `gw.tokens`, `gw.base`, `gw.components` | `ds.reset`, `ds.tokens`, `ds.base`, `ds.components` |
+  | 9 | Elements `<gw-tabs>`, `<gw-combobox>`, `<gw-command-palette>`, `<gw-elapsed>`, `<gw-transcript>`, opening and closing tags | `<ds-tabs>`, `<ds-combobox>`, `<ds-command-palette>`, `<ds-elapsed>`, `<ds-transcript>` |
+  | 10 | Classes `gw-…` with their parts and modifiers, the layout classes, `gw-visually-hidden`; keyframe names such as `gw-streaming-turn`; icon ids `gw-icon-…`; the waiver keyword `gw-waive` | `ds-…`, `ds-visually-hidden`, `ds-streaming-turn`, `ds-icon-…`, `ds-waive` |
+  | 11 | In script, `dataset.gwCount` and `dataset.gwCountOne` | `dataset.dsCount`, `dataset.dsCountOne` |
+  | 12 | The rendered check `gwCheckDom()` in `check-dom.js` | `dsCheckDom()` |
+  | 13 | The element classes `GwTabs`, `GwCombobox`, `GwCommandPalette`, `GwElapsed`, `GwTranscript` | `DsTabs`, `DsCombobox`, `DsCommandPalette`, `DsElapsed`, `DsTranscript` |
+  | 14 | `"prefix": "gw"` in `manifest.json` | `"prefix": "ds"` |
+  | 15 | The `name` in `design-tokens.md`, `Groundwork` | `Design system` |
+
+  The repo is named `design-system`, its package is `design-system`, and the gallery is the Design system gallery.
+- **Codemod.** `migrate-prefix.mjs`, new in `dist/`, so it arrives with the copy. Run `node vendor/design-system/migrate-prefix.mjs [--dry-run] <paths…>` once over the app's own source. It applies steps 1 to 13 to CSS, HTML, JavaScript, TypeScript, JSON and Markdown files, skips `node_modules`, dot-directories and every synced copy, prints each file it changed and a total, and changes nothing on a second run. It has no dependencies.
+- **Checker.** One more rule, `old-prefix`, which brings it to 41. A class, element, icon id, data attribute, custom property, cascade layer or waiver that still has the old prefix is reported with its new form and the command that rewrites it. No other rule changed.
+- **Docs.** The consumer guide has a section, Upgrading from 0.5, with the steps in order.
+
 ## 0.5.0
 
 Agent activity: what an agent is doing, step by step, with the detail one press away.

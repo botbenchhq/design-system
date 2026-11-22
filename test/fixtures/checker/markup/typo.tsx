@@ -1,3 +1,3 @@
 export function Action() {
-  return <button className="gw-buton">Go</button>;
+  return <button className="ds-buton">Go</button>;
 }

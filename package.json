@@ -1,6 +1,6 @@
 {
-  "name": "groundwork",
-  "version": "0.5.0",
+  "name": "design-system",
+  "version": "0.6.0",
   "description": "A shared design system: one closed vocabulary of tokens and components, and the checks that hold apps to it",
   "private": true,
   "type": "module",

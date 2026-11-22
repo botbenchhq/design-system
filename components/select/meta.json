@@ -19,17 +19,17 @@
   ],
   "states": ["default", "focus", "invalid", "disabled", "loading"],
   "accessibility": [
-    "Use a select element carrying both gw-field__control and gw-select__control, wrapped in an element with gw-select, inside gw-field. The wrapper only draws the chevron.",
+    "Use a select element carrying both ds-field__control and ds-select__control, wrapped in an element with ds-select, inside ds-field. The wrapper only draws the chevron.",
     "Give it a label element whose for attribute matches the select's id.",
     "When nothing is chosen yet, make the first option an instruction with an empty value, such as Choose a repository, and set required on the select.",
-    "For an invalid choice, set aria-invalid=\"true\" on the select and link a gw-field__error that says what to choose.",
+    "For an invalid choice, set aria-invalid=\"true\" on the select and link a ds-field__error that says what to choose.",
     "While the options load, set disabled, show one option that says what is loading, and say what is being fetched in the description. Remove disabled when the options arrive.",
     "The keyboard is the browser's own: Space or Enter opens the list, the arrow keys move, typing jumps to a matching option, Escape closes.",
     "The chevron is decoration drawn by the stylesheet. It needs no markup and takes no pointer events."
   ],
   "icons": ["chevron-down"],
   "classes": [
-    "gw-select",
-    "gw-select__control"
+    "ds-select",
+    "ds-select__control"
   ]
 }

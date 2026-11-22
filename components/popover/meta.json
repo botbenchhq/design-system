@@ -28,11 +28,11 @@
   ],
   "icons": [],
   "classes": [
-    "gw-popover",
-    "gw-popover__actions",
-    "gw-popover__fact",
-    "gw-popover__facts",
-    "gw-popover__term",
-    "gw-popover__title"
+    "ds-popover",
+    "ds-popover__actions",
+    "ds-popover__fact",
+    "ds-popover__facts",
+    "ds-popover__term",
+    "ds-popover__title"
   ]
 }

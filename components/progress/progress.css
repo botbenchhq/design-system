@@ -4,70 +4,70 @@
  * A progress element with no value attribute is the indeterminate form: a full bar that fades slowly out and in.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* The label and the value share a row above the bar, and wrap one over the other when they do not fit. */
-  .gw-progress {
+  .ds-progress {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
-    gap: var(--gw-space-xs) var(--gw-space-md);
+    gap: var(--ds-space-xs) var(--ds-space-md);
     min-width: 0;
   }
 
-  .gw-progress__label {
-    font-weight: var(--gw-weight-medium);
+  .ds-progress__label {
+    font-weight: var(--ds-weight-medium);
     overflow-wrap: anywhere;
   }
 
-  .gw-progress__value {
-    color: var(--gw-color-muted);
+  .ds-progress__value {
+    color: var(--ds-color-muted);
     font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
 
   /* In Gecko the element's own background is the track. */
-  .gw-progress__bar {
+  .ds-progress__bar {
     display: block;
     flex: 1 0 100%;
     order: 1;
     width: 100%;
-    height: var(--gw-space-sm);
-    border-radius: var(--gw-radius-sm);
-    background-color: var(--gw-color-border);
+    height: var(--ds-space-sm);
+    border-radius: var(--ds-radius-sm);
+    background-color: var(--ds-color-border);
     overflow: hidden;
     appearance: none;
   }
 
   /* In WebKit and Blink the track and the fill are both pseudo-elements. */
-  .gw-progress__bar::-webkit-progress-bar {
-    background-color: var(--gw-color-border);
+  .ds-progress__bar::-webkit-progress-bar {
+    background-color: var(--ds-color-border);
   }
 
-  .gw-progress__bar::-webkit-progress-value {
-    background-color: var(--gw-color-accent);
-    transition: inline-size var(--gw-duration-slow) var(--gw-ease);
+  .ds-progress__bar::-webkit-progress-value {
+    background-color: var(--ds-color-accent);
+    transition: inline-size var(--ds-duration-slow) var(--ds-ease);
   }
 
-  .gw-progress__bar::-moz-progress-bar {
-    background-color: var(--gw-color-accent);
+  .ds-progress__bar::-moz-progress-bar {
+    background-color: var(--ds-color-accent);
   }
 
   /* No value: the whole bar is one mid tone, which fades so it reads as work under way and not as a full bar. */
-  .gw-progress__bar:indeterminate {
-    background-color: var(--gw-color-border-strong);
-    animation: gw-progress-wait calc(var(--gw-duration-slow) * 6) var(--gw-ease) infinite alternate;
+  .ds-progress__bar:indeterminate {
+    background-color: var(--ds-color-border-strong);
+    animation: ds-progress-wait calc(var(--ds-duration-slow) * 6) var(--ds-ease) infinite alternate;
   }
 
-  .gw-progress__bar:indeterminate::-webkit-progress-bar {
-    background-color: var(--gw-color-border-strong);
+  .ds-progress__bar:indeterminate::-webkit-progress-bar {
+    background-color: var(--ds-color-border-strong);
   }
 
-  .gw-progress__bar:indeterminate::-moz-progress-bar {
+  .ds-progress__bar:indeterminate::-moz-progress-bar {
     background-color: transparent;
   }
 
-  @keyframes gw-progress-wait {
+  @keyframes ds-progress-wait {
     to {
       opacity: 0.4;
     }
@@ -75,7 +75,7 @@
 
   /* The reset stops transitions under reduced motion. An animation is stopped here. */
   @media (prefers-reduced-motion: reduce) {
-    .gw-progress__bar:indeterminate {
+    .ds-progress__bar:indeterminate {
       animation: none;
     }
   }

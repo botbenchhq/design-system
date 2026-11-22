@@ -1,7 +1,7 @@
 // The behaviour of the command palette component, for an app without a framework.
 // One ES module with no dependencies: <script type="module" src="behaviors/command-palette.js"></script>
 //
-// <gw-command-palette> wraps the palette's dialog, in the light DOM. It finds its parts by role:
+// <ds-command-palette> wraps the palette's dialog, in the light DOM. It finds its parts by role:
 // the combobox input, the listbox, its options and groups, and the status message for no match.
 //   - Typing hides the options that do not match every word typed, the groups left with no option and,
 //     when nothing matches, the list itself, and shows the message. The text of a kbd is not matched.
@@ -22,7 +22,7 @@ const MESSAGE = '[role="status"]';
 // What a command is matched on: its text without its shortcut hint.
 const nameOf = (node) => (node.nodeName === "KBD" ? "" : node.firstChild ? [...node.childNodes].map(nameOf).join("") : node.textContent);
 
-class GwCommandPalette extends HTMLElement {
+class DsCommandPalette extends HTMLElement {
   constructor() {
     super();
     for (const type of ["input", "keydown", "click"]) this.addEventListener(type, this);
@@ -132,4 +132,4 @@ class GwCommandPalette extends HTMLElement {
   }
 }
 
-if (!customElements.get("gw-command-palette")) customElements.define("gw-command-palette", GwCommandPalette);
+if (!customElements.get("ds-command-palette")) customElements.define("ds-command-palette", DsCommandPalette);

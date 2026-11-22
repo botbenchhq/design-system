@@ -6,90 +6,90 @@
  * The steps run down the page, and across it at 768px and up.
  */
 
-@layer gw.components {
-  .gw-stepper {
+@layer ds.components {
+  .ds-stepper {
     display: flex;
     flex-direction: column;
     min-width: 0;
-    counter-reset: gw-stepper;
+    counter-reset: ds-stepper;
   }
 
   /* An upcoming step, which is what a step is until the markup says otherwise. */
-  .gw-stepper__step {
+  .ds-stepper__step {
     position: relative;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     align-items: start;
-    column-gap: var(--gw-space-md);
+    column-gap: var(--ds-space-md);
     min-width: 0;
-    color: var(--gw-color-muted);
-    counter-increment: gw-stepper;
+    color: var(--ds-color-muted);
+    counter-increment: ds-stepper;
   }
 
   /* The mark: the step's number in an outlined circle, centred on the first line of a row one target tall. */
-  .gw-stepper__step::before {
-    content: counter(gw-stepper);
+  .ds-stepper__step::before {
+    content: counter(ds-stepper);
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--gw-space-xl);
-    height: var(--gw-space-xl);
-    margin-block: calc((var(--gw-size-touch) - var(--gw-space-xl)) / 2);
-    border-width: var(--gw-border-width);
-    border-color: var(--gw-color-border-strong);
-    border-radius: var(--gw-radius-full);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-medium);
-    line-height: var(--gw-leading-xs);
+    width: var(--ds-space-xl);
+    height: var(--ds-space-xl);
+    margin-block: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-full);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-xs);
   }
 
   /* The line to the next step, from under this mark to above the next one. */
-  .gw-stepper__step:not(:last-child)::after {
+  .ds-stepper__step:not(:last-child)::after {
     content: "";
     position: absolute;
-    inset-block: calc((var(--gw-size-touch) + var(--gw-space-xl)) / 2 + var(--gw-space-xs)) calc(var(--gw-space-xs) - (var(--gw-size-touch) - var(--gw-space-xl)) / 2);
-    inset-inline-start: calc((var(--gw-space-xl) - var(--gw-border-width)) / 2);
-    width: var(--gw-border-width);
-    background-color: var(--gw-color-border-strong);
+    inset-block: calc((var(--ds-size-touch) + var(--ds-space-xl)) / 2 + var(--ds-space-xs)) calc(var(--ds-space-xs) - (var(--ds-size-touch) - var(--ds-space-xl)) / 2);
+    inset-inline-start: calc((var(--ds-space-xl) - var(--ds-border-width)) / 2);
+    width: var(--ds-border-width);
+    background-color: var(--ds-color-border-strong);
   }
 
   /*
    * The name of the step: text, or a link when the step is completed and can be gone back to.
    * The padding makes one line a pointer target tall and keeps the same space above a name of several lines.
    */
-  .gw-stepper__label {
+  .ds-stepper__label {
     position: relative;
     grid-column: 2;
-    min-height: var(--gw-size-touch);
-    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
+    min-height: var(--ds-size-touch);
+    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     overflow-wrap: anywhere;
   }
 
-  .gw-stepper__label:any-link {
+  .ds-stepper__label:any-link {
     text-decoration-line: underline;
-    text-underline-offset: var(--gw-space-xs);
+    text-underline-offset: var(--ds-space-xs);
   }
 
   /*
    * A line under the name, pulled up into the space the name's padding leaves under its last line.
    * The name is positioned, so it lies over this line and a link keeps its whole pointer target.
    */
-  .gw-stepper__description {
+  .ds-stepper__description {
     grid-column: 2;
-    margin-top: calc(var(--gw-space-sm) * -1);
-    padding-bottom: var(--gw-space-sm);
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+    margin-top: calc(var(--ds-space-sm) * -1);
+    padding-bottom: var(--ds-space-sm);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
     overflow-wrap: anywhere;
   }
 
   /* Completed: every step before the current one. A check in a ring takes the place of the number. */
-  .gw-stepper__step:has(~ .gw-stepper__step[aria-current]:not([aria-current="false"])) {
-    color: var(--gw-color-on-surface);
+  .ds-stepper__step:has(~ .ds-stepper__step[aria-current]:not([aria-current="false"])) {
+    color: var(--ds-color-on-surface);
   }
 
-  .gw-stepper__step:has(~ .gw-stepper__step[aria-current]:not([aria-current="false"]))::before {
+  .ds-stepper__step:has(~ .ds-stepper__step[aria-current]:not([aria-current="false"]))::before {
     content: "";
     border-width: 0;
     border-radius: 0;
@@ -98,53 +98,53 @@
   }
 
   /* Current: the number on a fill, and a heavier name. */
-  .gw-stepper__step[aria-current]:not([aria-current="false"]) {
-    color: var(--gw-color-on-surface);
+  .ds-stepper__step[aria-current]:not([aria-current="false"]) {
+    color: var(--ds-color-on-surface);
   }
 
-  .gw-stepper__step[aria-current]:not([aria-current="false"])::before {
-    border-color: var(--gw-color-accent);
-    background-color: var(--gw-color-accent);
-    color: var(--gw-color-on-accent);
+  .ds-stepper__step[aria-current]:not([aria-current="false"])::before {
+    border-color: var(--ds-color-accent);
+    background-color: var(--ds-color-accent);
+    color: var(--ds-color-on-accent);
   }
 
-  .gw-stepper__step[aria-current]:not([aria-current="false"]) > .gw-stepper__label {
-    font-weight: var(--gw-weight-semibold);
+  .ds-stepper__step[aria-current]:not([aria-current="false"]) > .ds-stepper__label {
+    font-weight: var(--ds-weight-semibold);
   }
 
   @media (hover: hover) {
-    .gw-stepper__label:any-link:hover {
-      text-decoration-thickness: calc(var(--gw-border-width) * 2);
+    .ds-stepper__label:any-link:hover {
+      text-decoration-thickness: calc(var(--ds-border-width) * 2);
     }
   }
 
   /* Across the page: each step is its mark, its name and then the line to the next step. */
   @media (min-width: 768px) {
-    .gw-stepper {
+    .ds-stepper {
       flex-direction: row;
       align-items: flex-start;
-      gap: var(--gw-space-md);
+      gap: var(--ds-space-md);
     }
 
-    .gw-stepper__step {
+    .ds-stepper__step {
       flex: 1 1 auto;
-      grid-template-columns: auto auto minmax(var(--gw-space-lg), 1fr);
-      column-gap: var(--gw-space-sm);
+      grid-template-columns: auto auto minmax(var(--ds-space-lg), 1fr);
+      column-gap: var(--ds-space-sm);
     }
 
-    .gw-stepper__step:last-child {
+    .ds-stepper__step:last-child {
       flex: 0 1 auto;
       grid-template-columns: auto auto;
     }
 
-    .gw-stepper__step:not(:last-child)::after {
+    .ds-stepper__step:not(:last-child)::after {
       position: static;
       grid-row: 1;
       grid-column: 3;
       width: auto;
-      height: var(--gw-border-width);
-      margin-block-start: calc((var(--gw-size-touch) - var(--gw-border-width)) / 2);
-      margin-inline-start: var(--gw-space-xs);
+      height: var(--ds-border-width);
+      margin-block-start: calc((var(--ds-size-touch) - var(--ds-border-width)) / 2);
+      margin-inline-start: var(--ds-space-xs);
     }
   }
 }

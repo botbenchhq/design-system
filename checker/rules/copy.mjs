@@ -18,7 +18,7 @@ const emojiAsIcon = {
       if (!node.children.some((child) => !isElement(child) && EMOJI.test(child.text))) continue;
       const around = [node, ...ancestors(node)];
       const label = around.find((at) => UI_TEXT_TAGS.includes(at.tag));
-      if (label && !around.some((at) => has(at, "data-gw-content"))) found.add(label);
+      if (label && !around.some((at) => has(at, "data-ds-content"))) found.add(label);
     }
     return [...found].map((node) => ({ node, message: "This interface text contains an emoji." }));
   },

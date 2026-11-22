@@ -5,67 +5,67 @@
  * Controls marked as overflow leave the row below 768px, where the More menu offers them instead.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* The padding leaves room for the focus ring of a button at the edge, which a scrolling toolbar would clip. */
-  .gw-toolbar {
+  .ds-toolbar {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
     width: fit-content;
     max-width: 100%;
-    padding: var(--gw-space-xs);
-    border-width: var(--gw-border-width);
-    border-radius: var(--gw-radius-md);
-    background-color: var(--gw-color-surface-raised);
+    padding: var(--ds-space-xs);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
   }
 
-  .gw-toolbar--scroll {
+  .ds-toolbar--scroll {
     flex-wrap: nowrap;
     overflow-x: auto;
   }
 
   /* Controls that belong together, kept on one row when the toolbar wraps. */
-  .gw-toolbar__group {
+  .ds-toolbar__group {
     display: flex;
     flex: none;
     align-items: center;
-    gap: var(--gw-space-xs);
+    gap: var(--ds-space-xs);
   }
 
   /* A rule between two groups, as tall as the row it is in. */
-  .gw-toolbar__separator {
+  .ds-toolbar__separator {
     flex: none;
     align-self: stretch;
-    width: var(--gw-border-width);
-    margin-inline: var(--gw-space-xs);
-    background-color: var(--gw-color-border);
+    width: var(--ds-border-width);
+    margin-inline: var(--ds-space-xs);
+    background-color: var(--ds-color-border);
   }
 
   /* A short fact among the controls, such as which change is in view. */
-  .gw-toolbar__text {
+  .ds-toolbar__text {
     flex: none;
-    padding-inline: var(--gw-space-sm);
-    color: var(--gw-color-muted);
+    padding-inline: var(--ds-space-sm);
+    color: var(--ds-color-muted);
     white-space: nowrap;
   }
 
   /* Below 768px these controls are offered by the More menu, which is hidden once there is room for them. */
-  .gw-toolbar__overflow {
+  .ds-toolbar__overflow {
     display: none;
   }
 
-  .gw-toolbar__more {
+  .ds-toolbar__more {
     display: flex;
     flex: none;
   }
 
   @media (min-width: 768px) {
-    .gw-toolbar__overflow {
+    .ds-toolbar__overflow {
       display: contents;
     }
 
-    .gw-toolbar__more {
+    .ds-toolbar__more {
       display: none;
     }
   }

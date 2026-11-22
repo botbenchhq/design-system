@@ -4,11 +4,11 @@
  * Send and Stop are buttons from the button component.
  */
 
-@layer gw.components {
-  .gw-composer {
+@layer ds.components {
+  .ds-composer {
     display: flex;
     flex-direction: column;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
     min-width: 0;
   }
 
@@ -16,25 +16,25 @@
    * Held to the bottom of the scrolling view, clear of the home indicator. The view's
    * scroller must end at the visible viewport for this to stay above an on-screen keyboard.
    */
-  .gw-composer--sticky {
+  .ds-composer--sticky {
     position: sticky;
     bottom: 0;
-    z-index: var(--gw-z-sticky);
-    padding: var(--gw-space-md) var(--gw-space-lg);
-    padding-bottom: calc(var(--gw-space-md) + env(safe-area-inset-bottom));
-    border-top-width: var(--gw-border-width);
-    background-color: var(--gw-color-surface);
+    z-index: var(--ds-z-sticky);
+    padding: var(--ds-space-md) var(--ds-space-lg);
+    padding-bottom: calc(var(--ds-space-md) + env(safe-area-inset-bottom));
+    border-top-width: var(--ds-border-width);
+    background-color: var(--ds-color-surface);
   }
 
-  .gw-composer__label {
-    font-weight: var(--gw-weight-medium);
+  .ds-composer__label {
+    font-weight: var(--ds-weight-medium);
   }
 
   /* The button stays beside the last line as the textarea grows. */
-  .gw-composer__row {
+  .ds-composer__row {
     display: flex;
     align-items: flex-end;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
   }
 
   /*
@@ -42,71 +42,71 @@
    * Without field-sizing the height is fixed at two targets and the text scrolls inside.
    * The block padding is what centres a single line in a box one target tall.
    */
-  .gw-composer__input {
+  .ds-composer__input {
     flex: 1;
     min-width: 0;
-    height: calc(var(--gw-size-touch) * 2);
-    min-height: var(--gw-size-touch);
-    max-height: calc(var(--gw-size-touch) * 4);
-    padding-block: calc((var(--gw-size-touch) - var(--gw-text-lg) * var(--gw-leading-lg)) / 2 - var(--gw-border-width));
-    padding-inline: var(--gw-space-md);
-    border-width: var(--gw-border-width);
-    border-color: var(--gw-color-border-strong);
-    border-radius: var(--gw-radius-md);
-    background-color: var(--gw-color-surface-raised);
-    font-size: var(--gw-text-lg);
-    line-height: var(--gw-leading-lg);
+    height: calc(var(--ds-size-touch) * 2);
+    min-height: var(--ds-size-touch);
+    max-height: calc(var(--ds-size-touch) * 4);
+    padding-block: calc((var(--ds-size-touch) - var(--ds-text-lg) * var(--ds-leading-lg)) / 2 - var(--ds-border-width));
+    padding-inline: var(--ds-space-md);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
+    font-size: var(--ds-text-lg);
+    line-height: var(--ds-leading-lg);
     resize: none;
-    transition: border-color var(--gw-duration-fast) var(--gw-ease);
+    transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
 
   /* One line tall when empty, growing with the text up to four targets, so Send is never pushed off a phone screen. */
   @supports (field-sizing: content) {
-    .gw-composer__input {
+    .ds-composer__input {
       height: auto;
       field-sizing: content;
     }
   }
 
   @media (min-width: 768px) {
-    .gw-composer__input {
-      padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2 - var(--gw-border-width));
-      font-size: var(--gw-text-ui);
-      line-height: var(--gw-leading-ui);
+    .ds-composer__input {
+      padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+      font-size: var(--ds-text-ui);
+      line-height: var(--ds-leading-ui);
     }
   }
 
-  .gw-composer__input:disabled {
-    border-color: var(--gw-color-border);
+  .ds-composer__input:disabled {
+    border-color: var(--ds-color-border);
     background-color: transparent;
-    color: var(--gw-color-muted);
+    color: var(--ds-color-muted);
   }
 
-  .gw-composer__controls {
+  .ds-composer__controls {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
   }
 
   /* Why the composer cannot send. Plain text, so it is read as easily as the label. */
-  .gw-composer__reason {
+  .ds-composer__reason {
     overflow-wrap: anywhere;
   }
 
-  .gw-composer__error {
+  .ds-composer__error {
     display: flex;
-    gap: var(--gw-space-xs);
-    color: var(--gw-color-danger);
+    gap: var(--ds-space-xs);
+    color: var(--ds-color-danger);
     overflow-wrap: anywhere;
   }
 
   /* The icon is drawn here, so an error is never marked by colour alone, whatever the markup holds. */
-  .gw-composer__error::before {
+  .ds-composer__error::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     background-color: currentColor;
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }

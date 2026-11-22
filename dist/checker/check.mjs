@@ -8,6 +8,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, extname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { oldPrefix } from "./classes.mjs";
 import { jsonReport, textReport } from "./report.mjs";
 import { scanCss } from "./scan-css.mjs";
 import { scanHtml } from "./scan-html.mjs";
@@ -15,7 +16,7 @@ import { scanScript } from "./scan-script.mjs";
 import { scanStructure } from "./scan-structure.mjs";
 import { verifyVendored } from "./vendor.mjs";
 import { loadVocabulary } from "./vocabulary.mjs";
-import { applyWaivers, parseWaivers } from "./waivers.mjs";
+import { applyWaivers, oldWaiverLines, parseWaivers } from "./waivers.mjs";
 
 const USAGE = "Usage: node check.mjs [--json] [--config path] [--manifest path] <paths…>";
 const CONFIG_KEYS = ["paths", "appPrefix", "gaps", "vendorDir"];
@@ -163,6 +164,10 @@ function run(argv, cwd) {
     }
     found.push(...stageFindings.sort(byPlace));
   }
+  const oldWaivers = [...sources].flatMap(([file, text]) =>
+    oldWaiverLines(text).map((line) => ({ file: shown(file), line, ...oldPrefix("gw-waive", vocabulary) })),
+  );
+  found.push(...oldWaivers.sort(byPlace));
 
   const { invalid, unused, used, standing } = applyWaivers(found, waiversByFile);
   const findings = [...invalid.sort(byPlace), ...standing, ...unused.sort(byPlace)];

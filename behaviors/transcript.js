@@ -1,24 +1,24 @@
 // Following the latest row of a transcript, for an app without a framework.
 // One ES module with no dependencies: <script type="module" src="behaviors/transcript.js"></script>
 //
-// <gw-transcript> wraps a transcript in the light DOM: the element with role="log" that holds the rows and,
+// <ds-transcript> wraps a transcript in the light DOM: the element with role="log" that holds the rows and,
 // optionally, the jump-to-latest control. While the reader is at the bottom, within 60px, it keeps the bottom
 // in view as rows arrive and as a row grows. When the reader scrolls up it stops, counts the rows added since
 // and shows the control. A press on the control, or scrolling back to the bottom, starts it following again.
 //
 // What it reads:
-//   [data-gw-scroller]  the element that scrolls, inside the element or the element itself. Without one, the page.
+//   [data-ds-scroller]  the element that scrolls, inside the element or the element itself. Without one, the page.
 //   [role="log"]        the rows. Every li added under it while the reader is away counts as one.
-//   [data-gw-jump]      the jump-to-latest control. Its button is pressed to jump.
-//   [data-gw-count]     inside the control: the sentence for the count, with {count} where the number goes,
-//                       such as data-gw-count="{count} new steps". data-gw-count-one holds the wording for one.
+//   [data-ds-jump]      the jump-to-latest control. Its button is pressed to jump.
+//   [data-ds-count]     inside the control: the sentence for the count, with {count} where the number goes,
+//                       such as data-ds-count="{count} new steps". data-ds-count-one holds the wording for one.
 // What it sets: the hidden attribute on the control, the text of the count, and the scroll position.
 // It never moves focus, and it adds no class and no inline style. It leaves the control as the markup has it
 // until the reader scrolls or a row arrives. A framework app loads nothing and does the same itself.
 
 const NEAR = 60;
 
-class GwTranscript extends HTMLElement {
+class DsTranscript extends HTMLElement {
   connectedCallback() {
     if (this.rows) return;
     this.added = 0;
@@ -58,7 +58,7 @@ class GwTranscript extends HTMLElement {
   }
 
   get scroller() {
-    return this.closest("[data-gw-scroller]") ?? this.querySelector("[data-gw-scroller]") ?? document.scrollingElement;
+    return this.closest("[data-ds-scroller]") ?? this.querySelector("[data-ds-scroller]") ?? document.scrollingElement;
   }
 
   get log() {
@@ -66,7 +66,7 @@ class GwTranscript extends HTMLElement {
   }
 
   get jump() {
-    return this.querySelector("[data-gw-jump]");
+    return this.querySelector("[data-ds-jump]");
   }
 
   get maxTop() {
@@ -118,10 +118,10 @@ class GwTranscript extends HTMLElement {
   show() {
     const { jump } = this;
     if (!jump) return;
-    const count = jump.querySelector("[data-gw-count]");
+    const count = jump.querySelector("[data-ds-count]");
     if (count) {
-      const one = count.dataset.gwCountOne;
-      count.textContent = this.added === 1 && one ? one : count.dataset.gwCount.replace("{count}", String(this.added));
+      const one = count.dataset.dsCountOne;
+      count.textContent = this.added === 1 && one ? one : count.dataset.dsCount.replace("{count}", String(this.added));
     }
     jump.hidden = false;
   }
@@ -131,7 +131,7 @@ class GwTranscript extends HTMLElement {
       this.sync();
       return;
     }
-    const button = event.target.closest?.("[data-gw-jump] button");
+    const button = event.target.closest?.("[data-ds-jump] button");
     if (!button || !this.contains(button)) return;
     // A press with the pointer leaves focus where it was, which is usually the composer.
     if (event.type === "mousedown") {
@@ -144,4 +144,4 @@ class GwTranscript extends HTMLElement {
   }
 }
 
-if (!customElements.get("gw-transcript")) customElements.define("gw-transcript", GwTranscript);
+if (!customElements.get("ds-transcript")) customElements.define("ds-transcript", DsTranscript);

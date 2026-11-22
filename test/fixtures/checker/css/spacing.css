@@ -2,7 +2,7 @@
   padding: 13px;
 }
 .b {
-  padding: var(--gw-space-md);
+  padding: var(--ds-space-md);
 }
 .c {
   padding: 0;

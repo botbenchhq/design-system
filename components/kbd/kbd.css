@@ -3,29 +3,29 @@
  * A combination is an outer kbd holding one key per kbd, joined by a plus sign written as text.
  */
 
-@layer gw.components {
+@layer ds.components {
   /* 12px text and a 1px border keep a key inside one line of body text, so a line with a key in it is no taller. */
-  .gw-kbd {
+  .ds-kbd {
     display: inline-block;
-    min-width: var(--gw-space-xl);
-    padding-inline: var(--gw-space-xs);
-    border-width: var(--gw-border-width);
-    border-radius: var(--gw-radius-sm);
-    background-color: var(--gw-color-surface-sunken);
-    color: var(--gw-color-on-surface);
-    font-family: var(--gw-font-mono);
-    font-size: var(--gw-text-xs);
-    font-weight: var(--gw-weight-medium);
-    line-height: var(--gw-leading-xs);
+    min-width: var(--ds-space-xl);
+    padding-inline: var(--ds-space-xs);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-sm);
+    background-color: var(--ds-color-surface-sunken);
+    color: var(--ds-color-on-surface);
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-xs);
     text-align: center;
     white-space: nowrap;
   }
 
   /* The keys of one combination stay on one line. The plus signs between them are text in the quiet colour. */
-  .gw-kbd__combo {
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+  .ds-kbd__combo {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
     white-space: nowrap;
   }
 }

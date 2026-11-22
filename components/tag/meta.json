@@ -6,7 +6,7 @@
   "whenToUse": [
     "For the categories an item belongs to: labels on a task, the language of a repository.",
     "For each filter applied to a list or a table, with a remove button, in a row above it.",
-    "Several at once, in a gw-cluster. Tags are scanned, and no one of them is more important than the next."
+    "Several at once, in a ds-cluster. Tags are scanned, and no one of them is more important than the next."
   ],
   "whenNotToUse": [
     "For a status, such as Failed or Awaiting decision. Use a badge, which has tones and icons. A tag is neutral only.",
@@ -16,24 +16,24 @@
   ],
   "variants": [
     { "name": "default", "use": "Text only, on a span, or on an li when the tags are a list." },
-    { "name": "removable", "use": "The same tag with a button of the class gw-tag__remove after the text. No modifier class is needed." }
+    { "name": "removable", "use": "The same tag with a button of the class ds-tag__remove after the text. No modifier class is needed." }
   ],
   "sizes": [
     { "name": "default", "use": "24px tall with 12px text. A removable tag keeps 8px clear above and below it, so its button's pointer target has room when tags wrap." }
   ],
   "states": ["default", "hover", "focus-visible", "active", "disabled"],
   "accessibility": [
-    "Use a span. When the tags are a set, such as the filters in force, use a ul with an aria-label that says what they are and an li with the class gw-tag for each.",
+    "Use a span. When the tags are a set, such as the filters in force, use a ul with an aria-label that says what they are and an li with the class ds-tag for each.",
     "Write a filter as its name and its value, such as Branch: main, so the tag makes sense out of context.",
-    "The remove button is a button element with the class gw-tag__remove and no content. The stylesheet draws its cross. Its aria-label says what it removes and repeats the tag's text: Remove filter: Branch: main.",
-    "The button is drawn 22px square, inside the tag's border, and its pointer target is 44px square. Lay removable tags out with gw-cluster so the targets of neighbouring buttons do not overlap.",
+    "The remove button is a button element with the class ds-tag__remove and no content. The stylesheet draws its cross. Its aria-label says what it removes and repeats the tag's text: Remove filter: Branch: main.",
+    "The button is drawn 22px square, inside the tag's border, and its pointer target is 44px square. Lay removable tags out with ds-cluster so the targets of neighbouring buttons do not overlap.",
     "Tab reaches each remove button in order, and Enter and Space activate it. After a tag is removed, the app moves focus to the next tag's button, or to the control that adds filters when none is left, and says what changed in a role=\"status\" element.",
     "Set the disabled attribute on the button while its filter cannot be removed. A tag with no button at all cannot be removed.",
     "A tag has one tone and never carries meaning by colour."
   ],
   "icons": ["x"],
   "classes": [
-    "gw-tag",
-    "gw-tag__remove"
+    "ds-tag",
+    "ds-tag__remove"
   ]
 }

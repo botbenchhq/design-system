@@ -1,6 +1,6 @@
 // Token and property rules on CSS.
 
-import { classFindings } from "./classes.mjs";
+import { OLD_PREFIX, classFindings, oldNames } from "./classes.mjs";
 import { parseCss } from "./parse-css.mjs";
 import { nearestColorToken, nearestNumericToken } from "./vocabulary.mjs";
 
@@ -48,6 +48,9 @@ const pixels = (word) => {
 export function scanCss(text, { file, vocabulary, appPrefix, gapClasses, lineOffset = 0 }) {
   const findings = [];
   const add = (line, rule, message, fix) => findings.push({ file, line: line + lineOffset, rule, message, fix });
+  const addOld = (line, text) => {
+    for (const finding of oldNames(text, vocabulary, appPrefix)) add(line, finding.rule, finding.message, finding.fix);
+  };
   const { nodes, error } = parseCss(text);
 
   for (const node of nodes) {
@@ -59,15 +62,17 @@ export function scanCss(text, { file, vocabulary, appPrefix, gapClasses, lineOff
   return findings;
 
   function checkSelector({ selector, line }) {
+    addOld(line, selector);
     if (!appPrefix) return;
     for (const [, name] of selector.matchAll(/\.([\w-]+)/g)) {
-      if (name.startsWith(`${appPrefix}-`) && !gapClasses.has(name)) {
+      if (name.startsWith(`${appPrefix}-`) && appPrefix !== OLD_PREFIX && !gapClasses.has(name)) {
         add(line, "undeclared-app-class", `${name} is an app-local class that the gap file does not list.`, "Use a catalogue component, or record the gap in the gap file.");
       }
     }
   }
 
   function checkAtRule({ name, params, line }) {
+    addOld(line, params);
     if (name === "media") {
       const widths = [
         ...params.matchAll(/\b(?:min-|max-)?(?:device-)?width\s*(?::|[<>]=?|=)\s*([^\s)]+)/gi),
@@ -106,6 +111,8 @@ export function scanCss(text, { file, vocabulary, appPrefix, gapClasses, lineOff
       add(line, "banned-blend-mode", `${property} is not part of the system.`, "Remove the blend mode.");
     }
 
+    // A name with the prefix from before 0.6.0, such as var(--gw-space-md), a keyframe name or an anchor name.
+    addOld(line, `${property} ${plain}`);
     // A custom property is judged where it is used: a checked property accepts only system tokens.
     if (property.startsWith("--")) return;
 
@@ -113,7 +120,9 @@ export function scanCss(text, { file, vocabulary, appPrefix, gapClasses, lineOff
     const category = categoryOf(bare);
     if (category) {
       for (const name of names) {
-        if (!vocabulary.tokenNames.has(name)) add(line, category.rule, `${property} uses var(${name}), which is not a system token.`, category.fix);
+        if (!vocabulary.tokenNames.has(name) && !name.startsWith(`--${OLD_PREFIX}-`)) {
+          add(line, category.rule, `${property} uses var(${name}), which is not a system token.`, category.fix);
+        }
       }
     }
 
@@ -138,12 +147,12 @@ export function scanCss(text, { file, vocabulary, appPrefix, gapClasses, lineOff
     if (COLOR_PROPERTY.test(bare)) raw.push(...words(rest).filter((word) => NAMED_COLORS.has(word.toLowerCase())));
     for (const color of raw) {
       const nearest = nearestColorToken(vocabulary, color);
-      add(line, "raw-color", `${property} uses the raw colour ${color}.`, nearest ? `Use a colour token. Nearest: ${nearest}` : "Use a var(--gw-color-…) token.");
+      add(line, "raw-color", `${property} uses the raw colour ${color}.`, nearest ? `Use a colour token. Nearest: ${nearest}` : "Use a var(--ds-color-…) token.");
     }
   }
 
   function categoryOf(bare) {
-    if (COLOR_PROPERTY.test(bare)) return { rule: "raw-color", fix: "Use a var(--gw-color-…) token." };
+    if (COLOR_PROPERTY.test(bare)) return { rule: "raw-color", fix: "Use a var(--ds-color-…) token." };
     if (bare === "box-shadow" || bare === "text-shadow") return { rule: "raw-shadow", fix: shadowFix() };
     if (bare === "font-family" || bare === "font") {
       const fix = `Use ${vocabulary.tokens.font.map((name) => `var(${name})`).join(" or ")}.`;
@@ -155,21 +164,21 @@ export function scanCss(text, { file, vocabulary, appPrefix, gapClasses, lineOff
     if (SPACING_PROPERTY.test(bare)) return scaleCategory("off-scale-spacing", "space", "the spacing scale", INSET_PROPERTY.test(bare), ["auto"]);
     if (RADIUS_PROPERTY.test(bare)) return scaleCategory("off-scale-radius", "radius", "the radius scale", false);
     if (bare === "z-index") {
-      return { rule: "raw-z-index", fix: "Use a var(--gw-z-…) token.", check: (property, rest, line) => {
+      return { rule: "raw-z-index", fix: "Use a var(--ds-z-…) token.", check: (property, rest, line) => {
         for (const word of words(rest)) {
           if (isZero(word) || word === "auto" || NEUTRAL.has(word) || MATH.has(word)) continue;
           const nearest = nearestNumericToken(vocabulary, "z", Number(word));
-          add(line, "raw-z-index", `z-index uses ${word}, which is not on the layering scale.`, nearest ? `Use a layering token. Nearest: ${nearest}` : "Use a var(--gw-z-…) token.");
+          add(line, "raw-z-index", `z-index uses ${word}, which is not on the layering scale.`, nearest ? `Use a layering token. Nearest: ${nearest}` : "Use a var(--ds-z-…) token.");
         }
       } };
     }
     if (DURATION_PROPERTY.test(bare)) {
-      return { rule: "raw-duration", fix: "Use a var(--gw-duration-…) token.", check: (property, rest, line) => {
+      return { rule: "raw-duration", fix: "Use a var(--ds-duration-…) token.", check: (property, rest, line) => {
         for (const word of words(rest)) {
           const [, amount, unit] = word.match(/^([\d.]+)(m?s)$/i) ?? [];
           if (amount === undefined || Number(amount) === 0) continue;
           const nearest = nearestNumericToken(vocabulary, "duration", Number(amount) * (unit.toLowerCase() === "s" ? 1000 : 1));
-          add(line, "raw-duration", `${property} uses ${word}, which is not a duration token.`, nearest ? `Use a duration token. Nearest: ${nearest}` : "Use a var(--gw-duration-…) token.");
+          add(line, "raw-duration", `${property} uses ${word}, which is not a duration token.`, nearest ? `Use a duration token. Nearest: ${nearest}` : "Use a var(--ds-duration-…) token.");
         }
       } };
     }

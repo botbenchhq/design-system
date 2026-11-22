@@ -1,7 +1,7 @@
 // The behaviour of the combobox component, for an app without a framework.
 // One ES module with no dependencies: <script type="module" src="behaviors/combobox.js"></script>
 //
-// <gw-combobox> wraps the markup of the combobox component, in the light DOM. As the reader types it
+// <ds-combobox> wraps the markup of the combobox component, in the light DOM. As the reader types it
 // sets hidden on the options that do not match, aria-expanded on the input, aria-selected on the active
 // option and aria-activedescendant on the input, and writes the result count into the element's
 // role="status" line. It handles Down, Up, Home, End, Enter and Escape, and a press on an option.
@@ -11,7 +11,7 @@
 const INPUT = '[role="combobox"]';
 const OPTION = '[role="option"]';
 
-class GwCombobox extends HTMLElement {
+class DsCombobox extends HTMLElement {
   constructor() {
     super();
     for (const type of ["input", "keydown", "click", "mousedown", "focusout"]) this.addEventListener(type, this);
@@ -60,7 +60,7 @@ class GwCombobox extends HTMLElement {
 
     const status = this.querySelector('[role="status"]');
     if (!status) return;
-    const sentence = status.dataset.gwCount ?? "{count} of {total}";
+    const sentence = status.dataset.dsCount ?? "{count} of {total}";
     status.textContent =
       count === 0 && message
         ? message.textContent.trim()
@@ -143,4 +143,4 @@ class GwCombobox extends HTMLElement {
   }
 }
 
-if (!customElements.get("gw-combobox")) customElements.define("gw-combobox", GwCombobox);
+if (!customElements.get("ds-combobox")) customElements.define("ds-combobox", DsCombobox);

@@ -4,42 +4,42 @@
  * because the drawing is hidden from assistive technology and too small to read a number from.
  */
 
-@layer gw.components {
-  .gw-sparkline {
+@layer ds.components {
+  .ds-sparkline {
     display: inline-flex;
     flex-wrap: wrap;
     align-items: center;
-    column-gap: var(--gw-space-sm);
+    column-gap: var(--ds-space-sm);
     min-width: 0;
     vertical-align: middle;
   }
 
   /* 64px by 16px, the size of the viewBox, so one unit in the drawing is one pixel. The line keeps the main text colour inside quiet text. */
-  .gw-sparkline__chart {
+  .ds-sparkline__chart {
     flex: none;
-    color: var(--gw-color-on-surface);
-    width: calc(var(--gw-space-2xl) * 2);
-    height: var(--gw-space-lg);
+    color: var(--ds-color-on-surface);
+    width: calc(var(--ds-space-2xl) * 2);
+    height: var(--ds-space-lg);
     overflow: visible;
   }
 
-  .gw-sparkline__line {
+  .ds-sparkline__line {
     fill: none;
     stroke: currentColor;
-    stroke-width: calc(var(--gw-border-width) * 1.5);
+    stroke-width: calc(var(--ds-border-width) * 1.5);
     stroke-linecap: round;
     stroke-linejoin: round;
   }
 
   /* The latest value, marked so the eye knows which end is now. */
-  .gw-sparkline__last {
+  .ds-sparkline__last {
     fill: currentColor;
   }
 
-  .gw-sparkline__text {
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+  .ds-sparkline__text {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
     overflow-wrap: anywhere;
   }
 }

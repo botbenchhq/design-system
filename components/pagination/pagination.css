@@ -4,78 +4,78 @@
  * Below that the row reads: Previous, "Page 3 of 12", Next.
  */
 
-@layer gw.components {
-  .gw-pagination {
+@layer ds.components {
+  .ds-pagination {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
     min-width: 0;
   }
 
   /* Below 768px the controls are laid out as items of the row itself, so the status can sit between them. */
-  .gw-pagination__controls {
+  .ds-pagination__controls {
     display: contents;
   }
 
-  .gw-pagination__status {
+  .ds-pagination__status {
     flex: 1;
     order: 2;
-    color: var(--gw-color-muted);
+    color: var(--ds-color-muted);
     text-align: center;
     white-space: nowrap;
   }
 
-  .gw-pagination__previous {
+  .ds-pagination__previous {
     order: 1;
   }
 
-  .gw-pagination__next {
+  .ds-pagination__next {
     order: 3;
   }
 
-  .gw-pagination__pages {
+  .ds-pagination__pages {
     display: none;
     order: 2;
   }
 
-  .gw-pagination__page,
-  .gw-pagination__gap {
+  .ds-pagination__page,
+  .ds-pagination__gap {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--gw-size-touch);
-    min-height: var(--gw-size-touch);
-    color: var(--gw-color-muted);
+    min-width: var(--ds-size-touch);
+    min-height: var(--ds-size-touch);
+    color: var(--ds-color-muted);
   }
 
-  .gw-pagination__page {
-    padding-inline: var(--gw-space-sm);
-    border-width: var(--gw-border-width);
+  .ds-pagination__page {
+    padding-inline: var(--ds-space-sm);
+    border-width: var(--ds-border-width);
     border-color: transparent;
-    border-radius: var(--gw-radius-md);
+    border-radius: var(--ds-radius-md);
     font-variant-numeric: tabular-nums;
     transition-property: background-color, border-color, color;
-    transition-duration: var(--gw-duration-fast);
-    transition-timing-function: var(--gw-ease);
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
   }
 
   /* The status leads and the controls sit together at the far end. */
   @media (min-width: 768px) {
-    .gw-pagination__status {
+    .ds-pagination__status {
       order: 0;
       text-align: start;
     }
 
     /* Kept at the far end when the row is too narrow and they wrap under the status. */
-    .gw-pagination__controls {
+    .ds-pagination__controls {
       display: flex;
       align-items: center;
-      gap: var(--gw-space-sm);
+      gap: var(--ds-space-sm);
       margin-inline-start: auto;
     }
 
-    .gw-pagination__pages {
+    .ds-pagination__pages {
       display: flex;
       align-items: center;
     }
@@ -83,22 +83,22 @@
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   @media (hover: hover) {
-    .gw-pagination__page:hover {
-      background-color: var(--gw-color-surface-sunken);
-      color: var(--gw-color-on-surface);
+    .ds-pagination__page:hover {
+      background-color: var(--ds-color-surface-sunken);
+      color: var(--ds-color-on-surface);
     }
   }
 
-  .gw-pagination__page:active {
-    background-color: var(--gw-color-border);
-    color: var(--gw-color-on-surface);
+  .ds-pagination__page:active {
+    background-color: var(--ds-color-border);
+    color: var(--ds-color-on-surface);
   }
 
   /* The current page is marked by a border and a heavier number, as well as by colour. */
-  .gw-pagination__page[aria-current]:not([aria-current="false"]) {
-    border-color: var(--gw-color-border-strong);
-    background-color: var(--gw-color-surface-raised);
-    color: var(--gw-color-on-surface);
-    font-weight: var(--gw-weight-semibold);
+  .ds-pagination__page[aria-current]:not([aria-current="false"]) {
+    border-color: var(--ds-color-border-strong);
+    background-color: var(--ds-color-surface-raised);
+    color: var(--ds-color-on-surface);
+    font-weight: var(--ds-weight-semibold);
   }
 }

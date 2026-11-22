@@ -1,23 +1,23 @@
 <div data-example="default" data-title="A view that failed to load" data-state="error" data-reason="The title says what failed, the sentence says what to do, and Retry does it without leaving the view. The role makes a screen reader announce the failure when it replaces the content.">
-  <div class="gw-error-state" role="alert">
-    <h2 class="gw-error-state__title">The runs could not be loaded</h2>
+  <div class="ds-error-state" role="alert">
+    <h2 class="ds-error-state__title">The runs could not be loaded</h2>
     <p>The server did not answer in time. Check your connection, then retry.</p>
-    <div class="gw-error-state__action">
-      <button type="button" class="gw-button">Retry</button>
+    <div class="ds-error-state__action">
+      <button type="button" class="ds-button">Retry</button>
     </div>
   </div>
 </div>
 
 <div data-example="with-detail" data-title="With technical detail, closed">
-  <div class="gw-error-state" role="alert">
-    <h2 class="gw-error-state__title">The diff for fix/login-timeout could not be loaded</h2>
+  <div class="ds-error-state" role="alert">
+    <h2 class="ds-error-state__title">The diff for fix/login-timeout could not be loaded</h2>
     <p>The repository host refused the request. Retry in a minute, or reconnect acme/api if it keeps failing.</p>
-    <div class="gw-error-state__action">
-      <button type="button" class="gw-button">Retry</button>
+    <div class="ds-error-state__action">
+      <button type="button" class="ds-button">Retry</button>
     </div>
-    <details class="gw-error-state__detail">
-      <summary class="gw-error-state__summary">Technical detail</summary>
-      <pre class="gw-error-state__output">GET /api/repositories/acme/api/compare/main...fix/login-timeout
+    <details class="ds-error-state__detail">
+      <summary class="ds-error-state__summary">Technical detail</summary>
+      <pre class="ds-error-state__output">GET /api/repositories/acme/api/compare/main...fix/login-timeout
 403 Forbidden
 x-ratelimit-remaining: 0
 request id 7f3c2a91</pre>
@@ -26,15 +26,15 @@ request id 7f3c2a91</pre>
 </div>
 
 <div data-example="detail-open" data-title="With technical detail, open" data-state="open">
-  <div class="gw-error-state" role="alert">
-    <h2 class="gw-error-state__title">The run log could not be loaded</h2>
+  <div class="ds-error-state" role="alert">
+    <h2 class="ds-error-state__title">The run log could not be loaded</h2>
     <p>The runner is offline, so its log cannot be read. Retry when the runner is back, or start the run again on another runner.</p>
-    <div class="gw-error-state__action">
-      <button type="button" class="gw-button">Retry</button>
+    <div class="ds-error-state__action">
+      <button type="button" class="ds-button">Retry</button>
     </div>
-    <details class="gw-error-state__detail" open>
-      <summary class="gw-error-state__summary">Technical detail</summary>
-      <pre class="gw-error-state__output">GET /api/runs/run_8842/log
+    <details class="ds-error-state__detail" open>
+      <summary class="ds-error-state__summary">Technical detail</summary>
+      <pre class="ds-error-state__output">GET /api/runs/run_8842/log
 502 Bad Gateway
 upstream runner-eu-3.internal:7443 refused the connection after 3 attempts
 request id 2b9e0c14</pre>
@@ -43,25 +43,25 @@ request id 2b9e0c14</pre>
 </div>
 
 <div data-example="retrying" data-title="While the retry runs" data-state="loading">
-  <div class="gw-error-state">
-    <h2 class="gw-error-state__title">The runs could not be loaded</h2>
+  <div class="ds-error-state">
+    <h2 class="ds-error-state__title">The runs could not be loaded</h2>
     <p>The server did not answer in time. Check your connection, then retry.</p>
-    <div class="gw-error-state__action">
-      <button type="button" class="gw-button" aria-busy="true">Retrying</button>
+    <div class="ds-error-state__action">
+      <button type="button" class="ds-button" aria-busy="true">Retrying</button>
     </div>
   </div>
 </div>
 
 <div data-example="icon-summary" data-title="A summary with no text" data-dont="summary-without-text" data-reason="A chevron alone does not say what it opens, and a screen reader announces only that something can be expanded. Write what the disclosure holds in its summary.">
-  <div class="gw-error-state" role="alert">
-    <h2 class="gw-error-state__title">The runs could not be loaded</h2>
+  <div class="ds-error-state" role="alert">
+    <h2 class="ds-error-state__title">The runs could not be loaded</h2>
     <p>The server did not answer in time. Check your connection, then retry.</p>
-    <div class="gw-error-state__action">
-      <button type="button" class="gw-button">Retry</button>
+    <div class="ds-error-state__action">
+      <button type="button" class="ds-button">Retry</button>
     </div>
-    <details class="gw-error-state__detail">
-      <summary class="gw-error-state__summary"></summary>
-      <pre class="gw-error-state__output">GET /api/runs
+    <details class="ds-error-state__detail">
+      <summary class="ds-error-state__summary"></summary>
+      <pre class="ds-error-state__output">GET /api/runs
 504 Gateway Timeout</pre>
     </details>
   </div>

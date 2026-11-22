@@ -4,49 +4,49 @@
  * the bar is not shown, and the sidebar nav lists the same destinations.
  */
 
-@layer gw.components {
+@layer ds.components {
   /*
    * Sticky to the bottom of the page, as the last element in it. The padding keeps
    * the labels clear of the home indicator on a phone without a home button.
    */
-  .gw-tab-bar {
+  .ds-tab-bar {
     position: sticky;
     bottom: 0;
-    z-index: var(--gw-z-sticky);
+    z-index: var(--ds-z-sticky);
     display: flex;
     padding-bottom: env(safe-area-inset-bottom);
-    border-top-width: var(--gw-border-width);
-    background-color: var(--gw-color-surface-raised);
+    border-top-width: var(--ds-border-width);
+    background-color: var(--ds-color-surface-raised);
   }
 
   /* Equal columns, whatever the labels hold. */
-  .gw-tab-bar__item {
+  .ds-tab-bar__item {
     position: relative;
     display: flex;
     flex: 1 1 0;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--gw-space-xs);
-    min-width: var(--gw-size-touch);
-    min-height: calc(var(--gw-size-touch) + var(--gw-space-md));
-    padding: var(--gw-space-sm) var(--gw-space-xs);
-    color: var(--gw-color-muted);
-    font-size: var(--gw-text-xs);
-    line-height: var(--gw-leading-xs);
+    gap: var(--ds-space-xs);
+    min-width: var(--ds-size-touch);
+    min-height: calc(var(--ds-size-touch) + var(--ds-space-md));
+    padding: var(--ds-space-sm) var(--ds-space-xs);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
     transition-property: background-color, color;
-    transition-duration: var(--gw-duration-fast);
-    transition-timing-function: var(--gw-ease);
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
   }
 
-  .gw-tab-bar__icon {
+  .ds-tab-bar__icon {
     flex: none;
-    width: calc(var(--gw-space-lg) + var(--gw-space-xs));
-    height: calc(var(--gw-space-lg) + var(--gw-space-xs));
+    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
   }
 
   /* One line. A label too long for its column is cut with an ellipsis. */
-  .gw-tab-bar__label {
+  .ds-tab-bar__label {
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -55,35 +55,35 @@
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   @media (hover: hover) {
-    .gw-tab-bar__item:hover {
-      background-color: var(--gw-color-surface-sunken);
-      color: var(--gw-color-on-surface);
+    .ds-tab-bar__item:hover {
+      background-color: var(--ds-color-surface-sunken);
+      color: var(--ds-color-on-surface);
     }
   }
 
-  .gw-tab-bar__item:active {
-    background-color: var(--gw-color-surface-sunken);
-    color: var(--gw-color-on-surface);
+  .ds-tab-bar__item:active {
+    background-color: var(--ds-color-surface-sunken);
+    color: var(--ds-color-on-surface);
   }
 
   /* The current destination is marked by weight and by a bar over it, as well as by colour. */
-  .gw-tab-bar__item[aria-current="page"] {
-    color: var(--gw-color-on-surface);
-    font-weight: var(--gw-weight-semibold);
+  .ds-tab-bar__item[aria-current="page"] {
+    color: var(--ds-color-on-surface);
+    font-weight: var(--ds-weight-semibold);
   }
 
   /* The bar sits on the top border of the tab bar. */
-  .gw-tab-bar__item[aria-current="page"]::before {
+  .ds-tab-bar__item[aria-current="page"]::before {
     content: "";
     position: absolute;
-    top: calc(var(--gw-border-width) * -1);
-    inset-inline: var(--gw-space-md);
-    height: calc(var(--gw-border-width) * 2);
-    background-color: var(--gw-color-accent);
+    top: calc(var(--ds-border-width) * -1);
+    inset-inline: var(--ds-space-md);
+    height: calc(var(--ds-border-width) * 2);
+    background-color: var(--ds-color-accent);
   }
 
   @media (min-width: 768px) {
-    .gw-tab-bar {
+    .ds-tab-bar {
       display: none;
     }
   }

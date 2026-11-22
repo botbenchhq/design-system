@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "test": "node vendor/design-system/checker/check.mjs --config design-system.config.json && node --test"
+  }
+}

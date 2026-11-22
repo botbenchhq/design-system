@@ -23,7 +23,7 @@
   ],
   "states": ["default", "hover", "focus-visible", "active", "disabled"],
   "accessibility": [
-    "Use a div with gw-slider holding, in this order: a label with gw-slider__label, an output with gw-slider__value, a div with gw-slider__track around an input type=\"range\" with gw-slider__input, then a span with gw-slider__min and a span with gw-slider__max.",
+    "Use a div with ds-slider holding, in this order: a label with ds-slider__label, an output with ds-slider__value, a div with ds-slider__track around an input type=\"range\" with ds-slider__input, then a span with ds-slider__min and a span with ds-slider__max.",
     "The label's for attribute matches the input's id. Set min, max, step and value on the input.",
     "The output holds the current value in words with its unit, and its for attribute names the input. The app rewrites its text on the input's input event. An output is a live region, so a screen reader announces the new words after the thumb moves.",
     "When a step has a name, or the bare number would mislead, also set aria-valuetext on the input to the same words, so the slider itself is read as High and not as 3.",
@@ -35,12 +35,12 @@
   ],
   "icons": [],
   "classes": [
-    "gw-slider",
-    "gw-slider__input",
-    "gw-slider__label",
-    "gw-slider__max",
-    "gw-slider__min",
-    "gw-slider__track",
-    "gw-slider__value"
+    "ds-slider",
+    "ds-slider__input",
+    "ds-slider__label",
+    "ds-slider__max",
+    "ds-slider__min",
+    "ds-slider__track",
+    "ds-slider__value"
   ]
 }

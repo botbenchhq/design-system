@@ -1,29 +1,29 @@
 /*
- * Select: a native select as the control of a field. The select element carries gw-field__control,
+ * Select: a native select as the control of a field. The select element carries ds-field__control,
  * which draws the border, the fill and the invalid and disabled states, so this stylesheet must load after the field's.
  * The wrapper exists only to draw the chevron, because a select element cannot hold a pseudo-element.
  */
 
-@layer gw.components {
-  .gw-select {
+@layer ds.components {
+  .ds-select {
     position: relative;
     display: block;
   }
 
   /* The native arrow goes, and the end padding keeps a long option clear of the chevron drawn in its place. */
-  .gw-select__control {
+  .ds-select__control {
     appearance: none;
-    padding-inline-end: calc(var(--gw-space-md) * 2 + var(--gw-space-lg));
+    padding-inline-end: calc(var(--ds-space-md) * 2 + var(--ds-space-lg));
     text-overflow: ellipsis;
   }
 
-  .gw-select::after {
+  .ds-select::after {
     content: "";
     position: absolute;
     top: 50%;
-    inset-inline-end: var(--gw-space-md);
-    width: var(--gw-space-lg);
-    height: var(--gw-space-lg);
+    inset-inline-end: var(--ds-space-md);
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
     background-color: currentColor;
     mask: url("icons/chevron-down.svg") center / contain no-repeat;
     translate: 0 -50%;
@@ -31,11 +31,11 @@
   }
 
   /* Some browsers fade a disabled select. The muted colour from the field already marks it. */
-  .gw-select__control:disabled {
+  .ds-select__control:disabled {
     opacity: 1;
   }
 
-  .gw-select:has(.gw-select__control:disabled)::after {
-    background-color: var(--gw-color-muted);
+  .ds-select:has(.ds-select__control:disabled)::after {
+    background-color: var(--ds-color-muted);
   }
 }

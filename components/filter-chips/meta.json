@@ -24,10 +24,10 @@
   ],
   "states": ["default", "selected", "hover", "focus-visible", "disabled"],
   "accessibility": [
-    "Use a fieldset with the class gw-filter-chips and a legend with gw-filter-chips__legend that says what is filtered. Add gw-visually-hidden to the legend where a heading already says it. The chips go in a div with gw-filter-chips__list.",
-    "Each chip is a label with gw-filter-chips__chip holding an input with gw-filter-chips__input and then the chip's text. The input is the first child. The label gives the input its name, so a screen reader announces Failed, checkbox, checked.",
+    "Use a fieldset with the class ds-filter-chips and a legend with ds-filter-chips__legend that says what is filtered. Add ds-visually-hidden to the legend where a heading already says it. The chips go in a div with ds-filter-chips__list.",
+    "Each chip is a label with ds-filter-chips__chip holding an input with ds-filter-chips__input and then the chip's text. The input is the first child. The label gives the input its name, so a screen reader announces Failed, checkbox, checked.",
     "The state is the input's own checked state. A chip that is on is filled and shows a check, and one that is off is outlined and shows a plus, both drawn by the stylesheet. Nothing is set by script.",
-    "Clear filters is a button with gw-button gw-button--quiet gw-button--small, placed after the last chip inside gw-filter-chips__list, or after the last group when there are several. Inside a form served with nothing checked, type=\"reset\" clears the chips with no script. Otherwise use type=\"button\", and the app unchecks every input and moves focus to the first chip.",
+    "Clear filters is a button with ds-button ds-button--quiet ds-button--small, placed after the last chip inside ds-filter-chips__list, or after the last group when there are several. Inside a form served with nothing checked, type=\"reset\" clears the chips with no script. Otherwise use type=\"button\", and the app unchecks every input and moves focus to the first chip.",
     "Tab reaches each checkbox and Space switches it. Radios are one tab stop: the arrow keys move between them and select as they go. All of it comes from the inputs.",
     "After the list is filtered, say how many items match in an element with role=\"status\" below the chips, such as 9 of 128 runs are awaiting approval or failed.",
     "Set the disabled attribute on an input, or on the fieldset to disable every chip and the Clear button at once, and say why in the view.",
@@ -35,10 +35,10 @@
   ],
   "icons": ["check", "plus"],
   "classes": [
-    "gw-filter-chips",
-    "gw-filter-chips__chip",
-    "gw-filter-chips__input",
-    "gw-filter-chips__legend",
-    "gw-filter-chips__list"
+    "ds-filter-chips",
+    "ds-filter-chips__chip",
+    "ds-filter-chips__input",
+    "ds-filter-chips__legend",
+    "ds-filter-chips__list"
   ]
 }

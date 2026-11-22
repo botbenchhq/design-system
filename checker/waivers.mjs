@@ -1,7 +1,9 @@
-// An inline waiver is a comment holding `gw-waive <rule-id>: <reason>`.
+// An inline waiver is a comment holding `ds-waive <rule-id>: <reason>`.
 // It covers findings of that rule on its own line and on the next line.
 
-const WAIVER = /gw-waive\b[ \t]*([a-z][a-z-]*)?[ \t]*(?::(.*))?/;
+const WAIVER = /ds-waive\b[ \t]*([a-z][a-z-]*)?[ \t]*(?::(.*))?/;
+// A waiver written with the prefix from before 0.6.0. It waives nothing, and is reported as old-prefix.
+const OLD_WAIVER = /(?<![\w-])gw-waive\b/;
 
 // Findings that say the run itself cannot be trusted. No waiver covers them.
 const NOT_WAIVABLE = new Set(["vendored-file-changed", "parse-error", "waiver-without-reason", "unused-waiver"]);
@@ -15,6 +17,11 @@ export function parseWaivers(text) {
     waivers.push({ line: at + 1, rule: match[1] ?? "", reason });
   });
   return waivers;
+}
+
+// The lines that hold a waiver with the old prefix.
+export function oldWaiverLines(text) {
+  return text.split("\n").flatMap((content, at) => (OLD_WAIVER.test(content) ? [at + 1] : []));
 }
 
 // Splits findings into those that stand and those a waiver covers, and reports bad and unused waivers.
@@ -31,7 +38,7 @@ export function applyWaivers(findings, waiversByFile) {
           line: waiver.line,
           rule: "waiver-without-reason",
           message: waiver.rule === "" ? "This waiver names no rule, so it is ignored." : `This waiver of ${waiver.rule} gives no reason, so it is ignored.`,
-          fix: "Write it as: gw-waive <rule-id>: <reason>",
+          fix: "Write it as: ds-waive <rule-id>: <reason>",
         });
         continue;
       }

@@ -5,81 +5,81 @@
  * The buttons and the menu come from the button and menu components.
  */
 
-@layer gw.components {
+@layer ds.components {
   /*
    * Placed after the list it acts on, in the same container, so it sticks to the bottom of the
    * screen for as long as the list is in view. A 1px border and the raised surface set it off
    * from the rows passing under it. It is part of the page, not an overlay, so it has no shadow.
    */
-  .gw-selection-basket {
+  .ds-selection-basket {
     position: sticky;
-    bottom: calc(var(--gw-space-sm) + env(safe-area-inset-bottom));
-    z-index: var(--gw-z-sticky);
+    bottom: calc(var(--ds-space-sm) + env(safe-area-inset-bottom));
+    z-index: var(--ds-z-sticky);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    column-gap: var(--gw-space-lg);
-    row-gap: var(--gw-space-md);
+    column-gap: var(--ds-space-lg);
+    row-gap: var(--ds-space-md);
     min-width: 0;
-    padding: var(--gw-space-sm) var(--gw-space-md);
-    border-width: var(--gw-border-width);
-    border-color: var(--gw-color-border-strong);
-    border-radius: var(--gw-radius-md);
-    background-color: var(--gw-color-surface-raised);
+    padding: var(--ds-space-sm) var(--ds-space-md);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
   }
 
   /* The count, then "Clear selection". At compact widths this is the bar's first line. */
-  .gw-selection-basket__selection {
+  .ds-selection-basket__selection {
     display: flex;
     flex: 1;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    column-gap: var(--gw-space-sm);
+    column-gap: var(--ds-space-sm);
     min-width: 0;
   }
 
-  .gw-selection-basket__count {
-    font-weight: var(--gw-weight-medium);
+  .ds-selection-basket__count {
+    font-weight: var(--ds-weight-medium);
     font-variant-numeric: tabular-nums;
   }
 
   /* The bulk action and "More". At compact widths they take the second line. */
-  .gw-selection-basket__actions {
+  .ds-selection-basket__actions {
     display: flex;
     flex-basis: 100%;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--gw-space-sm);
+    gap: var(--ds-space-sm);
   }
 
   /* What went wrong when the bulk action failed, on a line of its own. */
-  .gw-selection-basket__error {
+  .ds-selection-basket__error {
     display: flex;
     flex-basis: 100%;
-    gap: var(--gw-space-xs);
-    color: var(--gw-color-danger);
+    gap: var(--ds-space-xs);
+    color: var(--ds-color-danger);
     overflow-wrap: anywhere;
   }
 
-  .gw-selection-basket__error::before {
+  .ds-selection-basket__error::before {
     content: "";
     flex: none;
-    width: var(--gw-space-lg);
-    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     background-color: currentColor;
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }
 
   /* At the regular width the bar is one line: the count and "Clear selection" at the start, the actions at the far end. */
   @media (min-width: 768px) {
-    .gw-selection-basket__selection {
+    .ds-selection-basket__selection {
       flex: none;
       justify-content: flex-start;
     }
 
-    .gw-selection-basket__actions {
+    .ds-selection-basket__actions {
       flex-basis: auto;
     }
   }

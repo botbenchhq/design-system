@@ -36,35 +36,35 @@ const selectorFor = (name) => "." + name.replace(/:/g, "\\:");
 const find = (rules, selector) => rules.find((rule) => rule.selector === selector);
 
 test("every colour token in dist/tokens.css is six-digit hex", () => {
-  const colours = [...read("tokens.css").matchAll(/(--gw-color-[\w-]+):\s*([^;]+);/g)];
+  const colours = [...read("tokens.css").matchAll(/(--ds-color-[\w-]+):\s*([^;]+);/g)];
   assert.ok(colours.length > 20);
   for (const [, name, value] of colours) assert.match(value, /^#[0-9A-Fa-f]{6}$/, name);
 });
 
-test("every custom property is prefixed --gw- and sits in the gw.tokens layer", () => {
+test("every custom property is prefixed --ds- and sits in the ds.tokens layer", () => {
   const css = read("tokens.css");
-  assert.ok(css.includes("@layer gw.reset, gw.tokens, gw.base, gw.components;"));
-  assert.deepEqual(css.match(/--(?!gw-)[\w-]+\s*:/g), null);
-  const outside = css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/@layer gw\.tokens \{[\s\S]*\n\}/, "");
-  assert.doesNotMatch(outside, /--gw-/);
+  assert.ok(css.includes("@layer ds.reset, ds.tokens, ds.base, ds.components;"));
+  assert.deepEqual(css.match(/--(?!ds-)[\w-]+\s*:/g), null);
+  const outside = css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/@layer ds\.tokens \{[\s\S]*\n\}/, "");
+  assert.doesNotMatch(outside, /--ds-/);
 });
 
 test("dark values are declared for the dark theme and for the auto theme under a dark system setting", () => {
   const tokens = parseTokens(read("tokens.css"));
-  assert.equal(tokens.light["--gw-color-surface"], "#FAFAF9");
-  assert.notEqual(tokens.dark["--gw-color-surface"], tokens.light["--gw-color-surface"]);
-  const colours = Object.keys(tokens.light).filter((name) => name.startsWith("--gw-color-"));
+  assert.equal(tokens.light["--ds-color-surface"], "#FAFAF9");
+  assert.notEqual(tokens.dark["--ds-color-surface"], tokens.light["--ds-color-surface"]);
+  const colours = Object.keys(tokens.light).filter((name) => name.startsWith("--ds-color-"));
   for (const name of colours) assert.ok(tokens.dark[name], `${name} has no dark value`);
   assert.match(read("tokens.css"), /@media \(prefers-color-scheme: dark\) \{\s*\[data-theme="auto"\] \{/);
 });
 
 test("a text pair below 4.5:1 fails the build and names both tokens and the ratio", () => {
   const root = copySources();
-  const pairs = [{ foreground: "--gw-color-muted", background: "--gw-color-border", kind: "text" }];
+  const pairs = [{ foreground: "--ds-color-muted", background: "--ds-color-border", kind: "text" }];
   writeFileSync(join(root, "tokens", "pairs.json"), JSON.stringify(pairs));
   assert.throws(
     () => build({ root, outDir: tempDir() }),
-    /--gw-color-muted on --gw-color-border is 3\.76:1 in the light theme, below 4\.5:1/,
+    /--ds-color-muted on --ds-color-border is 3\.76:1 in the light theme, below 4\.5:1/,
   );
 });
 
@@ -77,7 +77,7 @@ test("every listed pair passes in light and dark", () => {
 
 test("Tailwind emits rules for token classes and none for classes outside the vocabulary", async () => {
   const { rules } = await buildFixture();
-  assert.match(find(rules, ".bg-surface").css, /background-color: var\(--gw-color-surface\)/);
+  assert.match(find(rules, ".bg-surface").css, /background-color: var\(--ds-color-surface\)/);
   const kept = [
     "text-on-surface", "border-border", "text-muted", "bg-accent", "font-ui", "font-mono", "text-ui",
     "text-mono", "p-xs", "px-sm", "py-md", "gap-lg", "m-xl", "mt-2xl", "rounded-sm", "rounded-md",
@@ -95,22 +95,22 @@ test("the only breakpoint Tailwind emits is 768px", async () => {
   assert.equal(JSON.parse(read("manifest.json")).breakpoint, "768px");
 });
 
-test("with preflight off a gw.components background survives and an unlayered utility overrides it", async () => {
+test("with preflight off a ds.components background survives and an unlayered utility overrides it", async () => {
   const { rules, css } = await buildFixture();
-  assert.ok(css.includes("@layer gw.reset, gw.tokens, gw.base, gw.components;"));
-  const component = find(rules, ".gw-button");
-  assert.equal(component.layer, "gw.components");
-  assert.match(component.css, /background-color: var\(--gw-color-surface-raised\)/);
+  assert.ok(css.includes("@layer ds.reset, ds.tokens, ds.base, ds.components;"));
+  const component = find(rules, ".ds-button");
+  assert.equal(component.layer, "ds.components");
+  assert.match(component.css, /background-color: var\(--ds-color-surface-raised\)/);
   // No preflight means nothing unlayered resets a button's background.
   assert.equal(rules.filter((rule) => !rule.layer && /background-color:\s*transparent/.test(rule.css)).length, 0);
   // An unlayered rule beats a layered one whatever the specificity or order.
   assert.equal(find(rules, ".bg-accent").layer, undefined);
 });
 
-test("a rule in Tailwind's base layer is emitted unlayered, so it overrides gw.components", async () => {
+test("a rule in Tailwind's base layer is emitted unlayered, so it overrides ds.components", async () => {
   const { rules } = await buildFixture();
   const base = find(rules, "button");
-  assert.match(base.css, /background-color: var\(--gw-color-surface-sunken\)/);
+  assert.match(base.css, /background-color: var\(--ds-color-surface-sunken\)/);
   assert.equal(base.layer, undefined);
 });
 
@@ -165,7 +165,7 @@ test("every value in the Tailwind preset is a token reference or a neutral keywo
   const leaves = (value) => (typeof value === "string" ? [value] : Object.values(value).flatMap(leaves));
   for (const [key, scale] of Object.entries(theme)) {
     for (const leaf of leaves(scale)) {
-      assert.ok(neutral.has(leaf) || /^var\(--gw-[\w-]+\)$/.test(leaf), `${key}: ${leaf}`);
+      assert.ok(neutral.has(leaf) || /^var\(--ds-[\w-]+\)$/.test(leaf), `${key}: ${leaf}`);
     }
   }
   assert.deepEqual(theme.screens, { md: "768px" });
@@ -179,11 +179,11 @@ test("a strict TypeScript config that imports the preset typechecks", () => {
   execFileSync(tsc, ["-p", join(repoRoot, "test", "fixtures", "typescript")], { stdio: "pipe" });
 });
 
-test("a theme that declares an unknown --gw- name fails validation", () => {
+test("a theme that declares an unknown --ds- name fails validation", () => {
   const known = Object.keys(parseTokens(read("tokens.css")).light);
-  validateTheme('[data-theme="dark"] { --gw-color-accent: #222222; }', known);
+  validateTheme('[data-theme="dark"] { --ds-color-accent: #222222; }', known);
   assert.throws(
-    () => validateTheme(":root { --gw-color-accent: #222222; --gw-color-brand: #663399; }", known),
-    /--gw-color-brand is not a token/,
+    () => validateTheme(":root { --ds-color-accent: #222222; --ds-color-brand: #663399; }", known),
+    /--ds-color-brand is not a token/,
   );
 });

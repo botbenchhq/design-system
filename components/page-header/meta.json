@@ -16,26 +16,26 @@
   ],
   "variants": [
     { "name": "default", "use": "The title at 24px at every width, the size of a plain h1. Use it on most views." },
-    { "name": "compact", "class": "gw-page-header--compact", "use": "The title at 16px with a 12px description, for a dense screen. Pair it with a small button. A plain h2 is drawn larger than this title, so under a compact header head sections with h3 or with component titles, which are no larger than it." }
+    { "name": "compact", "class": "ds-page-header--compact", "use": "The title at 16px with a 12px description, for a dense screen. Pair it with a small button. A plain h2 is drawn larger than this title, so under a compact header head sections with h3 or with component titles, which are no larger than it." }
   ],
   "sizes": [],
   "states": ["default"],
   "accessibility": [
-    "Use a header element, with the title as the view's one h1. The app header above it shows the product name, which is a link and not a heading. When the app header shows the view title in gw-app-header__title instead, that title is the h1 and the page header is left out. Never write both.",
+    "Use a header element, with the title as the view's one h1. The app header above it shows the product name, which is a link and not a heading. When the app header shows the view title in ds-app-header__title instead, that title is the h1 and the page header is left out. Never write both.",
     "Head the sections under it with h2, which the base layer draws a step smaller than the title, or with the titles of the components they hold.",
     "The description is a p directly after the title, one sentence long.",
     "The action is one button, or one link styled as a button when it goes to another view. It may be the view's primary button, and then no other button in the view is primary.",
-    "In the compact variant use gw-button--small, which keeps a 44px pointer target.",
+    "In the compact variant use ds-button--small, which keeps a 44px pointer target.",
     "On a narrow screen the action moves below the text instead of squeezing it. A long title wraps and is never cut.",
     "The header adds no keyboard behaviour. Tab reaches the action in document order, after the title and description."
   ],
   "icons": ["plus"],
   "classes": [
-    "gw-page-header",
-    "gw-page-header--compact",
-    "gw-page-header__action",
-    "gw-page-header__description",
-    "gw-page-header__text",
-    "gw-page-header__title"
+    "ds-page-header",
+    "ds-page-header--compact",
+    "ds-page-header__action",
+    "ds-page-header__description",
+    "ds-page-header__text",
+    "ds-page-header__title"
   ]
 }

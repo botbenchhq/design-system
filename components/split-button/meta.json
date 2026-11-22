@@ -15,16 +15,16 @@
   ],
   "variants": [
     { "name": "secondary", "use": "The default. Both halves are plain buttons." },
-    { "name": "primary", "use": "The main action also carries gw-button--primary when it is the one main action of the view. The menu button stays a plain button, so the pair never shows two accent fills." }
+    { "name": "primary", "use": "The main action also carries ds-button--primary when it is the one main action of the view. The menu button stays a plain button, so the pair never shows two accent fills." }
   ],
   "sizes": [
     { "name": "default", "use": "44px tall. The menu button is 44px wide." }
   ],
   "states": ["default", "hover", "focus-visible", "active", "open", "disabled", "busy"],
   "accessibility": [
-    "Use a div with gw-split-button, role=\"group\" and an aria-label that names the main action. It holds the main action, then the menu button, then the menu, in that order.",
-    "The main action is a button with gw-button and gw-split-button__action. Its label is a verb and what it acts on. Pressing it never opens the menu.",
-    "The menu button is a button with gw-button and gw-split-button__toggle, popovertarget set to the menu's id and aria-haspopup=\"menu\". It holds the chevron icon with aria-hidden=\"true\" and its own name in a gw-visually-hidden span, such as More ways to start the task. The name is never the main action's label again.",
+    "Use a div with ds-split-button, role=\"group\" and an aria-label that names the main action. It holds the main action, then the menu button, then the menu, in that order.",
+    "The main action is a button with ds-button and ds-split-button__action. Its label is a verb and what it acts on. Pressing it never opens the menu.",
+    "The menu button is a button with ds-button and ds-split-button__toggle, popovertarget set to the menu's id and aria-haspopup=\"menu\". It holds the chevron icon with aria-hidden=\"true\" and its own name in a ds-visually-hidden span, such as More ways to start the task. The name is never the main action's label again.",
     "The menu is the menu component, copied from its examples, with the same name as the menu button in its aria-label. Its items are other ways to do the main action. The main action itself is not repeated in it.",
     "At most the main action is primary. Two primary halves fail the one-primary-action rule.",
     "Tab reaches the main action and then the menu button. Enter and Space activate each. The browser opens and closes the menu, closes it on Escape and on a press outside, and returns focus to the menu button. Arrow keys inside the menu are the menu component's.",
@@ -33,8 +33,8 @@
   ],
   "icons": ["chevron-down", "git-branch"],
   "classes": [
-    "gw-split-button",
-    "gw-split-button__action",
-    "gw-split-button__toggle"
+    "ds-split-button",
+    "ds-split-button__action",
+    "ds-split-button__toggle"
   ]
 }
