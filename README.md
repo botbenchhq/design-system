@@ -2,17 +2,27 @@
 
 A shared design system for a small set of apps. It holds one closed vocabulary of design tokens, a default theme, a base layer of styles, fonts and icons, and the files generated from them. An app copies `dist/` into its own repo.
 
-This repo currently contains the tokens, the base layer, the checker with its static scan and structural rules, the contract every component follows, two components built to it (button and field), the gallery, and their derived files. The rest of the catalogue and the sync script are not built yet.
+This repo currently contains the tokens, the base layer, the checker with its static scan and structural rules, the contract every component follows, a starter set of 24 components built to it, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The rest of the catalogue is not built yet. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
+
+To use the system in an app, follow `docs/consumer-guide.md`. In short:
+
+```sh
+node ../groundwork/scripts/sync.mjs --to vendor/groundwork
+```
+
+This copies `dist/` into the app and writes `hashes.json` there. The copy is read-only: the checker fails when a file in it has changed. Running it again updates the copy and prints the components and checker rules that were added, changed or removed. It stops, naming the files, when the copy was edited by hand. With `--check` it writes nothing and prints one line when a newer version is available.
 
 To check a frontend against the vocabulary, run `node dist/checker/check.mjs <paths>`. It exits 0 when clean, 1 on findings and 2 when it could not run.
 
 The structural rules cover one primary action per view, disclosure limits, nested and identical cards, badge clutter, emoji used as icons, repeated stock phrases and centred body text. The static scan applies them to HTML files. In an app that composes its pages in script, run them on the rendered page from a browser test:
 
 ```js
-await page.addScriptTag({ path: "vendor/groundwork/check-dom.js" });
+await page.evaluate(readFileSync("vendor/groundwork/check-dom.js", "utf8"));
 const findings = await page.evaluate(() => gwCheckDom());
 expect(findings).toEqual([]);
 ```
+
+Evaluate the file's text. Injecting it as a script tag fails under a content security policy that allows no inline script.
 
 Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start of the element's markup.
 
@@ -30,9 +40,12 @@ Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start 
 | `tokens.json` | The same tokens as data, in the Design Tokens Community Group format. Dark values are under `$extensions.groundwork.dark`. |
 | `tailwind-preset.js`, `tailwind-preset.d.ts` | A Tailwind 3 preset whose values are references to the custom properties. |
 | `design-tokens.md` | The token block for the front matter of an app's `DESIGN.md`. |
-| `manifest.json` | Token names and allowed values by category, the breakpoint, the utility classes a screen may use, and every class of the system. |
+| `manifest.json` | Token names and allowed values by category, the breakpoint, the utility classes a screen may use, every class of the system, and every rule ID the checker can report. |
 | `checker/` | The checker. It has no dependencies and reads `manifest.json` beside it. |
 | `check-dom.js` | The structural rules as one classic script for a browser test to inject. It defines `gwCheckDom()`. |
+| `rules/` | The rules an agent reads. `core.md` is short and every agent reads it. It says when to open the longer files: principles, disclosure, the never list, content, choosing a component, the checker's rules and the review rubric. |
+| `hooks/` | An optional Claude Code hook that denies edits to the vendored copy and runs the static scan on an edited file, with an example settings fragment. |
+| `VERSION` | The version of this copy. |
 
 `dist/` is generated and committed. Do not edit it by hand.
 
@@ -88,6 +101,8 @@ When the system asks for reduced motion, every transition runs for zero seconds.
 | `gw-container` | A centred column no wider than the transcript size. Add `gw-container-narrow` for the column size. |
 
 Each has a default gap. Add `gw-gap-xs`, `gw-gap-sm`, `gw-gap-md`, `gw-gap-lg`, `gw-gap-xl` or `gw-gap-2xl` to change it.
+
+`gw-visually-hidden` keeps text out of sight and available to assistive technology, such as the label of an icon-only control.
 
 ## Components
 
@@ -160,7 +175,7 @@ npm test
 npm run test:visual
 ```
 
-`npm run build` regenerates `dist/` from `tokens/`, `base/`, `components/`, `gallery/` and `checker/` and prints the contrast report. It fails, naming the folder, when a component breaks the authoring contract. It reads nothing from `node_modules`. `npm test` includes a check that the committed `dist/` matches a fresh build.
+`npm run build` regenerates `dist/` from `tokens/`, `base/`, `components/`, `gallery/`, `checker/`, `rules/` and `hooks/` and prints the contrast report. It fails, naming the folder, when a component breaks the authoring contract, and when `rules/core.md` is longer than 2,400 characters. It reads nothing from `node_modules`. `npm test` includes a check that the committed `dist/` matches a fresh build.
 
 `npm run test:visual` opens a bare page that links `dist/groundwork.css` in the Chrome installed on the machine and checks the fonts, the focus ring and the spacing. It needs Google Chrome and downloads no browser. It also runs `dist/check-dom.js` on the fixture pages and on a small React app, and checks that the rendered and static results agree. For each component's gallery page, at 390px and 1280px in light and dark, it runs axe and the structural rules on the do examples, measures the pointer targets, and writes a screenshot to `test/visual/screenshots/` for review.
 

@@ -1,14 +1,18 @@
 {
   "name": "field",
   "title": "Field",
-  "purpose": "One labelled text input, with its description and its error message.",
+  "purpose": "One labelled control, a text input, a textarea or a select, with its description and its error message.",
   "status": "draft",
   "whenToUse": [
     "For one line of text the reader types: a name, a path, a branch, a search term.",
-    "Whenever a text input needs a label, which is always."
+    "Around a textarea or a select, which take their label, description and error from the field.",
+    "Whenever a control needs a label, which is always."
   ],
   "whenNotToUse": [
-    "For a choice from a fixed list. Use a select, radio group or checkbox.",
+    "With a bare text input for more than one line of text. Use a textarea as the field's control.",
+    "With a bare text input for a choice from a fixed list. Use a select as the field's control.",
+    "For the prompt under a transcript. Use a composer.",
+    "For a value the reader cannot change but will copy. Use a copy field.",
     "For a value the reader cannot change and never needs to copy. Write it as plain text."
   ],
   "variants": [],

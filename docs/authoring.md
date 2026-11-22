@@ -1,6 +1,6 @@
 # Authoring a component
 
-This is the contract every component follows. `components/button/` and `components/field/` are built to it. Copy one of them to start.
+This is the contract every component follows. Every folder in `components/` is built to it. Copy `components/button/` or `components/field/` to start.
 
 A component is one folder, `components/<name>/`, holding three hand-written files:
 
@@ -33,6 +33,7 @@ Nothing else needs editing. `npm run build` reads every folder and adds the comp
 
 - Every rule is inside `@layer gw.components`.
 - Class names are `gw-<name>` for the block, `gw-<name>__part` for an element inside it and `gw-<name>--variant` for a variant or size. A stylesheet defines no class outside its own name.
+- One element may carry the classes of two components when one composes the other. A textarea and a select are the control of a field, so each sits on the same element as `gw-field__control` and adds to it. The build bundles component stylesheets in alphabetical order of folder name, and such a pair relies on that order: the component that adds must sort after the one it builds on.
 - Values are tokens: `var(--gw-…)` for every colour, font, type size, spacing, radius, shadow, duration and layer. Do not write a raw colour or length where a token exists, and do not declare a custom property. A calculation on a token is allowed, such as `calc(var(--gw-border-width) * 2)`.
 - No gradient, blur, backdrop filter, blend mode or text clipped to a background.
 - The only width in a media query is 768px, written as the number: `@media (min-width: 768px)`. Style the compact layout first.
@@ -98,14 +99,18 @@ A tooltip or hover card holds supplementary information only. Nothing the reader
 `examples.html` is a fragment, not a page. It holds only example elements, one after another at the top level. Comments between them are allowed.
 
 ```html
-<div data-example="one-primary" data-title="One primary action" data-reason="The view has one main action, and the primary button marks it." class="gw-cluster">
-  <button type="button" class="gw-button gw-button--primary">Start task</button>
-  <button type="button" class="gw-button">Save as template</button>
+<div data-example="one-primary" data-title="One primary action" data-reason="The view has one main action, and the primary button marks it.">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-button--primary">Start task</button>
+    <button type="button" class="gw-button">Save as template</button>
+  </div>
 </div>
 
-<div data-example="two-primaries" data-title="Two primary actions" data-dont="one-primary-action" data-reason="Two primary buttons compete, and the reader has to work out which one matters." class="gw-cluster">
-  <button type="button" class="gw-button gw-button--primary">Start task</button>
-  <button type="button" class="gw-button gw-button--primary">Save as template</button>
+<div data-example="two-primaries" data-title="Two primary actions" data-dont="one-primary-action" data-reason="Two primary buttons compete, and the reader has to work out which one matters.">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-button--primary">Start task</button>
+    <button type="button" class="gw-button gw-button--primary">Save as template</button>
+  </div>
 </div>
 ```
 
@@ -119,7 +124,7 @@ The wrapper element is any element. Its attributes, written with double quotes:
 | `data-dont` | On a don't example | The id of the checker rule the example breaks, or `review` when no rule can catch it. |
 | `data-reason` | On every don't, and on the do paired with one | One or two sentences on why. |
 
-The wrapper may carry layout classes such as `gw-cluster` or `gw-stack`. It is not part of the component: what an agent copies is the markup inside it.
+The wrapper is not part of the component: what an agent copies is the markup inside it. So a layout class the example needs, such as `gw-cluster` or `gw-stack`, goes on an element inside the wrapper, not on the wrapper itself, where it would be lost from the copied markup. Some existing examples carry a layout class on the wrapper. Do not copy that.
 
 Rules for the set of examples:
 
@@ -130,6 +135,10 @@ Rules for the set of examples:
 - A don't example with a rule id breaks that rule and no other. Use `review` for a mistake only a person can see, such as a placeholder used as a label.
 - For `hover`, `active`, `focus` and `focus-visible`, show the control at rest. The screenshot test forces the state on every control in that example.
 - An `id` is unique across the file. Start it with the component and example names, such as `field-invalid-error`.
+- An example may use another component's classes, such as a button inside an alert. Copy that component's markup from its own examples.
+- All the examples of a component share one gallery page. Give each landmark a label that is unique on that page, such as a different `aria-label` on each `nav`, or axe reports the duplicates.
+- A control inside a closed `<details>` cannot be hit-tested, so the pointer-target test cannot measure it. In a do example, keep controls out of collapsed content or give the element the `open` attribute.
+- A component with no controls, such as a badge or a spinner, is fine. Its examples have no pointer targets to measure.
 - Reference an icon as `icons.svg#gw-icon-<name>`, with no directory. The gallery adds its own path, and an app adds the path it serves the system from.
 
 ```html
@@ -152,7 +161,7 @@ Rules for the set of examples:
 | `whenNotToUse` | list of text | The situations it is not for, each naming what to use instead. |
 | `variants` | list | One entry per variant. |
 | `sizes` | list | One entry per size. |
-| `states` | list of text | Every state the styles cover, such as `default`, `hover`, `focus-visible`, `active`, `disabled`, `busy`, `invalid`, `read-only`, `open`, `selected`, `empty`, `loading`, `error`. |
+| `states` | list of text | Every state the component has, such as `default`, `hover`, `focus-visible`, `active`, `disabled`, `busy`, `invalid`, `read-only`, `open`, `selected`, `empty`, `loading`, `error`. A content state such as `loading`, `empty` or `error` may have an example and no styling of its own: the example shows what the component holds in that state. |
 | `accessibility` | list of text | The element to use, the attributes to set, what the keyboard does. |
 | `icons` | list of text | Every icon the examples reference and the stylesheet draws. Each is in `base/icons.json`. |
 | `classes` | list of text | Every class the stylesheet defines: the block, its parts and its modifiers. |

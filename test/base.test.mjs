@@ -17,6 +17,7 @@ const LAYER_OF = {
   "typography.css": "gw.base",
   "layout.css": "gw.base",
   "focus.css": "gw.base",
+  "visually-hidden.css": "gw.base",
 };
 
 // The names of the at-rules of one kind that enclose a node, innermost first.
@@ -38,7 +39,7 @@ const baseStylesheets = () => readdirSync(base).filter((name) => name.endsWith("
 const iconList = () => JSON.parse(readFileSync(join(base, "icons.json"), "utf8"));
 
 test("every selector in base/ sits inside a gw. layer: the reset in gw.reset, the rest in gw.base", () => {
-  assert.deepEqual(baseStylesheets(), ["focus.css", "fonts.css", "layout.css", "reset.css", "typography.css"]);
+  assert.deepEqual(baseStylesheets(), ["focus.css", "fonts.css", "layout.css", "reset.css", "typography.css", "visually-hidden.css"]);
   for (const name of baseStylesheets()) {
     const rules = rulesIn(join(base, name));
     // fonts.css holds @font-face rules only, which have no selector and no place in the cascade.

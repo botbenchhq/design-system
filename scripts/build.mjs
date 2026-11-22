@@ -1,4 +1,4 @@
-// Generates everything in dist/ from tokens/, base/, components/, gallery/ and checker/. Run with `npm run build`.
+// Generates everything in dist/ from tokens/, base/, components/, gallery/, checker/, rules/ and hooks/. Run with `npm run build`.
 // `npm run vendor` refreshes the font and icon files under base/ from node_modules.
 
 import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
@@ -17,7 +17,7 @@ const CATEGORIES = [
 ];
 
 // The bundled stylesheet is tokens.css followed by these, in this order.
-const BASE_STYLES = ["reset.css", "typography.css", "layout.css", "focus.css", "fonts.css"];
+const BASE_STYLES = ["reset.css", "typography.css", "layout.css", "visually-hidden.css", "focus.css", "fonts.css"];
 
 // Each file in base/fonts/ and the place in node_modules it is copied from.
 const FONT_SOURCES = {
@@ -39,6 +39,9 @@ const DOM_BUNDLE = [
 ];
 
 const MINIMUM_CONTRAST = { text: 4.5, ui: 3 };
+
+// rules/core.md is the one file every agent reads, so its length is capped. About 400 tokens.
+export const CORE_RULES_LIMIT = 2400;
 
 // What meta.json holds, in the order components.json lists it. The contract is docs/authoring.md.
 const COMPONENT_FIELDS = {
@@ -311,7 +314,17 @@ function designTokens(groups, tokens) {
   return `---\n${yaml(block)}---\n`;
 }
 
-function manifest(groups, tokens, classes) {
+// Every rule ID the checker can emit, read from its source. A rule is named where it is defined (id: "…"),
+// where a finding is made (rule: "…", add(line, "…")) or where a scale rule is set up (scaleCategory("…")).
+export function ruleIds(checker) {
+  const named = /(?:\b(?:rule|id): |\badd\([\w.]+, |\bscaleCategory\()"([a-z]+(?:-[a-z]+)+)"/g;
+  const ids = listFiles(checker)
+    .filter((file) => file.endsWith(".mjs"))
+    .flatMap((file) => [...readFileSync(join(checker, file), "utf8").matchAll(named)].map(([, id]) => id));
+  return [...new Set(ids)].sort();
+}
+
+function manifest(groups, tokens, classes, rules) {
   const names = {};
   const values = {};
   for (const [category, keys] of Object.entries(groups)) {
@@ -331,6 +344,7 @@ function manifest(groups, tokens, classes) {
       sizeKeys: [...Object.keys(groups.size), "auto", "full", "screen", "none"],
     },
     classes,
+    rules,
   };
 }
 
@@ -637,7 +651,13 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   const iconNames = JSON.parse(readFileSync(join(base, "icons.json"), "utf8"));
   const icons = Object.fromEntries(iconNames.map((name) => [name, readFileSync(join(base, "icons", `${name}.svg`))]));
   const components = readComponents(root);
-  const classes = [...new Set([...classesIn(readFileSync(join(base, "layout.css"), "utf8")), ...components.flatMap(({ meta }) => meta.classes)])].sort();
+  const classes = [...new Set([...baseStyles.flatMap(classesIn), ...components.flatMap(({ meta }) => meta.classes)])].sort();
+  const checker = join(root, "checker");
+  const { version } = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
+  const coreRules = readFileSync(join(root, "rules", "core.md"), "utf8");
+  if (coreRules.length > CORE_RULES_LIMIT) {
+    throw new Error(`rules/core.md is ${coreRules.length} characters. The limit is ${CORE_RULES_LIMIT}. Move detail to another rules file.`);
+  }
 
   const files = {
     "tokens.css": source,
@@ -648,20 +668,24 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
     "tailwind-preset.js": `export default ${JSON.stringify(preset, null, 2)};\n`,
     "tailwind-preset.d.ts": presetTypes(preset),
     "design-tokens.md": designTokens(groups, tokens),
-    "manifest.json": json(manifest(groups, tokens, classes)),
+    "manifest.json": json(manifest(groups, tokens, classes, ruleIds(checker))),
     "components.json": json(componentIndex(components)),
     "gallery/index.html": galleryIndex(components),
+    VERSION: `${version}\n`,
   };
   for (const component of components) files[`gallery/${component.name}.html`] = galleryComponent(component);
   for (const name of GALLERY_FILES) files[`gallery/${name}`] = readFileSync(join(root, "gallery", name));
   for (const [name, svg] of Object.entries(icons)) files[`icons/${name}.svg`] = svg;
   for (const name of Object.keys(FONT_SOURCES)) files[`fonts/${name}`] = readFileSync(join(base, "fonts", name));
   // The checker ships as source: it has no dependencies and reads the manifest one directory up.
-  const checker = join(root, "checker");
   for (const name of listFiles(checker).filter((file) => file.endsWith(".mjs"))) {
     files[`checker/${name}`] = readFileSync(join(checker, name));
   }
   files["check-dom.js"] = domBundle(checker, tokens.light[groups.size.column]);
+  for (const name of listFiles(join(root, "rules")).filter((file) => file.endsWith(".md"))) {
+    files[`rules/${name}`] = readFileSync(join(root, "rules", name));
+  }
+  for (const name of listFiles(join(root, "hooks"))) files[`hooks/${name}`] = readFileSync(join(root, "hooks", name));
 
   rmSync(outDir, { recursive: true, force: true });
   for (const [name, content] of Object.entries(files)) {

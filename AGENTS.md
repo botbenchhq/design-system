@@ -12,12 +12,19 @@ Groundwork is a shared design system. Apps copy `dist/` into their own repo and 
 - A dark value goes in both the `[data-theme="dark"]` block and the `[data-theme="auto"]` block. The build fails if the two differ.
 - A new text and background combination needs an entry in `tokens/pairs.json`. The build fails when a text pair is below 4.5:1 or a `ui` pair is below 3:1, in either theme.
 - The one breakpoint is 768px. A custom property cannot be used in a media query, so write the number there.
-- `base/` holds the reset, typography, layout primitives, focus ring, fonts and icons. The build bundles them with the tokens into `dist/groundwork.css` and copies fonts and icons into `dist/`.
+- `base/` holds the reset, typography, layout primitives, the visually hidden class, focus ring, fonts and icons. The build bundles them with the tokens into `dist/groundwork.css` and copies fonts and icons into `dist/`.
 - `components/<name>/` is one component: `<name>.css`, `examples.html` and `meta.json`, all written by hand. `docs/authoring.md` is the contract for them. Read it before adding or changing a component.
 - To add a component, add its folder and nothing else. The build puts it in `dist/groundwork.css`, `dist/components.json`, the manifest's class list and the gallery, and fails, naming the folder, if the folder breaks the contract.
 - Component styles key off native state and ARIA attributes, never off a class a script would toggle. No component uses an inline `style` attribute.
 - `gallery/` holds the gallery's own stylesheet and script. They select by element and `data-gallery` attribute, use token values only, and are not part of the system.
 - `checker/` is the checker, shipped as source in `dist/checker/`. It has no dependencies.
+- The build reads every rule ID out of the checker's source into the `rules` list of `dist/manifest.json`. It finds an ID written as `id: "…"`, `rule: "…"`, `add(line, "…")` or `scaleCategory("…")`, so write a new rule's ID in one of those forms.
+- `rules/` holds the rules an app's agents read, written by hand and copied to `dist/rules/`. `rules/core.md` is the one file every agent reads, and the build fails when it is longer than 2,400 characters. Put detail in the longer files and point to them from `core.md`.
+- Every rule ID the checker can report has a row in `rules/checker-rules.md`: the ID, what it means and the fix. Add the row with the rule.
+- In a rules file, a code span holding one lower-case word names a component, a checker rule, a system class or a `data-` or `aria-` attribute, and a test checks that each exists. `rules/choosing-components.md` names every component, so add a new component there.
+- `hooks/` holds the optional Claude Code hook and its example settings, copied to `dist/hooks/`.
+- `scripts/sync.mjs` copies `dist/` into an app and writes `hashes.json` there. `docs/consumer-guide.md` is how an app adopts the system. A test sets up an app from the commands and files in that guide, so keep its code blocks exact.
+- The version is the `version` in `package.json`, which the build writes to `dist/VERSION`. A release raises it and adds an entry to `CHANGELOG.md`.
 - A structural rule is a function over a document tree in `checker/rules/`. It must run unchanged on a parsed HTML file and in a browser, so it uses only the tree helpers in `checker/rules/tree.mjs`, never `node:` modules or the DOM. The build joins the files listed in `DOM_BUNDLE` in `scripts/build.mjs` into `dist/check-dom.js`: add a new rule file to that list, and keep top-level names unique across those files.
 - No runtime dependencies. Development dependencies are for tests (React and esbuild only build a test fixture) and for `npm run vendor`, which copies font and icon files from `node_modules` into `base/`. The build never reads `node_modules`.
 - Node 24, ES modules. Tests use `node --test`.

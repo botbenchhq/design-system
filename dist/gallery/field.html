@@ -16,7 +16,7 @@
 <main data-gallery="page">
 <header>
 <h1>Field</h1>
-<p>One labelled text input, with its description and its error message.</p>
+<p>One labelled control, a text input, a textarea or a select, with its description and its error message.</p>
 <p data-gallery="status">Status: draft</p>
 </header>
 <section>
@@ -133,13 +133,17 @@
 <h2>When to use it</h2>
 <ul>
 <li>For one line of text the reader types: a name, a path, a branch, a search term.</li>
-<li>Whenever a text input needs a label, which is always.</li>
+<li>Around a textarea or a select, which take their label, description and error from the field.</li>
+<li>Whenever a control needs a label, which is always.</li>
 </ul>
 </section>
 <section>
 <h2>When not to use it</h2>
 <ul>
-<li>For a choice from a fixed list. Use a select, radio group or checkbox.</li>
+<li>With a bare text input for more than one line of text. Use a textarea as the field's control.</li>
+<li>With a bare text input for a choice from a fixed list. Use a select as the field's control.</li>
+<li>For the prompt under a transcript. Use a composer.</li>
+<li>For a value the reader cannot change but will copy. Use a copy field.</li>
 <li>For a value the reader cannot change and never needs to copy. Write it as plain text.</li>
 </ul>
 </section>
