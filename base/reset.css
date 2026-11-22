@@ -1,0 +1,168 @@
+/*
+ * The reset. A Tailwind app turns preflight off and relies on this instead, so
+ * it keeps the defaults Tailwind utilities assume: border-box sizing, and a
+ * zero-width solid border that a width utility alone makes visible.
+ */
+
+@layer gw.reset {
+  *,
+  ::before,
+  ::after,
+  ::backdrop,
+  ::file-selector-button {
+    box-sizing: border-box;
+    border: 0 solid var(--gw-color-border);
+  }
+
+  :root {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  [data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  [data-theme="auto"] {
+    color-scheme: light dark;
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  figure,
+  pre,
+  dl,
+  dd,
+  hr,
+  fieldset {
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  ol,
+  ul,
+  menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  fieldset,
+  legend,
+  dialog {
+    padding: 0;
+  }
+
+  hr {
+    height: 0;
+    color: inherit;
+    border-top-width: var(--gw-border-width);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-color: inherit;
+    text-indent: 0;
+  }
+
+  button,
+  input,
+  optgroup,
+  select,
+  textarea,
+  ::file-selector-button {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+  }
+
+  button,
+  input:where([type="button"], [type="reset"], [type="submit"]),
+  ::file-selector-button {
+    background-color: transparent;
+    background-image: none;
+  }
+
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  :disabled {
+    cursor: default;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  ::placeholder {
+    opacity: 1;
+    color: var(--gw-color-muted);
+  }
+
+  summary {
+    display: list-item;
+  }
+
+  img,
+  svg,
+  video,
+  canvas,
+  audio,
+  iframe,
+  embed,
+  object {
+    display: block;
+    vertical-align: middle;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* A layered display value would otherwise beat the browser's own rule for hidden. */
+  [hidden]:where(:not([hidden="until-found"])) {
+    display: none;
+  }
+
+  /*
+   * Important, and in the first layer, so that no later layer and no app rule
+   * can bring a transition back for someone who asked for less motion.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after,
+    ::backdrop {
+      transition-duration: 0s !important;
+    }
+  }
+}

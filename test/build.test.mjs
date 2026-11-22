@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
-import { build, staleFiles } from "../scripts/build.mjs";
+import { build, listFiles, staleFiles } from "../scripts/build.mjs";
 import { copySources, repoRoot, tempDir } from "./helpers.mjs";
 
 const committed = join(repoRoot, "dist");
@@ -12,9 +12,9 @@ test("building twice produces byte-identical output", () => {
   const second = tempDir();
   build({ outDir: first });
   build({ outDir: second });
-  const names = readdirSync(first).sort();
+  const names = listFiles(first);
   assert.ok(names.length > 0);
-  assert.deepEqual(readdirSync(second).sort(), names);
+  assert.deepEqual(listFiles(second), names);
   for (const name of names) {
     assert.ok(readFileSync(join(first, name)).equals(readFileSync(join(second, name))), name);
   }

@@ -1,0 +1,60 @@
+/*
+ * Type for plain elements. Sizes are set on body, not on the root element, so
+ * the root font size and every rem in an app stay as the browser has them.
+ */
+
+@layer gw.base {
+  body {
+    font-family: var(--gw-font-ui);
+    font-size: var(--gw-text-ui);
+    font-weight: var(--gw-weight-normal);
+    line-height: var(--gw-leading-ui);
+    color: var(--gw-color-on-surface);
+    background-color: var(--gw-color-surface);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  b,
+  strong {
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  h1 {
+    font-size: var(--gw-text-2xl);
+    line-height: var(--gw-leading-2xl);
+  }
+
+  h2 {
+    font-size: var(--gw-text-xl);
+    line-height: var(--gw-leading-xl);
+  }
+
+  h3 {
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+  }
+
+  small {
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+  }
+
+  /* A link with a class is a component and draws itself. */
+  a:not([class]) {
+    text-decoration-line: underline;
+  }
+}

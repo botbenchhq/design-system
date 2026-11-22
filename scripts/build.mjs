@@ -1,8 +1,9 @@
-// Generates everything in dist/ from tokens/. Run with `npm run build`.
+// Generates everything in dist/ from tokens/ and base/. Run with `npm run build`.
+// `npm run vendor` refreshes the font and icon files under base/ from node_modules.
 
-import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
@@ -14,6 +15,22 @@ const CATEGORIES = [
   "border-width", "breakpoint", "color", "duration", "ease", "font", "leading",
   "radius", "shadow", "size", "space", "text", "weight", "z",
 ];
+
+// The bundled stylesheet is tokens.css followed by these, in this order.
+const BASE_STYLES = ["reset.css", "typography.css", "layout.css", "focus.css", "fonts.css"];
+
+// Each file in base/fonts/ and the place in node_modules it is copied from.
+const FONT_SOURCES = {
+  "ibm-plex-sans-latin-wght-normal.woff2": "@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2",
+  "ibm-plex-mono-latin-400-normal.woff2": "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2",
+  "ibm-plex-mono-latin-500-normal.woff2": "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2",
+  "ibm-plex-mono-latin-600-normal.woff2": "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2",
+  "OFL-IBM-Plex-Sans.txt": "@fontsource-variable/ibm-plex-sans/LICENSE",
+  "OFL-IBM-Plex-Mono.txt": "@fontsource/ibm-plex-mono/LICENSE",
+};
+
+// What a symbol keeps from an icon's root element, so one drawn through <use> looks like the single file.
+const SYMBOL_ATTRIBUTES = ["viewBox", "fill", "stroke", "stroke-width", "stroke-linecap", "stroke-linejoin"];
 
 const MINIMUM_CONTRAST = { text: 4.5, ui: 3 };
 
@@ -301,6 +318,44 @@ function manifest(groups, tokens) {
 
 const json = (value) => `${JSON.stringify(value, null, 2)}\n`;
 
+function symbol(name, svg) {
+  const [, root, body] = svg.match(/<svg([^>]*)>([\s\S]*)<\/svg>/);
+  const attributes = [...root.matchAll(/([\w-]+)="([^"]*)"/g)]
+    .filter(([, attribute]) => SYMBOL_ATTRIBUTES.includes(attribute))
+    .map(([pair]) => pair);
+  const shapes = body.trim().split(/\s*\n\s*/).join("");
+  return `  <symbol id="gw-icon-${name}" ${attributes.join(" ")}>${shapes}</symbol>\n`;
+}
+
+function sprite(icons) {
+  const symbols = Object.entries(icons).map(([name, svg]) => symbol(name, svg.toString()));
+  return `<!-- Icons from Lucide, ISC License. The notice is in icons/LICENSE. -->\n<svg xmlns="http://www.w3.org/2000/svg">\n${symbols.join("")}</svg>\n`;
+}
+
+// Every file under dir, as a path relative to it with forward slashes.
+export function listFiles(dir) {
+  return readdirSync(dir, { recursive: true, withFileTypes: true })
+    .filter((entry) => entry.isFile())
+    .map((entry) => relative(dir, join(entry.parentPath, entry.name)).replaceAll("\\", "/"))
+    .sort();
+}
+
+// Copies the font files and the icons named in base/icons.json out of the installed development dependencies.
+export function vendor(root = repoRoot) {
+  const modules = join(root, "node_modules");
+  const fonts = join(root, "base", "fonts");
+  const icons = join(root, "base", "icons");
+  for (const dir of [fonts, icons]) {
+    rmSync(dir, { recursive: true, force: true });
+    mkdirSync(dir, { recursive: true });
+  }
+  for (const [name, source] of Object.entries(FONT_SOURCES)) copyFileSync(join(modules, source), join(fonts, name));
+  for (const name of JSON.parse(readFileSync(join(root, "base", "icons.json"), "utf8"))) {
+    copyFileSync(join(modules, "lucide-static", "icons", `${name}.svg`), join(icons, `${name}.svg`));
+  }
+  copyFileSync(join(modules, "lucide-static", "LICENSE"), join(icons, "LICENSE"));
+}
+
 export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   const source = readFileSync(join(root, "tokens", "tokens.css"), "utf8");
   const pairs = JSON.parse(readFileSync(join(root, "tokens", "pairs.json"), "utf8"));
@@ -312,17 +367,30 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   const groups = groupByCategory(Object.keys(tokens.light));
   const preset = tailwindPreset(groups, tokens.light[groups.breakpoint.DEFAULT]);
 
+  const base = join(root, "base");
+  const baseStyles = BASE_STYLES.map((name) => readFileSync(join(base, name), "utf8"));
+  const iconNames = JSON.parse(readFileSync(join(base, "icons.json"), "utf8"));
+  const icons = Object.fromEntries(iconNames.map((name) => [name, readFileSync(join(base, "icons", `${name}.svg`))]));
+
   const files = {
     "tokens.css": source,
+    "groundwork.css": [source, ...baseStyles].join("\n"),
+    "icons.svg": sprite(icons),
+    "icons/LICENSE": readFileSync(join(base, "icons", "LICENSE")),
     "tokens.json": json(tokenData(groups, tokens)),
     "tailwind-preset.js": `export default ${JSON.stringify(preset, null, 2)};\n`,
     "tailwind-preset.d.ts": presetTypes(preset),
     "design-tokens.md": designTokens(groups, tokens),
     "manifest.json": json(manifest(groups, tokens)),
   };
+  for (const [name, svg] of Object.entries(icons)) files[`icons/${name}.svg`] = svg;
+  for (const name of Object.keys(FONT_SOURCES)) files[`fonts/${name}`] = readFileSync(join(base, "fonts", name));
+
   rmSync(outDir, { recursive: true, force: true });
-  mkdirSync(outDir, { recursive: true });
-  for (const [name, content] of Object.entries(files)) writeFileSync(join(outDir, name), content);
+  for (const [name, content] of Object.entries(files)) {
+    mkdirSync(dirname(join(outDir, name)), { recursive: true });
+    writeFileSync(join(outDir, name), content);
+  }
   return { files: Object.keys(files), contrast };
 }
 
@@ -332,8 +400,8 @@ export function staleFiles({ root = repoRoot, distDir = join(root, "dist") } = {
   try {
     build({ root, outDir: fresh });
     const read = (dir, name) => readFileSync(join(dir, name), { flag: "r" });
-    const committed = new Set(readdirSync(distDir));
-    const built = new Set(readdirSync(fresh));
+    const committed = new Set(listFiles(distDir));
+    const built = new Set(listFiles(fresh));
     return [...new Set([...committed, ...built])]
       .filter((name) => !committed.has(name) || !built.has(name) || !read(fresh, name).equals(read(distDir, name)))
       .sort();
@@ -342,7 +410,10 @@ export function staleFiles({ root = repoRoot, distDir = join(root, "dist") } = {
   }
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (process.argv[1] === fileURLToPath(import.meta.url) && process.argv[2] === "vendor") {
+  vendor();
+  console.log("Copied fonts and icons into base/");
+} else if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const { files, contrast } = build();
   for (const row of contrast) {
     console.log(`pass ${row.ratio.toFixed(2)}:1 (${row.kind}, ${row.theme}) ${row.foreground} on ${row.background}`);

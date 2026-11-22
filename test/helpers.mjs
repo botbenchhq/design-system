@@ -9,9 +9,9 @@ export function tempDir() {
   return mkdtempSync(join(tmpdir(), "groundwork-"));
 }
 
-// A private copy of the token sources, so a test can edit them.
+// A private copy of the build sources, so a test can edit them.
 export function copySources() {
   const root = tempDir();
-  cpSync(join(repoRoot, "tokens"), join(root, "tokens"), { recursive: true });
+  for (const dir of ["tokens", "base"]) cpSync(join(repoRoot, dir), join(root, dir), { recursive: true });
   return root;
 }

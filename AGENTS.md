@@ -12,7 +12,8 @@ Groundwork is a shared design system. Apps copy `dist/` into their own repo and 
 - A dark value goes in both the `[data-theme="dark"]` block and the `[data-theme="auto"]` block. The build fails if the two differ.
 - A new text and background combination needs an entry in `tokens/pairs.json`. The build fails when a text pair is below 4.5:1 or a `ui` pair is below 3:1, in either theme.
 - The one breakpoint is 768px. A custom property cannot be used in a media query, so write the number there.
-- No runtime dependencies. Development dependencies are for tests only.
+- `base/` holds the reset, typography, layout primitives, focus ring, fonts and icons. The build bundles them with the tokens into `dist/groundwork.css` and copies fonts and icons into `dist/`.
+- No runtime dependencies. Development dependencies are for tests and for `npm run vendor`, which copies font and icon files from `node_modules` into `base/`. The build never reads `node_modules`.
 - Node 24, ES modules. Tests use `node --test`.
 
 ## Commands
