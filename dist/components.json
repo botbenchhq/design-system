@@ -1,6 +1,571 @@
 {
   "components": [
     {
+      "name": "alert",
+      "title": "Alert",
+      "purpose": "A message inside a view about the state of what the view shows.",
+      "status": "draft",
+      "whenToUse": [
+        "To tell the reader something about the run, task or repository on screen that changes what they should do next.",
+        "To report the result of an action where it happened, when the result should stay visible."
+      ],
+      "whenNotToUse": [
+        "For a mistake in one form control. Use the field's error message.",
+        "When a whole view failed to load. Use an error state.",
+        "When a view has nothing to show yet. Use an empty state.",
+        "For a confirmation that should go away by itself. Use a toast.",
+        "For a decision the reader must make before going on. Use a dialog."
+      ],
+      "variants": [
+        {
+          "name": "info",
+          "use": "The default, with no modifier class. Context the reader may want. Label it Note."
+        },
+        {
+          "name": "success",
+          "class": "gw-alert--success",
+          "use": "Something finished as intended. Label it Done."
+        },
+        {
+          "name": "warning",
+          "class": "gw-alert--warning",
+          "use": "Something will go wrong unless the reader acts. Label it Warning."
+        },
+        {
+          "name": "danger",
+          "class": "gw-alert--danger",
+          "use": "Something failed. Label it Error, and say what to do about it."
+        }
+      ],
+      "sizes": [],
+      "states": [
+        "default"
+      ],
+      "accessibility": [
+        "Every alert holds a gw-alert__label naming its tone in a word. The stylesheet draws the matching icon, so tone is carried by a word, an icon and a colour.",
+        "An alert that is part of the view when it loads takes no role. It is read in order with the rest of the content.",
+        "An alert the app adds in response to something takes role=\"status\" for info, success and warning, which is announced when the screen reader is next idle.",
+        "Use role=\"alert\" only for a failure the reader must know about now. It interrupts whatever is being read.",
+        "For the announcement to be reliable, add the element with its role first, or keep it in the page empty and hidden with the hidden attribute, then fill in the text.",
+        "The title and body are paragraphs, not headings, so an alert does not change the outline of the view.",
+        "At most one action: a gw-button gw-button--small inside gw-alert__action. Never primary. Use a link element when it goes to another view.",
+        "Do not move focus to an alert. The role announces it."
+      ],
+      "icons": [
+        "circle-alert",
+        "circle-check",
+        "info",
+        "triangle-alert"
+      ],
+      "classes": [
+        "gw-alert",
+        "gw-alert--danger",
+        "gw-alert--success",
+        "gw-alert--warning",
+        "gw-alert__action",
+        "gw-alert__body",
+        "gw-alert__content",
+        "gw-alert__label",
+        "gw-alert__title"
+      ],
+      "examples": [
+        {
+          "id": "tones",
+          "title": "The four tones",
+          "state": "default",
+          "markup": "<div class=\"gw-alert\">\n  <div class=\"gw-alert__content\">\n    <p class=\"gw-alert__label\">Note</p>\n    <p class=\"gw-alert__body\">This run used the setup commands saved for acme/api.</p>\n  </div>\n</div>\n<div class=\"gw-alert gw-alert--success\">\n  <div class=\"gw-alert__content\">\n    <p class=\"gw-alert__label\">Done</p>\n    <p class=\"gw-alert__body\">All 214 tests passed on fix/login-timeout.</p>\n  </div>\n</div>\n<div class=\"gw-alert gw-alert--warning\">\n  <div class=\"gw-alert__content\">\n    <p class=\"gw-alert__label\">Warning</p>\n    <p class=\"gw-alert__body\">The base branch has 14 new commits. Rebase before opening a pull request.</p>\n  </div>\n</div>\n<div class=\"gw-alert gw-alert--danger\">\n  <div class=\"gw-alert__content\">\n    <p class=\"gw-alert__label\">Error</p>\n    <p class=\"gw-alert__body\">The push was rejected because main is protected. Push to a task branch instead.</p>\n  </div>\n</div>"
+        },
+        {
+          "id": "with-title",
+          "title": "With a title and a body",
+          "markup": "<div class=\"gw-alert gw-alert--warning\">\n  <div class=\"gw-alert__content\">\n    <p class=\"gw-alert__label\">Warning</p>\n    <p class=\"gw-alert__title\">The workspace is almost out of disk space</p>\n    <p class=\"gw-alert__body\">412 MB of 20 GB is free. A build needs about 2 GB, so the next run is likely to fail. Delete old workspaces to free space.</p>\n  </div>\n</div>"
+        },
+        {
+          "id": "with-action",
+          "title": "With one action",
+          "reason": "The message says what happened and what to do, and the one action does it. The role makes a screen reader announce the message when the app adds it.",
+          "markup": "<div class=\"gw-alert gw-alert--danger\" role=\"alert\">\n  <div class=\"gw-alert__content\">\n    <p class=\"gw-alert__label\">Error</p>\n    <p class=\"gw-alert__title\">The run stopped before it finished</p>\n    <p class=\"gw-alert__body\">The runner lost its connection after 12 minutes. The work so far is saved on fix/login-timeout. Resume to carry on from the last commit.</p>\n    <div class=\"gw-alert__action\">\n      <button type=\"button\" class=\"gw-button gw-button--small\">Resume run</button>\n    </div>\n  </div>\n</div>"
+        },
+        {
+          "id": "status-role",
+          "title": "A result announced politely",
+          "markup": "<div class=\"gw-alert gw-alert--success\" role=\"status\">\n  <div class=\"gw-alert__content\">\n    <p class=\"gw-alert__label\">Done</p>\n    <p class=\"gw-alert__body\">Pull request 482 was opened against main.</p>\n    <div class=\"gw-alert__action\">\n      <a class=\"gw-button gw-button--small\" href=\"#pull-482\">View pull request</a>\n    </div>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
+      "name": "app-header",
+      "title": "App header",
+      "purpose": "The top bar of an app: the product name or the current view's title, with an optional back link, actions and a tray for approvals that are waiting.",
+      "status": "draft",
+      "whenToUse": [
+        "Once per screen, as the first thing in the page.",
+        "With the product name on a top-level screen, and with a back link and the view's title on a screen below one.",
+        "With the tray when something, such as an approval, must stay in sight on every screen."
+      ],
+      "whenNotToUse": [
+        "For a view's title with its description and main action inside the page. Use a page header.",
+        "For moving between the main destinations on a phone. Use a tab bar.",
+        "For a message about the state of the app, such as a lost connection. Use a banner under the header.",
+        "For the main action of a view. Put a primary button in the view, never in the header."
+      ],
+      "variants": [
+        {
+          "name": "default",
+          "use": "Scrolls away with the page. Use it when the screen is short or the header holds nothing the reader needs while scrolling."
+        },
+        {
+          "name": "sticky",
+          "class": "gw-app-header--sticky",
+          "use": "Stays at the top while the page scrolls. Use it when the back link, the actions or the tray must stay in reach."
+        }
+      ],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "One row, 52px tall, with 44px controls, at every width. The tray adds a row below it only while it holds something."
+        }
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active",
+        "disabled",
+        "empty"
+      ],
+      "accessibility": [
+        "Use a header element. Outside main it is the page's banner landmark, so a page has one.",
+        "The product name is a link to the first screen. The view title is the page's h1 when the header shows one.",
+        "The back link names where it goes: visible text such as Tasks, or aria-label=\"Back to tasks\" when it is only the icon.",
+        "An icon-only action has an aria-label that says what it does and to what, such as Search tasks. Its icon carries aria-hidden=\"true\".",
+        "Use a link for an action that goes to another view and a button for one that acts on this view.",
+        "Tab moves through the name or back link, then the actions, then the tray, in the order they are written. Enter follows a link, and Enter or Space presses a button.",
+        "A long title is cut with an ellipsis. Keep the full title in the document title or in the page, where it can be read whole.",
+        "An empty tray takes no space and is not announced. Leave the element in place and fill it when something is waiting.",
+        "With the sticky variant, give the scrolling container scroll-padding-top of the header's height, so a focused element is not hidden under it."
+      ],
+      "icons": [
+        "chevron-left",
+        "ellipsis",
+        "menu",
+        "search"
+      ],
+      "classes": [
+        "gw-app-header",
+        "gw-app-header--sticky",
+        "gw-app-header__action",
+        "gw-app-header__actions",
+        "gw-app-header__back",
+        "gw-app-header__icon",
+        "gw-app-header__name",
+        "gw-app-header__title",
+        "gw-app-header__tray"
+      ],
+      "examples": [
+        {
+          "id": "name-and-actions",
+          "title": "Product name and actions",
+          "state": "default",
+          "reason": "The name leads the row and links to the first screen. Each action is an icon with a name a screen reader can read, and none of them is primary, so the view below keeps its one main action.",
+          "markup": "<header class=\"gw-app-header\">\n  <a class=\"gw-app-header__name\" href=\"/\">Smelt</a>\n  <div class=\"gw-app-header__actions\">\n    <a class=\"gw-app-header__action\" href=\"/search\" aria-label=\"Search tasks\">\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-search\"></use></svg>\n    </a>\n    <button type=\"button\" class=\"gw-app-header__action\" aria-label=\"Open menu\">\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-menu\"></use></svg>\n    </button>\n  </div>\n</header>"
+        },
+        {
+          "id": "back-and-title",
+          "title": "Back link and view title",
+          "markup": "<header class=\"gw-app-header\">\n  <a class=\"gw-app-header__back\" href=\"/tasks\">\n    <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-chevron-left\"></use></svg>\n    Tasks\n  </a>\n  <h1 class=\"gw-app-header__title\">Fix the login timeout</h1>\n</header>"
+        },
+        {
+          "id": "back-title-action",
+          "title": "Icon-only back link, title and one action",
+          "markup": "<header class=\"gw-app-header\">\n  <a class=\"gw-app-header__back\" href=\"/runs\" aria-label=\"Back to runs\">\n    <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-chevron-left\"></use></svg>\n  </a>\n  <h1 class=\"gw-app-header__title\">Run 2291</h1>\n  <div class=\"gw-app-header__actions\">\n    <button type=\"button\" class=\"gw-app-header__action\" aria-label=\"More actions for run 2291\">\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-ellipsis\"></use></svg>\n    </button>\n  </div>\n</header>"
+        },
+        {
+          "id": "long-title",
+          "title": "A title longer than the row",
+          "markup": "<header class=\"gw-app-header\">\n  <a class=\"gw-app-header__back\" href=\"/tasks\" aria-label=\"Back to tasks\">\n    <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-chevron-left\"></use></svg>\n  </a>\n  <h1 class=\"gw-app-header__title\">Fix the login timeout on the mobile sign-in screen when the session cookie has expired</h1>\n  <div class=\"gw-app-header__actions\">\n    <button type=\"button\" class=\"gw-app-header__action\" aria-label=\"More actions for this task\">\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-ellipsis\"></use></svg>\n    </button>\n  </div>\n</header>"
+        },
+        {
+          "id": "tray",
+          "title": "With the approvals tray",
+          "markup": "<header class=\"gw-app-header\">\n  <a class=\"gw-app-header__name\" href=\"/\">Smelt</a>\n  <div class=\"gw-app-header__actions\">\n    <a class=\"gw-app-header__action\" href=\"/search\" aria-label=\"Search tasks\">\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-search\"></use></svg>\n    </a>\n  </div>\n  <div class=\"gw-app-header__tray\">\n    <div class=\"gw-split\">\n      <p>2 approvals waiting. The oldest is 6 minutes old.</p>\n      <a class=\"gw-button gw-button--small\" href=\"/approvals\">Review approvals</a>\n    </div>\n  </div>\n</header>"
+        },
+        {
+          "id": "empty",
+          "title": "Tray with nothing waiting",
+          "state": "empty",
+          "markup": "<header class=\"gw-app-header\">\n  <a class=\"gw-app-header__name\" href=\"/\">Smelt</a>\n  <div class=\"gw-app-header__actions\">\n    <a class=\"gw-app-header__action\" href=\"/search\" aria-label=\"Search tasks\">\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-search\"></use></svg>\n    </a>\n  </div>\n  <div class=\"gw-app-header__tray\"></div>\n</header>"
+        },
+        {
+          "id": "sticky",
+          "title": "Sticky",
+          "markup": "<header class=\"gw-app-header gw-app-header--sticky\">\n  <a class=\"gw-app-header__back\" href=\"/branches\">\n    <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-chevron-left\"></use></svg>\n    Branches\n  </a>\n  <h1 class=\"gw-app-header__title\">fix/login-timeout</h1>\n</header>"
+        },
+        {
+          "id": "hover",
+          "title": "Hover",
+          "state": "hover",
+          "markup": "<header class=\"gw-app-header\">\n  <a class=\"gw-app-header__back\" href=\"/tasks\">\n    <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-chevron-left\"></use></svg>\n    Tasks\n  </a>\n  <h1 class=\"gw-app-header__title\">Task 412</h1>\n  <div class=\"gw-app-header__actions\">\n    <button type=\"button\" class=\"gw-app-header__action\" aria-label=\"Search this task\">\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-search\"></use></svg>\n    </button>\n  </div>\n</header>"
+        },
+        {
+          "id": "focus-visible",
+          "title": "Keyboard focus",
+          "state": "focus-visible",
+          "markup": "<header class=\"gw-app-header\">\n  <a class=\"gw-app-header__back\" href=\"/tasks\">\n    <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-chevron-left\"></use></svg>\n    Tasks\n  </a>\n  <h1 class=\"gw-app-header__title\">Task 412</h1>\n  <div class=\"gw-app-header__actions\">\n    <button type=\"button\" class=\"gw-app-header__action\" aria-label=\"Search this task\">\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-search\"></use></svg>\n    </button>\n  </div>\n</header>"
+        },
+        {
+          "id": "active",
+          "title": "Pressed",
+          "state": "active",
+          "markup": "<header class=\"gw-app-header\">\n  <a class=\"gw-app-header__back\" href=\"/tasks\">\n    <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-chevron-left\"></use></svg>\n    Tasks\n  </a>\n  <h1 class=\"gw-app-header__title\">Task 412</h1>\n  <div class=\"gw-app-header__actions\">\n    <button type=\"button\" class=\"gw-app-header__action\" aria-label=\"Search this task\">\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-search\"></use></svg>\n    </button>\n  </div>\n</header>"
+        },
+        {
+          "id": "disabled",
+          "title": "Unavailable action",
+          "state": "disabled",
+          "markup": "<header class=\"gw-app-header\">\n  <a class=\"gw-app-header__name\" href=\"/\">Smelt</a>\n  <div class=\"gw-app-header__actions\">\n    <button type=\"button\" class=\"gw-app-header__action\" aria-label=\"Search tasks\" disabled>\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-search\"></use></svg>\n    </button>\n    <button type=\"button\" class=\"gw-app-header__action\" aria-label=\"Open menu\">\n      <svg class=\"gw-app-header__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-menu\"></use></svg>\n    </button>\n  </div>\n</header>"
+        }
+      ]
+    },
+    {
+      "name": "approval",
+      "title": "Approval",
+      "purpose": "One request from an agent that waits for the reader's answer: what would run, where, for whom and why, with Allow and Decline.",
+      "status": "draft",
+      "whenToUse": [
+        "When an agent is blocked until the reader allows or declines a tool call or a command.",
+        "Alone in a view for one request, or as list items in a queue of several."
+      ],
+      "whenNotToUse": [
+        "For a request that was already answered or denied. Use a message row in the transcript.",
+        "To say how many requests wait. Use the pending tray.",
+        "To confirm an action the reader started themselves, such as deleting a workspace. Use a dialog."
+      ],
+      "variants": [
+        {
+          "name": "normal",
+          "use": "The default, with no modifier class. The risk line reads Normal risk and what keeps it so, beside an info icon."
+        },
+        {
+          "name": "elevated",
+          "class": "gw-approval--elevated",
+          "use": "A request that reaches outside the task's worktree, deletes, or cannot be undone. The risk line reads Elevated risk and why, beside a warning icon, on a tinted band."
+        }
+      ],
+      "sizes": [],
+      "states": [
+        "default",
+        "open",
+        "busy",
+        "error"
+      ],
+      "accessibility": [
+        "Use an article with aria-labelledby pointing at gw-approval__title, a heading at the level the view needs. The title says who asks and for what.",
+        "Emphasis: when a view shows a single approval, Allow may be the view's primary action, gw-button gw-button--primary. When approvals are listed, each card sits in its own li of a ul and Allow is a plain gw-button, never primary, so a queue has no competing primary actions.",
+        "Allow comes first and Decline sits at the far end of gw-approval__actions. Both are always visible, carry data-gw-critical so the checker can see they are never hidden, and are never placed inside a details element.",
+        "The risk line always starts with the words Normal risk or Elevated risk and then says why. Its icon is drawn by the stylesheet, so the tone is never colour alone.",
+        "gw-approval__command holds exactly what would run, as text, with characters that cannot be seen written out. It wraps, and never scrolls sideways.",
+        "Supporting detail goes in a details element with a text summary, such as Show the full request. It holds no control the reader needs in order to answer.",
+        "A note on declining is optional. Under the actions, add a details element whose summary reads Decline with a note, holding a labelled field and its own button, Decline and send note. It starts closed, without the open attribute, and the plain Decline above it still declines with no note.",
+        "While the answer is sent, set aria-busy=\"true\" on the pressed button, change its label to Allowing or Declining, and disable the other. If sending fails, restore both and add gw-approval__error with role=\"alert\", saying that nothing was allowed.",
+        "Tab reaches the summary, then Allow, then Decline. Enter and Space activate each. The component needs no script: the app sets aria-busy and disabled, and removes the card once the request is answered. Move focus to the next card or the view's heading when it goes."
+      ],
+      "icons": [
+        "chevron-down",
+        "chevron-right",
+        "circle-alert",
+        "info",
+        "triangle-alert"
+      ],
+      "classes": [
+        "gw-approval",
+        "gw-approval--elevated",
+        "gw-approval__actions",
+        "gw-approval__command",
+        "gw-approval__details",
+        "gw-approval__error",
+        "gw-approval__fact",
+        "gw-approval__facts",
+        "gw-approval__note",
+        "gw-approval__risk",
+        "gw-approval__summary",
+        "gw-approval__term",
+        "gw-approval__title",
+        "gw-approval__value"
+      ],
+      "examples": [
+        {
+          "id": "single",
+          "title": "A single approval",
+          "state": "default",
+          "reason": "This view shows one request, so Allow is its primary action. Decline sits at the far end of the row, where a thumb aiming for Allow cannot land on it.",
+          "markup": "  <article class=\"gw-approval\" aria-labelledby=\"approval-single-title\">\n    <p class=\"gw-approval__risk\">Normal risk: stays inside the task's worktree</p>\n    <h4 class=\"gw-approval__title\" id=\"approval-single-title\">Claude Code asks to run a command</h4>\n    <pre class=\"gw-approval__command\">npm run test -- --run src/auth/session.test.ts</pre>\n    <ul class=\"gw-approval__facts\">\n      <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Directory</span> <span class=\"gw-approval__value\">web (inside the task's worktree)</span></li>\n      <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Role</span> <span class=\"gw-approval__value\">Implementer</span></li>\n      <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Task</span> <span class=\"gw-approval__value\">Task 41 · Fix the session refresh</span></li>\n      <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Its reason</span> <span class=\"gw-approval__value\">To confirm the reload case passes before I open the pull request.</span></li>\n    </ul>\n    <details class=\"gw-approval__details\">\n      <summary class=\"gw-approval__summary\">Show the full request</summary>\n      <pre class=\"gw-approval__command\">{\n  \"tool\": \"Bash\",\n  \"command\": \"npm run test -- --run src/auth/session.test.ts\",\n  \"description\": \"Run the session tests\",\n  \"timeout\": 120000\n}</pre>\n    </details>\n    <div class=\"gw-approval__actions\">\n      <button type=\"button\" class=\"gw-button gw-button--primary\" data-gw-critical>Allow</button>\n      <button type=\"button\" class=\"gw-button\" data-gw-critical>Decline</button>\n    </div>\n  </article>"
+        },
+        {
+          "id": "elevated",
+          "title": "Elevated risk",
+          "markup": "<article class=\"gw-approval gw-approval--elevated\" aria-labelledby=\"approval-elevated-title\">\n  <p class=\"gw-approval__risk\">Elevated risk: deletes files outside the task's worktree</p>\n  <h4 class=\"gw-approval__title\" id=\"approval-elevated-title\">Claude Code asks to run a command</h4>\n  <pre class=\"gw-approval__command\">rm -rf ../shared-config/.cache</pre>\n  <ul class=\"gw-approval__facts\">\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Directory</span> <span class=\"gw-approval__value\">../shared-config (outside the task's worktree)</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Role</span> <span class=\"gw-approval__value\">Implementer</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Task</span> <span class=\"gw-approval__value\">Task 41 · Fix the session refresh</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Its reason</span> <span class=\"gw-approval__value\">The old cache holds a stale session-store build that makes the tests fail.</span></li>\n  </ul>\n  <div class=\"gw-approval__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--primary\" data-gw-critical>Allow</button>\n    <button type=\"button\" class=\"gw-button\" data-gw-critical>Decline</button>\n  </div>\n</article>"
+        },
+        {
+          "id": "open",
+          "title": "A long command, with the full request open",
+          "state": "open",
+          "markup": "  <article class=\"gw-approval\" aria-labelledby=\"approval-open-title\">\n    <p class=\"gw-approval__risk\">Normal risk: stays inside the task's worktree</p>\n    <h4 class=\"gw-approval__title\" id=\"approval-open-title\">Claude Code asks to run a command</h4>\n    <pre class=\"gw-approval__command\">docker compose --file /srv/workspaces/acme-api/infra/docker-compose.test.yml run --rm --env DATABASE_URL=postgres://acme:acme@db:5432/acme_test_session_refresh api npm run test:integration -- --run src/auth/session.integration.test.ts</pre>\n    <ul class=\"gw-approval__facts\">\n      <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Directory</span> <span class=\"gw-approval__value\">The top of the task's worktree</span></li>\n      <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Role</span> <span class=\"gw-approval__value\">Implementer</span></li>\n      <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Task</span> <span class=\"gw-approval__value\">Task 41 · Fix the session refresh</span></li>\n      <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Its reason</span> <span class=\"gw-approval__value\">The unit tests pass, and the integration test covers the cookie that the mobile app reads.</span></li>\n    </ul>\n    <details class=\"gw-approval__details\" open>\n      <summary class=\"gw-approval__summary\">Show the full request</summary>\n      <pre class=\"gw-approval__command\">{\n  \"tool\": \"Bash\",\n  \"command\": \"docker compose --file /srv/workspaces/acme-api/infra/docker-compose.test.yml run --rm --env DATABASE_URL=postgres://acme:acme@db:5432/acme_test_session_refresh api npm run test:integration -- --run src/auth/session.integration.test.ts\",\n  \"description\": \"Run the session integration test in the test stack\",\n  \"timeout\": 600000\n}</pre>\n    </details>\n    <div class=\"gw-approval__actions\">\n      <button type=\"button\" class=\"gw-button gw-button--primary\" data-gw-critical>Allow</button>\n      <button type=\"button\" class=\"gw-button\" data-gw-critical>Decline</button>\n    </div>\n  </article>"
+        },
+        {
+          "id": "decline-note",
+          "title": "Declining with a note",
+          "markup": "<article class=\"gw-approval gw-approval--elevated\" aria-labelledby=\"approval-decline-note-title\">\n  <p class=\"gw-approval__risk\">Elevated risk: deletes files outside the task's worktree</p>\n  <h4 class=\"gw-approval__title\" id=\"approval-decline-note-title\">Claude Code asks to run a command</h4>\n  <pre class=\"gw-approval__command\">rm -rf ../shared-config/.cache</pre>\n  <ul class=\"gw-approval__facts\">\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Directory</span> <span class=\"gw-approval__value\">../shared-config (outside the task's worktree)</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Role</span> <span class=\"gw-approval__value\">Implementer</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Task</span> <span class=\"gw-approval__value\">Task 41 · Fix the session refresh</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Its reason</span> <span class=\"gw-approval__value\">The old cache holds a stale session-store build that makes the tests fail.</span></li>\n  </ul>\n  <div class=\"gw-approval__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--primary\" data-gw-critical>Allow</button>\n    <button type=\"button\" class=\"gw-button\" data-gw-critical>Decline</button>\n  </div>\n  <details class=\"gw-approval__details\" open>\n    <summary class=\"gw-approval__summary\">Decline with a note</summary>\n    <div class=\"gw-approval__note\">\n      <div class=\"gw-field\">\n        <label class=\"gw-field__label\" for=\"approval-decline-note-note\">Note to the agent</label>\n        <input class=\"gw-field__control\" id=\"approval-decline-note-note\" type=\"text\" name=\"note\" autocomplete=\"off\" maxlength=\"2000\" value=\"Clear web/.cache only.\">\n      </div>\n      <div class=\"gw-cluster\">\n        <button type=\"button\" class=\"gw-button\">Decline and send note</button>\n      </div>\n    </div>\n  </details>\n</article>"
+        },
+        {
+          "id": "queue",
+          "title": "A queue of approvals",
+          "reason": "Each card is a list item and its Allow has secondary emphasis, so three requests do not show three competing main actions. Every card still says what it would run and where.",
+          "markup": "<ul class=\"gw-stack\">\n  <li>\n    <article class=\"gw-approval\" aria-labelledby=\"approval-queue-tests-title\">\n      <p class=\"gw-approval__risk\">Normal risk: stays inside the task's worktree</p>\n      <h4 class=\"gw-approval__title\" id=\"approval-queue-tests-title\">Claude Code asks to run a command</h4>\n      <pre class=\"gw-approval__command\">npm run test -- --run src/auth/session.test.ts</pre>\n      <ul class=\"gw-approval__facts\">\n        <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Directory</span> <span class=\"gw-approval__value\">web (inside the task's worktree)</span></li>\n        <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Role</span> <span class=\"gw-approval__value\">Implementer</span></li>\n        <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Task</span> <span class=\"gw-approval__value\">Task 41 · Fix the session refresh</span></li>\n        <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Its reason</span> <span class=\"gw-approval__value\">To confirm the reload case passes before I open the pull request.</span></li>\n      </ul>\n      <div class=\"gw-approval__actions\">\n        <button type=\"button\" class=\"gw-button\" data-gw-critical>Allow</button>\n        <button type=\"button\" class=\"gw-button\" data-gw-critical>Decline</button>\n      </div>\n    </article>\n  </li>\n  <li>\n    <article class=\"gw-approval gw-approval--elevated\" aria-labelledby=\"approval-queue-cache-title\">\n      <p class=\"gw-approval__risk\">Elevated risk: deletes files outside the task's worktree</p>\n      <h4 class=\"gw-approval__title\" id=\"approval-queue-cache-title\">Claude Code asks to run a command</h4>\n      <pre class=\"gw-approval__command\">rm -rf ../shared-config/.cache</pre>\n      <ul class=\"gw-approval__facts\">\n        <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Directory</span> <span class=\"gw-approval__value\">../shared-config (outside the task's worktree)</span></li>\n        <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Role</span> <span class=\"gw-approval__value\">Implementer</span></li>\n        <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Task</span> <span class=\"gw-approval__value\">Task 41 · Fix the session refresh</span></li>\n        <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Its reason</span> <span class=\"gw-approval__value\">The old cache holds a stale session-store build that makes the tests fail.</span></li>\n      </ul>\n      <div class=\"gw-approval__actions\">\n        <button type=\"button\" class=\"gw-button\" data-gw-critical>Allow</button>\n        <button type=\"button\" class=\"gw-button\" data-gw-critical>Decline</button>\n      </div>\n    </article>\n  </li>\n  <li>\n    <article class=\"gw-approval\" aria-labelledby=\"approval-queue-fetch-title\">\n      <p class=\"gw-approval__risk\">Normal risk: reads from the remote and changes no files</p>\n      <h4 class=\"gw-approval__title\" id=\"approval-queue-fetch-title\">Claude Code asks to run a command</h4>\n      <pre class=\"gw-approval__command\">git fetch origin main</pre>\n      <ul class=\"gw-approval__facts\">\n        <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Directory</span> <span class=\"gw-approval__value\">The top of the task's worktree</span></li>\n        <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Role</span> <span class=\"gw-approval__value\">Reviewer</span></li>\n        <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Task</span> <span class=\"gw-approval__value\">Task 38 · Rate limit the sign-in route</span></li>\n        <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Its reason</span> <span class=\"gw-approval__value\">To compare this branch with main before I review it.</span></li>\n      </ul>\n      <div class=\"gw-approval__actions\">\n        <button type=\"button\" class=\"gw-button\" data-gw-critical>Allow</button>\n        <button type=\"button\" class=\"gw-button\" data-gw-critical>Decline</button>\n      </div>\n    </article>\n  </li>\n</ul>"
+        },
+        {
+          "id": "busy",
+          "title": "Sending the answer",
+          "state": "busy",
+          "markup": "<article class=\"gw-approval\" aria-labelledby=\"approval-busy-title\">\n  <p class=\"gw-approval__risk\">Normal risk: stays inside the task's worktree</p>\n  <h4 class=\"gw-approval__title\" id=\"approval-busy-title\">Claude Code asks to run a command</h4>\n  <pre class=\"gw-approval__command\">npm run test -- --run src/auth/session.test.ts</pre>\n  <ul class=\"gw-approval__facts\">\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Directory</span> <span class=\"gw-approval__value\">web (inside the task's worktree)</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Role</span> <span class=\"gw-approval__value\">Implementer</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Task</span> <span class=\"gw-approval__value\">Task 41 · Fix the session refresh</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Its reason</span> <span class=\"gw-approval__value\">To confirm the reload case passes before I open the pull request.</span></li>\n  </ul>\n  <div class=\"gw-approval__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--primary\" data-gw-critical aria-busy=\"true\">Allowing</button>\n    <button type=\"button\" class=\"gw-button\" data-gw-critical disabled>Decline</button>\n  </div>\n</article>"
+        },
+        {
+          "id": "error",
+          "title": "The answer was not sent",
+          "state": "error",
+          "markup": "<article class=\"gw-approval\" aria-labelledby=\"approval-error-title\">\n  <p class=\"gw-approval__risk\">Normal risk: stays inside the task's worktree</p>\n  <h4 class=\"gw-approval__title\" id=\"approval-error-title\">Claude Code asks to run a command</h4>\n  <pre class=\"gw-approval__command\">npm run test -- --run src/auth/session.test.ts</pre>\n  <ul class=\"gw-approval__facts\">\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Directory</span> <span class=\"gw-approval__value\">web (inside the task's worktree)</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Role</span> <span class=\"gw-approval__value\">Implementer</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Task</span> <span class=\"gw-approval__value\">Task 41 · Fix the session refresh</span></li>\n    <li class=\"gw-approval__fact\"><span class=\"gw-approval__term\">Its reason</span> <span class=\"gw-approval__value\">To confirm the reload case passes before I open the pull request.</span></li>\n  </ul>\n  <p class=\"gw-approval__error\" role=\"alert\">Your answer was not sent: the server could not be reached. Nothing was allowed, and the agent is still waiting.</p>\n  <div class=\"gw-approval__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--primary\" data-gw-critical>Allow</button>\n    <button type=\"button\" class=\"gw-button\" data-gw-critical>Decline</button>\n  </div>\n</article>"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "title": "Badge",
+      "purpose": "A status in a word or two, such as a task's station.",
+      "status": "draft",
+      "whenToUse": [
+        "For the one status of an item that the reader acts on or scans for: Building, Awaiting decision, Blocked.",
+        "Once per row of a list or table, as the row's trailing element.",
+        "Once beside the title of a view, for the status of the thing the view shows."
+      ],
+      "whenNotToUse": [
+        "For facts that are not a status, such as a repository, a branch, a count or a time. Write them as plain text.",
+        "For several statuses on one item. Pick the one the reader acts on and write the rest as text. Eight or more badges outside list rows in one view fail the excess-badges rule.",
+        "For something the reader can press. Use a button or a link.",
+        "For a message with a sentence in it. Use a banner or an inline message.",
+        "As a count on an icon. Write the count as text next to a label."
+      ],
+      "variants": [
+        {
+          "name": "neutral",
+          "use": "The default, with no modifier class. A status that needs nothing from the reader yet: Queued, Draft."
+        },
+        {
+          "name": "info",
+          "class": "gw-badge--info",
+          "use": "Work in progress that needs nothing from the reader: Building, Verifying, Reviewing."
+        },
+        {
+          "name": "success",
+          "class": "gw-badge--success",
+          "use": "Finished as intended: Decided, Merged, Tests passed."
+        },
+        {
+          "name": "warning",
+          "class": "gw-badge--warning",
+          "use": "Waiting on the reader or on something outside the task: Awaiting decision, Blocked."
+        },
+        {
+          "name": "danger",
+          "class": "gw-badge--danger",
+          "use": "Stopped or failed: Interrupted, Failed."
+        }
+      ],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "24px tall with 12px text. It fits a dense list row without making it taller."
+        }
+      ],
+      "states": [
+        "default"
+      ],
+      "accessibility": [
+        "Use a span. The badge is text, and a screen reader reads its words in place.",
+        "The words carry the status. The tone only supports them, so never rely on the colour, and never use a badge with an icon and no text.",
+        "An icon is decoration and carries aria-hidden=\"true\". Use the same icon for the same status everywhere.",
+        "Write the status in sentence case, in one to three words, in the same words everywhere the status appears.",
+        "A badge is not focusable and takes no press. When a status changes while the reader watches, announce it from a role=\"status\" element in the view, not from the badge."
+      ],
+      "icons": [
+        "circle-alert",
+        "circle-check",
+        "ellipsis",
+        "file",
+        "git-branch",
+        "loader",
+        "search",
+        "triangle-alert",
+        "x"
+      ],
+      "classes": [
+        "gw-badge",
+        "gw-badge--danger",
+        "gw-badge--info",
+        "gw-badge--success",
+        "gw-badge--warning",
+        "gw-badge__icon"
+      ],
+      "examples": [
+        {
+          "id": "tones",
+          "title": "Tones",
+          "state": "default",
+          "markup": "<div class=\"gw-cluster\">\n  <span class=\"gw-badge\">Draft</span>\n  <span class=\"gw-badge gw-badge--info\">Running</span>\n  <span class=\"gw-badge gw-badge--success\">Merged</span>\n  <span class=\"gw-badge gw-badge--warning\">Needs an answer</span>\n  <span class=\"gw-badge gw-badge--danger\">Failed</span>\n</div>"
+        },
+        {
+          "id": "with-icon",
+          "title": "With an icon",
+          "markup": "<div class=\"gw-cluster\">\n  <span class=\"gw-badge\">\n    <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n    No pull request\n  </span>\n  <span class=\"gw-badge gw-badge--info\">\n    <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-loader\"></use></svg>\n    Tests running\n  </span>\n  <span class=\"gw-badge gw-badge--success\">\n    <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>\n    Tests passed\n  </span>\n  <span class=\"gw-badge gw-badge--warning\">\n    <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-triangle-alert\"></use></svg>\n    Out of date with main\n  </span>\n  <span class=\"gw-badge gw-badge--danger\">\n    <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-alert\"></use></svg>\n    Tests failed\n  </span>\n</div>"
+        },
+        {
+          "id": "stations",
+          "title": "One badge per row: a task's station in words",
+          "reason": "Each row carries one badge, and it says where the task stands in words. Everything else about the task is plain text, so the badge is the one thing the eye lands on.",
+          "markup": "<ul class=\"gw-list\">\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Fix the login timeout</span>\n        <span class=\"gw-list__secondary\">acme/api · fix/login-timeout</span>\n      </span>\n      <span class=\"gw-badge\">\n        <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-ellipsis\"></use></svg>\n        Queued\n      </span>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Add rate limiting to the webhook endpoint</span>\n        <span class=\"gw-list__secondary\">acme/api · feat/webhook-rate-limit</span>\n      </span>\n      <span class=\"gw-badge gw-badge--info\">\n        <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-loader\"></use></svg>\n        Building\n      </span>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Upgrade Postgres client to 8.13</span>\n        <span class=\"gw-list__secondary\">acme/billing · chore/pg-8-13</span>\n      </span>\n      <span class=\"gw-badge gw-badge--info\">\n        <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-search\"></use></svg>\n        Verifying\n      </span>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Move session storage to Redis</span>\n        <span class=\"gw-list__secondary\">acme/api · feat/redis-sessions</span>\n      </span>\n      <span class=\"gw-badge gw-badge--info\">\n        <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n        Reviewing\n      </span>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Remove the legacy invoice exporter</span>\n        <span class=\"gw-list__secondary\">acme/billing · chore/drop-invoice-export</span>\n      </span>\n      <span class=\"gw-badge gw-badge--warning\">\n        <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-alert\"></use></svg>\n        Awaiting decision\n      </span>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Add dark theme to the settings screen</span>\n        <span class=\"gw-list__secondary\">acme/web · feat/settings-dark</span>\n      </span>\n      <span class=\"gw-badge gw-badge--warning\">\n        <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-triangle-alert\"></use></svg>\n        Blocked\n      </span>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Paginate the audit log</span>\n        <span class=\"gw-list__secondary\">acme/api · feat/audit-log-pages</span>\n      </span>\n      <span class=\"gw-badge gw-badge--danger\">\n        <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-x\"></use></svg>\n        Interrupted\n      </span>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Fix the off-by-one in the retry counter</span>\n        <span class=\"gw-list__secondary\">acme/api · fix/retry-count</span>\n      </span>\n      <span class=\"gw-badge gw-badge--success\">\n        <svg class=\"gw-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>\n        Decided\n      </span>\n    </div>\n  </li>\n</ul>"
+        }
+      ]
+    },
+    {
+      "name": "banner",
+      "title": "Banner",
+      "purpose": "One message about the state of the whole app, across the full width under the app header.",
+      "status": "draft",
+      "whenToUse": [
+        "For a condition that affects every screen and is still true, such as a lost connection, a paused agent host or a session about to end.",
+        "Directly under the app header, across the full width, for as long as the condition lasts.",
+        "With one action when there is one thing the reader can do about it, such as Retry."
+      ],
+      "whenNotToUse": [
+        "For the result of something the reader just did, such as Task saved. Confirm it where it happened, or use a toast.",
+        "For a problem with one field or one form. Use the field's error message.",
+        "For a problem with one item in a view, such as a failed run. Show it on that item.",
+        "For a decision the reader must make before going on. Use a dialog.",
+        "For more than one message at a time. Show the most severe one."
+      ],
+      "variants": [
+        {
+          "name": "info",
+          "use": "The default, with no modifier class. Something the reader should know that needs no action, such as a planned restart or a restored connection. Set role=\"status\"."
+        },
+        {
+          "name": "warning",
+          "class": "gw-banner--warning",
+          "use": "Something is degraded or about to go wrong and the app is still usable, such as Reconnecting. Set role=\"status\"."
+        },
+        {
+          "name": "danger",
+          "class": "gw-banner--danger",
+          "use": "Something has failed and work is blocked until it is fixed. Set role=\"alert\"."
+        }
+      ],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "At least 44px tall and as wide as its container. The text wraps, and on a narrow screen the action and the dismiss button move below it."
+        }
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active",
+        "busy"
+      ],
+      "accessibility": [
+        "Set role=\"status\" on an info or warning banner, so a screen reader announces it when the reader pauses. Set role=\"alert\" on a danger banner, so it is announced at once.",
+        "Keep the banner element in the page and change its text, or add the banner with its text already in it. Either way the message is announced once.",
+        "Do not set aria-busy on the banner. A screen reader holds back the announcement of a busy region. While the action runs, set aria-busy=\"true\" on the action button and change its label, such as Retrying.",
+        "The stylesheet draws the tone's icon, so the tone never depends on colour and needs no markup. The text carries the whole message.",
+        "The action and the dismiss button sit together in a gw-banner__actions element after the text. The action is one gw-button gw-button--small, with a label that says what it does. Do not make it primary.",
+        "The dismiss button is a button with aria-label=\"Dismiss\", and its icon carries aria-hidden=\"true\". Offer it only when the message is safe to lose. When it is pressed, move focus to the main content.",
+        "Tab reaches the action and then the dismiss button, in that order. Enter and Space press them.",
+        "The banner does not take focus when it appears, so it never interrupts typing."
+      ],
+      "icons": [
+        "circle-alert",
+        "info",
+        "triangle-alert",
+        "x"
+      ],
+      "classes": [
+        "gw-banner",
+        "gw-banner--danger",
+        "gw-banner--warning",
+        "gw-banner__actions",
+        "gw-banner__dismiss",
+        "gw-banner__icon",
+        "gw-banner__text"
+      ],
+      "examples": [
+        {
+          "id": "info",
+          "title": "Info",
+          "state": "default",
+          "markup": "<div class=\"gw-banner\" role=\"status\">\n  <p class=\"gw-banner__text\">Smelt restarts at 22:00 UTC for an update. Runs in progress finish first.</p>\n</div>"
+        },
+        {
+          "id": "warning",
+          "title": "Warning",
+          "markup": "<div class=\"gw-banner gw-banner--warning\" role=\"status\">\n  <p class=\"gw-banner__text\">Connection lost. Reconnecting…</p>\n</div>"
+        },
+        {
+          "id": "danger",
+          "title": "Danger",
+          "markup": "<div class=\"gw-banner gw-banner--danger\" role=\"alert\">\n  <p class=\"gw-banner__text\">The agent host is not responding. All runs are paused.</p>\n</div>"
+        },
+        {
+          "id": "action",
+          "title": "With one action",
+          "reason": "The message says what happened in plain words, and the one action is the one thing the reader can do about it. The icon marks the tone as well as the colour.",
+          "markup": "<div class=\"gw-banner gw-banner--danger\" role=\"alert\">\n  <p class=\"gw-banner__text\">Could not reconnect after 5 attempts.</p>\n  <div class=\"gw-banner__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--small\">Retry</button>\n  </div>\n</div>"
+        },
+        {
+          "id": "dismiss",
+          "title": "With dismiss",
+          "markup": "<div class=\"gw-banner\" role=\"status\">\n  <p class=\"gw-banner__text\">Connection restored. 2 runs resumed.</p>\n  <div class=\"gw-banner__actions\">\n    <button type=\"button\" class=\"gw-banner__dismiss\" aria-label=\"Dismiss\">\n      <svg class=\"gw-banner__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-x\"></use></svg>\n    </button>\n  </div>\n</div>"
+        },
+        {
+          "id": "action-and-dismiss",
+          "title": "With an action and dismiss",
+          "markup": "<div class=\"gw-banner gw-banner--warning\" role=\"status\">\n  <p class=\"gw-banner__text\">Your session ends in 5 minutes. Unsaved task drafts will be lost.</p>\n  <div class=\"gw-banner__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--small\">Stay signed in</button>\n    <button type=\"button\" class=\"gw-banner__dismiss\" aria-label=\"Dismiss\">\n      <svg class=\"gw-banner__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-x\"></use></svg>\n    </button>\n  </div>\n</div>"
+        },
+        {
+          "id": "busy",
+          "title": "While the action runs",
+          "state": "busy",
+          "markup": "<div class=\"gw-banner gw-banner--danger\" role=\"alert\">\n  <p class=\"gw-banner__text\">Could not reconnect after 5 attempts.</p>\n  <div class=\"gw-banner__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--small\" aria-busy=\"true\">Retrying</button>\n  </div>\n</div>"
+        },
+        {
+          "id": "hover",
+          "title": "Hover",
+          "state": "hover",
+          "markup": "<div class=\"gw-banner gw-banner--warning\" role=\"status\">\n  <p class=\"gw-banner__text\">Connection lost. Reconnecting…</p>\n  <div class=\"gw-banner__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--small\">Retry now</button>\n    <button type=\"button\" class=\"gw-banner__dismiss\" aria-label=\"Dismiss\">\n      <svg class=\"gw-banner__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-x\"></use></svg>\n    </button>\n  </div>\n</div>"
+        },
+        {
+          "id": "focus-visible",
+          "title": "Keyboard focus",
+          "state": "focus-visible",
+          "markup": "<div class=\"gw-banner gw-banner--warning\" role=\"status\">\n  <p class=\"gw-banner__text\">Connection lost. Reconnecting…</p>\n  <div class=\"gw-banner__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--small\">Retry now</button>\n    <button type=\"button\" class=\"gw-banner__dismiss\" aria-label=\"Dismiss\">\n      <svg class=\"gw-banner__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-x\"></use></svg>\n    </button>\n  </div>\n</div>"
+        },
+        {
+          "id": "active",
+          "title": "Pressed",
+          "state": "active",
+          "markup": "<div class=\"gw-banner gw-banner--warning\" role=\"status\">\n  <p class=\"gw-banner__text\">Connection lost. Reconnecting…</p>\n  <div class=\"gw-banner__actions\">\n    <button type=\"button\" class=\"gw-button gw-button--small\">Retry now</button>\n    <button type=\"button\" class=\"gw-banner__dismiss\" aria-label=\"Dismiss\">\n      <svg class=\"gw-banner__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-x\"></use></svg>\n    </button>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
       "name": "button",
       "title": "Button",
       "purpose": "An action the reader takes on the current view.",
@@ -132,6 +697,647 @@
       ]
     },
     {
+      "name": "code-block",
+      "title": "Code block",
+      "purpose": "A block of mono text for a command, a log or a program's output.",
+      "status": "draft",
+      "whenToUse": [
+        "For a command the reader may copy, the output of a command, a log, or an excerpt of a file.",
+        "With the scroll variant when columns must stay aligned, such as a table printed by a tool.",
+        "With line numbers when the text refers to lines of a file."
+      ],
+      "whenNotToUse": [
+        "For a change to a file. Use the diff.",
+        "For a word or a path inside a sentence. Use a code element in the running text.",
+        "For a value the reader edits. Use a field.",
+        "For prose, or to make a message look technical. Mono text is for text a machine wrote or will read."
+      ],
+      "variants": [
+        {
+          "name": "wrapping",
+          "use": "The default, with no modifier class. Long lines wrap at any character, so nothing is hidden at phone width."
+        },
+        {
+          "name": "scroll",
+          "class": "gw-code-block--scroll",
+          "use": "Lines keep their length and the body scrolls sideways inside the block. Set tabindex=\"0\", role=\"group\" and an aria-label on the body."
+        }
+      ],
+      "sizes": [],
+      "states": [
+        "default",
+        "focus-visible",
+        "empty"
+      ],
+      "accessibility": [
+        "Use a figure holding a pre with a code element inside it. An optional figcaption with the class gw-code-block__caption names what ran or which file it is, and comes first.",
+        "With the scroll variant, give the pre tabindex=\"0\", role=\"group\" and an aria-label that says what it holds. It can then take focus, and the arrow keys scroll it. Leave all three off a wrapping block, which never scrolls.",
+        "For line numbers, give the code element the class gw-code-block__lines and write each line as a gw-code-block__line span holding a gw-code-block__number span and a gw-code-block__text span. The numbers are real text, so a screen reader reads them, and they are left out of a copy.",
+        "Write the text exactly as the tool printed it. Escape the characters <, > and & in markup.",
+        "When there is no output, keep the caption and replace the pre with a gw-code-block__note paragraph that says so in a sentence. Never show an empty box.",
+        "Colour carries no meaning inside a block. A failure is said in the output's own words or in text beside the block."
+      ],
+      "icons": [],
+      "classes": [
+        "gw-code-block",
+        "gw-code-block--scroll",
+        "gw-code-block__body",
+        "gw-code-block__caption",
+        "gw-code-block__line",
+        "gw-code-block__lines",
+        "gw-code-block__note",
+        "gw-code-block__number",
+        "gw-code-block__text"
+      ],
+      "examples": [
+        {
+          "id": "command",
+          "title": "A command",
+          "state": "default",
+          "markup": "<figure class=\"gw-code-block\">\n  <pre class=\"gw-code-block__body\"><code>git push --set-upstream origin fix/login-timeout</code></pre>\n</figure>"
+        },
+        {
+          "id": "wrapping",
+          "title": "Output with a caption, long lines wrapped",
+          "reason": "Wrapping is the default because a log is read top to bottom, and on a phone nothing is hidden off to the side. The caption says what ran.",
+          "markup": "  <figure class=\"gw-code-block\">\n    <figcaption class=\"gw-code-block__caption\">Output of npm test in /srv/workspaces/acme-api</figcaption>\n    <pre class=\"gw-code-block__body\"><code>&gt; acme-api@2.14.0 test\n&gt; node --test test/\n\n✔ session: a token older than 30 minutes is refused (41.2ms)\n✖ session: the refresh endpoint extends an unexpired token (12.8ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: 401 !== 200 at TestContext.&lt;anonymous&gt; (file:///srv/workspaces/acme-api/test/session.test.mjs:58:12)\n\ntests 213, pass 212, fail 1</code></pre>\n  </figure>"
+        },
+        {
+          "id": "scroll",
+          "title": "No wrapping, scrolling inside the block",
+          "reason": "Where columns must line up, the block scrolls sideways and the page does not. The body takes tabindex, a role and a label, so a keyboard user can focus it and scroll with the arrow keys.",
+          "markup": "  <figure class=\"gw-code-block gw-code-block--scroll\">\n    <figcaption class=\"gw-code-block__caption\">Output of git log --oneline --decorate -4</figcaption>\n    <pre class=\"gw-code-block__body\" tabindex=\"0\" role=\"group\" aria-label=\"Output of git log\"><code>4be19c7 (HEAD -&gt; fix/login-timeout, origin/fix/login-timeout) Refuse a session token older than 30 minutes\na1d03fe Read the session lifetime from SESSION_TTL_SECONDS\n9f2c1ab (origin/main, main) Merge pull request #212 from acme/feat/webhook-rate-limit\n77e5b02 Add rate limiting to the webhook endpoint</code></pre>\n  </figure>"
+        },
+        {
+          "id": "line-numbers",
+          "title": "A file excerpt with line numbers",
+          "markup": "<figure class=\"gw-code-block\">\n  <figcaption class=\"gw-code-block__caption\">src/session/verify.mjs, lines 41 to 47</figcaption>\n  <pre class=\"gw-code-block__body\"><code class=\"gw-code-block__lines\">\n    <span class=\"gw-code-block__line\"><span class=\"gw-code-block__number\">41</span><span class=\"gw-code-block__text\">export function verify(token, now = Date.now()) {</span></span>\n    <span class=\"gw-code-block__line\"><span class=\"gw-code-block__number\">42</span><span class=\"gw-code-block__text\">  const session = decode(token);</span></span>\n    <span class=\"gw-code-block__line\"><span class=\"gw-code-block__number\">43</span><span class=\"gw-code-block__text\">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS * 1000) {</span></span>\n    <span class=\"gw-code-block__line\"><span class=\"gw-code-block__number\">44</span><span class=\"gw-code-block__text\">    throw new SessionExpired(`The session for ${session.user} ended after ${SESSION_TTL_SECONDS} seconds.`);</span></span>\n    <span class=\"gw-code-block__line\"><span class=\"gw-code-block__number\">45</span><span class=\"gw-code-block__text\">  }</span></span>\n    <span class=\"gw-code-block__line\"><span class=\"gw-code-block__number\">46</span><span class=\"gw-code-block__text\">  return session;</span></span>\n    <span class=\"gw-code-block__line\"><span class=\"gw-code-block__number\">47</span><span class=\"gw-code-block__text\">}</span></span>\n  </code></pre>\n</figure>"
+        },
+        {
+          "id": "focus-visible",
+          "title": "Keyboard focus on a scrolling block",
+          "state": "focus-visible",
+          "markup": "<figure class=\"gw-code-block gw-code-block--scroll\">\n  <pre class=\"gw-code-block__body\" tabindex=\"0\" role=\"group\" aria-label=\"Command to start the database\"><code>docker run --rm --name acme-api-db --env POSTGRES_PASSWORD=local --publish 5432:5432 --volume acme-api-db:/var/lib/postgresql/data postgres:16</code></pre>\n</figure>"
+        },
+        {
+          "id": "empty",
+          "title": "Nothing to show yet",
+          "state": "empty",
+          "markup": "<figure class=\"gw-code-block\">\n  <figcaption class=\"gw-code-block__caption\">Output of npm test in /srv/workspaces/acme-api</figcaption>\n  <p class=\"gw-code-block__note\">No output yet. The log starts when the task leaves the queue.</p>\n</figure>"
+        }
+      ]
+    },
+    {
+      "name": "composer",
+      "title": "Composer",
+      "purpose": "The prompt input under a transcript: a textarea that grows with its content, and Send.",
+      "status": "draft",
+      "whenToUse": [
+        "At the bottom of a transcript, to send the next prompt to the agent.",
+        "To stop a running turn from the same place the reader sends from."
+      ],
+      "whenNotToUse": [
+        "For one line of text in a form, such as a task title. Use a field.",
+        "For longer text that is saved with a form and not sent as a message. Use a textarea.",
+        "To answer an approval request. Use the approval's own Allow and Decline."
+      ],
+      "variants": [
+        {
+          "name": "default",
+          "use": "In the flow of the page, as wide as its container."
+        },
+        {
+          "name": "sticky",
+          "class": "gw-composer--sticky",
+          "use": "Held to the bottom of the scrolling view, with a top border, its own padding and room for the home indicator. Make the view's scroller end at the visible viewport, with a height in dvh or interactive-widget=resizes-content in the viewport meta tag, so it stays above an on-screen keyboard."
+        }
+      ],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "The textarea is one line and 44px tall when empty and grows with its content to 176px, then scrolls. Where field-sizing is not supported it is a fixed 88px. Send stays beside the last line."
+        }
+      ],
+      "states": [
+        "default",
+        "focus",
+        "busy",
+        "disabled",
+        "error"
+      ],
+      "accessibility": [
+        "Use a form element, so Send submits it. The textarea has a visible gw-composer__label whose for attribute matches its id, or an aria-label when the view has no room for one. A placeholder is not a label.",
+        "Send is a button of type submit with gw-button gw-button--primary. It is the view's one primary action, so nothing else in the view is primary.",
+        "While a turn runs, the app sets aria-busy=\"true\" on the form and replaces Send with a Stop button of type button and secondary emphasis. Never show both. The textarea stays editable, and a line of gw-composer__reason linked by aria-describedby says when sending is possible again.",
+        "When the reader cannot send, set disabled on the textarea and on Send, and say why in gw-composer__reason, linked from both by aria-describedby. The reason says what to do next.",
+        "When a prompt fails to send, keep the text in the textarea and add gw-composer__error with role=\"alert\", linked by aria-describedby. Its icon is drawn by the stylesheet.",
+        "Tab moves from the textarea to Send, then to the quiet controls. The app decides whether Enter sends. If it does, Shift+Enter adds a line, and the button remains the way to send on a phone.",
+        "The component needs no script. The app sets disabled, aria-busy and aria-describedby, and swaps Send for Stop."
+      ],
+      "icons": [
+        "circle-alert",
+        "file",
+        "git-branch"
+      ],
+      "classes": [
+        "gw-composer",
+        "gw-composer--sticky",
+        "gw-composer__controls",
+        "gw-composer__error",
+        "gw-composer__input",
+        "gw-composer__label",
+        "gw-composer__reason",
+        "gw-composer__row"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "Label, textarea and Send",
+          "state": "default",
+          "reason": "The label stays visible while the reader types, and Send is the one primary action of the view.",
+          "markup": "<form class=\"gw-composer\">\n  <label class=\"gw-composer__label\" for=\"composer-default-prompt\">Message Claude Code</label>\n  <div class=\"gw-composer__row\">\n    <textarea class=\"gw-composer__input\" id=\"composer-default-prompt\" name=\"prompt\" rows=\"1\"></textarea>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\">Send</button>\n  </div>\n</form>"
+        },
+        {
+          "id": "grown",
+          "title": "Grown with its content",
+          "markup": "  <form class=\"gw-composer\">\n    <label class=\"gw-composer__label\" for=\"composer-grown-prompt\">Message Claude Code</label>\n    <div class=\"gw-composer__row\">\n      <textarea class=\"gw-composer__input\" id=\"composer-grown-prompt\" name=\"prompt\" rows=\"1\">The session cookie expires after 15 minutes even while the tab is active.\n\nFind out why, fix it, and run the auth tests.</textarea>\n      <button type=\"submit\" class=\"gw-button gw-button--primary\">Send</button>\n    </div>\n  </form>"
+        },
+        {
+          "id": "accessible-name",
+          "title": "No visible label, with an accessible name",
+          "markup": "<form class=\"gw-composer\">\n  <div class=\"gw-composer__row\">\n    <textarea class=\"gw-composer__input\" name=\"prompt\" rows=\"1\" aria-label=\"Message Claude Code\">Run the auth tests again.</textarea>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\">Send</button>\n  </div>\n</form>"
+        },
+        {
+          "id": "controls",
+          "title": "With quiet secondary controls",
+          "markup": "<form class=\"gw-composer\">\n  <label class=\"gw-composer__label\" for=\"composer-controls-prompt\">Message Claude Code</label>\n  <div class=\"gw-composer__row\">\n    <textarea class=\"gw-composer__input\" id=\"composer-controls-prompt\" name=\"prompt\" rows=\"1\">Open a pull request for this branch.</textarea>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\">Send</button>\n  </div>\n  <div class=\"gw-composer__controls\">\n    <button type=\"button\" class=\"gw-button gw-button--quiet gw-button--small\">\n      <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n      Attach file\n    </button>\n    <button type=\"button\" class=\"gw-button gw-button--quiet gw-button--small\">\n      <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n      fix/session-refresh\n    </button>\n  </div>\n</form>"
+        },
+        {
+          "id": "focus",
+          "title": "Focus",
+          "state": "focus",
+          "markup": "<form class=\"gw-composer\">\n  <label class=\"gw-composer__label\" for=\"composer-focus-prompt\">Message Claude Code</label>\n  <div class=\"gw-composer__row\">\n    <textarea class=\"gw-composer__input\" id=\"composer-focus-prompt\" name=\"prompt\" rows=\"1\">Add a test for the reload case.</textarea>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\">Send</button>\n  </div>\n</form>"
+        },
+        {
+          "id": "busy",
+          "title": "Busy: a turn is running",
+          "state": "busy",
+          "reason": "While a turn runs, Stop takes the place of Send with secondary emphasis, so the view never shows two main actions. The textarea stays open for drafting the next prompt.",
+          "markup": "<form class=\"gw-composer\" aria-busy=\"true\">\n  <label class=\"gw-composer__label\" for=\"composer-busy-prompt\">Message Claude Code</label>\n  <div class=\"gw-composer__row\">\n    <textarea class=\"gw-composer__input\" id=\"composer-busy-prompt\" name=\"prompt\" rows=\"1\" aria-describedby=\"composer-busy-reason\"></textarea>\n    <button type=\"button\" class=\"gw-button\">Stop</button>\n  </div>\n  <p class=\"gw-composer__reason\" id=\"composer-busy-reason\">Claude Code is working. You can send again when this turn ends.</p>\n</form>"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled, with the reason",
+          "state": "disabled",
+          "reason": "The reason sits beside the controls it explains and is linked to both, so the reader learns what to do instead of meeting a dead button.",
+          "markup": "<form class=\"gw-composer\">\n  <label class=\"gw-composer__label\" for=\"composer-disabled-prompt\">Message Claude Code</label>\n  <div class=\"gw-composer__row\">\n    <textarea class=\"gw-composer__input\" id=\"composer-disabled-prompt\" name=\"prompt\" rows=\"1\" disabled aria-describedby=\"composer-disabled-reason\"></textarea>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\" disabled aria-describedby=\"composer-disabled-reason\">Send</button>\n  </div>\n  <p class=\"gw-composer__reason\" id=\"composer-disabled-reason\">Sign in to Claude Code to send. Run claude login on the machine that hosts this workspace.</p>\n</form>"
+        },
+        {
+          "id": "error",
+          "title": "The prompt was not sent",
+          "state": "error",
+          "markup": "<form class=\"gw-composer\">\n  <label class=\"gw-composer__label\" for=\"composer-error-prompt\">Message Claude Code</label>\n  <div class=\"gw-composer__row\">\n    <textarea class=\"gw-composer__input\" id=\"composer-error-prompt\" name=\"prompt\" rows=\"1\" aria-describedby=\"composer-error-message\">Run the auth tests again.</textarea>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\">Send</button>\n  </div>\n  <p class=\"gw-composer__error\" id=\"composer-error-message\" role=\"alert\">Your message was not sent: the server could not be reached. It is still in the box, so you can send it again.</p>\n</form>"
+        },
+        {
+          "id": "sticky",
+          "title": "Held to the bottom of the view",
+          "markup": "<form class=\"gw-composer gw-composer--sticky\">\n  <label class=\"gw-composer__label\" for=\"composer-sticky-prompt\">Message Claude Code</label>\n  <div class=\"gw-composer__row\">\n    <textarea class=\"gw-composer__input\" id=\"composer-sticky-prompt\" name=\"prompt\" rows=\"1\"></textarea>\n    <button type=\"submit\" class=\"gw-button gw-button--primary\">Send</button>\n  </div>\n</form>"
+        }
+      ]
+    },
+    {
+      "name": "copy-field",
+      "title": "Copy field",
+      "purpose": "A read-only value the reader takes somewhere else, with a button that copies it.",
+      "status": "draft",
+      "whenToUse": [
+        "For a value the reader will paste into a terminal or another tool: a branch name, a commit hash, a path, a command.",
+        "When the value is one line. A long one is cut short with an ellipsis and still copies whole."
+      ],
+      "whenNotToUse": [
+        "For a value the reader can change. Use a text input in a field.",
+        "For several lines, such as a log or a diff. Show them in a pre element.",
+        "For a value nobody needs to copy. Write it as plain text.",
+        "For a secret that must stay hidden. This component always shows its value."
+      ],
+      "variants": [],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "44px tall and as wide as its container, with the button at its natural width. Limit the width on the container."
+        }
+      ],
+      "states": [
+        "default",
+        "focus",
+        "copied",
+        "error"
+      ],
+      "accessibility": [
+        "The value is an input element with type=\"text\" and the readonly attribute, never disabled. It stays in the tab order, its text can be selected, and the arrow keys scroll a long value.",
+        "Name the input with a label element, usually by putting the copy field inside gw-field after its gw-field__label, or with aria-label when the view has no room for a visible label.",
+        "The button is a gw-button with the visible label Copy. Give it an aria-label that names the value, such as Copy branch name, so several on one view can be told apart.",
+        "Keep an empty gw-copy-field__status element with role=\"status\" in the page from the start. role=\"status\" is a polite live region, the same as aria-live=\"polite\".",
+        "After a copy, the app sets the status text to say what was copied, such as Branch name copied. A screen reader announces it and sighted readers see the same words. Clear the text after a few seconds.",
+        "If the copy fails, the app sets the status text to say so and what to do: select the value and copy it by hand.",
+        "The confirmation is that text. Do not signal a copy with a colour change alone, and do not move focus away from the button."
+      ],
+      "icons": [
+        "copy"
+      ],
+      "classes": [
+        "gw-copy-field",
+        "gw-copy-field__status",
+        "gw-copy-field__value"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "A value and its Copy button",
+          "state": "default",
+          "reason": "The value is real text in a read-only input, so it can be selected by hand as well as copied with the button. The empty status line is already in the page, ready for the app to write the result into.",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"copy-field-default-branch\">Branch</label>\n  <div class=\"gw-copy-field\">\n    <input class=\"gw-copy-field__value\" id=\"copy-field-default-branch\" type=\"text\" readonly value=\"fix/login-timeout\">\n    <button type=\"button\" class=\"gw-button\" aria-label=\"Copy branch name\">\n      <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-copy\"></use></svg>\n      Copy\n    </button>\n    <p class=\"gw-copy-field__status\" role=\"status\"></p>\n  </div>\n</div>"
+        },
+        {
+          "id": "copied",
+          "title": "After a copy",
+          "state": "copied",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"copy-field-copied-branch\">Branch</label>\n  <div class=\"gw-copy-field\">\n    <input class=\"gw-copy-field__value\" id=\"copy-field-copied-branch\" type=\"text\" readonly value=\"fix/login-timeout\">\n    <button type=\"button\" class=\"gw-button\" aria-label=\"Copy branch name\">\n      <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-copy\"></use></svg>\n      Copy\n    </button>\n    <p class=\"gw-copy-field__status\" role=\"status\">Branch name copied.</p>\n  </div>\n</div>"
+        },
+        {
+          "id": "long",
+          "title": "A value longer than the row",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"copy-field-long-command\">Checkout command</label>\n  <div class=\"gw-copy-field\">\n    <input class=\"gw-copy-field__value\" id=\"copy-field-long-command\" type=\"text\" readonly value=\"git fetch origin task/raise-session-timeout-and-retry-once && git checkout task/raise-session-timeout-and-retry-once\">\n    <button type=\"button\" class=\"gw-button\" aria-label=\"Copy checkout command\">\n      <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-copy\"></use></svg>\n      Copy\n    </button>\n    <p class=\"gw-copy-field__status\" role=\"status\"></p>\n  </div>\n</div>"
+        },
+        {
+          "id": "focus",
+          "title": "Focus",
+          "state": "focus",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"copy-field-focus-commit\">Commit</label>\n  <div class=\"gw-copy-field\">\n    <input class=\"gw-copy-field__value\" id=\"copy-field-focus-commit\" type=\"text\" readonly value=\"9c41e7a2d0b5f86e3a17c4d92e6b08f1a35d7c60\">\n    <button type=\"button\" class=\"gw-button\" aria-label=\"Copy commit hash\">\n      <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-copy\"></use></svg>\n      Copy\n    </button>\n    <p class=\"gw-copy-field__status\" role=\"status\"></p>\n  </div>\n</div>"
+        },
+        {
+          "id": "error",
+          "title": "When the copy fails",
+          "state": "error",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"copy-field-error-branch\">Branch</label>\n  <div class=\"gw-copy-field\">\n    <input class=\"gw-copy-field__value\" id=\"copy-field-error-branch\" type=\"text\" readonly value=\"fix/login-timeout\">\n    <button type=\"button\" class=\"gw-button\" aria-label=\"Copy branch name\">\n      <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-copy\"></use></svg>\n      Copy\n    </button>\n    <p class=\"gw-copy-field__status\" role=\"status\">The browser blocked the copy. Select the branch name and copy it by hand.</p>\n  </div>\n</div>"
+        },
+        {
+          "id": "no-visible-label",
+          "title": "Named without a visible label",
+          "markup": "<div class=\"gw-copy-field\">\n  <input class=\"gw-copy-field__value\" type=\"text\" readonly value=\"/srv/workspaces/acme-api\" aria-label=\"Workspace path\">\n  <button type=\"button\" class=\"gw-button\" aria-label=\"Copy workspace path\">\n    <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-copy\"></use></svg>\n    Copy\n  </button>\n  <p class=\"gw-copy-field__status\" role=\"status\"></p>\n</div>"
+        }
+      ]
+    },
+    {
+      "name": "diff",
+      "title": "Diff",
+      "purpose": "One file's change as a unified diff, with its path and how many lines were added and removed.",
+      "status": "draft",
+      "whenToUse": [
+        "To show what a task changed in one file, before the reader decides on it.",
+        "One diff per file. For several files, list them and put each diff in a row disclosure.",
+        "The counts alone, gw-diff__counts, beside a file's name in a list row or a disclosure summary."
+      ],
+      "whenNotToUse": [
+        "For a file's contents with no change, or for a command's output. Use the code block.",
+        "For two versions side by side. This component is unified only, which is what fits a phone.",
+        "For a change to prose that the reader edits in place. Show the text itself."
+      ],
+      "variants": [],
+      "sizes": [],
+      "states": [
+        "default",
+        "focus-visible",
+        "loading",
+        "error",
+        "empty"
+      ],
+      "accessibility": [
+        "Use a figure. Its figcaption, gw-diff__header, holds the path in a code element and the counts. Leave the header out when the diff sits under a summary that already shows both.",
+        "Write each count as a sign and a number followed by a gw-diff__label span that finishes it in words, such as +7 and lines added. The label is hidden from sight and read by a screen reader.",
+        "The body is a pre with tabindex=\"0\", role=\"group\" and an aria-label naming the file, so it can take focus and the arrow keys scroll it sideways. The page itself never scrolls sideways.",
+        "Each line is a gw-diff__line holding a gw-diff__sign cell and a gw-diff__text cell. Use an ins element for an added line and a del element for a removed one, with the plus or minus as the sign. A context line and a hunk header are spans, with a space as the sign.",
+        "Never leave out the sign. The shading alone does not mark a line for someone who cannot tell the colours apart.",
+        "While the diff is fetched, set aria-busy=\"true\" on the figure and put a gw-diff__note with role=\"status\" in place of the body. When it fails, use a note with role=\"alert\" that says why. The stylesheet adds the failure's icon.",
+        "When a file changed with no line to show, or the diff is cut short, say so in a plain gw-diff__note."
+      ],
+      "icons": [
+        "circle-alert"
+      ],
+      "classes": [
+        "gw-diff",
+        "gw-diff__added",
+        "gw-diff__body",
+        "gw-diff__counts",
+        "gw-diff__header",
+        "gw-diff__label",
+        "gw-diff__line",
+        "gw-diff__line--added",
+        "gw-diff__line--hunk",
+        "gw-diff__line--removed",
+        "gw-diff__lines",
+        "gw-diff__note",
+        "gw-diff__path",
+        "gw-diff__removed",
+        "gw-diff__sign",
+        "gw-diff__text"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "One file's change",
+          "state": "default",
+          "reason": "Every changed line has a plus or a minus in its own column as well as its shading, the counts in the header are read out as words, and the long line scrolls inside the body while the page stays still.",
+          "markup": "<figure class=\"gw-diff\">\n  <figcaption class=\"gw-diff__header\">\n    <code class=\"gw-diff__path\">src/session/verify.mjs</code>\n    <span class=\"gw-diff__counts\">\n      <span class=\"gw-diff__added\">+7<span class=\"gw-diff__label\"> lines added</span></span>\n      <span class=\"gw-diff__removed\">−3<span class=\"gw-diff__label\"> lines removed</span></span>\n    </span>\n  </figcaption>\n  <pre class=\"gw-diff__body\" tabindex=\"0\" role=\"group\" aria-label=\"Diff of src/session/verify.mjs\"><code class=\"gw-diff__lines\">\n    <span class=\"gw-diff__line gw-diff__line--hunk\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">@@ -38,9 +38,9 @@ import { decode } from \"./token.mjs\";</span></span>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\"></span></span>\n    <del class=\"gw-diff__line gw-diff__line--removed\"><span class=\"gw-diff__sign\">-</span><span class=\"gw-diff__text\">const SESSION_TTL_SECONDS = 1800;</span></del>\n    <ins class=\"gw-diff__line gw-diff__line--added\"><span class=\"gw-diff__sign\">+</span><span class=\"gw-diff__text\">const SESSION_TTL_SECONDS = Number(process.env.SESSION_TTL_SECONDS ?? 1800);</span></ins>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\"></span></span>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">export function verify(token, now = Date.now()) {</span></span>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">  const session = decode(token);</span></span>\n    <del class=\"gw-diff__line gw-diff__line--removed\"><span class=\"gw-diff__sign\">-</span><span class=\"gw-diff__text\">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS) {</span></del>\n    <del class=\"gw-diff__line gw-diff__line--removed\"><span class=\"gw-diff__sign\">-</span><span class=\"gw-diff__text\">    throw new SessionExpired();</span></del>\n    <ins class=\"gw-diff__line gw-diff__line--added\"><span class=\"gw-diff__sign\">+</span><span class=\"gw-diff__text\">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS * 1000) {</span></ins>\n    <ins class=\"gw-diff__line gw-diff__line--added\"><span class=\"gw-diff__sign\">+</span><span class=\"gw-diff__text\">    throw new SessionExpired(`The session for ${session.user} ended after ${SESSION_TTL_SECONDS} seconds.`);</span></ins>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">  }</span></span>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">  return session;</span></span>\n    <span class=\"gw-diff__line gw-diff__line--hunk\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">@@ -70,2 +70,6 @@ export function refresh(token, now = Date.now()) {</span></span>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">  return encode({ ...session, issuedAt: now });</span></span>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">}</span></span>\n    <ins class=\"gw-diff__line gw-diff__line--added\"><span class=\"gw-diff__sign\">+</span><span class=\"gw-diff__text\"></span></ins>\n    <ins class=\"gw-diff__line gw-diff__line--added\"><span class=\"gw-diff__sign\">+</span><span class=\"gw-diff__text\">export function remaining(token, now = Date.now()) {</span></ins>\n    <ins class=\"gw-diff__line gw-diff__line--added\"><span class=\"gw-diff__sign\">+</span><span class=\"gw-diff__text\">  return SESSION_TTL_SECONDS * 1000 - (now - decode(token).issuedAt);</span></ins>\n    <ins class=\"gw-diff__line gw-diff__line--added\"><span class=\"gw-diff__sign\">+</span><span class=\"gw-diff__text\">}</span></ins>\n  </code></pre>\n</figure>"
+        },
+        {
+          "id": "focus-visible",
+          "title": "Keyboard focus on the body",
+          "state": "focus-visible",
+          "markup": "<figure class=\"gw-diff\">\n  <figcaption class=\"gw-diff__header\">\n    <code class=\"gw-diff__path\">.env.example</code>\n    <span class=\"gw-diff__counts\">\n      <span class=\"gw-diff__added\">+1<span class=\"gw-diff__label\"> line added</span></span>\n      <span class=\"gw-diff__removed\">−0<span class=\"gw-diff__label\"> lines removed</span></span>\n    </span>\n  </figcaption>\n  <pre class=\"gw-diff__body\" tabindex=\"0\" role=\"group\" aria-label=\"Diff of .env.example\"><code class=\"gw-diff__lines\">\n    <span class=\"gw-diff__line gw-diff__line--hunk\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">@@ -4,3 +4,4 @@</span></span>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">DATABASE_URL=postgres://acme:local@localhost:5432/acme_api</span></span>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">WEBHOOK_SECRET=</span></span>\n    <ins class=\"gw-diff__line gw-diff__line--added\"><span class=\"gw-diff__sign\">+</span><span class=\"gw-diff__text\">SESSION_TTL_SECONDS=1800</span></ins>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">LOG_LEVEL=info</span></span>\n  </code></pre>\n</figure>"
+        },
+        {
+          "id": "truncated",
+          "title": "Cut short, with a note under the body",
+          "markup": "<figure class=\"gw-diff\">\n  <figcaption class=\"gw-diff__header\">\n    <code class=\"gw-diff__path\">package-lock.json</code>\n    <span class=\"gw-diff__counts\">\n      <span class=\"gw-diff__added\">+412<span class=\"gw-diff__label\"> lines added</span></span>\n      <span class=\"gw-diff__removed\">−388<span class=\"gw-diff__label\"> lines removed</span></span>\n    </span>\n  </figcaption>\n  <pre class=\"gw-diff__body\" tabindex=\"0\" role=\"group\" aria-label=\"Diff of package-lock.json, first lines\"><code class=\"gw-diff__lines\">\n    <span class=\"gw-diff__line gw-diff__line--hunk\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">@@ -1204,9 +1204,9 @@</span></span>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">    \"node_modules/pg\": {</span></span>\n    <del class=\"gw-diff__line gw-diff__line--removed\"><span class=\"gw-diff__sign\">-</span><span class=\"gw-diff__text\">      \"version\": \"8.11.3\",</span></del>\n    <del class=\"gw-diff__line gw-diff__line--removed\"><span class=\"gw-diff__sign\">-</span><span class=\"gw-diff__text\">      \"resolved\": \"https://registry.npmjs.org/pg/-/pg-8.11.3.tgz\",</span></del>\n    <ins class=\"gw-diff__line gw-diff__line--added\"><span class=\"gw-diff__sign\">+</span><span class=\"gw-diff__text\">      \"version\": \"8.13.0\",</span></ins>\n    <ins class=\"gw-diff__line gw-diff__line--added\"><span class=\"gw-diff__sign\">+</span><span class=\"gw-diff__text\">      \"resolved\": \"https://registry.npmjs.org/pg/-/pg-8.13.0.tgz\",</span></ins>\n    <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">      \"license\": \"MIT\",</span></span>\n  </code></pre>\n  <p class=\"gw-diff__note\">The first 4 of 800 changed lines. The whole diff is on the branch chore/pg-8-13.</p>\n</figure>"
+        },
+        {
+          "id": "loading",
+          "title": "Being read",
+          "state": "loading",
+          "markup": "<figure class=\"gw-diff\" aria-busy=\"true\">\n  <figcaption class=\"gw-diff__header\">\n    <code class=\"gw-diff__path\">src/session/verify.mjs</code>\n    <span class=\"gw-diff__counts\">\n      <span class=\"gw-diff__added\">+7<span class=\"gw-diff__label\"> lines added</span></span>\n      <span class=\"gw-diff__removed\">−3<span class=\"gw-diff__label\"> lines removed</span></span>\n    </span>\n  </figcaption>\n  <p class=\"gw-diff__note\" role=\"status\">Reading the diff.</p>\n</figure>"
+        },
+        {
+          "id": "error",
+          "title": "Could not be read",
+          "state": "error",
+          "markup": "<figure class=\"gw-diff\">\n  <figcaption class=\"gw-diff__header\">\n    <code class=\"gw-diff__path\">src/session/verify.mjs</code>\n    <span class=\"gw-diff__counts\">\n      <span class=\"gw-diff__added\">+7<span class=\"gw-diff__label\"> lines added</span></span>\n      <span class=\"gw-diff__removed\">−3<span class=\"gw-diff__label\"> lines removed</span></span>\n    </span>\n  </figcaption>\n  <p class=\"gw-diff__note\" role=\"alert\">The diff could not be read. The worktree /srv/workspaces/acme-api is no longer on disk.</p>\n</figure>"
+        },
+        {
+          "id": "empty",
+          "title": "No lines to show",
+          "state": "empty",
+          "markup": "<figure class=\"gw-diff\">\n  <figcaption class=\"gw-diff__header\">\n    <code class=\"gw-diff__path\">scripts/deploy.sh</code>\n    <span class=\"gw-diff__counts\">\n      <span class=\"gw-diff__added\">+0<span class=\"gw-diff__label\"> lines added</span></span>\n      <span class=\"gw-diff__removed\">−0<span class=\"gw-diff__label\"> lines removed</span></span>\n    </span>\n  </figcaption>\n  <p class=\"gw-diff__note\">No lines changed. The file became executable: its mode went from 644 to 755.</p>\n</figure>"
+        }
+      ]
+    },
+    {
+      "name": "disclosure",
+      "title": "Disclosure",
+      "purpose": "A native details element that shows or hides detail under a summary written in text.",
+      "status": "draft",
+      "whenToUse": [
+        "For detail most readers can do without: a log, the environment, the steps of a finished attempt.",
+        "With the row variant inside a list row, for a changed file that opens to its diff. The summary holds the path and the counts.",
+        "For the one group of advanced settings in a view. Mark that details element with data-gw-advanced."
+      ],
+      "whenNotToUse": [
+        "For anything the reader must see or do in order to go on. An action marked data-gw-critical that can be reached only inside closed content fails the hidden-critical-action rule: show it in the view too, or open the disclosure by default.",
+        "Nested more than two levels. A third level fails the disclosure-depth rule: move that content to a view of its own.",
+        "With a summary that is only an icon or is empty. A summary without text fails the summary-without-text rule.",
+        "For a list of actions that opens over the page. Use a menu.",
+        "For sections where opening one must close the others. This component has no script, so each disclosure opens and closes alone."
+      ],
+      "variants": [
+        {
+          "name": "default",
+          "use": "Stands alone. Its content is indented to start under the summary's text."
+        },
+        {
+          "name": "row",
+          "class": "gw-disclosure--row",
+          "use": "The only child of a gw-list__row. The summary is the row, and the content uses the row's full width, which a diff needs at phone width."
+        }
+      ],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "The summary is at least 44px tall and as wide as the disclosure. It grows when its text wraps."
+        }
+      ],
+      "states": [
+        "default",
+        "open",
+        "hover",
+        "focus-visible",
+        "active"
+      ],
+      "accessibility": [
+        "Use a details element with a summary as its first child. The browser gives the summary its role and its expanded state, and the open attribute is the only state: never toggle a class.",
+        "The summary holds text that says what is inside. The chevron is drawn by the stylesheet and needs no markup. Do not put a heading, a button or a link inside the summary.",
+        "Trailing text such as a count goes in a gw-disclosure__meta span inside the summary, after the label. It is read as part of the summary's name, so write counts in words or with a hidden label, as gw-diff__counts does.",
+        "Put the content in one gw-disclosure__content element after the summary.",
+        "Tab reaches the summary. Enter and Space open and close it. Both come from the summary element. Closed content is out of the tab order and is skipped by a screen reader, and the browser's find-in-page opens it.",
+        "Set the open attribute in markup to start open. Start open when the content holds an action the reader needs.",
+        "Fetch heavy content, such as a diff, when the disclosure opens, and show the content's own loading state until it arrives."
+      ],
+      "icons": [
+        "chevron-right"
+      ],
+      "classes": [
+        "gw-disclosure",
+        "gw-disclosure--row",
+        "gw-disclosure__content",
+        "gw-disclosure__meta",
+        "gw-disclosure__summary"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "Closed",
+          "state": "default",
+          "reason": "The summary says in words what is inside, so the reader can decide whether to open it, and nothing they must act on is hidden: the content is detail they can do without.",
+          "markup": "  <details class=\"gw-disclosure\">\n    <summary class=\"gw-disclosure__summary\">Environment for this task</summary>\n    <div class=\"gw-disclosure__content gw-stack gw-gap-sm\">\n      <p>The task runs in <code>/srv/workspaces/acme-api</code> on Node 24 with these variables set.</p>\n      <figure class=\"gw-code-block\">\n        <pre class=\"gw-code-block__body\"><code>SESSION_TTL_SECONDS=1800\nLOG_LEVEL=info</code></pre>\n      </figure>\n    </div>\n  </details>"
+        },
+        {
+          "id": "open",
+          "title": "Open",
+          "state": "open",
+          "markup": "  <details class=\"gw-disclosure\" open>\n    <summary class=\"gw-disclosure__summary\">Environment for this task</summary>\n    <div class=\"gw-disclosure__content gw-stack gw-gap-sm\">\n      <p>The task runs in <code>/srv/workspaces/acme-api</code> on Node 24 with these variables set.</p>\n      <figure class=\"gw-code-block\">\n        <pre class=\"gw-code-block__body\"><code>SESSION_TTL_SECONDS=1800\nLOG_LEVEL=info</code></pre>\n      </figure>\n    </div>\n  </details>"
+        },
+        {
+          "id": "with-meta",
+          "title": "With trailing text in the summary",
+          "markup": "  <details class=\"gw-disclosure\">\n    <summary class=\"gw-disclosure__summary\">\n      Commands the task ran\n      <span class=\"gw-disclosure__meta\">4 commands</span>\n    </summary>\n    <div class=\"gw-disclosure__content\">\n      <figure class=\"gw-code-block\">\n        <pre class=\"gw-code-block__body\"><code>npm ci\nnpm test\ngit add src/session/verify.mjs .env.example\ngit commit --message \"Refuse a session token older than 30 minutes\"</code></pre>\n      </figure>\n    </div>\n  </details>"
+        },
+        {
+          "id": "hover",
+          "title": "Hover",
+          "state": "hover",
+          "markup": "<details class=\"gw-disclosure\">\n  <summary class=\"gw-disclosure__summary\">\n    Commands the task ran\n    <span class=\"gw-disclosure__meta\">4 commands</span>\n  </summary>\n  <div class=\"gw-disclosure__content\">\n    <p>npm ci, npm test, git add and git commit.</p>\n  </div>\n</details>"
+        },
+        {
+          "id": "focus-visible",
+          "title": "Keyboard focus",
+          "state": "focus-visible",
+          "markup": "<details class=\"gw-disclosure\">\n  <summary class=\"gw-disclosure__summary\">\n    Commands the task ran\n    <span class=\"gw-disclosure__meta\">4 commands</span>\n  </summary>\n  <div class=\"gw-disclosure__content\">\n    <p>npm ci, npm test, git add and git commit.</p>\n  </div>\n</details>"
+        },
+        {
+          "id": "active",
+          "title": "Pressed",
+          "state": "active",
+          "markup": "<details class=\"gw-disclosure\">\n  <summary class=\"gw-disclosure__summary\">\n    Commands the task ran\n    <span class=\"gw-disclosure__meta\">4 commands</span>\n  </summary>\n  <div class=\"gw-disclosure__content\">\n    <p>npm ci, npm test, git add and git commit.</p>\n  </div>\n</details>"
+        },
+        {
+          "id": "file-rows",
+          "title": "As list rows: changed files that open to their diff",
+          "reason": "Each row's summary gives the file's path and its counts, so the list reads on its own while every row is closed. The diff is fetched when a row opens, and a row being fetched says so.",
+          "markup": "<ul class=\"gw-list\">\n  <li class=\"gw-list__row\">\n    <details class=\"gw-disclosure gw-disclosure--row\" open>\n      <summary class=\"gw-disclosure__summary\">\n        <code>.env.example</code>\n        <span class=\"gw-disclosure__meta\">\n          <span class=\"gw-diff__counts\">\n            <span class=\"gw-diff__added\">+1<span class=\"gw-diff__label\"> line added</span></span>\n            <span class=\"gw-diff__removed\">−0<span class=\"gw-diff__label\"> lines removed</span></span>\n          </span>\n        </span>\n      </summary>\n      <div class=\"gw-disclosure__content\">\n        <figure class=\"gw-diff\">\n          <pre class=\"gw-diff__body\" tabindex=\"0\" role=\"group\" aria-label=\"Diff of .env.example\"><code class=\"gw-diff__lines\">\n            <span class=\"gw-diff__line gw-diff__line--hunk\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">@@ -4,3 +4,4 @@</span></span>\n            <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">DATABASE_URL=postgres://acme:local@localhost:5432/acme_api</span></span>\n            <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">WEBHOOK_SECRET=</span></span>\n            <ins class=\"gw-diff__line gw-diff__line--added\"><span class=\"gw-diff__sign\">+</span><span class=\"gw-diff__text\">SESSION_TTL_SECONDS=1800</span></ins>\n            <span class=\"gw-diff__line\"><span class=\"gw-diff__sign\"> </span><span class=\"gw-diff__text\">LOG_LEVEL=info</span></span>\n          </code></pre>\n        </figure>\n      </div>\n    </details>\n  </li>\n  <li class=\"gw-list__row\">\n    <details class=\"gw-disclosure gw-disclosure--row\">\n      <summary class=\"gw-disclosure__summary\">\n        <code>src/session/verify.mjs</code>\n        <span class=\"gw-disclosure__meta\">\n          <span class=\"gw-diff__counts\">\n            <span class=\"gw-diff__added\">+7<span class=\"gw-diff__label\"> lines added</span></span>\n            <span class=\"gw-diff__removed\">−3<span class=\"gw-diff__label\"> lines removed</span></span>\n          </span>\n        </span>\n      </summary>\n      <div class=\"gw-disclosure__content\">\n        <figure class=\"gw-diff\" aria-busy=\"true\">\n          <p class=\"gw-diff__note\" role=\"status\">Reading the diff.</p>\n        </figure>\n      </div>\n    </details>\n  </li>\n  <li class=\"gw-list__row\">\n    <details class=\"gw-disclosure gw-disclosure--row\">\n      <summary class=\"gw-disclosure__summary\">\n        <code>test/session.test.mjs</code>\n        <span class=\"gw-disclosure__meta\">\n          <span class=\"gw-diff__counts\">\n            <span class=\"gw-diff__added\">+24<span class=\"gw-diff__label\"> lines added</span></span>\n            <span class=\"gw-diff__removed\">−2<span class=\"gw-diff__label\"> lines removed</span></span>\n          </span>\n        </span>\n      </summary>\n      <div class=\"gw-disclosure__content\">\n        <figure class=\"gw-diff\" aria-busy=\"true\">\n          <p class=\"gw-diff__note\" role=\"status\">Reading the diff.</p>\n        </figure>\n      </div>\n    </details>\n  </li>\n</ul>"
+        },
+        {
+          "id": "two-levels",
+          "title": "Nested two levels, the limit",
+          "markup": "<details class=\"gw-disclosure\" open>\n  <summary class=\"gw-disclosure__summary\">\n    Attempt 2\n    <span class=\"gw-disclosure__meta\">Finished at 14:16</span>\n  </summary>\n  <div class=\"gw-disclosure__content\">\n    <details class=\"gw-disclosure\">\n      <summary class=\"gw-disclosure__summary\">Test output</summary>\n      <div class=\"gw-disclosure__content\">\n        <p>tests 213, pass 213, fail 0</p>\n      </div>\n    </details>\n    <details class=\"gw-disclosure\">\n      <summary class=\"gw-disclosure__summary\">Commit message</summary>\n      <div class=\"gw-disclosure__content\">\n        <p>Refuse a session token older than 30 minutes</p>\n      </div>\n    </details>\n  </div>\n</details>"
+        }
+      ]
+    },
+    {
+      "name": "empty-state",
+      "title": "Empty state",
+      "purpose": "What a view shows when it has no data yet, with the way to get some.",
+      "status": "draft",
+      "whenToUse": [
+        "In place of a list, table or panel that has nothing in it yet.",
+        "When a search or filter matches nothing. Say so, and offer to clear it.",
+        "With the compact size, for an empty section inside a list or a panel."
+      ],
+      "whenNotToUse": [
+        "While the data is still loading. Use a spinner.",
+        "When loading failed. Use an error state, so the reader is not told there is nothing when there may be.",
+        "To welcome or to promote a feature. An empty state says what is missing and nothing more."
+      ],
+      "variants": [],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "For a whole view. A 16px title, and room above and below."
+        },
+        {
+          "name": "compact",
+          "class": "gw-empty-state--compact",
+          "use": "For a section inside a list or a panel. The title is the size of a row's text and the action is a small button."
+        }
+      ],
+      "states": [
+        "empty"
+      ],
+      "accessibility": [
+        "The title is a heading at the level that fits the view's outline, usually h2, or h3 for the compact size inside a section.",
+        "The body is one sentence saying what will appear here and how to get it.",
+        "At most one action, inside gw-empty-state__action. It is the primary button only when it is the view's main action. Use a link element when it goes to another view.",
+        "It is left-aligned and sits where the data will be. Do not centre it.",
+        "When the empty state replaces content after a search or filter, announce the result count in a separate role=\"status\" element, such as 0 runs. The empty state itself takes no role."
+      ],
+      "icons": [
+        "plus"
+      ],
+      "classes": [
+        "gw-empty-state",
+        "gw-empty-state--compact",
+        "gw-empty-state__action",
+        "gw-empty-state__body",
+        "gw-empty-state__title"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "A view with no data yet",
+          "state": "empty",
+          "reason": "The title says what is missing, the sentence says what will appear and how to get it, and the one action starts that. It is left-aligned, where the list will be.",
+          "markup": "<div class=\"gw-empty-state\">\n  <h2 class=\"gw-empty-state__title\">No runs yet</h2>\n  <p class=\"gw-empty-state__body\">Each task you start shows up here as a run, with its status and its branch.</p>\n  <div class=\"gw-empty-state__action\">\n    <a class=\"gw-button gw-button--primary\" href=\"#new-task\">\n      <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-plus\"></use></svg>\n      New task\n    </a>\n  </div>\n</div>"
+        },
+        {
+          "id": "no-action",
+          "title": "Nothing the reader can do here",
+          "markup": "<div class=\"gw-empty-state\">\n  <h2 class=\"gw-empty-state__title\">No pull requests waiting for review</h2>\n  <p class=\"gw-empty-state__body\">A pull request appears here when a run finishes and asks for your review.</p>\n</div>"
+        },
+        {
+          "id": "filtered",
+          "title": "A filter that matches nothing",
+          "markup": "<div class=\"gw-empty-state\">\n  <h2 class=\"gw-empty-state__title\">No runs match \"status: failed\"</h2>\n  <p class=\"gw-empty-state__body\">All 38 runs in acme/api passed or are still running. Clear the filter to see them.</p>\n  <div class=\"gw-empty-state__action\">\n    <button type=\"button\" class=\"gw-button\">Clear filter</button>\n  </div>\n</div>"
+        },
+        {
+          "id": "compact",
+          "title": "Compact, inside a list or a panel",
+          "markup": "<div class=\"gw-empty-state gw-empty-state--compact\">\n  <h3 class=\"gw-empty-state__title\">No branches yet</h3>\n  <p class=\"gw-empty-state__body\">A branch is created when a task in this repository starts.</p>\n</div>"
+        },
+        {
+          "id": "compact-action",
+          "title": "Compact, with an action",
+          "markup": "<div class=\"gw-empty-state gw-empty-state--compact\">\n  <h3 class=\"gw-empty-state__title\">No setup commands</h3>\n  <p class=\"gw-empty-state__body\">Commands saved here run in the workspace before each task.</p>\n  <div class=\"gw-empty-state__action\">\n    <button type=\"button\" class=\"gw-button gw-button--small\">Add command</button>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
+      "name": "error-state",
+      "title": "Error state",
+      "purpose": "What a view shows when its data could not be loaded, with a way to try again.",
+      "status": "draft",
+      "whenToUse": [
+        "In place of a list, table, panel or whole view whose data failed to load.",
+        "When the reader can do something about it, at least trying again."
+      ],
+      "whenNotToUse": [
+        "When the view loaded and one action in it failed. Use an alert beside that action.",
+        "For a mistake in a form control. Use the field's error message.",
+        "When the view loaded and has nothing in it. Use an empty state."
+      ],
+      "variants": [],
+      "sizes": [],
+      "states": [
+        "error",
+        "loading",
+        "open"
+      ],
+      "accessibility": [
+        "Set role=\"alert\" on the error state when it replaces content after a failed load, so a screen reader announces it. Leave the role off while a retry is running, so the same failure is not announced twice.",
+        "The title is a heading at the level that fits the view's outline, and says what failed in the reader's terms: The runs could not be loaded.",
+        "The sentence after the title is a plain paragraph with no class. It says what to do next. Never show only a status code or a stack trace.",
+        "The Retry action is a gw-button inside gw-error-state__action. While it runs, set aria-busy=\"true\" on it and change its label to Retrying.",
+        "Technical detail goes in a native details element with a text summary, closed by default. Enter or Space on the summary opens and closes it.",
+        "The detail is plain text in a pre element, so it can be selected and copied into a bug report. Long lines wrap.",
+        "The icon beside the title is drawn by the stylesheet and needs no markup."
+      ],
+      "icons": [
+        "chevron-right",
+        "circle-alert"
+      ],
+      "classes": [
+        "gw-error-state",
+        "gw-error-state__action",
+        "gw-error-state__detail",
+        "gw-error-state__output",
+        "gw-error-state__summary",
+        "gw-error-state__title"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "A view that failed to load",
+          "state": "error",
+          "reason": "The title says what failed, the sentence says what to do, and Retry does it without leaving the view. The role makes a screen reader announce the failure when it replaces the content.",
+          "markup": "<div class=\"gw-error-state\" role=\"alert\">\n  <h2 class=\"gw-error-state__title\">The runs could not be loaded</h2>\n  <p>The server did not answer in time. Check your connection, then retry.</p>\n  <div class=\"gw-error-state__action\">\n    <button type=\"button\" class=\"gw-button\">Retry</button>\n  </div>\n</div>"
+        },
+        {
+          "id": "with-detail",
+          "title": "With technical detail, closed",
+          "markup": "  <div class=\"gw-error-state\" role=\"alert\">\n    <h2 class=\"gw-error-state__title\">The diff for fix/login-timeout could not be loaded</h2>\n    <p>The repository host refused the request. Retry in a minute, or reconnect acme/api if it keeps failing.</p>\n    <div class=\"gw-error-state__action\">\n      <button type=\"button\" class=\"gw-button\">Retry</button>\n    </div>\n    <details class=\"gw-error-state__detail\">\n      <summary class=\"gw-error-state__summary\">Technical detail</summary>\n      <pre class=\"gw-error-state__output\">GET /api/repositories/acme/api/compare/main...fix/login-timeout\n403 Forbidden\nx-ratelimit-remaining: 0\nrequest id 7f3c2a91</pre>\n    </details>\n  </div>"
+        },
+        {
+          "id": "detail-open",
+          "title": "With technical detail, open",
+          "state": "open",
+          "markup": "  <div class=\"gw-error-state\" role=\"alert\">\n    <h2 class=\"gw-error-state__title\">The run log could not be loaded</h2>\n    <p>The runner is offline, so its log cannot be read. Retry when the runner is back, or start the run again on another runner.</p>\n    <div class=\"gw-error-state__action\">\n      <button type=\"button\" class=\"gw-button\">Retry</button>\n    </div>\n    <details class=\"gw-error-state__detail\" open>\n      <summary class=\"gw-error-state__summary\">Technical detail</summary>\n      <pre class=\"gw-error-state__output\">GET /api/runs/run_8842/log\n502 Bad Gateway\nupstream runner-eu-3.internal:7443 refused the connection after 3 attempts\nrequest id 2b9e0c14</pre>\n    </details>\n  </div>"
+        },
+        {
+          "id": "retrying",
+          "title": "While the retry runs",
+          "state": "loading",
+          "markup": "<div class=\"gw-error-state\">\n  <h2 class=\"gw-error-state__title\">The runs could not be loaded</h2>\n  <p>The server did not answer in time. Check your connection, then retry.</p>\n  <div class=\"gw-error-state__action\">\n    <button type=\"button\" class=\"gw-button\" aria-busy=\"true\">Retrying</button>\n  </div>\n</div>"
+        }
+      ]
+    },
+    {
       "name": "field",
       "title": "Field",
       "purpose": "One labelled text input, with its description and its error message.",
@@ -214,6 +1420,1032 @@
           "title": "Read-only",
           "state": "read-only",
           "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"field-read-only-workspace\">Workspace path</label>\n  <input class=\"gw-field__control\" id=\"field-read-only-workspace\" type=\"text\" name=\"workspace\" value=\"/srv/workspaces/acme-api\" readonly aria-describedby=\"field-read-only-description\">\n  <p class=\"gw-field__description\" id=\"field-read-only-description\">Set when the workspace was created.</p>\n</div>"
+        }
+      ]
+    },
+    {
+      "name": "link",
+      "title": "Link",
+      "purpose": "A text link to another view or another site: in running text, standing alone, external or quiet.",
+      "status": "draft",
+      "whenToUse": [
+        "To go to another view, another place in this view or another site.",
+        "In running text, as a plain a element with no class.",
+        "Standing alone, such as View all runs under a list, with the gw-link class.",
+        "With the external-link icon and the hidden hint when the link opens another site in a new tab."
+      ],
+      "whenNotToUse": [
+        "For an action that changes something, such as Delete branch or Retry. Use a button.",
+        "For the main action of a view, even when it goes to another view. Use a link with the primary button classes.",
+        "For the app's main destinations. Use a tab bar, or the sidebar at 768px and wider.",
+        "For something unavailable. A link cannot be disabled, so write plain text and say why it is unavailable."
+      ],
+      "variants": [
+        {
+          "name": "inline",
+          "use": "A link inside a sentence. It takes no class: the base styles underline it, and it has the colour of the text around it."
+        },
+        {
+          "name": "standalone",
+          "class": "gw-link",
+          "use": "A link outside a sentence. It is 44px tall and may end with an icon, such as arrow-right."
+        },
+        {
+          "name": "quiet",
+          "class": "gw-link--quiet",
+          "use": "With gw-link, for a minor link that should not draw the eye, such as Edit approval rules. Muted, and still underlined."
+        },
+        {
+          "name": "external",
+          "use": "Not a class but a pattern, for a link with target=\"_blank\": end it with a gw-link__icon showing external-link and a gw-link__hint holding (opens in a new tab). It works in an inline, a standalone and a quiet link."
+        }
+      ],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "A standalone link takes the text size around it and is at least 44px tall and wide. An inline link is the size of its sentence."
+        }
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ],
+      "accessibility": [
+        "Use an a element with an href. Without an href it cannot be reached with the keyboard.",
+        "The link text names where it goes and makes sense read alone: the log for run 2291, never here or read more.",
+        "A link is underlined in every variant and state. Do not remove the underline, and do not mark a link by colour alone.",
+        "A link that opens a new tab says so. Put (opens in a new tab) in a gw-link__hint inside the link, which a screen reader reads and the screen does not show, and set rel=\"noopener\".",
+        "An icon inside a link is decoration and carries aria-hidden=\"true\". The external-link icon is the visible sign of what the hint says.",
+        "Tab moves to the link and Enter follows it. Space does not, which is one reason an action is a button.",
+        "A standalone link has a 44px pointer target. An inline link is exempt, so do not put two of them side by side in a sentence."
+      ],
+      "icons": [
+        "arrow-right",
+        "external-link"
+      ],
+      "classes": [
+        "gw-link",
+        "gw-link--quiet",
+        "gw-link__hint",
+        "gw-link__icon"
+      ],
+      "examples": [
+        {
+          "id": "inline",
+          "title": "Inline, in running text",
+          "state": "default",
+          "reason": "A link in a sentence takes no class. It is underlined, so it can be found without telling colours apart, and its text says where it goes.",
+          "markup": "<p>The run stopped at step 4 because <a href=\"/branches/fix-login-timeout\">fix/login-timeout</a> has a merge conflict with main. Read <a href=\"/runs/2291/log\">the log for run 2291</a> for the command that failed.</p>"
+        },
+        {
+          "id": "standalone",
+          "title": "Standalone",
+          "markup": "<a class=\"gw-link\" href=\"/runs\">View all runs</a>\n<a class=\"gw-link\" href=\"/tasks/412\">\n  Open task 412\n  <svg class=\"gw-link__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-arrow-right\"></use></svg>\n</a>"
+        },
+        {
+          "id": "quiet",
+          "title": "Quiet",
+          "markup": "<a class=\"gw-link gw-link--quiet\" href=\"/settings/approval-rules\">Edit approval rules</a>\n<a class=\"gw-link gw-link--quiet\" href=\"/runs/2291/log\">\n  View raw log\n  <svg class=\"gw-link__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-arrow-right\"></use></svg>\n</a>"
+        },
+        {
+          "id": "external",
+          "title": "External, standalone",
+          "reason": "The icon shows the link leaves the app, and the hidden text tells a screen reader that it opens in a new tab before the reader follows it.",
+          "markup": "<a class=\"gw-link\" href=\"https://github.com/acme/api/pull/482\" target=\"_blank\" rel=\"noopener\">\n  Pull request 482 on GitHub\n  <svg class=\"gw-link__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-external-link\"></use></svg>\n  <span class=\"gw-link__hint\">(opens in a new tab)</span>\n</a>\n<a class=\"gw-link gw-link--quiet\" href=\"https://github.com/acme/api/actions\" target=\"_blank\" rel=\"noopener\">\n  Checks for acme/api\n  <svg class=\"gw-link__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-external-link\"></use></svg>\n  <span class=\"gw-link__hint\">(opens in a new tab)</span>\n</a>"
+        },
+        {
+          "id": "external-inline",
+          "title": "External, in running text",
+          "markup": "<p>The agent pushed 3 commits to fix/login-timeout. Review them in <a href=\"https://github.com/acme/api/pull/482\" target=\"_blank\" rel=\"noopener\">pull request 482 on GitHub <svg class=\"gw-link__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-external-link\"></use></svg><span class=\"gw-link__hint\"> (opens in a new tab)</span></a> before you approve the merge.</p>"
+        },
+        {
+          "id": "hover",
+          "title": "Hover",
+          "state": "hover",
+          "markup": "<a class=\"gw-link\" href=\"/runs\">View all runs</a>\n<a class=\"gw-link gw-link--quiet\" href=\"/settings/approval-rules\">Edit approval rules</a>"
+        },
+        {
+          "id": "focus-visible",
+          "title": "Keyboard focus",
+          "state": "focus-visible",
+          "markup": "<a class=\"gw-link\" href=\"/runs\">View all runs</a>\n<a class=\"gw-link gw-link--quiet\" href=\"/settings/approval-rules\">Edit approval rules</a>"
+        },
+        {
+          "id": "active",
+          "title": "Pressed",
+          "state": "active",
+          "markup": "<a class=\"gw-link\" href=\"/runs\">View all runs</a>\n<a class=\"gw-link gw-link--quiet\" href=\"/settings/approval-rules\">Edit approval rules</a>"
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "title": "List",
+      "purpose": "Rows one above the other, each with a primary line and room for a second line, an icon, and trailing text or one quiet action.",
+      "status": "draft",
+      "whenToUse": [
+        "For a set of like things the reader scans down and opens one of: tasks, repositories, branches, changed files.",
+        "For a short sequence whose order means something, such as the steps a task took. Use an ol.",
+        "With the dense variant where many rows must fit a phone screen."
+      ],
+      "whenNotToUse": [
+        "For items compared across several columns. Use a table.",
+        "When there are no items. Put an empty state in place of the list: one sentence that says there is nothing yet and, where there is one, the action that adds the first item. Never render a ul with no rows.",
+        "While the first fetch runs or after it fails. Put a line of text with role=\"status\" or role=\"alert\" in place of the list.",
+        "For a row with two or more actions. Make the row a link to a view that holds them, or put them in a menu.",
+        "For site or section navigation. Use a nav with links."
+      ],
+      "variants": [
+        {
+          "name": "default",
+          "use": "12px above and below each row's text. A one-line row is 44px tall."
+        },
+        {
+          "name": "dense",
+          "class": "gw-list--dense",
+          "use": "4px above and below each row's text, for long lists and file lists. A row with a link or an action is still at least 44px tall, and a row that only shows text is 28px."
+        }
+      ],
+      "sizes": [],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active",
+        "current",
+        "busy"
+      ],
+      "accessibility": [
+        "Use a ul, or an ol when the order means something, with one li per row. A screen reader then announces how many rows there are.",
+        "A row that navigates wraps its icon, lines and trailing text in one a element with the class gw-list__link. The link is the whole row: one tab stop, one focus ring, and a pointer target at least 44px tall.",
+        "A row that does not navigate uses a div with the class gw-list__content. It is not focusable.",
+        "A row has at most one action: a small quiet button inside gw-list__action, after the content. When every row's button has the same words, add an aria-label that starts with those words and names the row, such as Remove /srv/workspaces/acme-api.",
+        "Mark the row for the view the reader is on with aria-current=\"page\" on its link. It is drawn with a bar and a heavier title as well as a shade.",
+        "A leading icon is decoration and carries aria-hidden=\"true\". Trailing text and a status are written in words, never as a colour or an icon alone.",
+        "While rows are fetched again, set aria-busy=\"true\" on the list and say so in an element with role=\"status\" outside it.",
+        "Tab moves between row links and row actions in order. Enter follows a link. There are no arrow-key bindings."
+      ],
+      "icons": [
+        "file",
+        "folder",
+        "git-branch"
+      ],
+      "classes": [
+        "gw-list",
+        "gw-list--dense",
+        "gw-list__action",
+        "gw-list__body",
+        "gw-list__content",
+        "gw-list__icon",
+        "gw-list__link",
+        "gw-list__meta",
+        "gw-list__primary",
+        "gw-list__row",
+        "gw-list__secondary"
+      ],
+      "examples": [
+        {
+          "id": "navigating",
+          "title": "Rows that navigate",
+          "state": "default",
+          "reason": "Each row is one link, so the whole row takes the press, the focus ring and one screen-reader stop. The trailing text is something the reader scans down, not a control.",
+          "markup": "<ul class=\"gw-list\">\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/418\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Fix the login timeout</span>\n        <span class=\"gw-list__secondary\">acme/api · fix/login-timeout</span>\n      </span>\n      <span class=\"gw-list__meta\">2 min ago</span>\n    </a>\n  </li>\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/417\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Add rate limiting to the webhook endpoint</span>\n        <span class=\"gw-list__secondary\">acme/api · feat/webhook-rate-limit</span>\n      </span>\n      <span class=\"gw-list__meta\">40 min ago</span>\n    </a>\n  </li>\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/415\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Upgrade Postgres client to 8.13</span>\n        <span class=\"gw-list__secondary\">acme/billing · chore/pg-8-13</span>\n      </span>\n      <span class=\"gw-list__meta\">Yesterday</span>\n    </a>\n  </li>\n</ul>"
+        },
+        {
+          "id": "single-line",
+          "title": "A primary line only",
+          "markup": "<ul class=\"gw-list\">\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/repositories/acme/api\">\n      <span class=\"gw-list__body\"><span class=\"gw-list__primary\">acme/api</span></span>\n      <span class=\"gw-list__meta\">12 tasks</span>\n    </a>\n  </li>\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/repositories/acme/billing\">\n      <span class=\"gw-list__body\"><span class=\"gw-list__primary\">acme/billing</span></span>\n      <span class=\"gw-list__meta\">3 tasks</span>\n    </a>\n  </li>\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/repositories/acme/web\">\n      <span class=\"gw-list__body\"><span class=\"gw-list__primary\">acme/web</span></span>\n      <span class=\"gw-list__meta\">No tasks</span>\n    </a>\n  </li>\n</ul>"
+        },
+        {
+          "id": "with-icon",
+          "title": "With a leading icon",
+          "markup": "<ul class=\"gw-list\">\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/repositories/acme/api/branches/fix/login-timeout\">\n      <svg class=\"gw-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">fix/login-timeout</span>\n        <span class=\"gw-list__secondary\">2 commits ahead of main</span>\n      </span>\n      <span class=\"gw-list__meta\">2 min ago</span>\n    </a>\n  </li>\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/repositories/acme/api/branches/feat/webhook-rate-limit\">\n      <svg class=\"gw-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">feat/webhook-rate-limit</span>\n        <span class=\"gw-list__secondary\">5 commits ahead of main</span>\n      </span>\n      <span class=\"gw-list__meta\">40 min ago</span>\n    </a>\n  </li>\n</ul>"
+        },
+        {
+          "id": "with-action",
+          "title": "Rows with one quiet action",
+          "reason": "A row holds at most one action, and it is quiet and small because it repeats on every row. Its label names the row it acts on for a screen reader.",
+          "markup": "<ul class=\"gw-list\">\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <svg class=\"gw-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-folder\"></use></svg>\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">/srv/workspaces/acme-api</span>\n        <span class=\"gw-list__secondary\">On fix/login-timeout · 214 MB</span>\n      </span>\n    </div>\n    <div class=\"gw-list__action\">\n      <button type=\"button\" class=\"gw-button gw-button--quiet gw-button--small\" aria-label=\"Remove /srv/workspaces/acme-api\">Remove</button>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <svg class=\"gw-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-folder\"></use></svg>\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">/srv/workspaces/acme-billing</span>\n        <span class=\"gw-list__secondary\">On chore/pg-8-13 · 88 MB</span>\n      </span>\n    </div>\n    <div class=\"gw-list__action\">\n      <button type=\"button\" class=\"gw-button gw-button--quiet gw-button--small\" aria-label=\"Remove /srv/workspaces/acme-billing\">Remove</button>\n    </div>\n  </li>\n</ul>"
+        },
+        {
+          "id": "dense",
+          "title": "Dense, rows that navigate",
+          "markup": "<ul class=\"gw-list gw-list--dense\">\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/418\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Fix the login timeout</span>\n        <span class=\"gw-list__secondary\">acme/api · fix/login-timeout</span>\n      </span>\n      <span class=\"gw-list__meta\">2 min ago</span>\n    </a>\n  </li>\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/417\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Add rate limiting to the webhook endpoint</span>\n        <span class=\"gw-list__secondary\">acme/api · feat/webhook-rate-limit</span>\n      </span>\n      <span class=\"gw-list__meta\">40 min ago</span>\n    </a>\n  </li>\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/415\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Upgrade Postgres client to 8.13</span>\n        <span class=\"gw-list__secondary\">acme/billing · chore/pg-8-13</span>\n      </span>\n      <span class=\"gw-list__meta\">Yesterday</span>\n    </a>\n  </li>\n</ul>"
+        },
+        {
+          "id": "dense-static",
+          "title": "Dense, rows that only show",
+          "markup": "<ul class=\"gw-list gw-list--dense\">\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <svg class=\"gw-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n      <span class=\"gw-list__body\"><code class=\"gw-list__primary\">web/src/screens/task.tsx</code></span>\n      <span class=\"gw-list__meta\">Modified</span>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <svg class=\"gw-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n      <span class=\"gw-list__body\"><code class=\"gw-list__primary\">web/src/components/task-status.ts</code></span>\n      <span class=\"gw-list__meta\">Modified</span>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <svg class=\"gw-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n      <span class=\"gw-list__body\"><code class=\"gw-list__primary\">web/src/api/session.test.ts</code></span>\n      <span class=\"gw-list__meta\">Added</span>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <svg class=\"gw-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n      <span class=\"gw-list__body\"><code class=\"gw-list__primary\">docs/sessions.md</code></span>\n      <span class=\"gw-list__meta\">Deleted</span>\n    </div>\n  </li>\n</ul>"
+        },
+        {
+          "id": "ordered",
+          "title": "An ordered list, where the order means something",
+          "markup": "<ol class=\"gw-list\">\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Created the worktree</span>\n        <span class=\"gw-list__secondary\">/srv/workspaces/acme-api from main at 9f2c1ab</span>\n      </span>\n      <span class=\"gw-list__meta\">14:02</span>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Ran npm test</span>\n        <span class=\"gw-list__secondary\">212 passed, 1 failed</span>\n      </span>\n      <span class=\"gw-list__meta\">14:09</span>\n    </div>\n  </li>\n  <li class=\"gw-list__row\">\n    <div class=\"gw-list__content\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Committed to fix/login-timeout</span>\n        <span class=\"gw-list__secondary\">3 files changed</span>\n      </span>\n      <span class=\"gw-list__meta\">14:16</span>\n    </div>\n  </li>\n</ol>"
+        },
+        {
+          "id": "hover",
+          "title": "Hover",
+          "state": "hover",
+          "markup": "<ul class=\"gw-list\">\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/418\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Fix the login timeout</span>\n        <span class=\"gw-list__secondary\">acme/api · fix/login-timeout</span>\n      </span>\n      <span class=\"gw-list__meta\">2 min ago</span>\n    </a>\n  </li>\n</ul>"
+        },
+        {
+          "id": "focus-visible",
+          "title": "Keyboard focus",
+          "state": "focus-visible",
+          "markup": "<ul class=\"gw-list\">\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/418\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Fix the login timeout</span>\n        <span class=\"gw-list__secondary\">acme/api · fix/login-timeout</span>\n      </span>\n      <span class=\"gw-list__meta\">2 min ago</span>\n    </a>\n  </li>\n</ul>"
+        },
+        {
+          "id": "active",
+          "title": "Pressed",
+          "state": "active",
+          "markup": "<ul class=\"gw-list\">\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/418\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Fix the login timeout</span>\n        <span class=\"gw-list__secondary\">acme/api · fix/login-timeout</span>\n      </span>\n      <span class=\"gw-list__meta\">2 min ago</span>\n    </a>\n  </li>\n</ul>"
+        },
+        {
+          "id": "current",
+          "title": "The current row",
+          "state": "current",
+          "markup": "<ul class=\"gw-list\">\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/418\" aria-current=\"page\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Fix the login timeout</span>\n        <span class=\"gw-list__secondary\">acme/api · fix/login-timeout</span>\n      </span>\n      <span class=\"gw-list__meta\">2 min ago</span>\n    </a>\n  </li>\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/417\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Add rate limiting to the webhook endpoint</span>\n        <span class=\"gw-list__secondary\">acme/api · feat/webhook-rate-limit</span>\n      </span>\n      <span class=\"gw-list__meta\">40 min ago</span>\n    </a>\n  </li>\n</ul>"
+        },
+        {
+          "id": "busy",
+          "title": "Fetching again, with the last rows kept",
+          "state": "busy",
+          "markup": "<p role=\"status\">Reading the tasks again.</p>\n<ul class=\"gw-list\" aria-busy=\"true\">\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/418\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Fix the login timeout</span>\n        <span class=\"gw-list__secondary\">acme/api · fix/login-timeout</span>\n      </span>\n      <span class=\"gw-list__meta\">2 min ago</span>\n    </a>\n  </li>\n  <li class=\"gw-list__row\">\n    <a class=\"gw-list__link\" href=\"/tasks/417\">\n      <span class=\"gw-list__body\">\n        <span class=\"gw-list__primary\">Add rate limiting to the webhook endpoint</span>\n        <span class=\"gw-list__secondary\">acme/api · feat/webhook-rate-limit</span>\n      </span>\n      <span class=\"gw-list__meta\">40 min ago</span>\n    </a>\n  </li>\n</ul>"
+        }
+      ]
+    },
+    {
+      "name": "message",
+      "title": "Message",
+      "purpose": "One row of an agent transcript: a prompt, the agent's text, a tool call, its result, a denial, usage or the end of a turn.",
+      "status": "draft",
+      "whenToUse": [
+        "For each event of an agent's turn, as a list item in the transcript's ol or ul, oldest first.",
+        "To show what a tool was asked to do and what it returned, in mono, at phone width."
+      ],
+      "whenNotToUse": [
+        "For a request that still waits for the reader's answer. Use an approval, which carries Allow and Decline.",
+        "For the note that the agent is still working. Use streaming as the last row.",
+        "For a message about the app itself, such as a lost connection. Use an alert or a banner."
+      ],
+      "variants": [
+        {
+          "name": "agent",
+          "use": "The default, with no modifier class. Text the agent wrote. Label it with the agent's name."
+        },
+        {
+          "name": "user",
+          "class": "gw-message--user",
+          "use": "A prompt the reader sent. Label it You."
+        },
+        {
+          "name": "tool-call",
+          "class": "gw-message--tool-call",
+          "use": "A tool the agent ran: the tool name, then the command or path. Put long arguments in a details element whose summary keeps the label, the tool name and a short command."
+        },
+        {
+          "name": "tool-result",
+          "class": "gw-message--tool-result",
+          "use": "What a tool returned. Show the first lines, and put the rest in a details element whose summary reads Show full output."
+        },
+        {
+          "name": "denied",
+          "class": "gw-message--denied",
+          "use": "A call that was refused. Say what was not run and why."
+        },
+        {
+          "name": "usage",
+          "class": "gw-message--usage",
+          "use": "A quiet line of figures for the turn, such as tokens and duration."
+        },
+        {
+          "name": "turn-end",
+          "class": "gw-message--turn-end",
+          "use": "A quiet closing row under a rule, saying that the turn finished and how: completed, stopped or ended with an error."
+        }
+      ],
+      "sizes": [],
+      "states": [
+        "default",
+        "open"
+      ],
+      "accessibility": [
+        "Each row is an li in an ol or ul. Put role=\"log\" and an accessible name on the list when rows are added while the reader watches, so new rows are announced.",
+        "Every row starts with gw-message__label, which says the kind in words: You, Claude Code, Tool call, Tool result, Denied, Usage, End. The kind is never the colour alone, and the denied row's icon is drawn by the stylesheet.",
+        "Write transcript text as text, never as markup, and write out characters that cannot be seen.",
+        "Collapsed arguments and long output use a native details element, with no script. Its summary holds text that says what is inside. Enter and Space open and close it, and its pointer target is 44px tall.",
+        "When output is cut short, the lines after the preview go in the details element, so opened text continues where the preview stopped.",
+        "The app sets nothing but the open attribute, which the browser manages."
+      ],
+      "icons": [
+        "chevron-down",
+        "chevron-right",
+        "circle-alert"
+      ],
+      "classes": [
+        "gw-message",
+        "gw-message--denied",
+        "gw-message--tool-call",
+        "gw-message--tool-result",
+        "gw-message--turn-end",
+        "gw-message--usage",
+        "gw-message--user",
+        "gw-message__body",
+        "gw-message__code",
+        "gw-message__command",
+        "gw-message__details",
+        "gw-message__label",
+        "gw-message__summary",
+        "gw-message__tool"
+      ],
+      "examples": [
+        {
+          "id": "user",
+          "title": "User prompt",
+          "state": "default",
+          "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--user\">\n    <span class=\"gw-message__label\">You</span>\n    <p class=\"gw-message__body\">The session cookie expires after 15 minutes even while the tab is active. Find out why and fix it, then run the auth tests.</p>\n  </li>\n</ol>"
+        },
+        {
+          "id": "agent",
+          "title": "Agent text",
+          "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message\">\n    <span class=\"gw-message__label\">Claude Code</span>\n    <p class=\"gw-message__body\">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid session is loaded and add a test for the reload case.</p>\n  </li>\n</ol>"
+        },
+        {
+          "id": "tool-call",
+          "title": "Tool call",
+          "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--tool-call\">\n    <span class=\"gw-message__label\">Tool call</span>\n    <span class=\"gw-message__tool\">Bash</span>\n    <code class=\"gw-message__command\">npm run test -- --run src/auth/session.test.ts</code>\n  </li>\n  <li class=\"gw-message gw-message--tool-call\">\n    <span class=\"gw-message__label\">Tool call</span>\n    <span class=\"gw-message__tool\">Read</span>\n    <code class=\"gw-message__command\">src/auth/session.ts</code>\n  </li>\n</ol>"
+        },
+        {
+          "id": "tool-call-collapsed",
+          "title": "Tool call with collapsed arguments",
+          "reason": "The summary names the tool and the file in text, so the row can be read without opening it. The arguments stay one press away.",
+          "markup": "  <ol class=\"gw-stack gw-gap-sm\">\n    <li class=\"gw-message gw-message--tool-call\">\n      <details class=\"gw-message__details\">\n        <summary class=\"gw-message__summary\">\n          <span class=\"gw-message__label\">Tool call</span>\n          <span class=\"gw-message__tool\">Edit</span>\n          <code class=\"gw-message__command\">src/auth/session.ts</code>\n        </summary>\n        <pre class=\"gw-message__code\">{\n  \"file_path\": \"src/auth/session.ts\",\n  \"old_string\": \"if (justSignedIn) startRefreshTimer(session);\",\n  \"new_string\": \"if (session.expiresAt > Date.now()) startRefreshTimer(session);\"\n}</pre>\n      </details>\n    </li>\n  </ol>"
+        },
+        {
+          "id": "tool-call-open",
+          "title": "Tool call with its arguments open",
+          "state": "open",
+          "markup": "  <ol class=\"gw-stack gw-gap-sm\">\n    <li class=\"gw-message gw-message--tool-call\">\n      <details class=\"gw-message__details\" open>\n        <summary class=\"gw-message__summary\">\n          <span class=\"gw-message__label\">Tool call</span>\n          <span class=\"gw-message__tool\">Grep</span>\n          <code class=\"gw-message__command\">startRefreshTimer</code>\n        </summary>\n        <pre class=\"gw-message__code\">{\n  \"pattern\": \"startRefreshTimer\",\n  \"path\": \"src\",\n  \"output_mode\": \"files_with_matches\"\n}</pre>\n      </details>\n    </li>\n  </ol>"
+        },
+        {
+          "id": "tool-result",
+          "title": "Tool result",
+          "markup": "  <ol class=\"gw-stack gw-gap-sm\">\n    <li class=\"gw-message gw-message--tool-result\">\n      <span class=\"gw-message__label\">Tool result</span>\n      <pre class=\"gw-message__code\">src/auth/session.ts\nsrc/auth/session.test.ts\nsrc/routes/sign-in.tsx</pre>\n    </li>\n  </ol>"
+        },
+        {
+          "id": "tool-result-long",
+          "title": "Long tool result",
+          "markup": " <ol class=\"gw-stack gw-gap-sm\">\n   <li class=\"gw-message gw-message--tool-result\">\n     <span class=\"gw-message__label\">Tool result</span>\n     <pre class=\"gw-message__code\"> RUN  v3.2.4 /srv/workspaces/acme-api/web\n\n✓ src/auth/session.test.ts (14 tests) 212ms\n✓ src/auth/refresh.test.ts (9 tests) 87ms</pre>\n     <details class=\"gw-message__details\">\n       <summary class=\"gw-message__summary\">Show full output (38 more lines)</summary>\n       <pre class=\"gw-message__code\"> ✓ src/auth/cookie.test.ts (6 tests) 41ms\n✓ src/routes/sign-in.test.tsx (11 tests) 398ms\n\nTest Files  4 passed (4)\n     Tests  40 passed (40)\n  Duration  1.92s (transform 310ms, setup 0ms, collect 1.04s, tests 738ms)</pre>\n     </details>\n   </li>\n </ol>"
+        },
+        {
+          "id": "long-line",
+          "title": "A long line wraps",
+          "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--tool-call\">\n    <span class=\"gw-message__label\">Tool call</span>\n    <span class=\"gw-message__tool\">Bash</span>\n    <code class=\"gw-message__command\">curl --silent --fail https://registry.npmjs.org/@acme%2Fsession-store/-/session-store-4.12.0-rc.3.tgz --output /srv/workspaces/acme-api/.cache/session-store-4.12.0-rc.3.tgz</code>\n  </li>\n  <li class=\"gw-message gw-message--tool-result\">\n    <span class=\"gw-message__label\">Tool result</span>\n    <pre class=\"gw-message__code\">sha512-Zk3mJ9cQpXr7vT2bN8sLhW4yGdA6fUeR1oKiC5xMtPqVnBwS0aHjYlDg3EuFzOI7rTmXc2Nb9QsKvLpW8yAhJd== /srv/workspaces/acme-api/.cache/session-store-4.12.0-rc.3.tgz</pre>\n  </li>\n</ol>"
+        },
+        {
+          "id": "denied",
+          "title": "Permission denied",
+          "reason": "The label and its icon say the call was denied, and the text says what was not run and why. The colour only adds to that.",
+          "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--denied\">\n    <span class=\"gw-message__label\">Denied</span>\n    <span class=\"gw-message__tool\">Bash</span>\n    <code class=\"gw-message__command\">git push --force origin main</code>\n    <p class=\"gw-message__body\">This command was not run. Force pushes to main are blocked by the project's permission rules.</p>\n  </li>\n</ol>"
+        },
+        {
+          "id": "usage",
+          "title": "Usage",
+          "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--usage\">\n    <span class=\"gw-message__label\">Usage</span>\n    <p class=\"gw-message__body\">18,420 tokens in, 1,264 out, 42 seconds</p>\n  </li>\n</ol>"
+        },
+        {
+          "id": "turn-end",
+          "title": "Turn end",
+          "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--turn-end\">\n    <span class=\"gw-message__label\">End</span>\n    <p class=\"gw-message__body\">Turn completed.</p>\n  </li>\n  <li class=\"gw-message gw-message--turn-end\">\n    <span class=\"gw-message__label\">End</span>\n    <p class=\"gw-message__body\">Turn stopped before it finished.</p>\n  </li>\n  <li class=\"gw-message gw-message--turn-end\">\n    <span class=\"gw-message__label\">End</span>\n    <p class=\"gw-message__body\">Turn ended with an error: Claude Code's usage limit was reached.</p>\n  </li>\n</ol>"
+        },
+        {
+          "id": "transcript",
+          "title": "One turn of a transcript",
+          "markup": " <ol class=\"gw-stack gw-gap-sm\">\n   <li class=\"gw-message gw-message--user\">\n     <span class=\"gw-message__label\">You</span>\n     <p class=\"gw-message__body\">Run the auth tests and tell me what fails.</p>\n   </li>\n   <li class=\"gw-message gw-message--tool-call\">\n     <span class=\"gw-message__label\">Tool call</span>\n     <span class=\"gw-message__tool\">Bash</span>\n     <code class=\"gw-message__command\">npm run test -- --run src/auth</code>\n   </li>\n   <li class=\"gw-message gw-message--tool-result\">\n     <span class=\"gw-message__label\">Tool result</span>\n     <pre class=\"gw-message__code\"> ✗ src/auth/session.test.ts > keeps the session after a reload\n  AssertionError: expected null to be truthy\n\nTest Files  1 failed | 2 passed (3)</pre>\n   </li>\n   <li class=\"gw-message\">\n     <span class=\"gw-message__label\">Claude Code</span>\n     <p class=\"gw-message__body\">One test fails: the session is lost after a reload, because the refresh timer is not restarted. The other 29 tests pass.</p>\n   </li>\n   <li class=\"gw-message gw-message--usage\">\n     <span class=\"gw-message__label\">Usage</span>\n     <p class=\"gw-message__body\">9,812 tokens in, 406 out, 17 seconds</p>\n   </li>\n   <li class=\"gw-message gw-message--turn-end\">\n     <span class=\"gw-message__label\">End</span>\n     <p class=\"gw-message__body\">Turn completed.</p>\n   </li>\n </ol>"
+        }
+      ]
+    },
+    {
+      "name": "page-header",
+      "title": "Page header",
+      "purpose": "The top of a view: its title, an optional one-line description and the view's one optional primary action.",
+      "status": "draft",
+      "whenToUse": [
+        "Once, at the top of a view's content, to say what the view is.",
+        "With the action when the view has one main thing to do, such as New task on the task list.",
+        "In the compact variant above a board, a transcript or a diff, where the content needs the height."
+      ],
+      "whenNotToUse": [
+        "For the bar across the top of the app with the product name and the back link. Use an app header.",
+        "For the heading of a section inside a view. Use a plain h2.",
+        "For a second or third action. Put those in the view as secondary buttons, or behind a menu.",
+        "For help text of more than a line. Put it in the view or link to the documentation."
+      ],
+      "variants": [
+        {
+          "name": "default",
+          "use": "The title at 20px on a phone and 24px from 768px. Use it on most views."
+        },
+        {
+          "name": "compact",
+          "class": "gw-page-header--compact",
+          "use": "The title at 16px with a 12px description, for a dense screen. Pair it with a small button."
+        }
+      ],
+      "sizes": [],
+      "states": [
+        "default"
+      ],
+      "accessibility": [
+        "Use a header element, with the title as the page's h1. When the app header already shows the view title as the h1, leave the page header out.",
+        "The description is a p directly after the title, one sentence long.",
+        "The action is one button, or one link styled as a button when it goes to another view. It may be the view's primary button, and then no other button in the view is primary.",
+        "In the compact variant use gw-button--small, which keeps a 44px pointer target.",
+        "On a narrow screen the action moves below the text instead of squeezing it. A long title wraps and is never cut.",
+        "The header adds no keyboard behaviour. Tab reaches the action in document order, after the title and description."
+      ],
+      "icons": [
+        "plus"
+      ],
+      "classes": [
+        "gw-page-header",
+        "gw-page-header--compact",
+        "gw-page-header__action",
+        "gw-page-header__description",
+        "gw-page-header__text",
+        "gw-page-header__title"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "Title, description and the primary action",
+          "state": "default",
+          "reason": "The title names the view, one line says what it holds, and the single primary button is the main thing to do here.",
+          "markup": "<header class=\"gw-page-header\">\n  <div class=\"gw-page-header__text\">\n    <h1 class=\"gw-page-header__title\">Tasks</h1>\n    <p class=\"gw-page-header__description\">Work queued for the agent, newest first.</p>\n  </div>\n  <div class=\"gw-page-header__action\">\n    <a class=\"gw-button gw-button--primary\" href=\"/tasks/new\">\n      <svg class=\"gw-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-plus\"></use></svg>\n      New task\n    </a>\n  </div>\n</header>"
+        },
+        {
+          "id": "title-only",
+          "title": "Title alone",
+          "markup": "<header class=\"gw-page-header\">\n  <div class=\"gw-page-header__text\">\n    <h1 class=\"gw-page-header__title\">Branches</h1>\n  </div>\n</header>"
+        },
+        {
+          "id": "no-action",
+          "title": "Title and description, no action",
+          "markup": "<header class=\"gw-page-header\">\n  <div class=\"gw-page-header__text\">\n    <h1 class=\"gw-page-header__title\">Approvals</h1>\n    <p class=\"gw-page-header__description\">Commands the agent will not run until you allow them.</p>\n  </div>\n</header>"
+        },
+        {
+          "id": "long-title",
+          "title": "A long title beside the action",
+          "markup": "<header class=\"gw-page-header\">\n  <div class=\"gw-page-header__text\">\n    <h1 class=\"gw-page-header__title\">Fix the login timeout on the mobile sign-in screen</h1>\n    <p class=\"gw-page-header__description\">Task 412 on acme/api, branch fix/login-timeout.</p>\n  </div>\n  <div class=\"gw-page-header__action\">\n    <button type=\"button\" class=\"gw-button gw-button--primary\">Start run</button>\n  </div>\n</header>"
+        },
+        {
+          "id": "compact",
+          "title": "Compact",
+          "markup": "<header class=\"gw-page-header gw-page-header--compact\">\n  <div class=\"gw-page-header__text\">\n    <h1 class=\"gw-page-header__title\">Run 2291</h1>\n    <p class=\"gw-page-header__description\">fix/login-timeout, started 4 minutes ago.</p>\n  </div>\n  <div class=\"gw-page-header__action\">\n    <button type=\"button\" class=\"gw-button gw-button--small\">Stop run</button>\n  </div>\n</header>"
+        },
+        {
+          "id": "compact-title-only",
+          "title": "Compact, title alone",
+          "markup": "<header class=\"gw-page-header gw-page-header--compact\">\n  <div class=\"gw-page-header__text\">\n    <h1 class=\"gw-page-header__title\">Transcript</h1>\n  </div>\n</header>"
+        }
+      ]
+    },
+    {
+      "name": "pending-tray",
+      "title": "Pending tray",
+      "purpose": "How many approvals are waiting for the reader, in words and a count, linking to the queue from every screen.",
+      "status": "draft",
+      "whenToUse": [
+        "In the trailing slot of the app header, on every signed-in screen, so a waiting approval is never out of sight.",
+        "As the one way from any screen to the approval queue."
+      ],
+      "whenNotToUse": [
+        "To show the request itself or to answer it. Use an approval.",
+        "For a count of anything the reader does not have to act on, such as open tasks. Write that as plain text.",
+        "As a navigation item for the queue screen. Use the app's navigation, and keep the tray as well."
+      ],
+      "variants": [],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "The link is drawn 32px tall to fit a header row. Its pointer target is still 44px."
+        }
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active",
+        "empty",
+        "loading",
+        "error"
+      ],
+      "accessibility": [
+        "The block is a div with aria-live=\"polite\" and aria-atomic=\"true\". Keep it in the page on every screen and change only what it holds, so a screen reader announces the new sentence when the count changes without moving focus.",
+        "While approvals wait, it holds one link, gw-pending-tray__link, to the queue. The link text is the whole sentence: the count in gw-pending-tray__count, then approval waiting or approvals waiting. Never show the count alone.",
+        "The filled box around the count is decoration. The sentence carries the meaning, so the count is never colour alone.",
+        "When nothing waits, either leave the block empty, which hides the tray and keeps the live region, or show gw-pending-tray__text reading No approvals waiting. Use the same quiet text while the count is loading and when it could not be read, and say which in words.",
+        "The link is reached with Tab and followed with Enter. The app sets the count, the wording and the link's href, and nothing else."
+      ],
+      "icons": [],
+      "classes": [
+        "gw-pending-tray",
+        "gw-pending-tray__count",
+        "gw-pending-tray__link",
+        "gw-pending-tray__text"
+      ],
+      "examples": [
+        {
+          "id": "waiting",
+          "title": "Approvals waiting",
+          "state": "default",
+          "reason": "The count and the words read as one sentence, and the whole of it is the link to the queue. Nothing depends on the colour of the count.",
+          "markup": "<div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n  <a class=\"gw-pending-tray__link\" href=\"#approvals\"><span class=\"gw-pending-tray__count\">2</span> approvals waiting</a>\n</div>"
+        },
+        {
+          "id": "one",
+          "title": "One approval waiting",
+          "markup": "<div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n  <a class=\"gw-pending-tray__link\" href=\"#approvals\"><span class=\"gw-pending-tray__count\">1</span> approval waiting</a>\n</div>"
+        },
+        {
+          "id": "many",
+          "title": "A two-digit count",
+          "markup": "<div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n  <a class=\"gw-pending-tray__link\" href=\"#approvals\"><span class=\"gw-pending-tray__count\">14</span> approvals waiting</a>\n</div>"
+        },
+        {
+          "id": "in-header",
+          "title": "At the end of a header row",
+          "markup": "<div class=\"gw-split\">\n  <strong>Fix the session refresh</strong>\n  <div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n    <a class=\"gw-pending-tray__link\" href=\"#approvals\"><span class=\"gw-pending-tray__count\">3</span> approvals waiting</a>\n  </div>\n</div>"
+        },
+        {
+          "id": "hover",
+          "title": "Hover",
+          "state": "hover",
+          "markup": "<div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n  <a class=\"gw-pending-tray__link\" href=\"#approvals\"><span class=\"gw-pending-tray__count\">2</span> approvals waiting</a>\n</div>"
+        },
+        {
+          "id": "focus-visible",
+          "title": "Keyboard focus",
+          "state": "focus-visible",
+          "markup": "<div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n  <a class=\"gw-pending-tray__link\" href=\"#approvals\"><span class=\"gw-pending-tray__count\">2</span> approvals waiting</a>\n</div>"
+        },
+        {
+          "id": "active",
+          "title": "Pressed",
+          "state": "active",
+          "markup": "<div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n  <a class=\"gw-pending-tray__link\" href=\"#approvals\"><span class=\"gw-pending-tray__count\">2</span> approvals waiting</a>\n</div>"
+        },
+        {
+          "id": "empty",
+          "title": "Nothing waiting",
+          "state": "empty",
+          "markup": "<div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n  <span class=\"gw-pending-tray__text\">No approvals waiting</span>\n</div>"
+        },
+        {
+          "id": "loading",
+          "title": "The count is not known yet",
+          "state": "loading",
+          "markup": "<div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n  <span class=\"gw-pending-tray__text\">Checking for approvals…</span>\n</div>"
+        },
+        {
+          "id": "error",
+          "title": "The count could not be read",
+          "state": "error",
+          "markup": "<div class=\"gw-pending-tray\" aria-live=\"polite\" aria-atomic=\"true\">\n  <span class=\"gw-pending-tray__text\">Approvals could not be checked</span>\n</div>"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "purpose": "A native select as the control of a field, for one choice from a short fixed list.",
+      "status": "draft",
+      "whenToUse": [
+        "For one choice from a list the app already knows: a base branch, a repository, a model.",
+        "When the list is too long to show as radio buttons, from about five options up."
+      ],
+      "whenNotToUse": [
+        "For two to four options the reader should compare. Use a radio group.",
+        "For on or off. Use a checkbox.",
+        "For a list long enough to need searching, or for free text. Use a text input in a field.",
+        "For a menu of actions. Use buttons."
+      ],
+      "variants": [],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "44px tall and as wide as the field. Limit the width on the field's container."
+        }
+      ],
+      "states": [
+        "default",
+        "focus",
+        "invalid",
+        "disabled",
+        "loading"
+      ],
+      "accessibility": [
+        "Use a select element carrying both gw-field__control and gw-select__control, wrapped in an element with gw-select, inside gw-field. The wrapper only draws the chevron.",
+        "Give it a label element whose for attribute matches the select's id.",
+        "When nothing is chosen yet, make the first option an instruction with an empty value, such as Choose a repository, and set required on the select.",
+        "For an invalid choice, set aria-invalid=\"true\" on the select and link a gw-field__error that says what to choose.",
+        "While the options load, set disabled, show one option that says what is loading, and say what is being fetched in the description. Remove disabled when the options arrive.",
+        "The keyboard is the browser's own: Space or Enter opens the list, the arrow keys move, typing jumps to a matching option, Escape closes.",
+        "The chevron is decoration drawn by the stylesheet. It needs no markup and takes no pointer events."
+      ],
+      "icons": [
+        "chevron-down"
+      ],
+      "classes": [
+        "gw-select",
+        "gw-select__control"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "Label, select and description",
+          "state": "default",
+          "reason": "A native select opens the picker each platform already has, which works with a thumb, a keyboard and a screen reader with no script. The label and description come from the field.",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"select-default-base\">Base branch</label>\n  <div class=\"gw-select\">\n    <select class=\"gw-field__control gw-select__control\" id=\"select-default-base\" name=\"base\" aria-describedby=\"select-default-description\">\n      <option value=\"main\" selected>main</option>\n      <option value=\"develop\">develop</option>\n      <option value=\"release/2026-11\">release/2026-11</option>\n    </select>\n  </div>\n  <p class=\"gw-field__description\" id=\"select-default-description\">The task branch starts from the latest commit on this branch.</p>\n</div>"
+        },
+        {
+          "id": "unchosen",
+          "title": "Required, with nothing chosen yet",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"select-unchosen-repository\">Repository <span class=\"gw-field__required\">required</span></label>\n  <div class=\"gw-select\">\n    <select class=\"gw-field__control gw-select__control\" id=\"select-unchosen-repository\" name=\"repository\" required>\n      <option value=\"\" selected>Choose a repository</option>\n      <option value=\"acme/api\">acme/api</option>\n      <option value=\"acme/web\">acme/web</option>\n      <option value=\"acme/infrastructure-modules\">acme/infrastructure-modules</option>\n    </select>\n  </div>\n</div>"
+        },
+        {
+          "id": "focus",
+          "title": "Focus",
+          "state": "focus",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"select-focus-base\">Base branch</label>\n  <div class=\"gw-select\">\n    <select class=\"gw-field__control gw-select__control\" id=\"select-focus-base\" name=\"base\">\n      <option value=\"main\">main</option>\n      <option value=\"develop\" selected>develop</option>\n      <option value=\"release/2026-11\">release/2026-11</option>\n    </select>\n  </div>\n</div>"
+        },
+        {
+          "id": "invalid",
+          "title": "Invalid",
+          "state": "invalid",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"select-invalid-repository\">Repository <span class=\"gw-field__required\">required</span></label>\n  <div class=\"gw-select\">\n    <select class=\"gw-field__control gw-select__control\" id=\"select-invalid-repository\" name=\"repository\" required aria-invalid=\"true\" aria-describedby=\"select-invalid-error\">\n      <option value=\"\" selected>Choose a repository</option>\n      <option value=\"acme/api\">acme/api</option>\n      <option value=\"acme/web\">acme/web</option>\n    </select>\n  </div>\n  <p class=\"gw-field__error\" id=\"select-invalid-error\">Choose the repository the task will change.</p>\n</div>"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled",
+          "state": "disabled",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"select-disabled-base\">Base branch</label>\n  <div class=\"gw-select\">\n    <select class=\"gw-field__control gw-select__control\" id=\"select-disabled-base\" name=\"base\" disabled aria-describedby=\"select-disabled-description\">\n      <option value=\"\" selected>No repository chosen</option>\n    </select>\n  </div>\n  <p class=\"gw-field__description\" id=\"select-disabled-description\">Choose a repository first.</p>\n</div>"
+        },
+        {
+          "id": "loading",
+          "title": "While its options load",
+          "state": "loading",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"select-loading-base\">Base branch</label>\n  <div class=\"gw-select\">\n    <select class=\"gw-field__control gw-select__control\" id=\"select-loading-base\" name=\"base\" disabled aria-describedby=\"select-loading-description\">\n      <option value=\"\" selected>Loading branches</option>\n    </select>\n  </div>\n  <p class=\"gw-field__description\" id=\"select-loading-description\">Fetching the branches of acme/api.</p>\n</div>"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "title": "Spinner",
+      "purpose": "A sign that something is in progress when how long it will take is not known.",
+      "status": "draft",
+      "whenToUse": [
+        "While a view or part of one loads and nothing can be shown yet.",
+        "While a background step runs, such as cloning a repository or running tests, beside the name of the step."
+      ],
+      "whenNotToUse": [
+        "Inside a button that is working. Set aria-busy=\"true\" on the button, which draws its own.",
+        "When the amount done is known. Use a progress element.",
+        "When the shape of the content is known and it will arrive within a moment. Show the layout with its text missing, not a spinner.",
+        "For anything that takes less than about a second. Show nothing."
+      ],
+      "variants": [],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "A 16px mark with text at the interface size. Inside a list, a panel or a row."
+        },
+        {
+          "name": "large",
+          "class": "gw-spinner--large",
+          "use": "A 24px mark with 16px text. When a whole view is loading."
+        }
+      ],
+      "states": [
+        "loading"
+      ],
+      "accessibility": [
+        "The text inside the spinner is its label. Name what is in progress, such as Loading runs. There is no spinner without text.",
+        "Set role=\"status\" on the spinner so a screen reader announces the text when the app adds it.",
+        "When the text changes with each step, such as Cloning then Installing, keep one role=\"status\" element in the page and change its text. Each change is announced.",
+        "Remove the spinner when the work ends. If it failed, put an error state or an alert in its place.",
+        "The mark is drawn by the stylesheet and needs no markup. It stops turning under prefers-reduced-motion, and the text still says what is happening.",
+        "A spinner is not focusable. An action that stops the work is a separate button beside it."
+      ],
+      "icons": [
+        "loader"
+      ],
+      "classes": [
+        "gw-spinner",
+        "gw-spinner--large"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "Default, beside what is loading",
+          "state": "loading",
+          "reason": "The text says what is in progress, so it reads the same to a screen reader, and to someone who has turned motion off and sees a still mark.",
+          "markup": "<p class=\"gw-spinner\" role=\"status\">Loading runs</p>"
+        },
+        {
+          "id": "large",
+          "title": "Large, for a whole view",
+          "markup": "<p class=\"gw-spinner gw-spinner--large\" role=\"status\">Cloning acme/api</p>"
+        },
+        {
+          "id": "with-cancel",
+          "title": "With a way to stop",
+          "markup": "<p class=\"gw-spinner\" role=\"status\">Running 214 tests</p>\n<button type=\"button\" class=\"gw-button gw-button--quiet gw-button--small\">Stop tests</button>"
+        }
+      ]
+    },
+    {
+      "name": "streaming",
+      "title": "Streaming",
+      "purpose": "The note that the agent is still producing output: a small turning mark and words that say what is happening.",
+      "status": "draft",
+      "whenToUse": [
+        "As the last row of a transcript while a turn runs.",
+        "Beside a task's title or its Stop control, to say that work is still going on."
+      ],
+      "whenNotToUse": [
+        "On a button whose action is running. Set aria-busy on the button, which draws its own mark.",
+        "For progress with a known amount done. Use a progress element.",
+        "To say that a turn has ended. Use a message of the turn-end kind."
+      ],
+      "variants": [
+        {
+          "name": "default",
+          "use": "A line of muted text with the mark before it, anywhere in a view."
+        },
+        {
+          "name": "row",
+          "class": "gw-streaming--row",
+          "use": "On the last li of a transcript. It takes the padding of a message row, so the words line up with the labels above."
+        }
+      ],
+      "sizes": [],
+      "states": [
+        "default"
+      ],
+      "accessibility": [
+        "Always write the words. The mark is drawn by the stylesheet and is not announced.",
+        "Put role=\"status\" on the element that holds the words, so a screen reader announces them when they change. Keep that element in the page before the words change, and remove the indicator when the work ends.",
+        "Change the words only when the state changes, such as from working to stopping. Put figures that tick, such as elapsed time, in gw-streaming__detail outside the role=\"status\" element, so they are not announced every second.",
+        "Under prefers-reduced-motion the mark stops turning and the words remain.",
+        "It holds no control and takes no focus. The app adds it when a turn starts and removes it when the turn ends."
+      ],
+      "icons": [
+        "loader"
+      ],
+      "classes": [
+        "gw-streaming",
+        "gw-streaming--row",
+        "gw-streaming__detail"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "Mark and words",
+          "state": "default",
+          "reason": "The words say what is happening, and role=\"status\" announces them. The mark only shows that the page is not stuck.",
+          "markup": "<p class=\"gw-streaming\" role=\"status\">Working…</p>"
+        },
+        {
+          "id": "named",
+          "title": "Saying who is working, and stopping",
+          "markup": "<div class=\"gw-stack\">\n  <p class=\"gw-streaming\" role=\"status\">Claude Code is working.</p>\n  <p class=\"gw-streaming\" role=\"status\">Stopping the turn.</p>\n</div>"
+        },
+        {
+          "id": "detail",
+          "title": "With figures that change",
+          "markup": "<p class=\"gw-streaming\">\n  <span role=\"status\">Claude Code is working.</span>\n  <span class=\"gw-streaming__detail\">42s, 3 tool calls</span>\n</p>"
+        },
+        {
+          "id": "row",
+          "title": "As the last row of a transcript",
+          "markup": "<ol class=\"gw-stack gw-gap-sm\">\n  <li class=\"gw-message gw-message--user\">\n    <span class=\"gw-message__label\">You</span>\n    <p class=\"gw-message__body\">Run the auth tests and tell me what fails.</p>\n  </li>\n  <li class=\"gw-message gw-message--tool-call\">\n    <span class=\"gw-message__label\">Tool call</span>\n    <span class=\"gw-message__tool\">Bash</span>\n    <code class=\"gw-message__command\">npm run test -- --run src/auth</code>\n  </li>\n  <li class=\"gw-streaming gw-streaming--row\"><span role=\"status\">Claude Code is working.</span></li>\n</ol>"
+        },
+        {
+          "id": "with-stop",
+          "title": "Beside the control that stops it",
+          "markup": "<div class=\"gw-split\">\n  <p class=\"gw-streaming\" role=\"status\">Running the auth tests…</p>\n  <button type=\"button\" class=\"gw-button gw-button--small\">Stop</button>\n</div>"
+        }
+      ]
+    },
+    {
+      "name": "tab-bar",
+      "title": "Tab bar",
+      "purpose": "The two to five main destinations of an app, along the bottom of a phone screen, each with an icon and a text label.",
+      "status": "draft",
+      "whenToUse": [
+        "For moving between the top-level screens of an app on a phone.",
+        "When the app has two to five such screens and every one of them exists.",
+        "As the last element in the page, so it sits at the bottom of the screen."
+      ],
+      "whenNotToUse": [
+        "At 768px and wider. The bar is not shown there, so list the same destinations in the app's sidebar.",
+        "For more than five destinations. Keep the five most used and put the rest behind a menu action in the app header.",
+        "For switching between panels inside one view. Use tabs.",
+        "For an action such as New task. A destination is a screen, so use a button in the view.",
+        "For going back from a screen below a destination. Use the back link in the app header."
+      ],
+      "variants": [],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "56px tall, with the destinations in equal columns across the full width. Shown only below 768px."
+        }
+      ],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active",
+        "current"
+      ],
+      "accessibility": [
+        "Use a nav element with an aria-label, such as Main, holding one link per destination. They are links, not tabs, so they take no tab roles.",
+        "Set aria-current=\"page\" on the link for the screen that is open, and on no other. It draws the mark and is what a screen reader announces.",
+        "Every link has a text label of one or two words. The icon is decoration and carries aria-hidden=\"true\".",
+        "Tab moves through the destinations in order and Enter follows one. Both come from the link element.",
+        "The current destination is marked by a bar and a heavier label as well as by colour.",
+        "Keep the destinations in the same order on every screen.",
+        "The bar is sticky to the bottom of the page. Give the scrolling container scroll-padding-bottom of the bar's height, so a focused element is not hidden under it.",
+        "When the bar and a sidebar are both in the markup, the one that is not shown is not in the accessibility tree, so the destinations are announced once."
+      ],
+      "icons": [
+        "circle-check",
+        "file",
+        "folder",
+        "git-branch",
+        "search",
+        "terminal"
+      ],
+      "classes": [
+        "gw-tab-bar",
+        "gw-tab-bar__icon",
+        "gw-tab-bar__item",
+        "gw-tab-bar__label"
+      ],
+      "examples": [
+        {
+          "id": "four-destinations",
+          "title": "Four destinations",
+          "state": "default",
+          "reason": "Each destination has an icon and a text label, so none has to be guessed from a picture. The current one carries aria-current, which draws the bar and the heavier label and tells a screen reader where the reader is.",
+          "markup": "<nav class=\"gw-tab-bar\" aria-label=\"Main\">\n  <a class=\"gw-tab-bar__item\" href=\"/runs\" aria-current=\"page\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Runs</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/tasks\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Tasks</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/branches\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Branches</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/approvals\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Approvals</span>\n  </a>\n</nav>"
+        },
+        {
+          "id": "two-destinations",
+          "title": "Two destinations",
+          "markup": "<nav class=\"gw-tab-bar\" aria-label=\"Screens\">\n  <a class=\"gw-tab-bar__item\" href=\"/runs\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Runs</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/tasks\" aria-current=\"page\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Tasks</span>\n  </a>\n</nav>"
+        },
+        {
+          "id": "three-destinations",
+          "title": "Three destinations",
+          "markup": "<nav class=\"gw-tab-bar\" aria-label=\"Primary\">\n  <a class=\"gw-tab-bar__item\" href=\"/runs\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Runs</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/tasks\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Tasks</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/approvals\" aria-current=\"page\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Approvals</span>\n  </a>\n</nav>"
+        },
+        {
+          "id": "five-destinations",
+          "title": "Five destinations, the most a bar holds",
+          "markup": "<nav class=\"gw-tab-bar\" aria-label=\"Sections\">\n  <a class=\"gw-tab-bar__item\" href=\"/runs\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Runs</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/tasks\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Tasks</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/branches\" aria-current=\"page\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Branches</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/approvals\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Approvals</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/search\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-search\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Search</span>\n  </a>\n</nav>"
+        },
+        {
+          "id": "current",
+          "title": "Current destination",
+          "state": "current",
+          "markup": "<nav class=\"gw-tab-bar\" aria-label=\"Workspace\">\n  <a class=\"gw-tab-bar__item\" href=\"/runs\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Runs</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/tasks\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Tasks</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/branches\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Branches</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/approvals\" aria-current=\"page\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Approvals</span>\n  </a>\n</nav>"
+        },
+        {
+          "id": "long-label",
+          "title": "A label longer than its column",
+          "markup": "<nav class=\"gw-tab-bar\" aria-label=\"Project\">\n  <a class=\"gw-tab-bar__item\" href=\"/runs\" aria-current=\"page\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Runs</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/tasks\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Tasks</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/branches\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Branches</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/approvals\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-circle-check\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Pending approvals</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/workspaces\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-folder\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Workspace folders</span>\n  </a>\n</nav>"
+        },
+        {
+          "id": "hover",
+          "title": "Hover",
+          "state": "hover",
+          "markup": "<nav class=\"gw-tab-bar\" aria-label=\"App\">\n  <a class=\"gw-tab-bar__item\" href=\"/runs\" aria-current=\"page\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Runs</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/tasks\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Tasks</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/branches\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Branches</span>\n  </a>\n</nav>"
+        },
+        {
+          "id": "focus-visible",
+          "title": "Keyboard focus",
+          "state": "focus-visible",
+          "markup": "<nav class=\"gw-tab-bar\" aria-label=\"Destinations\">\n  <a class=\"gw-tab-bar__item\" href=\"/runs\" aria-current=\"page\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Runs</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/tasks\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Tasks</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/branches\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Branches</span>\n  </a>\n</nav>"
+        },
+        {
+          "id": "active",
+          "title": "Pressed",
+          "state": "active",
+          "markup": "<nav class=\"gw-tab-bar\" aria-label=\"Views\">\n  <a class=\"gw-tab-bar__item\" href=\"/runs\" aria-current=\"page\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-terminal\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Runs</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/tasks\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-file\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Tasks</span>\n  </a>\n  <a class=\"gw-tab-bar__item\" href=\"/branches\">\n    <svg class=\"gw-tab-bar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#gw-icon-git-branch\"></use></svg>\n    <span class=\"gw-tab-bar__label\">Branches</span>\n  </a>\n</nav>"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "title": "Textarea",
+      "purpose": "The multi-line control of a field, which grows with what the reader types.",
+      "status": "draft",
+      "whenToUse": [
+        "For text that runs to more than one line: a prompt, review notes, a list of commands.",
+        "With the mono variant, for text a machine will read, such as commands or a prompt with code in it."
+      ],
+      "whenNotToUse": [
+        "For one line of text, such as a name or a branch. Use a text input in a field.",
+        "To show text the reader never edits or copies. Write it as plain text.",
+        "Outside a field. The label, description and error come from the field."
+      ],
+      "variants": [
+        {
+          "name": "default",
+          "use": "Prose in the interface typeface. No modifier class."
+        },
+        {
+          "name": "mono",
+          "class": "gw-textarea--mono",
+          "use": "Commands, code and prompts where spacing and punctuation matter. Set spellcheck=\"false\" with it."
+        }
+      ],
+      "sizes": [
+        {
+          "name": "default",
+          "use": "As wide as the field, 88px tall when empty, growing with its content to 264px and scrolling after that. Where the browser cannot grow it, it is 132px tall and the reader can drag it taller."
+        }
+      ],
+      "states": [
+        "default",
+        "focus",
+        "invalid",
+        "disabled",
+        "read-only"
+      ],
+      "accessibility": [
+        "Use a textarea element carrying both gw-field__control and gw-textarea, inside gw-field, with a label element whose for attribute matches its id.",
+        "State comes from the field control: aria-invalid=\"true\" with a linked gw-field__error, the disabled attribute, or the readonly attribute.",
+        "Link the description, and the error while there is one, by listing their ids in aria-describedby.",
+        "Enter adds a line. It never submits the form, so the form needs a button for that.",
+        "Past its maximum height the control scrolls with the arrow keys and Page Up and Page Down, as any textarea does.",
+        "A read-only textarea stays focusable and its text can be selected and copied. A disabled one leaves the tab order."
+      ],
+      "icons": [],
+      "classes": [
+        "gw-textarea",
+        "gw-textarea--mono"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "Empty, at its minimum height",
+          "state": "default",
+          "reason": "A prompt runs to several lines, so the control starts tall enough to show that and grows as the reader types. The label and description come from the field.",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"textarea-default-prompt\">Prompt <span class=\"gw-field__required\">required</span></label>\n  <textarea class=\"gw-field__control gw-textarea\" id=\"textarea-default-prompt\" name=\"prompt\" required aria-describedby=\"textarea-default-description\"></textarea>\n  <p class=\"gw-field__description\" id=\"textarea-default-description\">Say what to change and how to tell that it worked.</p>\n</div>"
+        },
+        {
+          "id": "grown",
+          "title": "Grown to fit its content",
+          "markup": "  <div class=\"gw-field\">\n    <label class=\"gw-field__label\" for=\"textarea-grown-prompt\">Prompt <span class=\"gw-field__required\">required</span></label>\n    <textarea class=\"gw-field__control gw-textarea\" id=\"textarea-grown-prompt\" name=\"prompt\" required>The login page signs people out after 30 seconds when the API is slow.\n\nRaise the session request timeout to 10 seconds and retry once before showing an error.\n\nAdd a test that fails on the current code and passes with the change. Do not touch the password reset flow.</textarea>\n  </div>"
+        },
+        {
+          "id": "scrolling",
+          "title": "At its maximum height, scrolling",
+          "markup": "  <div class=\"gw-field\">\n    <label class=\"gw-field__label\" for=\"textarea-scrolling-notes\">Review notes</label>\n    <textarea class=\"gw-field__control gw-textarea\" id=\"textarea-scrolling-notes\" name=\"notes\">The timeout change is right, and the retry is in the correct place.\n\nThree things to fix before this merges:\n\n1. The retry also fires on a 401, which signs the reader out twice. Retry only when the request timed out.\n\n2. The new test sleeps for 11 seconds. Use the fake clock from test/helpers so the suite stays fast.\n\n3. The error message says \"Something went wrong\". Say that the server did not answer and that signing in again will work.\n\nThe password reset flow is untouched, as asked.\n\nRun the session tests again after the change and paste the summary line into the pull request.</textarea>\n  </div>"
+        },
+        {
+          "id": "mono",
+          "title": "Mono, for a prompt or a command",
+          "markup": "  <div class=\"gw-field\">\n    <label class=\"gw-field__label\" for=\"textarea-mono-setup\">Setup commands</label>\n    <textarea class=\"gw-field__control gw-textarea gw-textarea--mono\" id=\"textarea-mono-setup\" name=\"setup\" spellcheck=\"false\" autocapitalize=\"off\" aria-describedby=\"textarea-mono-description\">npm ci\nnpm run build\nnpm test -- --grep session</textarea>\n    <p class=\"gw-field__description\" id=\"textarea-mono-description\">One command on each line. They run in the workspace before the task starts.</p>\n  </div>"
+        },
+        {
+          "id": "focus",
+          "title": "Focus",
+          "state": "focus",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"textarea-focus-prompt\">Prompt <span class=\"gw-field__required\">required</span></label>\n  <textarea class=\"gw-field__control gw-textarea\" id=\"textarea-focus-prompt\" name=\"prompt\" required>Raise the session request timeout to 10 seconds.</textarea>\n</div>"
+        },
+        {
+          "id": "invalid",
+          "title": "Invalid",
+          "state": "invalid",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"textarea-invalid-prompt\">Prompt <span class=\"gw-field__required\">required</span></label>\n  <textarea class=\"gw-field__control gw-textarea\" id=\"textarea-invalid-prompt\" name=\"prompt\" required aria-invalid=\"true\" aria-describedby=\"textarea-invalid-description textarea-invalid-error\"></textarea>\n  <p class=\"gw-field__description\" id=\"textarea-invalid-description\">Say what to change and how to tell that it worked.</p>\n  <p class=\"gw-field__error\" id=\"textarea-invalid-error\">Write a prompt before starting the task.</p>\n</div>"
+        },
+        {
+          "id": "disabled",
+          "title": "Disabled",
+          "state": "disabled",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"textarea-disabled-prompt\">Prompt</label>\n  <textarea class=\"gw-field__control gw-textarea\" id=\"textarea-disabled-prompt\" name=\"prompt\" disabled aria-describedby=\"textarea-disabled-description\"></textarea>\n  <p class=\"gw-field__description\" id=\"textarea-disabled-description\">Choose a repository first.</p>\n</div>"
+        },
+        {
+          "id": "read-only",
+          "title": "Read-only",
+          "state": "read-only",
+          "markup": "<div class=\"gw-field\">\n  <label class=\"gw-field__label\" for=\"textarea-read-only-prompt\">Prompt</label>\n  <textarea class=\"gw-field__control gw-textarea\" id=\"textarea-read-only-prompt\" name=\"prompt\" readonly aria-describedby=\"textarea-read-only-description\">Raise the session request timeout to 10 seconds and retry once before showing an error.</textarea>\n  <p class=\"gw-field__description\" id=\"textarea-read-only-description\">The prompt cannot change once the run has started.</p>\n</div>"
         }
       ]
     }

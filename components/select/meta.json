@@ -1,0 +1,35 @@
+{
+  "name": "select",
+  "title": "Select",
+  "purpose": "A native select as the control of a field, for one choice from a short fixed list.",
+  "status": "draft",
+  "whenToUse": [
+    "For one choice from a list the app already knows: a base branch, a repository, a model.",
+    "When the list is too long to show as radio buttons, from about five options up."
+  ],
+  "whenNotToUse": [
+    "For two to four options the reader should compare. Use a radio group.",
+    "For on or off. Use a checkbox.",
+    "For a list long enough to need searching, or for free text. Use a text input in a field.",
+    "For a menu of actions. Use buttons."
+  ],
+  "variants": [],
+  "sizes": [
+    { "name": "default", "use": "44px tall and as wide as the field. Limit the width on the field's container." }
+  ],
+  "states": ["default", "focus", "invalid", "disabled", "loading"],
+  "accessibility": [
+    "Use a select element carrying both gw-field__control and gw-select__control, wrapped in an element with gw-select, inside gw-field. The wrapper only draws the chevron.",
+    "Give it a label element whose for attribute matches the select's id.",
+    "When nothing is chosen yet, make the first option an instruction with an empty value, such as Choose a repository, and set required on the select.",
+    "For an invalid choice, set aria-invalid=\"true\" on the select and link a gw-field__error that says what to choose.",
+    "While the options load, set disabled, show one option that says what is loading, and say what is being fetched in the description. Remove disabled when the options arrive.",
+    "The keyboard is the browser's own: Space or Enter opens the list, the arrow keys move, typing jumps to a matching option, Escape closes.",
+    "The chevron is decoration drawn by the stylesheet. It needs no markup and takes no pointer events."
+  ],
+  "icons": ["chevron-down"],
+  "classes": [
+    "gw-select",
+    "gw-select__control"
+  ]
+}

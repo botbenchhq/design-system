@@ -1,0 +1,40 @@
+{
+  "name": "page-header",
+  "title": "Page header",
+  "purpose": "The top of a view: its title, an optional one-line description and the view's one optional primary action.",
+  "status": "draft",
+  "whenToUse": [
+    "Once, at the top of a view's content, to say what the view is.",
+    "With the action when the view has one main thing to do, such as New task on the task list.",
+    "In the compact variant above a board, a transcript or a diff, where the content needs the height."
+  ],
+  "whenNotToUse": [
+    "For the bar across the top of the app with the product name and the back link. Use an app header.",
+    "For the heading of a section inside a view. Use a plain h2.",
+    "For a second or third action. Put those in the view as secondary buttons, or behind a menu.",
+    "For help text of more than a line. Put it in the view or link to the documentation."
+  ],
+  "variants": [
+    { "name": "default", "use": "The title at 20px on a phone and 24px from 768px. Use it on most views." },
+    { "name": "compact", "class": "gw-page-header--compact", "use": "The title at 16px with a 12px description, for a dense screen. Pair it with a small button." }
+  ],
+  "sizes": [],
+  "states": ["default"],
+  "accessibility": [
+    "Use a header element, with the title as the page's h1. When the app header already shows the view title as the h1, leave the page header out.",
+    "The description is a p directly after the title, one sentence long.",
+    "The action is one button, or one link styled as a button when it goes to another view. It may be the view's primary button, and then no other button in the view is primary.",
+    "In the compact variant use gw-button--small, which keeps a 44px pointer target.",
+    "On a narrow screen the action moves below the text instead of squeezing it. A long title wraps and is never cut.",
+    "The header adds no keyboard behaviour. Tab reaches the action in document order, after the title and description."
+  ],
+  "icons": ["plus"],
+  "classes": [
+    "gw-page-header",
+    "gw-page-header--compact",
+    "gw-page-header__action",
+    "gw-page-header__description",
+    "gw-page-header__text",
+    "gw-page-header__title"
+  ]
+}

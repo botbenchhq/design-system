@@ -1,0 +1,77 @@
+/*
+ * Pending tray: how many approvals wait for the reader, in the trailing slot of the app header.
+ * The block is a live region that is always in the page. It holds a link while something
+ * waits, quiet text while nothing does, and nothing at all when the zero state is hidden.
+ */
+
+@layer gw.components {
+  .gw-pending-tray {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  /*
+   * Drawn 32px tall so it fits a header row. The invisible box centred on it
+   * keeps its pointer target at the touch size.
+   */
+  .gw-pending-tray__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-space-2xl);
+    padding-inline: var(--gw-space-xs) var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-ui);
+    transition-property: background-color, border-color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  .gw-pending-tray__link::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: var(--gw-size-touch);
+    translate: 0 -50%;
+  }
+
+  /* The count is the first word of the sentence. The filled box only makes it easy to find. */
+  .gw-pending-tray__count {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--gw-space-xl);
+    height: var(--gw-space-xl);
+    padding-inline: var(--gw-space-xs);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-accent);
+    color: var(--gw-color-on-accent);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+  }
+
+  .gw-pending-tray__text {
+    color: var(--gw-color-muted);
+  }
+
+  @media (hover: hover) {
+    .gw-pending-tray__link:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  .gw-pending-tray__link:active {
+    border-color: var(--gw-color-on-surface);
+    background-color: var(--gw-color-surface-sunken);
+  }
+}

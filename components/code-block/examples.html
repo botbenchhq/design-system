@@ -1,0 +1,63 @@
+<div data-example="command" data-title="A command" data-state="default">
+  <figure class="gw-code-block">
+    <pre class="gw-code-block__body"><code>git push --set-upstream origin fix/login-timeout</code></pre>
+  </figure>
+</div>
+
+<div data-example="wrapping" data-title="Output with a caption, long lines wrapped" data-reason="Wrapping is the default because a log is read top to bottom, and on a phone nothing is hidden off to the side. The caption says what ran.">
+  <figure class="gw-code-block">
+    <figcaption class="gw-code-block__caption">Output of npm test in /srv/workspaces/acme-api</figcaption>
+    <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✖ session: the refresh endpoint extends an unexpired token (12.8ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: 401 !== 200 at TestContext.&lt;anonymous&gt; (file:///srv/workspaces/acme-api/test/session.test.mjs:58:12)
+
+tests 213, pass 212, fail 1</code></pre>
+  </figure>
+</div>
+
+<div data-example="scroll" data-title="No wrapping, scrolling inside the block" data-reason="Where columns must line up, the block scrolls sideways and the page does not. The body takes tabindex, a role and a label, so a keyboard user can focus it and scroll with the arrow keys.">
+  <figure class="gw-code-block gw-code-block--scroll">
+    <figcaption class="gw-code-block__caption">Output of git log --oneline --decorate -4</figcaption>
+    <pre class="gw-code-block__body" tabindex="0" role="group" aria-label="Output of git log"><code>4be19c7 (HEAD -&gt; fix/login-timeout, origin/fix/login-timeout) Refuse a session token older than 30 minutes
+a1d03fe Read the session lifetime from SESSION_TTL_SECONDS
+9f2c1ab (origin/main, main) Merge pull request #212 from acme/feat/webhook-rate-limit
+77e5b02 Add rate limiting to the webhook endpoint</code></pre>
+  </figure>
+</div>
+
+<div data-example="line-numbers" data-title="A file excerpt with line numbers">
+  <figure class="gw-code-block">
+    <figcaption class="gw-code-block__caption">src/session/verify.mjs, lines 41 to 47</figcaption>
+    <pre class="gw-code-block__body"><code class="gw-code-block__lines">
+      <span class="gw-code-block__line"><span class="gw-code-block__number">41</span><span class="gw-code-block__text">export function verify(token, now = Date.now()) {</span></span>
+      <span class="gw-code-block__line"><span class="gw-code-block__number">42</span><span class="gw-code-block__text">  const session = decode(token);</span></span>
+      <span class="gw-code-block__line"><span class="gw-code-block__number">43</span><span class="gw-code-block__text">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS * 1000) {</span></span>
+      <span class="gw-code-block__line"><span class="gw-code-block__number">44</span><span class="gw-code-block__text">    throw new SessionExpired(`The session for ${session.user} ended after ${SESSION_TTL_SECONDS} seconds.`);</span></span>
+      <span class="gw-code-block__line"><span class="gw-code-block__number">45</span><span class="gw-code-block__text">  }</span></span>
+      <span class="gw-code-block__line"><span class="gw-code-block__number">46</span><span class="gw-code-block__text">  return session;</span></span>
+      <span class="gw-code-block__line"><span class="gw-code-block__number">47</span><span class="gw-code-block__text">}</span></span>
+    </code></pre>
+  </figure>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus on a scrolling block" data-state="focus-visible">
+  <figure class="gw-code-block gw-code-block--scroll">
+    <pre class="gw-code-block__body" tabindex="0" role="group" aria-label="Command to start the database"><code>docker run --rm --name acme-api-db --env POSTGRES_PASSWORD=local --publish 5432:5432 --volume acme-api-db:/var/lib/postgresql/data postgres:16</code></pre>
+  </figure>
+</div>
+
+<div data-example="empty" data-title="Nothing to show yet" data-state="empty">
+  <figure class="gw-code-block">
+    <figcaption class="gw-code-block__caption">Output of npm test in /srv/workspaces/acme-api</figcaption>
+    <p class="gw-code-block__note">No output yet. The log starts when the task leaves the queue.</p>
+  </figure>
+</div>
+
+<div data-example="scroll-unfocusable" data-title="A scrolling block the keyboard cannot reach" data-dont="review" data-reason="Without tabindex the block cannot take focus, so someone using a keyboard cannot scroll it and never sees the end of the long lines. Without a role and a label, a screen reader does not say what the focused thing is.">
+  <figure class="gw-code-block gw-code-block--scroll">
+    <pre class="gw-code-block__body"><code>docker run --rm --name acme-api-db --env POSTGRES_PASSWORD=local --publish 5432:5432 --volume acme-api-db:/var/lib/postgresql/data postgres:16</code></pre>
+  </figure>
+</div>

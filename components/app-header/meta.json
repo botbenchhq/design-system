@@ -1,0 +1,48 @@
+{
+  "name": "app-header",
+  "title": "App header",
+  "purpose": "The top bar of an app: the product name or the current view's title, with an optional back link, actions and a tray for approvals that are waiting.",
+  "status": "draft",
+  "whenToUse": [
+    "Once per screen, as the first thing in the page.",
+    "With the product name on a top-level screen, and with a back link and the view's title on a screen below one.",
+    "With the tray when something, such as an approval, must stay in sight on every screen."
+  ],
+  "whenNotToUse": [
+    "For a view's title with its description and main action inside the page. Use a page header.",
+    "For moving between the main destinations on a phone. Use a tab bar.",
+    "For a message about the state of the app, such as a lost connection. Use a banner under the header.",
+    "For the main action of a view. Put a primary button in the view, never in the header."
+  ],
+  "variants": [
+    { "name": "default", "use": "Scrolls away with the page. Use it when the screen is short or the header holds nothing the reader needs while scrolling." },
+    { "name": "sticky", "class": "gw-app-header--sticky", "use": "Stays at the top while the page scrolls. Use it when the back link, the actions or the tray must stay in reach." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "One row, 52px tall, with 44px controls, at every width. The tray adds a row below it only while it holds something." }
+  ],
+  "states": ["default", "hover", "focus-visible", "active", "disabled", "empty"],
+  "accessibility": [
+    "Use a header element. Outside main it is the page's banner landmark, so a page has one.",
+    "The product name is a link to the first screen. The view title is the page's h1 when the header shows one.",
+    "The back link names where it goes: visible text such as Tasks, or aria-label=\"Back to tasks\" when it is only the icon.",
+    "An icon-only action has an aria-label that says what it does and to what, such as Search tasks. Its icon carries aria-hidden=\"true\".",
+    "Use a link for an action that goes to another view and a button for one that acts on this view.",
+    "Tab moves through the name or back link, then the actions, then the tray, in the order they are written. Enter follows a link, and Enter or Space presses a button.",
+    "A long title is cut with an ellipsis. Keep the full title in the document title or in the page, where it can be read whole.",
+    "An empty tray takes no space and is not announced. Leave the element in place and fill it when something is waiting.",
+    "With the sticky variant, give the scrolling container scroll-padding-top of the header's height, so a focused element is not hidden under it."
+  ],
+  "icons": ["chevron-left", "ellipsis", "menu", "search"],
+  "classes": [
+    "gw-app-header",
+    "gw-app-header--sticky",
+    "gw-app-header__action",
+    "gw-app-header__actions",
+    "gw-app-header__back",
+    "gw-app-header__icon",
+    "gw-app-header__name",
+    "gw-app-header__title",
+    "gw-app-header__tray"
+  ]
+}

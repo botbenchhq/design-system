@@ -1,0 +1,43 @@
+{
+  "name": "code-block",
+  "title": "Code block",
+  "purpose": "A block of mono text for a command, a log or a program's output.",
+  "status": "draft",
+  "whenToUse": [
+    "For a command the reader may copy, the output of a command, a log, or an excerpt of a file.",
+    "With the scroll variant when columns must stay aligned, such as a table printed by a tool.",
+    "With line numbers when the text refers to lines of a file."
+  ],
+  "whenNotToUse": [
+    "For a change to a file. Use the diff.",
+    "For a word or a path inside a sentence. Use a code element in the running text.",
+    "For a value the reader edits. Use a field.",
+    "For prose, or to make a message look technical. Mono text is for text a machine wrote or will read."
+  ],
+  "variants": [
+    { "name": "wrapping", "use": "The default, with no modifier class. Long lines wrap at any character, so nothing is hidden at phone width." },
+    { "name": "scroll", "class": "gw-code-block--scroll", "use": "Lines keep their length and the body scrolls sideways inside the block. Set tabindex=\"0\", role=\"group\" and an aria-label on the body." }
+  ],
+  "sizes": [],
+  "states": ["default", "focus-visible", "empty"],
+  "accessibility": [
+    "Use a figure holding a pre with a code element inside it. An optional figcaption with the class gw-code-block__caption names what ran or which file it is, and comes first.",
+    "With the scroll variant, give the pre tabindex=\"0\", role=\"group\" and an aria-label that says what it holds. It can then take focus, and the arrow keys scroll it. Leave all three off a wrapping block, which never scrolls.",
+    "For line numbers, give the code element the class gw-code-block__lines and write each line as a gw-code-block__line span holding a gw-code-block__number span and a gw-code-block__text span. The numbers are real text, so a screen reader reads them, and they are left out of a copy.",
+    "Write the text exactly as the tool printed it. Escape the characters <, > and & in markup.",
+    "When there is no output, keep the caption and replace the pre with a gw-code-block__note paragraph that says so in a sentence. Never show an empty box.",
+    "Colour carries no meaning inside a block. A failure is said in the output's own words or in text beside the block."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-code-block",
+    "gw-code-block--scroll",
+    "gw-code-block__body",
+    "gw-code-block__caption",
+    "gw-code-block__line",
+    "gw-code-block__lines",
+    "gw-code-block__note",
+    "gw-code-block__number",
+    "gw-code-block__text"
+  ]
+}

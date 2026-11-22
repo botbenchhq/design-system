@@ -1,0 +1,36 @@
+{
+  "name": "copy-field",
+  "title": "Copy field",
+  "purpose": "A read-only value the reader takes somewhere else, with a button that copies it.",
+  "status": "draft",
+  "whenToUse": [
+    "For a value the reader will paste into a terminal or another tool: a branch name, a commit hash, a path, a command.",
+    "When the value is one line. A long one is cut short with an ellipsis and still copies whole."
+  ],
+  "whenNotToUse": [
+    "For a value the reader can change. Use a text input in a field.",
+    "For several lines, such as a log or a diff. Show them in a pre element.",
+    "For a value nobody needs to copy. Write it as plain text.",
+    "For a secret that must stay hidden. This component always shows its value."
+  ],
+  "variants": [],
+  "sizes": [
+    { "name": "default", "use": "44px tall and as wide as its container, with the button at its natural width. Limit the width on the container." }
+  ],
+  "states": ["default", "focus", "copied", "error"],
+  "accessibility": [
+    "The value is an input element with type=\"text\" and the readonly attribute, never disabled. It stays in the tab order, its text can be selected, and the arrow keys scroll a long value.",
+    "Name the input with a label element, usually by putting the copy field inside gw-field after its gw-field__label, or with aria-label when the view has no room for a visible label.",
+    "The button is a gw-button with the visible label Copy. Give it an aria-label that names the value, such as Copy branch name, so several on one view can be told apart.",
+    "Keep an empty gw-copy-field__status element with role=\"status\" in the page from the start. role=\"status\" is a polite live region, the same as aria-live=\"polite\".",
+    "After a copy, the app sets the status text to say what was copied, such as Branch name copied. A screen reader announces it and sighted readers see the same words. Clear the text after a few seconds.",
+    "If the copy fails, the app sets the status text to say so and what to do: select the value and copy it by hand.",
+    "The confirmation is that text. Do not signal a copy with a colour change alone, and do not move focus away from the button."
+  ],
+  "icons": ["copy"],
+  "classes": [
+    "gw-copy-field",
+    "gw-copy-field__status",
+    "gw-copy-field__value"
+  ]
+}

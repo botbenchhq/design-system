@@ -1,0 +1,83 @@
+/*
+ * Code block: commands, logs and output in the mono face.
+ * Long lines wrap unless the scroll variant is set, and then the block scrolls sideways, never the page.
+ */
+
+@layer gw.components {
+  .gw-code-block {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  .gw-code-block__caption {
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-bottom-width: var(--gw-border-width);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-code-block__body {
+    padding: var(--gw-space-md);
+    border-radius: var(--gw-radius-md);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    tab-size: 2;
+  }
+
+  /* The body is given tabindex="0" in this variant, so it is a pointer target and is at least as tall as one. */
+  .gw-code-block--scroll .gw-code-block__body {
+    min-height: var(--gw-size-touch);
+    overflow-x: auto;
+    white-space: pre;
+    overflow-wrap: normal;
+  }
+
+  /*
+   * Numbered lines are a table, so the numbers share one column whatever their width.
+   * White space between the line elements is markup indentation and is dropped.
+   */
+  .gw-code-block__lines {
+    display: table;
+    width: 100%;
+    white-space: normal;
+  }
+
+  .gw-code-block__line {
+    display: table-row;
+  }
+
+  /* Not selectable, so copying the code leaves the numbers behind. */
+  .gw-code-block__number {
+    display: table-cell;
+    padding-inline-end: var(--gw-space-md);
+    color: var(--gw-color-muted);
+    text-align: end;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .gw-code-block__text {
+    display: table-cell;
+    width: 100%;
+    white-space: pre-wrap;
+  }
+
+  .gw-code-block--scroll .gw-code-block__text {
+    white-space: pre;
+  }
+
+  /* A sentence in place of the body when there is nothing to show yet. */
+  .gw-code-block__note {
+    padding: var(--gw-space-md);
+    color: var(--gw-color-muted);
+  }
+}

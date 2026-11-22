@@ -1,0 +1,51 @@
+{
+  "name": "message",
+  "title": "Message",
+  "purpose": "One row of an agent transcript: a prompt, the agent's text, a tool call, its result, a denial, usage or the end of a turn.",
+  "status": "draft",
+  "whenToUse": [
+    "For each event of an agent's turn, as a list item in the transcript's ol or ul, oldest first.",
+    "To show what a tool was asked to do and what it returned, in mono, at phone width."
+  ],
+  "whenNotToUse": [
+    "For a request that still waits for the reader's answer. Use an approval, which carries Allow and Decline.",
+    "For the note that the agent is still working. Use streaming as the last row.",
+    "For a message about the app itself, such as a lost connection. Use an alert or a banner."
+  ],
+  "variants": [
+    { "name": "agent", "use": "The default, with no modifier class. Text the agent wrote. Label it with the agent's name." },
+    { "name": "user", "class": "gw-message--user", "use": "A prompt the reader sent. Label it You." },
+    { "name": "tool-call", "class": "gw-message--tool-call", "use": "A tool the agent ran: the tool name, then the command or path. Put long arguments in a details element whose summary keeps the label, the tool name and a short command." },
+    { "name": "tool-result", "class": "gw-message--tool-result", "use": "What a tool returned. Show the first lines, and put the rest in a details element whose summary reads Show full output." },
+    { "name": "denied", "class": "gw-message--denied", "use": "A call that was refused. Say what was not run and why." },
+    { "name": "usage", "class": "gw-message--usage", "use": "A quiet line of figures for the turn, such as tokens and duration." },
+    { "name": "turn-end", "class": "gw-message--turn-end", "use": "A quiet closing row under a rule, saying that the turn finished and how: completed, stopped or ended with an error." }
+  ],
+  "sizes": [],
+  "states": ["default", "open"],
+  "accessibility": [
+    "Each row is an li in an ol or ul. Put role=\"log\" and an accessible name on the list when rows are added while the reader watches, so new rows are announced.",
+    "Every row starts with gw-message__label, which says the kind in words: You, Claude Code, Tool call, Tool result, Denied, Usage, End. The kind is never the colour alone, and the denied row's icon is drawn by the stylesheet.",
+    "Write transcript text as text, never as markup, and write out characters that cannot be seen.",
+    "Collapsed arguments and long output use a native details element, with no script. Its summary holds text that says what is inside. Enter and Space open and close it, and its pointer target is 44px tall.",
+    "When output is cut short, the lines after the preview go in the details element, so opened text continues where the preview stopped.",
+    "The app sets nothing but the open attribute, which the browser manages."
+  ],
+  "icons": ["chevron-down", "chevron-right", "circle-alert"],
+  "classes": [
+    "gw-message",
+    "gw-message--denied",
+    "gw-message--tool-call",
+    "gw-message--tool-result",
+    "gw-message--turn-end",
+    "gw-message--usage",
+    "gw-message--user",
+    "gw-message__body",
+    "gw-message__code",
+    "gw-message__command",
+    "gw-message__details",
+    "gw-message__label",
+    "gw-message__summary",
+    "gw-message__tool"
+  ]
+}

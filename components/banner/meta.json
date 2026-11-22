@@ -1,0 +1,47 @@
+{
+  "name": "banner",
+  "title": "Banner",
+  "purpose": "One message about the state of the whole app, across the full width under the app header.",
+  "status": "draft",
+  "whenToUse": [
+    "For a condition that affects every screen and is still true, such as a lost connection, a paused agent host or a session about to end.",
+    "Directly under the app header, across the full width, for as long as the condition lasts.",
+    "With one action when there is one thing the reader can do about it, such as Retry."
+  ],
+  "whenNotToUse": [
+    "For the result of something the reader just did, such as Task saved. Confirm it where it happened, or use a toast.",
+    "For a problem with one field or one form. Use the field's error message.",
+    "For a problem with one item in a view, such as a failed run. Show it on that item.",
+    "For a decision the reader must make before going on. Use a dialog.",
+    "For more than one message at a time. Show the most severe one."
+  ],
+  "variants": [
+    { "name": "info", "use": "The default, with no modifier class. Something the reader should know that needs no action, such as a planned restart or a restored connection. Set role=\"status\"." },
+    { "name": "warning", "class": "gw-banner--warning", "use": "Something is degraded or about to go wrong and the app is still usable, such as Reconnecting. Set role=\"status\"." },
+    { "name": "danger", "class": "gw-banner--danger", "use": "Something has failed and work is blocked until it is fixed. Set role=\"alert\"." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "At least 44px tall and as wide as its container. The text wraps, and on a narrow screen the action and the dismiss button move below it." }
+  ],
+  "states": ["default", "hover", "focus-visible", "active", "busy"],
+  "accessibility": [
+    "Set role=\"status\" on an info or warning banner, so a screen reader announces it when the reader pauses. Set role=\"alert\" on a danger banner, so it is announced at once.",
+    "Keep the banner element in the page and change its text, or add the banner with its text already in it. Either way the message is announced once.",
+    "Do not set aria-busy on the banner. A screen reader holds back the announcement of a busy region. While the action runs, set aria-busy=\"true\" on the action button and change its label, such as Retrying.",
+    "The stylesheet draws the tone's icon, so the tone never depends on colour and needs no markup. The text carries the whole message.",
+    "The action and the dismiss button sit together in a gw-banner__actions element after the text. The action is one gw-button gw-button--small, with a label that says what it does. Do not make it primary.",
+    "The dismiss button is a button with aria-label=\"Dismiss\", and its icon carries aria-hidden=\"true\". Offer it only when the message is safe to lose. When it is pressed, move focus to the main content.",
+    "Tab reaches the action and then the dismiss button, in that order. Enter and Space press them.",
+    "The banner does not take focus when it appears, so it never interrupts typing."
+  ],
+  "icons": ["circle-alert", "info", "triangle-alert", "x"],
+  "classes": [
+    "gw-banner",
+    "gw-banner--danger",
+    "gw-banner--warning",
+    "gw-banner__actions",
+    "gw-banner__dismiss",
+    "gw-banner__icon",
+    "gw-banner__text"
+  ]
+}

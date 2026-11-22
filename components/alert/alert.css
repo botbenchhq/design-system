@@ -1,0 +1,92 @@
+/*
+ * Alert: a message inside a view about the state of the thing on screen.
+ * Each tone has its own icon, drawn here, and the markup names the tone in words,
+ * so the colour is never the only thing telling one tone from another.
+ */
+
+@layer gw.components {
+  .gw-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    padding: var(--gw-space-md);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-info-subtle);
+  }
+
+  /* The icon is as tall as the first line of text, so it sits level with the tone label. */
+  .gw-alert::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: var(--gw-color-info);
+    mask: url("icons/info.svg") center / contain no-repeat;
+  }
+
+  .gw-alert__content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gw-space-xs);
+    min-width: 0;
+  }
+
+  /* The tone in words: Note, Done, Warning or Error. */
+  .gw-alert__label {
+    color: var(--gw-color-info);
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  .gw-alert__title {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  .gw-alert__body {
+    max-width: var(--gw-size-column);
+  }
+
+  .gw-alert__action {
+    margin-top: var(--gw-space-xs);
+  }
+
+  .gw-alert--success {
+    background-color: var(--gw-color-success-subtle);
+  }
+
+  .gw-alert--success::before {
+    background-color: var(--gw-color-success);
+    mask-image: url("icons/circle-check.svg");
+  }
+
+  .gw-alert--success .gw-alert__label {
+    color: var(--gw-color-success);
+  }
+
+  .gw-alert--warning {
+    background-color: var(--gw-color-warning-subtle);
+  }
+
+  .gw-alert--warning::before {
+    background-color: var(--gw-color-warning);
+    mask-image: url("icons/triangle-alert.svg");
+  }
+
+  .gw-alert--warning .gw-alert__label {
+    color: var(--gw-color-warning);
+  }
+
+  .gw-alert--danger {
+    background-color: var(--gw-color-danger-subtle);
+  }
+
+  .gw-alert--danger::before {
+    background-color: var(--gw-color-danger);
+    mask-image: url("icons/circle-alert.svg");
+  }
+
+  .gw-alert--danger .gw-alert__label {
+    color: var(--gw-color-danger);
+  }
+}

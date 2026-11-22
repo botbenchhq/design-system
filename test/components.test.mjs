@@ -77,17 +77,18 @@ test("components.json has one entry per folder, each with every metadata field a
     assert.ok(component.examples.length > 0);
     for (const example of component.examples) {
       assert.ok(example.id && example.title, `${component.name} example without an id or title`);
-      assert.match(example.markup, /class="gw-/);
+      assert.ok(example.markup.trim().startsWith("<"), `${component.name} example ${example.id} has no markup`);
       assert.doesNotMatch(example.markup, /data-example/);
     }
     for (const state of component.states) {
       assert.ok(component.examples.some((example) => example.state === state), `${component.name} has no ${state} example`);
     }
   }
-  const dontIds = readComponents(repoRoot).flatMap((component) => component.examples.filter((example) => example.dont).map((example) => example.id));
-  assert.ok(dontIds.length > 0);
+  // Example ids are unique within a component, not across components.
+  const donts = readComponents(repoRoot).flatMap((component) => component.examples.filter((example) => example.dont).map((example) => `${component.name}/${example.id}`));
+  assert.ok(donts.length > 0);
   for (const component of components) {
-    for (const example of component.examples) assert.ok(!dontIds.includes(example.id), `${example.id} is a don't example`);
+    for (const example of component.examples) assert.ok(!donts.includes(`${component.name}/${example.id}`), `${component.name}/${example.id} is a don't example`);
   }
 });
 

@@ -1,0 +1,111 @@
+<div data-example="info" data-title="Info" data-state="default">
+  <div class="gw-banner" role="status">
+    <p class="gw-banner__text">Smelt restarts at 22:00 UTC for an update. Runs in progress finish first.</p>
+  </div>
+</div>
+
+<div data-example="warning" data-title="Warning">
+  <div class="gw-banner gw-banner--warning" role="status">
+    <p class="gw-banner__text">Connection lost. Reconnecting…</p>
+  </div>
+</div>
+
+<div data-example="danger" data-title="Danger">
+  <div class="gw-banner gw-banner--danger" role="alert">
+    <p class="gw-banner__text">The agent host is not responding. All runs are paused.</p>
+  </div>
+</div>
+
+<div data-example="action" data-title="With one action" data-reason="The message says what happened in plain words, and the one action is the one thing the reader can do about it. The icon marks the tone as well as the colour.">
+  <div class="gw-banner gw-banner--danger" role="alert">
+    <p class="gw-banner__text">Could not reconnect after 5 attempts.</p>
+    <div class="gw-banner__actions">
+      <button type="button" class="gw-button gw-button--small">Retry</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="dismiss" data-title="With dismiss">
+  <div class="gw-banner" role="status">
+    <p class="gw-banner__text">Connection restored. 2 runs resumed.</p>
+    <div class="gw-banner__actions">
+      <button type="button" class="gw-banner__dismiss" aria-label="Dismiss">
+        <svg class="gw-banner__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div data-example="action-and-dismiss" data-title="With an action and dismiss">
+  <div class="gw-banner gw-banner--warning" role="status">
+    <p class="gw-banner__text">Your session ends in 5 minutes. Unsaved task drafts will be lost.</p>
+    <div class="gw-banner__actions">
+      <button type="button" class="gw-button gw-button--small">Stay signed in</button>
+      <button type="button" class="gw-banner__dismiss" aria-label="Dismiss">
+        <svg class="gw-banner__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div data-example="busy" data-title="While the action runs" data-state="busy">
+  <div class="gw-banner gw-banner--danger" role="alert">
+    <p class="gw-banner__text">Could not reconnect after 5 attempts.</p>
+    <div class="gw-banner__actions">
+      <button type="button" class="gw-button gw-button--small" aria-busy="true">Retrying</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-banner gw-banner--warning" role="status">
+    <p class="gw-banner__text">Connection lost. Reconnecting…</p>
+    <div class="gw-banner__actions">
+      <button type="button" class="gw-button gw-button--small">Retry now</button>
+      <button type="button" class="gw-banner__dismiss" aria-label="Dismiss">
+        <svg class="gw-banner__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-banner gw-banner--warning" role="status">
+    <p class="gw-banner__text">Connection lost. Reconnecting…</p>
+    <div class="gw-banner__actions">
+      <button type="button" class="gw-button gw-button--small">Retry now</button>
+      <button type="button" class="gw-banner__dismiss" aria-label="Dismiss">
+        <svg class="gw-banner__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div data-example="active" data-title="Pressed" data-state="active">
+  <div class="gw-banner gw-banner--warning" role="status">
+    <p class="gw-banner__text">Connection lost. Reconnecting…</p>
+    <div class="gw-banner__actions">
+      <button type="button" class="gw-button gw-button--small">Retry now</button>
+      <button type="button" class="gw-banner__dismiss" aria-label="Dismiss">
+        <svg class="gw-banner__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div data-example="two-actions" data-title="Two actions" data-dont="review" data-reason="A banner has room for one action, and a second makes the reader stop and choose while the app is in trouble. Keep the one that fixes the condition and put the rest in the view it leads to.">
+  <div class="gw-banner gw-banner--danger" role="alert">
+    <p class="gw-banner__text">Could not reconnect after 5 attempts.</p>
+    <div class="gw-banner__actions">
+      <button type="button" class="gw-button gw-button--small">Retry</button>
+      <button type="button" class="gw-button gw-button--small">Work offline</button>
+      <button type="button" class="gw-button gw-button--small">View status page</button>
+    </div>
+  </div>
+</div>
+
+<div data-example="success-tone" data-title="A success tone" data-dont="unknown-class" data-reason="A banner reports a condition of the whole app that is still true. A finished action is over, so confirm it where it happened, and use the info tone when the app recovers.">
+  <div class="gw-banner gw-banner--success" role="status">
+    <p class="gw-banner__text">Task 412 was saved.</p>
+  </div>
+</div>

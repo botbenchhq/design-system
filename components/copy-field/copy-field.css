@@ -1,0 +1,51 @@
+/*
+ * Copy field: a value the reader takes somewhere else, with a button that copies it.
+ * The value is a read-only input, so it can be focused, selected and scrolled with no script.
+ * The button is a gw-button. The status line under them is where the app writes what happened.
+ */
+
+@layer gw.components {
+  .gw-copy-field {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-sm);
+  }
+
+  /*
+   * A value too long for the row ends in an ellipsis at rest and scrolls once it has focus.
+   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   */
+  .gw-copy-field__value {
+    flex: 1;
+    min-width: 0;
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-sunken);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+    text-overflow: ellipsis;
+  }
+
+  @media (min-width: 768px) {
+    .gw-copy-field__value {
+      font-size: var(--gw-text-mono);
+      line-height: var(--gw-leading-mono);
+    }
+  }
+
+  /* Always in the page, so a screen reader hears text arrive in it. It takes no room while it is empty. */
+  .gw-copy-field__status {
+    flex-basis: 100%;
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  .gw-copy-field__status:not(:empty) {
+    margin-top: var(--gw-space-xs);
+  }
+}

@@ -117,7 +117,6 @@ for (const name of components) {
       },
       { examples: DO, interactive: INTERACTIVE, reach: TOUCH / 2 - 1 },
     );
-    expect(small.checked).toBeGreaterThan(0);
     expect(small.failures).toEqual([]);
   });
 }

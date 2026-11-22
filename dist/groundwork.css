@@ -516,6 +516,543 @@
 }
 
 /*
+ * Alert: a message inside a view about the state of the thing on screen.
+ * Each tone has its own icon, drawn here, and the markup names the tone in words,
+ * so the colour is never the only thing telling one tone from another.
+ */
+
+@layer gw.components {
+  .gw-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    padding: var(--gw-space-md);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-info-subtle);
+  }
+
+  /* The icon is as tall as the first line of text, so it sits level with the tone label. */
+  .gw-alert::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: var(--gw-color-info);
+    mask: url("icons/info.svg") center / contain no-repeat;
+  }
+
+  .gw-alert__content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gw-space-xs);
+    min-width: 0;
+  }
+
+  /* The tone in words: Note, Done, Warning or Error. */
+  .gw-alert__label {
+    color: var(--gw-color-info);
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  .gw-alert__title {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  .gw-alert__body {
+    max-width: var(--gw-size-column);
+  }
+
+  .gw-alert__action {
+    margin-top: var(--gw-space-xs);
+  }
+
+  .gw-alert--success {
+    background-color: var(--gw-color-success-subtle);
+  }
+
+  .gw-alert--success::before {
+    background-color: var(--gw-color-success);
+    mask-image: url("icons/circle-check.svg");
+  }
+
+  .gw-alert--success .gw-alert__label {
+    color: var(--gw-color-success);
+  }
+
+  .gw-alert--warning {
+    background-color: var(--gw-color-warning-subtle);
+  }
+
+  .gw-alert--warning::before {
+    background-color: var(--gw-color-warning);
+    mask-image: url("icons/triangle-alert.svg");
+  }
+
+  .gw-alert--warning .gw-alert__label {
+    color: var(--gw-color-warning);
+  }
+
+  .gw-alert--danger {
+    background-color: var(--gw-color-danger-subtle);
+  }
+
+  .gw-alert--danger::before {
+    background-color: var(--gw-color-danger);
+    mask-image: url("icons/circle-alert.svg");
+  }
+
+  .gw-alert--danger .gw-alert__label {
+    color: var(--gw-color-danger);
+  }
+}
+
+/*
+ * App header: the top bar of an app. One row holds the product name or the current view's
+ * title, an optional back link before it and optional actions after it. A tray below the
+ * row holds what must stay in sight on every screen, such as approvals waiting for an answer.
+ */
+
+@layer gw.components {
+  .gw-app-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-xs);
+    padding: var(--gw-space-xs) var(--gw-space-sm);
+    border-bottom-width: var(--gw-border-width);
+    background-color: var(--gw-color-surface);
+  }
+
+  /* Stays at the top of the page while the content scrolls beneath it. */
+  .gw-app-header--sticky {
+    position: sticky;
+    top: 0;
+    z-index: var(--gw-z-sticky);
+  }
+
+  .gw-app-header__name,
+  .gw-app-header__back,
+  .gw-app-header__action {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-size-touch);
+    padding-inline: var(--gw-space-sm);
+    border-radius: var(--gw-radius-md);
+    transition-property: background-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  .gw-app-header__name {
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-mono);
+  }
+
+  .gw-app-header__back {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* One line. A title too long for the row is cut with an ellipsis, so the actions never leave the row. */
+  .gw-app-header__title {
+    flex: 1;
+    min-width: 0;
+    padding-inline: var(--gw-space-sm);
+    overflow: hidden;
+    font-size: var(--gw-text-lg);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-lg);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gw-app-header__actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    margin-inline-start: auto;
+  }
+
+  .gw-app-header__action {
+    justify-content: center;
+  }
+
+  .gw-app-header__icon {
+    flex: none;
+    width: calc(var(--gw-space-lg) + var(--gw-space-xs));
+    height: calc(var(--gw-space-lg) + var(--gw-space-xs));
+  }
+
+  /* A row of its own under the bar. With nothing in it, it takes no space. */
+  .gw-app-header__tray {
+    flex: 1 0 100%;
+    padding: var(--gw-space-xs) var(--gw-space-sm);
+  }
+
+  .gw-app-header__tray:empty {
+    display: none;
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-app-header__name:hover,
+    .gw-app-header__back:hover,
+    .gw-app-header__action:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  .gw-app-header__name:active,
+  .gw-app-header__back:active,
+  .gw-app-header__action:active {
+    background-color: var(--gw-color-border);
+  }
+
+  /* After hover and active, so an unavailable action never answers the pointer. */
+  .gw-app-header__action:disabled,
+  .gw-app-header__action[aria-disabled="true"] {
+    background-color: transparent;
+    color: var(--gw-color-muted);
+    cursor: default;
+  }
+}
+
+/*
+ * Approval: one request from an agent that waits for the reader's answer.
+ * It says what would run, where, for which role and task and why, then offers Allow and Decline.
+ * Allow and Decline are buttons from the button component, and are never inside a details element.
+ */
+
+@layer gw.components {
+  .gw-approval {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+    min-width: 0;
+    padding: var(--gw-space-lg);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  /* The risk, in words. The icon is drawn here, so the tone is never colour alone, whatever the markup holds. */
+  .gw-approval__risk {
+    display: flex;
+    gap: var(--gw-space-sm);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+  }
+
+  .gw-approval__risk::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-xs) * var(--gw-leading-xs));
+    background-color: currentColor;
+    mask: url("icons/info.svg") center / contain no-repeat;
+  }
+
+  .gw-approval--elevated {
+    border-color: var(--gw-color-warning);
+  }
+
+  .gw-approval--elevated > .gw-approval__risk {
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-warning-subtle);
+    color: var(--gw-color-warning);
+  }
+
+  .gw-approval--elevated > .gw-approval__risk::before {
+    mask-image: url("icons/triangle-alert.svg");
+  }
+
+  .gw-approval__title {
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  /* What would run, exactly. It wraps anywhere, so a long command never widens the page. */
+  .gw-approval__command {
+    min-width: 0;
+    padding: var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  /* Where, for whom and why: a term column and a value column. */
+  .gw-approval__facts {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--gw-space-md);
+    row-gap: var(--gw-space-xs);
+  }
+
+  .gw-approval__fact {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
+
+  .gw-approval__term {
+    color: var(--gw-color-muted);
+  }
+
+  .gw-approval__value {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .gw-approval__details {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .gw-approval__summary {
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    min-height: var(--gw-size-touch);
+    border-radius: var(--gw-radius-sm);
+    font-weight: var(--gw-weight-medium);
+    cursor: pointer;
+  }
+
+  .gw-approval__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .gw-approval__summary::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+  }
+
+  .gw-approval__details[open] > .gw-approval__summary::before {
+    mask-image: url("icons/chevron-down.svg");
+  }
+
+  @media (hover: hover) {
+    .gw-approval__summary:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  /* Allow at the start and Decline at the far end, so a thumb aiming for one cannot land on the other. */
+  .gw-approval__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gw-space-md);
+    padding-top: var(--gw-space-md);
+    border-top-width: var(--gw-border-width);
+  }
+
+  /* The note field and its own Decline button, inside the "Decline with a note" details. */
+  .gw-approval__note {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+    padding-block: var(--gw-space-xs) var(--gw-space-sm);
+  }
+
+  .gw-approval__error {
+    display: flex;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-danger);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-approval__error::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+}
+
+/*
+ * Badge: a status written in a word or two, on a subtle background.
+ * The plain class is the neutral tone. A modifier changes the tone, and the words always carry the meaning.
+ */
+
+@layer gw.components {
+  .gw-badge {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    min-height: var(--gw-space-xl);
+    padding-inline: var(--gw-space-sm);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    color: var(--gw-color-on-surface);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
+  }
+
+  .gw-badge--info {
+    border-color: transparent;
+    background-color: var(--gw-color-info-subtle);
+    color: var(--gw-color-info);
+  }
+
+  .gw-badge--success {
+    border-color: transparent;
+    background-color: var(--gw-color-success-subtle);
+    color: var(--gw-color-success);
+  }
+
+  .gw-badge--warning {
+    border-color: transparent;
+    background-color: var(--gw-color-warning-subtle);
+    color: var(--gw-color-warning);
+  }
+
+  .gw-badge--danger {
+    border-color: transparent;
+    background-color: var(--gw-color-danger-subtle);
+    color: var(--gw-color-danger);
+  }
+
+  .gw-badge__icon {
+    flex: none;
+    width: var(--gw-space-md);
+    height: var(--gw-space-md);
+  }
+}
+
+/*
+ * Banner: one message about the state of the whole app, across the full width under the app header.
+ * The plain class is the info tone. A modifier changes the tone, and with it the icon.
+ */
+
+@layer gw.components {
+  /* One row. When the text would be squeezed, the actions move to a row below it, at the end. */
+  .gw-banner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--gw-space-xs) var(--gw-space-sm);
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-xs) var(--gw-space-lg);
+    border-bottom-width: var(--gw-border-width);
+    background-color: var(--gw-color-info-subtle);
+  }
+
+  /* The icon is drawn here, so a tone is never marked by colour alone, whatever the markup holds. */
+  .gw-banner::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: var(--gw-color-info);
+    mask: url("icons/info.svg") center / contain no-repeat;
+  }
+
+  .gw-banner--warning {
+    background-color: var(--gw-color-warning-subtle);
+  }
+
+  .gw-banner--warning::before {
+    background-color: var(--gw-color-warning);
+    mask-image: url("icons/triangle-alert.svg");
+  }
+
+  .gw-banner--danger {
+    background-color: var(--gw-color-danger-subtle);
+  }
+
+  .gw-banner--danger::before {
+    background-color: var(--gw-color-danger);
+    mask-image: url("icons/circle-alert.svg");
+  }
+
+  /* Takes the width the actions leave, and never less than this. */
+  .gw-banner__text {
+    flex: 1 1 0;
+    min-width: min(100%, calc(var(--gw-space-2xl) * 5));
+    padding-block: var(--gw-space-xs);
+  }
+
+  /* The action and the dismiss button stay side by side, in the row or below it. */
+  .gw-banner__actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gw-space-sm);
+  }
+
+  .gw-banner__dismiss {
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--gw-space-2xl);
+    height: var(--gw-space-2xl);
+    margin-inline-end: calc(var(--gw-space-sm) * -1);
+    border-radius: var(--gw-radius-sm);
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /*
+   * The dismiss button is drawn 32px square. This invisible box, centred on it,
+   * keeps its pointer target at the touch size without making the banner taller.
+   */
+  .gw-banner__dismiss::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--gw-size-touch);
+    height: var(--gw-size-touch);
+    translate: -50% -50%;
+  }
+
+  .gw-banner__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-banner__dismiss:hover {
+      background-color: var(--gw-color-surface-raised);
+    }
+  }
+
+  .gw-banner__dismiss:active {
+    background-color: var(--gw-color-surface);
+  }
+}
+
+/*
  * Button: an action the reader takes on the current view.
  * The plain class is the secondary button. A modifier changes its emphasis or its size.
  */
@@ -667,6 +1204,634 @@
 }
 
 /*
+ * Code block: commands, logs and output in the mono face.
+ * Long lines wrap unless the scroll variant is set, and then the block scrolls sideways, never the page.
+ */
+
+@layer gw.components {
+  .gw-code-block {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  .gw-code-block__caption {
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-bottom-width: var(--gw-border-width);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-code-block__body {
+    padding: var(--gw-space-md);
+    border-radius: var(--gw-radius-md);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    tab-size: 2;
+  }
+
+  /* The body is given tabindex="0" in this variant, so it is a pointer target and is at least as tall as one. */
+  .gw-code-block--scroll .gw-code-block__body {
+    min-height: var(--gw-size-touch);
+    overflow-x: auto;
+    white-space: pre;
+    overflow-wrap: normal;
+  }
+
+  /*
+   * Numbered lines are a table, so the numbers share one column whatever their width.
+   * White space between the line elements is markup indentation and is dropped.
+   */
+  .gw-code-block__lines {
+    display: table;
+    width: 100%;
+    white-space: normal;
+  }
+
+  .gw-code-block__line {
+    display: table-row;
+  }
+
+  /* Not selectable, so copying the code leaves the numbers behind. */
+  .gw-code-block__number {
+    display: table-cell;
+    padding-inline-end: var(--gw-space-md);
+    color: var(--gw-color-muted);
+    text-align: end;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .gw-code-block__text {
+    display: table-cell;
+    width: 100%;
+    white-space: pre-wrap;
+  }
+
+  .gw-code-block--scroll .gw-code-block__text {
+    white-space: pre;
+  }
+
+  /* A sentence in place of the body when there is nothing to show yet. */
+  .gw-code-block__note {
+    padding: var(--gw-space-md);
+    color: var(--gw-color-muted);
+  }
+}
+
+/*
+ * Composer: the prompt input under a transcript. A form holding a label, a row with the
+ * textarea and the Send button, and optionally a row of quiet controls and a line of text.
+ * Send and Stop are buttons from the button component.
+ */
+
+@layer gw.components {
+  .gw-composer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  /*
+   * Held to the bottom of the scrolling view, clear of the home indicator. The view's
+   * scroller must end at the visible viewport for this to stay above an on-screen keyboard.
+   */
+  .gw-composer--sticky {
+    position: sticky;
+    bottom: 0;
+    z-index: var(--gw-z-sticky);
+    padding: var(--gw-space-md) var(--gw-space-lg);
+    padding-bottom: calc(var(--gw-space-md) + env(safe-area-inset-bottom));
+    border-top-width: var(--gw-border-width);
+    background-color: var(--gw-color-surface);
+  }
+
+  .gw-composer__label {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* The button stays beside the last line as the textarea grows. */
+  .gw-composer__row {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--gw-space-sm);
+  }
+
+  /*
+   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   * Without field-sizing the height is fixed at two targets and the text scrolls inside.
+   * The block padding is what centres a single line in a box one target tall.
+   */
+  .gw-composer__input {
+    flex: 1;
+    min-width: 0;
+    height: calc(var(--gw-size-touch) * 2);
+    min-height: var(--gw-size-touch);
+    max-height: calc(var(--gw-size-touch) * 4);
+    padding-block: calc((var(--gw-size-touch) - var(--gw-text-lg) * var(--gw-leading-lg)) / 2 - var(--gw-border-width));
+    padding-inline: var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+    resize: none;
+    transition: border-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /* One line tall when empty, growing with the text up to four targets, so Send is never pushed off a phone screen. */
+  @supports (field-sizing: content) {
+    .gw-composer__input {
+      height: auto;
+      field-sizing: content;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .gw-composer__input {
+      padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2 - var(--gw-border-width));
+      font-size: var(--gw-text-ui);
+      line-height: var(--gw-leading-ui);
+    }
+  }
+
+  .gw-composer__input:disabled {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+  }
+
+  .gw-composer__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gw-space-sm);
+  }
+
+  /* Why the composer cannot send. Plain text, so it is read as easily as the label. */
+  .gw-composer__reason {
+    overflow-wrap: anywhere;
+  }
+
+  .gw-composer__error {
+    display: flex;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-danger);
+    overflow-wrap: anywhere;
+  }
+
+  /* The icon is drawn here, so an error is never marked by colour alone, whatever the markup holds. */
+  .gw-composer__error::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+}
+
+/*
+ * Copy field: a value the reader takes somewhere else, with a button that copies it.
+ * The value is a read-only input, so it can be focused, selected and scrolled with no script.
+ * The button is a gw-button. The status line under them is where the app writes what happened.
+ */
+
+@layer gw.components {
+  .gw-copy-field {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-sm);
+  }
+
+  /*
+   * A value too long for the row ends in an ellipsis at rest and scrolls once it has focus.
+   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   */
+  .gw-copy-field__value {
+    flex: 1;
+    min-width: 0;
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-sunken);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+    text-overflow: ellipsis;
+  }
+
+  @media (min-width: 768px) {
+    .gw-copy-field__value {
+      font-size: var(--gw-text-mono);
+      line-height: var(--gw-leading-mono);
+    }
+  }
+
+  /* Always in the page, so a screen reader hears text arrive in it. It takes no room while it is empty. */
+  .gw-copy-field__status {
+    flex-basis: 100%;
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  .gw-copy-field__status:not(:empty) {
+    margin-top: var(--gw-space-xs);
+  }
+}
+
+/*
+ * Diff: one file's change as a unified diff.
+ * Every line carries its sign in a column of its own, so the shading is never the only mark,
+ * and long lines scroll inside the body, never the page.
+ */
+
+@layer gw.components {
+  .gw-diff {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  .gw-diff__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--gw-space-xs) var(--gw-space-md);
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-bottom-width: var(--gw-border-width);
+  }
+
+  .gw-diff__path {
+    min-width: 0;
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  /* The counts also stand alone, in a disclosure summary or a list row, so nothing here depends on the block. */
+  .gw-diff__counts {
+    display: inline-flex;
+    flex: none;
+    gap: var(--gw-space-sm);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-mono);
+    white-space: nowrap;
+  }
+
+  .gw-diff__added {
+    color: var(--gw-color-success);
+  }
+
+  .gw-diff__removed {
+    color: var(--gw-color-danger);
+  }
+
+  /* Words for a screen reader after a count that is drawn as a sign and a number. */
+  .gw-diff__label {
+    position: absolute;
+    width: var(--gw-border-width);
+    height: var(--gw-border-width);
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* The body is given tabindex="0", so it is a pointer target and is at least as tall as one. */
+  .gw-diff__body {
+    min-height: var(--gw-size-touch);
+    padding-block: var(--gw-space-sm);
+    border-radius: var(--gw-radius-md);
+    overflow-x: auto;
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+  }
+
+  /*
+   * The lines are a table at least as wide as the body, so a line's shading reaches the far edge
+   * however far the body scrolls. White space between the line elements is markup indentation and is dropped.
+   */
+  .gw-diff__lines {
+    display: table;
+    min-width: 100%;
+    white-space: normal;
+  }
+
+  .gw-diff__line {
+    display: table-row;
+    text-decoration-line: none;
+  }
+
+  /* Not selectable, so copying lines out of a diff leaves the signs behind. */
+  .gw-diff__sign {
+    display: table-cell;
+    padding-inline: var(--gw-space-md) var(--gw-space-sm);
+    font-weight: var(--gw-weight-semibold);
+    white-space: pre;
+    user-select: none;
+  }
+
+  .gw-diff__text {
+    display: table-cell;
+    width: 100%;
+    padding-inline-end: var(--gw-space-md);
+    white-space: pre;
+    tab-size: 2;
+  }
+
+  .gw-diff__line--added {
+    background-color: var(--gw-color-success-subtle);
+  }
+
+  .gw-diff__line--added > .gw-diff__sign {
+    color: var(--gw-color-success);
+  }
+
+  .gw-diff__line--removed {
+    background-color: var(--gw-color-danger-subtle);
+  }
+
+  .gw-diff__line--removed > .gw-diff__sign {
+    color: var(--gw-color-danger);
+  }
+
+  .gw-diff__line--hunk {
+    color: var(--gw-color-muted);
+  }
+
+  .gw-diff__line--hunk:not(:first-child) > .gw-diff__text,
+  .gw-diff__line--hunk:not(:first-child) > .gw-diff__sign {
+    padding-top: var(--gw-space-sm);
+  }
+
+  /* A sentence in place of the body, or under it: the diff is being read, has no lines, or was cut short. */
+  .gw-diff__note {
+    display: flex;
+    gap: var(--gw-space-xs);
+    padding: var(--gw-space-md);
+    color: var(--gw-color-muted);
+  }
+
+  .gw-diff__body + .gw-diff__note {
+    border-top-width: var(--gw-border-width);
+  }
+
+  .gw-diff__note[role="alert"] {
+    color: var(--gw-color-danger);
+  }
+
+  /* The icon is drawn here, so a failure is never marked by colour alone, whatever the markup holds. */
+  .gw-diff__note[role="alert"]::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+}
+
+/*
+ * Disclosure: a native details element whose summary says in text what it holds.
+ * The chevron is drawn here and turns when the element is open, so the markup is only details and summary.
+ */
+
+@layer gw.components {
+  .gw-disclosure {
+    min-width: 0;
+  }
+
+  .gw-disclosure__summary {
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-sm);
+    border-radius: var(--gw-radius-sm);
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+    list-style: none;
+    cursor: pointer;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-disclosure__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .gw-disclosure__summary::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+    transition: rotate var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-disclosure[open] > .gw-disclosure__summary::before {
+    rotate: 90deg;
+  }
+
+  /* Trailing text in the summary, such as a count, pushed to the far end. */
+  .gw-disclosure__meta {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    margin-inline-start: auto;
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-normal);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
+  }
+
+  /* Indented to start under the summary's text, past the chevron. */
+  .gw-disclosure__content {
+    padding-block: var(--gw-space-xs) var(--gw-space-md);
+    padding-inline: calc(var(--gw-space-sm) + var(--gw-space-lg) + var(--gw-space-sm)) var(--gw-space-sm);
+  }
+
+  /* As a list row, the disclosure fills the row and its content uses the full width, which a diff needs on a phone. */
+  .gw-disclosure--row {
+    flex: 1;
+  }
+
+  .gw-disclosure--row > .gw-disclosure__summary {
+    border-radius: 0;
+  }
+
+  .gw-disclosure--row > .gw-disclosure__content {
+    padding-inline: var(--gw-space-sm);
+  }
+
+  /* The quiet text turns to the main text colour where the summary is shaded, so it keeps its contrast. */
+  @media (hover: hover) {
+    .gw-disclosure__summary:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-disclosure__summary:hover > .gw-disclosure__meta {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-disclosure__summary:active {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-disclosure__summary:active > .gw-disclosure__meta {
+    color: var(--gw-color-on-surface);
+  }
+}
+
+/*
+ * Empty state: what a view shows before it has any data.
+ * It starts at the same edge as the content that will take its place, so it has no inline padding of its own.
+ */
+
+@layer gw.components {
+  .gw-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    max-width: var(--gw-size-column);
+    padding-block: var(--gw-space-xl);
+  }
+
+  .gw-empty-state__title {
+    font-size: var(--gw-text-lg);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-lg);
+  }
+
+  .gw-empty-state__body {
+    color: var(--gw-color-muted);
+  }
+
+  .gw-empty-state__action {
+    margin-top: var(--gw-space-sm);
+  }
+
+  /* Inside a list or a panel: the height of about two rows, with the title at the size of a row's text. */
+  .gw-empty-state--compact {
+    gap: var(--gw-space-xs);
+    padding-block: var(--gw-space-md);
+  }
+
+  .gw-empty-state--compact .gw-empty-state__title {
+    font-size: var(--gw-text-ui);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-ui);
+  }
+
+  .gw-empty-state--compact .gw-empty-state__action {
+    margin-top: var(--gw-space-xs);
+  }
+}
+
+/*
+ * Error state: what a view shows when its data could not be loaded.
+ * It starts at the same edge as the content it stands in for, so it has no inline padding of its own.
+ */
+
+@layer gw.components {
+  .gw-error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    max-width: var(--gw-size-column);
+    padding-block: var(--gw-space-xl);
+  }
+
+  .gw-error-state__title {
+    display: flex;
+    gap: var(--gw-space-sm);
+    font-size: var(--gw-text-lg);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-lg);
+  }
+
+  /* The icon is drawn here, as tall as the title's first line, so the failure is never marked by its wording alone. */
+  .gw-error-state__title::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-lg) * var(--gw-leading-lg));
+    background-color: var(--gw-color-danger);
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  .gw-error-state__action {
+    margin-top: var(--gw-space-sm);
+  }
+
+  .gw-error-state__detail {
+    align-self: stretch;
+  }
+
+  /* The browser's marker is replaced by a chevron that turns when the detail is open. */
+  .gw-error-state__summary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    min-height: var(--gw-size-touch);
+    color: var(--gw-color-muted);
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .gw-error-state__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .gw-error-state__summary::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+    transition: rotate var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-error-state__detail[open] > .gw-error-state__summary::before {
+    rotate: 90deg;
+  }
+
+  /* Long lines wrap, so the output never needs a sideways scroll inside the view. */
+  .gw-error-state__output {
+    padding: var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}
+
+/*
  * Field: one labelled text input with its description and its error message.
  * The label, the control, the description and the error are siblings, in that order.
  */
@@ -749,5 +1914,809 @@
     height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
     background-color: currentColor;
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+}
+
+/*
+ * Link: a standalone text link, and the parts a link to another site carries.
+ * A link inside running text takes no class. The base layer underlines it,
+ * and the icon and the hint below work inside it as well.
+ */
+
+@layer gw.components {
+  /* Underlined at rest, so the link never depends on colour to be found. */
+  .gw-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-size-touch);
+    font-weight: var(--gw-weight-medium);
+    text-decoration-line: underline;
+    text-decoration-thickness: var(--gw-border-width);
+    text-underline-offset: var(--gw-space-xs);
+    transition: color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-link--quiet {
+    color: var(--gw-color-muted);
+    font-weight: var(--gw-weight-normal);
+  }
+
+  /* Inline, so it also sits on the text line of a link in running text. */
+  .gw-link__icon {
+    display: inline-block;
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    vertical-align: text-bottom;
+  }
+
+  /* Text for a screen reader only, such as "(opens in a new tab)". It takes no space and is not drawn. */
+  .gw-link__hint {
+    position: absolute;
+    width: var(--gw-border-width);
+    height: var(--gw-border-width);
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-link:hover {
+      text-decoration-thickness: calc(var(--gw-border-width) * 2);
+    }
+
+    .gw-link--quiet:hover {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-link:active {
+    color: var(--gw-color-muted);
+    text-decoration-thickness: calc(var(--gw-border-width) * 2);
+  }
+
+  .gw-link--quiet:active {
+    color: var(--gw-color-on-surface);
+  }
+}
+
+/*
+ * List: rows one above the other, on a ul or an ol, divided by a 1px border.
+ * A row holds its content, as a link when the row navigates, and at most one quiet action after it.
+ */
+
+@layer gw.components {
+  .gw-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gw-list__row {
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  .gw-list__row + .gw-list__row {
+    border-top-width: var(--gw-border-width);
+  }
+
+  /* The link is the content of a row that navigates, so the whole row takes the press and the focus ring. */
+  .gw-list__content,
+  .gw-list__link {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: var(--gw-space-md);
+    min-width: 0;
+    padding: var(--gw-space-md) var(--gw-space-sm);
+  }
+
+  .gw-list__link {
+    min-height: var(--gw-size-touch);
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-list__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    color: var(--gw-color-muted);
+  }
+
+  .gw-list__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .gw-list__primary {
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-list__secondary {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-list__meta {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
+  }
+
+  /* As tall as a pointer target, so a small button's padded hit area never reaches into the next row. */
+  .gw-list__action {
+    display: flex;
+    flex: none;
+    align-items: center;
+    min-height: var(--gw-size-touch);
+  }
+
+  /*
+   * A dense row is drawn with 4px above and below its text. A link in it is still 44px tall,
+   * so a dense row that navigates never has a smaller pointer target than a default one.
+   */
+  .gw-list--dense .gw-list__content,
+  .gw-list--dense .gw-list__link {
+    gap: var(--gw-space-sm);
+    padding-block: var(--gw-space-xs);
+  }
+
+  /* The quiet text turns to the main text colour wherever the row is shaded, so it keeps its contrast. */
+  @media (hover: hover) {
+    .gw-list__link:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-list__link:hover :is(.gw-list__icon, .gw-list__secondary, .gw-list__meta) {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-list__link:active {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-list__link:active :is(.gw-list__icon, .gw-list__secondary, .gw-list__meta) {
+    color: var(--gw-color-on-surface);
+  }
+
+  /* The current row is marked by a bar and a heavier title as well as by its shade. */
+  .gw-list__link[aria-current]:not([aria-current="false"]) {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-list__link[aria-current]:not([aria-current="false"])::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: calc(var(--gw-border-width) * 2);
+    background-color: var(--gw-color-accent);
+  }
+
+  .gw-list__link[aria-current]:not([aria-current="false"]) .gw-list__primary {
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  .gw-list__link[aria-current]:not([aria-current="false"]) :is(.gw-list__icon, .gw-list__secondary, .gw-list__meta) {
+    color: var(--gw-color-on-surface);
+  }
+
+  /* Rows kept on screen while the list is fetched again are quieter until the new ones arrive. */
+  .gw-list[aria-busy="true"] {
+    cursor: progress;
+  }
+
+  .gw-list[aria-busy="true"] .gw-list__primary {
+    color: var(--gw-color-muted);
+  }
+}
+
+/*
+ * Message: one row of an agent transcript. It is a list item in the transcript's ol or ul.
+ * The plain class is the agent's text. A modifier sets any other kind of row, and the
+ * label inside the row says the kind in words.
+ */
+
+@layer gw.components {
+  .gw-message {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--gw-space-sm);
+    row-gap: var(--gw-space-xs);
+    min-width: 0;
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-radius: var(--gw-radius-md);
+  }
+
+  /* The kind of row, in words. It takes the line height of the text beside it, so the two share a baseline. */
+  .gw-message__label {
+    flex: none;
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+  }
+
+  .gw-message__tool {
+    flex: none;
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-mono);
+  }
+
+  /* Prose, on its own line under the label. Line breaks in the text are kept. */
+  .gw-message__body {
+    flex: 1 1 100%;
+    min-width: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  /* A short command or path beside the tool name. It wraps anywhere, so a long one never widens the page. */
+  .gw-message__command {
+    flex: 1 1 0;
+    min-width: 0;
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  /* A block of arguments or output. */
+  .gw-message__code {
+    flex: 1 1 100%;
+    min-width: 0;
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .gw-message__details {
+    display: flex;
+    flex: 1 1 100%;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  /* The summary is as tall as a pointer target, and its text sits in the middle of that height. */
+  .gw-message__summary {
+    display: flex;
+    align-items: baseline;
+    column-gap: var(--gw-space-sm);
+    min-height: var(--gw-size-touch);
+    padding-block: var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    font-weight: var(--gw-weight-medium);
+    cursor: pointer;
+  }
+
+  .gw-message__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .gw-message__summary::before {
+    content: "";
+    flex: none;
+    align-self: flex-start;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+    background-color: currentColor;
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+  }
+
+  .gw-message__details[open] > .gw-message__summary::before {
+    mask-image: url("icons/chevron-down.svg");
+  }
+
+  .gw-message__details[open] > .gw-message__summary {
+    padding-bottom: var(--gw-space-sm);
+  }
+
+  @media (hover: hover) {
+    .gw-message__summary:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  /* The label is not muted here: muted text on the sunken surface is too faint. */
+  .gw-message--user {
+    padding-block: var(--gw-space-md);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-message--user > .gw-message__label {
+    color: var(--gw-color-on-surface);
+  }
+
+  .gw-message--denied {
+    padding-block: var(--gw-space-md);
+    background-color: var(--gw-color-danger-subtle);
+  }
+
+  .gw-message--denied > .gw-message__label {
+    display: flex;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-danger);
+  }
+
+  /* Drawn here, so a denial is never marked by colour alone, whatever the markup holds. */
+  .gw-message--denied > .gw-message__label::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  /* Tool rows are the bulk of a transcript, so they sit closer together. */
+  .gw-message--tool-call,
+  .gw-message--tool-result {
+    padding-block: var(--gw-space-xs);
+  }
+
+  /* Quiet rows: the label and the text share one line. */
+  .gw-message--usage,
+  .gw-message--turn-end {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+  }
+
+  .gw-message--usage > .gw-message__body,
+  .gw-message--turn-end > .gw-message__body {
+    flex: 1 1 0;
+  }
+
+  /* The rule above the row is what closes the turn. */
+  .gw-message--turn-end {
+    padding-top: var(--gw-space-md);
+    border-top-width: var(--gw-border-width);
+    border-radius: 0;
+  }
+}
+
+/*
+ * Page header: the top of a view. The title, an optional one-line description
+ * and, at the end of the row, the view's one optional primary action.
+ */
+
+@layer gw.components {
+  .gw-page-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--gw-space-md) var(--gw-space-lg);
+  }
+
+  /* Once the text would be narrower than this, the action moves to a row of its own below it. */
+  .gw-page-header__text {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+    min-width: min(100%, calc(var(--gw-space-2xl) * 5));
+  }
+
+  .gw-page-header__title {
+    font-size: var(--gw-text-xl);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-xl);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-page-header__description {
+    max-width: var(--gw-size-transcript);
+    color: var(--gw-color-muted);
+  }
+
+  .gw-page-header__action {
+    display: flex;
+    flex: none;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .gw-page-header__title {
+      font-size: var(--gw-text-2xl);
+      line-height: var(--gw-leading-2xl);
+    }
+  }
+
+  /* For a dense screen, where the list or the transcript below is what the reader came for. */
+  .gw-page-header--compact {
+    align-items: center;
+    column-gap: var(--gw-space-md);
+  }
+
+  .gw-page-header--compact .gw-page-header__text {
+    gap: 0;
+  }
+
+  .gw-page-header--compact .gw-page-header__title {
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+  }
+
+  .gw-page-header--compact .gw-page-header__description {
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+}
+
+/*
+ * Pending tray: how many approvals wait for the reader, in the trailing slot of the app header.
+ * The block is a live region that is always in the page. It holds a link while something
+ * waits, quiet text while nothing does, and nothing at all when the zero state is hidden.
+ */
+
+@layer gw.components {
+  .gw-pending-tray {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  /*
+   * Drawn 32px tall so it fits a header row. The invisible box centred on it
+   * keeps its pointer target at the touch size.
+   */
+  .gw-pending-tray__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-space-2xl);
+    padding-inline: var(--gw-space-xs) var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-ui);
+    transition-property: background-color, border-color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  .gw-pending-tray__link::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: var(--gw-size-touch);
+    translate: 0 -50%;
+  }
+
+  /* The count is the first word of the sentence. The filled box only makes it easy to find. */
+  .gw-pending-tray__count {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--gw-space-xl);
+    height: var(--gw-space-xl);
+    padding-inline: var(--gw-space-xs);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-accent);
+    color: var(--gw-color-on-accent);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+  }
+
+  .gw-pending-tray__text {
+    color: var(--gw-color-muted);
+  }
+
+  @media (hover: hover) {
+    .gw-pending-tray__link:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  .gw-pending-tray__link:active {
+    border-color: var(--gw-color-on-surface);
+    background-color: var(--gw-color-surface-sunken);
+  }
+}
+
+/*
+ * Select: a native select as the control of a field. The select element carries gw-field__control,
+ * which draws the border, the fill and the invalid and disabled states, so this stylesheet must load after the field's.
+ * The wrapper exists only to draw the chevron, because a select element cannot hold a pseudo-element.
+ */
+
+@layer gw.components {
+  .gw-select {
+    position: relative;
+    display: block;
+  }
+
+  /* The native arrow goes, and the end padding keeps a long option clear of the chevron drawn in its place. */
+  .gw-select__control {
+    appearance: none;
+    padding-inline-end: calc(var(--gw-space-md) * 2 + var(--gw-space-lg));
+    text-overflow: ellipsis;
+  }
+
+  .gw-select::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(--gw-space-md);
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/chevron-down.svg") center / contain no-repeat;
+    translate: 0 -50%;
+    pointer-events: none;
+  }
+
+  /* Some browsers fade a disabled select. The muted colour from the field already marks it. */
+  .gw-select__control:disabled {
+    opacity: 1;
+  }
+
+  .gw-select:has(.gw-select__control:disabled)::after {
+    background-color: var(--gw-color-muted);
+  }
+}
+
+/*
+ * Spinner: a sign that something is in progress and its length is not known.
+ * The text inside it is the label. The turning mark is decoration, so when motion is off the text still says what is happening.
+ */
+
+@layer gw.components {
+  .gw-spinner {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+  }
+
+  .gw-spinner::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/loader.svg") center / contain no-repeat;
+    animation: gw-spinner-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  .gw-spinner--large {
+    gap: var(--gw-space-md);
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+  }
+
+  .gw-spinner--large::before {
+    width: var(--gw-space-xl);
+    height: var(--gw-space-xl);
+  }
+
+  /* The mark has eight spokes, so eight steps a turn moves it one spoke at a time. */
+  @keyframes gw-spinner-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gw-spinner::before {
+      animation: none;
+    }
+  }
+}
+
+/*
+ * Streaming: the note that the agent is still producing output. A small turning mark, then the words.
+ * The mark is drawn by the stylesheet, and the words are what a screen reader announces.
+ */
+
+@layer gw.components {
+  .gw-streaming {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-sm);
+    min-width: 0;
+    color: var(--gw-color-muted);
+  }
+
+  /* The same stepped loader a busy button shows, so working looks the same everywhere. */
+  .gw-streaming::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/loader.svg") center / contain no-repeat;
+    animation: gw-streaming-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  /* As the last row of a transcript, it takes the padding of a message row and lines up with the labels. */
+  .gw-streaming--row {
+    padding: var(--gw-space-sm) var(--gw-space-md);
+  }
+
+  /* Figures that change often, such as elapsed time. They sit outside the status text. */
+  .gw-streaming__detail {
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  @keyframes gw-streaming-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  /* The mark stays, still, and the words carry the meaning. */
+  @media (prefers-reduced-motion: reduce) {
+    .gw-streaming::before {
+      animation: none;
+    }
+  }
+}
+
+/*
+ * Tab bar: the main destinations of an app, along the bottom of a phone screen.
+ * Each destination is a link with an icon above a text label. At the regular width
+ * the bar is not shown, and the app's sidebar lists the same destinations.
+ */
+
+@layer gw.components {
+  /*
+   * Sticky to the bottom of the page, as the last element in it. The padding keeps
+   * the labels clear of the home indicator on a phone without a home button.
+   */
+  .gw-tab-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: var(--gw-z-sticky);
+    display: flex;
+    padding-bottom: env(safe-area-inset-bottom);
+    border-top-width: var(--gw-border-width);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  /* Equal columns, whatever the labels hold. */
+  .gw-tab-bar__item {
+    position: relative;
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gw-space-xs);
+    min-width: var(--gw-size-touch);
+    min-height: calc(var(--gw-size-touch) + var(--gw-space-md));
+    padding: var(--gw-space-sm) var(--gw-space-xs);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    transition-property: background-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  .gw-tab-bar__icon {
+    flex: none;
+    width: calc(var(--gw-space-lg) + var(--gw-space-xs));
+    height: calc(var(--gw-space-lg) + var(--gw-space-xs));
+  }
+
+  /* One line. A label too long for its column is cut with an ellipsis. */
+  .gw-tab-bar__label {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-tab-bar__item:hover {
+      background-color: var(--gw-color-surface-sunken);
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-tab-bar__item:active {
+    background-color: var(--gw-color-surface-sunken);
+    color: var(--gw-color-on-surface);
+  }
+
+  /* The current destination is marked by weight and by a bar over it, as well as by colour. */
+  .gw-tab-bar__item[aria-current="page"] {
+    color: var(--gw-color-on-surface);
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  /* The bar sits on the top border of the tab bar. */
+  .gw-tab-bar__item[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--gw-border-width) * -1);
+    inset-inline: var(--gw-space-md);
+    height: calc(var(--gw-border-width) * 2);
+    background-color: var(--gw-color-accent);
+  }
+
+  @media (min-width: 768px) {
+    .gw-tab-bar {
+      display: none;
+    }
+  }
+}
+
+/*
+ * Textarea: the multi-line control of a field. It goes on the same element as gw-field__control,
+ * which draws the border, the fill and the invalid, read-only and disabled states.
+ * This stylesheet adds only the height behaviour and the mono variant, so it must load after the field's.
+ */
+
+@layer gw.components {
+  /*
+   * The fallback, for a browser without field-sizing: a fixed height the reader can drag taller.
+   * The height limits are multiples of the touch size because there is no token for a control's height.
+   */
+  .gw-textarea {
+    display: block;
+    height: calc(var(--gw-size-touch) * 3);
+    min-height: calc(var(--gw-size-touch) * 2);
+    max-height: calc(var(--gw-size-touch) * 6);
+    overflow-y: auto;
+  }
+
+  /* The control grows with what is typed, from the minimum to the maximum height, and scrolls after that. */
+  @supports (field-sizing: content) {
+    .gw-textarea {
+      field-sizing: content;
+      height: auto;
+      resize: none;
+    }
+  }
+
+  /* The size stays at 16px at compact widths, as on every field control, so iOS does not zoom on focus. */
+  .gw-textarea--mono {
+    font-family: var(--gw-font-mono);
+  }
+
+  @media (min-width: 768px) {
+    .gw-textarea--mono {
+      font-size: var(--gw-text-mono);
+      line-height: var(--gw-leading-mono);
+    }
   }
 }

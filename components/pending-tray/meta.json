@@ -1,0 +1,34 @@
+{
+  "name": "pending-tray",
+  "title": "Pending tray",
+  "purpose": "How many approvals are waiting for the reader, in words and a count, linking to the queue from every screen.",
+  "status": "draft",
+  "whenToUse": [
+    "In the trailing slot of the app header, on every signed-in screen, so a waiting approval is never out of sight.",
+    "As the one way from any screen to the approval queue."
+  ],
+  "whenNotToUse": [
+    "To show the request itself or to answer it. Use an approval.",
+    "For a count of anything the reader does not have to act on, such as open tasks. Write that as plain text.",
+    "As a navigation item for the queue screen. Use the app's navigation, and keep the tray as well."
+  ],
+  "variants": [],
+  "sizes": [
+    { "name": "default", "use": "The link is drawn 32px tall to fit a header row. Its pointer target is still 44px." }
+  ],
+  "states": ["default", "hover", "focus-visible", "active", "empty", "loading", "error"],
+  "accessibility": [
+    "The block is a div with aria-live=\"polite\" and aria-atomic=\"true\". Keep it in the page on every screen and change only what it holds, so a screen reader announces the new sentence when the count changes without moving focus.",
+    "While approvals wait, it holds one link, gw-pending-tray__link, to the queue. The link text is the whole sentence: the count in gw-pending-tray__count, then approval waiting or approvals waiting. Never show the count alone.",
+    "The filled box around the count is decoration. The sentence carries the meaning, so the count is never colour alone.",
+    "When nothing waits, either leave the block empty, which hides the tray and keeps the live region, or show gw-pending-tray__text reading No approvals waiting. Use the same quiet text while the count is loading and when it could not be read, and say which in words.",
+    "The link is reached with Tab and followed with Enter. The app sets the count, the wording and the link's href, and nothing else."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-pending-tray",
+    "gw-pending-tray__count",
+    "gw-pending-tray__link",
+    "gw-pending-tray__text"
+  ]
+}

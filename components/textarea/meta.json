@@ -1,0 +1,36 @@
+{
+  "name": "textarea",
+  "title": "Textarea",
+  "purpose": "The multi-line control of a field, which grows with what the reader types.",
+  "status": "draft",
+  "whenToUse": [
+    "For text that runs to more than one line: a prompt, review notes, a list of commands.",
+    "With the mono variant, for text a machine will read, such as commands or a prompt with code in it."
+  ],
+  "whenNotToUse": [
+    "For one line of text, such as a name or a branch. Use a text input in a field.",
+    "To show text the reader never edits or copies. Write it as plain text.",
+    "Outside a field. The label, description and error come from the field."
+  ],
+  "variants": [
+    { "name": "default", "use": "Prose in the interface typeface. No modifier class." },
+    { "name": "mono", "class": "gw-textarea--mono", "use": "Commands, code and prompts where spacing and punctuation matter. Set spellcheck=\"false\" with it." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "As wide as the field, 88px tall when empty, growing with its content to 264px and scrolling after that. Where the browser cannot grow it, it is 132px tall and the reader can drag it taller." }
+  ],
+  "states": ["default", "focus", "invalid", "disabled", "read-only"],
+  "accessibility": [
+    "Use a textarea element carrying both gw-field__control and gw-textarea, inside gw-field, with a label element whose for attribute matches its id.",
+    "State comes from the field control: aria-invalid=\"true\" with a linked gw-field__error, the disabled attribute, or the readonly attribute.",
+    "Link the description, and the error while there is one, by listing their ids in aria-describedby.",
+    "Enter adds a line. It never submits the form, so the form needs a button for that.",
+    "Past its maximum height the control scrolls with the arrow keys and Page Up and Page Down, as any textarea does.",
+    "A read-only textarea stays focusable and its text can be selected and copied. A disabled one leaves the tab order."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-textarea",
+    "gw-textarea--mono"
+  ]
+}

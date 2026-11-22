@@ -1,0 +1,48 @@
+{
+  "name": "list",
+  "title": "List",
+  "purpose": "Rows one above the other, each with a primary line and room for a second line, an icon, and trailing text or one quiet action.",
+  "status": "draft",
+  "whenToUse": [
+    "For a set of like things the reader scans down and opens one of: tasks, repositories, branches, changed files.",
+    "For a short sequence whose order means something, such as the steps a task took. Use an ol.",
+    "With the dense variant where many rows must fit a phone screen."
+  ],
+  "whenNotToUse": [
+    "For items compared across several columns. Use a table.",
+    "When there are no items. Put an empty state in place of the list: one sentence that says there is nothing yet and, where there is one, the action that adds the first item. Never render a ul with no rows.",
+    "While the first fetch runs or after it fails. Put a line of text with role=\"status\" or role=\"alert\" in place of the list.",
+    "For a row with two or more actions. Make the row a link to a view that holds them, or put them in a menu.",
+    "For site or section navigation. Use a nav with links."
+  ],
+  "variants": [
+    { "name": "default", "use": "12px above and below each row's text. A one-line row is 44px tall." },
+    { "name": "dense", "class": "gw-list--dense", "use": "4px above and below each row's text, for long lists and file lists. A row with a link or an action is still at least 44px tall, and a row that only shows text is 28px." }
+  ],
+  "sizes": [],
+  "states": ["default", "hover", "focus-visible", "active", "current", "busy"],
+  "accessibility": [
+    "Use a ul, or an ol when the order means something, with one li per row. A screen reader then announces how many rows there are.",
+    "A row that navigates wraps its icon, lines and trailing text in one a element with the class gw-list__link. The link is the whole row: one tab stop, one focus ring, and a pointer target at least 44px tall.",
+    "A row that does not navigate uses a div with the class gw-list__content. It is not focusable.",
+    "A row has at most one action: a small quiet button inside gw-list__action, after the content. When every row's button has the same words, add an aria-label that starts with those words and names the row, such as Remove /srv/workspaces/acme-api.",
+    "Mark the row for the view the reader is on with aria-current=\"page\" on its link. It is drawn with a bar and a heavier title as well as a shade.",
+    "A leading icon is decoration and carries aria-hidden=\"true\". Trailing text and a status are written in words, never as a colour or an icon alone.",
+    "While rows are fetched again, set aria-busy=\"true\" on the list and say so in an element with role=\"status\" outside it.",
+    "Tab moves between row links and row actions in order. Enter follows a link. There are no arrow-key bindings."
+  ],
+  "icons": ["file", "folder", "git-branch"],
+  "classes": [
+    "gw-list",
+    "gw-list--dense",
+    "gw-list__action",
+    "gw-list__body",
+    "gw-list__content",
+    "gw-list__icon",
+    "gw-list__link",
+    "gw-list__meta",
+    "gw-list__primary",
+    "gw-list__row",
+    "gw-list__secondary"
+  ]
+}

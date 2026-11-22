@@ -1,0 +1,79 @@
+/*
+ * Error state: what a view shows when its data could not be loaded.
+ * It starts at the same edge as the content it stands in for, so it has no inline padding of its own.
+ */
+
+@layer gw.components {
+  .gw-error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    max-width: var(--gw-size-column);
+    padding-block: var(--gw-space-xl);
+  }
+
+  .gw-error-state__title {
+    display: flex;
+    gap: var(--gw-space-sm);
+    font-size: var(--gw-text-lg);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-lg);
+  }
+
+  /* The icon is drawn here, as tall as the title's first line, so the failure is never marked by its wording alone. */
+  .gw-error-state__title::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-lg) * var(--gw-leading-lg));
+    background-color: var(--gw-color-danger);
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  .gw-error-state__action {
+    margin-top: var(--gw-space-sm);
+  }
+
+  .gw-error-state__detail {
+    align-self: stretch;
+  }
+
+  /* The browser's marker is replaced by a chevron that turns when the detail is open. */
+  .gw-error-state__summary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    min-height: var(--gw-size-touch);
+    color: var(--gw-color-muted);
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .gw-error-state__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .gw-error-state__summary::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+    transition: rotate var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-error-state__detail[open] > .gw-error-state__summary::before {
+    rotate: 90deg;
+  }
+
+  /* Long lines wrap, so the output never needs a sideways scroll inside the view. */
+  .gw-error-state__output {
+    padding: var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}

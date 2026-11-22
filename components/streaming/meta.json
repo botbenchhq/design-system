@@ -1,0 +1,34 @@
+{
+  "name": "streaming",
+  "title": "Streaming",
+  "purpose": "The note that the agent is still producing output: a small turning mark and words that say what is happening.",
+  "status": "draft",
+  "whenToUse": [
+    "As the last row of a transcript while a turn runs.",
+    "Beside a task's title or its Stop control, to say that work is still going on."
+  ],
+  "whenNotToUse": [
+    "On a button whose action is running. Set aria-busy on the button, which draws its own mark.",
+    "For progress with a known amount done. Use a progress element.",
+    "To say that a turn has ended. Use a message of the turn-end kind."
+  ],
+  "variants": [
+    { "name": "default", "use": "A line of muted text with the mark before it, anywhere in a view." },
+    { "name": "row", "class": "gw-streaming--row", "use": "On the last li of a transcript. It takes the padding of a message row, so the words line up with the labels above." }
+  ],
+  "sizes": [],
+  "states": ["default"],
+  "accessibility": [
+    "Always write the words. The mark is drawn by the stylesheet and is not announced.",
+    "Put role=\"status\" on the element that holds the words, so a screen reader announces them when they change. Keep that element in the page before the words change, and remove the indicator when the work ends.",
+    "Change the words only when the state changes, such as from working to stopping. Put figures that tick, such as elapsed time, in gw-streaming__detail outside the role=\"status\" element, so they are not announced every second.",
+    "Under prefers-reduced-motion the mark stops turning and the words remain.",
+    "It holds no control and takes no focus. The app adds it when a turn starts and removes it when the turn ends."
+  ],
+  "icons": ["loader"],
+  "classes": [
+    "gw-streaming",
+    "gw-streaming--row",
+    "gw-streaming__detail"
+  ]
+}

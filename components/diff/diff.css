@@ -1,0 +1,156 @@
+/*
+ * Diff: one file's change as a unified diff.
+ * Every line carries its sign in a column of its own, so the shading is never the only mark,
+ * and long lines scroll inside the body, never the page.
+ */
+
+@layer gw.components {
+  .gw-diff {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  .gw-diff__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--gw-space-xs) var(--gw-space-md);
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-bottom-width: var(--gw-border-width);
+  }
+
+  .gw-diff__path {
+    min-width: 0;
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  /* The counts also stand alone, in a disclosure summary or a list row, so nothing here depends on the block. */
+  .gw-diff__counts {
+    display: inline-flex;
+    flex: none;
+    gap: var(--gw-space-sm);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-mono);
+    white-space: nowrap;
+  }
+
+  .gw-diff__added {
+    color: var(--gw-color-success);
+  }
+
+  .gw-diff__removed {
+    color: var(--gw-color-danger);
+  }
+
+  /* Words for a screen reader after a count that is drawn as a sign and a number. */
+  .gw-diff__label {
+    position: absolute;
+    width: var(--gw-border-width);
+    height: var(--gw-border-width);
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* The body is given tabindex="0", so it is a pointer target and is at least as tall as one. */
+  .gw-diff__body {
+    min-height: var(--gw-size-touch);
+    padding-block: var(--gw-space-sm);
+    border-radius: var(--gw-radius-md);
+    overflow-x: auto;
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+  }
+
+  /*
+   * The lines are a table at least as wide as the body, so a line's shading reaches the far edge
+   * however far the body scrolls. White space between the line elements is markup indentation and is dropped.
+   */
+  .gw-diff__lines {
+    display: table;
+    min-width: 100%;
+    white-space: normal;
+  }
+
+  .gw-diff__line {
+    display: table-row;
+    text-decoration-line: none;
+  }
+
+  /* Not selectable, so copying lines out of a diff leaves the signs behind. */
+  .gw-diff__sign {
+    display: table-cell;
+    padding-inline: var(--gw-space-md) var(--gw-space-sm);
+    font-weight: var(--gw-weight-semibold);
+    white-space: pre;
+    user-select: none;
+  }
+
+  .gw-diff__text {
+    display: table-cell;
+    width: 100%;
+    padding-inline-end: var(--gw-space-md);
+    white-space: pre;
+    tab-size: 2;
+  }
+
+  .gw-diff__line--added {
+    background-color: var(--gw-color-success-subtle);
+  }
+
+  .gw-diff__line--added > .gw-diff__sign {
+    color: var(--gw-color-success);
+  }
+
+  .gw-diff__line--removed {
+    background-color: var(--gw-color-danger-subtle);
+  }
+
+  .gw-diff__line--removed > .gw-diff__sign {
+    color: var(--gw-color-danger);
+  }
+
+  .gw-diff__line--hunk {
+    color: var(--gw-color-muted);
+  }
+
+  .gw-diff__line--hunk:not(:first-child) > .gw-diff__text,
+  .gw-diff__line--hunk:not(:first-child) > .gw-diff__sign {
+    padding-top: var(--gw-space-sm);
+  }
+
+  /* A sentence in place of the body, or under it: the diff is being read, has no lines, or was cut short. */
+  .gw-diff__note {
+    display: flex;
+    gap: var(--gw-space-xs);
+    padding: var(--gw-space-md);
+    color: var(--gw-color-muted);
+  }
+
+  .gw-diff__body + .gw-diff__note {
+    border-top-width: var(--gw-border-width);
+  }
+
+  .gw-diff__note[role="alert"] {
+    color: var(--gw-color-danger);
+  }
+
+  /* The icon is drawn here, so a failure is never marked by colour alone, whatever the markup holds. */
+  .gw-diff__note[role="alert"]::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+}
