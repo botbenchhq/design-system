@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Context list - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/elapsed.js"></script>
+<script type="module" src="../behaviors/listbox.js"></script>
+<script type="module" src="../behaviors/menu.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
+<script type="module" src="../behaviors/transcript.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Design system gallery</a>
+<div data-gallery="switches">
+<nav aria-label="Mode"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<nav aria-label="Theme"><a href="?brand=default" data-gallery-default="light">Default</a><a href="?brand=botbench" data-gallery-default="dark">Botbench</a></nav>
+</div>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Context list</h1>
+<p>The rows of the Add context sheet: a rounded group of buttons, each naming a setting of the next task, showing its current value and opening the setting's own view.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="ds-grid ds-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> The settings of a new task, each with its value</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each row names the setting and shows its current value at the end, so the reader sees what will be used without opening anything. A press opens the setting's own view, and the chevron says so.</p>
+</figcaption>
+<div data-example="default" data-title="The settings of a new task, each with its value" data-state="default" data-reason="Each row names the setting and shows its current value at the end, so the reader sees what will be used without opening anything. A press opens the setting's own view, and the chevron says so.">
+  <ul class="ds-context-list" aria-label="Task settings">
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-git-branch"></use></svg>
+        <span class="ds-context-list__label">Repository</span>
+        <span class="ds-context-list__value">api</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-cpu"></use></svg>
+        <span class="ds-context-list__label">Model</span>
+        <span class="ds-context-list__value">Sonnet, medium effort</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-shield"></use></svg>
+        <span class="ds-context-list__label">Mode</span>
+        <span class="ds-context-list__value">Manual</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-eye"></use></svg>
+        <span class="ds-context-list__label">Review</span>
+        <span class="ds-context-list__value">Codex</span>
+      </button>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A long value loses its middle</h3>
+</figcaption>
+<div data-example="long-value" data-title="A long value loses its middle">
+  <ul class="ds-context-list" aria-label="Task settings with a long repository name">
+    <li>
+      <button type="button" class="ds-context-list__button" aria-label="Repository northwind-logistics-shipment-tracking-api">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-git-branch"></use></svg>
+        <span class="ds-context-list__label">Repository</span>
+        <span class="ds-context-list__value"><span class="ds-context-list__start">northwind-logistics-shipment-</span><span class="ds-context-list__end">tracking-api</span></span>
+      </button>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> A value with a risk</h3>
+<p>The value keeps its word and gains the warning icon, so the risk is read the same way with or without colour.</p>
+</figcaption>
+<div data-example="warning" data-title="A value with a risk" data-reason="The value keeps its word and gains the warning icon, so the risk is read the same way with or without colour.">
+  <ul class="ds-context-list" aria-label="Task settings with a warning">
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-shield"></use></svg>
+        <span class="ds-context-list__label">Mode</span>
+        <span class="ds-context-list__value ds-context-list__value--warning">Fully autonomous</span>
+      </button>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <ul class="ds-context-list" aria-label="Task settings, hovered">
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-shield"></use></svg>
+        <span class="ds-context-list__label">Mode</span>
+        <span class="ds-context-list__value">Manual</span>
+      </button>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <ul class="ds-context-list" aria-label="Task settings, focused">
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-shield"></use></svg>
+        <span class="ds-context-list__label">Mode</span>
+        <span class="ds-context-list__value">Manual</span>
+      </button>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active">
+  <ul class="ds-context-list" aria-label="Task settings, pressed">
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-shield"></use></svg>
+        <span class="ds-context-list__label">Mode</span>
+        <span class="ds-context-list__value">Manual</span>
+      </button>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Rows that hide the current value</h3>
+<p>The reader has to open every row to learn what the task will use, and cannot check the settings at a glance before sending. Show the current value at the end of each row.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="no-value" data-title="Rows that hide the current value" data-dont="review" data-reason="The reader has to open every row to learn what the task will use, and cannot check the settings at a glance before sending. Show the current value at the end of each row.">
+  <ul class="ds-context-list" aria-label="Task settings without values">
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <span class="ds-context-list__label">Repository</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <span class="ds-context-list__label">Mode</span>
+      </button>
+    </li>
+  </ul>
+</div>
+</figure>
+</div>
+</section>
+<div class="ds-grid ds-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>In the Add context sheet a composer opens, for the settings of the task the reader is about to start: repository, model, mode, review.</li>
+<li>Where each row should show its current value at a glance and change it one press away, in a view of its own.</li>
+<li>Attachment actions, such as attaching a file, would be a group of rows above the settings, with no value. They are not built yet.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For the choice itself. The row opens a view that holds an option picker.</li>
+<li>For a setting that takes effect the moment it changes, on a settings page. Use a settings row with a switch or a select.</li>
+<li>For a list of things the reader scans and opens, such as tasks or branches. Use a list.</li>
+<li>For actions on one thing. Use a menu.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>default</dt>
+<dd>An icon, the setting's name and its current value in the quieter colour at the trailing end. The stylesheet draws the chevron.</dd>
+<dt>long value</dt>
+<dd>The value holds ds-context-list__start and ds-context-list__end, written with no white space between them. It stays on one line and loses its middle, and the button's aria-label carries the whole value.</dd>
+<dt>warning <code>ds-context-list__value--warning</code></dt>
+<dd>On ds-context-list__value, for a value with a risk, such as Fully autonomous. The value keeps its word; the stylesheet adds the warning icon and the warning tone.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a ul with ds-context-list and an aria-label that says what the rows set, with one li per row. Several groups are several lists, one after another in the sheet's body.</li>
+<li>Each row is a button element with type=&quot;button&quot; and ds-context-list__button. It holds an optional svg with ds-context-list__icon and aria-hidden=&quot;true&quot;, a span with ds-context-list__label and a span with ds-context-list__value, with white space between the two spans. Its accessible name is then the setting and its value: Repository api.</li>
+<li>A long value is written in full, split between ds-context-list__start and ds-context-list__end. The stylesheet cuts the middle from view only. A browser reads a space between the two parts, so give that row's button an aria-label with the setting and the whole value: Repository northwind-logistics-shipment-tracking-api.</li>
+<li>A warning is said in words in the value. ds-context-list__value--warning adds the icon, so the tone is never the only signal.</li>
+<li>A press opens the setting's view in the same sheet. The app shows that view, moves focus to the chosen option in it and, on Back, shows the rows again and moves focus to the row that was pressed. The composer's metadata describes the whole sheet.</li>
+<li>Tab moves between the rows, and Enter and Space press one. Each row is at least 44px tall and as wide as the group. The component needs no script of its own.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>ds-context-list</code></li>
+<li><code>ds-context-list__button</code></li>
+<li><code>ds-context-list__end</code></li>
+<li><code>ds-context-list__icon</code></li>
+<li><code>ds-context-list__label</code></li>
+<li><code>ds-context-list__start</code></li>
+<li><code>ds-context-list__value</code></li>
+<li><code>ds-context-list__value--warning</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

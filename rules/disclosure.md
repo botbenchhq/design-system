@@ -29,6 +29,7 @@ Progressive disclosure shows the few things most readers need first and moves th
 | A stretch of consecutive steps in a long run | `step-group`, whose summary counts the steps by kind |
 | The full command or the reason behind a request | The details part of `approval` |
 | The advanced settings of a view | One `disclosure` marked `data-ds-advanced` |
+| The settings of a task the reader is starting | The `composer` shows only the model and a missing required value. The rest are rows of `context-list` in the Add context sheet, each with its current value, and a setting's `option-picker` appears only when its row is pressed. |
 | A task that needs the whole screen for a moment, or detail beside a selected item | A sheet or an inspector. Neither is in the catalogue yet. Until one is, use a view of its own. |
 
 ## Agent activity

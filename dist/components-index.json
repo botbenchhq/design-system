@@ -336,17 +336,22 @@
     "name": "composer",
     "kind": "component",
     "title": "Composer",
-    "purpose": "The prompt input under a transcript: a textarea that grows with its content, and Send.",
+    "purpose": "The prompt input that starts and continues work with an agent: a textarea that grows with its content and Send, optionally as one block with Add context, the model and dictation in a row under the text.",
     "status": "draft",
     "classes": [
       "ds-composer",
       "ds-composer--sticky",
+      "ds-composer__bar",
+      "ds-composer__box",
+      "ds-composer__chip",
       "ds-composer__controls",
       "ds-composer__error",
       "ds-composer__input",
       "ds-composer__label",
+      "ds-composer__qualifier",
       "ds-composer__reason",
-      "ds-composer__row"
+      "ds-composer__row",
+      "ds-composer__value"
     ]
   },
   {
@@ -360,6 +365,23 @@
       "ds-confirm-dialog__actions",
       "ds-confirm-dialog__loss",
       "ds-confirm-dialog__losses"
+    ]
+  },
+  {
+    "name": "context-list",
+    "kind": "component",
+    "title": "Context list",
+    "purpose": "The rows of the Add context sheet: a rounded group of buttons, each naming a setting of the next task, showing its current value and opening the setting's own view.",
+    "status": "draft",
+    "classes": [
+      "ds-context-list",
+      "ds-context-list__button",
+      "ds-context-list__end",
+      "ds-context-list__icon",
+      "ds-context-list__label",
+      "ds-context-list__start",
+      "ds-context-list__value",
+      "ds-context-list__value--warning"
     ]
   },
   {

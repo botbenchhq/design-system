@@ -1,0 +1,107 @@
+<div data-example="default" data-title="The settings of a new task, each with its value" data-state="default" data-reason="Each row names the setting and shows its current value at the end, so the reader sees what will be used without opening anything. A press opens the setting's own view, and the chevron says so.">
+  <ul class="ds-context-list" aria-label="Task settings">
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+        <span class="ds-context-list__label">Repository</span>
+        <span class="ds-context-list__value">api</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-cpu"></use></svg>
+        <span class="ds-context-list__label">Model</span>
+        <span class="ds-context-list__value">Sonnet, medium effort</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-shield"></use></svg>
+        <span class="ds-context-list__label">Mode</span>
+        <span class="ds-context-list__value">Manual</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-eye"></use></svg>
+        <span class="ds-context-list__label">Review</span>
+        <span class="ds-context-list__value">Codex</span>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<div data-example="long-value" data-title="A long value loses its middle">
+  <ul class="ds-context-list" aria-label="Task settings with a long repository name">
+    <li>
+      <button type="button" class="ds-context-list__button" aria-label="Repository northwind-logistics-shipment-tracking-api">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+        <span class="ds-context-list__label">Repository</span>
+        <span class="ds-context-list__value"><span class="ds-context-list__start">northwind-logistics-shipment-</span><span class="ds-context-list__end">tracking-api</span></span>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<div data-example="warning" data-title="A value with a risk" data-reason="The value keeps its word and gains the warning icon, so the risk is read the same way with or without colour.">
+  <ul class="ds-context-list" aria-label="Task settings with a warning">
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-shield"></use></svg>
+        <span class="ds-context-list__label">Mode</span>
+        <span class="ds-context-list__value ds-context-list__value--warning">Fully autonomous</span>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <ul class="ds-context-list" aria-label="Task settings, hovered">
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-shield"></use></svg>
+        <span class="ds-context-list__label">Mode</span>
+        <span class="ds-context-list__value">Manual</span>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <ul class="ds-context-list" aria-label="Task settings, focused">
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-shield"></use></svg>
+        <span class="ds-context-list__label">Mode</span>
+        <span class="ds-context-list__value">Manual</span>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<div data-example="active" data-title="Pressed" data-state="active">
+  <ul class="ds-context-list" aria-label="Task settings, pressed">
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-shield"></use></svg>
+        <span class="ds-context-list__label">Mode</span>
+        <span class="ds-context-list__value">Manual</span>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<div data-example="no-value" data-title="Rows that hide the current value" data-dont="review" data-reason="The reader has to open every row to learn what the task will use, and cannot check the settings at a glance before sending. Show the current value at the end of each row.">
+  <ul class="ds-context-list" aria-label="Task settings without values">
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <span class="ds-context-list__label">Repository</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="ds-context-list__button">
+        <span class="ds-context-list__label">Mode</span>
+      </button>
+    </li>
+  </ul>
+</div>

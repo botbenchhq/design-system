@@ -1,16 +1,18 @@
 {
   "name": "composer",
   "title": "Composer",
-  "purpose": "The prompt input under a transcript: a textarea that grows with its content, and Send.",
+  "purpose": "The prompt input that starts and continues work with an agent: a textarea that grows with its content and Send, optionally as one block with Add context, the model and dictation in a row under the text.",
   "status": "draft",
   "whenToUse": [
+    "To start work. A new task is a composer, not a form: the screen is the composer, the model is the one setting in its row, and every other setting is one press away in the Add context sheet.",
     "At the bottom of a transcript, to send the next prompt to the agent.",
     "To stop a running turn from the same place the reader sends from."
   ],
   "whenNotToUse": [
     "For one line of text in a form, such as a task title. Use a field.",
     "For longer text that is saved with a form and not sent as a message. Use a textarea.",
-    "To answer an approval request. Use the approval's own Allow and Decline."
+    "To answer an approval request. Use the approval's own Allow and Decline.",
+    "For a new task as a page of fields: a repository list, a model select, a mode select and a prompt. Use the composer's block, and put the settings in the Add context sheet as rows of a context list."
   ],
   "variants": [
     { "name": "default", "use": "In the flow of the page, as wide as its container." },
@@ -19,7 +21,7 @@
   "sizes": [
     { "name": "default", "use": "The textarea is one line and 44px tall when empty and grows with its content to 176px, then scrolls. Where field-sizing is not supported it is a fixed 88px. Send stays beside the last line." }
   ],
-  "states": ["default", "focus", "busy", "disabled", "error"],
+  "states": ["default", "focus", "busy", "disabled", "error", "required", "open"],
   "accessibility": [
     "Use a form element, so Send submits it. The textarea has a visible ds-composer__label whose for attribute matches its id, or an aria-label when the view has no room for one. A placeholder is not a label.",
     "Send is a button of type submit with ds-button ds-button--primary. It is the view's one primary action, so nothing else in the view is primary.",
@@ -27,17 +29,31 @@
     "When the reader cannot send, set disabled on the textarea and on Send, and say why in ds-composer__reason, linked from both by aria-describedby. The reason says what to do next.",
     "When a prompt fails to send, keep the text in the textarea and add ds-composer__error with role=\"alert\", linked by aria-describedby. Its icon is drawn by the stylesheet.",
     "Tab moves from the textarea to Send, then to the quiet controls. The app decides whether Enter sends. If it does, Shift+Enter adds a line, and the button remains the way to send on a phone.",
-    "The component needs no script. The app sets disabled, aria-busy and aria-describedby, and swaps Send for Stop."
+    "The component needs no script. The app sets disabled, aria-busy and aria-describedby, and swaps Send for Stop.",
+    "The block. Inside the form, a div with ds-composer__box holds the textarea and then a div with ds-composer__bar. The textarea has no visible label in the block: give it an aria-label, such as Describe a task. A placeholder may repeat it, never replace it. The reason and the error lines go after the block, inside the form.",
+    "The bar holds, in this order: Add context, a ds-composer__controls with the chips, the dictation button when there is one, and Send or Stop. Only the chips give way when the line is short: a chip's text is cut with an ellipsis, and Add context, dictation and Send keep their size and their line at 320px.",
+    "Add context is a button with ds-button ds-icon-button, the plus icon and aria-label=\"Add context\", with aria-haspopup=\"dialog\". It opens the Add context sheet with showModal(), or with command=\"show-modal\" and commandfor naming the sheet. It is the sheet at every width: a bottom sheet on a phone, a side panel from 768px.",
+    "The model chip is a button with ds-button ds-button--quiet ds-button--small ds-composer__chip and aria-haspopup=\"dialog\", holding a ds-composer__value and nothing else, so it is as short as its words. The value holds a ds-visually-hidden span that says what the chip sets, the value, and an optional ds-composer__qualifier in the quieter colour: Model: Sonnet, Medium effort is read out, Sonnet Medium is shown. A press opens the same sheet straight on the model's view. The model cannot be removed, so the chip has no remove button.",
+    "A required value that is missing, such as the repository: the app shows one prompt chip in place of the model chip, so the row holds one chip and keeps one line at 320px. It is a button with ds-button ds-button--small ds-composer__chip, so it has a border where the model chip has none, with the setting's name, read out as what to do: Repository is shown, and a ds-visually-hidden Choose a before it makes the name Choose a repository. The reason line says it in full. It sets disabled on Send, writes the reason in ds-composer__reason, and points aria-describedby on Send and on the chip at it. A press opens the sheet on that setting's view. Once the value is set the app removes the chip or sets hidden on it, removes the disabled attribute and the reason, and shows the model chip again. The value then shows only in the sheet, where the model also stays a row throughout. The example with data-state=\"required\" shows this state.",
+    "The Add context sheet is a ds-sheet holding ds-context-list rows: Repository, Model, Mode, Review, each with its current value. Attachment actions, such as attaching a file, would be a group of rows above them. A row opens the setting's view in the same sheet, a ds-option-picker for that setting. The app swaps the sheet's header and body in place: it puts a Back button (a quiet ds-icon-button with chevron-left and aria-label=\"Back to Add context\") before the title, a ds-cluster ds-gap-xs holding both, changes the title's text to the setting's name, replaces the rows with the option picker, whose legend is visually hidden because the title says the same, and moves focus to the checked option. Choosing an option sets the value at once. Back puts the rows back with the new value and moves focus to the row that was pressed. Close and Escape close the sheet from either view, and the browser returns focus to the button that opened it. The view has no primary button of its own.",
+    "Dictation. The button is a quiet ds-button ds-icon-button with the mic icon, aria-label=\"Dictate\" and aria-pressed=\"false\", before Send. While it listens it has aria-pressed=\"true\", which draws a border, a shade and a bar under the icon, and a ds-composer__reason with role=\"status\" after the block says Listening. While the speech becomes text it has aria-busy=\"true\", which draws the spinner, and the status says Transcribing. The name stays Dictate in every state, so the pressed state is what says it is on. When the browser has no speech input, do not render the button at all, or set hidden on it, and the row lays out the same without it. There is no disabled placeholder. When it fails, such as access to the microphone being blocked, say so in ds-composer__error with role=\"alert\", linked from the button by aria-describedby: Microphone access was blocked. Allow it in your browser's settings.",
+    "Speech recognition is the app's job: the system draws the states. The app inserts dictated text at the cursor in the textarea, and it stays there to be edited before it is sent. Dictation never sends by itself.",
+    "Jump to latest sits straight before the form, as its own metadata describes, and hangs centred above the block."
   ],
-  "icons": ["circle-alert", "file", "git-branch"],
+  "icons": ["chevron-left", "circle-alert", "cpu", "eye", "file", "git-branch", "mic", "plus", "shield", "x"],
   "classes": [
     "ds-composer",
     "ds-composer--sticky",
+    "ds-composer__bar",
+    "ds-composer__box",
+    "ds-composer__chip",
     "ds-composer__controls",
     "ds-composer__error",
     "ds-composer__input",
     "ds-composer__label",
+    "ds-composer__qualifier",
     "ds-composer__reason",
-    "ds-composer__row"
+    "ds-composer__row",
+    "ds-composer__value"
   ]
 }
