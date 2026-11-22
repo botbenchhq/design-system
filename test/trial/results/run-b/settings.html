@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings for acme/api - Relay</title>
+<link rel="stylesheet" href="vendor/groundwork/groundwork.css">
+</head>
+<body>
+<div class="gw-stack gw-gap-xl">
+  <header class="gw-app-header">
+    <a class="gw-app-header__back" href="approvals.html">
+      <svg class="gw-app-header__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-chevron-left"></use></svg>
+      Approvals
+    </a>
+  </header>
+
+  <main class="gw-container">
+    <div class="gw-settings-page gw-stack gw-gap-xl">
+      <header class="gw-page-header">
+        <div class="gw-page-header__text">
+          <h1 class="gw-page-header__title">Settings for acme/api</h1>
+          <p class="gw-page-header__description">Each change is saved as you make it. New tasks start from the base branch.</p>
+        </div>
+      </header>
+
+      <form class="gw-stack gw-gap-xl" action="/repositories/acme-api/settings" method="post">
+        <div class="gw-settings-row__group" role="group" aria-labelledby="settings-branches-heading">
+          <h2 class="gw-settings-row__heading" id="settings-branches-heading">Branches</h2>
+          <div class="gw-settings-row">
+            <div class="gw-settings-row__text">
+              <label class="gw-settings-row__label" for="settings-base-branch">Base branch</label>
+              <p class="gw-settings-row__description" id="settings-base-branch-description">Each task branch starts from the latest commit on this branch.</p>
+            </div>
+            <div class="gw-settings-row__control">
+              <div class="gw-select">
+                <select class="gw-field__control gw-select__control" id="settings-base-branch" name="base-branch" aria-describedby="settings-base-branch-description">
+                  <option value="main" selected>main</option>
+                  <option value="develop">develop</option>
+                  <option value="release/2026-11">release/2026-11</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gw-settings-row__group" role="group" aria-labelledby="settings-pr-heading">
+          <h2 class="gw-settings-row__heading" id="settings-pr-heading">Pull requests</h2>
+          <div class="gw-settings-row">
+            <div class="gw-switch">
+              <label class="gw-switch__label" for="settings-run-tests">Run the tests before opening a pull request</label>
+              <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+              <input class="gw-switch__input" type="checkbox" role="switch" id="settings-run-tests" name="run-tests" checked aria-describedby="settings-run-tests-description">
+              <p class="gw-switch__description" id="settings-run-tests-description">Runs npm test in the task's worktree. A failed run stops the pull request.</p>
+            </div>
+          </div>
+          <div class="gw-settings-row">
+            <div class="gw-switch">
+              <label class="gw-switch__label" for="settings-draft-prs">Open pull requests as drafts</label>
+              <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+              <input class="gw-switch__input" type="checkbox" role="switch" id="settings-draft-prs" name="draft-pull-requests" checked aria-describedby="settings-draft-prs-description">
+              <p class="gw-switch__description" id="settings-draft-prs-description">A draft is not sent to reviewers until you mark it ready.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gw-settings-row__group" role="group" aria-labelledby="settings-notify-heading">
+          <h2 class="gw-settings-row__heading" id="settings-notify-heading">Notifications</h2>
+          <div class="gw-settings-row">
+            <div class="gw-switch">
+              <label class="gw-switch__label" for="settings-notify-approval">Notify me when a run needs an approval</label>
+              <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+              <input class="gw-switch__input" type="checkbox" role="switch" id="settings-notify-approval" name="notify-approval" checked aria-describedby="settings-notify-approval-description">
+              <p class="gw-switch__description" id="settings-notify-approval-description">Sent at once. A run waits until you answer, so this is the one to keep on.</p>
+            </div>
+          </div>
+          <div class="gw-settings-row">
+            <div class="gw-switch">
+              <label class="gw-switch__label" for="settings-notify-finish">Notify me when a run finishes</label>
+              <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+              <input class="gw-switch__input" type="checkbox" role="switch" id="settings-notify-finish" name="notify-finish" aria-describedby="settings-notify-finish-description">
+              <p class="gw-switch__description" id="settings-notify-finish-description">Sent for successful runs too. Failed runs always notify you.</p>
+            </div>
+          </div>
+        </div>
+
+        <details class="gw-disclosure" data-gw-advanced>
+          <summary class="gw-disclosure__summary">
+            Advanced settings
+            <span class="gw-disclosure__meta">4 settings</span>
+          </summary>
+          <div class="gw-disclosure__content gw-stack gw-gap-lg">
+            <div class="gw-settings-row">
+              <div class="gw-settings-row__text">
+                <label class="gw-settings-row__label" for="settings-keep-worktrees">Keep finished worktrees for</label>
+                <p class="gw-settings-row__description" id="settings-keep-worktrees-description">Worktrees are removed after this long. Their branches stay on GitHub.</p>
+              </div>
+              <div class="gw-settings-row__control">
+                <div class="gw-select">
+                  <select class="gw-field__control gw-select__control" id="settings-keep-worktrees" name="keep-worktrees" aria-describedby="settings-keep-worktrees-description">
+                    <option value="1">1 day</option>
+                    <option value="7" selected>7 days</option>
+                    <option value="30">30 days</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="gw-settings-row">
+              <div class="gw-settings-row__text">
+                <label class="gw-settings-row__label" for="settings-max-runs">Runs at the same time</label>
+                <p class="gw-settings-row__description" id="settings-max-runs-description">Runs past this number wait in the queue.</p>
+              </div>
+              <div class="gw-settings-row__control">
+                <div class="gw-select">
+                  <select class="gw-field__control gw-select__control" id="settings-max-runs" name="max-runs" aria-describedby="settings-max-runs-description">
+                    <option value="1">1 run</option>
+                    <option value="2">2 runs</option>
+                    <option value="4" selected>4 runs</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="gw-settings-row">
+              <div class="gw-switch">
+                <label class="gw-switch__label" for="settings-run-changed-only">Run only the tests for changed files</label>
+                <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+                <input class="gw-switch__input" type="checkbox" role="switch" id="settings-run-changed-only" name="run-changed-only" aria-describedby="settings-run-changed-only-description">
+                <p class="gw-switch__description" id="settings-run-changed-only-description">Faster, but a change that breaks an untouched test is missed until the full suite runs.</p>
+              </div>
+            </div>
+            <div class="gw-settings-row">
+              <div class="gw-settings-row__text">
+                <label class="gw-settings-row__label" for="settings-commit-author">Commit author name</label>
+                <p class="gw-settings-row__description" id="settings-commit-author-description">Shown on commits the agent makes for this repository.</p>
+              </div>
+              <div class="gw-settings-row__control">
+                <input class="gw-field__control" id="settings-commit-author" type="text" name="commit-author" autocomplete="off" value="Relay agent" aria-describedby="settings-commit-author-description">
+              </div>
+            </div>
+          </div>
+        </details>
+      </form>
+
+      <section class="gw-card gw-stack gw-gap-md" aria-labelledby="settings-danger-title">
+        <div class="gw-card__header">
+          <h2 class="gw-card__title" id="settings-danger-title">Danger area: disconnect acme/api</h2>
+        </div>
+        <div class="gw-card__body">
+          <div class="gw-settings-row gw-settings-row--danger">
+            <div class="gw-settings-row__text">
+              <p class="gw-settings-row__label">Disconnect acme/api from Relay</p>
+              <p class="gw-settings-row__description" id="settings-disconnect-description">Stops new runs for this repository and removes its 3 worktrees from this machine. Pushed branches and open pull requests stay on GitHub.</p>
+            </div>
+            <div class="gw-settings-row__control">
+              <button type="button" class="gw-button gw-button--danger" data-gw-critical aria-describedby="settings-disconnect-description" aria-haspopup="dialog" aria-controls="settings-disconnect-dialog">Disconnect acme/api</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <dialog class="gw-dialog gw-confirm-dialog" id="settings-disconnect-dialog" role="alertdialog" aria-labelledby="settings-disconnect-title" aria-describedby="settings-disconnect-body">
+        <form class="gw-dialog__panel" method="dialog">
+          <h2 class="gw-dialog__title" id="settings-disconnect-title">Disconnect acme/api?</h2>
+          <div class="gw-dialog__body" id="settings-disconnect-body">
+            <p>Relay will stop starting runs for this repository and delete its worktrees from this machine. You will lose:</p>
+            <ul class="gw-confirm-dialog__losses">
+              <li class="gw-confirm-dialog__loss">2 changed files in the worktree for fix/session-refresh that were never committed</li>
+              <li class="gw-confirm-dialog__loss">The transcripts of the runs that finished in the last 7 days</li>
+            </ul>
+            <p>The repository and its pull requests on GitHub stay as they are.</p>
+          </div>
+          <div class="gw-dialog__footer gw-confirm-dialog__actions">
+            <button type="submit" class="gw-button" value="cancel">Keep the repository</button>
+            <button type="submit" class="gw-button gw-button--danger" value="disconnect">Disconnect acme/api</button>
+          </div>
+        </form>
+      </dialog>
+    </div>
+  </main>
+</div>
+</body>
+</html>

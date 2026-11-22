@@ -6,7 +6,7 @@ Read this before writing any interface. Paths assume the system is vendored at `
 
 - Style comes only from the system's tokens and `gw-` components. Write no raw colour, off-scale size, font, shadow or inline style.
 - Utility classes are for layout, spacing and sizing only. A colour, border, radius, shadow or type utility fails the check.
-- Look each component up in `components.json` before writing markup, and copy its example. Never guess a class name.
+- Look each component up in `components.json` before writing markup, and copy its example. Never guess a class name. Example paths are relative to the gallery: point icon links at the vendored `icons.svg`.
 
 ## Order of choice
 
