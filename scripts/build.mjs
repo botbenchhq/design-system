@@ -32,6 +32,12 @@ const FONT_SOURCES = {
 // What a symbol keeps from an icon's root element, so one drawn through <use> looks like the single file.
 const SYMBOL_ATTRIBUTES = ["viewBox", "fill", "stroke", "stroke-width", "stroke-linecap", "stroke-linejoin"];
 
+// The rendered check is these checker files joined in this order, each after the ones it imports from.
+const DOM_BUNDLE = [
+  "rules/stock-phrases.mjs", "rules/tree.mjs", "rules/disclosure.mjs", "rules/tells.mjs", "rules/copy.mjs",
+  "rules/index.mjs", "dom-entry.mjs",
+];
+
 const MINIMUM_CONTRAST = { text: 4.5, ui: 3 };
 
 // Utility classes a screen may use: layout, spacing and sizing only.
@@ -332,6 +338,24 @@ function sprite(icons) {
   return `<!-- Icons from Lucide, ISC License. The notice is in icons/LICENSE. -->\n<svg xmlns="http://www.w3.org/2000/svg">\n${symbols.join("")}</svg>\n`;
 }
 
+// One classic script holding the structural rules, for a browser test to inject into a page.
+// The modules share one scope, so their imports and exports are dropped.
+function domBundle(checker, readingColumn) {
+  const modules = DOM_BUNDLE.map((name) => {
+    const source = readFileSync(join(checker, name), "utf8");
+    return `// ${name}\n${source.replace(/^import [^;]+;\n/gm, "").replace(/^export /gm, "").trim()}\n`;
+  });
+  return [
+    "// Generated from checker/. Defines gwCheckDom(root), which returns the structural findings of the rendered page.",
+    "(() => {",
+    '"use strict";',
+    ...modules,
+    `globalThis.gwCheckDom = (root = document.documentElement) => checkDom(root, ${parseFloat(readingColumn)});`,
+    "})();",
+    "",
+  ].join("\n");
+}
+
 // Every file under dir, as a path relative to it with forward slashes.
 export function listFiles(dir) {
   return readdirSync(dir, { recursive: true, withFileTypes: true })
@@ -387,9 +411,10 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   for (const name of Object.keys(FONT_SOURCES)) files[`fonts/${name}`] = readFileSync(join(base, "fonts", name));
   // The checker ships as source: it has no dependencies and reads the manifest one directory up.
   const checker = join(root, "checker");
-  for (const name of readdirSync(checker).filter((file) => file.endsWith(".mjs")).sort()) {
+  for (const name of listFiles(checker).filter((file) => file.endsWith(".mjs"))) {
     files[`checker/${name}`] = readFileSync(join(checker, name));
   }
+  files["check-dom.js"] = domBundle(checker, tokens.light[groups.size.column]);
 
   rmSync(outDir, { recursive: true, force: true });
   for (const [name, content] of Object.entries(files)) {

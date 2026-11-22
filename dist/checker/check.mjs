@@ -12,6 +12,7 @@ import { jsonReport, textReport } from "./report.mjs";
 import { scanCss } from "./scan-css.mjs";
 import { scanHtml } from "./scan-html.mjs";
 import { scanScript } from "./scan-script.mjs";
+import { scanStructure } from "./scan-structure.mjs";
 import { verifyVendored } from "./vendor.mjs";
 import { loadVocabulary } from "./vocabulary.mjs";
 import { applyWaivers, parseWaivers } from "./waivers.mjs";
@@ -23,7 +24,7 @@ const SKIPPED_DIRECTORIES = new Set(["node_modules", "dist", "build", "coverage"
 const script = (jsx) => (text, options) => scanScript(text, { ...options, jsx });
 
 // The scanners, by stage and file extension. Stages run in this order, so a finding from an earlier
-// stage is never hidden by a later one. A later rule set is added here as a further stage.
+// stage is never hidden by a later one. The last stage is the structural rules, which read a static page as a tree.
 const STAGES = [
   { ".css": scanCss },
   {
@@ -31,6 +32,7 @@ const STAGES = [
     ".jsx": script(true), ".tsx": script(true), ".js": script(true),
     ".mjs": script(false), ".cjs": script(false), ".ts": script(false), ".mts": script(false), ".cts": script(false),
   },
+  { ".html": scanStructure, ".htm": scanStructure },
 ];
 const SCANNED = new Set(STAGES.flatMap((stage) => Object.keys(stage)));
 

@@ -2,9 +2,19 @@
 
 A shared design system for a small set of apps. It holds one closed vocabulary of design tokens, a default theme, a base layer of styles, fonts and icons, and the files generated from them. An app copies `dist/` into its own repo.
 
-This repo currently contains the tokens, the base layer, the checker's static scan and their derived files. Components, the structural rules and the sync script are not built yet.
+This repo currently contains the tokens, the base layer, the checker with its static scan and structural rules, and their derived files. Components and the sync script are not built yet.
 
 To check a frontend against the vocabulary, run `node dist/checker/check.mjs <paths>`. It exits 0 when clean, 1 on findings and 2 when it could not run.
+
+The structural rules cover one primary action per view, disclosure limits, nested and identical cards, badge clutter, emoji used as icons, repeated stock phrases and centred body text. The static scan applies them to HTML files. In an app that composes its pages in script, run them on the rendered page from a browser test:
+
+```js
+await page.addScriptTag({ path: "vendor/groundwork/check-dom.js" });
+const findings = await page.evaluate(() => gwCheckDom());
+expect(findings).toEqual([]);
+```
+
+Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start of the element's markup.
 
 ## What is in `dist/`
 
@@ -19,6 +29,8 @@ To check a frontend against the vocabulary, run `node dist/checker/check.mjs <pa
 | `tailwind-preset.js`, `tailwind-preset.d.ts` | A Tailwind 3 preset whose values are references to the custom properties. |
 | `design-tokens.md` | The token block for the front matter of an app's `DESIGN.md`. |
 | `manifest.json` | Token names and allowed values by category, the breakpoint, and the utility classes a screen may use. |
+| `checker/` | The checker. It has no dependencies and reads `manifest.json` beside it. |
+| `check-dom.js` | The structural rules as one classic script for a browser test to inject. It defines `gwCheckDom()`. |
 
 `dist/` is generated and committed. Do not edit it by hand.
 
@@ -132,9 +144,9 @@ npm test
 npm run test:visual
 ```
 
-`npm run build` regenerates `dist/` from `tokens/` and `base/` and prints the contrast report. It reads nothing from `node_modules`. `npm test` includes a check that the committed `dist/` matches a fresh build.
+`npm run build` regenerates `dist/` from `tokens/`, `base/` and `checker/` and prints the contrast report. It reads nothing from `node_modules`. `npm test` includes a check that the committed `dist/` matches a fresh build.
 
-`npm run test:visual` opens a bare page that links `dist/groundwork.css` in the Chrome installed on the machine and checks the fonts, the focus ring and the spacing. It needs Google Chrome and downloads no browser.
+`npm run test:visual` opens a bare page that links `dist/groundwork.css` in the Chrome installed on the machine and checks the fonts, the focus ring and the spacing. It needs Google Chrome and downloads no browser. It also runs `dist/check-dom.js` on the fixture pages and on a small React app, and checks that the rendered and static results agree.
 
 `npm run vendor` copies the font files and the icons named in `base/icons.json` from the development dependencies into `base/`. Run it after changing the icon list or a package version.
 

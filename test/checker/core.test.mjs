@@ -7,7 +7,7 @@ import { test } from "node:test";
 
 import { lexScript } from "../../checker/lex-script.mjs";
 import { parseWaivers } from "../../checker/waivers.mjs";
-import { repoRoot, tempDir } from "../helpers.mjs";
+import { manifestWithClasses, repoRoot, tempDir } from "../helpers.mjs";
 
 const cli = join(repoRoot, "checker", "check.mjs");
 const fixtures = join(repoRoot, "test", "fixtures", "checker");
@@ -25,15 +25,6 @@ function checkJson(args, options) {
 }
 
 const brief = (findings) => findings.map((finding) => `${finding.file}:${finding.line} ${finding.rule}`);
-
-// The shipped manifest plus a class list, as it will look once components exist.
-function manifestWithClasses(classes) {
-  const dir = tempDir();
-  const manifest = { ...JSON.parse(readFileSync(distManifest, "utf8")), classes };
-  writeFileSync(join(dir, "manifest.json"), JSON.stringify(manifest));
-  cpSync(join(repoRoot, "dist", "tokens.css"), join(dir, "tokens.css"));
-  return join(dir, "manifest.json");
-}
 
 test("a raw colour in CSS fails with the file, line, rule and nearest token", () => {
   const { status, stdout } = check(["css/raw-color.css"]);
