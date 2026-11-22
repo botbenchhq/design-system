@@ -18,7 +18,7 @@
     { "name": "switch", "use": "The row holds one ds-switch and nothing else. The switch brings its own label, description, state in words and error." },
     { "name": "select", "use": "ds-settings-row__text, then ds-settings-row__control holding a ds-select. The label is a label element for the select." },
     { "name": "button", "use": "ds-settings-row__control holds one ds-button whose words name the action and the thing, such as Connect GitHub. Never primary." },
-    { "name": "status", "use": "ds-settings-row__control holds a p with ds-settings-row__status that says the state in words, such as Signed in as mira@acme.dev." },
+    { "name": "status", "use": "ds-settings-row__control holds a p with ds-settings-row__status that says the state in words, such as Signed in as mira@acme.example." },
     { "name": "danger", "class": "ds-settings-row--danger", "use": "A setting that deletes or cannot be undone. The label gets a warning mark, the description names what is lost and the control is a ds-button ds-button--danger that opens a confirm dialog." }
   ],
   "sizes": [],
