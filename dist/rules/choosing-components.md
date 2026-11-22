@@ -58,6 +58,7 @@ For a whole screen, start from a page pattern. They are listed under "Page patte
 | A setting that takes effect the moment it changes | `switch` |
 | Finding items in a list by text | `search-field` |
 | Sending the next prompt to an agent, or stopping a turn | `composer` |
+| Starting work: a new task | `composer` in its block, never a form of fields. Only the model and a missing required value are in its row; every other setting is a row of `context-list` in the Add context sheet, with its current value, and its picker shows only when that row or chip is pressed. |
 | A value the reader copies and cannot change | `copy-field` |
 | An amount the reader types or nudges, with its unit | `number-field` |
 | A rough amount, or a scale of a few named steps | `slider` |

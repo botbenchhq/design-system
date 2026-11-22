@@ -2232,16 +2232,18 @@
     {
       "name": "composer",
       "title": "Composer",
-      "purpose": "The prompt input under a transcript: a textarea that grows with its content, and Send.",
+      "purpose": "The prompt input that starts and continues work with an agent: a textarea that grows with its content and Send, optionally as one block with Add context, the model and dictation in a row under the text.",
       "status": "draft",
       "whenToUse": [
+        "To start work. A new task is a composer, not a form: the screen is the composer, the model is the one setting in its row, and every other setting is one press away in the Add context sheet.",
         "At the bottom of a transcript, to send the next prompt to the agent.",
         "To stop a running turn from the same place the reader sends from."
       ],
       "whenNotToUse": [
         "For one line of text in a form, such as a task title. Use a field.",
         "For longer text that is saved with a form and not sent as a message. Use a textarea.",
-        "To answer an approval request. Use the approval's own Allow and Decline."
+        "To answer an approval request. Use the approval's own Allow and Decline.",
+        "For a new task as a page of fields: a repository list, a model select, a mode select and a prompt. Use the composer's block, and put the settings in the Add context sheet as rows of a context list."
       ],
       "variants": [
         {
@@ -2265,7 +2267,9 @@
         "focus",
         "busy",
         "disabled",
-        "error"
+        "error",
+        "required",
+        "open"
       ],
       "accessibility": [
         "Use a form element, so Send submits it. The textarea has a visible ds-composer__label whose for attribute matches its id, or an aria-label when the view has no room for one. A placeholder is not a label.",
@@ -2274,22 +2278,43 @@
         "When the reader cannot send, set disabled on the textarea and on Send, and say why in ds-composer__reason, linked from both by aria-describedby. The reason says what to do next.",
         "When a prompt fails to send, keep the text in the textarea and add ds-composer__error with role=\"alert\", linked by aria-describedby. Its icon is drawn by the stylesheet.",
         "Tab moves from the textarea to Send, then to the quiet controls. The app decides whether Enter sends. If it does, Shift+Enter adds a line, and the button remains the way to send on a phone.",
-        "The component needs no script. The app sets disabled, aria-busy and aria-describedby, and swaps Send for Stop."
+        "The component needs no script. The app sets disabled, aria-busy and aria-describedby, and swaps Send for Stop.",
+        "The block. Inside the form, a div with ds-composer__box holds the textarea and then a div with ds-composer__bar. The textarea has no visible label in the block: give it an aria-label, such as Describe a task. A placeholder may repeat it, never replace it. The reason and the error lines go after the block, inside the form.",
+        "The bar holds, in this order: Add context, a ds-composer__controls with the chips, the dictation button when there is one, and Send or Stop. Only the chips give way when the line is short: a chip's text is cut with an ellipsis, and Add context, dictation and Send keep their size and their line at 320px.",
+        "Add context is a button with ds-button ds-icon-button, the plus icon and aria-label=\"Add context\", with aria-haspopup=\"dialog\". It opens the Add context sheet with showModal(), or with command=\"show-modal\" and commandfor naming the sheet. It is the sheet at every width: a bottom sheet on a phone, a side panel from 768px.",
+        "The model chip is a button with ds-button ds-button--quiet ds-button--small ds-composer__chip and aria-haspopup=\"dialog\", holding a ds-composer__value and nothing else, so it is as short as its words. The value holds a ds-visually-hidden span that says what the chip sets, the value, and an optional ds-composer__qualifier in the quieter colour: Model: Sonnet, Medium effort is read out, Sonnet Medium is shown. A press opens the same sheet straight on the model's view. The model cannot be removed, so the chip has no remove button.",
+        "A required value that is missing, such as the repository: the app shows one prompt chip in place of the model chip, so the row holds one chip and keeps one line at 320px. It is a button with ds-button ds-button--small ds-composer__chip, so it has a border where the model chip has none, with the setting's name, read out as what to do: Repository is shown, and a ds-visually-hidden Choose a before it makes the name Choose a repository. The reason line says it in full. It sets disabled on Send, writes the reason in ds-composer__reason, and points aria-describedby on Send and on the chip at it. A press opens the sheet on that setting's view. Once the value is set the app removes the chip or sets hidden on it, removes the disabled attribute and the reason, and shows the model chip again. The value then shows only in the sheet, where the model also stays a row throughout. The example with data-state=\"required\" shows this state.",
+        "The Add context sheet is a ds-sheet holding ds-context-list rows: Repository, Model, Mode, Review, each with its current value. Attachment actions, such as attaching a file, would be a group of rows above them. A row opens the setting's view in the same sheet, a ds-option-picker for that setting. The app swaps the sheet's header and body in place: it puts a Back button (a quiet ds-icon-button with chevron-left and aria-label=\"Back to Add context\") before the title, a ds-cluster ds-gap-xs holding both, changes the title's text to the setting's name, replaces the rows with the option picker, whose legend is visually hidden because the title says the same, and moves focus to the checked option. Choosing an option sets the value at once. Back puts the rows back with the new value and moves focus to the row that was pressed. Close and Escape close the sheet from either view, and the browser returns focus to the button that opened it. The view has no primary button of its own.",
+        "Dictation. The button is a quiet ds-button ds-icon-button with the mic icon, aria-label=\"Dictate\" and aria-pressed=\"false\", before Send. While it listens it has aria-pressed=\"true\", which draws a border, a shade and a bar under the icon, and a ds-composer__reason with role=\"status\" after the block says Listening. While the speech becomes text it has aria-busy=\"true\", which draws the spinner, and the status says Transcribing. The name stays Dictate in every state, so the pressed state is what says it is on. When the browser has no speech input, do not render the button at all, or set hidden on it, and the row lays out the same without it. There is no disabled placeholder. When it fails, such as access to the microphone being blocked, say so in ds-composer__error with role=\"alert\", linked from the button by aria-describedby: Microphone access was blocked. Allow it in your browser's settings.",
+        "Speech recognition is the app's job: the system draws the states. The app inserts dictated text at the cursor in the textarea, and it stays there to be edited before it is sent. Dictation never sends by itself.",
+        "Jump to latest sits straight before the form, as its own metadata describes, and hangs centred above the block."
       ],
       "icons": [
+        "chevron-left",
         "circle-alert",
+        "cpu",
+        "eye",
         "file",
-        "git-branch"
+        "git-branch",
+        "mic",
+        "plus",
+        "shield",
+        "x"
       ],
       "classes": [
         "ds-composer",
         "ds-composer--sticky",
+        "ds-composer__bar",
+        "ds-composer__box",
+        "ds-composer__chip",
         "ds-composer__controls",
         "ds-composer__error",
         "ds-composer__input",
         "ds-composer__label",
+        "ds-composer__qualifier",
         "ds-composer__reason",
-        "ds-composer__row"
+        "ds-composer__row",
+        "ds-composer__value"
       ],
       "examples": [
         {
@@ -2344,6 +2369,61 @@
           "id": "sticky",
           "title": "Held to the bottom of the view",
           "markup": "<form class=\"ds-composer ds-composer--sticky\">\n  <label class=\"ds-composer__label\" for=\"composer-sticky-prompt\">Message Claude Code</label>\n  <div class=\"ds-composer__row\">\n    <textarea class=\"ds-composer__input\" id=\"composer-sticky-prompt\" name=\"prompt\" rows=\"1\"></textarea>\n    <button type=\"submit\" class=\"ds-button ds-button--primary\">Send</button>\n  </div>\n</form>"
+        },
+        {
+          "id": "context-empty",
+          "title": "One block: Add context, the model, dictation and Send",
+          "reason": "The screen that starts work is the composer and nothing else. The model is the one setting shown, because it changes from task to task; every other setting is one press away under Add context, with its current value in view there.",
+          "markup": "<form class=\"ds-composer\">\n  <div class=\"ds-composer__box\">\n    <textarea class=\"ds-composer__input\" name=\"prompt\" rows=\"1\" aria-label=\"Describe a task\" placeholder=\"Describe a task\"></textarea>\n    <div class=\"ds-composer__bar\">\n      <button type=\"button\" class=\"ds-button ds-icon-button\" aria-label=\"Add context\" aria-haspopup=\"dialog\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-plus\"></use></svg>\n      </button>\n      <div class=\"ds-composer__controls\">\n        <button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small ds-composer__chip\" aria-haspopup=\"dialog\">\n          <span class=\"ds-composer__value\"><span class=\"ds-visually-hidden\">Model: </span>Sonnet<span class=\"ds-visually-hidden\">,</span> <span class=\"ds-composer__qualifier\">Medium<span class=\"ds-visually-hidden\"> effort</span></span></span>\n        </button>\n      </div>\n      <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Dictate\" aria-pressed=\"false\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-mic\"></use></svg>\n      </button>\n      <button type=\"submit\" class=\"ds-button ds-button--primary\">Send</button>\n    </div>\n  </div>\n</form>"
+        },
+        {
+          "id": "context-busy",
+          "title": "While a turn runs, Stop takes the place of Send",
+          "markup": "<form class=\"ds-composer\" aria-busy=\"true\">\n  <div class=\"ds-composer__box\">\n    <textarea class=\"ds-composer__input\" name=\"prompt\" rows=\"1\" aria-label=\"Describe a task\" placeholder=\"Describe a task\"></textarea>\n    <div class=\"ds-composer__bar\">\n      <button type=\"button\" class=\"ds-button ds-icon-button\" aria-label=\"Add context\" aria-haspopup=\"dialog\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-plus\"></use></svg>\n      </button>\n      <div class=\"ds-composer__controls\">\n        <button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small ds-composer__chip\" aria-haspopup=\"dialog\">\n          <span class=\"ds-composer__value\"><span class=\"ds-visually-hidden\">Model: </span>Sonnet<span class=\"ds-visually-hidden\">,</span> <span class=\"ds-composer__qualifier\">Medium<span class=\"ds-visually-hidden\"> effort</span></span></span>\n        </button>\n      </div>\n      <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Dictate\" aria-pressed=\"false\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-mic\"></use></svg>\n      </button>\n      <button type=\"button\" class=\"ds-button\" aria-describedby=\"composer-context-busy-reason\">Stop</button>\n    </div>\n  </div>\n  <p class=\"ds-composer__reason\" id=\"composer-context-busy-reason\">Claude Code is working. You can send again when this turn ends.</p>\n</form>"
+        },
+        {
+          "id": "required",
+          "title": "A required value is missing",
+          "state": "required",
+          "reason": "The missing repository is the one thing in the way, so it is the one prompt in the row, drawn with a border where the model chip has none. Send is unavailable and the line under the block says why in words.",
+          "markup": "<form class=\"ds-composer\">\n  <div class=\"ds-composer__box\">\n    <textarea class=\"ds-composer__input\" name=\"prompt\" rows=\"1\" aria-label=\"Describe a task\" placeholder=\"Describe a task\">Find out why the session cookie expires after 15 minutes while the tab is active.</textarea>\n    <div class=\"ds-composer__bar\">\n      <button type=\"button\" class=\"ds-button ds-icon-button\" aria-label=\"Add context\" aria-haspopup=\"dialog\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-plus\"></use></svg>\n      </button>\n      <div class=\"ds-composer__controls\">\n        <button type=\"button\" class=\"ds-button ds-button--small ds-composer__chip\" aria-haspopup=\"dialog\" aria-describedby=\"composer-required-reason\">\n          <span class=\"ds-composer__value\"><span class=\"ds-visually-hidden\">Choose a </span>Repository</span>\n        </button>\n      </div>\n      <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Dictate\" aria-pressed=\"false\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-mic\"></use></svg>\n      </button>\n      <button type=\"submit\" class=\"ds-button ds-button--primary\" disabled aria-describedby=\"composer-required-reason\">Send</button>\n    </div>\n  </div>\n  <p class=\"ds-composer__reason\" id=\"composer-required-reason\">Choose a repository to send. The task runs in a worktree of it.</p>\n</form>"
+        },
+        {
+          "id": "sheet",
+          "title": "Add context: every other setting, with its value",
+          "state": "open",
+          "reason": "The sheet holds what the composer leaves out, one row per setting with its current value at the end, so the reader can check everything before sending without a form on the page.",
+          "markup": "<form class=\"ds-composer\">\n  <div class=\"ds-composer__box\">\n    <textarea class=\"ds-composer__input\" name=\"prompt\" rows=\"1\" aria-label=\"Describe a task\" placeholder=\"Describe a task\"></textarea>\n    <div class=\"ds-composer__bar\">\n      <button type=\"button\" class=\"ds-button ds-icon-button\" aria-label=\"Add context\" aria-haspopup=\"dialog\" command=\"show-modal\" commandfor=\"composer-sheet\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-plus\"></use></svg>\n      </button>\n      <div class=\"ds-composer__controls\">\n        <button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small ds-composer__chip\" aria-haspopup=\"dialog\">\n          <span class=\"ds-composer__value\"><span class=\"ds-visually-hidden\">Model: </span>Sonnet<span class=\"ds-visually-hidden\">,</span> <span class=\"ds-composer__qualifier\">Medium<span class=\"ds-visually-hidden\"> effort</span></span></span>\n        </button>\n      </div>\n      <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Dictate\" aria-pressed=\"false\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-mic\"></use></svg>\n      </button>\n      <button type=\"submit\" class=\"ds-button ds-button--primary\">Send</button>\n    </div>\n  </div>\n</form>\n<dialog class=\"ds-sheet\" id=\"composer-sheet\" aria-labelledby=\"composer-sheet-title\" open>\n  <form class=\"ds-sheet__header\" method=\"dialog\">\n    <h2 class=\"ds-sheet__title\" id=\"composer-sheet-title\">Add context</h2>\n    <button type=\"submit\" class=\"ds-button ds-button--quiet\" value=\"close\" aria-label=\"Close Add context\">\n      <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-x\"></use></svg>\n    </button>\n  </form>\n  <div class=\"ds-sheet__body\">\n    <ul class=\"ds-context-list\" aria-label=\"Task settings\">\n      <li>\n        <button type=\"button\" class=\"ds-context-list__button\">\n          <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-git-branch\"></use></svg>\n          <span class=\"ds-context-list__label\">Repository</span>\n          <span class=\"ds-context-list__value\">api</span>\n        </button>\n      </li>\n      <li>\n        <button type=\"button\" class=\"ds-context-list__button\">\n          <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-cpu\"></use></svg>\n          <span class=\"ds-context-list__label\">Model</span>\n          <span class=\"ds-context-list__value\">Sonnet, medium effort</span>\n        </button>\n      </li>\n      <li>\n        <button type=\"button\" class=\"ds-context-list__button\">\n          <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-shield\"></use></svg>\n          <span class=\"ds-context-list__label\">Mode</span>\n          <span class=\"ds-context-list__value\">Manual</span>\n        </button>\n      </li>\n      <li>\n        <button type=\"button\" class=\"ds-context-list__button\">\n          <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-eye\"></use></svg>\n          <span class=\"ds-context-list__label\">Review</span>\n          <span class=\"ds-context-list__value\">Codex</span>\n        </button>\n      </li>\n    </ul>\n  </div>\n</dialog>"
+        },
+        {
+          "id": "sheet-repository",
+          "title": "A setting's own view: the repository",
+          "markup": "<form class=\"ds-composer\">\n  <div class=\"ds-composer__box\">\n    <textarea class=\"ds-composer__input\" name=\"prompt\" rows=\"1\" aria-label=\"Describe a task\" placeholder=\"Describe a task\"></textarea>\n    <div class=\"ds-composer__bar\">\n      <button type=\"button\" class=\"ds-button ds-icon-button\" aria-label=\"Add context\" aria-haspopup=\"dialog\" command=\"show-modal\" commandfor=\"composer-sheet-repository\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-plus\"></use></svg>\n      </button>\n      <div class=\"ds-composer__controls\">\n        <button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small ds-composer__chip\" aria-haspopup=\"dialog\">\n          <span class=\"ds-composer__value\"><span class=\"ds-visually-hidden\">Model: </span>Sonnet<span class=\"ds-visually-hidden\">,</span> <span class=\"ds-composer__qualifier\">Medium<span class=\"ds-visually-hidden\"> effort</span></span></span>\n        </button>\n      </div>\n      <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Dictate\" aria-pressed=\"false\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-mic\"></use></svg>\n      </button>\n      <button type=\"submit\" class=\"ds-button ds-button--primary\">Send</button>\n    </div>\n  </div>\n</form>\n<dialog class=\"ds-sheet\" id=\"composer-sheet-repository\" aria-labelledby=\"composer-sheet-repository-title\" open>\n  <form class=\"ds-sheet__header\" method=\"dialog\">\n    <div class=\"ds-cluster ds-gap-xs\">\n      <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Back to Add context\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-chevron-left\"></use></svg>\n      </button>\n      <h2 class=\"ds-sheet__title\" id=\"composer-sheet-repository-title\">Repository</h2>\n    </div>\n    <button type=\"submit\" class=\"ds-button ds-button--quiet\" value=\"close\" aria-label=\"Close Add context\">\n      <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-x\"></use></svg>\n    </button>\n  </form>\n  <div class=\"ds-sheet__body\">\n    <fieldset class=\"ds-option-picker\">\n      <legend class=\"ds-option-picker__legend ds-visually-hidden\">Repository</legend>\n      <label class=\"ds-option-picker__option\">\n        <input class=\"ds-option-picker__input\" type=\"radio\" name=\"composer-sheet-repository-choice\" value=\"api\" checked aria-labelledby=\"composer-sheet-repository-choice-api-name\" aria-describedby=\"composer-sheet-repository-choice-api-description\">\n        <span class=\"ds-option-picker__body\">\n          <span class=\"ds-option-picker__text\">\n            <span class=\"ds-option-picker__name\" id=\"composer-sheet-repository-choice-api-name\">api</span>\n            <span class=\"ds-option-picker__description\" id=\"composer-sheet-repository-choice-api-description\"><span class=\"ds-option-picker__path\"><span class=\"ds-option-picker__start\">/Users/mira/code/acme/</span><span class=\"ds-option-picker__end\">api</span></span></span>\n          </span>\n        </span>\n      </label>\n      <label class=\"ds-option-picker__option\">\n        <input class=\"ds-option-picker__input\" type=\"radio\" name=\"composer-sheet-repository-choice\" value=\"web\" aria-labelledby=\"composer-sheet-repository-choice-web-name\" aria-describedby=\"composer-sheet-repository-choice-web-description\">\n        <span class=\"ds-option-picker__body\">\n          <span class=\"ds-option-picker__text\">\n            <span class=\"ds-option-picker__name\" id=\"composer-sheet-repository-choice-web-name\">web</span>\n            <span class=\"ds-option-picker__description\" id=\"composer-sheet-repository-choice-web-description\"><span class=\"ds-option-picker__path\"><span class=\"ds-option-picker__start\">/Users/mira/code/acme/</span><span class=\"ds-option-picker__end\">web</span></span></span>\n          </span>\n        </span>\n      </label>\n      <label class=\"ds-option-picker__option\">\n        <input class=\"ds-option-picker__input\" type=\"radio\" name=\"composer-sheet-repository-choice\" value=\"tracking\" aria-labelledby=\"composer-sheet-repository-choice-tracking-name\" aria-describedby=\"composer-sheet-repository-choice-tracking-description\">\n        <span class=\"ds-option-picker__body\">\n          <span class=\"ds-option-picker__text\">\n            <span class=\"ds-option-picker__name\" id=\"composer-sheet-repository-choice-tracking-name\">shipment-tracking-api</span>\n            <span class=\"ds-option-picker__description\" id=\"composer-sheet-repository-choice-tracking-description\"><span class=\"ds-option-picker__path\"><span class=\"ds-option-picker__start\">/Users/mira/code/clients/northwind-logistics/platform/services/</span><span class=\"ds-option-picker__end\">shipment-tracking-api</span></span></span>\n          </span>\n        </span>\n      </label>\n    </fieldset>\n  </div>\n</dialog>"
+        },
+        {
+          "id": "sheet-mode",
+          "title": "The mode, with the warning option chosen",
+          "markup": "<form class=\"ds-composer\">\n  <div class=\"ds-composer__box\">\n    <textarea class=\"ds-composer__input\" name=\"prompt\" rows=\"1\" aria-label=\"Describe a task\" placeholder=\"Describe a task\"></textarea>\n    <div class=\"ds-composer__bar\">\n      <button type=\"button\" class=\"ds-button ds-icon-button\" aria-label=\"Add context\" aria-haspopup=\"dialog\" command=\"show-modal\" commandfor=\"composer-sheet-mode\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-plus\"></use></svg>\n      </button>\n      <div class=\"ds-composer__controls\">\n        <button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small ds-composer__chip\" aria-haspopup=\"dialog\">\n          <span class=\"ds-composer__value\"><span class=\"ds-visually-hidden\">Model: </span>Sonnet<span class=\"ds-visually-hidden\">,</span> <span class=\"ds-composer__qualifier\">Medium<span class=\"ds-visually-hidden\"> effort</span></span></span>\n        </button>\n      </div>\n      <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Dictate\" aria-pressed=\"false\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-mic\"></use></svg>\n      </button>\n      <button type=\"submit\" class=\"ds-button ds-button--primary\">Send</button>\n    </div>\n  </div>\n</form>\n<dialog class=\"ds-sheet\" id=\"composer-sheet-mode\" aria-labelledby=\"composer-sheet-mode-title\" open>\n  <form class=\"ds-sheet__header\" method=\"dialog\">\n    <div class=\"ds-cluster ds-gap-xs\">\n      <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Back to Add context\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-chevron-left\"></use></svg>\n      </button>\n      <h2 class=\"ds-sheet__title\" id=\"composer-sheet-mode-title\">Mode</h2>\n    </div>\n    <button type=\"submit\" class=\"ds-button ds-button--quiet\" value=\"close\" aria-label=\"Close Add context\">\n      <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-x\"></use></svg>\n    </button>\n  </form>\n  <div class=\"ds-sheet__body\">\n    <fieldset class=\"ds-option-picker\">\n      <legend class=\"ds-option-picker__legend ds-visually-hidden\">Mode</legend>\n      <label class=\"ds-option-picker__option\">\n        <input class=\"ds-option-picker__input\" type=\"radio\" name=\"composer-sheet-mode-choice\" value=\"manual\" aria-labelledby=\"composer-sheet-mode-choice-manual-name\" aria-describedby=\"composer-sheet-mode-choice-manual-description\">\n        <span class=\"ds-option-picker__body\">\n          <span class=\"ds-option-picker__text\">\n            <span class=\"ds-option-picker__name\" id=\"composer-sheet-mode-choice-manual-name\">Manual</span>\n            <span class=\"ds-option-picker__description\" id=\"composer-sheet-mode-choice-manual-description\">Asks before every file edit and every command.</span>\n          </span>\n        </span>\n      </label>\n      <label class=\"ds-option-picker__option\">\n        <input class=\"ds-option-picker__input\" type=\"radio\" name=\"composer-sheet-mode-choice\" value=\"semi\" aria-labelledby=\"composer-sheet-mode-choice-semi-name\" aria-describedby=\"composer-sheet-mode-choice-semi-description\">\n        <span class=\"ds-option-picker__body\">\n          <span class=\"ds-option-picker__text\">\n            <span class=\"ds-option-picker__name\" id=\"composer-sheet-mode-choice-semi-name\">Semi-autonomous</span>\n            <span class=\"ds-option-picker__description\" id=\"composer-sheet-mode-choice-semi-description\">Edits files in the worktree, and asks before running a command.</span>\n          </span>\n        </span>\n      </label>\n      <label class=\"ds-option-picker__option\">\n        <input class=\"ds-option-picker__input\" type=\"radio\" name=\"composer-sheet-mode-choice\" value=\"full\" checked aria-labelledby=\"composer-sheet-mode-choice-full-name\" aria-describedby=\"composer-sheet-mode-choice-full-state composer-sheet-mode-choice-full-description\">\n        <span class=\"ds-option-picker__body\">\n          <span class=\"ds-option-picker__text\">\n            <span class=\"ds-option-picker__name\" id=\"composer-sheet-mode-choice-full-name\">Fully autonomous</span>\n            <span class=\"ds-option-picker__description\" id=\"composer-sheet-mode-choice-full-description\">Edits files and runs commands in the worktree until the task is done.</span>\n          </span>\n          <span class=\"ds-option-picker__state ds-option-picker__state--warning\" id=\"composer-sheet-mode-choice-full-state\">Runs commands without asking</span>\n        </span>\n      </label>\n    </fieldset>\n  </div>\n</dialog>"
+        },
+        {
+          "id": "jump-to-latest",
+          "title": "Jump to latest, above the block",
+          "markup": "<div class=\"ds-stack ds-gap-2xl\">\n  <ol class=\"ds-stack ds-gap-xs\">\n    <li class=\"ds-message ds-message--user\">\n      <span class=\"ds-message__label\">You</span>\n      <p class=\"ds-message__body\">Run the auth tests and tell me what fails.</p>\n    </li>\n    <li class=\"ds-message\" data-state=\"done\">\n      <span class=\"ds-message__label\">Claude Code</span>\n      <p class=\"ds-message__body\">1 of 30 tests failed: the refresh timer does not start after a reload. I am fixing it now.</p>\n    </li>\n  </ol>\n  <div class=\"ds-jump-to-latest\">\n    <button type=\"button\" class=\"ds-jump-to-latest__button\"><span class=\"ds-jump-to-latest__count\">3 new steps</span> Jump to latest</button>\n  </div>\n  <form class=\"ds-composer\">\n    <div class=\"ds-composer__box\">\n      <textarea class=\"ds-composer__input\" name=\"prompt\" rows=\"1\" aria-label=\"Describe a task\" placeholder=\"Describe a task\"></textarea>\n      <div class=\"ds-composer__bar\">\n        <button type=\"button\" class=\"ds-button ds-icon-button\" aria-label=\"Add context\" aria-haspopup=\"dialog\">\n          <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-plus\"></use></svg>\n        </button>\n        <div class=\"ds-composer__controls\">\n          <button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small ds-composer__chip\" aria-haspopup=\"dialog\">\n            <span class=\"ds-composer__value\"><span class=\"ds-visually-hidden\">Model: </span>Sonnet<span class=\"ds-visually-hidden\">,</span> <span class=\"ds-composer__qualifier\">Medium<span class=\"ds-visually-hidden\"> effort</span></span></span>\n          </button>\n        </div>\n        <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Dictate\" aria-pressed=\"false\">\n          <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-mic\"></use></svg>\n        </button>\n        <button type=\"submit\" class=\"ds-button ds-button--primary\">Send</button>\n      </div>\n    </div>\n  </form>\n</div>"
+        },
+        {
+          "id": "listening",
+          "title": "Dictating: listening",
+          "markup": "<form class=\"ds-composer\">\n  <div class=\"ds-composer__box\">\n    <textarea class=\"ds-composer__input\" name=\"prompt\" rows=\"1\" aria-label=\"Describe a task\" placeholder=\"Describe a task\">Find out why the session cookie expires</textarea>\n    <div class=\"ds-composer__bar\">\n      <button type=\"button\" class=\"ds-button ds-icon-button\" aria-label=\"Add context\" aria-haspopup=\"dialog\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-plus\"></use></svg>\n      </button>\n      <div class=\"ds-composer__controls\">\n        <button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small ds-composer__chip\" aria-haspopup=\"dialog\">\n          <span class=\"ds-composer__value\"><span class=\"ds-visually-hidden\">Model: </span>Sonnet<span class=\"ds-visually-hidden\">,</span> <span class=\"ds-composer__qualifier\">Medium<span class=\"ds-visually-hidden\"> effort</span></span></span>\n        </button>\n      </div>\n      <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Dictate\" aria-pressed=\"true\" aria-describedby=\"composer-listening-status\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-mic\"></use></svg>\n      </button>\n      <button type=\"submit\" class=\"ds-button ds-button--primary\">Send</button>\n    </div>\n  </div>\n  <p class=\"ds-composer__reason\" id=\"composer-listening-status\" role=\"status\">Listening</p>\n</form>"
+        },
+        {
+          "id": "transcribing",
+          "title": "Dictating: turning speech into text",
+          "markup": "<form class=\"ds-composer\">\n  <div class=\"ds-composer__box\">\n    <textarea class=\"ds-composer__input\" name=\"prompt\" rows=\"1\" aria-label=\"Describe a task\" placeholder=\"Describe a task\">Find out why the session cookie expires</textarea>\n    <div class=\"ds-composer__bar\">\n      <button type=\"button\" class=\"ds-button ds-icon-button\" aria-label=\"Add context\" aria-haspopup=\"dialog\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-plus\"></use></svg>\n      </button>\n      <div class=\"ds-composer__controls\">\n        <button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small ds-composer__chip\" aria-haspopup=\"dialog\">\n          <span class=\"ds-composer__value\"><span class=\"ds-visually-hidden\">Model: </span>Sonnet<span class=\"ds-visually-hidden\">,</span> <span class=\"ds-composer__qualifier\">Medium<span class=\"ds-visually-hidden\"> effort</span></span></span>\n        </button>\n      </div>\n      <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Dictate\" aria-pressed=\"false\" aria-busy=\"true\" aria-describedby=\"composer-transcribing-status\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-mic\"></use></svg>\n      </button>\n      <button type=\"submit\" class=\"ds-button ds-button--primary\">Send</button>\n    </div>\n  </div>\n  <p class=\"ds-composer__reason\" id=\"composer-transcribing-status\" role=\"status\">Transcribing</p>\n</form>"
+        },
+        {
+          "id": "dictation-blocked",
+          "title": "Dictation could not start",
+          "markup": "<form class=\"ds-composer\">\n  <div class=\"ds-composer__box\">\n    <textarea class=\"ds-composer__input\" name=\"prompt\" rows=\"1\" aria-label=\"Describe a task\" placeholder=\"Describe a task\"></textarea>\n    <div class=\"ds-composer__bar\">\n      <button type=\"button\" class=\"ds-button ds-icon-button\" aria-label=\"Add context\" aria-haspopup=\"dialog\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-plus\"></use></svg>\n      </button>\n      <div class=\"ds-composer__controls\">\n        <button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small ds-composer__chip\" aria-haspopup=\"dialog\">\n          <span class=\"ds-composer__value\"><span class=\"ds-visually-hidden\">Model: </span>Sonnet<span class=\"ds-visually-hidden\">,</span> <span class=\"ds-composer__qualifier\">Medium<span class=\"ds-visually-hidden\"> effort</span></span></span>\n        </button>\n      </div>\n      <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Dictate\" aria-pressed=\"false\" aria-describedby=\"composer-dictation-blocked-error\">\n        <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-mic\"></use></svg>\n      </button>\n      <button type=\"submit\" class=\"ds-button ds-button--primary\">Send</button>\n    </div>\n  </div>\n  <p class=\"ds-composer__error\" id=\"composer-dictation-blocked-error\" role=\"alert\">Microphone access was blocked. Allow it in your browser's settings.</p>\n</form>"
         }
       ]
     },
@@ -2411,6 +2491,109 @@
           "title": "The delete failed",
           "state": "error",
           "markup": "<dialog class=\"ds-dialog ds-confirm-dialog\" id=\"confirm-dialog-error\" role=\"alertdialog\" aria-labelledby=\"confirm-dialog-error-title\" aria-describedby=\"confirm-dialog-error-body\" open>\n  <form class=\"ds-dialog__panel\" method=\"dialog\">\n    <h2 class=\"ds-dialog__title\" id=\"confirm-dialog-error-title\">Delete the workspace api-refactor?</h2>\n    <div class=\"ds-dialog__body\" id=\"confirm-dialog-error-body\">\n      <div class=\"ds-alert ds-alert--danger\" role=\"alert\">\n        <div class=\"ds-alert__content\">\n          <p class=\"ds-alert__label\">Error</p>\n          <p class=\"ds-alert__body\">Nothing was deleted: a run is still using the worktree. Stop run 7, then delete the workspace again.</p>\n        </div>\n      </div>\n      <p>This removes the workspace from this machine and cannot be undone. You will lose:</p>\n      <ul class=\"ds-confirm-dialog__losses\">\n        <li class=\"ds-confirm-dialog__loss\">3 changed files that were never committed</li>\n        <li class=\"ds-confirm-dialog__loss\">The branch fix/session-refresh, which was never pushed</li>\n      </ul>\n    </div>\n    <div class=\"ds-dialog__footer ds-confirm-dialog__actions\">\n      <button type=\"submit\" class=\"ds-button\" value=\"cancel\">Cancel</button>\n      <button type=\"submit\" class=\"ds-button ds-button--danger\" value=\"delete\">Delete workspace</button>\n    </div>\n  </form>\n</dialog>"
+        }
+      ]
+    },
+    {
+      "name": "context-list",
+      "title": "Context list",
+      "purpose": "The rows of the Add context sheet: a rounded group of buttons, each naming a setting of the next task, showing its current value and opening the setting's own view.",
+      "status": "draft",
+      "whenToUse": [
+        "In the Add context sheet a composer opens, for the settings of the task the reader is about to start: repository, model, mode, review.",
+        "Where each row should show its current value at a glance and change it one press away, in a view of its own.",
+        "Attachment actions, such as attaching a file, would be a group of rows above the settings, with no value. They are not built yet."
+      ],
+      "whenNotToUse": [
+        "For the choice itself. The row opens a view that holds an option picker.",
+        "For a setting that takes effect the moment it changes, on a settings page. Use a settings row with a switch or a select.",
+        "For a list of things the reader scans and opens, such as tasks or branches. Use a list.",
+        "For actions on one thing. Use a menu."
+      ],
+      "variants": [
+        {
+          "name": "default",
+          "use": "An icon, the setting's name and its current value in the quieter colour at the trailing end. The stylesheet draws the chevron."
+        },
+        {
+          "name": "long value",
+          "use": "The value holds ds-context-list__start and ds-context-list__end, written with no white space between them. It stays on one line and loses its middle, and the button's aria-label carries the whole value."
+        },
+        {
+          "name": "warning",
+          "class": "ds-context-list__value--warning",
+          "use": "On ds-context-list__value, for a value with a risk, such as Fully autonomous. The value keeps its word; the stylesheet adds the warning icon and the warning tone."
+        }
+      ],
+      "sizes": [],
+      "states": [
+        "default",
+        "hover",
+        "focus-visible",
+        "active"
+      ],
+      "accessibility": [
+        "Use a ul with ds-context-list and an aria-label that says what the rows set, with one li per row. Several groups are several lists, one after another in the sheet's body.",
+        "Each row is a button element with type=\"button\" and ds-context-list__button. It holds an optional svg with ds-context-list__icon and aria-hidden=\"true\", a span with ds-context-list__label and a span with ds-context-list__value, with white space between the two spans. Its accessible name is then the setting and its value: Repository api.",
+        "A long value is written in full, split between ds-context-list__start and ds-context-list__end. The stylesheet cuts the middle from view only. A browser reads a space between the two parts, so give that row's button an aria-label with the setting and the whole value: Repository northwind-logistics-shipment-tracking-api.",
+        "A warning is said in words in the value. ds-context-list__value--warning adds the icon, so the tone is never the only signal.",
+        "A press opens the setting's view in the same sheet. The app shows that view, moves focus to the chosen option in it and, on Back, shows the rows again and moves focus to the row that was pressed. The composer's metadata describes the whole sheet.",
+        "Tab moves between the rows, and Enter and Space press one. Each row is at least 44px tall and as wide as the group. The component needs no script of its own."
+      ],
+      "icons": [
+        "chevron-right",
+        "cpu",
+        "eye",
+        "git-branch",
+        "shield",
+        "triangle-alert"
+      ],
+      "classes": [
+        "ds-context-list",
+        "ds-context-list__button",
+        "ds-context-list__end",
+        "ds-context-list__icon",
+        "ds-context-list__label",
+        "ds-context-list__start",
+        "ds-context-list__value",
+        "ds-context-list__value--warning"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "The settings of a new task, each with its value",
+          "state": "default",
+          "reason": "Each row names the setting and shows its current value at the end, so the reader sees what will be used without opening anything. A press opens the setting's own view, and the chevron says so.",
+          "markup": "<ul class=\"ds-context-list\" aria-label=\"Task settings\">\n  <li>\n    <button type=\"button\" class=\"ds-context-list__button\">\n      <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-git-branch\"></use></svg>\n      <span class=\"ds-context-list__label\">Repository</span>\n      <span class=\"ds-context-list__value\">api</span>\n    </button>\n  </li>\n  <li>\n    <button type=\"button\" class=\"ds-context-list__button\">\n      <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-cpu\"></use></svg>\n      <span class=\"ds-context-list__label\">Model</span>\n      <span class=\"ds-context-list__value\">Sonnet, medium effort</span>\n    </button>\n  </li>\n  <li>\n    <button type=\"button\" class=\"ds-context-list__button\">\n      <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-shield\"></use></svg>\n      <span class=\"ds-context-list__label\">Mode</span>\n      <span class=\"ds-context-list__value\">Manual</span>\n    </button>\n  </li>\n  <li>\n    <button type=\"button\" class=\"ds-context-list__button\">\n      <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-eye\"></use></svg>\n      <span class=\"ds-context-list__label\">Review</span>\n      <span class=\"ds-context-list__value\">Codex</span>\n    </button>\n  </li>\n</ul>"
+        },
+        {
+          "id": "long-value",
+          "title": "A long value loses its middle",
+          "markup": "<ul class=\"ds-context-list\" aria-label=\"Task settings with a long repository name\">\n  <li>\n    <button type=\"button\" class=\"ds-context-list__button\" aria-label=\"Repository northwind-logistics-shipment-tracking-api\">\n      <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-git-branch\"></use></svg>\n      <span class=\"ds-context-list__label\">Repository</span>\n      <span class=\"ds-context-list__value\"><span class=\"ds-context-list__start\">northwind-logistics-shipment-</span><span class=\"ds-context-list__end\">tracking-api</span></span>\n    </button>\n  </li>\n</ul>"
+        },
+        {
+          "id": "warning",
+          "title": "A value with a risk",
+          "reason": "The value keeps its word and gains the warning icon, so the risk is read the same way with or without colour.",
+          "markup": "<ul class=\"ds-context-list\" aria-label=\"Task settings with a warning\">\n  <li>\n    <button type=\"button\" class=\"ds-context-list__button\">\n      <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-shield\"></use></svg>\n      <span class=\"ds-context-list__label\">Mode</span>\n      <span class=\"ds-context-list__value ds-context-list__value--warning\">Fully autonomous</span>\n    </button>\n  </li>\n</ul>"
+        },
+        {
+          "id": "hover",
+          "title": "Hover",
+          "state": "hover",
+          "markup": "<ul class=\"ds-context-list\" aria-label=\"Task settings, hovered\">\n  <li>\n    <button type=\"button\" class=\"ds-context-list__button\">\n      <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-shield\"></use></svg>\n      <span class=\"ds-context-list__label\">Mode</span>\n      <span class=\"ds-context-list__value\">Manual</span>\n    </button>\n  </li>\n</ul>"
+        },
+        {
+          "id": "focus-visible",
+          "title": "Keyboard focus",
+          "state": "focus-visible",
+          "markup": "<ul class=\"ds-context-list\" aria-label=\"Task settings, focused\">\n  <li>\n    <button type=\"button\" class=\"ds-context-list__button\">\n      <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-shield\"></use></svg>\n      <span class=\"ds-context-list__label\">Mode</span>\n      <span class=\"ds-context-list__value\">Manual</span>\n    </button>\n  </li>\n</ul>"
+        },
+        {
+          "id": "active",
+          "title": "Pressed",
+          "state": "active",
+          "markup": "<ul class=\"ds-context-list\" aria-label=\"Task settings, pressed\">\n  <li>\n    <button type=\"button\" class=\"ds-context-list__button\">\n      <svg class=\"ds-context-list__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-shield\"></use></svg>\n      <span class=\"ds-context-list__label\">Mode</span>\n      <span class=\"ds-context-list__value\">Manual</span>\n    </button>\n  </li>\n</ul>"
         }
       ]
     },

@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.7.7
+
+The composer can start work as one block. New parts of `composer` put the textarea, with an accessible name and no visible label, above one row: Add context, the model chip, an optional dictation button, and Send or Stop. Its metadata gives the contract for a missing required value (one prompt chip, Send unavailable, the reason in words), for the Add context sheet and its setting views, and for dictation's listening, transcribing, unavailable and blocked states. A new component, `context-list`, draws the sheet's rows: a setting, its current value with a long one cut in the middle, a warning in words, and a chevron. The icon set gains `mic`, `cpu` and `shield`. No class was renamed or removed, and a consumer only needs to sync.
+
 ## 0.7.4
 
 A new component, `option-picker`: exactly one of up to about ten options, each a full-width row with a name, a one-line description and an optional state in words, built on native radios. It covers a repository from recently used ones with its path cut in the middle and an Enter a path option that shows a field under itself, an agent that is unavailable with the reason in words, and a mode that carries a warning. Nothing else changes, and a consumer only needs to sync.

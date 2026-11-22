@@ -1,0 +1,43 @@
+{
+  "name": "context-list",
+  "title": "Context list",
+  "purpose": "The rows of the Add context sheet: a rounded group of buttons, each naming a setting of the next task, showing its current value and opening the setting's own view.",
+  "status": "draft",
+  "whenToUse": [
+    "In the Add context sheet a composer opens, for the settings of the task the reader is about to start: repository, model, mode, review.",
+    "Where each row should show its current value at a glance and change it one press away, in a view of its own.",
+    "Attachment actions, such as attaching a file, would be a group of rows above the settings, with no value. They are not built yet."
+  ],
+  "whenNotToUse": [
+    "For the choice itself. The row opens a view that holds an option picker.",
+    "For a setting that takes effect the moment it changes, on a settings page. Use a settings row with a switch or a select.",
+    "For a list of things the reader scans and opens, such as tasks or branches. Use a list.",
+    "For actions on one thing. Use a menu."
+  ],
+  "variants": [
+    { "name": "default", "use": "An icon, the setting's name and its current value in the quieter colour at the trailing end. The stylesheet draws the chevron." },
+    { "name": "long value", "use": "The value holds ds-context-list__start and ds-context-list__end, written with no white space between them. It stays on one line and loses its middle, and the button's aria-label carries the whole value." },
+    { "name": "warning", "class": "ds-context-list__value--warning", "use": "On ds-context-list__value, for a value with a risk, such as Fully autonomous. The value keeps its word; the stylesheet adds the warning icon and the warning tone." }
+  ],
+  "sizes": [],
+  "states": ["default", "hover", "focus-visible", "active"],
+  "accessibility": [
+    "Use a ul with ds-context-list and an aria-label that says what the rows set, with one li per row. Several groups are several lists, one after another in the sheet's body.",
+    "Each row is a button element with type=\"button\" and ds-context-list__button. It holds an optional svg with ds-context-list__icon and aria-hidden=\"true\", a span with ds-context-list__label and a span with ds-context-list__value, with white space between the two spans. Its accessible name is then the setting and its value: Repository api.",
+    "A long value is written in full, split between ds-context-list__start and ds-context-list__end. The stylesheet cuts the middle from view only. A browser reads a space between the two parts, so give that row's button an aria-label with the setting and the whole value: Repository northwind-logistics-shipment-tracking-api.",
+    "A warning is said in words in the value. ds-context-list__value--warning adds the icon, so the tone is never the only signal.",
+    "A press opens the setting's view in the same sheet. The app shows that view, moves focus to the chosen option in it and, on Back, shows the rows again and moves focus to the row that was pressed. The composer's metadata describes the whole sheet.",
+    "Tab moves between the rows, and Enter and Space press one. Each row is at least 44px tall and as wide as the group. The component needs no script of its own."
+  ],
+  "icons": ["chevron-right", "cpu", "eye", "git-branch", "shield", "triangle-alert"],
+  "classes": [
+    "ds-context-list",
+    "ds-context-list__button",
+    "ds-context-list__end",
+    "ds-context-list__icon",
+    "ds-context-list__label",
+    "ds-context-list__start",
+    "ds-context-list__value",
+    "ds-context-list__value--warning"
+  ]
+}

@@ -121,3 +121,421 @@ Find out why, fix it, and run the auth tests.</textarea>
     </div>
   </form>
 </div>
+
+<div data-example="context-empty" data-title="One block: Add context, the model, dictation and Send" data-reason="The screen that starts work is the composer and nothing else. The model is the one setting shown, because it changes from task to task; every other setting is one press away under Add context, with its current value in view there.">
+  <form class="ds-composer">
+    <div class="ds-composer__box">
+      <textarea class="ds-composer__input" name="prompt" rows="1" aria-label="Describe a task" placeholder="Describe a task"></textarea>
+      <div class="ds-composer__bar">
+        <button type="button" class="ds-button ds-icon-button" aria-label="Add context" aria-haspopup="dialog">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
+        </button>
+        <div class="ds-composer__controls">
+          <button type="button" class="ds-button ds-button--quiet ds-button--small ds-composer__chip" aria-haspopup="dialog">
+            <span class="ds-composer__value"><span class="ds-visually-hidden">Model: </span>Sonnet<span class="ds-visually-hidden">,</span> <span class="ds-composer__qualifier">Medium<span class="ds-visually-hidden"> effort</span></span></span>
+          </button>
+        </div>
+        <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Dictate" aria-pressed="false">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-mic"></use></svg>
+        </button>
+        <button type="submit" class="ds-button ds-button--primary">Send</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div data-example="context-busy" data-title="While a turn runs, Stop takes the place of Send">
+  <form class="ds-composer" aria-busy="true">
+    <div class="ds-composer__box">
+      <textarea class="ds-composer__input" name="prompt" rows="1" aria-label="Describe a task" placeholder="Describe a task"></textarea>
+      <div class="ds-composer__bar">
+        <button type="button" class="ds-button ds-icon-button" aria-label="Add context" aria-haspopup="dialog">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
+        </button>
+        <div class="ds-composer__controls">
+          <button type="button" class="ds-button ds-button--quiet ds-button--small ds-composer__chip" aria-haspopup="dialog">
+            <span class="ds-composer__value"><span class="ds-visually-hidden">Model: </span>Sonnet<span class="ds-visually-hidden">,</span> <span class="ds-composer__qualifier">Medium<span class="ds-visually-hidden"> effort</span></span></span>
+          </button>
+        </div>
+        <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Dictate" aria-pressed="false">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-mic"></use></svg>
+        </button>
+        <button type="button" class="ds-button" aria-describedby="composer-context-busy-reason">Stop</button>
+      </div>
+    </div>
+    <p class="ds-composer__reason" id="composer-context-busy-reason">Claude Code is working. You can send again when this turn ends.</p>
+  </form>
+</div>
+
+<div data-example="required" data-title="A required value is missing" data-state="required" data-reason="The missing repository is the one thing in the way, so it is the one prompt in the row, drawn with a border where the model chip has none. Send is unavailable and the line under the block says why in words.">
+  <form class="ds-composer">
+    <div class="ds-composer__box">
+      <textarea class="ds-composer__input" name="prompt" rows="1" aria-label="Describe a task" placeholder="Describe a task">Find out why the session cookie expires after 15 minutes while the tab is active.</textarea>
+      <div class="ds-composer__bar">
+        <button type="button" class="ds-button ds-icon-button" aria-label="Add context" aria-haspopup="dialog">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
+        </button>
+        <div class="ds-composer__controls">
+          <button type="button" class="ds-button ds-button--small ds-composer__chip" aria-haspopup="dialog" aria-describedby="composer-required-reason">
+            <span class="ds-composer__value"><span class="ds-visually-hidden">Choose a </span>Repository</span>
+          </button>
+        </div>
+        <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Dictate" aria-pressed="false">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-mic"></use></svg>
+        </button>
+        <button type="submit" class="ds-button ds-button--primary" disabled aria-describedby="composer-required-reason">Send</button>
+      </div>
+    </div>
+    <p class="ds-composer__reason" id="composer-required-reason">Choose a repository to send. The task runs in a worktree of it.</p>
+  </form>
+</div>
+
+<div data-example="sheet" data-title="Add context: every other setting, with its value" data-state="open" data-gallery-frame data-reason="The sheet holds what the composer leaves out, one row per setting with its current value at the end, so the reader can check everything before sending without a form on the page.">
+  <form class="ds-composer">
+    <div class="ds-composer__box">
+      <textarea class="ds-composer__input" name="prompt" rows="1" aria-label="Describe a task" placeholder="Describe a task"></textarea>
+      <div class="ds-composer__bar">
+        <button type="button" class="ds-button ds-icon-button" aria-label="Add context" aria-haspopup="dialog" command="show-modal" commandfor="composer-sheet">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
+        </button>
+        <div class="ds-composer__controls">
+          <button type="button" class="ds-button ds-button--quiet ds-button--small ds-composer__chip" aria-haspopup="dialog">
+            <span class="ds-composer__value"><span class="ds-visually-hidden">Model: </span>Sonnet<span class="ds-visually-hidden">,</span> <span class="ds-composer__qualifier">Medium<span class="ds-visually-hidden"> effort</span></span></span>
+          </button>
+        </div>
+        <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Dictate" aria-pressed="false">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-mic"></use></svg>
+        </button>
+        <button type="submit" class="ds-button ds-button--primary">Send</button>
+      </div>
+    </div>
+  </form>
+  <dialog class="ds-sheet" id="composer-sheet" aria-labelledby="composer-sheet-title" open>
+    <form class="ds-sheet__header" method="dialog">
+      <h2 class="ds-sheet__title" id="composer-sheet-title">Add context</h2>
+      <button type="submit" class="ds-button ds-button--quiet" value="close" aria-label="Close Add context">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-x"></use></svg>
+      </button>
+    </form>
+    <div class="ds-sheet__body">
+      <ul class="ds-context-list" aria-label="Task settings">
+        <li>
+          <button type="button" class="ds-context-list__button">
+            <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-git-branch"></use></svg>
+            <span class="ds-context-list__label">Repository</span>
+            <span class="ds-context-list__value">api</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="ds-context-list__button">
+            <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-cpu"></use></svg>
+            <span class="ds-context-list__label">Model</span>
+            <span class="ds-context-list__value">Sonnet, medium effort</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="ds-context-list__button">
+            <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-shield"></use></svg>
+            <span class="ds-context-list__label">Mode</span>
+            <span class="ds-context-list__value">Manual</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="ds-context-list__button">
+            <svg class="ds-context-list__icon" aria-hidden="true"><use href="icons.svg#ds-icon-eye"></use></svg>
+            <span class="ds-context-list__label">Review</span>
+            <span class="ds-context-list__value">Codex</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </dialog>
+</div>
+
+<div data-example="sheet-repository" data-title="A setting's own view: the repository" data-gallery-frame>
+  <form class="ds-composer">
+    <div class="ds-composer__box">
+      <textarea class="ds-composer__input" name="prompt" rows="1" aria-label="Describe a task" placeholder="Describe a task"></textarea>
+      <div class="ds-composer__bar">
+        <button type="button" class="ds-button ds-icon-button" aria-label="Add context" aria-haspopup="dialog" command="show-modal" commandfor="composer-sheet-repository">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
+        </button>
+        <div class="ds-composer__controls">
+          <button type="button" class="ds-button ds-button--quiet ds-button--small ds-composer__chip" aria-haspopup="dialog">
+            <span class="ds-composer__value"><span class="ds-visually-hidden">Model: </span>Sonnet<span class="ds-visually-hidden">,</span> <span class="ds-composer__qualifier">Medium<span class="ds-visually-hidden"> effort</span></span></span>
+          </button>
+        </div>
+        <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Dictate" aria-pressed="false">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-mic"></use></svg>
+        </button>
+        <button type="submit" class="ds-button ds-button--primary">Send</button>
+      </div>
+    </div>
+  </form>
+  <dialog class="ds-sheet" id="composer-sheet-repository" aria-labelledby="composer-sheet-repository-title" open>
+    <form class="ds-sheet__header" method="dialog">
+      <div class="ds-cluster ds-gap-xs">
+        <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Back to Add context">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-left"></use></svg>
+        </button>
+        <h2 class="ds-sheet__title" id="composer-sheet-repository-title">Repository</h2>
+      </div>
+      <button type="submit" class="ds-button ds-button--quiet" value="close" aria-label="Close Add context">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-x"></use></svg>
+      </button>
+    </form>
+    <div class="ds-sheet__body">
+      <fieldset class="ds-option-picker">
+        <legend class="ds-option-picker__legend ds-visually-hidden">Repository</legend>
+        <label class="ds-option-picker__option">
+          <input class="ds-option-picker__input" type="radio" name="composer-sheet-repository-choice" value="api" checked aria-labelledby="composer-sheet-repository-choice-api-name" aria-describedby="composer-sheet-repository-choice-api-description">
+          <span class="ds-option-picker__body">
+            <span class="ds-option-picker__text">
+              <span class="ds-option-picker__name" id="composer-sheet-repository-choice-api-name">api</span>
+              <span class="ds-option-picker__description" id="composer-sheet-repository-choice-api-description"><span class="ds-option-picker__path"><span class="ds-option-picker__start">/Users/mira/code/acme/</span><span class="ds-option-picker__end">api</span></span></span>
+            </span>
+          </span>
+        </label>
+        <label class="ds-option-picker__option">
+          <input class="ds-option-picker__input" type="radio" name="composer-sheet-repository-choice" value="web" aria-labelledby="composer-sheet-repository-choice-web-name" aria-describedby="composer-sheet-repository-choice-web-description">
+          <span class="ds-option-picker__body">
+            <span class="ds-option-picker__text">
+              <span class="ds-option-picker__name" id="composer-sheet-repository-choice-web-name">web</span>
+              <span class="ds-option-picker__description" id="composer-sheet-repository-choice-web-description"><span class="ds-option-picker__path"><span class="ds-option-picker__start">/Users/mira/code/acme/</span><span class="ds-option-picker__end">web</span></span></span>
+            </span>
+          </span>
+        </label>
+        <label class="ds-option-picker__option">
+          <input class="ds-option-picker__input" type="radio" name="composer-sheet-repository-choice" value="tracking" aria-labelledby="composer-sheet-repository-choice-tracking-name" aria-describedby="composer-sheet-repository-choice-tracking-description">
+          <span class="ds-option-picker__body">
+            <span class="ds-option-picker__text">
+              <span class="ds-option-picker__name" id="composer-sheet-repository-choice-tracking-name">shipment-tracking-api</span>
+              <span class="ds-option-picker__description" id="composer-sheet-repository-choice-tracking-description"><span class="ds-option-picker__path"><span class="ds-option-picker__start">/Users/mira/code/clients/northwind-logistics/platform/services/</span><span class="ds-option-picker__end">shipment-tracking-api</span></span></span>
+            </span>
+          </span>
+        </label>
+      </fieldset>
+    </div>
+  </dialog>
+</div>
+
+<div data-example="sheet-mode" data-title="The mode, with the warning option chosen" data-gallery-frame>
+  <form class="ds-composer">
+    <div class="ds-composer__box">
+      <textarea class="ds-composer__input" name="prompt" rows="1" aria-label="Describe a task" placeholder="Describe a task"></textarea>
+      <div class="ds-composer__bar">
+        <button type="button" class="ds-button ds-icon-button" aria-label="Add context" aria-haspopup="dialog" command="show-modal" commandfor="composer-sheet-mode">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
+        </button>
+        <div class="ds-composer__controls">
+          <button type="button" class="ds-button ds-button--quiet ds-button--small ds-composer__chip" aria-haspopup="dialog">
+            <span class="ds-composer__value"><span class="ds-visually-hidden">Model: </span>Sonnet<span class="ds-visually-hidden">,</span> <span class="ds-composer__qualifier">Medium<span class="ds-visually-hidden"> effort</span></span></span>
+          </button>
+        </div>
+        <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Dictate" aria-pressed="false">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-mic"></use></svg>
+        </button>
+        <button type="submit" class="ds-button ds-button--primary">Send</button>
+      </div>
+    </div>
+  </form>
+  <dialog class="ds-sheet" id="composer-sheet-mode" aria-labelledby="composer-sheet-mode-title" open>
+    <form class="ds-sheet__header" method="dialog">
+      <div class="ds-cluster ds-gap-xs">
+        <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Back to Add context">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-chevron-left"></use></svg>
+        </button>
+        <h2 class="ds-sheet__title" id="composer-sheet-mode-title">Mode</h2>
+      </div>
+      <button type="submit" class="ds-button ds-button--quiet" value="close" aria-label="Close Add context">
+        <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-x"></use></svg>
+      </button>
+    </form>
+    <div class="ds-sheet__body">
+      <fieldset class="ds-option-picker">
+        <legend class="ds-option-picker__legend ds-visually-hidden">Mode</legend>
+        <label class="ds-option-picker__option">
+          <input class="ds-option-picker__input" type="radio" name="composer-sheet-mode-choice" value="manual" aria-labelledby="composer-sheet-mode-choice-manual-name" aria-describedby="composer-sheet-mode-choice-manual-description">
+          <span class="ds-option-picker__body">
+            <span class="ds-option-picker__text">
+              <span class="ds-option-picker__name" id="composer-sheet-mode-choice-manual-name">Manual</span>
+              <span class="ds-option-picker__description" id="composer-sheet-mode-choice-manual-description">Asks before every file edit and every command.</span>
+            </span>
+          </span>
+        </label>
+        <label class="ds-option-picker__option">
+          <input class="ds-option-picker__input" type="radio" name="composer-sheet-mode-choice" value="semi" aria-labelledby="composer-sheet-mode-choice-semi-name" aria-describedby="composer-sheet-mode-choice-semi-description">
+          <span class="ds-option-picker__body">
+            <span class="ds-option-picker__text">
+              <span class="ds-option-picker__name" id="composer-sheet-mode-choice-semi-name">Semi-autonomous</span>
+              <span class="ds-option-picker__description" id="composer-sheet-mode-choice-semi-description">Edits files in the worktree, and asks before running a command.</span>
+            </span>
+          </span>
+        </label>
+        <label class="ds-option-picker__option">
+          <input class="ds-option-picker__input" type="radio" name="composer-sheet-mode-choice" value="full" checked aria-labelledby="composer-sheet-mode-choice-full-name" aria-describedby="composer-sheet-mode-choice-full-state composer-sheet-mode-choice-full-description">
+          <span class="ds-option-picker__body">
+            <span class="ds-option-picker__text">
+              <span class="ds-option-picker__name" id="composer-sheet-mode-choice-full-name">Fully autonomous</span>
+              <span class="ds-option-picker__description" id="composer-sheet-mode-choice-full-description">Edits files and runs commands in the worktree until the task is done.</span>
+            </span>
+            <span class="ds-option-picker__state ds-option-picker__state--warning" id="composer-sheet-mode-choice-full-state">Runs commands without asking</span>
+          </span>
+        </label>
+      </fieldset>
+    </div>
+  </dialog>
+</div>
+
+<div data-example="jump-to-latest" data-title="Jump to latest, above the block">
+  <div class="ds-stack ds-gap-2xl">
+    <ol class="ds-stack ds-gap-xs">
+      <li class="ds-message ds-message--user">
+        <span class="ds-message__label">You</span>
+        <p class="ds-message__body">Run the auth tests and tell me what fails.</p>
+      </li>
+      <li class="ds-message" data-state="done">
+        <span class="ds-message__label">Claude Code</span>
+        <p class="ds-message__body">1 of 30 tests failed: the refresh timer does not start after a reload. I am fixing it now.</p>
+      </li>
+    </ol>
+    <div class="ds-jump-to-latest">
+      <button type="button" class="ds-jump-to-latest__button"><span class="ds-jump-to-latest__count">3 new steps</span> Jump to latest</button>
+    </div>
+    <form class="ds-composer">
+      <div class="ds-composer__box">
+        <textarea class="ds-composer__input" name="prompt" rows="1" aria-label="Describe a task" placeholder="Describe a task"></textarea>
+        <div class="ds-composer__bar">
+          <button type="button" class="ds-button ds-icon-button" aria-label="Add context" aria-haspopup="dialog">
+            <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
+          </button>
+          <div class="ds-composer__controls">
+            <button type="button" class="ds-button ds-button--quiet ds-button--small ds-composer__chip" aria-haspopup="dialog">
+              <span class="ds-composer__value"><span class="ds-visually-hidden">Model: </span>Sonnet<span class="ds-visually-hidden">,</span> <span class="ds-composer__qualifier">Medium<span class="ds-visually-hidden"> effort</span></span></span>
+            </button>
+          </div>
+          <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Dictate" aria-pressed="false">
+            <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-mic"></use></svg>
+          </button>
+          <button type="submit" class="ds-button ds-button--primary">Send</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div data-example="listening" data-title="Dictating: listening">
+  <form class="ds-composer">
+    <div class="ds-composer__box">
+      <textarea class="ds-composer__input" name="prompt" rows="1" aria-label="Describe a task" placeholder="Describe a task">Find out why the session cookie expires</textarea>
+      <div class="ds-composer__bar">
+        <button type="button" class="ds-button ds-icon-button" aria-label="Add context" aria-haspopup="dialog">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
+        </button>
+        <div class="ds-composer__controls">
+          <button type="button" class="ds-button ds-button--quiet ds-button--small ds-composer__chip" aria-haspopup="dialog">
+            <span class="ds-composer__value"><span class="ds-visually-hidden">Model: </span>Sonnet<span class="ds-visually-hidden">,</span> <span class="ds-composer__qualifier">Medium<span class="ds-visually-hidden"> effort</span></span></span>
+          </button>
+        </div>
+        <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Dictate" aria-pressed="true" aria-describedby="composer-listening-status">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-mic"></use></svg>
+        </button>
+        <button type="submit" class="ds-button ds-button--primary">Send</button>
+      </div>
+    </div>
+    <p class="ds-composer__reason" id="composer-listening-status" role="status">Listening</p>
+  </form>
+</div>
+
+<div data-example="transcribing" data-title="Dictating: turning speech into text">
+  <form class="ds-composer">
+    <div class="ds-composer__box">
+      <textarea class="ds-composer__input" name="prompt" rows="1" aria-label="Describe a task" placeholder="Describe a task">Find out why the session cookie expires</textarea>
+      <div class="ds-composer__bar">
+        <button type="button" class="ds-button ds-icon-button" aria-label="Add context" aria-haspopup="dialog">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
+        </button>
+        <div class="ds-composer__controls">
+          <button type="button" class="ds-button ds-button--quiet ds-button--small ds-composer__chip" aria-haspopup="dialog">
+            <span class="ds-composer__value"><span class="ds-visually-hidden">Model: </span>Sonnet<span class="ds-visually-hidden">,</span> <span class="ds-composer__qualifier">Medium<span class="ds-visually-hidden"> effort</span></span></span>
+          </button>
+        </div>
+        <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Dictate" aria-pressed="false" aria-busy="true" aria-describedby="composer-transcribing-status">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-mic"></use></svg>
+        </button>
+        <button type="submit" class="ds-button ds-button--primary">Send</button>
+      </div>
+    </div>
+    <p class="ds-composer__reason" id="composer-transcribing-status" role="status">Transcribing</p>
+  </form>
+</div>
+
+<div data-example="dictation-blocked" data-title="Dictation could not start">
+  <form class="ds-composer">
+    <div class="ds-composer__box">
+      <textarea class="ds-composer__input" name="prompt" rows="1" aria-label="Describe a task" placeholder="Describe a task"></textarea>
+      <div class="ds-composer__bar">
+        <button type="button" class="ds-button ds-icon-button" aria-label="Add context" aria-haspopup="dialog">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-plus"></use></svg>
+        </button>
+        <div class="ds-composer__controls">
+          <button type="button" class="ds-button ds-button--quiet ds-button--small ds-composer__chip" aria-haspopup="dialog">
+            <span class="ds-composer__value"><span class="ds-visually-hidden">Model: </span>Sonnet<span class="ds-visually-hidden">,</span> <span class="ds-composer__qualifier">Medium<span class="ds-visually-hidden"> effort</span></span></span>
+          </button>
+        </div>
+        <button type="button" class="ds-button ds-button--quiet ds-icon-button" aria-label="Dictate" aria-pressed="false" aria-describedby="composer-dictation-blocked-error">
+          <svg class="ds-button__icon" aria-hidden="true"><use href="icons.svg#ds-icon-mic"></use></svg>
+        </button>
+        <button type="submit" class="ds-button ds-button--primary">Send</button>
+      </div>
+    </div>
+    <p class="ds-composer__error" id="composer-dictation-blocked-error" role="alert">Microphone access was blocked. Allow it in your browser's settings.</p>
+  </form>
+</div>
+
+<div data-example="new-task-form" data-title="A new task as a form on a page" data-dont="review" data-reason="Four stacked controls make the reader fill in a form before they can say what they want, and most of the answers are the same every time. Starting work is a composer: the model and any missing required value are in its row, and the rest is one press away in Add context, shown with its current value.">
+  <form class="ds-stack ds-gap-lg">
+    <h2>New task</h2>
+    <fieldset class="ds-radio__group">
+      <legend class="ds-radio__legend">Repository</legend>
+      <div class="ds-radio">
+        <input class="ds-radio__input" type="radio" id="composer-form-api" name="composer-form-repository" value="api" checked>
+        <label class="ds-radio__label" for="composer-form-api">acme/api</label>
+      </div>
+      <div class="ds-radio">
+        <input class="ds-radio__input" type="radio" id="composer-form-web" name="composer-form-repository" value="web">
+        <label class="ds-radio__label" for="composer-form-web">acme/web</label>
+      </div>
+      <div class="ds-radio">
+        <input class="ds-radio__input" type="radio" id="composer-form-dotfiles" name="composer-form-repository" value="dotfiles">
+        <label class="ds-radio__label" for="composer-form-dotfiles">mira/dotfiles</label>
+      </div>
+    </fieldset>
+    <div class="ds-field">
+      <label class="ds-field__label" for="composer-form-model">Model</label>
+      <div class="ds-select">
+        <select class="ds-field__control ds-select__control" id="composer-form-model" name="model">
+          <option value="sonnet" selected>Sonnet</option>
+          <option value="opus">Opus</option>
+        </select>
+      </div>
+    </div>
+    <div class="ds-field">
+      <label class="ds-field__label" for="composer-form-mode">Mode</label>
+      <div class="ds-select">
+        <select class="ds-field__control ds-select__control" id="composer-form-mode" name="mode">
+          <option value="manual" selected>Manual</option>
+          <option value="semi">Semi-autonomous</option>
+          <option value="full">Fully autonomous</option>
+        </select>
+      </div>
+    </div>
+    <div class="ds-field">
+      <label class="ds-field__label" for="composer-form-prompt">Prompt</label>
+      <textarea class="ds-field__control ds-textarea" id="composer-form-prompt" name="prompt"></textarea>
+    </div>
+    <div class="ds-cluster">
+      <button type="submit" class="ds-button ds-button--primary">Start task</button>
+    </div>
+  </form>
+</div>

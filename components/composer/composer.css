@@ -89,6 +89,84 @@
     gap: var(--ds-space-sm);
   }
 
+  /*
+   * The composer as one block: the textarea on top with no border of its own, and the bar under it.
+   * The reason and the error stay outside the block, under it.
+   */
+  .ds-composer__box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-space-xs);
+    min-width: 0;
+    padding: var(--ds-space-xs);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
+  }
+
+  .ds-composer__box > .ds-composer__input {
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  /*
+   * One line under the textarea: Add context at the start, then the chips, then dictation and Send at the end.
+   * The chips are the only part that gives way, so the buttons never leave the line.
+   */
+  .ds-composer__bar {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-space-xs);
+    min-width: 0;
+  }
+
+  .ds-composer__bar > :not(.ds-composer__controls) {
+    flex: none;
+  }
+
+  /* Two lines of chips keep 12px apart, so their 44px pointer targets do not overlap. */
+  .ds-composer__bar > .ds-composer__controls {
+    flex: 1 1 auto;
+    min-width: 0;
+    row-gap: var(--ds-space-md);
+  }
+
+  /*
+   * A small button that shows a value, such as the model. Two chips that do not fit side by side take a line each,
+   * and a chip wider than its line is cut with an ellipsis: the chips are the only part of the row that gives way.
+   */
+  .ds-composer__chip {
+    flex-shrink: 0;
+    max-width: 100%;
+    min-width: var(--ds-size-touch);
+    padding-inline: var(--ds-space-sm);
+  }
+
+  .ds-composer__value {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* A second word that qualifies the value, such as the effort after the model. */
+  .ds-composer__qualifier {
+    color: var(--ds-color-muted);
+    font-weight: var(--ds-weight-normal);
+  }
+
+  /* On the shade of a hovered or pressed chip the qualifier takes the main text colour, so it keeps its contrast. */
+  @media (hover: hover) {
+    .ds-composer__chip:hover .ds-composer__qualifier {
+      color: var(--ds-color-on-surface);
+    }
+  }
+
+  .ds-composer__chip:active .ds-composer__qualifier {
+    color: var(--ds-color-on-surface);
+  }
+
   /* Why the composer cannot send. Plain text, so it is read as easily as the label. */
   .ds-composer__reason {
     overflow-wrap: anywhere;

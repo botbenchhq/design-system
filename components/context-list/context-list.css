@@ -1,0 +1,120 @@
+/*
+ * Context list: the rows of the Add context sheet. A rounded group of rows divided by a 1px border.
+ * Each row is a button that shows a setting's name and its current value, and opens the setting's own view.
+ * The chevron is drawn here, so the markup holds only the words.
+ */
+
+@layer ds.components {
+  .ds-context-list {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-md);
+  }
+
+  .ds-context-list > li + li {
+    border-top-width: var(--ds-border-width);
+  }
+
+  /* The whole row takes the press. The value gives way before the name does. */
+  .ds-context-list__button {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-space-md);
+    width: 100%;
+    min-width: 0;
+    min-height: var(--ds-size-touch);
+    padding: var(--ds-space-sm) var(--ds-space-md);
+    text-align: start;
+    transition: background-color var(--ds-duration-fast) var(--ds-ease);
+  }
+
+  /* The shade of a pressed row follows the group's rounded corners. Nothing clips the row, so its focus ring shows whole. */
+  .ds-context-list > li:first-child > .ds-context-list__button {
+    border-start-start-radius: calc(var(--ds-radius-md) - var(--ds-border-width));
+    border-start-end-radius: calc(var(--ds-radius-md) - var(--ds-border-width));
+  }
+
+  .ds-context-list > li:last-child > .ds-context-list__button {
+    border-end-start-radius: calc(var(--ds-radius-md) - var(--ds-border-width));
+    border-end-end-radius: calc(var(--ds-radius-md) - var(--ds-border-width));
+  }
+
+  .ds-context-list__button::after {
+    content: "";
+    flex: none;
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
+    background-color: var(--ds-color-muted);
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+  }
+
+  .ds-context-list__icon {
+    flex: none;
+    width: var(--ds-space-lg);
+    height: var(--ds-space-lg);
+    color: var(--ds-color-muted);
+  }
+
+  .ds-context-list__label {
+    flex: 1 0 auto;
+  }
+
+  /* The current value, on one line at the trailing end, in the quieter colour. */
+  .ds-context-list__value {
+    display: flex;
+    gap: var(--ds-space-xs);
+    min-width: 0;
+    color: var(--ds-color-muted);
+    white-space: nowrap;
+  }
+
+  /* A long value loses its middle: the start gives way and ends in an ellipsis, and the end keeps its width. */
+  .ds-context-list__start {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ds-context-list__end {
+    flex: none;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* A value with a risk. The icon is drawn here, so the warning is never colour alone, and the word stays. */
+  .ds-context-list__value--warning {
+    color: var(--ds-color-warning);
+  }
+
+  .ds-context-list__value--warning::before {
+    content: "";
+    flex: none;
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/triangle-alert.svg") center / contain no-repeat;
+  }
+
+  /* The quiet colours turn to the main text colour wherever the row is shaded, so they keep their contrast. A warning keeps its own. */
+  @media (hover: hover) {
+    .ds-context-list__button:hover {
+      background-color: var(--ds-color-surface-sunken);
+    }
+
+    .ds-context-list__button:hover :is(.ds-context-list__icon, .ds-context-list__value:not(.ds-context-list__value--warning)) {
+      color: var(--ds-color-on-surface);
+    }
+  }
+
+  .ds-context-list__button:active {
+    background-color: var(--ds-color-surface-sunken);
+  }
+
+  .ds-context-list__button:active :is(.ds-context-list__icon, .ds-context-list__value:not(.ds-context-list__value--warning)) {
+    color: var(--ds-color-on-surface);
+  }
+}
