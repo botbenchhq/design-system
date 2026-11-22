@@ -54,6 +54,7 @@ For a whole screen, start from a page pattern. They are listed under "Page patte
 | One yes-or-no choice, or several independent choices, sent with a form | `checkbox` |
 | Exactly one of a few options that need full labels or descriptions | `radio` |
 | Exactly one of two to five options with one- or two-word labels | `segmented-control` |
+| Exactly one of up to about ten options that each need a description or a state, such as a repository, an agent or a mode | `option-picker` |
 | A setting that takes effect the moment it changes | `switch` |
 | Finding items in a list by text | `search-field` |
 | Sending the next prompt to an agent, or stopping a turn | `composer` |
@@ -183,6 +184,7 @@ A pattern is a whole screen composed from the components above, with a little la
 - `undo-toast` or `confirm-dialog`: an undo toast only when Undo puts everything back as it was. An action with no real undo, such as revoking a standing permission, takes a confirm dialog first.
 - `checkbox` or `switch`: a checkbox is sent with a form. A switch takes effect at once.
 - `radio`, `segmented-control` or `select`: a segmented control for two to five short labels, a radio group when the labels need room, a select for more than six options.
+- `radio` or `option-picker`: a radio group when a label, with a line of help at most, names each option. An option picker when each option is a row with a description, a state such as Signed out, a warning, or a field shown under it, up to about ten. Beyond that, a select or a combobox.
 - `button-group` or `segmented-control`: a button group holds actions. A segmented control keeps a choice.
 - `badge` or `tag`: a badge is a status with a tone. A tag is a neutral category. For the state of a run, take the badge's icon and tone from its status set, listed in `content.md`.
 - `spinner`, `skeleton` or `progress`: a skeleton when the shape of the content is known, progress when the length of the wait is known, a spinner when neither is.

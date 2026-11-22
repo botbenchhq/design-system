@@ -5858,6 +5858,259 @@
 }
 
 /*
+ * Option picker: exactly one of a few options, where each option is more than a label.
+ * A fieldset of native radios, so it works with no script. Each option is a label that covers a full-width row:
+ * the radio mark, a name, an optional one-line description and an optional state in words at the trailing side.
+ * The input comes first in each label: the stylesheet reads its state to style the row.
+ */
+
+@layer ds.components {
+  .ds-option-picker {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-space-sm);
+    min-width: 0;
+  }
+
+  .ds-option-picker__legend {
+    font-weight: var(--ds-weight-medium);
+  }
+
+  .ds-option-picker__hint {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
+  }
+
+  /* One row per option. Its padding centres one line of text in a row one target tall. */
+  .ds-option-picker__option {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    column-gap: var(--ds-space-sm);
+    min-width: 0;
+    min-height: var(--ds-size-touch);
+    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+    padding-inline: var(--ds-space-md);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
+    cursor: pointer;
+    transition-property: border-color;
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
+  }
+
+  /* The mark is the input itself, so the base focus ring fits it. The margin centres it on the first line of the name. */
+  .ds-option-picker__input {
+    position: relative;
+    appearance: none;
+    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-lg) - var(--ds-space-xs)) / 2);
+    border-width: var(--ds-border-width);
+    border-color: var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-full);
+    background-color: var(--ds-color-surface-raised);
+    color: var(--ds-color-accent);
+    cursor: pointer;
+    transition-property: border-color;
+    transition-duration: var(--ds-duration-fast);
+    transition-timing-function: var(--ds-ease);
+  }
+
+  /* The mark is drawn 20px across. This invisible box, centred on it, gives the input itself a 44px target inside the row. */
+  .ds-option-picker__input::after {
+    content: "";
+    position: absolute;
+    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-touch)) / 2 - var(--ds-border-width));
+  }
+
+  .ds-option-picker__input:checked {
+    border-color: var(--ds-color-accent);
+  }
+
+  /* The dot, so the chosen option is a shape as well as a colour. */
+  .ds-option-picker__input:checked::before {
+    content: "";
+    position: absolute;
+    inset: var(--ds-space-xs);
+    border-radius: var(--ds-radius-full);
+    background-color: currentColor;
+  }
+
+  /* At compact widths the state sits under the text, so every row reads the same way down a phone screen. */
+  .ds-option-picker__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-space-xs);
+    min-width: 0;
+  }
+
+  .ds-option-picker__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-space-xs);
+    min-width: 0;
+  }
+
+  /* From the regular width the state is at the trailing end of the row, level with the name. */
+  @media (min-width: 768px) {
+    .ds-option-picker__body {
+      flex-direction: row;
+      align-items: baseline;
+      gap: var(--ds-space-lg);
+    }
+
+    .ds-option-picker__text {
+      flex: 1 1 auto;
+    }
+
+    .ds-option-picker__state {
+      flex: 0 1 auto;
+      max-width: calc(var(--ds-size-column) / 2);
+    }
+  }
+
+  .ds-option-picker__name {
+    overflow-wrap: anywhere;
+  }
+
+  .ds-option-picker__description {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  /* A path on one line. The start gives way and ends in an ellipsis, which lands in the middle of the path. */
+  .ds-option-picker__path {
+    display: flex;
+    min-width: 0;
+    font-family: var(--ds-font-mono);
+    white-space: nowrap;
+  }
+
+  .ds-option-picker__start {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* The end, the last folder, keeps its width and is cut only when it is wider than the row by itself. */
+  .ds-option-picker__end {
+    flex: none;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* A state in words, such as why the option cannot be chosen. */
+  .ds-option-picker__state {
+    display: flex;
+    gap: var(--ds-space-xs);
+    min-width: 0;
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  /* A warning about the option. The icon is drawn here, so the warning is never colour alone. */
+  .ds-option-picker__state--warning {
+    color: var(--ds-color-warning);
+  }
+
+  .ds-option-picker__state--warning::before {
+    content: "";
+    flex: none;
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-xs) * var(--ds-leading-xs));
+    background-color: currentColor;
+    mask: url("icons/triangle-alert.svg") center / contain no-repeat;
+  }
+
+  /* Content the app shows under an option while it is chosen, such as a field for a path. Hidden, it is out of the tab order. */
+  .ds-option-picker__reveal {
+    display: none;
+    padding-inline-start: calc(var(--ds-space-md) + var(--ds-space-lg) + var(--ds-space-xs) + var(--ds-space-sm) + var(--ds-border-width));
+  }
+
+  .ds-option-picker__option:has(> .ds-option-picker__input:checked) + .ds-option-picker__reveal {
+    display: block;
+  }
+
+  /* The chosen row: the accent border and a heavier name, beside the dot. */
+  .ds-option-picker__option:has(> .ds-option-picker__input:checked) {
+    border-color: var(--ds-color-accent);
+  }
+
+  .ds-option-picker__option:has(> .ds-option-picker__input:checked) .ds-option-picker__name {
+    font-weight: var(--ds-weight-semibold);
+  }
+
+  /* The error belongs to the group, after the last option. */
+  .ds-option-picker__error {
+    display: flex;
+    gap: var(--ds-space-xs);
+    color: var(--ds-color-danger);
+    overflow-wrap: anywhere;
+  }
+
+  /* The icon is drawn here, so an error is never marked by colour alone, whatever the markup holds. */
+  .ds-option-picker__error::before {
+    content: "";
+    flex: none;
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  /*
+   * A touch screen has no hover, and would otherwise keep this look after a tap.
+   * The pointer anywhere on the row hovers the row; on the mark it hovers the input, which is in the row too.
+   */
+  @media (hover: hover) {
+    .ds-option-picker__option:has(> .ds-option-picker__input:enabled):is(:hover, :has(> .ds-option-picker__input:hover)) {
+      border-color: var(--ds-color-border-strong);
+    }
+
+    .ds-option-picker__option:is(:hover, :has(> .ds-option-picker__input:hover)) > .ds-option-picker__input:enabled:not(:checked) {
+      border-color: var(--ds-color-on-surface);
+    }
+
+    .ds-option-picker__option:has(> .ds-option-picker__input:enabled:checked):is(:hover, :has(> .ds-option-picker__input:hover)) {
+      border-color: var(--ds-color-accent-hover);
+    }
+  }
+
+  .ds-option-picker[aria-invalid="true"] .ds-option-picker__input {
+    border-color: var(--ds-color-danger);
+  }
+
+  /*
+   * After hover and invalid, so an unavailable option never answers the pointer. It also matches every option of a
+   * disabled fieldset. The text keeps a contrast pair of the system, and the state says why in words.
+   */
+  .ds-option-picker__option:has(> .ds-option-picker__input:disabled) {
+    border-color: var(--ds-color-border);
+    cursor: default;
+  }
+
+  .ds-option-picker__input:disabled {
+    border-color: var(--ds-color-border);
+    background-color: transparent;
+    color: var(--ds-color-muted);
+    cursor: default;
+  }
+
+  .ds-option-picker__input:disabled ~ .ds-option-picker__body .ds-option-picker__name {
+    color: var(--ds-color-muted);
+  }
+}
+
+/*
  * One-time-code input: a single text input for a short code sent by message or shown by an
  * authenticator app. It goes on the same element as ds-field__control, which draws the border,
  * the fill and the invalid and disabled states, so this stylesheet must load after the field's.
