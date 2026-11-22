@@ -10,6 +10,7 @@ export default {
       "surface": "var(--ds-color-surface)",
       "surface-raised": "var(--ds-color-surface-raised)",
       "surface-sunken": "var(--ds-color-surface-sunken)",
+      "fill": "var(--ds-color-fill)",
       "on-surface": "var(--ds-color-on-surface)",
       "muted": "var(--ds-color-muted)",
       "border": "var(--ds-color-border)",

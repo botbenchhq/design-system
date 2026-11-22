@@ -51,5 +51,7 @@
   {"foreground":"--ds-color-border-strong","background":"--ds-color-surface-raised","kind":"ui"},
   {"foreground":"--ds-color-focus","background":"--ds-color-surface","kind":"ui"},
   {"foreground":"--ds-color-focus","background":"--ds-color-surface-raised","kind":"ui"},
-  {"foreground":"--ds-color-focus","background":"--ds-color-surface-sunken","kind":"ui"}
+  {"foreground":"--ds-color-focus","background":"--ds-color-surface-sunken","kind":"ui"},
+  {"foreground":"--ds-color-on-surface","background":"--ds-color-fill","kind":"text"},
+  {"foreground":"--ds-color-focus","background":"--ds-color-fill","kind":"ui"}
 ]
