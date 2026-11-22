@@ -13,7 +13,7 @@
     "As a second primary action in the same view. A view has one."
   ],
   "variants": [
-    { "name": "secondary", "use": "The default, with no modifier class. Any action that is not the main one." },
+    { "name": "secondary", "use": "The default, with no modifier class. Any action that is not the main one. A tonal fill a step from the page and from a raised card, with a faint border that turns strong on hover; unavailable, it loses the fill." },
     { "name": "primary", "class": "ds-button--primary", "use": "The one main action of a view, dialog or popover." },
     { "name": "quiet", "class": "ds-button--quiet", "use": "A minor action that should not draw the eye, such as Cancel or View log." },
     { "name": "danger", "class": "ds-button--danger", "use": "An action that deletes or cannot be undone. The label names what is lost." }

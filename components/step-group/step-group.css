@@ -90,10 +90,9 @@
     animation: ds-step-group-turn calc(var(--ds-duration-slow) * 4) steps(8) infinite;
   }
 
-  /* How long the steps took together, or have taken so far. */
+  /* How long the steps took together, or have taken so far. The interface font, with figures of one width. */
   .ds-step-group__duration {
     color: var(--ds-color-muted);
-    font-family: var(--ds-font-mono);
     font-size: var(--ds-text-xs);
     line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     font-variant-numeric: tabular-nums;
