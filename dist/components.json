@@ -901,17 +901,21 @@
         "A badge is not focusable and takes no press. When a status changes while the reader watches, announce it from a role=\"status\" element in the view, not from the badge."
       ],
       "icons": [
+        "check",
         "circle-alert",
         "circle-check",
         "circle-dashed",
         "circle-pause",
         "circle-slash",
         "circle-stop",
+        "circle-x",
         "eye",
         "git-branch",
         "loader",
         "search",
-        "triangle-alert"
+        "thumbs-up",
+        "triangle-alert",
+        "x"
       ],
       "classes": [
         "ds-badge",
@@ -979,6 +983,30 @@
           "icon": "circle-alert",
           "tone": "danger",
           "use": "A check ran and failed."
+        },
+        {
+          "state": "Failed",
+          "icon": "circle-x",
+          "tone": "danger",
+          "use": "Ended with an error and did not finish its work."
+        },
+        {
+          "state": "Done",
+          "icon": "check",
+          "tone": "success",
+          "use": "Finished, with nothing left for the reader to decide."
+        },
+        {
+          "state": "Accepted",
+          "icon": "thumbs-up",
+          "tone": "success",
+          "use": "The reader reviewed the result and accepted it."
+        },
+        {
+          "state": "Rejected",
+          "icon": "x",
+          "tone": "neutral",
+          "use": "The reader reviewed the result and rejected it."
         }
       ],
       "examples": [
@@ -986,7 +1014,7 @@
           "id": "tones",
           "title": "Tones",
           "state": "default",
-          "markup": "<div class=\"ds-cluster\">\n  <span class=\"ds-badge\">Draft</span>\n  <span class=\"ds-badge ds-badge--info\">Running</span>\n  <span class=\"ds-badge ds-badge--success\">Merged</span>\n  <span class=\"ds-badge ds-badge--warning\">Out of date</span>\n  <span class=\"ds-badge ds-badge--danger\">Failed</span>\n</div>"
+          "markup": "<div class=\"ds-cluster\">\n  <span class=\"ds-badge\">Draft</span>\n  <span class=\"ds-badge ds-badge--info\">Running</span>\n  <span class=\"ds-badge ds-badge--success\">Merged</span>\n  <span class=\"ds-badge ds-badge--warning\">Out of date</span>\n  <span class=\"ds-badge ds-badge--danger\">Reverted</span>\n</div>"
         },
         {
           "id": "agent-tones",
@@ -1001,7 +1029,7 @@
         {
           "id": "status-set",
           "title": "The status set: one icon and one tone for each state",
-          "markup": "<ul class=\"ds-list\">\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">Waiting for its turn. Nothing has started.</span>\n      </span>\n      <span class=\"ds-badge\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-dashed\"></use></svg>\n        Queued\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">An agent or a step is running.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--info\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-loader\"></use></svg>\n        Working\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">The work is done and its checks or a review by an agent are running.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--info\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-search\"></use></svg>\n        Checking\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">Paused until the reader answers: an approval, a question, a decision.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--approval\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-pause\"></use></svg>\n        Needs input\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">Finished and checked, waiting for the reader to review the result.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--success\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-eye\"></use></svg>\n        Ready for review\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">Ended before it finished, by a person, a limit or the runner, and can be resumed.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--blocked\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-stop\"></use></svg>\n        Stopped\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">Will not run or go on: superseded or withdrawn.</span>\n      </span>\n      <span class=\"ds-badge\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-slash\"></use></svg>\n        Cancelled\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">A check ran and passed.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--success\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-check\"></use></svg>\n        Check passed\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">A check ran and failed.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--danger\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-alert\"></use></svg>\n        Check failed\n      </span>\n    </div>\n  </li>\n</ul>"
+          "markup": "<ul class=\"ds-list\">\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">Waiting for its turn. Nothing has started.</span>\n      </span>\n      <span class=\"ds-badge\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-dashed\"></use></svg>\n        Queued\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">An agent or a step is running.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--info\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-loader\"></use></svg>\n        Working\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">The work is done and its checks or a review by an agent are running.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--info\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-search\"></use></svg>\n        Checking\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">Paused until the reader answers: an approval, a question, a decision.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--approval\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-pause\"></use></svg>\n        Needs input\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">Finished and checked, waiting for the reader to review the result.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--success\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-eye\"></use></svg>\n        Ready for review\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">Ended before it finished, by a person, a limit or the runner, and can be resumed.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--blocked\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-stop\"></use></svg>\n        Stopped\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">Will not run or go on: superseded or withdrawn.</span>\n      </span>\n      <span class=\"ds-badge\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-slash\"></use></svg>\n        Cancelled\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">A check ran and passed.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--success\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-check\"></use></svg>\n        Check passed\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">A check ran and failed.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--danger\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-alert\"></use></svg>\n        Check failed\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">Ended with an error and did not finish its work.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--danger\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-x\"></use></svg>\n        Failed\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">Finished, with nothing left for the reader to decide.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--success\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-check\"></use></svg>\n        Done\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">The reader reviewed the result and accepted it.</span>\n      </span>\n      <span class=\"ds-badge ds-badge--success\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-thumbs-up\"></use></svg>\n        Accepted\n      </span>\n    </div>\n  </li>\n  <li class=\"ds-list__row\">\n    <div class=\"ds-list__content\">\n      <span class=\"ds-list__body\">\n        <span class=\"ds-list__primary\">The reader reviewed the result and rejected it.</span>\n      </span>\n      <span class=\"ds-badge\">\n        <svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-x\"></use></svg>\n        Rejected\n      </span>\n    </div>\n  </li>\n</ul>"
         },
         {
           "id": "stations",
