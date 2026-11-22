@@ -1,0 +1,25 @@
+{
+  "name": "groundwork",
+  "version": "0.1.0",
+  "description": "A shared design system: one closed vocabulary of tokens and components, and the checks that hold apps to it",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "vendor": "node scripts/build.mjs vendor",
+    "test": "node --test 'test/*.test.mjs'",
+    "test:visual": "playwright test"
+  },
+  "devDependencies": {
+    "@fontsource-variable/ibm-plex-sans": "5.3.0",
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "@playwright/test": "^1.65.1",
+    "lucide-static": "1.77.0",
+    "tailwindcss": "3.4.19",
+    "typescript": "^5.9.0"
+  }
+}

@@ -1,0 +1,99 @@
+/*
+ * Layout primitives. Each sets its own default gap from the spacing scale, and
+ * a gw-gap- class on the same element changes it.
+ */
+
+@layer gw.base {
+  /* Children one above the other. */
+  .gw-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+  }
+
+  /* Children in a row that wraps, such as buttons or tags. */
+  .gw-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gw-space-sm);
+  }
+
+  /* Two groups pushed to opposite ends, such as a title and its actions. */
+  .gw-split {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gw-space-md);
+  }
+
+  /* Equal columns at the regular width, one column below it. */
+  .gw-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gw-space-lg);
+  }
+
+  /* A sidebar beside the main content at the regular width, above it below that. */
+  .gw-sidebar-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gw-space-xl);
+  }
+
+  @media (min-width: 768px) {
+    .gw-grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .gw-grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .gw-grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .gw-sidebar-layout {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+  }
+
+  /* A centred column no wider than the transcript width. */
+  .gw-container {
+    width: 100%;
+    max-width: var(--gw-size-transcript);
+    margin-inline: auto;
+    padding-inline: var(--gw-space-lg);
+  }
+
+  .gw-container-narrow {
+    max-width: var(--gw-size-column);
+  }
+
+  /* After the primitives, so a gap class wins over a primitive's default. */
+  .gw-gap-xs {
+    gap: var(--gw-space-xs);
+  }
+
+  .gw-gap-sm {
+    gap: var(--gw-space-sm);
+  }
+
+  .gw-gap-md {
+    gap: var(--gw-space-md);
+  }
+
+  .gw-gap-lg {
+    gap: var(--gw-space-lg);
+  }
+
+  .gw-gap-xl {
+    gap: var(--gw-space-xl);
+  }
+
+  .gw-gap-2xl {
+    gap: var(--gw-space-2xl);
+  }
+}

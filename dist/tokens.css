@@ -1,0 +1,131 @@
+/*
+ * The token vocabulary and the default theme. This file is the single source:
+ * everything in dist/ is generated from it by `npm run build`.
+ *
+ * Colour tokens are six-digit hex only, because consumers parse computed
+ * values as #rrggbb. A theme may change a value and may not add a name.
+ */
+
+@layer gw.reset, gw.tokens, gw.base, gw.components;
+
+@layer gw.tokens {
+  :root {
+    --gw-color-accent: #1A1A1A;
+    --gw-color-on-accent: #FAFAF9;
+    --gw-color-surface: #FAFAF9;
+    --gw-color-surface-raised: #FFFFFF;
+    --gw-color-surface-sunken: #F3F2EF;
+    --gw-color-on-surface: #171717;
+    --gw-color-muted: #737373;
+    --gw-color-border: #E5E5E5;
+    --gw-color-border-strong: #8A8A86;
+    --gw-color-focus: #1F5C99;
+    --gw-color-success: #1E6B3A;
+    --gw-color-success-subtle: #E8F2EA;
+    --gw-color-warning: #7A5200;
+    --gw-color-warning-subtle: #F7EEDC;
+    --gw-color-danger: #A8281F;
+    --gw-color-danger-subtle: #F9E9E7;
+    --gw-color-info: #1F5C99;
+    --gw-color-info-subtle: #E6EEF6;
+
+    --gw-font-ui: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --gw-font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+    --gw-text-xs: 12px;
+    --gw-text-mono: 13px;
+    --gw-text-ui: 14px;
+    --gw-text-lg: 16px;
+    --gw-text-xl: 20px;
+    --gw-text-2xl: 24px;
+
+    --gw-leading-xs: 1.4;
+    --gw-leading-mono: 1.5;
+    --gw-leading-ui: 1.4;
+    --gw-leading-lg: 1.4;
+    --gw-leading-xl: 1.25;
+    --gw-leading-2xl: 1.2;
+
+    --gw-weight-normal: 400;
+    --gw-weight-medium: 500;
+    --gw-weight-semibold: 600;
+
+    --gw-space-xs: 4px;
+    --gw-space-sm: 8px;
+    --gw-space-md: 12px;
+    --gw-space-lg: 16px;
+    --gw-space-xl: 24px;
+    --gw-space-2xl: 32px;
+
+    --gw-radius-sm: 4px;
+    --gw-radius-md: 8px;
+
+    --gw-border-width: 1px;
+
+    /* For overlays only: menus, popovers, dialogs, toasts. */
+    --gw-shadow-overlay: 0 8px 24px 0 rgb(0 0 0 / 0.16);
+
+    --gw-duration-fast: 100ms;
+    --gw-duration-base: 160ms;
+    --gw-duration-slow: 240ms;
+    --gw-ease: cubic-bezier(0.2, 0, 0, 1);
+
+    --gw-z-sticky: 100;
+    --gw-z-overlay: 200;
+    --gw-z-dialog: 300;
+    --gw-z-toast: 400;
+
+    --gw-size-touch: 44px;
+    --gw-size-column: 480px;
+    --gw-size-transcript: 720px;
+
+    /* A custom property cannot be used in a media query. Write 768px there. */
+    --gw-breakpoint: 768px;
+  }
+
+  [data-theme="dark"] {
+    --gw-color-accent: #EDEDEB;
+    --gw-color-on-accent: #171717;
+    --gw-color-surface: #141413;
+    --gw-color-surface-raised: #1C1C1A;
+    --gw-color-surface-sunken: #0E0E0D;
+    --gw-color-on-surface: #EDEDEB;
+    --gw-color-muted: #A3A3A0;
+    --gw-color-border: #2E2E2B;
+    --gw-color-border-strong: #6B6B67;
+    --gw-color-focus: #86B7EA;
+    --gw-color-success: #7CC796;
+    --gw-color-success-subtle: #15281B;
+    --gw-color-warning: #E0B45C;
+    --gw-color-warning-subtle: #2B2210;
+    --gw-color-danger: #F0928A;
+    --gw-color-danger-subtle: #331917;
+    --gw-color-info: #86B7EA;
+    --gw-color-info-subtle: #14243A;
+    --gw-shadow-overlay: 0 8px 24px 0 rgb(0 0 0 / 0.5);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-theme="auto"] {
+      --gw-color-accent: #EDEDEB;
+      --gw-color-on-accent: #171717;
+      --gw-color-surface: #141413;
+      --gw-color-surface-raised: #1C1C1A;
+      --gw-color-surface-sunken: #0E0E0D;
+      --gw-color-on-surface: #EDEDEB;
+      --gw-color-muted: #A3A3A0;
+      --gw-color-border: #2E2E2B;
+      --gw-color-border-strong: #6B6B67;
+      --gw-color-focus: #86B7EA;
+      --gw-color-success: #7CC796;
+      --gw-color-success-subtle: #15281B;
+      --gw-color-warning: #E0B45C;
+      --gw-color-warning-subtle: #2B2210;
+      --gw-color-danger: #F0928A;
+      --gw-color-danger-subtle: #331917;
+      --gw-color-info: #86B7EA;
+      --gw-color-info-subtle: #14243A;
+      --gw-shadow-overlay: 0 8px 24px 0 rgb(0 0 0 / 0.5);
+    }
+  }
+}

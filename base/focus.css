@@ -1,0 +1,12 @@
+/*
+ * One focus ring for every focusable element. There is no token for its
+ * width, so it is twice the border width, set off by the same distance so the
+ * ring stays visible beside a dark control.
+ */
+
+@layer gw.base {
+  :focus-visible {
+    outline: calc(var(--gw-border-width) * 2) solid var(--gw-color-focus);
+    outline-offset: calc(var(--gw-border-width) * 2);
+  }
+}
