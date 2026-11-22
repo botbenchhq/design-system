@@ -2,6 +2,24 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.7.0
+
+Themes, four status roles for agent work, and one icon and tone for each state of a run.
+
+- **What an app on 0.6.0 must do.** Nothing. Sync, and the default theme looks as it did except where a state now takes its icon and tone from the status set, listed below. No class, token or rule was renamed or removed. To use the Botbench theme, link `themes/botbench.css` after `design-system.css`.
+- **Themes.** A theme changes token values in light and dark and adds no name. Each one ships as four files in `themes/`: `<name>.css`, linked after `design-system.css`; `<name>.json`, with the theme's name, its default mode and the page background of each mode for the `theme-color` meta tags; `<name>.design-tokens.md`, the `DESIGN.md` token block with the theme's values; and `<name>.tokens.json`, the token data with the theme's values. A theme's rules sit in a new cascade layer, `ds.theme`, which the layer order puts after `ds.tokens`, so the layer order is now `ds.reset, ds.tokens, ds.theme, ds.base, ds.components`. A theme may declare a default mode: with no `data-theme` the page shows it, and `light`, `dark` and `auto` work as before. The Tailwind preset is unchanged, since its values are custom property references. "Themes" in the consumer guide has the details.
+- **The Botbench theme.** The Botbench brand on the system's roles: an amber primary action, warm paper and charcoal surfaces, a 6px `radius-md` (from 8px; `radius-sm` stays 4px), and its own colours for every status. Its default mode is dark. Six of the brand's light-mode values were darkened, and two moved slightly in hue, to pass contrast and to stay apart from each other; the header of the theme file lists each with its ratio.
+- **Tokens.** Four status roles, each with a `-subtle` background, in light and dark: `--ds-color-approval` for a wait on a person's answer, `--ds-color-blocked` for work stopped and unable to go on by itself, `--ds-color-peer` for another person's agent, and `--ds-color-tainted` for work that carries input from outside the trust boundary. Each is checked as text on its subtle background and on the page, raised and sunken surfaces. They are in the Tailwind preset (`text-approval`, `bg-approval-subtle` and so on), `tokens.json`, `design-tokens.md` and the manifest.
+- **Badge.** Four tones for the new roles: `ds-badge--approval`, `ds-badge--blocked`, `ds-badge--peer` and `ds-badge--tainted`. A status set in its metadata, `statusSet`, also in `components.json`: one icon and one tone for each of Queued, Working, Checking, Needs input, Ready for review, Stopped, Cancelled, Check passed and Check failed. The words stay the app's. A don't example for a status shown by colour alone.
+- **The same state looks the same everywhere.** Changes in appearance:
+  - Waiting on the reader (a tool call awaiting approval, a waiting run-timeline station, a step-group callout awaiting approval, the waiting now-doing line) takes the approval tone in place of the warning tone, with the paused circle as before.
+  - A check that has not started shows a dashed circle in place of three dots, the icon of Queued, as a station that has not started already did.
+  - A timed-out check shows a clock in place of a triangle, and a timed-out tool call takes the warning tone in place of the danger tone, so the two look the same: a clock in the warning tone.
+  - The examples of `run-status`, `app-shell`, `master-detail` and `filter-results` use the status set. An app that copied the old Queued, Awaiting decision, Interrupted or Blocked badges may move to the set's icon and tone when convenient.
+- **Icons.** `circle-stop` and `eye`.
+- **Gallery.** A theme switch beside the light and dark switch, `?brand=botbench`. The visual tests shoot the index and ten pages under the Botbench theme in both modes at both widths, with axe, the structural rules and the pointer-target check.
+- **Checker.** 41 rules, unchanged. The nearest token it suggests for a raw colour may now be one of the new roles.
+
 ## 0.6.0
 
 The entries below this one, for 0.5.0 and earlier, use the names of their time: the `gw` prefix, `groundwork.css`, `behaviors/groundwork.js` and `vendor/groundwork/`. They are left as they were released.

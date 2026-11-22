@@ -1,4 +1,4 @@
-// Generates everything in dist/ from tokens/, base/, components/, patterns/, gallery/, behaviors/, checker/, rules/, hooks/ and scripts/migrate-prefix.mjs. Run with `npm run build`.
+// Generates everything in dist/ from tokens/, themes/, base/, components/, patterns/, gallery/, behaviors/, checker/, rules/, hooks/ and scripts/migrate-prefix.mjs. Run with `npm run build`.
 // `npm run vendor` refreshes the font and icon files under base/ from node_modules.
 
 import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
@@ -8,7 +8,10 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 
-const LAYERS = ["ds.reset", "ds.tokens", "ds.base", "ds.components"];
+// ds.theme comes after ds.tokens, so a theme loaded after design-system.css wins over the default values.
+const LAYERS = ["ds.reset", "ds.tokens", "ds.theme", "ds.base", "ds.components"];
+
+const MODES = ["light", "dark"];
 
 // Longer prefixes first, so --ds-border-width is not read as a colour named "border".
 const CATEGORIES = [
@@ -51,6 +54,10 @@ const COMPONENT_FIELDS = {
 };
 const STATUSES = ["draft", "stable"];
 
+// An optional field: a fixed set of states, each with one icon and one tone, that other components reuse.
+// Each entry is { state, icon, tone, use }, where tone is the name of one of the component's variants.
+const STATUS_SET_FIELDS = ["state", "icon", "tone", "use"];
+
 // The two kinds of folder built to the authoring contract, and the directory each lives in.
 // A page pattern is a whole screen composed from components. Its meta.json says "kind": "pattern".
 const KINDS = { component: "components", pattern: "patterns" };
@@ -82,8 +89,10 @@ const UTILITIES = {
   variants: ["md"],
 };
 
+const withoutComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
+
 function declarations(css) {
-  return [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/(--[\w-]+)\s*:\s*([^;{}]+);/g)].map(
+  return [...withoutComments(css).matchAll(/(--[\w-]+)\s*:\s*([^;{}]+);/g)].map(
     ([, name, value]) => [name, value.trim()],
   );
 }
@@ -102,24 +111,73 @@ function categoryOf(name) {
   return { category, key: rest === category ? "DEFAULT" : rest.slice(category.length + 1) };
 }
 
-export function parseTokens(css) {
-  const blocks = { ":root": null, '[data-theme="dark"]': null, '[data-theme="auto"]': null };
-  for (const [, selector, body] of css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/([^{}@;]+)\{([^{}]*)\}/g)) {
-    if (!(selector.trim() in blocks)) throw new Error(`Unexpected selector in tokens.css: ${selector.trim()}`);
-    blocks[selector.trim()] = Object.fromEntries(declarations(body));
+const SELECTORS = { light: ":root", dark: '[data-theme="dark"]', auto: '[data-theme="auto"]' };
+
+// The light, dark and auto blocks of a token file, each as { name: value } or null when the file has none.
+// The dark and auto blocks must hold the same values, and every colour is six-digit hex.
+function parseBlocks(css, file) {
+  const blocks = { light: null, dark: null, auto: null };
+  for (const [, selector, body] of withoutComments(css).matchAll(/([^{}@;]+)\{([^{}]*)\}/g)) {
+    const mode = Object.keys(SELECTORS).find((key) => SELECTORS[key] === selector.trim());
+    if (!mode) throw new Error(`Unexpected selector in ${file}: ${selector.trim()}`);
+    blocks[mode] = Object.fromEntries(declarations(body));
   }
-  const light = blocks[":root"];
-  const dark = blocks['[data-theme="dark"]'];
-  if (JSON.stringify(dark) !== JSON.stringify(blocks['[data-theme="auto"]'])) {
-    throw new Error('The [data-theme="dark"] and [data-theme="auto"] blocks must declare the same values');
+  if (JSON.stringify(blocks.dark) !== JSON.stringify(blocks.auto)) {
+    throw new Error(`${file}: the [data-theme="dark"] and [data-theme="auto"] blocks must declare the same values`);
   }
-  validateTheme(css, Object.keys(light));
-  for (const [name, value] of [...Object.entries(light), ...Object.entries(dark)]) {
+  for (const [name, value] of [...Object.entries(blocks.light ?? {}), ...Object.entries(blocks.dark ?? {})]) {
     if (categoryOf(name).category === "color" && !/^#[0-9A-Fa-f]{6}$/.test(value)) {
-      throw new Error(`${name} must be six-digit hex, got ${value}`);
+      throw new Error(`${file}: ${name} must be six-digit hex, got ${value}`);
     }
   }
+  return blocks;
+}
+
+export function parseTokens(css) {
+  const { light, dark } = parseBlocks(css, "tokens.css");
+  validateTheme(css, Object.keys(light));
   return { light, dark };
+}
+
+// A theme is themes/<name>.css: values for existing token names in light and dark, in the selector shape of
+// tokens.css, inside @layer ds.theme. Its first comment may say "Default mode: dark", which makes a page with
+// no data-theme attribute dark. Returns the theme's own values, its default mode and its resolved values:
+// the theme's value where it sets one and the default theme's otherwise, as the cascade gives them.
+export function parseTheme(name, css, defaults) {
+  const file = `themes/${name}.css`;
+  if (!/^[a-z][a-z0-9-]*$/.test(name)) throw new Error(`${file}: a theme's name is lower case with hyphens`);
+  const outside = withoutComments(css).replace(/@layer ds\.theme \{[\s\S]*\}/, "").trim();
+  if (!withoutComments(css).includes("@layer ds.theme {") || outside !== "") {
+    throw new Error(`${file}: every rule goes inside @layer ds.theme { … }, and nothing outside it`);
+  }
+  try {
+    validateTheme(css, Object.keys(defaults.light));
+  } catch (error) {
+    throw new Error(`${file}: ${error.message}`);
+  }
+  const blocks = parseBlocks(css, file);
+  for (const mode of MODES) {
+    if (!blocks[mode] || Object.keys(blocks[mode]).length === 0) {
+      throw new Error(`${file}: the theme sets no ${mode} values. A theme sets both modes: a :root block for light, and a [data-theme="dark"] block repeated as [data-theme="auto"] inside @media (prefers-color-scheme: dark)`);
+    }
+  }
+  // A value set for light alone would also apply in dark, over the default theme's dark value.
+  for (const token of Object.keys(blocks.light)) {
+    if (token in defaults.dark && !(token in blocks.dark)) {
+      throw new Error(`${file}: ${token} has a light value and no dark value. The default theme has both, so the theme must set both`);
+    }
+  }
+  const comment = css.match(/^\s*\/\*([\s\S]*?)\*\//)?.[1] ?? "";
+  const declared = comment.match(/Default mode: (\w+)/)?.[1] ?? "light";
+  if (!MODES.includes(declared)) throw new Error(`${file}: the default mode is light or dark, got ${declared}`);
+  const light = { ...defaults.light, ...blocks.light };
+  const dark = Object.fromEntries(
+    [...new Set([...Object.keys(defaults.dark), ...Object.keys(blocks.dark)])].map((token) => [
+      token,
+      blocks.dark[token] ?? blocks.light[token] ?? defaults.dark[token],
+    ]),
+  );
+  return { name, defaultMode: declared, own: { light: blocks.light, dark: blocks.dark }, tokens: { light, dark }, comment: css.match(/^\s*(\/\*[\s\S]*?\*\/)/)?.[1] ?? null };
 }
 
 function luminance(hex) {
@@ -135,7 +193,7 @@ function contrastRatio(foreground, background) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-function checkContrast(tokens, pairs) {
+function checkContrast(tokens, pairs, themeName = null) {
   const themes = { light: tokens.light, dark: { ...tokens.light, ...tokens.dark } };
   const report = [];
   for (const { foreground, background, kind } of pairs) {
@@ -148,7 +206,11 @@ function checkContrast(tokens, pairs) {
   if (failures.length > 0) {
     throw new Error(
       failures
-        .map((row) => `${row.foreground} on ${row.background} is ${row.ratio.toFixed(2)}:1 in the ${row.theme} theme, below ${row.minimum}:1`)
+        .map((row) =>
+          themeName
+            ? `In the ${themeName} theme, ${row.foreground} on ${row.background} is ${row.ratio.toFixed(2)}:1 in ${row.theme} mode, below ${row.minimum}:1`
+            : `${row.foreground} on ${row.background} is ${row.ratio.toFixed(2)}:1 in the ${row.theme} theme, below ${row.minimum}:1`,
+        )
         .join("\n"),
     );
   }
@@ -280,7 +342,7 @@ function yaml(value, indent = "") {
 }
 
 // The same shape as the front matter of a consumer's DESIGN.md.
-function designTokens(groups, tokens) {
+function designTokens(groups, tokens, name = "Design system") {
   const values = (category, from = tokens.light, format = (value) => value) =>
     Object.fromEntries(
       Object.entries(groups[category])
@@ -300,7 +362,7 @@ function designTokens(groups, tokens) {
   }
   const block = {
     version: "alpha",
-    name: "Design system",
+    name,
     colors: values("color", tokens.light, quote),
     "colors-dark": values("color", tokens.dark, quote),
     typography,
@@ -316,6 +378,55 @@ function designTokens(groups, tokens) {
     breakpoint: tokens.light[groups.breakpoint.DEFAULT],
   };
   return `---\n${yaml(block)}---\n`;
+}
+
+const block = (indent, selector, values) =>
+  `${indent}${selector} {\n${Object.entries(values).map(([name, value]) => `${indent}  ${name}: ${value};`).join("\n")}\n${indent}}`;
+
+// dist/themes/<name>.css: the layer order, so the theme wins even when it is loaded first, then the theme's own
+// values. A theme whose default mode is dark also sets every dark value on a root with no data-theme attribute,
+// filled in from the default theme where the theme sets none, so that page matches data-theme="dark".
+function themeStylesheet(theme) {
+  const parts = [
+    ...(theme.comment ? [theme.comment, ""] : []),
+    `/* Generated from themes/${theme.name}.css by npm run build. Load it after design-system.css. */`,
+    "",
+    `@layer ${LAYERS.join(", ")};`,
+    "",
+    "@layer ds.theme {",
+    block("  ", SELECTORS.light, theme.own.light),
+    ...(theme.defaultMode === "dark" ? ["", "  /* The default mode: with no data-theme attribute the page is dark. */", block("  ", ":root:not([data-theme])", theme.tokens.dark)] : []),
+    "",
+    block("  ", SELECTORS.dark, theme.own.dark),
+    "",
+    "  @media (prefers-color-scheme: dark) {",
+    block("    ", SELECTORS.auto, theme.own.dark),
+    "  }",
+    "}",
+    "",
+  ];
+  return parts.join("\n");
+}
+
+// What a page needs to know about a theme before its stylesheet loads, such as the two theme-color meta tags.
+const themeSummary = (theme) => ({
+  name: theme.name,
+  defaultMode: theme.defaultMode,
+  themeColor: { light: theme.tokens.light["--ds-color-surface"], dark: theme.tokens.dark["--ds-color-surface"] },
+});
+
+// Every theme in themes/, parsed, validated and contrast-checked against tokens/pairs.json. An error names the theme.
+export function readThemes(root, defaults, pairs) {
+  const dir = join(root, "themes");
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((file) => file.endsWith(".css"))
+    .sort()
+    .map((file) => {
+      const name = file.slice(0, -".css".length);
+      const theme = parseTheme(name, readFileSync(join(dir, file), "utf8"), defaults);
+      return { ...theme, contrast: checkContrast(theme.tokens, pairs, name) };
+    });
 }
 
 // Every rule ID the checker can emit, read from its source. A rule is named where it is defined (id: "…"),
@@ -386,7 +497,6 @@ function domBundle(checker, readingColumn) {
   ].join("\n");
 }
 
-const withoutComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
 const classesIn = (css) => [...new Set([...withoutComments(css).matchAll(/\.(ds-[\w-]+)/g)].map(([, name]) => name))].sort();
 
 const ENTITIES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
@@ -494,10 +604,28 @@ function checkComponent(name, { meta, css, examples }, iconNames, kind = "compon
     }
   }
 
+  if (meta.statusSet !== undefined) checkStatusSet(meta);
+
   const used = iconsIn(css, examples);
   const unknown = used.filter((icon) => !iconNames.includes(icon));
   if (unknown.length > 0) throw new Error(`uses the icon ${unknown.join(", ")}, which base/icons.json does not list`);
   if (!same(used, meta.icons)) throw new Error(`meta.json lists the icons [${meta.icons.join(", ")}], and the stylesheet and examples use [${used.join(", ")}]`);
+}
+
+function checkStatusSet(meta) {
+  if (!Array.isArray(meta.statusSet) || meta.statusSet.length === 0) throw new Error("meta.json has a statusSet that is not a list of states");
+  const tones = meta.variants.map((variant) => variant.name);
+  for (const entry of meta.statusSet) {
+    const missing = STATUS_SET_FIELDS.filter((field) => typeof entry[field] !== "string" || entry[field] === "");
+    if (missing.length > 0) throw new Error(`the statusSet entry ${JSON.stringify(entry.state)} needs ${missing.join(", ")} as text`);
+    if (!tones.includes(entry.tone)) throw new Error(`the statusSet state "${entry.state}" has the tone "${entry.tone}", which is not a variant`);
+    if (!meta.icons.includes(entry.icon)) throw new Error(`the statusSet state "${entry.state}" has the icon "${entry.icon}", which the icons list leaves out`);
+  }
+  for (const field of ["state", "icon"]) {
+    const values = meta.statusSet.map((entry) => entry[field]);
+    const repeated = values.find((value, index) => values.indexOf(value) !== index);
+    if (repeated) throw new Error(`the statusSet gives two states the ${field} "${repeated}". Each state has its own`);
+  }
 }
 
 // Every folder of one kind, read and checked against the authoring contract: [{ name, meta, css, examples }].
@@ -549,6 +677,7 @@ function componentIndex(components, patterns) {
   const entry = ({ meta, examples }) => ({
     ...Object.fromEntries(Object.keys(COMPONENT_FIELDS).map((field) => [field, meta[field]])),
     ...(meta.kind === "pattern" && { kind: "pattern" }),
+    ...(meta.statusSet && { statusSet: meta.statusSet }),
     examples: examples
       .filter((example) => !example.dont)
       .map(({ id, title, state, reason, markup }) => ({ id, title, ...(state && { state }), ...(reason && { reason }), markup })),
@@ -572,7 +701,12 @@ function shortIndex(folders) {
 const galleryIcon = (name) => `<svg aria-hidden="true"><use href="../icons.svg#ds-icon-${name}"></use></svg>`;
 
 // Every gallery page loads each behaviour module, so an example wrapped in one of their elements works.
-function galleryPage(title, body, behaviors) {
+// The bar switches the mode with ?theme= and loads a theme from themes/ with ?brand=. gallery.js applies both.
+function galleryPage(title, body, behaviors, themes = []) {
+  const brands = [
+    '<a href="?brand=default" data-gallery-default="light">Default</a>',
+    ...themes.map(({ name, defaultMode }) => `<a href="?brand=${name}" data-gallery-default="${defaultMode}">${escapeHtml(name[0].toUpperCase() + name.slice(1))}</a>`),
+  ];
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -587,7 +721,10 @@ ${behaviors.map((name) => `<script type="module" src="../behaviors/${name}"></sc
 <body>
 <header data-gallery="bar">
 <a href="index.html">Design system gallery</a>
-<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<div data-gallery="switches">
+<nav aria-label="Mode"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<nav aria-label="Theme">${brands.join("")}</nav>
+</div>
 </header>
 <main data-gallery="page">
 ${body}
@@ -619,7 +756,7 @@ function galleryExample(example) {
 }
 
 // A pattern is a whole screen, so its examples run down the page in one column. A component's sit two abreast.
-function galleryComponent({ meta, examples }, behaviors) {
+function galleryComponent({ meta, examples }, behaviors, themes) {
   const columns = meta.kind === "pattern" ? "ds-grid" : "ds-grid ds-grid-2";
   const options = (heading, items) =>
     items.length === 0
@@ -642,10 +779,10 @@ function galleryComponent({ meta, examples }, behaviors) {
     `<section>\n<h2>Accessibility</h2>\n${galleryList(meta.accessibility)}\n</section>`,
     `<section>\n<h2>Classes</h2>\n<ul>\n${meta.classes.map((item) => `<li><code>${escapeHtml(item)}</code></li>`).join("\n")}\n</ul>\n</section>`,
     "</div>",
-  ].join("\n"), behaviors);
+  ].join("\n"), behaviors, themes);
 }
 
-function galleryIndex(components, patterns, behaviors) {
+function galleryIndex(components, patterns, behaviors, themes) {
   const rows = (folders) =>
     folders.map(
       ({ name, meta }) =>
@@ -660,7 +797,7 @@ function galleryIndex(components, patterns, behaviors) {
           "<header>\n<h2>Page patterns</h2>\n<p>Each page shows a whole screen composed from the components, in every state, with a do and a don't.</p>\n</header>",
           `<ul data-gallery="index">\n${rows(patterns).join("\n")}\n</ul>`,
         ]),
-  ].join("\n"), behaviors);
+  ].join("\n"), behaviors, themes);
 }
 
 // Every file under dir, as a path relative to it with forward slashes.
@@ -695,6 +832,7 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   }
   const tokens = parseTokens(source);
   const contrast = checkContrast(tokens, pairs);
+  const themes = readThemes(root, tokens, pairs);
   const groups = groupByCategory(Object.keys(tokens.light));
   const preset = tailwindPreset(groups, tokens.light[groups.breakpoint.DEFAULT]);
 
@@ -727,14 +865,22 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
     "design-tokens.md": designTokens(groups, tokens),
     "manifest.json": json(manifest(groups, tokens, classes, ruleIds(checker))),
     "components.json": json(componentIndex(components, patterns)),
-    "gallery/index.html": galleryIndex(components, patterns, modules),
+    "gallery/index.html": galleryIndex(components, patterns, modules, themes),
     "components-index.json": json(shortIndex(folders)),
     VERSION: `${version}\n`,
     // A vendored copy carries the licence and the notice with it.
     LICENSE: readFileSync(join(root, "LICENSE")),
     NOTICE: readFileSync(join(root, "NOTICE")),
   };
-  for (const folder of folders) files[`gallery/${folder.name}.html`] = galleryComponent(folder, modules);
+  for (const folder of folders) files[`gallery/${folder.name}.html`] = galleryComponent(folder, modules, themes);
+  // Each theme: its stylesheet, its DESIGN.md token block, its tokens as data and what a page's head needs.
+  // The Tailwind preset needs nothing per theme, because its values are references to the custom properties.
+  for (const theme of themes) {
+    files[`themes/${theme.name}.css`] = themeStylesheet(theme);
+    files[`themes/${theme.name}.design-tokens.md`] = designTokens(groups, theme.tokens, `Design system, ${theme.name} theme`);
+    files[`themes/${theme.name}.tokens.json`] = json(tokenData(groups, theme.tokens));
+    files[`themes/${theme.name}.json`] = json(themeSummary(theme));
+  }
   for (const name of GALLERY_FILES) files[`gallery/${name}`] = readFileSync(join(root, "gallery", name));
   for (const [name, svg] of Object.entries(icons)) files[`icons/${name}.svg`] = svg;
   for (const name of Object.keys(FONT_SOURCES)) files[`fonts/${name}`] = readFileSync(join(base, "fonts", name));
@@ -757,7 +903,11 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
     mkdirSync(dirname(join(outDir, name)), { recursive: true });
     writeFileSync(join(outDir, name), content);
   }
-  return { files: Object.keys(files), contrast };
+  return {
+    files: Object.keys(files),
+    contrast,
+    themes: themes.map(({ name, defaultMode, contrast: rows }) => ({ name, defaultMode, contrast: rows })),
+  };
 }
 
 // Names of files in distDir that differ from what the sources under root build now.
@@ -780,9 +930,14 @@ if (process.argv[1] === fileURLToPath(import.meta.url) && process.argv[2] === "v
   vendor();
   console.log("Copied fonts and icons into base/");
 } else if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const { files, contrast } = build();
+  const { files, contrast, themes } = build();
   for (const row of contrast) {
     console.log(`pass ${row.ratio.toFixed(2)}:1 (${row.kind}, ${row.theme}) ${row.foreground} on ${row.background}`);
+  }
+  for (const theme of themes) {
+    for (const row of theme.contrast) {
+      console.log(`pass ${row.ratio.toFixed(2)}:1 (${row.kind}, ${theme.name} ${row.theme}) ${row.foreground} on ${row.background}`);
+    }
   }
   console.log(`Wrote ${files.length} files to dist/`);
 }

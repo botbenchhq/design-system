@@ -29,7 +29,7 @@
     "While the detail loads, keep its heading, set aria-busy=\"true\" on the section and show a skeleton. If it cannot be loaded, show an error state in the detail with Retry. The list stays as it is in both cases.",
     "With no items at all, put an empty state in place of the list and leave both the detail and the placeholder out."
   ],
-  "icons": ["arrow-left", "circle-alert", "plus"],
+  "icons": ["arrow-left", "circle-pause", "plus"],
   "classes": [
     "ds-master-detail",
     "ds-master-detail__back",

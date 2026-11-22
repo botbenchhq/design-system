@@ -29,6 +29,10 @@
     "If the results cannot be loaded, show an error state with Retry in their place and keep the filters as the reader set them. Never show the empty state for a failed load.",
     "Tab moves through the search input, its clear button, the filters, each tag's remove button, Clear filters, then the results. The pattern needs no script of its own."
   ],
-  "icons": ["plus", "triangle-alert"],
-  "classes": ["ds-filter-results", "ds-filter-results__bar", "ds-filter-results__count"]
+  "icons": ["circle-stop", "plus"],
+  "classes": [
+    "ds-filter-results",
+    "ds-filter-results__bar",
+    "ds-filter-results__count"
+  ]
 }

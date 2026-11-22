@@ -1,8 +1,8 @@
 # Design system
 
-A shared design system for a small set of apps. It holds one closed vocabulary of design tokens, a default theme, a base layer of styles, fonts and icons, and the files generated from them. An app copies `dist/` into its own repo.
+A shared design system for a small set of apps. It holds one closed vocabulary of design tokens, a default theme and optional themes that change values only, a base layer of styles, fonts and icons, and the files generated from them. An app copies `dist/` into its own repo.
 
-This repo currently contains the tokens, the base layer, the checker with its static scan and structural rules, the contract every component follows, 98 components built to it, eight page patterns composed from them, five optional behaviour modules, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
+This repo currently contains the tokens, one theme (Botbench), the base layer, the checker with its static scan and structural rules, the contract every component follows, 98 components built to it, eight page patterns composed from them, five optional behaviour modules, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
 
 To use the system in an app, follow `docs/consumer-guide.md`. In short:
 
@@ -42,6 +42,7 @@ Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start 
 | `icons/` | The same icons as single files, for CSS that needs one as a mask or background, with their licence. |
 | `tokens.css` | The custom properties, light and dark, on their own. `design-system.css` already contains them. |
 | `tokens.json` | The same tokens as data, in the Design Tokens Community Group format. Dark values are under `$extensions["design-system"].dark`. |
+| `themes/` | Each theme as four files: `<name>.css`, linked after `design-system.css`; `<name>.json`, with its default mode and the page background of each mode for `theme-color`; `<name>.design-tokens.md`, the token block with its values; and `<name>.tokens.json`, the token data with its values. See "Themes" below. |
 | `tailwind-preset.js`, `tailwind-preset.d.ts` | A Tailwind 3 preset whose values are references to the custom properties. |
 | `design-tokens.md` | The token block for the front matter of an app's `DESIGN.md`. |
 | `manifest.json` | Token names and allowed values by category, the breakpoint, the utility classes a screen may use, every class of the system, and every rule ID the checker can report. |
@@ -57,7 +58,7 @@ Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start 
 
 ## Tokens
 
-Every custom property starts with `--ds-`. The categories are colour roles, font families, a six-step type scale with line heights, font weights, six spacing steps, two radii and a full radius for a circle or a pill, a border width, one overlay shadow, three durations and one easing curve, a layering scale, fixed sizes and the breakpoint.
+Every custom property starts with `--ds-`. The categories are colour roles (among them the status roles success, warning, danger, info, approval, blocked, peer and tainted, each with a `-subtle` background), font families, a six-step type scale with line heights, font weights, six spacing steps, two radii and a full radius for a circle or a pill, a border width, one overlay shadow, three durations and one easing curve, a layering scale, fixed sizes and the breakpoint.
 
 The vocabulary is closed. A theme can change a token's value. It cannot add a name.
 
@@ -69,19 +70,32 @@ Light is the default. Set `data-theme` on the root element to change that.
 
 | `data-theme` | Result |
 |---|---|
-| not set | Light |
+| not set | Light, or the default mode of a loaded theme |
+| `light` | Light |
 | `dark` | Dark |
 | `auto` | Follows the system setting |
+
+## Themes
+
+A theme is a stylesheet that changes token values, in light and dark, and adds no name. Link it after `design-system.css`:
+
+```html
+<link rel="stylesheet" href="/vendor/design-system/themes/botbench.css">
+```
+
+Its rules are in the `ds.theme` layer, after `ds.tokens`, so its values win. A theme may declare a default mode: Botbench is dark when the root has no `data-theme`. The build checks every theme against every pair in `tokens/pairs.json` in both modes and fails, naming the theme, the pair and the ratio. The source is `themes/<name>.css`. "Themes" in `docs/consumer-guide.md` has the rules and how to write one.
+
+Botbench maps its brand kit onto the roles: an amber primary action with dark text in dark mode and white text on a deeper amber in light mode, warm paper and charcoal surfaces, a 6px `radius-md`, and its own colours for the eight statuses. The header of `themes/botbench.css` lists each brand value that was changed to pass contrast or to stay apart from another status.
 
 ## Cascade layers
 
 `tokens.css` declares the layer order:
 
 ```css
-@layer ds.reset, ds.tokens, ds.base, ds.components;
+@layer ds.reset, ds.tokens, ds.theme, ds.base, ds.components;
 ```
 
-System CSS sits in these layers. App CSS and Tailwind utilities are unlayered, so they always win over system CSS without a specificity contest.
+System CSS sits in these layers. `ds.theme` holds a theme's values when one is loaded, and is empty otherwise. App CSS and Tailwind utilities are unlayered, so they always win over system CSS without a specificity contest.
 
 ## Base layer
 
@@ -120,7 +134,7 @@ A component is class names on plain HTML: `ds-button`, a part such as `ds-button
 
 `dist/components.json` lists each component with markup to copy. An example names the icon sprite as `icons.svg#ds-icon-…`; put the path the app serves the system from in front of it. A component marked `draft` may still change, and an app may use it.
 
-The gallery switches theme with `?theme=dark`. Its pages carry no inline style and no inline script.
+The gallery switches mode with `?theme=dark` and loads a theme with `?brand=botbench`, and its bar links to both. Its pages carry no inline style and no inline script.
 
 `dist/components.json` also lists the page patterns, in `patterns`. A pattern is a whole screen composed from the components, such as a settings page or a sign-in screen, with a little layout of its own. Start a new screen from one.
 
@@ -188,7 +202,7 @@ There is one breakpoint, 768px. Below it a layout is compact, and at or above it
 
 ## Contrast
 
-`tokens/pairs.json` lists the foreground and background roles that are used together. The build computes the WCAG 2 contrast ratio of each pair in light and dark. It fails when a `text` pair is below 4.5:1 or a `ui` pair (a border or focus ring against its background) is below 3:1.
+`tokens/pairs.json` lists the foreground and background roles that are used together. The build computes the WCAG 2 contrast ratio of each pair in light and dark, for the default theme and for every theme. It fails when a `text` pair is below 4.5:1 or a `ui` pair (a border or focus ring against its background) is below 3:1.
 
 `muted` on `surface-sunken` is not a listed pair. In the light theme it is below 4.5:1, so do not put muted text on a sunken surface.
 
@@ -203,9 +217,9 @@ npm test
 npm run test:visual
 ```
 
-`npm run build` regenerates `dist/` from `tokens/`, `base/`, `components/`, `patterns/`, `gallery/`, `behaviors/`, `checker/`, `rules/` and `hooks/` and prints the contrast report. It fails, naming the folder, when a component or a pattern breaks the authoring contract, and when `rules/core.md` is longer than 2,400 characters. It reads nothing from `node_modules`. `npm test` includes a check that the committed `dist/` matches a fresh build.
+`npm run build` regenerates `dist/` from `tokens/`, `themes/`, `base/`, `components/`, `patterns/`, `gallery/`, `behaviors/`, `checker/`, `rules/` and `hooks/` and prints the contrast report. It fails, naming the folder, when a component or a pattern breaks the authoring contract, and when `rules/core.md` is longer than 2,400 characters. It reads nothing from `node_modules`. `npm test` includes a check that the committed `dist/` matches a fresh build.
 
-`npm run test:visual` opens a bare page that links `dist/design-system.css` in the Chrome installed on the machine and checks the fonts, the heading sizes, the focus ring, the spacing and that a long unbroken word does not make the page scroll sideways at 390px. It needs Google Chrome and downloads no browser. It also runs `dist/check-dom.js` on the fixture pages and on a small React app, and checks that the rendered and static results agree. For the gallery page of each component and each pattern, at 390px and 1280px in light and dark, it runs axe and the structural rules on the do examples, measures the pointer targets, and writes a screenshot to `test/visual/screenshots/` for review. It also drives `<ds-tabs>`, `<ds-combobox>` and `<ds-command-palette>` from the keyboard.
+`npm run test:visual` opens a bare page that links `dist/design-system.css` in the Chrome installed on the machine and checks the fonts, the heading sizes, the focus ring, the spacing and that a long unbroken word does not make the page scroll sideways at 390px. It needs Google Chrome and downloads no browser. It also runs `dist/check-dom.js` on the fixture pages and on a small React app, and checks that the rendered and static results agree. For the gallery page of each component and each pattern, at 390px and 1280px in light and dark, it runs axe and the structural rules on the do examples, measures the pointer targets, and writes a screenshot to `test/visual/screenshots/` for review. It does the same for the index and ten pages under the Botbench theme, and checks on a bare page that a theme overrides the default values, that each `data-theme` value and the default mode give the expected background, and that a synced copy's `hashes.json` covers the theme files. It also drives `<ds-tabs>`, `<ds-combobox>` and `<ds-command-palette>` from the keyboard.
 
 `npm run vendor` copies the font files and the icons named in `base/icons.json` from the development dependencies into `base/`. Run it after changing the icon list or a package version.
 

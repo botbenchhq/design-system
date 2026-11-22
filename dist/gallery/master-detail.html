@@ -16,7 +16,10 @@
 <body>
 <header data-gallery="bar">
 <a href="index.html">Design system gallery</a>
-<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<div data-gallery="switches">
+<nav aria-label="Mode"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<nav aria-label="Theme"><a href="?brand=default" data-gallery-default="light">Default</a><a href="?brand=botbench" data-gallery-default="dark">Botbench</a></nav>
+</div>
 </header>
 <main data-gallery="page">
 <header>
@@ -111,9 +114,9 @@
         <div class="ds-stack ds-gap-sm">
           <h2 id="master-detail-selected-title">Remove the legacy invoice exporter</h2>
           <div class="ds-cluster">
-            <span class="ds-badge ds-badge--warning">
-              <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-alert"></use></svg>
-              Awaiting decision
+            <span class="ds-badge ds-badge--approval">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-pause"></use></svg>
+              Needs input
             </span>
             <span>Waiting on you for 1 hour 8 minutes</span>
           </div>

@@ -16,7 +16,10 @@
 <body>
 <header data-gallery="bar">
 <a href="index.html">Design system gallery</a>
-<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<div data-gallery="switches">
+<nav aria-label="Mode"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<nav aria-label="Theme"><a href="?brand=default" data-gallery-default="light">Default</a><a href="?brand=botbench" data-gallery-default="dark">Botbench</a></nav>
+</div>
 </header>
 <main data-gallery="page">
 <header>
@@ -341,17 +344,17 @@ RUNS src/billing/export.integration.test.ts
 <h2>Variants</h2>
 <dl>
 <dt>passed <code>ds-check-list__result--passed</code></dt>
-<dd>The check ran and passed. The word is Passed, beside a check mark in a circle.</dd>
+<dd>The check ran and passed. The word is Passed, beside a check mark in a circle. It is Check passed in the badge's status set.</dd>
 <dt>failed <code>ds-check-list__result--failed</code></dt>
-<dd>The check ran and failed. The word is Failed, or says how much failed, beside an alert mark. Its row holds the output.</dd>
+<dd>The check ran and failed. The word is Failed, or says how much failed, beside an alert mark. Its row holds the output. It is Check failed in the badge's status set.</dd>
 <dt>timed out <code>ds-check-list__result--timed-out</code></dt>
-<dd>The check was stopped because it ran past its time limit. It says nothing about whether the code is right, so it is not Failed. The words are Timed out after and the limit that was hit, such as Timed out after 10 min, beside a warning triangle.</dd>
+<dd>The check was stopped because it ran past its time limit. It says nothing about whether the code is right, so it is not Failed. The words are Timed out after and the limit that was hit, such as Timed out after 10 min, beside a clock, as a timed-out tool call shows it.</dd>
 <dt>running <code>ds-check-list__result--running</code></dt>
-<dd>The check has started and not finished. The word is Running, beside a turning mark.</dd>
+<dd>The check has started and not finished. The word is Running, beside a turning mark. It is Working in the badge's status set.</dd>
 <dt>skipped <code>ds-check-list__result--skipped</code></dt>
 <dd>The check did not run and will not. The words say Skipped and why, beside a barred circle.</dd>
 <dt>not started</dt>
-<dd>The default, with no modifier class. The check is waiting for its turn. The words are Not started, beside three dots.</dd>
+<dd>The default, with no modifier class. The check is waiting for its turn. The words are Not started, beside a dashed circle, the icon of Queued in the badge's status set.</dd>
 </dl>
 </section>
 <section>

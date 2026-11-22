@@ -1,0 +1,168 @@
+/*
+ * Botbench: a warm workbench theme with an amber primary action.
+ * Default mode: dark.
+ *
+ * With no data-theme attribute the page is dark. data-theme="light", "dark" and "auto" work as they do
+ * without the theme. Load this file after design-system.css: its rules are in the ds.theme layer, which
+ * the layer order puts after ds.tokens.
+ *
+ * The kit's palette is mapped onto the system's roles: background is surface, card is surface-raised,
+ * primary is accent, verified is success, destructive is danger, and needs-approval, blocked, peer and
+ * tainted input are approval, blocked, peer and tainted. Info, warning, the sunken surface, the strong
+ * border, the hover colour and the subtle backgrounds are not in the kit and were chosen to sit beside it.
+ *
+ * Radius: the kit's one 6px radius is radius-md, which cards, panels and buttons use, so it replaces 8px.
+ * radius-sm stays 4px, for badges, code blocks and the parts inside a 6px frame. radius-full is unchanged.
+ *
+ * Kit values changed, light mode. Dark mode keeps every kit value. The ratio is the pair that decided it.
+ *   accent    #D97706 -> #AD5D02  3.00:1 accent on surface and 3.19:1 white on accent, now 4.56:1 and 4.83:1.
+ *                                 Dark text on #D97706 passes, but no amber is both light enough for dark
+ *                                 text and dark enough to be read as text on the page, so light mode keeps
+ *                                 white text on a deeper amber.
+ *   focus     #D97706 -> #CC6F01  2.68:1 on surface-sunken, now 3.02:1.
+ *   success   #059669 -> #037A54  3.35:1 on success-subtle, now 4.76:1.
+ *   approval  #CE8507 -> #8F6202  2.53:1 on surface-sunken, now 4.50:1. The hue moves a little towards
+ *                                 yellow as well, so it stays apart from the accent (colour difference
+ *                                 10.1, where 7 at the kit's hue).
+ *   peer      #0891B2 -> #03748F  3.09:1 on surface-sunken, now 4.52:1.
+ *   tainted   #D3470D -> #BC4100  3.77:1 on surface-sunken, now 4.53:1, with the hue moved two degrees
+ *                                 towards yellow so it stays apart from danger (colour difference 11.2).
+ * Every pair of the accent and the eight status colours differs by at least 10 (CIEDE2000) in each mode.
+ *
+ * Three ambers. The accent is the brand amber of the primary button, checked states, the current tab
+ * and the focus ring; it is never a status. Approval is a lighter, yellower amber for Needs input, with
+ * the paused circle. Warning is lemon in dark and olive in light, for a caution that does not stop the
+ * work, with the triangle or the clock. Tainted input is orange. A status always carries its icon and
+ * its word, so none of them is told apart by colour alone.
+ */
+
+/* Generated from themes/botbench.css by npm run build. Load it after design-system.css. */
+
+@layer ds.reset, ds.tokens, ds.theme, ds.base, ds.components;
+
+@layer ds.theme {
+  :root {
+    --ds-color-accent: #AD5D02;
+    --ds-color-accent-hover: #914D01;
+    --ds-color-on-accent: #FFFFFF;
+    --ds-color-surface: #FAF8F4;
+    --ds-color-surface-raised: #FFFFFF;
+    --ds-color-surface-sunken: #EEEBE4;
+    --ds-color-on-surface: #121417;
+    --ds-color-muted: #535E6E;
+    --ds-color-border: #DDD8CE;
+    --ds-color-border-strong: #8F8B81;
+    --ds-color-focus: #CC6F01;
+    --ds-color-success: #037A54;
+    --ds-color-success-subtle: #DCF8E9;
+    --ds-color-warning: #736C02;
+    --ds-color-warning-subtle: #F3F2D7;
+    --ds-color-danger: #BA1C1C;
+    --ds-color-danger-subtle: #FEEBE8;
+    --ds-color-info: #2360E8;
+    --ds-color-info-subtle: #E9F0FF;
+    --ds-color-approval: #8F6202;
+    --ds-color-approval-subtle: #FEF3C7;
+    --ds-color-blocked: #6A31C4;
+    --ds-color-blocked-subtle: #F1EDFF;
+    --ds-color-peer: #03748F;
+    --ds-color-peer-subtle: #DCF5FE;
+    --ds-color-tainted: #BC4100;
+    --ds-color-tainted-subtle: #FFEBE5;
+    --ds-radius-md: 6px;
+  }
+
+  /* The default mode: with no data-theme attribute the page is dark. */
+  :root:not([data-theme]) {
+    --ds-color-accent: #F59E0B;
+    --ds-color-accent-hover: #E18A0F;
+    --ds-color-on-accent: #121417;
+    --ds-color-surface: #121417;
+    --ds-color-surface-raised: #181B20;
+    --ds-color-surface-sunken: #0D0F12;
+    --ds-color-on-surface: #F8FAFC;
+    --ds-color-muted: #94A3B8;
+    --ds-color-border: #2B313B;
+    --ds-color-border-strong: #646B76;
+    --ds-color-focus: #F59E0B;
+    --ds-color-success: #34D399;
+    --ds-color-success-subtle: #09291D;
+    --ds-color-warning: #FDE047;
+    --ds-color-warning-subtle: #292306;
+    --ds-color-danger: #F25050;
+    --ds-color-danger-subtle: #2F1614;
+    --ds-color-info: #60A5FA;
+    --ds-color-info-subtle: #132438;
+    --ds-color-approval: #FBBF24;
+    --ds-color-approval-subtle: #2D2106;
+    --ds-color-blocked: #B285F8;
+    --ds-color-blocked-subtle: #261D35;
+    --ds-color-peer: #06B6D4;
+    --ds-color-peer-subtle: #002830;
+    --ds-color-tainted: #FB7C2E;
+    --ds-color-tainted-subtle: #341C0F;
+    --ds-shadow-overlay: 0 8px 24px 0 rgb(0 0 0 / 0.5);
+  }
+
+  [data-theme="dark"] {
+    --ds-color-accent: #F59E0B;
+    --ds-color-accent-hover: #E18A0F;
+    --ds-color-on-accent: #121417;
+    --ds-color-surface: #121417;
+    --ds-color-surface-raised: #181B20;
+    --ds-color-surface-sunken: #0D0F12;
+    --ds-color-on-surface: #F8FAFC;
+    --ds-color-muted: #94A3B8;
+    --ds-color-border: #2B313B;
+    --ds-color-border-strong: #646B76;
+    --ds-color-focus: #F59E0B;
+    --ds-color-success: #34D399;
+    --ds-color-success-subtle: #09291D;
+    --ds-color-warning: #FDE047;
+    --ds-color-warning-subtle: #292306;
+    --ds-color-danger: #F25050;
+    --ds-color-danger-subtle: #2F1614;
+    --ds-color-info: #60A5FA;
+    --ds-color-info-subtle: #132438;
+    --ds-color-approval: #FBBF24;
+    --ds-color-approval-subtle: #2D2106;
+    --ds-color-blocked: #B285F8;
+    --ds-color-blocked-subtle: #261D35;
+    --ds-color-peer: #06B6D4;
+    --ds-color-peer-subtle: #002830;
+    --ds-color-tainted: #FB7C2E;
+    --ds-color-tainted-subtle: #341C0F;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-theme="auto"] {
+      --ds-color-accent: #F59E0B;
+      --ds-color-accent-hover: #E18A0F;
+      --ds-color-on-accent: #121417;
+      --ds-color-surface: #121417;
+      --ds-color-surface-raised: #181B20;
+      --ds-color-surface-sunken: #0D0F12;
+      --ds-color-on-surface: #F8FAFC;
+      --ds-color-muted: #94A3B8;
+      --ds-color-border: #2B313B;
+      --ds-color-border-strong: #646B76;
+      --ds-color-focus: #F59E0B;
+      --ds-color-success: #34D399;
+      --ds-color-success-subtle: #09291D;
+      --ds-color-warning: #FDE047;
+      --ds-color-warning-subtle: #292306;
+      --ds-color-danger: #F25050;
+      --ds-color-danger-subtle: #2F1614;
+      --ds-color-info: #60A5FA;
+      --ds-color-info-subtle: #132438;
+      --ds-color-approval: #FBBF24;
+      --ds-color-approval-subtle: #2D2106;
+      --ds-color-blocked: #B285F8;
+      --ds-color-blocked-subtle: #261D35;
+      --ds-color-peer: #06B6D4;
+      --ds-color-peer-subtle: #002830;
+      --ds-color-tainted: #FB7C2E;
+      --ds-color-tainted-subtle: #341C0F;
+    }
+  }
+}

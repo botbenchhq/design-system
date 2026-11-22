@@ -46,10 +46,10 @@ test.afterAll(() => server.close());
 // The clock of every gallery page stands still, so a time that counts up reads the same in every screenshot.
 const NOW = new Date("2026-11-22T12:00:00Z");
 
-async function open(page, name, { width = 1280, theme = "light" } = {}) {
+async function open(page, name, { width = 1280, theme = "light", brand = null } = {}) {
   await page.clock.setFixedTime(NOW);
   await page.setViewportSize({ width, height: 900 });
-  await page.goto(`${origin}/gallery/${name}.html?theme=${theme}`);
+  await page.goto(`${origin}/gallery/${name}.html?theme=${theme}${brand ? `&brand=${brand}` : ""}`);
   await page.evaluate(() => document.fonts.ready);
 }
 
@@ -130,6 +130,97 @@ for (const name of components) {
     expect(small.failures).toEqual([]);
   });
 }
+
+// The pages shown again under the Botbench theme, in both modes at both widths. The rest of the matrix is the default theme's.
+const BRAND = "botbench";
+const BRANDED = ["agent-run", "app-shell", "approval", "badge", "button", "tool-call", "run-timeline", "data-table", "dialog", "alert"];
+const brandSummary = JSON.parse(readFileSync(join(dist, "themes", `${BRAND}.json`), "utf8"));
+
+for (const name of ["index", ...BRANDED]) {
+  for (const width of WIDTHS) {
+    for (const theme of THEMES) {
+      test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: the page is recorded as a screenshot for review`, async ({ page }) => {
+        await open(page, name, { width, theme, brand: BRAND });
+        expect(await page.locator("html").getAttribute("data-theme")).toBe(theme);
+        const background = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ds-color-surface").trim());
+        expect(background).toBe(brandSummary.themeColor[theme]);
+        await expect(page.locator('[data-gallery="bar"] nav[aria-label="Theme"] a[aria-current="true"]')).toHaveText("Botbench");
+        await forceStates(page);
+        await page.screenshot({ path: join(screenshots, `${name}-${width}-${theme}-${BRAND}.png`), fullPage: true, animations: "disabled" });
+      });
+
+      if (name === "index") continue;
+
+      test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: axe finds no violation in the do examples`, async ({ page }) => {
+        await open(page, name, { width, theme, brand: BRAND });
+        const { violations } = await new AxeBuilder({ page }).include(DO).analyze();
+        expect(violations.map((violation) => ({ id: violation.id, nodes: violation.nodes.map((node) => node.target.join(" ")) }))).toEqual([]);
+      });
+
+      test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: each do example passes the structural rules`, async ({ page }) => {
+        await open(page, name, { width, theme, brand: BRAND });
+        await page.addScriptTag({ path: join(dist, "check-dom.js") });
+        const findings = await page.evaluate(
+          (selector) =>
+            [...document.querySelectorAll(selector)].flatMap((example) =>
+              dsCheckDom(example).map((finding) => ({ example: example.dataset.example, ...finding })),
+            ),
+          DO,
+        );
+        expect(findings).toEqual([]);
+      });
+    }
+  }
+
+  if (name === "index") continue;
+
+  test(`${name} at 390px under the ${BRAND} theme: every control in a do example has a pointer target of at least 44px each way`, async ({ page }) => {
+    await open(page, name, { width: 390, theme: brandSummary.defaultMode, brand: BRAND });
+    const small = await page.evaluate(
+      ({ examples, interactive, reach }) => {
+        const failures = [];
+        const controls = [...document.querySelectorAll(examples)]
+          .flatMap((example) => [...example.querySelectorAll(interactive)])
+          .filter((control) => control.checkVisibility());
+        for (const control of controls) {
+          control.scrollIntoView({ block: "center" });
+          const box = control.getBoundingClientRect();
+          const x = box.left + box.width / 2;
+          const y = box.top + box.height / 2;
+          const hit = [[x - reach, y], [x + reach, y], [x, y - reach], [x, y + reach]].every(([left, top]) =>
+            control.contains(document.elementFromPoint(left, top)),
+          );
+          if (!hit) failures.push(control.outerHTML.slice(0, 120));
+        }
+        return { checked: controls.length, failures };
+      },
+      { examples: DO, interactive: INTERACTIVE, reach: TOUCH / 2 - 1 },
+    );
+    expect(small.failures).toEqual([]);
+  });
+}
+
+test("the gallery bar carries the mode and the theme along every link, and a theme page with no mode shows the theme's default", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(`${origin}/gallery/badge.html?brand=${BRAND}`);
+  expect(await page.locator("html").getAttribute("data-theme")).toBe(null);
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ds-color-surface").trim())).toBe(brandSummary.themeColor.dark);
+  await expect(page.locator('[data-gallery="bar"] nav[aria-label="Mode"] a[aria-current="true"]')).toHaveText("Dark");
+  expect(await page.locator('[data-gallery="bar"] nav[aria-label="Mode"] a').evaluateAll((links) => links.map((link) => link.search))).toEqual([
+    `?theme=light&brand=${BRAND}`,
+    `?theme=dark&brand=${BRAND}`,
+  ]);
+  expect(await page.locator('[data-gallery="bar"] nav[aria-label="Theme"] a').evaluateAll((links) => links.map((link) => link.search))).toEqual([
+    "?theme=dark",
+    `?theme=dark&brand=${BRAND}`,
+  ]);
+  expect(await page.locator('[data-gallery="bar"] > a').evaluate((link) => link.search)).toBe(`?theme=dark&brand=${BRAND}`);
+  expect(await page.locator('link[rel="stylesheet"]').evaluateAll((links) => links.map((link) => new URL(link.href).pathname))).toEqual([
+    "/design-system.css",
+    "/gallery/gallery.css",
+    `/themes/${BRAND}.css`,
+  ]);
+});
 
 test("the small button is drawn 32px tall and still takes a press 20px above its centre", async ({ page }) => {
   await open(page, "button", { width: 390 });

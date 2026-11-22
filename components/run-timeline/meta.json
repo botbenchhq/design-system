@@ -21,7 +21,7 @@
   "states": ["running", "waiting", "failed", "not-started", "done"],
   "accessibility": [
     "Use an ol with the class ds-run-timeline and an aria-label that names the run. Each station is an li with ds-run-timeline__station. A screen reader announces the count and each station's place.",
-    "The app sets data-state on each li: done, running, waiting, failed or not-started. The stylesheet draws a mark of its own shape for each, and nothing else decides how a station looks.",
+    "The app sets data-state on each li: done, running, waiting, failed or not-started. The stylesheet draws a mark of its own shape for each, and nothing else decides how a station looks. not-started, running, waiting and failed take the icon and tone of Queued, Working, Needs input and Check failed in the badge's status set.",
     "Set aria-current=\"step\" on the li of the station the run is at, whatever its state: running, waiting or failed. A run that has not started, or has passed its last station, has none.",
     "ds-run-timeline__name holds the name of the station. The names are the app's own: Plan, Build, Verify, Review and Decide are only an example.",
     "ds-run-timeline__status holds the state in words, written by the app, with a time where there is one: Done · 1 min 4 s, Running · 4 min 12 s, Waiting on you, Failed · 2 min 10 s, Not started. The mark and the colour only add to those words.",

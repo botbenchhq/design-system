@@ -73,7 +73,7 @@ test("components.json has one entry per folder, each with every metadata field a
   const { components } = JSON.parse(readFileSync(join(dist, "components.json"), "utf8"));
   assert.deepEqual(components.map((component) => component.name), folders);
   for (const component of components) {
-    assert.deepEqual(Object.keys(component), [...META_FIELDS, "examples"]);
+    assert.deepEqual(Object.keys(component), [...META_FIELDS, ...(component.statusSet ? ["statusSet"] : []), "examples"]);
     assert.ok(["draft", "stable"].includes(component.status));
     assert.ok(component.examples.length > 0);
     for (const example of component.examples) {
@@ -255,7 +255,7 @@ test("the check list has a timed-out result, in words with the limit and its own
   assert.match(html, /<span class="ds-check-list__result ds-check-list__result--timed-out">Timed out after 10 min<\/span>/);
   assert.doesNotMatch(html, /ds-check-list__result--failed/);
   const mark = (modifier) => list.css.match(new RegExp(`\\.ds-check-list__result--${modifier}::before \\{\\s*mask-image: url\\("icons/([a-z-]+)\\.svg"\\)`))[1];
-  assert.equal(mark("timed-out"), "triangle-alert");
+  assert.equal(mark("timed-out"), "clock");
   assert.notEqual(mark("timed-out"), mark("failed"));
 });
 

@@ -6,11 +6,14 @@ This repo is a shared design system. Apps copy `dist/` into their own repo and u
 
 - `dist/` is generated. Never edit a file in it by hand. Change the source, run `npm run build`, and commit the source and the regenerated `dist/` together.
 - `tokens/tokens.css` is the single source for tokens. The Tailwind preset, the token data file, the design token block and the manifest are all derived from it by `scripts/build.mjs`.
+- `themes/<name>.css` is a theme, written by hand: values for existing token names in light and dark, in the selector shape of `tokens/tokens.css`, inside `@layer ds.theme`, which the layer order puts after `ds.tokens`. "Default mode: dark" in its first comment makes a page with no `data-theme` dark. The build fails, naming the theme, when it adds a name, lacks a mode, sets for light alone a colour the default sets in both, or fails a pair in `tokens/pairs.json` in either mode with its values resolved over the default ones. It writes `dist/themes/<name>.css`, `.design-tokens.md`, `.tokens.json` and `.json`. The Tailwind preset has nothing per theme.
+- A theme that does not set a token takes the default theme's value for it, and every pair is checked against each theme, so a new token or a new pair can fail a theme's build. Give the theme a value then.
 - The token vocabulary is closed. Do not add a token name to solve a local problem. A theme changes values only.
 - Every custom property starts with `--ds-` and every class starts with `ds-`.
 - Colour tokens are six-digit hex. No `rgb()`, `oklch()`, `color-mix()` or `light-dark()` in a colour token, because consumers parse computed values as `#rrggbb`.
 - A dark value goes in both the `[data-theme="dark"]` block and the `[data-theme="auto"]` block. The build fails if the two differ.
-- A new text and background combination needs an entry in `tokens/pairs.json`. The build fails when a text pair is below 4.5:1 or a `ui` pair is below 3:1, in either theme.
+- A new text and background combination needs an entry in `tokens/pairs.json`. The build fails when a text pair is below 4.5:1 or a `ui` pair is below 3:1, in either mode, for the default theme and for every theme in `themes/`.
+- The badge's `statusSet` in `meta.json` is the one icon and tone for each state of a run. `run-status`, `run-timeline`, `check-list`, `tool-call`, `step-group` and `now-doing` draw a state of that set with its icon and tone, and a test checks it. Change the set there and in those components together.
 - The one breakpoint is 768px. A custom property cannot be used in a media query, so write the number there.
 - `base/` holds the reset, typography, layout primitives, the visually hidden class, focus ring, fonts and icons. The build bundles them with the tokens into `dist/design-system.css` and copies fonts and icons into `dist/`.
 - `components/<name>/` is one component: `<name>.css`, `examples.html` and `meta.json`, all written by hand. `docs/authoring.md` is the contract for them. Read it before adding or changing a component.
@@ -21,7 +24,7 @@ This repo is a shared design system. Apps copy `dist/` into their own repo and u
 - A component whose state has no native or ARIA form takes it from a `data-state` attribute the app sets, with the values listed in its metadata: a tool call's lifecycle, a streaming message, a station of a run. The examples of such a state carry the same value in the wrapper's `data-state`. Every label is app text in the markup, never in the stylesheet.
 - No behaviour module opens or closes a step group. The rule is the app's to apply, and the step group's metadata states it.
 - The gallery script moves the start of every `<ds-elapsed>` in an example by the time since the instant the examples were written at, and the browser tests hold the clock still, so a time that counts up reads the same in every screenshot. Write an example's `datetime` a little before 2026-11-22T10:00:00Z.
-- `gallery/` holds the gallery's own stylesheet and script. They select by element and `data-gallery` attribute, use token values only, and are not part of the system.
+- `gallery/` holds the gallery's own stylesheet and script. They select by element and `data-gallery` attribute, use token values only, and are not part of the system. `?theme=dark` sets the mode and `?brand=<name>` loads a theme from `dist/themes/`.
 - `behaviors/` holds the optional scripts the system ships, copied to `dist/behaviors/`. Each is a single ES module with no dependencies that defines one element for an app without a framework: `tabs.js` defines `<ds-tabs>`, `combobox.js` defines `<ds-combobox>`, `command-palette.js` defines `<ds-command-palette>`, `elapsed.js` defines `<ds-elapsed>` and `transcript.js` defines `<ds-transcript>`. A framework app loads none of them and sets the same ARIA attributes itself. A module sets attributes only, never a class or an inline style, and is harmless when loaded twice. `<ds-elapsed>` and `<ds-transcript>` also write text the app gave them the words for, and `<ds-transcript>` sets the scroll position. Every gallery page loads every module in `behaviors/`, in alphabetical order.
 - `checker/` is the checker, shipped as source in `dist/checker/`. It has no dependencies.
 - `scripts/migrate-prefix.mjs` is the codemod that moves an app from the `gw` prefix of 0.5 to `ds`. The build copies it to `dist/migrate-prefix.mjs`. It has no dependencies. The checker's `old-prefix` rule reports a name that still has the old prefix.
@@ -40,7 +43,7 @@ This repo is a shared design system. Apps copy `dist/` into their own repo and u
 ## Commands
 
 - `npm run build` regenerates `dist/` and prints the contrast report.
-- `npm run test:visual` runs the browser tests in the installed Chrome, including the structural rules on rendered pages. For the gallery it runs axe, measures pointer targets and rewrites the screenshots in `test/visual/screenshots/`, which are committed for review.
+- `npm run test:visual` runs the browser tests in the installed Chrome, including the structural rules on rendered pages. For the gallery it runs axe, measures pointer targets and rewrites the screenshots in `test/visual/screenshots/`, which are committed for review. A fixed list of pages is also shot under the Botbench theme, named `<page>-<width>-<mode>-botbench.png`.
 - `npm test` runs the tests. One of them rebuilds into a temporary directory and fails, naming the file, if the committed `dist/` is stale.
 
 Before finishing, run `npm run build` and then `npm test`. After changing a component or the gallery, run `npm run test:visual` too and look at the screenshots. `git status` must show no change in `dist/` that you have not accounted for.

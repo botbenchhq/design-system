@@ -20,6 +20,12 @@
     background-color: var(--ds-color-surface-raised);
   }
 
+  [data-gallery="switches"] {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--ds-space-lg);
+  }
+
   [data-gallery="bar"] nav {
     display: flex;
   }

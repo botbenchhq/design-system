@@ -32,7 +32,7 @@ test("a raw colour in CSS fails with the file, line, rule and nearest token", ()
   const line = stdout.split("\n").find((text) => text.includes("raw-color"));
   assert.match(line, /^css\/raw-color\.css:3\b/);
   assert.match(line, /#6366f1/);
-  assert.match(line, /var\(--ds-color-focus\)/);
+  assert.match(line, /var\(--ds-color-blocked\)/);
 });
 
 test("an off-scale padding fails, and a spacing token or zero passes", () => {

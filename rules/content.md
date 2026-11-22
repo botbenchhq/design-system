@@ -10,7 +10,27 @@ How to write the words in an interface.
 - **No filler and no marketing phrases.** Cut "simply", "just", "easily", "seamless", "powerful", "Welcome to" and "Oops". If a sentence can go without loss, it goes.
 - **Real content, never placeholder text.** Write the examples a real screen would hold: a real-looking branch name, a real task title. No lorem ipsum, no "Item 1", no "John Doe".
 - **A number comes with its unit and its context.** "3 of 12 tests failed", "412 ms", "$0.84 for this run". A bare "3" or "84%" needs a label that says of what.
-- **Status is written in words.** "Building", "Awaiting decision", "Blocked by a failed check". A colour or an icon supports the word and never replaces it.
+- **Status is written in words.** "Working", "Needs input", "Check failed". A colour or an icon supports the word and never replaces it.
+
+## The status set
+
+The states of a run each have one icon and one tone, listed in the `statusSet` of the `badge` entry in `components.json`. The words are the app's, so "Building" may stand for Working, but the icon and the tone are the state's, in every component that shows it: `badge`, `run-status`, `run-timeline`, `check-list` and `tool-call`.
+
+| State | Icon | Tone |
+|---|---|---|
+| Queued | circle-dashed | neutral |
+| Working | loader | info |
+| Checking | search | info |
+| Needs input | circle-pause | approval |
+| Ready for review | eye | success |
+| Stopped | circle-stop | blocked |
+| Cancelled | circle-slash | neutral |
+| Check passed | circle-check | success |
+| Check failed | circle-alert | danger |
+
+- **One state, one icon.** Never show a state with another icon or another tone, and never give two states the same pair.
+- **Pick the state, then the words.** Waiting on the reader's answer is Needs input, whether the answer is an approval, a reply or a decision. Ended early and able to resume is Stopped. Will not go on is Cancelled.
+- **A timeout is not a failure.** A check or a tool call that ran out of time takes a clock and the warning tone, with words that name the limit: "Timed out after 10 min".
 
 ## Smaller points
 

@@ -54,7 +54,7 @@
   }
 
   .ds-now-doing[data-state="waiting"] > .ds-now-doing__text::before {
-    background-color: var(--ds-color-warning);
+    background-color: var(--ds-color-approval);
     mask-image: url("icons/circle-pause.svg");
   }
 

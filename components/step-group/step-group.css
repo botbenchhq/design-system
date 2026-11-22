@@ -73,7 +73,7 @@
   }
 
   .ds-step-group__callout[data-state="awaiting-approval"] {
-    color: var(--ds-color-warning);
+    color: var(--ds-color-approval);
   }
 
   .ds-step-group__callout[data-state="awaiting-approval"]::before {

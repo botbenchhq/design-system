@@ -161,9 +161,19 @@ The build bundles pattern stylesheets into `dist/design-system.css` after every 
 
 In the gallery a pattern has a page of its own, listed after the components on the index. Its examples run down the page in one column, not two abreast, because each is a whole screen. `data-gallery-frame` on an example gives it room and keeps anything fixed inside it. Name every pattern in `rules/choosing-components.md`, with when to start from it.
 
+## Themes
+
+A component never knows which theme is loaded. It takes every value from a token, so a theme in `themes/` restyles it by changing token values, and the component needs nothing for it. Do not test for a theme in a stylesheet, and do not add a token for one component.
+
+A theme is `themes/<name>.css`: values for existing token names in light and dark, in the selector shape of `tokens/tokens.css`, inside `@layer ds.theme`. "Default mode: dark" in its first comment makes a page with no `data-theme` dark. The build checks that it adds no name, sets both modes and passes every pair in `tokens/pairs.json` in both modes, then writes its stylesheet, its token block, its token data and its summary to `dist/themes/`. `docs/consumer-guide.md` has the full list of checks.
+
+A new status colour is a token, added to `tokens/tokens.css` with its pairs in `tokens/pairs.json`, and then given a value in every theme, since the build checks each theme against every pair.
+
+The gallery loads a theme with `?brand=<name>`, beside `?theme=dark` for the mode, and the bar has a link for each. `npm run test:visual` screenshots a fixed list of pages under the Botbench theme, in light and dark at both widths, and runs axe, the structural rules and the pointer-target check on them.
+
 ## The metadata
 
-`meta.json` holds exactly these fields. All are required. A list may be empty.
+`meta.json` holds these fields. All are required. A list may be empty.
 
 | Field | Type | Holds |
 |---|---|---|
@@ -179,6 +189,8 @@ In the gallery a pattern has a page of its own, listed after the components on t
 | `accessibility` | list of text | The element to use, the attributes to set, what the keyboard does. |
 | `icons` | list of text | Every icon the examples reference and the stylesheet draws. Each is in `base/icons.json`. |
 | `classes` | list of text | Every class the stylesheet defines: the block, its parts and its modifiers. |
+
+One field is optional. `statusSet` is a list of `{ "state", "icon", "tone", "use" }`: a fixed set of states, each with one icon and one tone, that other components reuse. The tone is the name of one of the component's variants and the icon is in its `icons` list. The build fails when two states share an icon or a tone is not a variant. Only `badge` has one: it is the status set of a run, and `run-status`, `run-timeline`, `check-list` and `tool-call` draw the same icon and tone for the same state, which a test checks.
 
 An entry in `variants` or `sizes` is `{ "name", "class", "use" }`: the name, the modifier class that selects it and when to choose it. Leave out `class` for the default, which needs no modifier.
 
@@ -200,7 +212,8 @@ The build stops, naming the folder, when:
 - `examples.html` holds anything outside an element with `data-example`, an example has no `data-title`, or two share an id;
 - there is no do example, no don't example, a don't without `data-reason`, or no do with `data-reason`;
 - a state in `meta.json` has no do example with that `data-state`;
-- the `icons` list differs from the icons actually used, or names an icon `base/icons.json` does not have.
+- the `icons` list differs from the icons actually used, or names an icon `base/icons.json` does not have;
+- a `statusSet` gives two states one icon, or names a tone that is not a variant or an icon the `icons` list leaves out.
 
 ## Running the checks
 

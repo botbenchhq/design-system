@@ -26,7 +26,7 @@ const editJson = (file, change) => edit(file, (json) => JSON.stringify(change(JS
 function laterRelease() {
   const dir = tempDir();
   cpSync(dist, dir, { recursive: true });
-  writeFileSync(join(dir, "VERSION"), "0.7.0\n");
+  writeFileSync(join(dir, "VERSION"), "0.8.0\n");
   editJson(join(dir, "manifest.json"), (manifest) => ({
     ...manifest,
     rules: [...manifest.rules.filter((id) => id !== "stock-phrase"), "placeholder-as-label"],
@@ -56,15 +56,15 @@ function guideBlock(language, marker) {
 }
 
 test("the build writes the package version to dist/VERSION", () => {
-  assert.equal(version, "0.6.0");
-  assert.equal(readFileSync(join(dist, "VERSION"), "utf8"), "0.6.0\n");
+  assert.equal(version, "0.7.0");
+  assert.equal(readFileSync(join(dist, "VERSION"), "utf8"), "0.7.0\n");
 });
 
 test("syncing into an empty directory produces a copy whose hashes verify", () => {
   const target = join(tempDir(), "vendor", "design-system");
   const { status, stdout } = sync(["--to", target]);
   assert.equal(status, 0);
-  assert.match(stdout, /^The design system 0\.6\.0, first sync into /);
+  assert.match(stdout, /^The design system 0\.7\.0, first sync into /);
 
   const { files } = JSON.parse(readFileSync(join(target, "hashes.json"), "utf8"));
   assert.deepEqual(Object.keys(files), listFiles(dist));
@@ -82,7 +82,7 @@ test("syncing a newer version over an older one prints the component, pattern an
   const { status, stdout } = sync(["--to", target, "--from", laterRelease()]);
   assert.equal(status, 0);
   const lines = stdout.trim().split("\n");
-  assert.match(lines[0], /^The design system 0\.6\.0 -> 0\.7\.0 in /);
+  assert.match(lines[0], /^The design system 0\.7\.0 -> 0\.8\.0 in /);
   assert.deepEqual(lines.slice(1, 9), [
     "Components added: chart",
     "Components changed: button",
@@ -94,7 +94,7 @@ test("syncing a newer version over an older one prints the component, pattern an
     "Rules removed: stock-phrase",
   ]);
   assert.match(lines[9], /^Wrote \d+ files/);
-  assert.equal(readFileSync(join(target, "VERSION"), "utf8"), "0.7.0\n");
+  assert.equal(readFileSync(join(target, "VERSION"), "utf8"), "0.8.0\n");
   // The sample output in the guide has the same lines, in the same order.
   const sample = guide.match(/^The design system 0\.1\.0 -> 0\.2\.0 in [\s\S]*?^```$/m)[0].split("\n");
   assert.deepEqual(sample.slice(1, 9).map((line) => line.split(":")[0]), lines.slice(1, 9).map((line) => line.split(":")[0]));
@@ -127,7 +127,7 @@ test("syncing into a directory with locally modified files stops and names them"
   assert.match(stderr, /^  checker\/rules\/tells\.mjs$/m);
   assert.equal(stdout, "");
   assert.equal(readFileSync(join(target, "design-system.css"), "utf8"), edited);
-  assert.equal(readFileSync(join(target, "VERSION"), "utf8"), "0.6.0\n");
+  assert.equal(readFileSync(join(target, "VERSION"), "utf8"), "0.7.0\n");
 });
 
 test("syncing into a directory that holds files and is not a synced copy stops", () => {
@@ -145,7 +145,7 @@ test("syncing the same version twice changes nothing", () => {
   const before = Object.fromEntries(["hashes.json", ...listFiles(dist)].map((name) => [name, statSync(join(target, name)).mtimeMs]));
   const { status, stdout } = sync(["--to", target]);
   assert.equal(status, 0);
-  assert.match(stdout, /is already at 0\.6\.0\. Nothing to change\.\n$/);
+  assert.match(stdout, /is already at 0\.7\.0\. Nothing to change\.\n$/);
   assert.deepEqual(listFiles(target), ["hashes.json", ...listFiles(dist)].sort());
   for (const [name, time] of Object.entries(before)) assert.equal(statSync(join(target, name)).mtimeMs, time, name);
 });
@@ -155,7 +155,7 @@ test("the freshness check says so when the source is newer, and is silent when i
   sync(["--to", target]);
   const newer = sync(["--check", "--to", target, "--from", laterRelease()]);
   assert.equal(newer.status, 0);
-  assert.match(newer.stdout, /^The design system 0\.7\.0 is available\. .* holds 0\.6\.0\./);
+  assert.match(newer.stdout, /^The design system 0\.8\.0 is available\. .* holds 0\.7\.0\./);
 
   const same = sync(["--check", "--to", target]);
   assert.deepEqual([same.status, same.stdout], [0, ""]);

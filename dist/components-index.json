@@ -140,9 +140,13 @@
     "status": "draft",
     "classes": [
       "ds-badge",
+      "ds-badge--approval",
+      "ds-badge--blocked",
       "ds-badge--danger",
       "ds-badge--info",
+      "ds-badge--peer",
       "ds-badge--success",
+      "ds-badge--tainted",
       "ds-badge--warning",
       "ds-badge__icon"
     ]

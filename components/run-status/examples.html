@@ -6,7 +6,7 @@
           <span class="ds-run-status__title">Paginate the audit log</span>
           <span class="ds-run-status__station">
             <span class="ds-badge">
-              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-ellipsis"></use></svg>
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-dashed"></use></svg>
               Queued
             </span>
           </span>
@@ -21,7 +21,7 @@
           <span class="ds-run-status__station">
             <span class="ds-badge ds-badge--info">
               <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-loader"></use></svg>
-              Building
+              Working
             </span>
           </span>
           <span class="ds-run-status__facts">Claude Code, implementer · <time class="ds-run-status__elapsed" datetime="PT4M12S">4 min 12 s</time></span>
@@ -35,7 +35,7 @@
           <span class="ds-run-status__station">
             <span class="ds-badge ds-badge--info">
               <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-search"></use></svg>
-              Verifying
+              Checking
             </span>
           </span>
           <span class="ds-run-status__facts">Test runner · <time class="ds-run-status__elapsed" datetime="PT11M">11 min</time></span>
@@ -47,12 +47,12 @@
         <span class="ds-run-status">
           <span class="ds-run-status__title">Move session storage to Redis</span>
           <span class="ds-run-status__station">
-            <span class="ds-badge ds-badge--info">
-              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
-              Reviewing
+            <span class="ds-badge ds-badge--success">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-eye"></use></svg>
+              Ready for review
             </span>
           </span>
-          <span class="ds-run-status__facts">Claude Code, reviewer · <time class="ds-run-status__elapsed" datetime="PT26M">26 min</time></span>
+          <span class="ds-run-status__facts">Waiting on your review · <time class="ds-run-status__elapsed" datetime="PT26M">26 min</time></span>
         </span>
       </a>
     </li>
@@ -61,9 +61,9 @@
         <span class="ds-run-status">
           <span class="ds-run-status__title">Remove the legacy invoice exporter</span>
           <span class="ds-run-status__station">
-            <span class="ds-badge ds-badge--warning">
-              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-alert"></use></svg>
-              Awaiting decision
+            <span class="ds-badge ds-badge--approval">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-pause"></use></svg>
+              Needs input
             </span>
           </span>
           <span class="ds-run-status__facts">Waiting on you · <time class="ds-run-status__elapsed" datetime="PT1H8M">1 h 8 min</time></span>
@@ -78,12 +78,12 @@
         <span class="ds-run-status">
           <span class="ds-run-status__title">Add dark theme to the settings screen</span>
           <span class="ds-run-status__station">
-            <span class="ds-badge ds-badge--warning">
-              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-triangle-alert"></use></svg>
-              Blocked
+            <span class="ds-badge ds-badge--danger">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-alert"></use></svg>
+              Check failed
             </span>
           </span>
-          <span class="ds-run-status__facts">Waiting on a failed check in acme/web · <time class="ds-run-status__elapsed" datetime="PT2H40M">2 h 40 min</time></span>
+          <span class="ds-run-status__facts">2 of 14 checks failed in acme/web · <time class="ds-run-status__elapsed" datetime="PT2H40M">2 h 40 min</time></span>
         </span>
       </a>
     </li>
@@ -92,9 +92,9 @@
         <span class="ds-run-status">
           <span class="ds-run-status__title">Fix the login timeout</span>
           <span class="ds-run-status__station">
-            <span class="ds-badge ds-badge--danger">
-              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-x"></use></svg>
-              Interrupted
+            <span class="ds-badge ds-badge--blocked">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-stop"></use></svg>
+              Stopped
             </span>
           </span>
           <span class="ds-run-status__facts">Stopped when the runner restarted · <time class="ds-run-status__elapsed" datetime="PT18M">18 min</time></span>
@@ -105,16 +105,30 @@
       </div>
     </li>
     <li class="ds-list__row">
+      <a class="ds-list__link" href="/runs/2286">
+        <span class="ds-run-status">
+          <span class="ds-run-status__title">Rename the billing webhook events</span>
+          <span class="ds-run-status__station">
+            <span class="ds-badge">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-slash"></use></svg>
+              Cancelled
+            </span>
+          </span>
+          <span class="ds-run-status__facts">Replaced by run 2289 · <time class="ds-run-status__elapsed" datetime="PT3M">3 min</time></span>
+        </span>
+      </a>
+    </li>
+    <li class="ds-list__row">
       <a class="ds-list__link" href="/runs/2289">
         <span class="ds-run-status">
           <span class="ds-run-status__title">Fix the off-by-one in the retry counter</span>
           <span class="ds-run-status__station">
             <span class="ds-badge ds-badge--success">
               <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>
-              Decided
+              Check passed
             </span>
           </span>
-          <span class="ds-run-status__facts">Accepted by you · <time class="ds-run-status__elapsed" datetime="PT35M">35 min</time></span>
+          <span class="ds-run-status__facts">14 of 14 checks passed · <time class="ds-run-status__elapsed" datetime="PT35M">35 min</time></span>
         </span>
       </a>
     </li>
@@ -130,7 +144,7 @@
           <span class="ds-run-status__station">
             <span class="ds-badge ds-badge--info">
               <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-loader"></use></svg>
-              Building
+              Working
             </span>
           </span>
           <span class="ds-run-status__facts">Claude Code, implementer · <time class="ds-run-status__elapsed" datetime="PT4M12S">4 min 12 s</time></span>
@@ -144,7 +158,7 @@
           <span class="ds-run-status__station">
             <span class="ds-badge ds-badge--info">
               <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-search"></use></svg>
-              Verifying
+              Checking
             </span>
           </span>
           <span class="ds-run-status__facts">Test runner · <time class="ds-run-status__elapsed" datetime="PT11M">11 min</time></span>
@@ -158,10 +172,10 @@
           <span class="ds-run-status__station">
             <span class="ds-badge ds-badge--success">
               <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-check"></use></svg>
-              Decided
+              Check passed
             </span>
           </span>
-          <span class="ds-run-status__facts">Accepted by you · <time class="ds-run-status__elapsed" datetime="PT35M">35 min</time></span>
+          <span class="ds-run-status__facts">14 of 14 checks passed · <time class="ds-run-status__elapsed" datetime="PT35M">35 min</time></span>
         </span>
       </div>
     </li>
@@ -177,7 +191,7 @@
           <span class="ds-run-status__station">
             <span class="ds-badge ds-badge--info">
               <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-loader"></use></svg>
-              Building
+              Working
             </span>
           </span>
           <span class="ds-run-status__facts">Claude Code, implementer · <time class="ds-run-status__elapsed" datetime="PT52S">52 s</time></span>
@@ -189,9 +203,9 @@
         <span class="ds-run-status">
           <span class="ds-run-status__title">Regenerate the OpenAPI client after the billing schema change and fix the call sites that no longer compile</span>
           <span class="ds-run-status__station">
-            <span class="ds-badge ds-badge--danger">
-              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-x"></use></svg>
-              Interrupted
+            <span class="ds-badge ds-badge--blocked">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-stop"></use></svg>
+              Stopped
             </span>
           </span>
           <span class="ds-run-status__facts">Stopped by you · <time class="ds-run-status__elapsed" datetime="PT7M">7 min</time></span>
@@ -213,7 +227,7 @@
           <span class="ds-run-status__station">
             <span class="ds-badge ds-badge--info">
               <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-loader"></use></svg>
-              Building
+              Working
             </span>
           </span>
           <span class="ds-run-status__facts">Claude Code, implementer · <time class="ds-run-status__elapsed" datetime="PT4M12S">4 min 12 s</time></span>
@@ -225,9 +239,9 @@
         <span class="ds-run-status">
           <span class="ds-run-status__title">Remove the legacy invoice exporter</span>
           <span class="ds-run-status__station">
-            <span class="ds-badge ds-badge--warning">
-              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-alert"></use></svg>
-              Awaiting decision
+            <span class="ds-badge ds-badge--approval">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-pause"></use></svg>
+              Needs input
             </span>
           </span>
           <span class="ds-run-status__facts">Waiting on you · <time class="ds-run-status__elapsed" datetime="PT1H8M">1 h 8 min</time></span>
@@ -249,7 +263,7 @@
           <span class="ds-run-status__station">
             <span class="ds-badge ds-badge--info">
               <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-loader"></use></svg>
-              Building
+              Working
             </span>
           </span>
           <span class="ds-run-status__facts">Claude Code, implementer · <time class="ds-run-status__elapsed" datetime="PT4M12S">4 min 12 s</time></span>
@@ -266,12 +280,12 @@
         <span class="ds-run-status">
           <span class="ds-run-status__title">Move session storage to Redis</span>
           <span class="ds-run-status__station">
-            <span class="ds-badge ds-badge--info">
-              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-file"></use></svg>
-              Reviewing
+            <span class="ds-badge ds-badge--success">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-eye"></use></svg>
+              Ready for review
             </span>
           </span>
-          <span class="ds-run-status__facts">Claude Code, reviewer · <time class="ds-run-status__elapsed" datetime="PT26M">26 min</time></span>
+          <span class="ds-run-status__facts">Waiting on your review · <time class="ds-run-status__elapsed" datetime="PT26M">26 min</time></span>
         </span>
       </a>
     </li>
@@ -285,9 +299,9 @@
         <span class="ds-run-status">
           <span class="ds-run-status__title">Remove the legacy invoice exporter</span>
           <span class="ds-run-status__station">
-            <span class="ds-badge ds-badge--warning">
-              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-alert"></use></svg>
-              Awaiting decision
+            <span class="ds-badge ds-badge--approval">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-pause"></use></svg>
+              Needs input
             </span>
           </span>
           <span class="ds-run-status__facts">Waiting on you · <time class="ds-run-status__elapsed" datetime="PT1H8M">1 h 8 min</time></span>
@@ -302,9 +316,9 @@
         <span class="ds-run-status">
           <span class="ds-run-status__title">Fix the login timeout</span>
           <span class="ds-run-status__station">
-            <span class="ds-badge ds-badge--danger">
-              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-x"></use></svg>
-              Interrupted
+            <span class="ds-badge ds-badge--blocked">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-stop"></use></svg>
+              Stopped
             </span>
           </span>
           <span class="ds-run-status__facts">Stopped when the runner restarted · <time class="ds-run-status__elapsed" datetime="PT18M">18 min</time></span>
@@ -317,7 +331,7 @@
   </ul>
 </div>
 
-<div data-example="station-without-words" data-title="A station shown by colour and icon alone" data-dont="review" data-reason="A blue mark and an amber mark do not say Building and Blocked, and a reader who cannot tell the colours apart sees two rows in the same state. The badge always holds the station as words.">
+<div data-example="station-without-words" data-title="A station shown by colour and icon alone" data-dont="review" data-reason="A blue mark and an amber mark do not say Working and Needs input, and a reader who cannot tell the colours apart sees two rows in the same state. The badge always holds the station as words.">
   <ul class="ds-list">
     <li class="ds-list__row">
       <a class="ds-list__link" href="/runs/2295">
@@ -337,11 +351,11 @@
         <span class="ds-run-status">
           <span class="ds-run-status__title">Add dark theme to the settings screen</span>
           <span class="ds-run-status__station">
-            <span class="ds-badge ds-badge--warning">
-              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-triangle-alert"></use></svg>
+            <span class="ds-badge ds-badge--approval">
+              <svg class="ds-badge__icon" aria-hidden="true"><use href="icons.svg#ds-icon-circle-pause"></use></svg>
                     </span>
           </span>
-          <span class="ds-run-status__facts">Waiting on a failed check in acme/web · <time class="ds-run-status__elapsed" datetime="PT2H40M">2 h 40 min</time></span>
+          <span class="ds-run-status__facts">Waiting on you · <time class="ds-run-status__elapsed" datetime="PT1H8M">1 h 8 min</time></span>
         </span>
       </a>
     </li>
