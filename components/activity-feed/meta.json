@@ -1,0 +1,45 @@
+{
+  "name": "activity-feed",
+  "title": "Activity feed",
+  "purpose": "A chronological record of what agents and people did, grouped by day, each entry with its time, its actor, a verb phrase and an optional source or excerpt.",
+  "status": "draft",
+  "whenToUse": [
+    "For the history of a task, a run or a repository, read from the oldest entry shown to the newest.",
+    "When each event fits one line: who did what, and when.",
+    "With role=\"log\" when entries are added while the reader watches."
+  ],
+  "whenNotToUse": [
+    "For the full exchange with an agent, with prompts, tool output and answers. Use a transcript of messages.",
+    "For one tool call with its arguments and output. Use a tool call.",
+    "For a list of runs or tasks to open. Use a list with run status rows.",
+    "For a message about the app itself. Use an alert or a banner."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "busy", "loading", "empty", "error"],
+  "accessibility": [
+    "Use a section with an aria-label that names what the activity belongs to, such as Activity for task 41. Each label is unique in the view.",
+    "Inside it, each day is a div with the class gw-activity-feed__day: a heading, at the level the view needs, that names the day in words such as Today, 22 November, then an ol of entries, oldest first.",
+    "An entry is an li holding a time element with a datetime attribute, then a p with the actor in gw-activity-feed__actor followed by a verb phrase that names the thing acted on, then optionally one gw-activity-feed__evidence holding a source chip or a short gw-activity-feed__excerpt.",
+    "When entries are appended while the reader watches, put role=\"log\" on the section. A log is announced politely, entry by entry, and needs no script beyond adding the li. Keep role=\"log\" off a feed that only changes when the reader asks.",
+    "Use role=\"feed\" only when the app loads entries as the reader scrolls and implements the feed keyboard contract itself: each entry an article with aria-posinset and aria-setsize, and Page Down and Page Up moving between entries. The component does not provide that behaviour.",
+    "A long feed shows the latest entries. Earlier ones come in through one quiet small button, Show earlier activity, with a chevron-up icon, in gw-activity-feed__more above the first day. While they are fetched, set aria-busy=\"true\" on the button and on the section, and change the button's words to Loading earlier activity. Afterwards move focus to the first entry that was added, so the reader continues from there.",
+    "For the first fetch, an empty feed and a failed fetch, the section holds a spinner, a compact empty state or an error state in place of the days.",
+    "An excerpt is text, never markup, and is short: one command or one line of output. Longer output belongs in a tool call.",
+    "Tab reaches the Show earlier activity button and any source chips, in order. Entries themselves take no focus."
+  ],
+  "icons": ["chevron-up", "file", "git-commit-horizontal"],
+  "classes": [
+    "gw-activity-feed",
+    "gw-activity-feed__actor",
+    "gw-activity-feed__day",
+    "gw-activity-feed__entries",
+    "gw-activity-feed__entry",
+    "gw-activity-feed__evidence",
+    "gw-activity-feed__excerpt",
+    "gw-activity-feed__heading",
+    "gw-activity-feed__more",
+    "gw-activity-feed__text",
+    "gw-activity-feed__time"
+  ]
+}

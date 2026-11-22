@@ -1,0 +1,35 @@
+{
+  "name": "spinner",
+  "title": "Spinner",
+  "purpose": "A sign that something is in progress when how long it will take is not known.",
+  "status": "draft",
+  "whenToUse": [
+    "While a view or part of one loads and nothing can be shown yet.",
+    "While a background step runs, such as cloning a repository or running tests, beside the name of the step."
+  ],
+  "whenNotToUse": [
+    "Inside a button that is working. Set aria-busy=\"true\" on the button, which draws its own.",
+    "When the amount done is known. Use a progress element.",
+    "When the shape of the content is known and it will arrive within a moment. Show the layout with its text missing, not a spinner.",
+    "For anything that takes less than about a second. Show nothing."
+  ],
+  "variants": [],
+  "sizes": [
+    { "name": "default", "use": "A 16px mark with text at the interface size. Inside a list, a panel or a row." },
+    { "name": "large", "class": "gw-spinner--large", "use": "A 24px mark with 16px text. When a whole view is loading." }
+  ],
+  "states": ["loading"],
+  "accessibility": [
+    "The text inside the spinner is its label. Name what is in progress, such as Loading runs. There is no spinner without text.",
+    "Set role=\"status\" on the spinner so a screen reader announces the text when the app adds it.",
+    "When the text changes with each step, such as Cloning then Installing, keep one role=\"status\" element in the page and change its text. Each change is announced.",
+    "Remove the spinner when the work ends. If it failed, put an error state or an alert in its place.",
+    "The mark is drawn by the stylesheet and needs no markup. It stops turning under prefers-reduced-motion, and the text still says what is happening.",
+    "A spinner is not focusable. An action that stops the work is a separate button beside it."
+  ],
+  "icons": ["loader"],
+  "classes": [
+    "gw-spinner",
+    "gw-spinner--large"
+  ]
+}

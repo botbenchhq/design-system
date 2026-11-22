@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Button - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Button</h1>
+<p>An action the reader takes on the current view.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Variants</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="variants" data-title="Variants" data-state="default" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">Start task</button>
+  <button type="button" class="gw-button">Save draft</button>
+  <button type="button" class="gw-button gw-button--quiet">View log</button>
+  <button type="button" class="gw-button gw-button--danger">Delete workspace</button>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Default and small</h3>
+</figcaption>
+<div data-example="sizes" data-title="Default and small" class="gw-cluster">
+  <button type="button" class="gw-button">Open pull request</button>
+  <button type="button" class="gw-button gw-button--small">Copy path</button>
+  <button type="button" class="gw-button gw-button--quiet gw-button--small">Dismiss</button>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a leading icon</h3>
+</figcaption>
+<div data-example="with-icon" data-title="With a leading icon" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">
+    <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+    New task
+  </button>
+  <button type="button" class="gw-button">
+    <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+    Create branch
+  </button>
+  <button type="button" class="gw-button gw-button--quiet gw-button--small">
+    <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+    Copy
+  </button>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">Start task</button>
+  <button type="button" class="gw-button">Save draft</button>
+  <button type="button" class="gw-button gw-button--quiet">View log</button>
+  <button type="button" class="gw-button gw-button--danger">Delete workspace</button>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">Start task</button>
+  <button type="button" class="gw-button">Save draft</button>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">Start task</button>
+  <button type="button" class="gw-button">Save draft</button>
+  <button type="button" class="gw-button gw-button--quiet">View log</button>
+  <button type="button" class="gw-button gw-button--danger">Delete workspace</button>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary" disabled>Start task</button>
+  <button type="button" class="gw-button" disabled>Save draft</button>
+  <button type="button" class="gw-button gw-button--quiet" disabled>View log</button>
+  <button type="button" class="gw-button gw-button--danger" disabled>Delete workspace</button>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Busy</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="busy" data-title="Busy" data-state="busy" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary" aria-busy="true">Starting task</button>
+  <button type="button" class="gw-button" aria-busy="true">Saving draft</button>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> One primary action</h3>
+<p>The view has one main action, and the primary button marks it. Everything else is secondary or quiet.</p>
+</figcaption>
+<div data-example="one-primary" data-title="One primary action" data-reason="The view has one main action, and the primary button marks it. Everything else is secondary or quiet." class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">Start task</button>
+  <button type="button" class="gw-button">Save as template</button>
+  <button type="button" class="gw-button gw-button--quiet">Cancel</button>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Two primary actions</h3>
+<p>Two primary buttons compete, and the reader has to work out which one matters. Keep one and make the other secondary.</p>
+<p>Checker rule: <code>one-primary-action</code></p>
+</figcaption>
+<div data-example="two-primaries" data-title="Two primary actions" data-dont="one-primary-action" data-reason="Two primary buttons compete, and the reader has to work out which one matters. Keep one and make the other secondary." class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">Start task</button>
+  <button type="button" class="gw-button gw-button--primary">Save as template</button>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>To start, save, confirm or cancel something on the current view.</li>
+<li>To submit a form.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>To go to another view or another site. Use a link.</li>
+<li>For an action repeated on every row of a list. Give that one secondary or quiet emphasis, never primary.</li>
+<li>As a second primary action in the same view. A view has one.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>secondary</dt>
+<dd>The default, with no modifier class. Any action that is not the main one.</dd>
+<dt>primary <code>gw-button--primary</code></dt>
+<dd>The one main action of a view, dialog or popover.</dd>
+<dt>quiet <code>gw-button--quiet</code></dt>
+<dd>A minor action that should not draw the eye, such as Cancel or View log.</dd>
+<dt>danger <code>gw-button--danger</code></dt>
+<dd>An action that deletes or cannot be undone. The label names what is lost.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>44px tall. Use it unless the button sits in a dense row.</dd>
+<dt>small <code>gw-button--small</code></dt>
+<dd>Drawn 32px tall for dense rows and toolbars. Its pointer target is still 44px.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a button element, with type=&quot;button&quot; unless it submits a form.</li>
+<li>The label is a verb and what it acts on, such as Start task. An icon is decoration and carries aria-hidden=&quot;true&quot;.</li>
+<li>Set the disabled attribute when the action is unavailable. A disabled button leaves the tab order.</li>
+<li>Use aria-disabled=&quot;true&quot; instead only when the button must stay focusable so its reason can be read. The app then ignores presses.</li>
+<li>Set aria-busy=&quot;true&quot; while the action runs, change the label to say what is happening, and ignore further presses.</li>
+<li>Enter and Space activate it. Both come from the button element.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-button</code></li>
+<li><code>gw-button--danger</code></li>
+<li><code>gw-button--primary</code></li>
+<li><code>gw-button--quiet</code></li>
+<li><code>gw-button--small</code></li>
+<li><code>gw-button__icon</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

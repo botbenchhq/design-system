@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streaming - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Streaming</h1>
+<p>The note that the agent is still producing output: a small turning mark and words that say what is happening.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Mark and words</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The words say what is happening, and role=&quot;status&quot; announces them. The mark only shows that the page is not stuck.</p>
+</figcaption>
+<div data-example="default" data-title="Mark and words" data-state="default" data-reason="The words say what is happening, and role=&quot;status&quot; announces them. The mark only shows that the page is not stuck.">
+  <p class="gw-streaming" role="status">Working…</p>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Saying who is working, and stopping</h3>
+</figcaption>
+<div data-example="named" data-title="Saying who is working, and stopping">
+  <div class="gw-stack">
+    <p class="gw-streaming" role="status">Claude Code is working.</p>
+    <p class="gw-streaming" role="status">Stopping the turn.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With figures that change</h3>
+</figcaption>
+<div data-example="detail" data-title="With figures that change">
+  <p class="gw-streaming">
+    <span role="status">Claude Code is working.</span>
+    <span class="gw-streaming__detail">42s, 3 tool calls</span>
+  </p>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>As the last row of a transcript</h3>
+</figcaption>
+<div data-example="row" data-title="As the last row of a transcript">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--user">
+      <span class="gw-message__label">You</span>
+      <p class="gw-message__body">Run the auth tests and tell me what fails.</p>
+    </li>
+    <li class="gw-message gw-message--tool-call">
+      <span class="gw-message__label">Tool call</span>
+      <span class="gw-message__tool">Bash</span>
+      <code class="gw-message__command">npm run test -- --run src/auth</code>
+    </li>
+    <li class="gw-streaming gw-streaming--row"><span role="status">Claude Code is working.</span></li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Beside the control that stops it</h3>
+</figcaption>
+<div data-example="with-stop" data-title="Beside the control that stops it">
+  <div class="gw-split">
+    <p class="gw-streaming" role="status">Running the auth tests…</p>
+    <button type="button" class="gw-button gw-button--small">Stop</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> The mark with no words</h3>
+<p>A turning mark alone says nothing to a screen reader and nothing to anyone once motion is reduced. The reader cannot tell what is running or whether it has stalled.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="mark-only" data-title="The mark with no words" data-dont="review" data-reason="A turning mark alone says nothing to a screen reader and nothing to anyone once motion is reduced. The reader cannot tell what is running or whether it has stalled.">
+  <p class="gw-streaming" role="status"></p>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>As the last row of a transcript while a turn runs.</li>
+<li>Beside a task's title or its Stop control, to say that work is still going on.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>On a button whose action is running. Set aria-busy on the button, which draws its own mark.</li>
+<li>For progress with a known amount done. Use a progress element.</li>
+<li>To say that a turn has ended. Use a message of the turn-end kind.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>default</dt>
+<dd>A line of muted text with the mark before it, anywhere in a view.</dd>
+<dt>row <code>gw-streaming--row</code></dt>
+<dd>On the last li of a transcript. It takes the padding of a message row, so the words line up with the labels above.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Always write the words. The mark is drawn by the stylesheet and is not announced.</li>
+<li>Put role=&quot;status&quot; on the element that holds the words, so a screen reader announces them when they change. Keep that element in the page before the words change, and remove the indicator when the work ends.</li>
+<li>Change the words only when the state changes, such as from working to stopping. Put figures that tick, such as elapsed time, in gw-streaming__detail outside the role=&quot;status&quot; element, so they are not announced every second.</li>
+<li>Under prefers-reduced-motion the mark stops turning and the words remain.</li>
+<li>It holds no control and takes no focus. The app adds it when a turn starts and removes it when the turn ends.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-streaming</code></li>
+<li><code>gw-streaming--row</code></li>
+<li><code>gw-streaming__detail</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

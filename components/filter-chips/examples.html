@@ -1,0 +1,114 @@
+<div data-example="default" data-title="Several filters at once, none on yet" data-state="default" data-reason="Each chip is a checkbox with its own label, so the row works with no script and a screen reader hears Failed, checkbox, not checked. A chip that is off shows a plus and an outline. The quiet reset button returns the form to how it was served.">
+  <form>
+    <fieldset class="gw-filter-chips">
+      <legend class="gw-filter-chips__legend">Show runs that are</legend>
+      <div class="gw-filter-chips__list">
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-default-status" value="running"> Running</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-default-status" value="awaiting"> Awaiting approval</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-default-status" value="failed"> Failed</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-default-status" value="finished"> Finished</label>
+        <button type="reset" class="gw-button gw-button--quiet gw-button--small">Clear filters</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<div data-example="selected" data-title="Two filters on" data-state="selected">
+  <div class="gw-stack">
+    <fieldset class="gw-filter-chips">
+      <legend class="gw-filter-chips__legend">Show runs that are</legend>
+      <div class="gw-filter-chips__list">
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-selected-status" value="running"> Running</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-selected-status" value="awaiting" checked> Awaiting approval</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-selected-status" value="failed" checked> Failed</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-selected-status" value="finished"> Finished</label>
+        <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear filters</button>
+      </div>
+    </fieldset>
+    <p role="status">9 of 128 runs are awaiting approval or failed.</p>
+  </div>
+</div>
+
+<div data-example="single" data-title="One at a time, on radios">
+  <fieldset class="gw-filter-chips">
+    <legend class="gw-filter-chips__legend">Started</legend>
+    <div class="gw-filter-chips__list">
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="radio" name="filter-chips-single-started" value="any" checked> At any time</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="radio" name="filter-chips-single-started" value="day"> In the last 24 hours</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="radio" name="filter-chips-single-started" value="week"> In the last 7 days</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="radio" name="filter-chips-single-started" value="month"> In the last 30 days</label>
+    </div>
+  </fieldset>
+</div>
+
+<div data-example="groups" data-title="Two groups and one button that clears both">
+  <form class="gw-stack">
+    <fieldset class="gw-filter-chips">
+      <legend class="gw-filter-chips__legend">Repository</legend>
+      <div class="gw-filter-chips__list">
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-repository" value="acme/api"> acme/api</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-repository" value="acme/billing"> acme/billing</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-repository" value="acme/web"> acme/web</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-repository" value="acme/mobile-app"> acme/mobile-app</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-repository" value="acme/infrastructure"> acme/infrastructure</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-repository" value="acme/design-tokens"> acme/design-tokens</label>
+      </div>
+    </fieldset>
+    <fieldset class="gw-filter-chips">
+      <legend class="gw-filter-chips__legend">Started by</legend>
+      <div class="gw-filter-chips__list">
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-author" value="me"> Me</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-author" value="maya"> Maya Okafor</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-groups-author" value="schedule"> A schedule</label>
+      </div>
+    </fieldset>
+    <div class="gw-cluster">
+      <button type="reset" class="gw-button gw-button--quiet gw-button--small">Clear filters</button>
+    </div>
+  </form>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <fieldset class="gw-filter-chips">
+    <legend class="gw-filter-chips__legend">Show branches that are</legend>
+    <div class="gw-filter-chips__list">
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-hover-branch" value="ahead"> Ahead of main</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-hover-branch" value="stale" checked> Untouched for 30 days</label>
+    </div>
+  </fieldset>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <fieldset class="gw-filter-chips">
+    <legend class="gw-filter-chips__legend">Show branches that are</legend>
+    <div class="gw-filter-chips__list">
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-focus-branch" value="ahead"> Ahead of main</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-focus-branch" value="stale" checked> Untouched for 30 days</label>
+    </div>
+  </fieldset>
+</div>
+
+<div data-example="disabled" data-title="Unavailable while the runs reload" data-state="disabled">
+  <div class="gw-stack">
+    <fieldset class="gw-filter-chips" disabled>
+      <legend class="gw-filter-chips__legend">Show runs that are</legend>
+      <div class="gw-filter-chips__list">
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-disabled-status" value="running"> Running</label>
+        <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-disabled-status" value="failed" checked> Failed</label>
+        <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear filters</button>
+      </div>
+    </fieldset>
+    <p class="gw-spinner" role="status">Loading the failed runs</p>
+  </div>
+</div>
+
+<div data-example="commands" data-title="Chips that run commands" data-dont="review" data-reason="A chip is a checkbox: it says a filter is on or off and changes nothing else. Here each one starts something, so its checked state means nothing and a screen reader announces a checkbox that behaves like a button. Use buttons for actions, and a menu when there are more than two.">
+  <fieldset class="gw-filter-chips">
+    <legend class="gw-filter-chips__legend">Run 4182</legend>
+    <div class="gw-filter-chips__list">
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-commands-action" value="rerun"> Run again</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-commands-action" value="pr"> Open pull request</label>
+      <label class="gw-filter-chips__chip"><input class="gw-filter-chips__input" type="checkbox" name="filter-chips-commands-action" value="delete"> Delete run</label>
+    </div>
+  </fieldset>
+</div>

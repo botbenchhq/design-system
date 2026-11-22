@@ -1,0 +1,22 @@
+/*
+ * Sign in: one focused task in one reading column that starts at the leading edge.
+ * There is no hero, no picture and no second column. The fields, the alert and the button are
+ * catalogue components. This file holds the column and the product's name above the heading.
+ */
+
+@layer gw.components {
+  .gw-sign-in {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xl);
+    max-width: var(--gw-size-column);
+  }
+
+  /* The product's name, set as the app header sets it. */
+  .gw-sign-in__product {
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-mono);
+  }
+}

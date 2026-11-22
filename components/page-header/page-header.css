@@ -1,0 +1,68 @@
+/*
+ * Page header: the top of a view. The title, an optional one-line description
+ * and, at the end of the row, the view's one optional primary action.
+ */
+
+@layer gw.components {
+  .gw-page-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--gw-space-md) var(--gw-space-lg);
+  }
+
+  /* Once the text would be narrower than this, the action moves to a row of its own below it. */
+  .gw-page-header__text {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+    min-width: min(100%, calc(var(--gw-space-2xl) * 5));
+  }
+
+  .gw-page-header__title {
+    font-size: var(--gw-text-xl);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-xl);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-page-header__description {
+    max-width: var(--gw-size-transcript);
+    color: var(--gw-color-muted);
+  }
+
+  .gw-page-header__action {
+    display: flex;
+    flex: none;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .gw-page-header__title {
+      font-size: var(--gw-text-2xl);
+      line-height: var(--gw-leading-2xl);
+    }
+  }
+
+  /* For a dense screen, where the list or the transcript below is what the reader came for. */
+  .gw-page-header--compact {
+    align-items: center;
+    column-gap: var(--gw-space-md);
+  }
+
+  .gw-page-header--compact .gw-page-header__text {
+    gap: 0;
+  }
+
+  .gw-page-header--compact .gw-page-header__title {
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+  }
+
+  .gw-page-header--compact .gw-page-header__description {
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+}

@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>List - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>List</h1>
+<p>Rows one above the other, each with a primary line and room for a second line, an icon, and trailing text or one quiet action.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Rows that navigate</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each row is one link, so the whole row takes the press, the focus ring and one screen-reader stop. The trailing text is something the reader scans down, not a control.</p>
+</figcaption>
+<div data-example="navigating" data-title="Rows that navigate" data-state="default" data-reason="Each row is one link, so the whole row takes the press, the focus ring and one screen-reader stop. The trailing text is something the reader scans down, not a control.">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/418">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Fix the login timeout</span>
+          <span class="gw-list__secondary">acme/api · fix/login-timeout</span>
+        </span>
+        <span class="gw-list__meta">2 min ago</span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/417">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Add rate limiting to the webhook endpoint</span>
+          <span class="gw-list__secondary">acme/api · feat/webhook-rate-limit</span>
+        </span>
+        <span class="gw-list__meta">40 min ago</span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/415">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Upgrade Postgres client to 8.13</span>
+          <span class="gw-list__secondary">acme/billing · chore/pg-8-13</span>
+        </span>
+        <span class="gw-list__meta">Yesterday</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A primary line only</h3>
+</figcaption>
+<div data-example="single-line" data-title="A primary line only">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/repositories/acme/api">
+        <span class="gw-list__body"><span class="gw-list__primary">acme/api</span></span>
+        <span class="gw-list__meta">12 tasks</span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/repositories/acme/billing">
+        <span class="gw-list__body"><span class="gw-list__primary">acme/billing</span></span>
+        <span class="gw-list__meta">3 tasks</span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/repositories/acme/web">
+        <span class="gw-list__body"><span class="gw-list__primary">acme/web</span></span>
+        <span class="gw-list__meta">No tasks</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a leading icon</h3>
+</figcaption>
+<div data-example="with-icon" data-title="With a leading icon">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/repositories/acme/api/branches/fix/login-timeout">
+        <svg class="gw-list__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+        <span class="gw-list__body">
+          <span class="gw-list__primary">fix/login-timeout</span>
+          <span class="gw-list__secondary">2 commits ahead of main</span>
+        </span>
+        <span class="gw-list__meta">2 min ago</span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/repositories/acme/api/branches/feat/webhook-rate-limit">
+        <svg class="gw-list__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+        <span class="gw-list__body">
+          <span class="gw-list__primary">feat/webhook-rate-limit</span>
+          <span class="gw-list__secondary">5 commits ahead of main</span>
+        </span>
+        <span class="gw-list__meta">40 min ago</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Rows with one quiet action</h3>
+<p>A row holds at most one action, and it is quiet and small because it repeats on every row. Its label names the row it acts on for a screen reader.</p>
+</figcaption>
+<div data-example="with-action" data-title="Rows with one quiet action" data-reason="A row holds at most one action, and it is quiet and small because it repeats on every row. Its label names the row it acts on for a screen reader.">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <svg class="gw-list__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg>
+        <span class="gw-list__body">
+          <span class="gw-list__primary">/srv/workspaces/acme-api</span>
+          <span class="gw-list__secondary">On fix/login-timeout · 214 MB</span>
+        </span>
+      </div>
+      <div class="gw-list__action">
+        <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Remove /srv/workspaces/acme-api">Remove</button>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <svg class="gw-list__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg>
+        <span class="gw-list__body">
+          <span class="gw-list__primary">/srv/workspaces/acme-billing</span>
+          <span class="gw-list__secondary">On chore/pg-8-13 · 88 MB</span>
+        </span>
+      </div>
+      <div class="gw-list__action">
+        <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Remove /srv/workspaces/acme-billing">Remove</button>
+      </div>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Dense, rows that navigate</h3>
+</figcaption>
+<div data-example="dense" data-title="Dense, rows that navigate">
+  <ul class="gw-list gw-list--dense">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/418">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Fix the login timeout</span>
+          <span class="gw-list__secondary">acme/api · fix/login-timeout</span>
+        </span>
+        <span class="gw-list__meta">2 min ago</span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/417">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Add rate limiting to the webhook endpoint</span>
+          <span class="gw-list__secondary">acme/api · feat/webhook-rate-limit</span>
+        </span>
+        <span class="gw-list__meta">40 min ago</span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/415">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Upgrade Postgres client to 8.13</span>
+          <span class="gw-list__secondary">acme/billing · chore/pg-8-13</span>
+        </span>
+        <span class="gw-list__meta">Yesterday</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Dense, rows that only show</h3>
+</figcaption>
+<div data-example="dense-static" data-title="Dense, rows that only show">
+  <ul class="gw-list gw-list--dense">
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <svg class="gw-list__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-list__body"><code class="gw-list__primary">web/src/screens/task.tsx</code></span>
+        <span class="gw-list__meta">Modified</span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <svg class="gw-list__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-list__body"><code class="gw-list__primary">web/src/components/task-status.ts</code></span>
+        <span class="gw-list__meta">Modified</span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <svg class="gw-list__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-list__body"><code class="gw-list__primary">web/src/api/session.test.ts</code></span>
+        <span class="gw-list__meta">Added</span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <svg class="gw-list__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-list__body"><code class="gw-list__primary">docs/sessions.md</code></span>
+        <span class="gw-list__meta">Deleted</span>
+      </div>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>An ordered list, where the order means something</h3>
+</figcaption>
+<div data-example="ordered" data-title="An ordered list, where the order means something">
+  <ol class="gw-list">
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Created the worktree</span>
+          <span class="gw-list__secondary">/srv/workspaces/acme-api from main at 9f2c1ab</span>
+        </span>
+        <span class="gw-list__meta">14:02</span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Ran npm test</span>
+          <span class="gw-list__secondary">212 passed, 1 failed</span>
+        </span>
+        <span class="gw-list__meta">14:09</span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Committed to fix/login-timeout</span>
+          <span class="gw-list__secondary">3 files changed</span>
+        </span>
+        <span class="gw-list__meta">14:16</span>
+      </div>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/418">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Fix the login timeout</span>
+          <span class="gw-list__secondary">acme/api · fix/login-timeout</span>
+        </span>
+        <span class="gw-list__meta">2 min ago</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/418">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Fix the login timeout</span>
+          <span class="gw-list__secondary">acme/api · fix/login-timeout</span>
+        </span>
+        <span class="gw-list__meta">2 min ago</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/418">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Fix the login timeout</span>
+          <span class="gw-list__secondary">acme/api · fix/login-timeout</span>
+        </span>
+        <span class="gw-list__meta">2 min ago</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The current row</h3>
+<p data-gallery="state">State: <code>current</code></p>
+</figcaption>
+<div data-example="current" data-title="The current row" data-state="current">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/418" aria-current="page">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Fix the login timeout</span>
+          <span class="gw-list__secondary">acme/api · fix/login-timeout</span>
+        </span>
+        <span class="gw-list__meta">2 min ago</span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/417">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Add rate limiting to the webhook endpoint</span>
+          <span class="gw-list__secondary">acme/api · feat/webhook-rate-limit</span>
+        </span>
+        <span class="gw-list__meta">40 min ago</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Fetching again, with the last rows kept</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="busy" data-title="Fetching again, with the last rows kept" data-state="busy" class="gw-stack gw-gap-sm">
+  <p role="status">Reading the tasks again.</p>
+  <ul class="gw-list" aria-busy="true">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/418">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Fix the login timeout</span>
+          <span class="gw-list__secondary">acme/api · fix/login-timeout</span>
+        </span>
+        <span class="gw-list__meta">2 min ago</span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/tasks/417">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Add rate limiting to the webhook endpoint</span>
+          <span class="gw-list__secondary">acme/api · feat/webhook-rate-limit</span>
+        </span>
+        <span class="gw-list__meta">40 min ago</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A primary button on every row</h3>
+<p>A primary button on each row gives the view as many main actions as it has rows. Make the row a link, or give the repeated action quiet emphasis.</p>
+<p>Checker rule: <code>repeated-item-primary</code></p>
+</figcaption>
+<div data-example="primary-in-rows" data-title="A primary button on every row" data-dont="repeated-item-primary" data-reason="A primary button on each row gives the view as many main actions as it has rows. Make the row a link, or give the repeated action quiet emphasis.">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Fix the login timeout</span>
+          <span class="gw-list__secondary">acme/api · fix/login-timeout</span>
+        </span>
+      </div>
+      <div class="gw-list__action">
+        <button type="button" class="gw-button gw-button--primary gw-button--small">Open task</button>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Add rate limiting to the webhook endpoint</span>
+          <span class="gw-list__secondary">acme/api · feat/webhook-rate-limit</span>
+        </span>
+      </div>
+      <div class="gw-list__action">
+        <button type="button" class="gw-button gw-button--primary gw-button--small">Open task</button>
+      </div>
+    </li>
+  </ul>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a set of like things the reader scans down and opens one of: tasks, repositories, branches, changed files.</li>
+<li>For a short sequence whose order means something, such as the steps a task took. Use an ol.</li>
+<li>With the dense variant where many rows must fit a phone screen.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For items compared across several columns. Use a table.</li>
+<li>When there are no items. Put an empty state in place of the list: one sentence that says there is nothing yet and, where there is one, the action that adds the first item. Never render a ul with no rows.</li>
+<li>While the first fetch runs or after it fails. Put a line of text with role=&quot;status&quot; or role=&quot;alert&quot; in place of the list.</li>
+<li>For a row with two or more actions. Make the row a link to a view that holds them, or put them in a menu.</li>
+<li>For site or section navigation. Use a nav with links.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>default</dt>
+<dd>12px above and below each row's text. A one-line row is 44px tall.</dd>
+<dt>dense <code>gw-list--dense</code></dt>
+<dd>4px above and below each row's text, for long lists and file lists. A row with a link or an action is still at least 44px tall, and a row that only shows text is 28px.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a ul, or an ol when the order means something, with one li per row. A screen reader then announces how many rows there are.</li>
+<li>A row that navigates wraps its icon, lines and trailing text in one a element with the class gw-list__link. The link is the whole row: one tab stop, one focus ring, and a pointer target at least 44px tall.</li>
+<li>A row that does not navigate uses a div with the class gw-list__content. It is not focusable.</li>
+<li>A row has at most one action: a small quiet button inside gw-list__action, after the content. When every row's button has the same words, add an aria-label that starts with those words and names the row, such as Remove /srv/workspaces/acme-api.</li>
+<li>Mark the row for the view the reader is on with aria-current=&quot;page&quot; on its link. It is drawn with a bar and a heavier title as well as a shade.</li>
+<li>A leading icon is decoration and carries aria-hidden=&quot;true&quot;. Trailing text and a status are written in words, never as a colour or an icon alone.</li>
+<li>While rows are fetched again, set aria-busy=&quot;true&quot; on the list and say so in an element with role=&quot;status&quot; outside it.</li>
+<li>Tab moves between row links and row actions in order. Enter follows a link. There are no arrow-key bindings.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-list</code></li>
+<li><code>gw-list--dense</code></li>
+<li><code>gw-list__action</code></li>
+<li><code>gw-list__body</code></li>
+<li><code>gw-list__content</code></li>
+<li><code>gw-list__icon</code></li>
+<li><code>gw-list__link</code></li>
+<li><code>gw-list__meta</code></li>
+<li><code>gw-list__primary</code></li>
+<li><code>gw-list__row</code></li>
+<li><code>gw-list__secondary</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

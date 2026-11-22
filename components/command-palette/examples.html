@@ -1,0 +1,210 @@
+<div data-example="default" data-title="Open" data-state="open" data-gallery-frame data-reason="The input is a combobox that controls the list, so focus stays in it while Up and Down move through the commands and a screen reader hears each one. Commands are grouped under labels, each is a verb and what it acts on, and the shortcut at the end of a row is a hint, not the only way to run it.">
+  <gw-command-palette>
+    <dialog class="gw-dialog" id="command-palette-default" aria-label="Command palette" open>
+      <div class="gw-command-palette">
+      <div class="gw-command-palette__search">
+        <div class="gw-search-field gw-command-palette__field">
+          <label class="gw-search-field__label gw-visually-hidden" for="command-palette-default-input">Search commands</label>
+          <div class="gw-search-field__box">
+            <input class="gw-field__control gw-search-field__input" type="text" id="command-palette-default-input" role="combobox" aria-expanded="true" aria-controls="command-palette-default-list" aria-autocomplete="list" aria-activedescendant="command-palette-default-new-task" autocomplete="off" spellcheck="false" placeholder="Type a command">
+          </div>
+        </div>
+        <form method="dialog">
+          <button type="submit" class="gw-button gw-button--quiet gw-icon-button" aria-label="Close the command palette">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+          </button>
+        </form>
+      </div>
+        <div class="gw-command-palette__list" id="command-palette-default-list" role="listbox" aria-label="Commands">
+          <div class="gw-command-palette__group" role="group" aria-labelledby="command-palette-default-tasks">
+            <div class="gw-command-palette__label" id="command-palette-default-tasks" role="presentation">Tasks</div>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-default-new-task" aria-selected="true"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-plus"></use></svg><span class="gw-command-palette__name">Start a new task</span><kbd class="gw-command-palette__shortcut">Ctrl N</kbd></button>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-default-search-tasks" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg><span class="gw-command-palette__name">Search tasks in acme/api</span><kbd class="gw-command-palette__shortcut">/</kbd></button>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-default-transcript" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg><span class="gw-command-palette__name">Copy the transcript of run 4182</span></button>
+          </div>
+          <div class="gw-command-palette__group" role="group" aria-labelledby="command-palette-default-branch">
+            <div class="gw-command-palette__label" id="command-palette-default-branch" role="presentation">Branch fix/login-timeout</div>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-default-rebase" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg><span class="gw-command-palette__name">Rebase onto main</span></button>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-default-terminal" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg><span class="gw-command-palette__name">Open a terminal in the worktree</span><kbd class="gw-command-palette__shortcut">Ctrl J</kbd></button>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-default-pr" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-external-link"></use></svg><span class="gw-command-palette__name">Open the pull request on GitHub</span></button>
+          </div>
+        </div>
+        <p class="gw-command-palette__message" role="status" hidden>No command matches. Try a verb, such as open, copy or rebase.</p>
+      </div>
+    </dialog>
+  </gw-command-palette>
+</div>
+
+<div data-example="closed" data-title="Closed, with its opener and its shortcut" data-state="default">
+  <button type="button" class="gw-button" command="show-modal" commandfor="command-palette-closed" aria-keyshortcuts="Control+K Meta+K">Open the command palette</button>
+  <gw-command-palette shortcut="k">
+    <dialog class="gw-dialog" id="command-palette-closed" aria-label="Command palette, opened from the button">
+      <div class="gw-command-palette">
+      <div class="gw-command-palette__search">
+        <div class="gw-search-field gw-command-palette__field">
+          <label class="gw-search-field__label gw-visually-hidden" for="command-palette-closed-input">Search commands</label>
+          <div class="gw-search-field__box">
+            <input class="gw-field__control gw-search-field__input" type="text" id="command-palette-closed-input" role="combobox" aria-expanded="true" aria-controls="command-palette-closed-list" aria-autocomplete="list" aria-activedescendant="command-palette-closed-new-task" autocomplete="off" spellcheck="false" placeholder="Type a command">
+          </div>
+        </div>
+        <form method="dialog">
+          <button type="submit" class="gw-button gw-button--quiet gw-icon-button" aria-label="Close the command palette">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+          </button>
+        </form>
+      </div>
+        <div class="gw-command-palette__list" id="command-palette-closed-list" role="listbox" aria-label="All commands">
+          <div class="gw-command-palette__group" role="group" aria-labelledby="command-palette-closed-tasks">
+            <div class="gw-command-palette__label" id="command-palette-closed-tasks" role="presentation">Tasks</div>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-closed-new-task" aria-selected="true"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-plus"></use></svg><span class="gw-command-palette__name">Start a new task</span><kbd class="gw-command-palette__shortcut">Ctrl N</kbd></button>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-closed-search-tasks" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg><span class="gw-command-palette__name">Search tasks in acme/api</span><kbd class="gw-command-palette__shortcut">/</kbd></button>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-closed-transcript" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg><span class="gw-command-palette__name">Copy the transcript of run 4182</span></button>
+          </div>
+          <div class="gw-command-palette__group" role="group" aria-labelledby="command-palette-closed-branch">
+            <div class="gw-command-palette__label" id="command-palette-closed-branch" role="presentation">Branch fix/login-timeout</div>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-closed-rebase" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg><span class="gw-command-palette__name">Rebase onto main</span></button>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-closed-terminal" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg><span class="gw-command-palette__name">Open a terminal in the worktree</span><kbd class="gw-command-palette__shortcut">Ctrl J</kbd></button>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-closed-pr" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-external-link"></use></svg><span class="gw-command-palette__name">Open the pull request on GitHub</span></button>
+          </div>
+        </div>
+        <p class="gw-command-palette__message" role="status" hidden>No command matches. Try a verb, such as open, copy or rebase.</p>
+      </div>
+    </dialog>
+  </gw-command-palette>
+</div>
+
+<div data-example="filtered" data-title="Typing narrows the list" data-gallery-frame="short">
+  <gw-command-palette>
+    <dialog class="gw-dialog" id="command-palette-filtered" aria-label="Command palette, filtered" open>
+      <div class="gw-command-palette">
+      <div class="gw-command-palette__search">
+        <div class="gw-search-field gw-command-palette__field">
+          <label class="gw-search-field__label gw-visually-hidden" for="command-palette-filtered-input">Search commands</label>
+          <div class="gw-search-field__box">
+            <input class="gw-field__control gw-search-field__input" type="text" id="command-palette-filtered-input" role="combobox" aria-expanded="true" aria-controls="command-palette-filtered-list" aria-autocomplete="list" aria-activedescendant="command-palette-filtered-terminal" autocomplete="off" spellcheck="false" placeholder="Type a command" value="open">
+          </div>
+        </div>
+        <form method="dialog">
+          <button type="submit" class="gw-button gw-button--quiet gw-icon-button" aria-label="Close the command palette">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+          </button>
+        </form>
+      </div>
+        <div class="gw-command-palette__list" id="command-palette-filtered-list" role="listbox" aria-label="Commands that match open">
+          <div class="gw-command-palette__group" role="group" aria-labelledby="command-palette-filtered-branch">
+            <div class="gw-command-palette__label" id="command-palette-filtered-branch" role="presentation">Branch fix/login-timeout</div>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-filtered-terminal" aria-selected="true"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg><span class="gw-command-palette__name">Open a terminal in the worktree</span><kbd class="gw-command-palette__shortcut">Ctrl J</kbd></button>
+            <button type="button" class="gw-command-palette__option" role="option" id="command-palette-filtered-pr" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-external-link"></use></svg><span class="gw-command-palette__name">Open the pull request on GitHub</span></button>
+          </div>
+        </div>
+        <p class="gw-command-palette__message" role="status" hidden>No command matches. Try a verb, such as open, copy or rebase.</p>
+      </div>
+    </dialog>
+  </gw-command-palette>
+</div>
+
+<div data-example="empty" data-title="Nothing matches" data-state="empty" data-gallery-frame="short">
+  <gw-command-palette>
+    <dialog class="gw-dialog" id="command-palette-empty" aria-label="Command palette, with no match" open>
+      <div class="gw-command-palette">
+      <div class="gw-command-palette__search">
+        <div class="gw-search-field gw-command-palette__field">
+          <label class="gw-search-field__label gw-visually-hidden" for="command-palette-empty-input">Search commands</label>
+          <div class="gw-search-field__box">
+            <input class="gw-field__control gw-search-field__input" type="text" id="command-palette-empty-input" role="combobox" aria-expanded="false" aria-controls="command-palette-empty-list" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Type a command" value="squosh">
+          </div>
+        </div>
+        <form method="dialog">
+          <button type="submit" class="gw-button gw-button--quiet gw-icon-button" aria-label="Close the command palette">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+          </button>
+        </form>
+      </div>
+        <div class="gw-command-palette__list" id="command-palette-empty-list" role="listbox" aria-label="Commands that match squosh" hidden>
+          <div class="gw-command-palette__group" role="group" aria-labelledby="command-palette-empty-branch" hidden>
+            <div class="gw-command-palette__label" id="command-palette-empty-branch" role="presentation">Branch fix/login-timeout</div>
+            <button type="button" class="gw-command-palette__option" role="option" hidden id="command-palette-empty-rebase" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg><span class="gw-command-palette__name">Rebase onto main</span></button>
+            <button type="button" class="gw-command-palette__option" role="option" hidden id="command-palette-empty-squash" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg><span class="gw-command-palette__name">Squash and merge into main</span></button>
+          </div>
+        </div>
+        <p class="gw-command-palette__message" role="status">No command matches "squosh". Try a verb, such as open, copy or rebase.</p>
+      </div>
+    </dialog>
+  </gw-command-palette>
+</div>
+
+<div data-example="disabled" data-title="A command that is unavailable, with its reason" data-state="disabled" data-gallery-frame="short">
+  <gw-command-palette>
+    <dialog class="gw-dialog" id="command-palette-disabled" aria-label="Command palette, with an unavailable command" open>
+      <div class="gw-command-palette">
+      <div class="gw-command-palette__search">
+        <div class="gw-search-field gw-command-palette__field">
+          <label class="gw-search-field__label gw-visually-hidden" for="command-palette-disabled-input">Search commands</label>
+          <div class="gw-search-field__box">
+            <input class="gw-field__control gw-search-field__input" type="text" id="command-palette-disabled-input" role="combobox" aria-expanded="true" aria-controls="command-palette-disabled-list" aria-autocomplete="list" aria-activedescendant="command-palette-disabled-rebase" autocomplete="off" spellcheck="false" placeholder="Type a command">
+          </div>
+        </div>
+        <form method="dialog">
+          <button type="submit" class="gw-button gw-button--quiet gw-icon-button" aria-label="Close the command palette">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+          </button>
+        </form>
+      </div>
+        <div class="gw-command-palette__list" id="command-palette-disabled-list" role="listbox" aria-label="Branch commands">
+          <button type="button" class="gw-command-palette__option" role="option" id="command-palette-disabled-rebase" aria-selected="true"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg><span class="gw-command-palette__name">Rebase onto main</span></button>
+          <button type="button" class="gw-command-palette__option" role="option" id="command-palette-disabled-pr" aria-selected="false" aria-disabled="true"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-external-link"></use></svg><span class="gw-command-palette__name">Open a pull request (push the branch first)</span></button>
+        </div>
+        <p class="gw-command-palette__message" role="status" hidden>No command matches. Try a verb, such as open, copy or rebase.</p>
+      </div>
+    </dialog>
+  </gw-command-palette>
+</div>
+
+<div data-example="loading" data-title="The commands are on their way" data-state="loading" data-gallery-frame="short">
+  <gw-command-palette>
+    <dialog class="gw-dialog" id="command-palette-loading" aria-label="Command palette, loading" open>
+      <div class="gw-command-palette">
+      <div class="gw-command-palette__search">
+        <div class="gw-search-field gw-command-palette__field">
+          <label class="gw-search-field__label gw-visually-hidden" for="command-palette-loading-input">Search commands</label>
+          <div class="gw-search-field__box">
+            <input class="gw-field__control gw-search-field__input" type="text" id="command-palette-loading-input" role="combobox" aria-expanded="false" aria-controls="command-palette-loading-list" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Type a command">
+          </div>
+        </div>
+        <form method="dialog">
+          <button type="submit" class="gw-button gw-button--quiet gw-icon-button" aria-label="Close the command palette">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+          </button>
+        </form>
+      </div>
+        <div class="gw-command-palette__message" id="command-palette-loading-list">
+          <p class="gw-spinner" role="status">Loading the commands for acme/api</p>
+        </div>
+      </div>
+    </dialog>
+  </gw-command-palette>
+</div>
+
+<div data-example="unclear-names" data-title="One-word names, and a place among the commands" data-dont="review" data-gallery-frame="short" data-reason="Rebase does not say what is rebased or onto what, and Settings is a place, not a command. The reader cannot tell what Enter will do. Name each command as a verb and what it acts on, and group commands under a label that names their subject.">
+  <dialog class="gw-dialog" id="command-palette-dont" aria-label="Command palette with unclear names" open>
+    <div class="gw-command-palette">
+      <div class="gw-command-palette__search">
+        <div class="gw-search-field gw-command-palette__field">
+          <label class="gw-search-field__label gw-visually-hidden" for="command-palette-dont-input">Search commands</label>
+          <div class="gw-search-field__box">
+            <input class="gw-field__control gw-search-field__input" type="text" id="command-palette-dont-input" role="combobox" aria-expanded="true" aria-controls="command-palette-dont-list" aria-autocomplete="list" aria-activedescendant="command-palette-dont-rebase" autocomplete="off" spellcheck="false" placeholder="Type a command">
+          </div>
+        </div>
+        <form method="dialog">
+          <button type="submit" class="gw-button gw-button--quiet gw-icon-button" aria-label="Close the command palette">
+            <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-x"></use></svg>
+          </button>
+        </form>
+      </div>
+      <div class="gw-command-palette__list" id="command-palette-dont-list" role="listbox" aria-label="Unclear commands">
+        <button type="button" class="gw-command-palette__option" role="option" id="command-palette-dont-rebase" aria-selected="true"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg><span class="gw-command-palette__name">Rebase</span></button>
+        <button type="button" class="gw-command-palette__option" role="option" id="command-palette-dont-settings" aria-selected="false"><svg class="gw-command-palette__icon" aria-hidden="true"><use href="icons.svg#gw-icon-file"></use></svg><span class="gw-command-palette__name">Settings</span></button>
+      </div>
+    </div>
+  </dialog>
+</div>

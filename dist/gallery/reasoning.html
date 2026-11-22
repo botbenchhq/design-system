@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reasoning - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Reasoning</h1>
+<p>A closed disclosure holding an agent's reasoning or plan notes, drawn quietly so it defers to the answer.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Closed, as it starts</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The reader came for the answer, so the reasoning starts closed. Its summary says what is inside and how long it is, which is enough to decide whether to open it.</p>
+</figcaption>
+<div data-example="closed" data-title="Closed, as it starts" data-state="default" data-reason="The reader came for the answer, so the reasoning starts closed. Its summary says what is inside and how long it is, which is enough to decide whether to open it.">
+  <details class="gw-reasoning">
+    <summary class="gw-reasoning__summary">Reasoning, 14 lines</summary>
+    <div class="gw-reasoning__body">
+      <p>The cookie expires after 15 minutes, which matches the access token lifetime, so the refresh is not happening.</p>
+      <p>startRefreshTimer is called from one place, the sign-in handler. A reload restores the session from the cookie and never passes through that handler.</p>
+      <p>Starting the timer wherever a valid session is loaded covers both paths. The reload case needs a test, because the current tests only sign in fresh.</p>
+    </div>
+  </details>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Open</h3>
+<p data-gallery="state">State: <code>open</code></p>
+</figcaption>
+<div data-example="open" data-title="Open" data-state="open">
+  <details class="gw-reasoning" open>
+    <summary class="gw-reasoning__summary">Reasoning, 9 lines</summary>
+    <div class="gw-reasoning__body">
+      <p>The cookie expires after 15 minutes, which matches the access token lifetime, so the refresh is not happening.</p>
+      <p>startRefreshTimer is called from one place, the sign-in handler. A reload restores the session from the cookie and never passes through that handler.</p>
+      <p>Starting the timer wherever a valid session is loaded covers both paths. The reload case needs a test, because the current tests only sign in fresh.</p>
+    </div>
+  </details>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Plan notes</h3>
+</figcaption>
+<div data-example="plan" data-title="Plan notes">
+  <details class="gw-reasoning" open>
+    <summary class="gw-reasoning__summary">Plan, 4 steps</summary>
+    <ol class="gw-reasoning__body">
+      <li>1. Reproduce the expiry with a test that reloads a signed-in session.</li>
+      <li>2. Start the refresh timer in loadSession when the session is still valid.</li>
+      <li>3. Run the auth tests.</li>
+      <li>4. Open a pull request against main.</li>
+    </ol>
+  </details>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Above the answer in a transcript</h3>
+</figcaption>
+<div data-example="in-transcript" data-title="Above the answer in a transcript">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--user">
+      <span class="gw-message__label">You</span>
+      <p class="gw-message__body">The session cookie expires after 15 minutes even while the tab is active. Find out why.</p>
+    </li>
+    <li class="gw-message">
+      <span class="gw-message__label">Claude Code</span>
+      <details class="gw-reasoning">
+        <summary class="gw-reasoning__summary">Reasoning, 14 lines</summary>
+        <div class="gw-reasoning__body">
+          <p>The cookie expires after 15 minutes, which matches the access token lifetime, so the refresh is not happening.</p>
+          <p>startRefreshTimer is called from one place, the sign-in handler. A reload never passes through it.</p>
+        </div>
+      </details>
+      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid session is loaded and add a test for the reload case.</p>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <details class="gw-reasoning">
+    <summary class="gw-reasoning__summary">Reasoning, 14 lines</summary>
+    <div class="gw-reasoning__body">
+      <p>The cookie expires after 15 minutes, which matches the access token lifetime, so the refresh is not happening.</p>
+    </div>
+  </details>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <details class="gw-reasoning">
+    <summary class="gw-reasoning__summary">Plan, 4 steps</summary>
+    <div class="gw-reasoning__body">
+      <p>Reproduce the expiry with a test, start the timer in loadSession, run the auth tests, then open a pull request.</p>
+    </div>
+  </details>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A summary that does not say what is inside</h3>
+<p>Show more could hold anything, and gives no hint of how much there is to read. Name the content and its length: Reasoning, 14 lines.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="vague-summary" data-title="A summary that does not say what is inside" data-dont="review" data-reason="Show more could hold anything, and gives no hint of how much there is to read. Name the content and its length: Reasoning, 14 lines.">
+  <details class="gw-reasoning">
+    <summary class="gw-reasoning__summary">Show more</summary>
+    <div class="gw-reasoning__body">
+      <p>The cookie expires after 15 minutes, which matches the access token lifetime, so the refresh is not happening.</p>
+    </div>
+  </details>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> An action inside the reasoning</h3>
+<p>The reasoning is closed until someone opens it, so an action placed in it is invisible to most readers. Reasoning holds text only, and the action goes beside the answer.</p>
+<p>Checker rule: <code>hidden-critical-action</code></p>
+</figcaption>
+<div data-example="action-inside" data-title="An action inside the reasoning" data-dont="hidden-critical-action" data-reason="The reasoning is closed until someone opens it, so an action placed in it is invisible to most readers. Reasoning holds text only, and the action goes beside the answer.">
+  <details class="gw-reasoning">
+    <summary class="gw-reasoning__summary">Reasoning, 6 lines</summary>
+    <div class="gw-reasoning__body">
+      <p>The fix is ready and the auth tests pass. The branch can be merged once the pull request is approved.</p>
+      <div class="gw-cluster">
+        <button type="button" class="gw-button" data-gw-critical>Approve pull request</button>
+      </div>
+    </div>
+  </details>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For the reasoning an agent wrote before its answer, above that answer in a transcript row.</li>
+<li>For plan notes the reader may want to check but does not need in order to act.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For the answer itself, or anything the reader must read. Use a message.</li>
+<li>For tool arguments or output. Use a message's details, or a tool call.</li>
+<li>For anything that holds an action. An action goes beside the answer, or in an approval when the agent is waiting on it.</li>
+<li>For settings or secondary content of a view. Use a disclosure.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a native details element with the class on it and a summary as its first child. It starts closed: leave the open attribute off and let the reader open it.</li>
+<li>The summary is text that says what is inside and how long it is: Reasoning, 14 lines, or Plan, 4 steps. Count what the reader will see, in a unit they know.</li>
+<li>gw-reasoning__body holds text only: paragraphs, or the steps of a plan as a list with the numbers written in the text. Never put a button, a link the reader must follow or a form control inside.</li>
+<li>Line breaks in the text are kept. Write the reasoning as text, never as markup.</li>
+<li>The text is muted on the page surface. Do not place the component on a sunken or tinted surface, where muted text is too faint.</li>
+<li>Enter and Space open and close the summary, and its pointer target is 44px tall. The component needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-reasoning</code></li>
+<li><code>gw-reasoning__body</code></li>
+<li><code>gw-reasoning__summary</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

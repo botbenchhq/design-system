@@ -1,0 +1,47 @@
+{
+  "name": "alert",
+  "title": "Alert",
+  "purpose": "A message inside a view about the state of what the view shows.",
+  "status": "draft",
+  "whenToUse": [
+    "To tell the reader something about the run, task or repository on screen that changes what they should do next.",
+    "To report the result of an action where it happened, when the result should stay visible."
+  ],
+  "whenNotToUse": [
+    "For a mistake in one form control. Use the field's error message.",
+    "When a whole view failed to load. Use an error state.",
+    "When a view has nothing to show yet. Use an empty state.",
+    "For a confirmation that should go away by itself. Use a toast.",
+    "For a decision the reader must make before going on. Use a dialog."
+  ],
+  "variants": [
+    { "name": "info", "use": "The default, with no modifier class. Context the reader may want. Label it Note." },
+    { "name": "success", "class": "gw-alert--success", "use": "Something finished as intended. Label it Done." },
+    { "name": "warning", "class": "gw-alert--warning", "use": "Something will go wrong unless the reader acts. Label it Warning." },
+    { "name": "danger", "class": "gw-alert--danger", "use": "Something failed. Label it Error, and say what to do about it." }
+  ],
+  "sizes": [],
+  "states": ["default"],
+  "accessibility": [
+    "Every alert holds a gw-alert__label naming its tone in a word. The stylesheet draws the matching icon, so tone is carried by a word, an icon and a colour.",
+    "An alert that is part of the view when it loads takes no role. It is read in order with the rest of the content.",
+    "An alert the app adds in response to something takes role=\"status\" for info, success and warning, which is announced when the screen reader is next idle.",
+    "Use role=\"alert\" only for a failure the reader must know about now. It interrupts whatever is being read.",
+    "For the announcement to be reliable, add the element with its role first, or keep it in the page empty and hidden with the hidden attribute, then fill in the text.",
+    "The title and body are paragraphs, not headings, so an alert does not change the outline of the view.",
+    "At most one action: a gw-button gw-button--small inside gw-alert__action. Never primary. Use a link element when it goes to another view.",
+    "Do not move focus to an alert. The role announces it."
+  ],
+  "icons": ["circle-alert", "circle-check", "info", "triangle-alert"],
+  "classes": [
+    "gw-alert",
+    "gw-alert--danger",
+    "gw-alert--success",
+    "gw-alert--warning",
+    "gw-alert__action",
+    "gw-alert__body",
+    "gw-alert__content",
+    "gw-alert__label",
+    "gw-alert__title"
+  ]
+}

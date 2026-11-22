@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Device code - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Device code</h1>
+<p>What a view shows while the reader connects an outside account by entering a short code on that account's own site: the steps, the link, the code, and whether the app is still waiting.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Waiting for the reader to enter the code</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The steps say what to do in order, the link shows the host the code is going to, and the code is large, grouped and one press to copy. The waiting line tells the reader they do not have to do anything here once they have approved.</p>
+</figcaption>
+<div data-example="default" data-title="Waiting for the reader to enter the code" data-state="default" data-reason="The steps say what to do in order, the link shows the host the code is going to, and the code is large, grouped and one press to copy. The waiting line tells the reader they do not have to do anything here once they have approved.">
+  <div class="gw-device-code">
+    <ol class="gw-device-code__steps">
+      <li class="gw-device-code__step">
+        <p>Open <a href="https://github.com/login/device" target="_blank" rel="noopener">github.com/login/device <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg><span class="gw-link__hint"> (opens in a new tab)</span></a> on this device or another one, and sign in to GitHub if it asks.</p>
+      </li>
+      <li class="gw-device-code__step">
+        <p>Enter this code there:</p>
+        <div class="gw-device-code__entry">
+          <p class="gw-device-code__code">
+            <span class="gw-visually-hidden">Code: WDJB-MJHT</span>
+            <span aria-hidden="true"><span class="gw-device-code__group">WDJB</span>-<span class="gw-device-code__group">MJHT</span></span>
+          </p>
+          <span class="gw-copy-button">
+            <button type="button" class="gw-button gw-button--small">
+              <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+              Copy code
+            </button>
+            <span class="gw-copy-button__status" role="status"></span>
+          </span>
+        </div>
+      </li>
+      <li class="gw-device-code__step">
+        <p>Choose Authorize on GitHub's page, then come back here. This view updates by itself.</p>
+      </li>
+    </ol>
+    <div class="gw-device-code__status">
+      <p class="gw-spinner" role="status">Waiting for GitHub to confirm the code</p>
+      <p class="gw-device-code__note">The code expires at 14:32, about 15 minutes after it was issued.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>After the code is copied</h3>
+<p data-gallery="state">State: <code>copied</code></p>
+</figcaption>
+<div data-example="copied" data-title="After the code is copied" data-state="copied">
+  <div class="gw-device-code">
+    <ol class="gw-device-code__steps">
+      <li class="gw-device-code__step">
+        <p>Open <a href="https://github.com/login/device" target="_blank" rel="noopener">github.com/login/device <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg><span class="gw-link__hint"> (opens in a new tab)</span></a> on this device or another one, and sign in to GitHub if it asks.</p>
+      </li>
+      <li class="gw-device-code__step">
+        <p>Enter this code there:</p>
+        <div class="gw-device-code__entry">
+          <p class="gw-device-code__code">
+            <span class="gw-visually-hidden">Code: WDJB-MJHT</span>
+            <span aria-hidden="true"><span class="gw-device-code__group">WDJB</span>-<span class="gw-device-code__group">MJHT</span></span>
+          </p>
+          <span class="gw-copy-button">
+            <button type="button" class="gw-button gw-button--small">
+              <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+              Copy code
+            </button>
+            <span class="gw-copy-button__status" role="status">Code copied</span>
+          </span>
+        </div>
+      </li>
+      <li class="gw-device-code__step">
+        <p>Choose Authorize on GitHub's page, then come back here. This view updates by itself.</p>
+      </li>
+    </ol>
+    <div class="gw-device-code__status">
+      <p class="gw-spinner" role="status">Waiting for GitHub to confirm the code</p>
+      <p class="gw-device-code__note">The code expires at 14:32, about 15 minutes after it was issued.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Inside a sheet</h3>
+</figcaption>
+<div data-example="in-sheet" data-title="Inside a sheet" data-gallery-frame>
+  <dialog class="gw-sheet" id="device-code-in-sheet" aria-labelledby="device-code-in-sheet-title" open>
+    <form class="gw-sheet__header" method="dialog">
+      <h2 class="gw-sheet__title" id="device-code-in-sheet-title">Connect GitHub</h2>
+      <button type="submit" class="gw-button gw-button--quiet" value="close" aria-label="Close Connect GitHub">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+      </button>
+    </form>
+    <div class="gw-sheet__body">
+      <div class="gw-device-code">
+        <ol class="gw-device-code__steps">
+          <li class="gw-device-code__step">
+            <p>Open <a href="https://github.com/login/device" target="_blank" rel="noopener">github.com/login/device <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg><span class="gw-link__hint"> (opens in a new tab)</span></a> on this device or another one, and sign in to GitHub if it asks.</p>
+          </li>
+          <li class="gw-device-code__step">
+            <p>Enter this code there:</p>
+            <div class="gw-device-code__entry">
+              <p class="gw-device-code__code">
+                <span class="gw-visually-hidden">Code: 7F2K-QP9D</span>
+                <span aria-hidden="true"><span class="gw-device-code__group">7F2K</span>-<span class="gw-device-code__group">QP9D</span></span>
+              </p>
+              <span class="gw-copy-button">
+                <button type="button" class="gw-button gw-button--small">
+                  <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+                  Copy code
+                </button>
+                <span class="gw-copy-button__status" role="status"></span>
+              </span>
+            </div>
+          </li>
+          <li class="gw-device-code__step">
+            <p>Choose Authorize on GitHub's page, then come back here. This view updates by itself.</p>
+          </li>
+        </ol>
+        <div class="gw-device-code__status">
+          <p class="gw-spinner" role="status">Waiting for GitHub to confirm the code</p>
+          <p class="gw-device-code__note">The code expires at 14:32, about 15 minutes after it was issued.</p>
+        </div>
+      </div>
+    </div>
+    <form class="gw-sheet__footer" method="dialog">
+      <button type="submit" class="gw-button" value="cancel">Cancel connecting</button>
+    </form>
+  </dialog>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Asking the provider for a code</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="Asking the provider for a code" data-state="loading">
+  <div class="gw-device-code">
+    <p class="gw-spinner" role="status">Asking GitHub for a code</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Connected</h3>
+<p data-gallery="state">State: <code>connected</code></p>
+</figcaption>
+<div data-example="connected" data-title="Connected" data-state="connected">
+  <div class="gw-device-code">
+    <div class="gw-alert gw-alert--success" role="status">
+      <div class="gw-alert__content">
+        <p class="gw-alert__label">Done</p>
+        <p class="gw-alert__title">GitHub is connected as mira-acme</p>
+        <p class="gw-alert__body">Runs can now push branches and open pull requests on acme/api and acme/web.</p>
+        <div class="gw-alert__action">
+          <a class="gw-button gw-button--small" href="/settings/repositories">Choose repositories</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> The code expired</h3>
+<p data-gallery="state">State: <code>expired</code></p>
+<p>The old code is struck through and said to be expired, so nobody types it, and the one action gets a new one without starting over. Nothing is left spinning.</p>
+</figcaption>
+<div data-example="expired" data-title="The code expired" data-state="expired" data-reason="The old code is struck through and said to be expired, so nobody types it, and the one action gets a new one without starting over. Nothing is left spinning.">
+  <div class="gw-device-code">
+    <ol class="gw-device-code__steps">
+      <li class="gw-device-code__step">
+        <p>Open <a href="https://github.com/login/device" target="_blank" rel="noopener">github.com/login/device <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg><span class="gw-link__hint"> (opens in a new tab)</span></a> on this device or another one, and sign in to GitHub if it asks.</p>
+      </li>
+      <li class="gw-device-code__step">
+        <p>Enter this code there:</p>
+        <div class="gw-device-code__entry">
+          <p class="gw-device-code__code">
+            <span class="gw-visually-hidden">Code: WDJB-MJHT, expired</span>
+            <s aria-hidden="true"><span class="gw-device-code__group">WDJB</span>-<span class="gw-device-code__group">MJHT</span></s>
+          </p>
+          <span class="gw-copy-button">
+            <button type="button" class="gw-button gw-button--small" disabled>
+              <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+              Copy code
+            </button>
+            <span class="gw-copy-button__status" role="status"></span>
+          </span>
+        </div>
+      </li>
+      <li class="gw-device-code__step">
+        <p>Choose Authorize on GitHub's page, then come back here. This view updates by itself.</p>
+      </li>
+    </ol>
+    <div class="gw-alert gw-alert--warning" role="alert">
+      <div class="gw-alert__content">
+        <p class="gw-alert__label">Warning</p>
+        <p class="gw-alert__title">This code expired at 14:32</p>
+        <p class="gw-alert__body">GitHub no longer accepts it, and nothing was connected. Get a new code and enter that one.</p>
+        <div class="gw-alert__action">
+          <button type="button" class="gw-button gw-button--small">Get a new code</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Access was declined, or the provider cannot be reached</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="Access was declined, or the provider cannot be reached" data-state="error">
+  <div class="gw-stack gw-gap-xl">
+    <div class="gw-device-code">
+    <div class="gw-alert gw-alert--danger" role="alert">
+      <div class="gw-alert__content">
+        <p class="gw-alert__label">Error</p>
+        <p class="gw-alert__title">Access was declined on GitHub</p>
+        <p class="gw-alert__body">Nothing was connected. If that was a mistake, get a new code and choose Authorize on GitHub's page.</p>
+        <div class="gw-alert__action">
+          <button type="button" class="gw-button gw-button--small">Get a new code</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="gw-device-code">
+      <ol class="gw-device-code__steps">
+        <li class="gw-device-code__step">
+          <p>Open <a href="https://github.com/login/device" target="_blank" rel="noopener">github.com/login/device <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg><span class="gw-link__hint"> (opens in a new tab)</span></a> on this device or another one, and sign in to GitHub if it asks.</p>
+        </li>
+        <li class="gw-device-code__step">
+          <p>Enter this code there:</p>
+          <div class="gw-device-code__entry">
+            <p class="gw-device-code__code">
+              <span class="gw-visually-hidden">Code: K3VN-8TQA</span>
+              <span aria-hidden="true"><span class="gw-device-code__group">K3VN</span>-<span class="gw-device-code__group">8TQA</span></span>
+            </p>
+            <span class="gw-copy-button">
+              <button type="button" class="gw-button gw-button--small">
+                <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+                Copy code
+              </button>
+              <span class="gw-copy-button__status" role="status"></span>
+            </span>
+          </div>
+        </li>
+        <li class="gw-device-code__step">
+          <p>Choose Authorize on GitHub's page, then come back here. This view updates by itself.</p>
+        </li>
+      </ol>
+      <div class="gw-alert gw-alert--danger" role="alert">
+        <div class="gw-alert__content">
+          <p class="gw-alert__label">Error</p>
+          <p class="gw-alert__title">GitHub cannot be reached</p>
+          <p class="gw-alert__body">The app could not check whether the code was entered. The code is still good until 14:32. Check your connection, then check again.</p>
+          <div class="gw-alert__action">
+            <button type="button" class="gw-button gw-button--small">Check again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A link that hides where it goes, and a code in small running text</h3>
+<p>The reader is about to give a stranger's page a code that grants access to their account, and this link does not show which site that is. The code is easy to misread at body size and has to be selected by hand. Show the host in the link, and the code large, grouped and with a Copy button.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="hidden-host" data-title="A link that hides where it goes, and a code in small running text" data-dont="review" data-reason="The reader is about to give a stranger's page a code that grants access to their account, and this link does not show which site that is. The code is easy to misread at body size and has to be selected by hand. Show the host in the link, and the code large, grouped and with a Copy button.">
+  <div class="gw-device-code">
+    <p>To connect your account, open <a href="https://github.com/login/device" target="_blank" rel="noopener">the verification page</a> and type WDJBMJHT.</p>
+    <p class="gw-spinner" role="status">Waiting</p>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>To connect GitHub or another account with the device authorisation flow, where the reader opens the provider's page, on this device or another, and types a code the app shows.</li>
+<li>Inside a sheet's body opened from a Connect button, or straight on a setup page.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>When the provider can send the reader back to the app by itself. Use a button that starts that sign-in.</li>
+<li>For a token or a key the reader pastes into the app. Use a field.</li>
+<li>For a value to copy that is not a one-time code, such as a clone URL. Use the copy field.</li>
+<li>For a code the app sends to the reader's phone or email to type back in. Use a field with autocomplete=&quot;one-time-code&quot;.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a div with gw-device-code. The steps are an ol with gw-device-code__steps, one li with gw-device-code__step for each, in plain words: open the page, enter the code, approve and come back. The stylesheet draws the numbers and a screen reader announces them from the ol.</li>
+<li>The verification address is a real link whose text shows the host and path, such as github.com/login/device, so the reader can check where the code is going before they follow it. It opens in a new tab so this view keeps waiting, and says so in a gw-link__hint.</li>
+<li>The code is a p with gw-device-code__code inside gw-device-code__entry. For the eye it is split into spans with gw-device-code__group, with the provider's separator between them, inside a span with aria-hidden=&quot;true&quot;. For a screen reader it is one string, exactly as the provider issued it, in a gw-visually-hidden span before that: Code: WDJB-MJHT. Never give the code only as an image.</li>
+<li>The Copy control is the copy button: a gw-button named Copy code, with its gw-copy-button__status beside it. It copies the code exactly as issued, and the app writes Code copied into the status.</li>
+<li>gw-device-code__status holds the waiting line, a p with gw-spinner and role=&quot;status&quot;, and a p with gw-device-code__note that says when the code expires as a time of day. A screen reader hears the waiting line once. Do not announce a countdown.</li>
+<li>The app polls the provider. When the account is connected it replaces the steps and the status with a success alert that has role=&quot;status&quot;, says which account was connected, and offers the one way on.</li>
+<li>When the code expires, write the visible code in an s element in place of the aria-hidden span, which strikes it through, add the word expired to the string for screen readers, disable Copy code, and replace the waiting line with a warning alert that has role=&quot;alert&quot;, says the code can no longer be used and offers Get a new code. A new code replaces the old one in place, and the app says so in the waiting line.</li>
+<li>When the reader declines at the provider, or the provider cannot be reached, show a danger alert with role=&quot;alert&quot; that says which of the two happened, that nothing was connected, and what to do.</li>
+<li>Tab reaches the link, Copy code and then whatever follows in the sheet or the page. The component has no keys of its own and needs no script beyond the polling and the copy.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-device-code</code></li>
+<li><code>gw-device-code__code</code></li>
+<li><code>gw-device-code__entry</code></li>
+<li><code>gw-device-code__group</code></li>
+<li><code>gw-device-code__note</code></li>
+<li><code>gw-device-code__status</code></li>
+<li><code>gw-device-code__step</code></li>
+<li><code>gw-device-code__steps</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

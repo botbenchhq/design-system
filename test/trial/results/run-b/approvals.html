@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approvals - Relay</title>
+<link rel="stylesheet" href="vendor/groundwork/groundwork.css">
+</head>
+<body>
+<div class="gw-stack gw-gap-xl">
+  <header class="gw-app-header">
+    <a class="gw-app-header__name" href="approvals.html">Relay</a>
+    <div class="gw-app-header__tray">
+      <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+        <a class="gw-pending-tray__link" href="#approvals"><span class="gw-pending-tray__count">3</span> approvals waiting</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="gw-container gw-stack gw-gap-xl">
+    <header class="gw-page-header">
+      <div class="gw-page-header__text">
+        <h1 class="gw-page-header__title">Approvals</h1>
+        <p class="gw-page-header__description">Three agents are paused until you allow or decline the command each one wants to run.</p>
+      </div>
+    </header>
+
+    <ul class="gw-stack gw-gap-lg" id="approvals">
+      <li>
+        <article class="gw-approval" aria-labelledby="approval-tests-title">
+          <p class="gw-approval__risk">Normal risk: runs the test suite and changes no files outside the task's worktree</p>
+          <h2 class="gw-approval__title" id="approval-tests-title">Implementer on acme/api asks to run the session tests</h2>
+          <pre class="gw-approval__command">npm run test -- --run src/auth/session.test.ts</pre>
+          <ul class="gw-approval__facts">
+            <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">web, inside the task's worktree</span></li>
+            <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Fix the session refresh on acme/api</span></li>
+            <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To confirm the refresh still works after a reload before it opens the pull request.</span></li>
+          </ul>
+          <details class="gw-approval__details">
+            <summary class="gw-approval__summary">Show the full request</summary>
+            <pre class="gw-approval__command">{
+  "tool": "Bash",
+  "command": "npm run test -- --run src/auth/session.test.ts",
+  "description": "Run the session tests",
+  "timeout": 120000
+}</pre>
+          </details>
+          <div class="gw-approval__actions">
+            <button type="button" class="gw-button" data-gw-critical>Allow the tests</button>
+            <button type="button" class="gw-button" data-gw-critical>Decline</button>
+          </div>
+        </article>
+      </li>
+
+      <li>
+        <article class="gw-approval gw-approval--elevated" aria-labelledby="approval-cache-title">
+          <p class="gw-approval__risk">Elevated risk: deletes files outside the task's worktree, and the deletion cannot be undone</p>
+          <h2 class="gw-approval__title" id="approval-cache-title">Implementer on acme/billing asks to delete a shared cache</h2>
+          <pre class="gw-approval__command">rm -rf ../shared-config/.cache</pre>
+          <ul class="gw-approval__facts">
+            <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">../shared-config, outside the task's worktree</span></li>
+            <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Upgrade the Postgres client to 8.13</span></li>
+            <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">The cache holds a stale build of the config loader, which makes the migration tests fail.</span></li>
+          </ul>
+          <div class="gw-approval__actions">
+            <button type="button" class="gw-button" data-gw-critical>Allow the deletion</button>
+            <button type="button" class="gw-button" data-gw-critical>Decline</button>
+          </div>
+        </article>
+      </li>
+
+      <li>
+        <article class="gw-approval" aria-labelledby="approval-fetch-title">
+          <p class="gw-approval__risk">Normal risk: reads from the remote and changes no files</p>
+          <h2 class="gw-approval__title" id="approval-fetch-title">Reviewer on acme/api asks to fetch main</h2>
+          <pre class="gw-approval__command">git fetch origin main</pre>
+          <ul class="gw-approval__facts">
+            <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">The top of the task's worktree</span></li>
+            <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Rate limit the sign-in route</span></li>
+            <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To compare this branch with main before it reviews the diff.</span></li>
+          </ul>
+          <div class="gw-approval__actions">
+            <button type="button" class="gw-button" data-gw-critical>Allow the fetch</button>
+            <button type="button" class="gw-button" data-gw-critical>Decline</button>
+          </div>
+        </article>
+      </li>
+    </ul>
+  </main>
+</div>
+</body>
+</html>

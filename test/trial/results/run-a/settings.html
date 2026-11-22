@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings - Smelt</title>
+<link rel="stylesheet" href="vendor/groundwork/groundwork.css">
+</head>
+<body>
+<header class="gw-app-header">
+  <a class="gw-app-header__name" href="runs.html">Smelt</a>
+  <div class="gw-app-header__tray">
+    <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+      <a class="gw-pending-tray__link" href="approvals.html"><span class="gw-pending-tray__count">3</span> approvals waiting</a>
+    </div>
+  </div>
+</header>
+<div class="gw-sidebar-layout">
+  <nav class="gw-sidebar-nav" aria-label="Main">
+    <div class="gw-sidebar-nav__section">
+      <ul class="gw-sidebar-nav__items" aria-label="Screens">
+        <li><a class="gw-sidebar-nav__item" href="runs.html"><svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-terminal"></use></svg><span class="gw-sidebar-nav__label">Runs</span></a></li><li><a class="gw-sidebar-nav__item" href="approvals.html"><svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-circle-check"></use></svg><span class="gw-sidebar-nav__label">Approvals</span></a></li><li><a class="gw-sidebar-nav__item" href="settings.html" aria-current="page"><svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-folder"></use></svg><span class="gw-sidebar-nav__label">Settings</span></a></li>
+      </ul>
+    </div>
+    <div class="gw-sidebar-nav__footer">
+      <p class="gw-sidebar-nav__note">acme/api on runner build-03</p>
+    </div>
+  </nav>
+  <main class="gw-container gw-stack gw-gap-xl">
+    <header class="gw-page-header">
+      <div class="gw-page-header__text">
+        <h1 class="gw-page-header__title">Settings for acme/api</h1>
+        <p class="gw-page-header__description">Each change is saved as you make it.</p>
+      </div>
+    </header>
+
+    <div class="gw-stack gw-gap-lg">
+      <h2>Pull requests</h2>
+      <div class="gw-field">
+        <label class="gw-field__label" for="base">Base branch</label>
+        <div class="gw-select">
+          <select class="gw-field__control gw-select__control" id="base" name="base" aria-describedby="base-description">
+            <option value="main" selected>main</option>
+            <option value="develop">develop</option>
+            <option value="release/2026-11">release/2026-11</option>
+          </select>
+        </div>
+        <p class="gw-field__description" id="base-description">Each task branch starts from the latest commit on this branch.</p>
+      </div>
+      <div class="gw-stack gw-gap-xs">
+        <div class="gw-switch">
+          <label class="gw-switch__label" for="run-tests">Run the tests before opening a pull request</label>
+          <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+          <input class="gw-switch__input" type="checkbox" role="switch" id="run-tests" name="run-tests" checked aria-describedby="run-tests-description">
+          <p class="gw-switch__description" id="run-tests-description">Runs npm test in the task's worktree. A failed run stops the pull request.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gw-stack gw-gap-lg">
+      <h2>Notifications</h2>
+      <div class="gw-stack gw-gap-xs">
+        <div class="gw-switch">
+          <label class="gw-switch__label" for="notify-approval">Notify me when a run needs approval</label>
+          <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+          <input class="gw-switch__input" type="checkbox" role="switch" id="notify-approval" name="notify-approval" checked aria-describedby="notify-approval-description">
+          <p class="gw-switch__description" id="notify-approval-description">Sent to mira@acme.dev as soon as an agent waits for you.</p>
+        </div>
+        <div class="gw-switch">
+          <label class="gw-switch__label" for="notify-finish">Notify me when a run finishes</label>
+          <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+          <input class="gw-switch__input" type="checkbox" role="switch" id="notify-finish" name="notify-finish" aria-describedby="notify-finish-description">
+          <p class="gw-switch__description" id="notify-finish-description">One message for each run, with its result.</p>
+        </div>
+        <div class="gw-switch">
+          <label class="gw-switch__label" for="notify-fail">Notify me when a run fails</label>
+          <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+          <input class="gw-switch__input" type="checkbox" role="switch" id="notify-fail" name="notify-fail" checked aria-describedby="notify-fail-description">
+          <p class="gw-switch__description" id="notify-fail-description">Includes the failed check and the last 20 lines of its log.</p>
+        </div>
+      </div>
+    </div>
+
+    <details class="gw-disclosure" data-gw-advanced>
+      <summary class="gw-disclosure__summary">
+        Advanced settings
+        <span class="gw-disclosure__meta">3 settings</span>
+      </summary>
+      <div class="gw-disclosure__content gw-stack gw-gap-lg">
+        <div class="gw-field">
+          <label class="gw-field__label" for="longest">Longest run</label>
+          <div class="gw-select">
+            <select class="gw-field__control gw-select__control" id="longest" name="longest-run">
+              <option value="15">15 minutes</option>
+              <option value="30" selected>30 minutes</option>
+              <option value="60">1 hour</option>
+              <option value="120">2 hours</option>
+            </select>
+          </div>
+        </div>
+        <div class="gw-field">
+          <label class="gw-field__label" for="tokens">Tokens for each run</label>
+          <input class="gw-field__control" id="tokens" type="text" inputmode="numeric" name="token-limit" autocomplete="off" value="50000">
+        </div>
+        <div class="gw-switch">
+          <label class="gw-switch__label" for="keep-worktree">Keep the worktree after a failed run</label>
+          <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+          <input class="gw-switch__input" type="checkbox" role="switch" id="keep-worktree" name="keep-worktree" aria-describedby="keep-worktree-description">
+          <p class="gw-switch__description" id="keep-worktree-description">The worktree stays in /srv/workspaces/acme-api until you delete it.</p>
+        </div>
+      </div>
+    </details>
+
+    <section class="gw-card gw-settings-page__danger" aria-labelledby="danger-title">
+      <div class="gw-card__header">
+        <h2 class="gw-card__title" id="danger-title">Danger area for acme/api</h2>
+      </div>
+      <div class="gw-card__body">
+        <div class="gw-split">
+          <div>
+            <p><strong>Disconnect the repository</strong></p>
+            <p>Stops the 2 runs in progress and removes the deploy key. Branches and pull requests stay on the host.</p>
+          </div>
+          <button type="button" class="gw-button gw-button--danger" data-gw-critical command="show-modal" commandfor="disconnect-dialog">Disconnect repository</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<dialog class="gw-dialog gw-confirm-dialog" id="disconnect-dialog" role="alertdialog" aria-labelledby="disconnect-dialog-title" aria-describedby="disconnect-dialog-body">
+  <form class="gw-dialog__panel" method="dialog">
+    <h2 class="gw-dialog__title" id="disconnect-dialog-title">Disconnect the repository acme/api?</h2>
+    <div class="gw-dialog__body" id="disconnect-dialog-body">
+      <p>This cannot be undone from Smelt. You will lose:</p>
+      <ul class="gw-confirm-dialog__losses">
+        <li class="gw-confirm-dialog__loss">The 2 runs in progress, which stop at once</li>
+        <li class="gw-confirm-dialog__loss">The deploy key, which is removed from the repository</li>
+      </ul>
+      <p>Branches and pull requests stay on the host.</p>
+    </div>
+    <div class="gw-dialog__footer gw-confirm-dialog__actions">
+      <button type="submit" class="gw-button" value="cancel">Cancel</button>
+      <button type="submit" class="gw-button gw-button--danger" value="disconnect">Disconnect repository</button>
+    </div>
+  </form>
+</dialog>
+<nav class="gw-tab-bar" aria-label="Main">
+  <a class="gw-tab-bar__item" href="runs.html"><svg class="gw-tab-bar__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-terminal"></use></svg><span class="gw-tab-bar__label">Runs</span></a><a class="gw-tab-bar__item" href="approvals.html"><svg class="gw-tab-bar__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-circle-check"></use></svg><span class="gw-tab-bar__label">Approvals</span></a><a class="gw-tab-bar__item" href="settings.html" aria-current="page"><svg class="gw-tab-bar__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-folder"></use></svg><span class="gw-tab-bar__label">Settings</span></a>
+</nav>
+</body>
+</html>

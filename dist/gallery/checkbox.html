@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkbox - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Checkbox</h1>
+<p>A native checkbox with its label: one yes-or-no choice, or several independent choices in a group, sent with a form.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Label and description</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The label is a label element tied to the input, so a press on the words ticks the box and a screen reader reads them as its name. The description says what ticking it will do.</p>
+</figcaption>
+<div data-example="default" data-title="Label and description" data-state="default" data-reason="The label is a label element tied to the input, so a press on the words ticks the box and a screen reader reads them as its name. The description says what ticking it will do.">
+  <div class="gw-checkbox">
+    <input class="gw-checkbox__input" type="checkbox" id="checkbox-default-tests" name="run-tests" aria-describedby="checkbox-default-description">
+    <label class="gw-checkbox__label" for="checkbox-default-tests">Run the tests before opening a pull request</label>
+    <p class="gw-checkbox__description" id="checkbox-default-description">Runs npm test in the task's worktree. A failed run stops the pull request.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Checked</h3>
+<p data-gallery="state">State: <code>checked</code></p>
+</figcaption>
+<div data-example="checked" data-title="Checked" data-state="checked">
+  <div class="gw-checkbox">
+    <input class="gw-checkbox__input" type="checkbox" id="checkbox-checked-draft" name="draft" checked>
+    <label class="gw-checkbox__label" for="checkbox-checked-draft">Open the pull request as a draft</label>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A group with a legend</h3>
+</figcaption>
+<div data-example="group" data-title="A group with a legend">
+  <fieldset class="gw-checkbox__group">
+    <legend class="gw-checkbox__legend">Checks to run after each change</legend>
+    <div class="gw-checkbox">
+      <input class="gw-checkbox__input" type="checkbox" id="checkbox-group-lint" name="checks" value="lint" checked>
+      <label class="gw-checkbox__label" for="checkbox-group-lint">Lint</label>
+    </div>
+    <div class="gw-checkbox">
+      <input class="gw-checkbox__input" type="checkbox" id="checkbox-group-unit" name="checks" value="unit" checked>
+      <label class="gw-checkbox__label" for="checkbox-group-unit">Unit tests</label>
+    </div>
+    <div class="gw-checkbox">
+      <input class="gw-checkbox__input" type="checkbox" id="checkbox-group-integration" name="checks" value="integration" aria-describedby="checkbox-group-integration-description">
+      <label class="gw-checkbox__label" for="checkbox-group-integration">Integration tests</label>
+      <p class="gw-checkbox__description" id="checkbox-group-integration-description">About 6 minutes on acme/api. Needs Docker in the workspace.</p>
+    </div>
+  </fieldset>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Indeterminate</h3>
+<p data-gallery="state">State: <code>indeterminate</code></p>
+</figcaption>
+<div data-example="indeterminate" data-title="Indeterminate" data-state="indeterminate">
+  <div class="gw-checkbox">
+    <input class="gw-checkbox__input" type="checkbox" id="checkbox-indeterminate-all" name="select-all" aria-describedby="checkbox-indeterminate-description">
+    <label class="gw-checkbox__label" for="checkbox-indeterminate-all">Select all runs</label>
+    <p class="gw-checkbox__description" id="checkbox-indeterminate-description">2 of 14 runs selected.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-stack gw-gap-xs">
+    <div class="gw-checkbox">
+      <input class="gw-checkbox__input" type="checkbox" id="checkbox-hover-lint" name="checks" value="lint">
+      <label class="gw-checkbox__label" for="checkbox-hover-lint">Lint</label>
+    </div>
+    <div class="gw-checkbox">
+      <input class="gw-checkbox__input" type="checkbox" id="checkbox-hover-unit" name="checks" value="unit" checked>
+      <label class="gw-checkbox__label" for="checkbox-hover-unit">Unit tests</label>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-checkbox">
+    <input class="gw-checkbox__input" type="checkbox" id="checkbox-focus-draft" name="draft" checked>
+    <label class="gw-checkbox__label" for="checkbox-focus-draft">Open the pull request as a draft</label>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <fieldset class="gw-checkbox__group">
+    <legend class="gw-checkbox__legend">Branch protection</legend>
+    <div class="gw-checkbox">
+      <input class="gw-checkbox__input" type="checkbox" id="checkbox-disabled-force" name="protection" value="force-push" disabled aria-describedby="checkbox-disabled-force-description">
+      <label class="gw-checkbox__label" for="checkbox-disabled-force">Allow force-push to main</label>
+      <p class="gw-checkbox__description" id="checkbox-disabled-force-description">Only a repository owner can change this.</p>
+    </div>
+    <div class="gw-checkbox">
+      <input class="gw-checkbox__input" type="checkbox" id="checkbox-disabled-review" name="protection" value="review" checked disabled>
+      <label class="gw-checkbox__label" for="checkbox-disabled-review">Require a review before merging</label>
+    </div>
+  </fieldset>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Invalid</h3>
+<p data-gallery="state">State: <code>invalid</code></p>
+</figcaption>
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <div class="gw-checkbox">
+    <input class="gw-checkbox__input" type="checkbox" id="checkbox-invalid-read" name="confirm-read" required aria-invalid="true" aria-describedby="checkbox-invalid-error">
+    <label class="gw-checkbox__label" for="checkbox-invalid-read">I have read the 3 commits this will remove from main</label>
+    <p class="gw-checkbox__error" id="checkbox-invalid-error">Tick the box to confirm you have read the commits, then force-push again.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Text beside the box that is not its label</h3>
+<p>The words are a span, not a label tied to the input. A press on them does nothing, and a screen reader announces a checkbox with no name.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="unlinked-label" data-title="Text beside the box that is not its label" data-dont="review" data-reason="The words are a span, not a label tied to the input. A press on them does nothing, and a screen reader announces a checkbox with no name.">
+  <div class="gw-checkbox">
+    <input class="gw-checkbox__input" type="checkbox" name="draft">
+    <span class="gw-checkbox__label">Open the pull request as a draft</span>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a choice the reader confirms with the rest of a form, such as Open the pull request as a draft.</li>
+<li>For several options where any number may be chosen, in a fieldset with a legend.</li>
+<li>For a select-all box over a list, which is indeterminate while only some rows are selected.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a setting that takes effect the moment it changes. Use a switch.</li>
+<li>To choose exactly one of several options. Use a radio group, or a segmented control for two to five short options.</li>
+<li>To choose one of many options. Use a select.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>single</dt>
+<dd>The default: a div with gw-checkbox holding the input, the label, and optionally a description and an error.</dd>
+<dt>group <code>gw-checkbox__group</code></dt>
+<dd>A fieldset holding a gw-checkbox__legend and one gw-checkbox per option, one above the other.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use input type=&quot;checkbox&quot; with gw-checkbox__input, followed by a label with gw-checkbox__label whose for attribute is the input's id. The input comes first in the markup: the stylesheet reads its state to style the label after it.</li>
+<li>A description is a p with gw-checkbox__description, linked from the input with aria-describedby.</li>
+<li>Group related checkboxes in a fieldset with gw-checkbox__group, and name the group with a legend carrying gw-checkbox__legend.</li>
+<li>Indeterminate cannot be written in markup. The app sets the property with script, input.indeterminate = true, and clears it when the box is next changed. A screen reader then announces it as mixed. Do not set aria-checked on a native checkbox.</li>
+<li>For an error, set aria-invalid=&quot;true&quot; on the input and link a p with gw-checkbox__error through aria-describedby. The message says what to do, and its icon is drawn by the stylesheet.</li>
+<li>Set the disabled attribute when the choice is unavailable, and say why in the description. A disabled checkbox leaves the tab order.</li>
+<li>Tab reaches each checkbox and Space toggles it. The box is drawn 20px square and its pointer target is 44px; a press on the label toggles it too.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-checkbox</code></li>
+<li><code>gw-checkbox__description</code></li>
+<li><code>gw-checkbox__error</code></li>
+<li><code>gw-checkbox__group</code></li>
+<li><code>gw-checkbox__input</code></li>
+<li><code>gw-checkbox__label</code></li>
+<li><code>gw-checkbox__legend</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

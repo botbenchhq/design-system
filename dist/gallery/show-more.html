@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Show more - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Show more</h1>
+<p>A control after the first part of long content that reveals the rest: a details element for text, code or a log, and a quiet button for a list cut short.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> The rest of a log, closed</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The summary says how much more there is and in what unit, so the reader can decide whether to open it. The first lines stay in view either way, and nothing the reader must act on is in the hidden part.</p>
+</figcaption>
+<div data-example="default" data-title="The rest of a log, closed" data-state="default" data-reason="The summary says how much more there is and in what unit, so the reader can decide whether to open it. The first lines stay in view either way, and nothing the reader must act on is in the hidden part.">
+  <div class="gw-show-more">
+    <figure class="gw-code-block">
+      <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✔ session: a token issued a minute ago is accepted (3.9ms)</code></pre>
+    </figure>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 38 more lines</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <figure class="gw-code-block">
+        <pre class="gw-code-block__body"><code>✔ session: the refresh endpoint extends an unexpired token (12.8ms)
+✔ webhooks: a delivery over the limit is answered with 429 (8.1ms)
+✔ webhooks: the limit resets after one second (1004.6ms)
+
+tests 213, pass 213, fail 0</code></pre>
+      </figure>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Open: the control moves under the rest and reads Show less</h3>
+<p data-gallery="state">State: <code>open</code></p>
+</figcaption>
+<div data-example="open" data-title="Open: the control moves under the rest and reads Show less" data-state="open">
+  <div class="gw-show-more">
+    <figure class="gw-code-block">
+      <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✔ session: a token issued a minute ago is accepted (3.9ms)</code></pre>
+    </figure>
+    <details class="gw-show-more__rest" open>
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 38 more lines</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <figure class="gw-code-block">
+        <pre class="gw-code-block__body"><code>✔ session: the refresh endpoint extends an unexpired token (12.8ms)
+✔ webhooks: a delivery over the limit is answered with 429 (8.1ms)
+✔ webhooks: the limit resets after one second (1004.6ms)
+
+tests 213, pass 213, fail 0</code></pre>
+      </figure>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The rest of a long description</h3>
+</figcaption>
+<div data-example="text" data-title="The rest of a long description">
+  <div class="gw-show-more">
+    <p>Sessions are checked in <code>src/session/verify.mjs</code>. A token is accepted until it expires, however long ago it was issued, so a stolen token works for 30 days.</p>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 2 more paragraphs</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <div class="gw-stack gw-gap-sm">
+        <p>Refuse any token issued more than 30 minutes ago and answer with 401, so the client asks the reader to sign in again. Read the limit from <code>SESSION_TTL_SECONDS</code> and default it to 1800.</p>
+        <p>Add tests for a token just inside the limit and one just outside it, and update <code>.env.example</code>.</p>
+      </div>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A list cut short, with a button for the rest</h3>
+<p>The button gives the full count and names what is listed, so the reader knows what pressing it will bring. It is quiet, because the rows above it are the content.</p>
+</figcaption>
+<div data-example="list" data-title="A list cut short, with a button for the rest" data-reason="The button gives the full count and names what is listed, so the reader knows what pressing it will bring. It is quiet, because the rows above it are the content.">
+  <div class="gw-show-more">
+    <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/861">
+          <span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">fix/login-timeout</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/860">
+          <span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">feat/webhook-rate-limit</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/859">
+          <span class="gw-list__body"><span class="gw-list__primary">Move the invoice export to a background job</span><span class="gw-list__secondary">feat/invoice-export-job</span></span>
+          <span class="gw-list__meta">Waiting for a runner</span>
+        </a>
+      </li>
+    </ul>
+    <button type="button" class="gw-button gw-button--quiet gw-show-more__all">Show all 24 tasks</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The rest of the list is being fetched</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="The rest of the list is being fetched" data-state="loading">
+  <div class="gw-show-more">
+    <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/861">
+          <span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">fix/login-timeout</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/860">
+          <span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">feat/webhook-rate-limit</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/859">
+          <span class="gw-list__body"><span class="gw-list__primary">Move the invoice export to a background job</span><span class="gw-list__secondary">feat/invoice-export-job</span></span>
+          <span class="gw-list__meta">Waiting for a runner</span>
+        </a>
+      </li>
+    </ul>
+    <button type="button" class="gw-button gw-button--quiet gw-show-more__all" aria-busy="true">Loading 21 more tasks</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The rest of the list could not be fetched</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The rest of the list could not be fetched" data-state="error">
+  <div class="gw-show-more">
+    <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/861">
+          <span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">fix/login-timeout</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/860">
+          <span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">feat/webhook-rate-limit</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/tasks/859">
+          <span class="gw-list__body"><span class="gw-list__primary">Move the invoice export to a background job</span><span class="gw-list__secondary">feat/invoice-export-job</span></span>
+          <span class="gw-list__meta">Waiting for a runner</span>
+        </a>
+      </li>
+    </ul>
+    <p class="gw-show-more__error" role="alert">The other 21 tasks could not be loaded because the server did not answer. Check your connection, then press Show all 24 tasks again.</p>
+    <button type="button" class="gw-button gw-button--quiet gw-show-more__all">Show all 24 tasks</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-show-more">
+    <figure class="gw-code-block">
+      <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✔ session: a token issued a minute ago is accepted (3.9ms)</code></pre>
+    </figure>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 38 more lines</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <figure class="gw-code-block">
+        <pre class="gw-code-block__body"><code>✔ session: the refresh endpoint extends an unexpired token (12.8ms)
+✔ webhooks: a delivery over the limit is answered with 429 (8.1ms)
+✔ webhooks: the limit resets after one second (1004.6ms)
+
+tests 213, pass 213, fail 0</code></pre>
+      </figure>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-show-more">
+    <figure class="gw-code-block">
+      <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✔ session: a token issued a minute ago is accepted (3.9ms)</code></pre>
+    </figure>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 38 more lines</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <figure class="gw-code-block">
+        <pre class="gw-code-block__body"><code>✔ session: the refresh endpoint extends an unexpired token (12.8ms)
+✔ webhooks: a delivery over the limit is answered with 429 (8.1ms)
+✔ webhooks: the limit resets after one second (1004.6ms)
+
+tests 213, pass 213, fail 0</code></pre>
+      </figure>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active">
+  <div class="gw-show-more">
+    <figure class="gw-code-block">
+      <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✔ session: a token issued a minute ago is accepted (3.9ms)</code></pre>
+    </figure>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 38 more lines</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <figure class="gw-code-block">
+        <pre class="gw-code-block__body"><code>✔ session: the refresh endpoint extends an unexpired token (12.8ms)
+✔ webhooks: a delivery over the limit is answered with 429 (8.1ms)
+✔ webhooks: the limit resets after one second (1004.6ms)
+
+tests 213, pass 213, fail 0</code></pre>
+      </figure>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A control that does not say how much more</h3>
+<p>Show more could mean two lines or two thousand, and the reader has to press it to find out. Write the count and the unit, such as Show 38 more lines.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="no-count" data-title="A control that does not say how much more" data-dont="review" data-reason="Show more could mean two lines or two thousand, and the reader has to press it to find out. Write the count and the unit, such as Show 38 more lines.">
+  <div class="gw-show-more">
+    <figure class="gw-code-block">
+      <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✔ session: a token issued a minute ago is accepted (3.9ms)</code></pre>
+    </figure>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show more</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <figure class="gw-code-block">
+        <pre class="gw-code-block__body"><code>✔ session: the refresh endpoint extends an unexpired token (12.8ms)
+✔ webhooks: a delivery over the limit is answered with 429 (8.1ms)
+✔ webhooks: the limit resets after one second (1004.6ms)
+
+tests 213, pass 213, fail 0</code></pre>
+      </figure>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> The only way to an action that matters</h3>
+<p>Deleting the workspace can be reached only by opening the rest, so a reader who never opens it does not know the action exists. Keep actions in the part that is always shown.</p>
+<p>Checker rule: <code>hidden-critical-action</code></p>
+</figcaption>
+<div data-example="hidden-action" data-title="The only way to an action that matters" data-dont="hidden-critical-action" data-reason="Deleting the workspace can be reached only by opening the rest, so a reader who never opens it does not know the action exists. Keep actions in the part that is always shown.">
+  <div class="gw-show-more">
+    <p>The workspace <code>/srv/workspaces/acme-api</code> holds 214 MB on disk.</p>
+    <details class="gw-show-more__rest">
+      <summary class="gw-show-more__toggle">
+        <span class="gw-show-more__more">Show 1 more paragraph</span>
+        <span class="gw-show-more__less">Show less</span>
+      </summary>
+      <div class="gw-stack gw-gap-sm">
+        <p>It was last used by run 4182, 3 days ago.</p>
+        <div class="gw-cluster">
+          <button type="button" class="gw-button gw-button--danger" data-gw-critical>Delete workspace</button>
+        </div>
+      </div>
+    </details>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a log, an output or a description that is long, when its first lines are enough for most readers and the rest is already in the page.</li>
+<li>With the Show all button, under a list that shows its first rows, when the full list is short enough to read in one view, about fifty rows at most.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For detail under a title of its own, such as Environment. Use a disclosure, whose summary names what it holds.</li>
+<li>For a list of hundreds of rows. Use pagination.</li>
+<li>For anything the reader must see or do in order to go on. An action marked data-gw-critical in the hidden part fails the hidden-critical-action rule.</li>
+<li>For content that fits in a few lines. Show all of it.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>details</dt>
+<dd>gw-show-more__rest is a details element after the part that is always shown. Its summary, gw-show-more__toggle, holds two spans: gw-show-more__more, such as Show 38 more lines, and gw-show-more__less, Show less. The stylesheet shows the one that applies. Needs no script.</dd>
+<dt>list</dt>
+<dd>A button with the classes gw-button, gw-button--quiet and gw-show-more__all after a gw-list, reading Show all 24 tasks. The app adds the rows when it is pressed.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>The control is 44px tall, as wide as its text, and starts at the content's leading edge.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Wrap the part that is always shown and the control in a div with the gw-show-more class. The shown part comes first.</li>
+<li>Details variant: the app writes the count into gw-show-more__more when it renders, as the number of hidden units and the unit in words: Show 38 more lines, Show 2 more paragraphs. The count is the total minus what is shown. gw-show-more__less always reads Show less.</li>
+<li>Only one of the two spans is rendered at a time, so the summary's name is Show 38 more lines while closed and Show less while open, and the browser announces collapsed or expanded with it. The summary always holds text.</li>
+<li>Once open, the control is drawn under the revealed content, and stays before it in the markup. Focus stays on the control, and the next Tab or reading step goes into the revealed content.</li>
+<li>List variant: the button's label gives the full count and the noun, Show all 24 tasks. When it is pressed the app appends the remaining rows to the same list, removes the button, and moves focus to the first new row. There is no Show less.</li>
+<li>While the rows are fetched, set aria-busy=&quot;true&quot; on the button and change its label to Loading 21 more tasks. If the fetch fails, restore the label and add a p with the gw-show-more__error class and role=&quot;alert&quot; before the button, saying what to do.</li>
+<li>Tab reaches the control. Enter and Space activate it. Both come from the summary or the button element.</li>
+<li>The browser's find-in-page opens a closed details that holds a match.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-show-more</code></li>
+<li><code>gw-show-more__all</code></li>
+<li><code>gw-show-more__error</code></li>
+<li><code>gw-show-more__less</code></li>
+<li><code>gw-show-more__more</code></li>
+<li><code>gw-show-more__rest</code></li>
+<li><code>gw-show-more__toggle</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

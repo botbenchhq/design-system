@@ -1,0 +1,116 @@
+/*
+ * Sheet: a panel built on the dialog element. It rises from the bottom edge on a phone
+ * and sits against the trailing edge as a side panel at the regular width.
+ * A header with the title and Close, a body that scrolls, and a footer that stays in view.
+ */
+
+@layer gw.components {
+  .gw-sheet {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: var(--gw-z-dialog);
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100% - var(--gw-space-2xl));
+    margin: 0;
+    /* Keeps the footer clear of the home indicator on a phone. */
+    padding-bottom: env(safe-area-inset-bottom);
+    border-top-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md) var(--gw-radius-md) 0 0;
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-on-surface);
+    box-shadow: var(--gw-shadow-overlay);
+    overflow: hidden;
+    transition: translate var(--gw-duration-base) var(--gw-ease);
+  }
+
+  /* Set only while open, so a closed sheet stays hidden. */
+  .gw-sheet[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Where the sheet starts from when showModal() opens it. The reset removes the movement for reduced motion. */
+  @starting-style {
+    .gw-sheet:modal {
+      translate: 0 100%;
+    }
+  }
+
+  /* There is no scrim token. The page behind fades towards the sunken surface in both themes. */
+  .gw-sheet::backdrop {
+    background-color: var(--gw-color-surface-sunken);
+    opacity: 0.8;
+  }
+
+  /* A form with method="dialog", so Close needs no script. */
+  .gw-sheet__header {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gw-space-md);
+    padding: var(--gw-space-xs) var(--gw-space-xs) var(--gw-space-xs) var(--gw-space-lg);
+    border-bottom-width: var(--gw-border-width);
+  }
+
+  .gw-sheet__title {
+    margin: 0;
+    min-width: 0;
+    font-size: var(--gw-text-lg);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-lg);
+    overflow-wrap: anywhere;
+  }
+
+  /* An optional form around the body and the footer, when the footer's button submits the body's fields. */
+  .gw-sheet__form {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .gw-sheet__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+    min-width: 0;
+    min-height: 0;
+    padding: var(--gw-space-lg);
+    overflow-y: auto;
+    overflow-wrap: anywhere;
+  }
+
+  /* Outside the scrolling body, so the primary action is in view however long the body is. */
+  .gw-sheet__footer {
+    display: flex;
+    flex: none;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    padding: var(--gw-space-md) var(--gw-space-lg);
+    border-top-width: var(--gw-border-width);
+  }
+
+  @media (min-width: 768px) {
+    .gw-sheet {
+      inset: 0 0 0 auto;
+      width: calc(var(--gw-size-column) * 0.75);
+      max-width: calc(100% - var(--gw-space-2xl));
+      height: 100%;
+      max-height: 100%;
+      border-top-width: 0;
+      border-inline-start-width: var(--gw-border-width);
+      border-radius: 0;
+    }
+
+    @starting-style {
+      .gw-sheet:modal {
+        translate: 100% 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attachment chip - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Attachment chip</h1>
+<p>One file or image attached to a prompt: its kind as an icon, its name, its size in words and a button that removes it.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A file and an image, attached</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each chip names the file, says what kind it is with an icon and how large it is in words, and its remove button names the file it removes. The reader can check what will be sent before sending it.</p>
+</figcaption>
+<div data-example="attached" data-title="A file and an image, attached" data-state="default" data-reason="Each chip names the file, says what kind it is with an icon and how large it is in words, and its remove button names the file it removes. The reader can check what will be sent before sending it.">
+  <ul class="gw-cluster gw-gap-md" aria-label="Attachments">
+    <li class="gw-attachment-chip">
+      <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+      <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">session-trace</span><span class="gw-attachment-chip__end">.log</span></span>
+      <span class="gw-attachment-chip__size">48 KB</span>
+      <button type="button" class="gw-attachment-chip__remove">
+        <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Remove session-trace.log</span>
+      </button>
+    </li>
+    <li class="gw-attachment-chip">
+      <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-image"></use></svg>
+      <span class="gw-attachment-chip__name"><span class="gw-visually-hidden">Image </span><span class="gw-attachment-chip__start">sign-in-error</span><span class="gw-attachment-chip__end">.png</span></span>
+      <span class="gw-attachment-chip__size">2.1 MB</span>
+      <button type="button" class="gw-attachment-chip__remove">
+        <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Remove sign-in-error.png</span>
+      </button>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A long name loses its middle</h3>
+</figcaption>
+<div data-example="long-name" data-title="A long name loses its middle">
+  <ul class="gw-cluster gw-gap-md" aria-label="Attachments with long names">
+    <li class="gw-attachment-chip">
+      <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+      <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">refresh-token-rotation.integration.test.2026-11-22T09-14-</span><span class="gw-attachment-chip__end">run-2291.log</span></span>
+      <span class="gw-attachment-chip__size">312 KB</span>
+      <button type="button" class="gw-attachment-chip__remove">
+        <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Remove refresh-token-rotation.integration.test.2026-11-22T09-14-run-2291.log</span>
+      </button>
+    </li>
+    <li class="gw-attachment-chip">
+      <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-image"></use></svg>
+      <span class="gw-attachment-chip__name"><span class="gw-visually-hidden">Image </span><span class="gw-attachment-chip__start">Screenshot 2026-11-22 at 09.14.52 settings screen dark theme </span><span class="gw-attachment-chip__end">(2).png</span></span>
+      <span class="gw-attachment-chip__size">4.8 MB</span>
+      <button type="button" class="gw-attachment-chip__remove">
+        <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Remove Screenshot 2026-11-22 at 09.14.52 settings screen dark theme (2).png</span>
+      </button>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Uploading</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="uploading" data-title="Uploading" data-state="busy">
+  <ul class="gw-cluster gw-gap-md" aria-label="Attachments being uploaded">
+    <li class="gw-attachment-chip" aria-busy="true">
+      <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-image"></use></svg>
+      <span class="gw-attachment-chip__name"><span class="gw-visually-hidden">Image </span><span class="gw-attachment-chip__start">settings-dark-theme</span><span class="gw-attachment-chip__end">.png</span></span>
+      <span class="gw-attachment-chip__size">62% of 2.1 MB</span>
+      <button type="button" class="gw-attachment-chip__remove">
+        <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Cancel the upload of settings-dark-theme.png</span>
+      </button>
+      <progress class="gw-attachment-chip__progress" value="62" max="100" aria-label="Uploading settings-dark-theme.png">62%</progress>
+    </li>
+    <li class="gw-attachment-chip" aria-busy="true">
+      <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+      <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">heap-snapshot</span><span class="gw-attachment-chip__end">.json</span></span>
+      <span class="gw-attachment-chip__size">Starting upload</span>
+      <button type="button" class="gw-attachment-chip__remove">
+        <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Cancel the upload of heap-snapshot.json</span>
+      </button>
+      <progress class="gw-attachment-chip__progress" aria-label="Uploading heap-snapshot.json"></progress>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>An upload that failed</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="An upload that failed" data-state="error">
+  <ul class="gw-cluster gw-gap-md" aria-label="Attachments that were not uploaded">
+    <li class="gw-attachment-chip">
+      <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+      <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">heap-snapshot</span><span class="gw-attachment-chip__end">.json</span></span>
+      <span class="gw-attachment-chip__size">38 MB</span>
+      <button type="button" class="gw-attachment-chip__remove">
+        <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Remove heap-snapshot.json</span>
+      </button>
+      <p class="gw-attachment-chip__error" role="alert">Not attached: files can be up to 10 MB. Remove it and attach a smaller file.</p>
+    </li>
+    <li class="gw-attachment-chip">
+      <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-image"></use></svg>
+      <span class="gw-attachment-chip__name"><span class="gw-visually-hidden">Image </span><span class="gw-attachment-chip__start">sign-in-error</span><span class="gw-attachment-chip__end">.png</span></span>
+      <span class="gw-attachment-chip__size">2.1 MB</span>
+      <button type="button" class="gw-attachment-chip__remove">
+        <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Remove sign-in-error.png</span>
+      </button>
+      <p class="gw-attachment-chip__error" role="alert">Not uploaded: the connection dropped. Remove it and attach the image again.</p>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover on the remove button</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover on the remove button" data-state="hover">
+  <ul class="gw-cluster gw-gap-md" aria-label="Attachment, remove button hovered">
+    <li class="gw-attachment-chip">
+      <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+      <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">session-trace</span><span class="gw-attachment-chip__end">.log</span></span>
+      <span class="gw-attachment-chip__size">48 KB</span>
+      <button type="button" class="gw-attachment-chip__remove">
+        <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Remove session-trace.log</span>
+      </button>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus on the remove button</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus on the remove button" data-state="focus-visible">
+  <ul class="gw-cluster gw-gap-md" aria-label="Attachment, remove button focused">
+    <li class="gw-attachment-chip">
+      <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+      <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">session-trace</span><span class="gw-attachment-chip__end">.log</span></span>
+      <span class="gw-attachment-chip__size">48 KB</span>
+      <button type="button" class="gw-attachment-chip__remove">
+        <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Remove session-trace.log</span>
+      </button>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>While the prompt is being sent</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="While the prompt is being sent" data-state="disabled">
+  <ul class="gw-cluster gw-gap-md" aria-label="Attachments being sent">
+    <li class="gw-attachment-chip">
+      <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+      <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">session-trace</span><span class="gw-attachment-chip__end">.log</span></span>
+      <span class="gw-attachment-chip__size">48 KB</span>
+      <button type="button" class="gw-attachment-chip__remove" disabled>
+        <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Remove session-trace.log</span>
+      </button>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> An unnamed remove button and an error that only says it failed</h3>
+<p>A bare cross gives a screen reader nothing to announce, and with two chips nobody can tell which file it removes. Failed does not say why or what to do next. Name the file in the button, and say in the message what to do.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="unnamed-remove" data-title="An unnamed remove button and an error that only says it failed" data-dont="review" data-reason="A bare cross gives a screen reader nothing to announce, and with two chips nobody can tell which file it removes. Failed does not say why or what to do next. Name the file in the button, and say in the message what to do.">
+  <ul class="gw-cluster gw-gap-md" aria-label="Attachments with an unnamed remove button">
+    <li class="gw-attachment-chip">
+      <svg class="gw-attachment-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+      <span class="gw-attachment-chip__name"><span class="gw-attachment-chip__start">heap-snapshot</span><span class="gw-attachment-chip__end">.json</span></span>
+      <button type="button" class="gw-attachment-chip__remove">
+        <svg class="gw-attachment-chip__remove-icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+      </button>
+      <p class="gw-attachment-chip__error">Failed</p>
+    </li>
+  </ul>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>Above or below a composer, for each file or image the reader attached to the prompt they are writing.</li>
+<li>While an attachment uploads, and when its upload fails.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a reference to a file in the repository, a page or a commit. Use a source chip, which is a link.</li>
+<li>For a file listed in a sent message or a changed-files list. Use a dense list.</li>
+<li>For a status. Use a badge.</li>
+<li>For choosing the file. Use the browser's file input, labelled as a field.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>file</dt>
+<dd>The file icon, for anything that is not an image.</dd>
+<dt>image</dt>
+<dd>The image icon, with a gw-visually-hidden span reading Image before the name, so the kind is not the icon alone.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Each chip is an li with the class gw-attachment-chip, in a ul with an aria-label such as Attachments. Lay the ul out with gw-cluster gw-gap-md: the 12px gap keeps the remove buttons' 44px pointer targets on two rows from overlapping.</li>
+<li>Write the whole file name as text, split into gw-attachment-chip__start and gw-attachment-chip__end with no white space between the spans. The end part is the last few characters with the extension. The stylesheet cuts the middle from view only, so a screen reader still reads the whole name.</li>
+<li>Write the size with its unit, such as 48 KB or 2.1 MB.</li>
+<li>The remove control is a button element with type=&quot;button&quot; and the class gw-attachment-chip__remove, holding the x icon with aria-hidden=&quot;true&quot; and a gw-visually-hidden span that names the file: Remove session-trace.log. It is drawn 24px square and its pointer target is 44px each way.</li>
+<li>While the file uploads, set aria-busy=&quot;true&quot; on the li and add a native progress element with the class gw-attachment-chip__progress as its last child, with value and max set from the upload and an aria-label such as Uploading session-trace.log. Leave value off until the first figure arrives. Put the percentage and the size in gw-attachment-chip__size, and name the button Cancel the upload of and the file.</li>
+<li>When the upload fails, remove aria-busy and the progress element and add a p with the class gw-attachment-chip__error and role=&quot;alert&quot; as the last child. It says what happened and what to do, such as Not attached: files can be up to 10 MB. Remove it and attach a smaller file. Its icon and the chip's outline are drawn by the stylesheet.</li>
+<li>While the prompt is being sent, set the disabled attribute on each remove button.</li>
+<li>After a chip is removed, move focus to the next chip's remove button, or to the composer when none is left.</li>
+<li>Tab reaches each remove button. Enter and Space activate it. The component needs no script of its own: the app sets aria-busy, the progress value, the text and the disabled attribute.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-attachment-chip</code></li>
+<li><code>gw-attachment-chip__end</code></li>
+<li><code>gw-attachment-chip__error</code></li>
+<li><code>gw-attachment-chip__icon</code></li>
+<li><code>gw-attachment-chip__name</code></li>
+<li><code>gw-attachment-chip__progress</code></li>
+<li><code>gw-attachment-chip__remove</code></li>
+<li><code>gw-attachment-chip__remove-icon</code></li>
+<li><code>gw-attachment-chip__size</code></li>
+<li><code>gw-attachment-chip__start</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

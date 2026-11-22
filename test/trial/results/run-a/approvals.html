@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approvals - Smelt</title>
+<link rel="stylesheet" href="vendor/groundwork/groundwork.css">
+</head>
+<body>
+<header class="gw-app-header">
+  <a class="gw-app-header__name" href="runs.html">Smelt</a>
+  <div class="gw-app-header__tray">
+    <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+      <a class="gw-pending-tray__link" href="approvals.html"><span class="gw-pending-tray__count">3</span> approvals waiting</a>
+    </div>
+  </div>
+</header>
+<div class="gw-sidebar-layout">
+  <nav class="gw-sidebar-nav" aria-label="Main">
+    <div class="gw-sidebar-nav__section">
+      <ul class="gw-sidebar-nav__items" aria-label="Screens">
+        <li><a class="gw-sidebar-nav__item" href="runs.html"><svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-terminal"></use></svg><span class="gw-sidebar-nav__label">Runs</span></a></li><li><a class="gw-sidebar-nav__item" href="approvals.html" aria-current="page"><svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-circle-check"></use></svg><span class="gw-sidebar-nav__label">Approvals</span></a></li><li><a class="gw-sidebar-nav__item" href="settings.html"><svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-folder"></use></svg><span class="gw-sidebar-nav__label">Settings</span></a></li>
+      </ul>
+    </div>
+    <div class="gw-sidebar-nav__footer">
+      <p class="gw-sidebar-nav__note">acme/api on runner build-03</p>
+    </div>
+  </nav>
+  <main class="gw-container gw-stack gw-gap-xl">
+    <header class="gw-page-header">
+      <div class="gw-page-header__text">
+        <h1 class="gw-page-header__title">Approvals</h1>
+        <p class="gw-page-header__description">Three commands the agents will not run until you allow them. The oldest has waited 9 minutes.</p>
+      </div>
+    </header>
+    <ul class="gw-stack gw-gap-lg" aria-label="Approvals waiting">
+      <li>
+        <article class="gw-approval" aria-labelledby="approval-1-title">
+          <p class="gw-approval__risk">Normal risk: stays inside the task's worktree</p>
+          <h2 class="gw-approval__title" id="approval-1-title">Claude Code, implementer asks to run a command</h2>
+          <pre class="gw-approval__command">npm run test -- --run src/webhooks/rate-limit.test.ts</pre>
+          <ul class="gw-approval__facts">
+            <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">web (inside the task's worktree)</span></li>
+            <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Run 2295 · Add rate limiting to the webhook endpoint</span></li>
+            <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To confirm the new limiter rejects the 101st request before I commit the change.</span></li>
+          </ul>
+          <details class="gw-approval__details">
+            <summary class="gw-approval__summary">Show the full request</summary>
+            <pre class="gw-approval__command">{
+  "tool": "Bash",
+  "command": "npm run test -- --run src/webhooks/rate-limit.test.ts",
+  "description": "Run the rate limiter tests",
+  "timeout": 120000
+}</pre>
+          </details>
+          <div class="gw-approval__actions">
+            <button type="button" class="gw-button" data-gw-critical>Allow</button>
+            <button type="button" class="gw-button" data-gw-critical>Decline</button>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="gw-approval gw-approval--elevated" aria-labelledby="approval-2-title">
+          <p class="gw-approval__risk">Elevated risk: deletes files outside the task's worktree</p>
+          <h2 class="gw-approval__title" id="approval-2-title">Claude Code, implementer asks to run a command</h2>
+          <pre class="gw-approval__command">rm -rf ../shared-config/.cache</pre>
+          <ul class="gw-approval__facts">
+            <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">../shared-config (outside the task's worktree)</span></li>
+            <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Run 2293 · Move session storage to Redis</span></li>
+            <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">The old cache holds a stale session-store build that makes the integration tests fail.</span></li>
+          </ul>
+          <details class="gw-approval__details">
+            <summary class="gw-approval__summary">Show the full request</summary>
+            <pre class="gw-approval__command">{
+  "tool": "Bash",
+  "command": "rm -rf ../shared-config/.cache",
+  "description": "Remove the stale session-store cache",
+  "timeout": 30000
+}</pre>
+          </details>
+          <div class="gw-approval__actions">
+            <button type="button" class="gw-button" data-gw-critical>Allow</button>
+            <button type="button" class="gw-button" data-gw-critical>Decline</button>
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="gw-approval" aria-labelledby="approval-3-title">
+          <p class="gw-approval__risk">Normal risk: reads the database, changes nothing</p>
+          <h2 class="gw-approval__title" id="approval-3-title">Claude Code, reviewer asks to run a command</h2>
+          <pre class="gw-approval__command">psql "$DATABASE_URL_TEST" -c "SELECT count(*) FROM invoices WHERE exported_at IS NULL"</pre>
+          <ul class="gw-approval__facts">
+            <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">The top of the task's worktree</span></li>
+            <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Run 2292 · Remove the legacy invoice exporter</span></li>
+            <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To check that no invoice still depends on the exporter before I approve its removal.</span></li>
+          </ul>
+          <details class="gw-approval__details">
+            <summary class="gw-approval__summary">Show the full request</summary>
+            <pre class="gw-approval__command">{
+  "tool": "Bash",
+  "command": "psql \"$DATABASE_URL_TEST\" -c \"SELECT count(*) FROM invoices WHERE exported_at IS NULL\"",
+  "description": "Count invoices the exporter has not handled",
+  "timeout": 60000
+}</pre>
+          </details>
+          <div class="gw-approval__actions">
+            <button type="button" class="gw-button" data-gw-critical>Allow</button>
+            <button type="button" class="gw-button" data-gw-critical>Decline</button>
+          </div>
+        </article>
+      </li>
+    </ul>
+  </main>
+</div>
+<nav class="gw-tab-bar" aria-label="Main">
+  <a class="gw-tab-bar__item" href="runs.html"><svg class="gw-tab-bar__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-terminal"></use></svg><span class="gw-tab-bar__label">Runs</span></a><a class="gw-tab-bar__item" href="approvals.html" aria-current="page"><svg class="gw-tab-bar__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-circle-check"></use></svg><span class="gw-tab-bar__label">Approvals</span></a><a class="gw-tab-bar__item" href="settings.html"><svg class="gw-tab-bar__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-folder"></use></svg><span class="gw-tab-bar__label">Settings</span></a>
+</nav>
+</body>
+</html>

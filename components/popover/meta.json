@@ -1,0 +1,38 @@
+{
+  "name": "popover",
+  "title": "Popover",
+  "purpose": "A small panel beside the button that opens it, for short supplementary content or a small form, which does not block the page.",
+  "status": "draft",
+  "whenToUse": [
+    "For a few facts or a short explanation most readers can do without.",
+    "For a small form of one or two fields that belongs to the control beside it, such as renaming one item."
+  ],
+  "whenNotToUse": [
+    "For a list of actions. Use a menu.",
+    "For a line of supplementary text about a control. Use a tooltip.",
+    "For anything the reader must see or answer, such as an error or an approval. Show it in the view.",
+    "For a task that must be finished or cancelled. Use a dialog.",
+    "For a longer form. Use a sheet."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["open", "loading", "error"],
+  "accessibility": [
+    "Give the panel the popover attribute and an id, and give the button popovertarget with that id. The browser then opens and closes the panel, sets aria-expanded on the button, closes on Escape and on a press outside, and returns focus to the button. No script is needed.",
+    "Put the panel straight after its button in the markup, so Tab goes from the button into the panel.",
+    "The button's label says what the popover holds, such as Show run cost. When the panel has a title, point aria-labelledby at it.",
+    "A popover is a view of its own: it may hold one primary button. A Cancel button inside it carries popovertarget with the panel's id and popovertargetaction=\"hide\".",
+    "Where the browser supports CSS anchor positioning, the panel hangs below its button and flips above it or to its other edge at the edge of the screen. Elsewhere it sits centred at the bottom of the screen.",
+    "To move focus into a small form when it opens, put autofocus on its first field. To open the popover from script, call showPopover({ source: button }) so the panel still knows its button.",
+    "While the content loads, show a spinner with its text. If loading fails, say what happened and what to do, in the panel."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-popover",
+    "gw-popover__actions",
+    "gw-popover__fact",
+    "gw-popover__facts",
+    "gw-popover__term",
+    "gw-popover__title"
+  ]
+}

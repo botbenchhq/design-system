@@ -1,0 +1,144 @@
+/*
+ * List: rows one above the other, on a ul or an ol, divided by a 1px border.
+ * A row holds its content, as a link when the row navigates, and at most one quiet action after it.
+ */
+
+@layer gw.components {
+  .gw-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gw-list__row {
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  .gw-list__row + .gw-list__row {
+    border-top-width: var(--gw-border-width);
+  }
+
+  /* The link is the content of a row that navigates, so the whole row takes the press and the focus ring. */
+  .gw-list__content,
+  .gw-list__link {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: var(--gw-space-md);
+    min-width: 0;
+    padding: var(--gw-space-md) var(--gw-space-sm);
+  }
+
+  .gw-list__link {
+    min-height: var(--gw-size-touch);
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-list__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    color: var(--gw-color-muted);
+  }
+
+  .gw-list__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .gw-list__primary {
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-list__secondary {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-list__meta {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
+  }
+
+  /* As tall as a pointer target, so a small button's padded hit area never reaches into the next row. */
+  .gw-list__action {
+    display: flex;
+    flex: none;
+    align-items: center;
+    min-height: var(--gw-size-touch);
+  }
+
+  /*
+   * A dense row is drawn with 4px above and below its text. A link in it is still 44px tall,
+   * so a dense row that navigates never has a smaller pointer target than a default one.
+   */
+  .gw-list--dense .gw-list__content,
+  .gw-list--dense .gw-list__link {
+    gap: var(--gw-space-sm);
+    padding-block: var(--gw-space-xs);
+  }
+
+  /* The quiet text turns to the main text colour wherever the row is shaded, so it keeps its contrast. */
+  @media (hover: hover) {
+    .gw-list__link:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-list__link:hover :is(.gw-list__icon, .gw-list__secondary, .gw-list__meta) {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-list__link:active {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-list__link:active :is(.gw-list__icon, .gw-list__secondary, .gw-list__meta) {
+    color: var(--gw-color-on-surface);
+  }
+
+  /* The current row is marked by a bar and a heavier title as well as by its shade. */
+  .gw-list__link[aria-current]:not([aria-current="false"]) {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-list__link[aria-current]:not([aria-current="false"])::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: calc(var(--gw-border-width) * 2);
+    background-color: var(--gw-color-accent);
+  }
+
+  .gw-list__link[aria-current]:not([aria-current="false"]) .gw-list__primary {
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  .gw-list__link[aria-current]:not([aria-current="false"]) :is(.gw-list__icon, .gw-list__secondary, .gw-list__meta) {
+    color: var(--gw-color-on-surface);
+  }
+
+  /* Rows kept on screen while the list is fetched again are quieter until the new ones arrive. */
+  .gw-list[aria-busy="true"] {
+    cursor: progress;
+  }
+
+  .gw-list[aria-busy="true"] .gw-list__primary {
+    color: var(--gw-color-muted);
+  }
+}

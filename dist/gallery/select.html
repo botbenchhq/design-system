@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Select - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Select</h1>
+<p>A native select as the control of a field, for one choice from a short fixed list.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Label, select and description</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>A native select opens the picker each platform already has, which works with a thumb, a keyboard and a screen reader with no script. The label and description come from the field.</p>
+</figcaption>
+<div data-example="default" data-title="Label, select and description" data-state="default" data-reason="A native select opens the picker each platform already has, which works with a thumb, a keyboard and a screen reader with no script. The label and description come from the field.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="select-default-base">Base branch</label>
+    <div class="gw-select">
+      <select class="gw-field__control gw-select__control" id="select-default-base" name="base" aria-describedby="select-default-description">
+        <option value="main" selected>main</option>
+        <option value="develop">develop</option>
+        <option value="release/2026-11">release/2026-11</option>
+      </select>
+    </div>
+    <p class="gw-field__description" id="select-default-description">The task branch starts from the latest commit on this branch.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Required, with nothing chosen yet</h3>
+</figcaption>
+<div data-example="unchosen" data-title="Required, with nothing chosen yet">
+  <div class="gw-field">
+    <label class="gw-field__label" for="select-unchosen-repository">Repository <span class="gw-field__required">required</span></label>
+    <div class="gw-select">
+      <select class="gw-field__control gw-select__control" id="select-unchosen-repository" name="repository" required>
+        <option value="" selected>Choose a repository</option>
+        <option value="acme/api">acme/api</option>
+        <option value="acme/web">acme/web</option>
+        <option value="acme/infrastructure-modules">acme/infrastructure-modules</option>
+      </select>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Focus</h3>
+<p data-gallery="state">State: <code>focus</code></p>
+</figcaption>
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="select-focus-base">Base branch</label>
+    <div class="gw-select">
+      <select class="gw-field__control gw-select__control" id="select-focus-base" name="base">
+        <option value="main">main</option>
+        <option value="develop" selected>develop</option>
+        <option value="release/2026-11">release/2026-11</option>
+      </select>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Invalid</h3>
+<p data-gallery="state">State: <code>invalid</code></p>
+</figcaption>
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <div class="gw-field">
+    <label class="gw-field__label" for="select-invalid-repository">Repository <span class="gw-field__required">required</span></label>
+    <div class="gw-select">
+      <select class="gw-field__control gw-select__control" id="select-invalid-repository" name="repository" required aria-invalid="true" aria-describedby="select-invalid-error">
+        <option value="" selected>Choose a repository</option>
+        <option value="acme/api">acme/api</option>
+        <option value="acme/web">acme/web</option>
+      </select>
+    </div>
+    <p class="gw-field__error" id="select-invalid-error">Choose the repository the task will change.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="select-disabled-base">Base branch</label>
+    <div class="gw-select">
+      <select class="gw-field__control gw-select__control" id="select-disabled-base" name="base" disabled aria-describedby="select-disabled-description">
+        <option value="" selected>No repository chosen</option>
+      </select>
+    </div>
+    <p class="gw-field__description" id="select-disabled-description">Choose a repository first.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>While its options load</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="While its options load" data-state="loading">
+  <div class="gw-field">
+    <label class="gw-field__label" for="select-loading-base">Base branch</label>
+    <div class="gw-select">
+      <select class="gw-field__control gw-select__control" id="select-loading-base" name="base" disabled aria-describedby="select-loading-description">
+        <option value="" selected>Loading branches</option>
+      </select>
+    </div>
+    <p class="gw-field__description" id="select-loading-description">Fetching the branches of acme/api.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A listbox built from buttons</h3>
+<p>A hand-built list needs script for the arrow keys, type-ahead, focus and dismissal, and on a phone it replaces the system picker with something smaller and harder to reach. Use the select element.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="custom-listbox" data-title="A listbox built from buttons" data-dont="review" data-reason="A hand-built list needs script for the arrow keys, type-ahead, focus and dismissal, and on a phone it replaces the system picker with something smaller and harder to reach. Use the select element.">
+  <div class="gw-stack gw-gap-xs">
+    <span id="select-custom-listbox-label">Base branch</span>
+    <button type="button" class="gw-button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="select-custom-listbox-label select-custom-listbox-value">
+      <span id="select-custom-listbox-value">main</span>
+    </button>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For one choice from a list the app already knows: a base branch, a repository, a model.</li>
+<li>When the list is too long to show as radio buttons, from about five options up.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For two to four options the reader should compare. Use a radio group.</li>
+<li>For on or off. Use a checkbox.</li>
+<li>For a list long enough to need searching, or for free text. Use a text input in a field.</li>
+<li>For a menu of actions. Use buttons.</li>
+</ul>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>44px tall and as wide as the field. Limit the width on the field's container.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a select element carrying both gw-field__control and gw-select__control, wrapped in an element with gw-select, inside gw-field. The wrapper only draws the chevron.</li>
+<li>Give it a label element whose for attribute matches the select's id.</li>
+<li>When nothing is chosen yet, make the first option an instruction with an empty value, such as Choose a repository, and set required on the select.</li>
+<li>For an invalid choice, set aria-invalid=&quot;true&quot; on the select and link a gw-field__error that says what to choose.</li>
+<li>While the options load, set disabled, show one option that says what is loading, and say what is being fetched in the description. Remove disabled when the options arrive.</li>
+<li>The keyboard is the browser's own: Space or Enter opens the list, the arrow keys move, typing jumps to a matching option, Escape closes.</li>
+<li>The chevron is decoration drawn by the stylesheet. It needs no markup and takes no pointer events.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-select</code></li>
+<li><code>gw-select__control</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

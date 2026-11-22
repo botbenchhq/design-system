@@ -1,0 +1,67 @@
+<div data-example="default" data-title="One option off and one on" data-state="default" data-reason="The label names the option and never changes. aria-pressed says whether it is on, and the fill and the bar under the label show the same thing to the eye without relying on colour.">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Log view options">
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="false">Wrap lines</button>
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="true">Show timestamps</button>
+  </div>
+</div>
+
+<div data-example="pressed" data-title="On" data-state="pressed">
+  <button type="button" class="gw-button gw-toggle-button" aria-pressed="true">Wrap lines</button>
+</div>
+
+<div data-example="small" data-title="Small, in a toolbar above a diff">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Diff view options">
+    <button type="button" class="gw-button gw-button--small gw-toggle-button" aria-pressed="true">Wrap lines</button>
+    <button type="button" class="gw-button gw-button--small gw-toggle-button" aria-pressed="false">Show whitespace</button>
+    <button type="button" class="gw-button gw-button--small gw-toggle-button" aria-pressed="false">Hide unchanged files</button>
+  </div>
+</div>
+
+<div data-example="with-icon" data-title="With a leading icon">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Transcript view options">
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="true">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
+      Show tool calls
+    </button>
+    <button type="button" class="gw-button gw-button--small gw-toggle-button" aria-pressed="false">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-terminal"></use></svg>
+      Show tool calls
+    </button>
+  </div>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Log view options, hovered">
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="false">Wrap lines</button>
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="true">Show timestamps</button>
+  </div>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Log view options, focused">
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="false">Wrap lines</button>
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="true">Show timestamps</button>
+  </div>
+</div>
+
+<div data-example="active" data-title="Being pressed" data-state="active">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Log view options, being pressed">
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="false">Wrap lines</button>
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="true">Show timestamps</button>
+  </div>
+</div>
+
+<div data-example="disabled" data-title="Disabled while the log loads" data-state="disabled">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Log view options, unavailable">
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="false" disabled>Wrap lines</button>
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="true" disabled>Show timestamps</button>
+  </div>
+</div>
+
+<div data-example="primary-as-on" data-title="The primary fill used to mean on" data-dont="one-primary-action" data-reason="The accent fill marks the one main action of a view. Used for on, it says nothing to a screen reader, and two options that are on become two main actions. Set aria-pressed and let the toggle button draw the state.">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Log view options, drawn as primary buttons">
+    <button type="button" class="gw-button gw-button--primary">Wrap lines</button>
+    <button type="button" class="gw-button gw-button--primary">Show timestamps</button>
+    <button type="button" class="gw-button">Show tool calls</button>
+  </div>
+</div>

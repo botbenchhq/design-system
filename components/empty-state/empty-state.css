@@ -1,0 +1,45 @@
+/*
+ * Empty state: what a view shows before it has any data.
+ * It starts at the same edge as the content that will take its place, so it has no inline padding of its own.
+ */
+
+@layer gw.components {
+  .gw-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    max-width: var(--gw-size-column);
+    padding-block: var(--gw-space-xl);
+  }
+
+  .gw-empty-state__title {
+    font-size: var(--gw-text-lg);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-lg);
+  }
+
+  .gw-empty-state__body {
+    color: var(--gw-color-muted);
+  }
+
+  .gw-empty-state__action {
+    margin-top: var(--gw-space-sm);
+  }
+
+  /* Inside a list or a panel: the height of about two rows, with the title at the size of a row's text. */
+  .gw-empty-state--compact {
+    gap: var(--gw-space-xs);
+    padding-block: var(--gw-space-md);
+  }
+
+  .gw-empty-state--compact .gw-empty-state__title {
+    font-size: var(--gw-text-ui);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-ui);
+  }
+
+  .gw-empty-state--compact .gw-empty-state__action {
+    margin-top: var(--gw-space-xs);
+  }
+}

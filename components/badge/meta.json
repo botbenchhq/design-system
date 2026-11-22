@@ -1,0 +1,45 @@
+{
+  "name": "badge",
+  "title": "Badge",
+  "purpose": "A status in a word or two, such as a task's station.",
+  "status": "draft",
+  "whenToUse": [
+    "For the one status of an item that the reader acts on or scans for: Building, Awaiting decision, Blocked.",
+    "Once per row of a list or table, as the row's trailing element.",
+    "Once beside the title of a view, for the status of the thing the view shows."
+  ],
+  "whenNotToUse": [
+    "For facts that are not a status, such as a repository, a branch, a count or a time. Write them as plain text.",
+    "For several statuses on one item. Pick the one the reader acts on and write the rest as text. Eight or more badges outside list rows in one view fail the excess-badges rule.",
+    "For something the reader can press. Use a button or a link.",
+    "For a message with a sentence in it. Use a banner or an inline message.",
+    "As a count on an icon. Write the count as text next to a label."
+  ],
+  "variants": [
+    { "name": "neutral", "use": "The default, with no modifier class. A status that needs nothing from the reader yet: Queued, Draft." },
+    { "name": "info", "class": "gw-badge--info", "use": "Work in progress that needs nothing from the reader: Building, Verifying, Reviewing." },
+    { "name": "success", "class": "gw-badge--success", "use": "Finished as intended: Decided, Merged, Tests passed." },
+    { "name": "warning", "class": "gw-badge--warning", "use": "Waiting on the reader or on something outside the task: Awaiting decision, Blocked." },
+    { "name": "danger", "class": "gw-badge--danger", "use": "Stopped or failed: Interrupted, Failed." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "24px tall with 12px text. It fits a dense list row without making it taller." }
+  ],
+  "states": ["default"],
+  "accessibility": [
+    "Use a span. The badge is text, and a screen reader reads its words in place.",
+    "The words carry the status. The tone only supports them, so never rely on the colour, and never use a badge with an icon and no text.",
+    "An icon is decoration and carries aria-hidden=\"true\". Use the same icon for the same status everywhere.",
+    "Write the status in sentence case, in one to three words, in the same words everywhere the status appears.",
+    "A badge is not focusable and takes no press. When a status changes while the reader watches, announce it from a role=\"status\" element in the view, not from the badge."
+  ],
+  "icons": ["circle-alert", "circle-check", "ellipsis", "file", "git-branch", "loader", "search", "triangle-alert", "x"],
+  "classes": [
+    "gw-badge",
+    "gw-badge--danger",
+    "gw-badge--info",
+    "gw-badge--success",
+    "gw-badge--warning",
+    "gw-badge__icon"
+  ]
+}

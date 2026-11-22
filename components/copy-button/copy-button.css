@@ -1,0 +1,32 @@
+/*
+ * Copy button: a small button that copies a value shown next to it, with a status beside it.
+ * The button is a gw-button. This stylesheet lays out the pair and draws the status,
+ * which is where the app writes "Copied" and where a screen reader hears it.
+ */
+
+@layer gw.components {
+  .gw-copy-button {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+    vertical-align: middle;
+  }
+
+  /*
+   * Always in the page, so a screen reader hears text arrive in it. It takes no room while it is empty.
+   * It keeps the text colour around it, so it reads on a sunken band or a shaded row as well as on the page.
+   */
+  .gw-copy-button__status {
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  /* The status may come after the button or before it, and keeps its distance from the button either way. */
+  .gw-copy-button__status:not(:empty):last-child {
+    margin-inline-start: var(--gw-space-sm);
+  }
+
+  .gw-copy-button__status:not(:empty):first-child {
+    margin-inline-end: var(--gw-space-sm);
+  }
+}

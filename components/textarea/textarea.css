@@ -1,0 +1,40 @@
+/*
+ * Textarea: the multi-line control of a field. It goes on the same element as gw-field__control,
+ * which draws the border, the fill and the invalid, read-only and disabled states.
+ * This stylesheet adds only the height behaviour and the mono variant, so it must load after the field's.
+ */
+
+@layer gw.components {
+  /*
+   * The fallback, for a browser without field-sizing: a fixed height the reader can drag taller.
+   * The height limits are multiples of the touch size because there is no token for a control's height.
+   */
+  .gw-textarea {
+    display: block;
+    height: calc(var(--gw-size-touch) * 3);
+    min-height: calc(var(--gw-size-touch) * 2);
+    max-height: calc(var(--gw-size-touch) * 6);
+    overflow-y: auto;
+  }
+
+  /* The control grows with what is typed, from the minimum to the maximum height, and scrolls after that. */
+  @supports (field-sizing: content) {
+    .gw-textarea {
+      field-sizing: content;
+      height: auto;
+      resize: none;
+    }
+  }
+
+  /* The size stays at 16px at compact widths, as on every field control, so iOS does not zoom on focus. */
+  .gw-textarea--mono {
+    font-family: var(--gw-font-mono);
+  }
+
+  @media (min-width: 768px) {
+    .gw-textarea--mono {
+      font-size: var(--gw-text-mono);
+      line-height: var(--gw-leading-mono);
+    }
+  }
+}

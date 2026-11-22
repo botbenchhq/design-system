@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source chip - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Source chip</h1>
+<p>A compact link to where something came from: a file with an optional line range, a web page by its host, or a commit.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A file, with a line range</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The icon says it is a file, the path says which, and the range is written in words. The chip is a link, so it opens the file at those lines.</p>
+</figcaption>
+<div data-example="file" data-title="A file, with a line range" data-state="default" data-reason="The icon says it is a file, the path says which, and the range is written in words. The chip is a link, so it opens the file at those lines.">
+  <a class="gw-source-chip" href="/repositories/acme/api/files/src/auth/session.ts#L42-L58">
+    <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+    <span class="gw-source-chip__text"><span class="gw-source-chip__start">src/auth/</span><span class="gw-source-chip__end">session.ts</span></span>
+    <span class="gw-source-chip__detail">lines 42–58</span>
+  </a>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A file, a web page and a commit</h3>
+</figcaption>
+<div data-example="kinds" data-title="A file, a web page and a commit">
+  <ul class="gw-source-chip__list">
+    <li>
+      <a class="gw-source-chip" href="/repositories/acme/api/files/docs/sessions.md">
+        <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-source-chip__text"><span class="gw-source-chip__start">docs/</span><span class="gw-source-chip__end">sessions.md</span></span>
+      </a>
+    </li>
+    <li>
+      <a class="gw-source-chip" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies" target="_blank" rel="noreferrer">
+        <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg>
+        <span class="gw-source-chip__text"><span class="gw-source-chip__end">developer.mozilla.org</span></span>
+        <span class="gw-visually-hidden">(opens in a new tab)</span>
+      </a>
+    </li>
+    <li>
+      <a class="gw-source-chip" href="/repositories/acme/api/commits/9f2c1ab">
+        <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-commit-horizontal"></use></svg>
+        <span class="gw-source-chip__text"><span class="gw-visually-hidden">Commit </span><span class="gw-source-chip__end">9f2c1ab</span></span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A long path loses its middle</h3>
+<p>The file name and the line are what tell two sources apart, so they stay in view and the directories give way. The whole path is still in the link's text for a screen reader.</p>
+</figcaption>
+<div data-example="long-path" data-title="A long path loses its middle" data-reason="The file name and the line are what tell two sources apart, so they stay in view and the directories give way. The whole path is still in the link's text for a screen reader.">
+  <ul class="gw-source-chip__list">
+    <li>
+      <a class="gw-source-chip" href="/repositories/acme/api/files/packages/session-store/src/adapters/redis/__tests__/refresh-token-rotation.integration.test.ts#L118">
+        <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-source-chip__text"><span class="gw-source-chip__start">packages/session-store/src/adapters/redis/__tests__/</span><span class="gw-source-chip__end">refresh-token-rotation.integration.test.ts</span></span>
+        <span class="gw-source-chip__detail">line 118</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A row of several wraps</h3>
+</figcaption>
+<div data-example="row" data-title="A row of several wraps">
+  <ul class="gw-source-chip__list">
+    <li>
+      <a class="gw-source-chip" href="/repositories/acme/api/files/src/auth/session.ts#L42-L58">
+        <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-source-chip__text"><span class="gw-source-chip__start">src/auth/</span><span class="gw-source-chip__end">session.ts</span></span>
+        <span class="gw-source-chip__detail">lines 42–58</span>
+      </a>
+    </li>
+    <li>
+      <a class="gw-source-chip" href="/repositories/acme/api/files/src/auth/refresh.ts#L9">
+        <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-source-chip__text"><span class="gw-source-chip__start">src/auth/</span><span class="gw-source-chip__end">refresh.ts</span></span>
+        <span class="gw-source-chip__detail">line 9</span>
+      </a>
+    </li>
+    <li>
+      <a class="gw-source-chip" href="/repositories/acme/api/files/src/routes/sign-in.tsx#L77-L81">
+        <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-source-chip__text"><span class="gw-source-chip__start">src/routes/</span><span class="gw-source-chip__end">sign-in.tsx</span></span>
+        <span class="gw-source-chip__detail">lines 77–81</span>
+      </a>
+    </li>
+    <li>
+      <a class="gw-source-chip" href="/repositories/acme/api/commits/4be07d2">
+        <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-commit-horizontal"></use></svg>
+        <span class="gw-source-chip__text"><span class="gw-visually-hidden">Commit </span><span class="gw-source-chip__end">4be07d2</span></span>
+      </a>
+    </li>
+    <li>
+      <a class="gw-source-chip" href="https://datatracker.ietf.org/doc/html/rfc6265" target="_blank" rel="noreferrer">
+        <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg>
+        <span class="gw-source-chip__text"><span class="gw-source-chip__end">datatracker.ietf.org</span></span>
+        <span class="gw-visually-hidden">(opens in a new tab)</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <a class="gw-source-chip" href="/repositories/acme/api/files/src/auth/session.ts#L42-L58">
+    <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+    <span class="gw-source-chip__text"><span class="gw-source-chip__start">src/auth/</span><span class="gw-source-chip__end">session.ts</span></span>
+    <span class="gw-source-chip__detail">lines 42–58</span>
+  </a>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <a class="gw-source-chip" href="/repositories/acme/api/commits/9f2c1ab">
+    <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-commit-horizontal"></use></svg>
+    <span class="gw-source-chip__text"><span class="gw-visually-hidden">Commit </span><span class="gw-source-chip__end">9f2c1ab</span></span>
+  </a>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active">
+  <a class="gw-source-chip" href="/repositories/acme/api/files/src/auth/refresh.ts#L9">
+    <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+    <span class="gw-source-chip__text"><span class="gw-source-chip__start">src/auth/</span><span class="gw-source-chip__end">refresh.ts</span></span>
+    <span class="gw-source-chip__detail">line 9</span>
+  </a>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A long path cut at the end</h3>
+<p>With the whole path in one part, the ellipsis eats the file name, and two chips from the same package read the same. Put the directories in the start part and the file name in the end part.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="cut-at-the-end" data-title="A long path cut at the end" data-dont="review" data-reason="With the whole path in one part, the ellipsis eats the file name, and two chips from the same package read the same. Put the directories in the start part and the file name in the end part.">
+  <ul class="gw-source-chip__list">
+    <li>
+      <a class="gw-source-chip" href="/repositories/acme/api/files/packages/session-store/src/adapters/redis/__tests__/refresh-token-rotation.integration.test.ts">
+        <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-source-chip__text"><span class="gw-source-chip__start">packages/session-store/src/adapters/redis/__tests__/refresh-token-rotation.integration.test.ts</span></span>
+      </a>
+    </li>
+    <li>
+      <a class="gw-source-chip" href="/repositories/acme/api/files/packages/session-store/src/adapters/redis/__tests__/refresh-token-expiry.integration.test.ts">
+        <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-source-chip__text"><span class="gw-source-chip__start">packages/session-store/src/adapters/redis/__tests__/refresh-token-expiry.integration.test.ts</span></span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>Under an agent's answer or beside an activity entry, to point at the file, page or commit it drew on.</li>
+<li>For several sources in a row that wraps.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a link inside a sentence. Use a plain link in the running text.</li>
+<li>For a status. Use a badge.</li>
+<li>For a file attached to a prompt, which can be removed. Use an attachment chip.</li>
+<li>For a value the reader copies, such as a branch name. Use a copy field.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>file</dt>
+<dd>The file icon, the path split into gw-source-chip__start (the directories, with the last slash) and gw-source-chip__end (the file name), and an optional gw-source-chip__detail such as lines 42–58.</dd>
+<dt>url</dt>
+<dd>The external-link icon and the host alone in gw-source-chip__end. When it opens a new tab, add a gw-visually-hidden span reading (opens in a new tab).</dd>
+<dt>commit</dt>
+<dd>The git-commit-horizontal icon and the short hash in gw-source-chip__end, after a gw-visually-hidden span reading Commit.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>Drawn 32px tall. Its pointer target is 44px tall through a padded hit area.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use an a element with an href that opens the source. The icon is decoration and carries aria-hidden=&quot;true&quot;.</li>
+<li>Write the whole value as the link's text. The stylesheet cuts the middle from view only, so the accessible name keeps the full path. Do not add an aria-label that shortens it.</li>
+<li>Split a path at its last slash, with no white space between the two spans: the start part ends in an ellipsis when room runs out, and the end part, the file name, stays whole until the chip is narrower than the name.</li>
+<li>Write a line range in words, such as line 118 or lines 42–58, in gw-source-chip__detail.</li>
+<li>The icon alone does not say the kind to a screen reader. A path and a host say it themselves. For a commit, start the text with a gw-visually-hidden span reading Commit.</li>
+<li>Several chips are li elements of a ul with the class gw-source-chip__list, so a screen reader announces how many there are. Its 12px gap keeps the 44px pointer targets of two rows apart. Outside that list, leave at least 12px above and below a chip.</li>
+<li>Tab reaches each chip and Enter follows it. The component needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-source-chip</code></li>
+<li><code>gw-source-chip__detail</code></li>
+<li><code>gw-source-chip__end</code></li>
+<li><code>gw-source-chip__icon</code></li>
+<li><code>gw-source-chip__list</code></li>
+<li><code>gw-source-chip__start</code></li>
+<li><code>gw-source-chip__text</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

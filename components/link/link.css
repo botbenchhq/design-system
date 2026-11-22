@@ -1,0 +1,65 @@
+/*
+ * Link: a standalone text link, and the parts a link to another site carries.
+ * A link inside running text takes no class. The base layer underlines it,
+ * and the icon and the hint below work inside it as well.
+ */
+
+@layer gw.components {
+  /* Underlined at rest, so the link never depends on colour to be found. */
+  .gw-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-size-touch);
+    font-weight: var(--gw-weight-medium);
+    text-decoration-line: underline;
+    text-decoration-thickness: var(--gw-border-width);
+    text-underline-offset: var(--gw-space-xs);
+    transition: color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-link--quiet {
+    color: var(--gw-color-muted);
+    font-weight: var(--gw-weight-normal);
+  }
+
+  /* Inline, so it also sits on the text line of a link in running text. */
+  .gw-link__icon {
+    display: inline-block;
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    vertical-align: text-bottom;
+  }
+
+  /* Text for a screen reader only, such as "(opens in a new tab)". It takes no space and is not drawn. */
+  .gw-link__hint {
+    position: absolute;
+    width: var(--gw-border-width);
+    height: var(--gw-border-width);
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-link:hover {
+      text-decoration-thickness: calc(var(--gw-border-width) * 2);
+    }
+
+    .gw-link--quiet:hover {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-link:active {
+    color: var(--gw-color-muted);
+    text-decoration-thickness: calc(var(--gw-border-width) * 2);
+  }
+
+  .gw-link--quiet:active {
+    color: var(--gw-color-on-surface);
+  }
+}

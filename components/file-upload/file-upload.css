@@ -1,0 +1,107 @@
+/*
+ * File upload: a native file input drawn as a drop area with a button in it, as the control of a field.
+ * The input covers the whole area, so a press anywhere in it opens the file picker and a file dropped
+ * anywhere on it is taken, with no script. The words and the button are drawn under it.
+ * The chosen files are attachment chips in a list below. The label, the description and the error are the field's.
+ * It must load after the button's stylesheet, because the button in the prompt is a gw-button it restyles when unavailable.
+ */
+
+@layer gw.components {
+  /* The drop area. Two targets tall at least, so it is easy to drop on. */
+  .gw-file-upload {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    min-height: calc(var(--gw-size-touch) * 2);
+  }
+
+  /*
+   * The input fills the area and draws its dashed border and its focus ring. Its own button and
+   * file name are not drawn: the prompt under it says the same in the app's words.
+   */
+  .gw-file-upload__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-width: var(--gw-border-width);
+    border-style: dashed;
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    color: transparent;
+    cursor: pointer;
+  }
+
+  .gw-file-upload__input::file-selector-button {
+    display: none;
+  }
+
+  /* What the reader sees: a button and a line of words, centred. It takes no pointer events, so every press reaches the input. */
+  .gw-file-upload__prompt {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gw-space-sm) var(--gw-space-md);
+    min-width: 0;
+    padding: var(--gw-space-lg);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-muted);
+    text-align: center;
+    pointer-events: none;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-file-upload__input:hover ~ .gw-file-upload__prompt > .gw-file-upload__button {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  .gw-file-upload__input:active ~ .gw-file-upload__prompt > .gw-file-upload__button {
+    border-color: var(--gw-color-border-strong);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /*
+   * While a file is dragged over the area, which the app marks with data-dragover:
+   * the border turns solid and dark and the area is shaded, so the change is not a colour alone.
+   */
+  .gw-file-upload[data-dragover] > .gw-file-upload__input {
+    border-style: solid;
+    border-color: var(--gw-color-on-surface);
+  }
+
+  .gw-file-upload[data-dragover] > .gw-file-upload__prompt {
+    background-color: var(--gw-color-surface-sunken);
+    color: var(--gw-color-on-surface);
+  }
+
+  .gw-file-upload__input[aria-invalid="true"] {
+    border-color: var(--gw-color-danger);
+  }
+
+  /* After hover, pressed and dragover, so an unavailable area never answers the pointer. */
+  .gw-file-upload__input:disabled {
+    border-color: var(--gw-color-border);
+    cursor: default;
+  }
+
+  .gw-file-upload__input:disabled ~ .gw-file-upload__prompt {
+    background-color: transparent;
+  }
+
+  .gw-file-upload__input:disabled ~ .gw-file-upload__prompt > .gw-file-upload__button {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+  }
+
+  /* The chosen files. The space above keeps the chips' remove buttons clear of the drop area. */
+  .gw-file-upload__files {
+    margin-top: var(--gw-space-sm);
+  }
+}

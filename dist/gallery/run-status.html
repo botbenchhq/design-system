@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Run status - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Run status</h1>
+<p>The content of one list row that summarises a run or a task: its title, its station as a badge in words, who or what is acting and the elapsed time.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Runs at every station</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each row says what the run is, where it stands in words, who is acting and for how long. Only the rows that wait on the reader carry an action, and it has secondary emphasis because it repeats.</p>
+</figcaption>
+<div data-example="stations" data-title="Runs at every station" data-state="default" data-reason="Each row says what the run is, where it stands in words, who is acting and for how long. Only the rows that wait on the reader carry an action, and it has secondary emphasis because it repeats.">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2296">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Paginate the audit log</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg>
+              Queued
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Starts after the 2 runs ahead of it</span>
+        </span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2295">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Add rate limiting to the webhook endpoint</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--info">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-loader"></use></svg>
+              Building
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Claude Code, implementer · <time class="gw-run-status__elapsed" datetime="PT4M12S">4 min 12 s</time></span>
+        </span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2294">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Upgrade Postgres client to 8.13</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--info">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+              Verifying
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Test runner · <time class="gw-run-status__elapsed" datetime="PT11M">11 min</time></span>
+        </span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2293">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Move session storage to Redis</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--info">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+              Reviewing
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Claude Code, reviewer · <time class="gw-run-status__elapsed" datetime="PT26M">26 min</time></span>
+        </span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2292">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Remove the legacy invoice exporter</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--warning">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-alert"></use></svg>
+              Awaiting decision
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Waiting on you · <time class="gw-run-status__elapsed" datetime="PT1H8M">1 h 8 min</time></span>
+        </span>
+      </a>
+      <div class="gw-list__action">
+        <button type="button" class="gw-button gw-button--small" aria-label="Review Remove the legacy invoice exporter">Review</button>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2291">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Add dark theme to the settings screen</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--warning">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-triangle-alert"></use></svg>
+              Blocked
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Waiting on a failed check in acme/web · <time class="gw-run-status__elapsed" datetime="PT2H40M">2 h 40 min</time></span>
+        </span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2290">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Fix the login timeout</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--danger">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+              Interrupted
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Stopped when the runner restarted · <time class="gw-run-status__elapsed" datetime="PT18M">18 min</time></span>
+        </span>
+      </a>
+      <div class="gw-list__action">
+        <button type="button" class="gw-button gw-button--small" aria-label="Resume Fix the login timeout">Resume</button>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2289">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Fix the off-by-one in the retry counter</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--success">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+              Decided
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Accepted by you · <time class="gw-run-status__elapsed" datetime="PT35M">35 min</time></span>
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Rows that do not navigate</h3>
+</figcaption>
+<div data-example="static" data-title="Rows that do not navigate">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Add rate limiting to the webhook endpoint</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--info">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-loader"></use></svg>
+              Building
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Claude Code, implementer · <time class="gw-run-status__elapsed" datetime="PT4M12S">4 min 12 s</time></span>
+        </span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Upgrade Postgres client to 8.13</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--info">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+              Verifying
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Test runner · <time class="gw-run-status__elapsed" datetime="PT11M">11 min</time></span>
+        </span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Fix the off-by-one in the retry counter</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--success">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+              Decided
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Accepted by you · <time class="gw-run-status__elapsed" datetime="PT35M">35 min</time></span>
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A long title wraps</h3>
+</figcaption>
+<div data-example="long-title" data-title="A long title wraps">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2288">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Replace the hand-written retry loop in packages/session-store/src/adapters/redis with the shared backoff helper</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--info">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-loader"></use></svg>
+              Building
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Claude Code, implementer · <time class="gw-run-status__elapsed" datetime="PT52S">52 s</time></span>
+        </span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2287">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Regenerate the OpenAPI client after the billing schema change and fix the call sites that no longer compile</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--danger">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+              Interrupted
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Stopped by you · <time class="gw-run-status__elapsed" datetime="PT7M">7 min</time></span>
+        </span>
+      </a>
+      <div class="gw-list__action">
+        <button type="button" class="gw-button gw-button--small" aria-label="Resume Regenerate the OpenAPI client after the billing schema change and fix the call sites that no longer compile">Resume</button>
+      </div>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The run the reader is viewing</h3>
+</figcaption>
+<div data-example="current" data-title="The run the reader is viewing">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2295" aria-current="page">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Add rate limiting to the webhook endpoint</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--info">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-loader"></use></svg>
+              Building
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Claude Code, implementer · <time class="gw-run-status__elapsed" datetime="PT4M12S">4 min 12 s</time></span>
+        </span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2292">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Remove the legacy invoice exporter</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--warning">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-alert"></use></svg>
+              Awaiting decision
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Waiting on you · <time class="gw-run-status__elapsed" datetime="PT1H8M">1 h 8 min</time></span>
+        </span>
+      </a>
+      <div class="gw-list__action">
+        <button type="button" class="gw-button gw-button--small" aria-label="Review Remove the legacy invoice exporter">Review</button>
+      </div>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2295">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Add rate limiting to the webhook endpoint</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--info">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-loader"></use></svg>
+              Building
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Claude Code, implementer · <time class="gw-run-status__elapsed" datetime="PT4M12S">4 min 12 s</time></span>
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2293">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Move session storage to Redis</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--info">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+              Reviewing
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Claude Code, reviewer · <time class="gw-run-status__elapsed" datetime="PT26M">26 min</time></span>
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A primary action on every row</h3>
+<p>A primary button on each waiting row gives the view as many main actions as it has rows. A row's action has secondary emphasis, and the badge is what draws the eye.</p>
+<p>Checker rule: <code>repeated-item-primary</code></p>
+</figcaption>
+<div data-example="primary-on-rows" data-title="A primary action on every row" data-dont="repeated-item-primary" data-reason="A primary button on each waiting row gives the view as many main actions as it has rows. A row's action has secondary emphasis, and the badge is what draws the eye.">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2292">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Remove the legacy invoice exporter</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--warning">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-alert"></use></svg>
+              Awaiting decision
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Waiting on you · <time class="gw-run-status__elapsed" datetime="PT1H8M">1 h 8 min</time></span>
+        </span>
+      </a>
+      <div class="gw-list__action">
+        <button type="button" class="gw-button gw-button--primary gw-button--small" aria-label="Review Remove the legacy invoice exporter">Review</button>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2290">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Fix the login timeout</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--danger">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+              Interrupted
+            </span>
+          </span>
+          <span class="gw-run-status__facts">Stopped when the runner restarted · <time class="gw-run-status__elapsed" datetime="PT18M">18 min</time></span>
+        </span>
+      </a>
+      <div class="gw-list__action">
+        <button type="button" class="gw-button gw-button--primary gw-button--small" aria-label="Resume Fix the login timeout">Resume</button>
+      </div>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A station shown by colour and icon alone</h3>
+<p>A blue mark and an amber mark do not say Building and Blocked, and a reader who cannot tell the colours apart sees two rows in the same state. The badge always holds the station as words.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="station-without-words" data-title="A station shown by colour and icon alone" data-dont="review" data-reason="A blue mark and an amber mark do not say Building and Blocked, and a reader who cannot tell the colours apart sees two rows in the same state. The badge always holds the station as words.">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2295">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Add rate limiting to the webhook endpoint</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--info">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-loader"></use></svg>
+                    </span>
+          </span>
+          <span class="gw-run-status__facts">Claude Code, implementer · <time class="gw-run-status__elapsed" datetime="PT4M12S">4 min 12 s</time></span>
+        </span>
+      </a>
+    </li>
+    <li class="gw-list__row">
+      <a class="gw-list__link" href="/runs/2291">
+        <span class="gw-run-status">
+          <span class="gw-run-status__title">Add dark theme to the settings screen</span>
+          <span class="gw-run-status__station">
+            <span class="gw-badge gw-badge--warning">
+              <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-triangle-alert"></use></svg>
+                    </span>
+          </span>
+          <span class="gw-run-status__facts">Waiting on a failed check in acme/web · <time class="gw-run-status__elapsed" datetime="PT2H40M">2 h 40 min</time></span>
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For each row of a list of runs or tasks, where the reader scans for the ones that need them.</li>
+<li>When a row needs the station, the actor and the elapsed time together, and at most one action.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a row with only a title and one trailing fact. Use the list's own parts.</li>
+<li>For the heading of a run's own view. Use a page header with a badge beside the title.</li>
+<li>For what happened during a run, entry by entry. Use an activity feed.</li>
+<li>For runs compared across several columns. Use a table.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>link</dt>
+<dd>Inside an a element with the class gw-list__link, so the whole row opens the run.</dd>
+<dt>static</dt>
+<dd>Inside a div with the class gw-list__content, for a row that does not navigate.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>It is the content of a list row: a span with the class gw-run-status inside the gw-list__link or gw-list__content of an li with the class gw-list__row, in a ul with the class gw-list. Every part is a span, so it is valid inside a link.</li>
+<li>The parts come in reading order: gw-run-status__title, gw-run-status__station, gw-run-status__facts. A screen reader reads the row as its title, its station, then who is acting and for how long. Below 768px the station sits under the title, and from 768px the row is one line with the station at its end.</li>
+<li>gw-run-status__station holds one badge with the station in words: Queued, Building, Verifying, Reviewing, Awaiting decision, Blocked, Interrupted or Decided. Use the same word, tone and icon for a station everywhere. The badge icon carries aria-hidden=&quot;true&quot;.</li>
+<li>gw-run-status__facts says who or what is acting in words, such as Claude Code, implementer or Waiting on you, then the elapsed time in a time element with the class gw-run-status__elapsed and a datetime duration. Write the time with its unit: 4 min 12 s. A time that ticks is not in a live region.</li>
+<li>A row has at most one action, and only when the run waits on the reader: a gw-button gw-button--small in the row's gw-list__action, after the link, never primary. Its aria-label starts with its visible words and names the run, such as Resume Fix the login timeout.</li>
+<li>When a station changes while the reader watches, announce it from a role=&quot;status&quot; element in the view, not from the row.</li>
+<li>Tab reaches the row's link and then its action. Enter follows the link. The component needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-run-status</code></li>
+<li><code>gw-run-status__elapsed</code></li>
+<li><code>gw-run-status__facts</code></li>
+<li><code>gw-run-status__station</code></li>
+<li><code>gw-run-status__title</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

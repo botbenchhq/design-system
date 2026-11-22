@@ -1,0 +1,42 @@
+{
+  "name": "card",
+  "title": "Card",
+  "purpose": "One section of a view set apart by a border or a background shift, with an optional title, one quiet action and a body.",
+  "status": "draft",
+  "whenToUse": [
+    "Sparingly. Content sits on the page by default, under a heading. Reach for a card only when grouping helps: a set of facts with an action that applies to all of them, or a region that must read as separate from the content around it.",
+    "For one or two sections of a view that hold different things, each laid out by what it holds.",
+    "With the sunken variant for a quieter region inside a bordered layout, where a second border would be noise."
+  ],
+  "whenNotToUse": [
+    "For each of several similar items. A list of similar items is a list, not a card grid: use the list or the data table. Three or more sibling cards with the same structure fail the identical-card-grid rule.",
+    "Inside another card. Use one card and separate what is inside it with a heading or a divider. A nested card fails the nested-cards rule.",
+    "As the frame of a whole view, or around every section of it. Use headings and spacing on the page.",
+    "For a request that waits for an answer. Use the approval.",
+    "For a message about the view. Use an alert.",
+    "For content that floats above the page. Only an overlay takes a shadow, and a card never does."
+  ],
+  "variants": [
+    { "name": "bordered", "use": "The default, with no modifier class. A 1px border on the raised surface." },
+    { "name": "sunken", "class": "gw-card--sunken", "use": "A background shift with no border. Keep quiet, muted text out of it: the muted colour does not reach 4.5:1 on the sunken surface in the light theme." }
+  ],
+  "sizes": [],
+  "states": ["default"],
+  "accessibility": [
+    "Use a section with aria-labelledby pointing at gw-card__title when the card has a title, so it is a named region. Give each card on a view a different title. Use a div for a card with no title.",
+    "gw-card__title is a heading at the level the view's outline needs. It is drawn at the size of body text whatever its level.",
+    "The header holds at most one action, in gw-card__action: a small quiet button or a link with the same classes. It is never primary. When several cards carry the same words, add an aria-label that starts with those words and names the card.",
+    "The header is 44px tall, so the small button's padded pointer target stays inside it.",
+    "A card is not focusable and takes no press. To make something pressable, put a link or a button inside it.",
+    "The card needs no script."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-card",
+    "gw-card--sunken",
+    "gw-card__action",
+    "gw-card__body",
+    "gw-card__header",
+    "gw-card__title"
+  ]
+}

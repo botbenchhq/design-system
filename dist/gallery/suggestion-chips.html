@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suggestion chips - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Suggestion chips</h1>
+<p>Two to four suggested next prompts, as quiet buttons under a composer or an empty transcript.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Under a composer, after a turn</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each chip is a whole prompt that fits what just happened, so the reader can tell what pressing it will ask for. They are quieter than Send, which stays the view's one primary action.</p>
+</figcaption>
+<div data-example="under-composer" data-title="Under a composer, after a turn" data-state="default" data-reason="Each chip is a whole prompt that fits what just happened, so the reader can tell what pressing it will ask for. They are quieter than Send, which stays the view's one primary action.">
+  <div class="gw-stack">
+    <form class="gw-composer">
+      <label class="gw-composer__label" for="suggestion-chips-under-composer-prompt">Message Claude Code</label>
+      <div class="gw-composer__row">
+        <textarea class="gw-composer__input" id="suggestion-chips-under-composer-prompt" name="prompt" rows="1"></textarea>
+        <button type="submit" class="gw-button gw-button--primary">Send</button>
+      </div>
+    </form>
+    <ul class="gw-suggestion-chips" aria-label="Suggested prompts">
+      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Run the failing test again</button></li>
+      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Show the diff for src/auth/session.ts</button></li>
+      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Open a pull request against main</button></li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Under an empty transcript</h3>
+</figcaption>
+<div data-example="empty-transcript" data-title="Under an empty transcript">
+  <div class="gw-stack">
+    <div class="gw-empty-state gw-empty-state--compact">
+      <h4 class="gw-empty-state__title">No messages yet</h4>
+      <p class="gw-empty-state__body">Ask Claude Code about acme/api, or start from one of these prompts.</p>
+    </div>
+    <ul class="gw-suggestion-chips" aria-label="Suggested first prompts">
+      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Explain how sessions are refreshed in src/auth</button></li>
+      <li><button type="button" class="gw-button gw-suggestion-chips__chip">List the tests that failed on main last night</button></li>
+      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Find where the webhook signature is checked</button></li>
+      <li><button type="button" class="gw-button gw-suggestion-chips__chip">Summarise the open pull requests</button></li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Two chips, one of them long</h3>
+</figcaption>
+<div data-example="two" data-title="Two chips, one of them long">
+  <ul class="gw-suggestion-chips" aria-label="Suggested prompts after the test run">
+    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Fix the reload case in src/auth/session.test.ts and run the auth tests until they pass</button></li>
+    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Explain the failure</button></li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <ul class="gw-suggestion-chips" aria-label="Suggested prompts, hovered">
+    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Run the failing test again</button></li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <ul class="gw-suggestion-chips" aria-label="Suggested prompts, focused">
+    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Show the diff for src/auth/session.ts</button></li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active">
+  <ul class="gw-suggestion-chips" aria-label="Suggested prompts, pressed">
+    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Open a pull request against main</button></li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Unavailable while a turn runs</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Unavailable while a turn runs" data-state="disabled">
+  <ul class="gw-suggestion-chips" aria-label="Suggested prompts, unavailable while Claude Code is working">
+    <li><button type="button" class="gw-button gw-suggestion-chips__chip" disabled>Run the failing test again</button></li>
+    <li><button type="button" class="gw-button gw-suggestion-chips__chip" disabled>Show the diff for src/auth/session.ts</button></li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Generic suggestions</h3>
+<p>Tell me more and Continue fit any conversation, so they say nothing about this one and the reader cannot predict what they will ask for. Write each chip as the specific prompt it sends.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="generic" data-title="Generic suggestions" data-dont="review" data-reason="Tell me more and Continue fit any conversation, so they say nothing about this one and the reader cannot predict what they will ask for. Write each chip as the specific prompt it sends.">
+  <ul class="gw-suggestion-chips" aria-label="Generic suggested prompts">
+    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Tell me more</button></li>
+    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Continue</button></li>
+    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Explain</button></li>
+    <li><button type="button" class="gw-button gw-suggestion-chips__chip">Try again</button></li>
+  </ul>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>Under a composer after a turn ends, to offer the prompts most likely to come next.</li>
+<li>Under an empty transcript, to show what can be asked of this repository or task.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For the view's actions, such as Start task or Stop. Use buttons.</li>
+<li>For a choice among fixed options that stays selected. Use a select or radio inputs.</li>
+<li>For an answer the agent is waiting on. Use an approval.</li>
+<li>When there are no specific prompts to offer. Render nothing: a generic chip is worse than none.</li>
+<li>For more than four. Pick the four most likely.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a ul with the class gw-suggestion-chips and an aria-label such as Suggested prompts, with one li per chip. A screen reader then announces the group and how many chips it holds.</li>
+<li>Each chip is a button element with type=&quot;button&quot; and the classes gw-button gw-suggestion-chips__chip. It is never a link and never primary.</li>
+<li>The chip's text is the whole prompt it sends or places in the composer, specific to this conversation: Run the failing test again, not Tell me more. Do the same thing on every press, sending or filling, across the app.</li>
+<li>A long prompt wraps inside its chip. Do not cut it short, because the text is what the reader agrees to send.</li>
+<li>While a turn runs and a prompt cannot be sent, set the disabled attribute on every chip or remove the group.</li>
+<li>Chips are 44px tall, and wrap onto further lines at phone width.</li>
+<li>Tab moves through the chips in order. Enter and Space activate one. After a press, move focus to the composer or leave it on the transcript's new row. The component needs no script of its own.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-suggestion-chips</code></li>
+<li><code>gw-suggestion-chips__chip</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

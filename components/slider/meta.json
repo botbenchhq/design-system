@@ -1,0 +1,46 @@
+{
+  "name": "slider",
+  "title": "Slider",
+  "purpose": "A native range input for a rough amount, with its label, its value in words and a label at each end.",
+  "status": "draft",
+  "whenToUse": [
+    "For an amount where the feel matters more than the figure, across a short range: how many agents work at once, how much effort to spend.",
+    "For a scale of a few named steps, such as Low to Maximum, where order matters.",
+    "When the effect is shown or applied as the thumb moves."
+  ],
+  "whenNotToUse": [
+    "For an exact amount, or a range with more than about twenty steps. Use a number field.",
+    "For two to four options that are not a scale. Use a radio group or a segmented control.",
+    "For on or off. Use a switch.",
+    "To show how far something has got. Use progress or a usage meter."
+  ],
+  "variants": [
+    { "name": "numbers", "use": "The value is a number with its unit, such as 4 agents." },
+    { "name": "named steps", "use": "Each step has a name, written in the output and repeated in aria-valuetext on the input." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "As wide as its container and 44px tall. The thumb is drawn 24px square inside a 44px pointer target." }
+  ],
+  "states": ["default", "hover", "focus-visible", "active", "disabled"],
+  "accessibility": [
+    "Use a div with gw-slider holding, in this order: a label with gw-slider__label, an output with gw-slider__value, a div with gw-slider__track around an input type=\"range\" with gw-slider__input, then a span with gw-slider__min and a span with gw-slider__max.",
+    "The label's for attribute matches the input's id. Set min, max, step and value on the input.",
+    "The output holds the current value in words with its unit, and its for attribute names the input. The app rewrites its text on the input's input event. An output is a live region, so a screen reader announces the new words after the thumb moves.",
+    "When a step has a name, or the bare number would mislead, also set aria-valuetext on the input to the same words, so the slider itself is read as High and not as 3.",
+    "The two spans say what the lowest and highest values are, in words. They are plain text, and the range itself comes from min and max.",
+    "The keyboard is the browser's own: Left and Down lower the value by one step, Right and Up raise it, Page Up and Page Down move further, Home and End go to the ends.",
+    "The track wrapper reaches 10px past the slider on each side, which is the unpainted part of the thumb's pointer target. Keep at least that much padding between a slider and the edge of the screen.",
+    "Set the disabled attribute when the value cannot change, and say why in the output or beside it.",
+    "The thumb's position is styled for WebKit, Blink and Gecko with no inline style. The part of the track below the value is not filled: the value in words carries it."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-slider",
+    "gw-slider__input",
+    "gw-slider__label",
+    "gw-slider__max",
+    "gw-slider__min",
+    "gw-slider__track",
+    "gw-slider__value"
+  ]
+}

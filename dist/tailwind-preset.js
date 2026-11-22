@@ -5,6 +5,7 @@ export default {
     },
     "colors": {
       "accent": "var(--gw-color-accent)",
+      "accent-hover": "var(--gw-color-accent-hover)",
       "on-accent": "var(--gw-color-on-accent)",
       "surface": "var(--gw-color-surface)",
       "surface-raised": "var(--gw-color-surface-raised)",
@@ -37,7 +38,8 @@ export default {
     "borderRadius": {
       "none": "0",
       "sm": "var(--gw-radius-sm)",
-      "md": "var(--gw-radius-md)"
+      "md": "var(--gw-radius-md)",
+      "full": "var(--gw-radius-full)"
     },
     "borderWidth": {
       "0": "0",

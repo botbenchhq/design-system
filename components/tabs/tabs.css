@@ -1,0 +1,85 @@
+/*
+ * Tabs: a row of tabs that switches between panels of one view.
+ * The selected tab is marked by a bar under it and a heavier label. A panel that is not selected carries the hidden attribute.
+ * The styles read aria-selected and hidden only, so they are the same whether the gw-tabs element or the app sets them.
+ */
+
+@layer gw.components {
+  /* A custom element is inline unless told otherwise. */
+  .gw-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+    min-width: 0;
+  }
+
+  /*
+   * The row scrolls sideways inside itself when the tabs are wider than it, so the page never does.
+   * The padding leaves room for the focus ring, which a scrolling box would otherwise cut off.
+   */
+  .gw-tabs__list {
+    display: flex;
+    gap: var(--gw-space-xs);
+    min-width: 0;
+    padding: var(--gw-space-xs);
+    border-bottom-width: var(--gw-border-width);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .gw-tabs__tab {
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gw-space-sm);
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-size-touch);
+    padding-inline: var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    color: var(--gw-color-muted);
+    font-weight: var(--gw-weight-medium);
+    white-space: nowrap;
+    transition-property: background-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+
+  .gw-tabs__panel {
+    min-width: 0;
+    min-height: var(--gw-size-touch);
+    border-radius: var(--gw-radius-sm);
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-tabs__tab:hover {
+      background-color: var(--gw-color-surface-sunken);
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-tabs__tab:active {
+    background-color: var(--gw-color-border);
+    color: var(--gw-color-on-surface);
+  }
+
+  /* The selected tab is marked by weight and by a bar, as well as by colour. */
+  .gw-tabs__tab[aria-selected="true"] {
+    color: var(--gw-color-on-surface);
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  /* The bar sits on the row's bottom border, below the row's padding. */
+  .gw-tabs__tab[aria-selected="true"]::after {
+    content: "";
+    position: absolute;
+    bottom: calc(var(--gw-space-xs) * -1);
+    inset-inline: 0;
+    height: calc(var(--gw-border-width) * 2);
+    background-color: var(--gw-color-accent);
+  }
+}

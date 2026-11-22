@@ -1,0 +1,43 @@
+{
+  "name": "disclosure",
+  "title": "Disclosure",
+  "purpose": "A native details element that shows or hides detail under a summary written in text.",
+  "status": "draft",
+  "whenToUse": [
+    "For detail most readers can do without: a log, the environment, the steps of a finished attempt.",
+    "With the row variant inside a list row, for a changed file that opens to its diff. The summary holds the path and the counts.",
+    "For the one group of advanced settings in a view. Mark that details element with data-gw-advanced."
+  ],
+  "whenNotToUse": [
+    "For anything the reader must see or do in order to go on. An action marked data-gw-critical that can be reached only inside closed content fails the hidden-critical-action rule: show it in the view too, or open the disclosure by default.",
+    "Nested more than two levels. A third level fails the disclosure-depth rule: move that content to a view of its own.",
+    "With a summary that is only an icon or is empty. A summary without text fails the summary-without-text rule.",
+    "For a list of actions that opens over the page. Use a menu.",
+    "For sections where opening one must close the others. This component has no script, so each disclosure opens and closes alone."
+  ],
+  "variants": [
+    { "name": "default", "use": "Stands alone. Its content is indented to start under the summary's text." },
+    { "name": "row", "class": "gw-disclosure--row", "use": "The only child of a gw-list__row. The summary is the row, and the content uses the row's full width, which a diff needs at phone width." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "The summary is at least 44px tall and as wide as the disclosure. It grows when its text wraps." }
+  ],
+  "states": ["default", "open", "hover", "focus-visible", "active"],
+  "accessibility": [
+    "Use a details element with a summary as its first child. The browser gives the summary its role and its expanded state, and the open attribute is the only state: never toggle a class.",
+    "The summary holds text that says what is inside. The chevron is drawn by the stylesheet and needs no markup. Do not put a heading, a button or a link inside the summary.",
+    "Trailing text such as a count goes in a gw-disclosure__meta span inside the summary, after the label. It is read as part of the summary's name, so write counts in words or with a hidden label, as gw-diff__counts does.",
+    "Put the content in one gw-disclosure__content element after the summary.",
+    "Tab reaches the summary. Enter and Space open and close it. Both come from the summary element. Closed content is out of the tab order and is skipped by a screen reader, and the browser's find-in-page opens it.",
+    "Set the open attribute in markup to start open. Start open when the content holds an action the reader needs.",
+    "Fetch heavy content, such as a diff, when the disclosure opens, and show the content's own loading state until it arrives."
+  ],
+  "icons": ["chevron-right"],
+  "classes": [
+    "gw-disclosure",
+    "gw-disclosure--row",
+    "gw-disclosure__content",
+    "gw-disclosure__meta",
+    "gw-disclosure__summary"
+  ]
+}

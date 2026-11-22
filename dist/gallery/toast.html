@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toast - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Toast</h1>
+<p>A brief status message that appears at the edge of the screen without taking focus and leaves by itself.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> The three tones, as a full stack</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each toast says what happened in one line, starts with its tone in words and carries the tone's icon. The newest is at the bottom, and three is the most that show at once.</p>
+</figcaption>
+<div data-example="tones" data-title="The three tones, as a full stack" data-state="default" data-gallery-frame="short" data-reason="Each toast says what happened in one line, starts with its tone in words and carries the tone's icon. The newest is at the bottom, and three is the most that show at once.">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast">
+      <p class="gw-toast__message"><span class="gw-toast__label">Note:</span> Run 8 started on fix/login-timeout.</p>
+    </div>
+    <div class="gw-toast gw-toast--success">
+      <p class="gw-toast__message"><span class="gw-toast__label">Done:</span> Pull request 212 opened.</p>
+    </div>
+    <div class="gw-toast gw-toast--danger">
+      <p class="gw-toast__message"><span class="gw-toast__label">Error:</span> The branch was not pushed. Check your connection, then push again.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With one action</h3>
+</figcaption>
+<div data-example="action" data-title="With one action" data-gallery-frame="short">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast">
+      <p class="gw-toast__message"><span class="gw-toast__label">Note:</span> Run 8 is waiting for your answer.</p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Review request</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>An error with a way to try again</h3>
+</figcaption>
+<div data-example="danger-action" data-title="An error with a way to try again" data-gallery-frame="short">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--danger">
+      <p class="gw-toast__message"><span class="gw-toast__label">Error:</span> The transcript was not copied, because the browser blocked the clipboard.</p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Copy again</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A single confirmation</h3>
+</figcaption>
+<div data-example="success" data-title="A single confirmation" data-gallery-frame="short">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--success">
+      <p class="gw-toast__message"><span class="gw-toast__label">Done:</span> Branch name copied.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A failure the reader must act on, with two actions</h3>
+<p>A toast leaves by itself and never takes focus, so a reader who looks away misses the only notice that the run stopped, and two buttons turn a passing message into a decision. Show a failure that needs an answer as an alert in the view, and keep a toast to one line and one action.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="needs-a-decision" data-title="A failure the reader must act on, with two actions" data-dont="review" data-gallery-frame data-reason="A toast leaves by itself and never takes focus, so a reader who looks away misses the only notice that the run stopped, and two buttons turn a passing message into a decision. Show a failure that needs an answer as an alert in the view, and keep a toast to one line and one action.">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--danger">
+      <p class="gw-toast__message"><span class="gw-toast__label">Error:</span> Run 8 stopped because the rebase hit a conflict in src/auth/session.ts. Choose how to go on.</p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Abort rebase</button>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Open file</button>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>To confirm that something the reader just did has happened, such as a copy or a push.</li>
+<li>To report a passing event from elsewhere in the app, such as a run that started, with at most one action.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For an action the reader may want to take back. Use the undo toast.</li>
+<li>For a failure the reader must act on, or a result that should stay on screen. Use an alert in the view.</li>
+<li>For a mistake in a form control. Use the field's error.</li>
+<li>For a state of the whole app, such as a lost connection. Use a banner.</li>
+<li>For a question. Use a dialog.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>info</dt>
+<dd>The default, with no modifier class. A passing event. The label reads Note.</dd>
+<dt>success <code>gw-toast--success</code></dt>
+<dd>Something the reader asked for has happened. The label reads Done.</dd>
+<dt>danger <code>gw-toast--danger</code></dt>
+<dd>Something failed and the reader loses nothing by missing the message, or can try again with its one action. The label reads Error.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Put one region in the page from the start, as the last element in the body, empty: a div with the class gw-toast__region, role=&quot;status&quot;, aria-live=&quot;polite&quot; and aria-atomic=&quot;false&quot;. A screen reader announces only what is added to a live region that already exists.</li>
+<li>The app shows a toast by appending a gw-toast element to the region and hides it by removing that element. Append the newest last. The stylesheet shows the last three and hides any before them, so remove the oldest when a fourth arrives.</li>
+<li>A toast never takes focus. It is announced when the reader's screen reader is next idle.</li>
+<li>Each message starts with gw-toast__label holding the tone in words: Note, Done or Error, then a colon. The tone's icon is drawn by the stylesheet. The message is one sentence, and an error says what to do.</li>
+<li>A toast has at most one action, a button with gw-button gw-button--small gw-toast__action after the message. Nothing may be reachable only from a toast: the same action is somewhere in the view.</li>
+<li>How long it stays is the app's timer: remove a toast without an action after 5 seconds, and one with an action after 10 seconds. Pause the timer while the pointer is over the toast or focus is inside it, and while the page is hidden. Do not remove a danger toast on a timer shorter than 10 seconds.</li>
+<li>The region is fixed to the bottom of the screen on a phone and to the bottom trailing corner at 768px and wider, above the page and below nothing but a modal dialog. While a modal dialog is open the page behind it is inert, so report the result of a dialog's action after it closes.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-toast</code></li>
+<li><code>gw-toast--danger</code></li>
+<li><code>gw-toast--success</code></li>
+<li><code>gw-toast__action</code></li>
+<li><code>gw-toast__label</code></li>
+<li><code>gw-toast__message</code></li>
+<li><code>gw-toast__region</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

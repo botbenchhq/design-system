@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accordion - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Accordion</h1>
+<p>A set of disclosures of which one is open at a time, built on details elements that share a name.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> One section open, the rest closed</h3>
+<p data-gallery="state">State: <code>open</code></p>
+<p>Every summary says in words what its section holds, so the set reads as a table of contents while closed. The sections share a name attribute, so opening one closes the one that was open, with no script.</p>
+</figcaption>
+<div data-example="default" data-title="One section open, the rest closed" data-state="open" data-reason="Every summary says in words what its section holds, so the set reads as a table of contents while closed. The sections share a name attribute, so opening one closes the one that was open, with no script.">
+  <div class="gw-accordion">
+    <details class="gw-disclosure gw-accordion__section" name="accordion-default" open>
+      <summary class="gw-disclosure__summary">Environment</summary>
+      <div class="gw-disclosure__content">
+        <p>Node 24 in <code>/srv/workspaces/acme-api</code>, with <code>SESSION_TTL_SECONDS=1800</code> and <code>LOG_LEVEL=info</code>.</p>
+      </div>
+    </details>
+    <details class="gw-disclosure gw-accordion__section" name="accordion-default">
+      <summary class="gw-disclosure__summary">
+        Commands the run used
+        <span class="gw-disclosure__meta">4 commands</span>
+      </summary>
+      <div class="gw-disclosure__content">
+        <p>npm ci, npm test, git add and git commit.</p>
+      </div>
+    </details>
+    <details class="gw-disclosure gw-accordion__section" name="accordion-default">
+      <summary class="gw-disclosure__summary">
+        Test output
+        <span class="gw-disclosure__meta">213 passed</span>
+      </summary>
+      <div class="gw-disclosure__content">
+        <p>tests 213, pass 213, fail 0, in 41 seconds.</p>
+      </div>
+    </details>
+    <details class="gw-disclosure gw-accordion__section" name="accordion-default">
+      <summary class="gw-disclosure__summary">Commit message</summary>
+      <div class="gw-disclosure__content">
+        <p>Refuse a session token older than 30 minutes</p>
+      </div>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>All closed</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="closed" data-title="All closed" data-state="default">
+  <div class="gw-accordion">
+    <details class="gw-disclosure gw-accordion__section" name="accordion-closed">
+      <summary class="gw-disclosure__summary">Environment</summary>
+      <div class="gw-disclosure__content">
+        <p>Node 24 in <code>/srv/workspaces/acme-api</code>, with <code>SESSION_TTL_SECONDS=1800</code> and <code>LOG_LEVEL=info</code>.</p>
+      </div>
+    </details>
+    <details class="gw-disclosure gw-accordion__section" name="accordion-closed">
+      <summary class="gw-disclosure__summary">
+        Commands the run used
+        <span class="gw-disclosure__meta">4 commands</span>
+      </summary>
+      <div class="gw-disclosure__content">
+        <p>npm ci, npm test, git add and git commit.</p>
+      </div>
+    </details>
+    <details class="gw-disclosure gw-accordion__section" name="accordion-closed">
+      <summary class="gw-disclosure__summary">
+        Test output
+        <span class="gw-disclosure__meta">213 passed</span>
+      </summary>
+      <div class="gw-disclosure__content">
+        <p>tests 213, pass 213, fail 0, in 41 seconds.</p>
+      </div>
+    </details>
+    <details class="gw-disclosure gw-accordion__section" name="accordion-closed">
+      <summary class="gw-disclosure__summary">Commit message</summary>
+      <div class="gw-disclosure__content">
+        <p>Refuse a session token older than 30 minutes</p>
+      </div>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A disclosure inside a section: two levels, the limit</h3>
+</figcaption>
+<div data-example="two-levels" data-title="A disclosure inside a section: two levels, the limit">
+  <div class="gw-accordion">
+    <details class="gw-disclosure gw-accordion__section" name="accordion-two-levels" open>
+      <summary class="gw-disclosure__summary">
+        Test output
+        <span class="gw-disclosure__meta">213 passed</span>
+      </summary>
+      <div class="gw-disclosure__content">
+        <div class="gw-stack gw-gap-xs">
+        <p>213 tests ran in 41 seconds.</p>
+        <details class="gw-disclosure">
+          <summary class="gw-disclosure__summary">test/session.test.mjs</summary>
+          <div class="gw-disclosure__content">
+            <p>tests 14, pass 14, fail 0</p>
+          </div>
+        </details>
+      </div>
+      </div>
+    </details>
+    <details class="gw-disclosure gw-accordion__section" name="accordion-two-levels">
+      <summary class="gw-disclosure__summary">Commit message</summary>
+      <div class="gw-disclosure__content">
+        <p>Refuse a session token older than 30 minutes</p>
+      </div>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-accordion">
+    <details class="gw-disclosure gw-accordion__section" name="accordion-hover">
+      <summary class="gw-disclosure__summary">Environment</summary>
+      <div class="gw-disclosure__content">
+        <p>Node 24 in <code>/srv/workspaces/acme-api</code>, with <code>SESSION_TTL_SECONDS=1800</code> and <code>LOG_LEVEL=info</code>.</p>
+      </div>
+    </details>
+    <details class="gw-disclosure gw-accordion__section" name="accordion-hover">
+      <summary class="gw-disclosure__summary">
+        Commands the run used
+        <span class="gw-disclosure__meta">4 commands</span>
+      </summary>
+      <div class="gw-disclosure__content">
+        <p>npm ci, npm test, git add and git commit.</p>
+      </div>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-accordion">
+    <details class="gw-disclosure gw-accordion__section" name="accordion-focus-visible">
+      <summary class="gw-disclosure__summary">Environment</summary>
+      <div class="gw-disclosure__content">
+        <p>Node 24 in <code>/srv/workspaces/acme-api</code>, with <code>SESSION_TTL_SECONDS=1800</code> and <code>LOG_LEVEL=info</code>.</p>
+      </div>
+    </details>
+    <details class="gw-disclosure gw-accordion__section" name="accordion-focus-visible">
+      <summary class="gw-disclosure__summary">
+        Commands the run used
+        <span class="gw-disclosure__meta">4 commands</span>
+      </summary>
+      <div class="gw-disclosure__content">
+        <p>npm ci, npm test, git add and git commit.</p>
+      </div>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active">
+  <div class="gw-accordion">
+    <details class="gw-disclosure gw-accordion__section" name="accordion-active">
+      <summary class="gw-disclosure__summary">Environment</summary>
+      <div class="gw-disclosure__content">
+        <p>Node 24 in <code>/srv/workspaces/acme-api</code>, with <code>SESSION_TTL_SECONDS=1800</code> and <code>LOG_LEVEL=info</code>.</p>
+      </div>
+    </details>
+    <details class="gw-disclosure gw-accordion__section" name="accordion-active">
+      <summary class="gw-disclosure__summary">
+        Commands the run used
+        <span class="gw-disclosure__meta">4 commands</span>
+      </summary>
+      <div class="gw-disclosure__content">
+        <p>npm ci, npm test, git add and git commit.</p>
+      </div>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Nested three levels</h3>
+<p>At the third level the reader has lost track of what is open and what it belongs to. Move the deepest content to a view of its own.</p>
+<p>Checker rule: <code>disclosure-depth</code></p>
+</figcaption>
+<div data-example="three-levels" data-title="Nested three levels" data-dont="disclosure-depth" data-reason="At the third level the reader has lost track of what is open and what it belongs to. Move the deepest content to a view of its own.">
+  <div class="gw-accordion">
+    <details class="gw-disclosure gw-accordion__section" name="accordion-three-levels" open>
+      <summary class="gw-disclosure__summary">Attempt 2</summary>
+      <div class="gw-disclosure__content">
+        <details class="gw-disclosure" open>
+          <summary class="gw-disclosure__summary">Test output</summary>
+          <div class="gw-disclosure__content">
+            <details class="gw-disclosure">
+              <summary class="gw-disclosure__summary">test/session.test.mjs</summary>
+              <div class="gw-disclosure__content">
+                <p>tests 14, pass 14, fail 0</p>
+              </div>
+            </details>
+          </div>
+        </details>
+      </div>
+    </details>
+    <details class="gw-disclosure gw-accordion__section" name="accordion-three-levels">
+      <summary class="gw-disclosure__summary">Attempt 1</summary>
+      <div class="gw-disclosure__content">
+        <p>Stopped after 12 minutes when the runner lost its connection.</p>
+      </div>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Sections the reader has to compare</h3>
+<p>To compare the two attempts the reader must open one, remember it, and open the other, which closes the first. When sections are read together, use separate disclosures that stay open, or show both in the view.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="needed-together" data-title="Sections the reader has to compare" data-dont="review" data-reason="To compare the two attempts the reader must open one, remember it, and open the other, which closes the first. When sections are read together, use separate disclosures that stay open, or show both in the view.">
+  <div class="gw-accordion">
+    <details class="gw-disclosure gw-accordion__section" name="accordion-needed-together" open>
+      <summary class="gw-disclosure__summary">Attempt 1: test output</summary>
+      <div class="gw-disclosure__content">
+        <p>tests 213, pass 212, fail 1</p>
+      </div>
+    </details>
+    <details class="gw-disclosure gw-accordion__section" name="accordion-needed-together">
+      <summary class="gw-disclosure__summary">Attempt 2: test output</summary>
+      <div class="gw-disclosure__content">
+        <p>tests 213, pass 213, fail 0</p>
+      </div>
+    </details>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For three or more sections of detail about one thing, such as the environment, commands and test output of a run, when the reader wants one at a time and the set should stay short.</li>
+<li>When each section's summary can say in a few words what it holds.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>When the reader compares sections or needs two open together. Use separate disclosures, which open and close alone.</li>
+<li>For one section. Use a disclosure.</li>
+<li>For panels that are the main content of a view. Use tabs.</li>
+<li>For anything the reader must see or do in order to go on. An action marked data-gw-critical inside a closed section fails the hidden-critical-action rule.</li>
+<li>Nested more than two levels. A disclosure inside a section is the limit, and a third level fails the disclosure-depth rule.</li>
+</ul>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>Each summary is at least 44px tall and as wide as the set, with a rule between sections and above and below the set.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>The set is a div with the gw-accordion class. Each section is a details element with the classes gw-disclosure and gw-accordion__section, a gw-disclosure__summary as its first child and one gw-disclosure__content after it. Copy the inside of a section from the disclosure component.</li>
+<li>Give every section of one set the same name attribute, and a name no other set on the page uses. The browser then closes the open section when another opens. Where the name attribute is not supported the sections open and close alone, and nothing is lost.</li>
+<li>At most one section carries the open attribute in the markup. The open attribute is the only state: never toggle a class.</li>
+<li>Every summary holds text that says what the section holds. A summary without text fails the summary-without-text rule. Trailing text such as a count goes in a gw-disclosure__meta span.</li>
+<li>Tab reaches each summary in order. Enter and Space open and close it. Both come from the summary element. Closed content is out of the tab order, and the browser's find-in-page opens the section that holds a match.</li>
+<li>Opening a section closes another without the reader asking, so keep nothing in a section that the reader is filling in, such as a half-written form.</li>
+<li>A section may hold one more level of disclosure, a plain gw-disclosure with no name. Do not nest an accordion in an accordion.</li>
+<li>The component needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-accordion</code></li>
+<li><code>gw-accordion__section</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

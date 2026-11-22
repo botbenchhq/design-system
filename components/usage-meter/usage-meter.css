@@ -1,0 +1,108 @@
+/*
+ * Usage meter: how much of a limit is used, on a native meter, with the figures and the state in words.
+ * The bar's tone comes from the meter's own low, high and optimum thresholds, so no class has to follow the value.
+ */
+
+@layer gw.components {
+  .gw-usage-meter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+    min-width: 0;
+  }
+
+  .gw-usage-meter__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    column-gap: var(--gw-space-md);
+  }
+
+  .gw-usage-meter__label {
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  /* The state in words: Within the limit, Near the limit, Over the limit. */
+  .gw-usage-meter__state {
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+  }
+
+  .gw-usage-meter__figures {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  /* The track. The browser's own drawing is switched off, and the parts below draw the bar. */
+  .gw-usage-meter__bar {
+    display: block;
+    width: 100%;
+    height: var(--gw-space-sm);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-sm);
+    background: var(--gw-color-surface-sunken);
+    overflow: hidden;
+    appearance: none;
+  }
+
+  /* A flex box, so the fill is stretched to the whole height of the track. */
+  .gw-usage-meter__bar::-webkit-meter-inner-element {
+    display: flex;
+    height: 100%;
+  }
+
+  .gw-usage-meter__bar::-webkit-meter-bar {
+    height: 100%;
+    border-width: 0;
+    border-radius: 0;
+    background: var(--gw-color-surface-sunken);
+  }
+
+  /* Up to the low threshold: within the limit. */
+  .gw-usage-meter__bar::-webkit-meter-optimum-value {
+    background: var(--gw-color-accent);
+  }
+
+  /* Between low and high: near the limit. */
+  .gw-usage-meter__bar::-webkit-meter-suboptimum-value {
+    background: var(--gw-color-warning);
+  }
+
+  /* Above high: at or over the limit. */
+  .gw-usage-meter__bar::-webkit-meter-even-less-good-value {
+    background: var(--gw-color-danger);
+  }
+
+  .gw-usage-meter__bar::-moz-meter-bar {
+    background: var(--gw-color-accent);
+  }
+
+  .gw-usage-meter__bar:-moz-meter-sub-optimum::-moz-meter-bar {
+    background: var(--gw-color-warning);
+  }
+
+  .gw-usage-meter__bar:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+    background: var(--gw-color-danger);
+  }
+
+  /* Row: the bar, then the figures and the state, on one line. For a cell of a usage table or a list row. */
+  .gw-usage-meter--row {
+    flex-flow: row wrap;
+    align-items: center;
+    gap: var(--gw-space-xs) var(--gw-space-md);
+  }
+
+  /* One fixed length, so the bars of neighbouring rows can be compared. */
+  .gw-usage-meter--row > .gw-usage-meter__bar {
+    flex: none;
+    width: calc(var(--gw-space-2xl) * 4);
+    max-width: 100%;
+  }
+}

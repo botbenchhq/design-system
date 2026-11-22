@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Key-value - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Key-value</h1>
+<p>Facts about one thing as label and value pairs: stacked on a phone, in two columns at 768px and wider.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Facts about one run</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each fact is a label and its value in a dl, so a screen reader pairs them. The pairs stack on a phone and line up in two columns at the regular width, and every number carries its unit.</p>
+</figcaption>
+<div data-example="default" data-title="Facts about one run" data-state="default" data-reason="Each fact is a label and its value in a dl, so a screen reader pairs them. The pairs stack on a phone and line up in two columns at the regular width, and every number carries its unit.">
+  <dl class="gw-key-value">
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Task</dt>
+      <dd class="gw-key-value__value">Fix the login timeout</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Repository</dt>
+      <dd class="gw-key-value__value">acme/api</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Started</dt>
+      <dd class="gw-key-value__value"><time datetime="2026-03-14T09:30">14 March, 09:30</time></dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Duration</dt>
+      <dd class="gw-key-value__value">6 minutes 12 seconds</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Cost</dt>
+      <dd class="gw-key-value__value">$0.84 for this run</dd>
+    </div>
+  </dl>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Mono values: paths, hashes and commands</h3>
+</figcaption>
+<div data-example="mono" data-title="Mono values: paths, hashes and commands">
+  <dl class="gw-key-value">
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Branch</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">fix/login-timeout</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Base commit</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">9f2c1ab4e07d53c8a1b6f0e2d4c7a9b8e6f5d3c1</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Worktree</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">/srv/workspaces/acme-api/.worktrees/task-418-fix-the-login-timeout</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Test command</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">npm run test -- --run src/auth/session.test.ts</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Role</dt>
+      <dd class="gw-key-value__value">Implementer</dd>
+    </div>
+  </dl>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A value that is not set, said in words</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="A value that is not set, said in words" data-state="empty">
+  <dl class="gw-key-value">
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Base branch</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">main</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Setup command</dt>
+      <dd class="gw-key-value__value gw-key-value__value--empty">Not set</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Pull request</dt>
+      <dd class="gw-key-value__value gw-key-value__value--empty">None opened yet</dd>
+    </div>
+  </dl>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A dash, or nothing, for a missing value</h3>
+<p>A dash does not say whether the value is missing, still loading or really a dash, and a screen reader may skip it. A label with nothing after it looks like a fault. Write Not set, or what is missing, in words.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="blank-values" data-title="A dash, or nothing, for a missing value" data-dont="review" data-reason="A dash does not say whether the value is missing, still loading or really a dash, and a screen reader may skip it. A label with nothing after it looks like a fault. Write Not set, or what is missing, in words.">
+  <dl class="gw-key-value">
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Base branch</dt>
+      <dd class="gw-key-value__value gw-key-value__value--mono">main</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Setup command</dt>
+      <dd class="gw-key-value__value">-</dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Pull request</dt>
+      <dd class="gw-key-value__value"></dd>
+    </div>
+  </dl>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For the facts of one run, task, repository or request: its branch, its path, when it started, what it cost.</li>
+<li>Inside a card or a disclosure, or straight on the page under a heading.</li>
+<li>With mono values for anything the reader may copy or compare character by character: a path, a commit hash, a command, a branch name.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For the same facts about several things. Use the data table, where each thing is a row.</li>
+<li>For one number that deserves emphasis, with its comparison. Use the stat.</li>
+<li>For values the reader edits. Use fields.</li>
+<li>For a value the reader copies with one press. Use the copy field.</li>
+<li>For a status that needs a tone. Write the status in words as the value, or put one badge in it.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>default</dt>
+<dd>Values in the interface typeface.</dd>
+<dt>mono value <code>gw-key-value__value--mono</code></dt>
+<dd>On a single value, with gw-key-value__value: a path, a hash, a command or a branch name, in the mono typeface. Mix it freely with plain values in one list.</dd>
+<dt>empty value <code>gw-key-value__value--empty</code></dt>
+<dd>On a value that is not there, with gw-key-value__value. The value is written in words, such as Not set, and drawn in the quiet colour.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a dl. Each pair is a div with the class gw-key-value__item, holding one dt, gw-key-value__label, and one dd, gw-key-value__value. A screen reader then announces each value with its label.</li>
+<li>The label is a noun in sentence case with no colon. The stylesheet does not add one.</li>
+<li>A value is never blank and never a lone dash. When there is none, write it in words: Not set, None opened yet. The quiet colour of the empty variant supports the words and does not replace them.</li>
+<li>A number carries its unit, and a time is written so it cannot be misread, inside a time element with a datetime attribute.</li>
+<li>A long value wraps inside its column, breaking at any character when it must, so the page never scrolls sideways. Do not truncate a path or a hash.</li>
+<li>The component has no controls and needs no script. While the facts load, show a spinner in place of the list; if they cannot be read, an error state.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-key-value</code></li>
+<li><code>gw-key-value__item</code></li>
+<li><code>gw-key-value__label</code></li>
+<li><code>gw-key-value__value</code></li>
+<li><code>gw-key-value__value--empty</code></li>
+<li><code>gw-key-value__value--mono</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

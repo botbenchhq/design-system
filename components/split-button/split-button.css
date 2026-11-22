@@ -1,0 +1,45 @@
+/*
+ * Split button: a main action joined to a small button that opens a menu of related alternatives.
+ * Both halves are buttons from the button component and the menu is the menu component, so this
+ * stylesheet only joins the two halves. It must load after the button's.
+ */
+
+@layer gw.components {
+  /* The pair is its own stacking context for the focused half below. */
+  .gw-split-button {
+    display: inline-flex;
+    max-width: 100%;
+    isolation: isolate;
+  }
+
+  /* The main action keeps its rounded corners at the start only. A long label wraps inside it. */
+  .gw-split-button__action {
+    flex: 0 1 auto;
+    min-width: 0;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  /*
+   * The menu button is one pointer target wide. It gives up its leading border,
+   * so the main action's border is the one line between the two.
+   */
+  .gw-split-button__toggle {
+    flex: none;
+    width: var(--gw-size-touch);
+    padding: 0;
+    border-inline-start-width: 0;
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  /* While its menu is open the menu button stays shaded, so the menu is seen to belong to it. */
+  .gw-split-button:has(:popover-open) > .gw-split-button__toggle {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* The focused half comes above the other, so its focus ring is whole. */
+  .gw-split-button > :focus-visible {
+    z-index: var(--gw-z-sticky);
+  }
+}

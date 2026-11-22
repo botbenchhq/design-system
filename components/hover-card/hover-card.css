@@ -1,0 +1,63 @@
+/*
+ * Hover card: a preview of a linked item, shown beside its link on hover, on keyboard focus and from a preview button.
+ * The card is the popover component's panel with gw-hover-card__card added, inside a wrapper around the link.
+ * The wrapper shows it on hover and focus with no script. With popover="hint" on the card and interestfor on
+ * the link, a browser with interest invokers opens it in the top layer, on a long press too, and closes it on Escape.
+ */
+
+@layer gw.components {
+  .gw-hover-card {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Once the card is open as a popover it is placed against its link by the browser, not inside the wrapper. */
+  .gw-hover-card:has(> .gw-hover-card__card:popover-open) {
+    position: static;
+  }
+
+  /*
+   * Shown by the wrapper alone, the card hangs under the link from its leading edge.
+   * It touches the link, so the pointer can move onto the card without closing it.
+   */
+  .gw-hover-card > .gw-hover-card__card:not(:popover-open) {
+    position: absolute;
+    inset: 100% auto auto 0;
+    z-index: var(--gw-z-overlay);
+    margin: 0;
+    position-area: none;
+  }
+
+  .gw-hover-card--end > .gw-hover-card__card:not(:popover-open) {
+    inset: 100% 0 auto auto;
+  }
+
+  .gw-hover-card:focus-within > .gw-hover-card__card:not(:popover-open) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+  }
+
+  @media (hover: hover) {
+    .gw-hover-card:hover > .gw-hover-card__card:not(:popover-open) {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gw-space-md);
+    }
+  }
+
+  /* A link at the trailing edge of the view: the card grows towards the start. A flip mirrors the margin. */
+  @supports (position-area: block-end) {
+    .gw-hover-card--end > .gw-hover-card__card:popover-open {
+      margin: var(--gw-space-xs) 0 var(--gw-space-xs) var(--gw-space-lg);
+      position-area: block-end span-inline-start;
+    }
+  }
+
+  /* One line under the title that places the item: its repository, its role, when it ran. */
+  .gw-hover-card__meta {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+}

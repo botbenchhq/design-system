@@ -1,0 +1,31 @@
+{
+  "name": "button-group",
+  "title": "Button group",
+  "purpose": "Related buttons shown together: the actions at the end of a form, or a joined row of closely related actions.",
+  "status": "draft",
+  "whenToUse": [
+    "For the actions at the end of a form, a dialog or a sheet: one primary action and the ways out of it.",
+    "Attached, for two to four actions on the same thing that belong side by side, such as Previous file and Next file."
+  ],
+  "whenNotToUse": [
+    "To choose one of several options. Use a segmented control, which keeps the choice.",
+    "For unrelated buttons that happen to share a row. Use the cluster layout class.",
+    "For Allow and Decline on an approval. The approval sets them at opposite ends of its own actions row.",
+    "For more than four attached actions. Keep the most used and put the rest in a menu."
+  ],
+  "variants": [
+    { "name": "actions", "use": "The default, with no modifier class. Buttons stack at full width below 768px and form a row at the far end from 768px. Write them in the order they are read, with the primary button last." },
+    { "name": "attached", "class": "gw-button-group--attached", "use": "One row at every width, with shared borders and rounded outer corners only. For secondary buttons and icon buttons with short labels. It does not wrap, so keep it narrow enough for a phone." }
+  ],
+  "sizes": [],
+  "states": ["default", "focus-visible", "disabled"],
+  "accessibility": [
+    "Use a div with role=\"group\" and an aria-label that says what the buttons act on, such as Task actions. Inside a form, a dialog or a fieldset that already names them, the role and label may be left out.",
+    "The children are buttons from the button and icon button components, copied from their examples. The group adds no state of its own: disabled, busy and pressed stay on each button.",
+    "A group holds at most one primary button, written last. Source order is visual order at both widths, so Tab moves through the buttons as they are read.",
+    "Tab reaches each button in turn, and Enter and Space activate it. The group is not a toolbar and adds no arrow keys.",
+    "In an attached group the focused button is drawn above its neighbours, so its focus ring is whole."
+  ],
+  "icons": ["chevron-left", "chevron-right"],
+  "classes": ["gw-button-group", "gw-button-group--attached"]
+}

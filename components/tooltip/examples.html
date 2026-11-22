@@ -1,0 +1,65 @@
+<div data-example="default" data-title="Supplementary text for a labelled button" data-state="open" data-gallery-open data-reason="The button already says what it does. The tooltip adds detail the reader can act without, and aria-describedby gives a screen reader the same detail.">
+  <div class="gw-stack gw-gap-2xl">
+    <p>fix/login-timeout is 4 commits ahead of main.</p>
+    <div class="gw-cluster">
+      <span class="gw-tooltip">
+        <button type="button" class="gw-button" aria-describedby="tooltip-default-text" interestfor="tooltip-default-text">Squash and merge</button>
+        <span class="gw-tooltip__content" id="tooltip-default-text" role="tooltip" popover="hint">Combines the 4 commits into one.</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div data-example="below" data-title="Below an icon button that has a name" data-gallery-open>
+  <div class="gw-stack gw-gap-2xl">
+    <div class="gw-cluster">
+      <span class="gw-tooltip gw-tooltip--below">
+        <button type="button" class="gw-button gw-button--quiet" aria-keyshortcuts="/" aria-describedby="tooltip-below-text" interestfor="tooltip-below-text">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
+          <span class="gw-visually-hidden">Search tasks</span>
+        </button>
+        <span class="gw-tooltip__content" id="tooltip-below-text" role="tooltip" popover="hint">Search tasks, or press /</span>
+      </span>
+    </div>
+    <p>12 tasks in acme/api.</p>
+  </div>
+</div>
+
+<div data-example="end" data-title="Aligned to the trailing edge" data-gallery-open>
+  <div class="gw-stack gw-gap-2xl">
+    <p>Run 7 finished 2 minutes ago.</p>
+    <div class="gw-split">
+      <span>214 of 214 tests passed</span>
+      <span class="gw-tooltip gw-tooltip--end">
+        <button type="button" class="gw-button" aria-describedby="tooltip-end-text" interestfor="tooltip-end-text">Run again</button>
+        <span class="gw-tooltip__content" id="tooltip-end-text" role="tooltip" popover="hint">Starts run 8 from the same prompt.</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div data-example="rest" data-title="At rest, before hover, focus or a long press" data-state="default">
+  <div class="gw-stack gw-gap-2xl">
+    <p>fix/login-timeout is 4 commits ahead of main.</p>
+    <div class="gw-cluster">
+      <span class="gw-tooltip">
+        <button type="button" class="gw-button" aria-describedby="tooltip-rest-text" interestfor="tooltip-rest-text">Squash and merge</button>
+        <span class="gw-tooltip__content" id="tooltip-rest-text" role="tooltip" popover="hint">Combines the 4 commits into one.</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div data-example="only-label" data-title="A tooltip as the only label of an icon button" data-dont="review" data-gallery-open data-reason="The button has no name until the tooltip opens, so a screen reader announces only a button, voice control cannot name it, and on a touch screen the reader must guess what the icon does. Give the button its own name, in visible text or in gw-visually-hidden text.">
+  <div class="gw-stack gw-gap-2xl">
+    <div class="gw-cluster">
+      <span class="gw-tooltip gw-tooltip--below">
+        <button type="button" class="gw-button gw-button--quiet" interestfor="tooltip-only-label-text">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
+        </button>
+        <span class="gw-tooltip__content" id="tooltip-only-label-text" role="tooltip" popover="hint">Create branch</span>
+      </span>
+    </div>
+    <p>12 tasks in acme/api.</p>
+  </div>
+</div>

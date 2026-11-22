@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Badge - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Badge</h1>
+<p>A status in a word or two, such as a task's station.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Tones</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="tones" data-title="Tones" data-state="default">
+  <div class="gw-cluster">
+    <span class="gw-badge">Draft</span>
+    <span class="gw-badge gw-badge--info">Running</span>
+    <span class="gw-badge gw-badge--success">Merged</span>
+    <span class="gw-badge gw-badge--warning">Needs an answer</span>
+    <span class="gw-badge gw-badge--danger">Failed</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With an icon</h3>
+</figcaption>
+<div data-example="with-icon" data-title="With an icon">
+  <div class="gw-cluster">
+    <span class="gw-badge">
+      <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+      No pull request
+    </span>
+    <span class="gw-badge gw-badge--info">
+      <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-loader"></use></svg>
+      Tests running
+    </span>
+    <span class="gw-badge gw-badge--success">
+      <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+      Tests passed
+    </span>
+    <span class="gw-badge gw-badge--warning">
+      <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-triangle-alert"></use></svg>
+      Out of date with main
+    </span>
+    <span class="gw-badge gw-badge--danger">
+      <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-alert"></use></svg>
+      Tests failed
+    </span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> One badge per row: a task's station in words</h3>
+<p>Each row carries one badge, and it says where the task stands in words. Everything else about the task is plain text, so the badge is the one thing the eye lands on.</p>
+</figcaption>
+<div data-example="stations" data-title="One badge per row: a task's station in words" data-reason="Each row carries one badge, and it says where the task stands in words. Everything else about the task is plain text, so the badge is the one thing the eye lands on.">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Fix the login timeout</span>
+          <span class="gw-list__secondary">acme/api · fix/login-timeout</span>
+        </span>
+        <span class="gw-badge">
+          <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg>
+          Queued
+        </span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Add rate limiting to the webhook endpoint</span>
+          <span class="gw-list__secondary">acme/api · feat/webhook-rate-limit</span>
+        </span>
+        <span class="gw-badge gw-badge--info">
+          <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-loader"></use></svg>
+          Building
+        </span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Upgrade Postgres client to 8.13</span>
+          <span class="gw-list__secondary">acme/billing · chore/pg-8-13</span>
+        </span>
+        <span class="gw-badge gw-badge--info">
+          <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+          Verifying
+        </span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Move session storage to Redis</span>
+          <span class="gw-list__secondary">acme/api · feat/redis-sessions</span>
+        </span>
+        <span class="gw-badge gw-badge--info">
+          <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+          Reviewing
+        </span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Remove the legacy invoice exporter</span>
+          <span class="gw-list__secondary">acme/billing · chore/drop-invoice-export</span>
+        </span>
+        <span class="gw-badge gw-badge--warning">
+          <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-alert"></use></svg>
+          Awaiting decision
+        </span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Add dark theme to the settings screen</span>
+          <span class="gw-list__secondary">acme/web · feat/settings-dark</span>
+        </span>
+        <span class="gw-badge gw-badge--warning">
+          <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-triangle-alert"></use></svg>
+          Blocked
+        </span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Paginate the audit log</span>
+          <span class="gw-list__secondary">acme/api · feat/audit-log-pages</span>
+        </span>
+        <span class="gw-badge gw-badge--danger">
+          <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+          Interrupted
+        </span>
+      </div>
+    </li>
+    <li class="gw-list__row">
+      <div class="gw-list__content">
+        <span class="gw-list__body">
+          <span class="gw-list__primary">Fix the off-by-one in the retry counter</span>
+          <span class="gw-list__secondary">acme/api · fix/retry-count</span>
+        </span>
+        <span class="gw-badge gw-badge--success">
+          <svg class="gw-badge__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+          Decided
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A badge for every fact</h3>
+<p>When every fact about the task is a badge, none of them stands out and the one status that matters is lost. Keep the badge for the station and write the rest as plain text.</p>
+<p>Checker rule: <code>excess-badges</code></p>
+</figcaption>
+<div data-example="clutter" data-title="A badge for every fact" data-dont="excess-badges" data-reason="When every fact about the task is a badge, none of them stands out and the one status that matters is lost. Keep the badge for the station and write the rest as plain text.">
+  <div class="gw-cluster">
+    <span class="gw-badge gw-badge--info">Building</span>
+    <span class="gw-badge">acme/api</span>
+    <span class="gw-badge">fix/login-timeout</span>
+    <span class="gw-badge gw-badge--success">3 files</span>
+    <span class="gw-badge gw-badge--success">12 added</span>
+    <span class="gw-badge gw-badge--danger">3 removed</span>
+    <span class="gw-badge gw-badge--warning">Attempt 2</span>
+    <span class="gw-badge">2 min ago</span>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For the one status of an item that the reader acts on or scans for: Building, Awaiting decision, Blocked.</li>
+<li>Once per row of a list or table, as the row's trailing element.</li>
+<li>Once beside the title of a view, for the status of the thing the view shows.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For facts that are not a status, such as a repository, a branch, a count or a time. Write them as plain text.</li>
+<li>For several statuses on one item. Pick the one the reader acts on and write the rest as text. Eight or more badges outside list rows in one view fail the excess-badges rule.</li>
+<li>For something the reader can press. Use a button or a link.</li>
+<li>For a message with a sentence in it. Use a banner or an inline message.</li>
+<li>As a count on an icon. Write the count as text next to a label.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>neutral</dt>
+<dd>The default, with no modifier class. A status that needs nothing from the reader yet: Queued, Draft.</dd>
+<dt>info <code>gw-badge--info</code></dt>
+<dd>Work in progress that needs nothing from the reader: Building, Verifying, Reviewing.</dd>
+<dt>success <code>gw-badge--success</code></dt>
+<dd>Finished as intended: Decided, Merged, Tests passed.</dd>
+<dt>warning <code>gw-badge--warning</code></dt>
+<dd>Waiting on the reader or on something outside the task: Awaiting decision, Blocked.</dd>
+<dt>danger <code>gw-badge--danger</code></dt>
+<dd>Stopped or failed: Interrupted, Failed.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>24px tall with 12px text. It fits a dense list row without making it taller.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a span. The badge is text, and a screen reader reads its words in place.</li>
+<li>The words carry the status. The tone only supports them, so never rely on the colour, and never use a badge with an icon and no text.</li>
+<li>An icon is decoration and carries aria-hidden=&quot;true&quot;. Use the same icon for the same status everywhere.</li>
+<li>Write the status in sentence case, in one to three words, in the same words everywhere the status appears.</li>
+<li>A badge is not focusable and takes no press. When a status changes while the reader watches, announce it from a role=&quot;status&quot; element in the view, not from the badge.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-badge</code></li>
+<li><code>gw-badge--danger</code></li>
+<li><code>gw-badge--info</code></li>
+<li><code>gw-badge--success</code></li>
+<li><code>gw-badge--warning</code></li>
+<li><code>gw-badge__icon</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

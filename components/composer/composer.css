@@ -1,0 +1,113 @@
+/*
+ * Composer: the prompt input under a transcript. A form holding a label, a row with the
+ * textarea and the Send button, and optionally a row of quiet controls and a line of text.
+ * Send and Stop are buttons from the button component.
+ */
+
+@layer gw.components {
+  .gw-composer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  /*
+   * Held to the bottom of the scrolling view, clear of the home indicator. The view's
+   * scroller must end at the visible viewport for this to stay above an on-screen keyboard.
+   */
+  .gw-composer--sticky {
+    position: sticky;
+    bottom: 0;
+    z-index: var(--gw-z-sticky);
+    padding: var(--gw-space-md) var(--gw-space-lg);
+    padding-bottom: calc(var(--gw-space-md) + env(safe-area-inset-bottom));
+    border-top-width: var(--gw-border-width);
+    background-color: var(--gw-color-surface);
+  }
+
+  .gw-composer__label {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* The button stays beside the last line as the textarea grows. */
+  .gw-composer__row {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--gw-space-sm);
+  }
+
+  /*
+   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   * Without field-sizing the height is fixed at two targets and the text scrolls inside.
+   * The block padding is what centres a single line in a box one target tall.
+   */
+  .gw-composer__input {
+    flex: 1;
+    min-width: 0;
+    height: calc(var(--gw-size-touch) * 2);
+    min-height: var(--gw-size-touch);
+    max-height: calc(var(--gw-size-touch) * 4);
+    padding-block: calc((var(--gw-size-touch) - var(--gw-text-lg) * var(--gw-leading-lg)) / 2 - var(--gw-border-width));
+    padding-inline: var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+    resize: none;
+    transition: border-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /* One line tall when empty, growing with the text up to four targets, so Send is never pushed off a phone screen. */
+  @supports (field-sizing: content) {
+    .gw-composer__input {
+      height: auto;
+      field-sizing: content;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .gw-composer__input {
+      padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2 - var(--gw-border-width));
+      font-size: var(--gw-text-ui);
+      line-height: var(--gw-leading-ui);
+    }
+  }
+
+  .gw-composer__input:disabled {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+  }
+
+  .gw-composer__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gw-space-sm);
+  }
+
+  /* Why the composer cannot send. Plain text, so it is read as easily as the label. */
+  .gw-composer__reason {
+    overflow-wrap: anywhere;
+  }
+
+  .gw-composer__error {
+    display: flex;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-danger);
+    overflow-wrap: anywhere;
+  }
+
+  /* The icon is drawn here, so an error is never marked by colour alone, whatever the markup holds. */
+  .gw-composer__error::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+}

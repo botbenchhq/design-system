@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Sign in</h1>
+<p>The sign-in screen: the product's name, one sentence, the fields, one primary action and a quiet link for trouble signing in, in a reading-width column at the leading edge.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Sign in</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The screen does one thing. It names the product, says in one sentence which account to use, and asks for two fields. Sign in is the only primary action, and help is a quiet link after it. Nothing else is on the page to read first.</p>
+</figcaption>
+<div data-example="default" data-title="Sign in" data-state="default" data-gallery-frame data-reason="The screen does one thing. It names the product, says in one sentence which account to use, and asks for two fields. Sign in is the only primary action, and help is a quiet link after it. Nothing else is on the page to read first.">
+  <div class="gw-sign-in">
+    <p class="gw-sign-in__product">Smelt</p>
+    <div class="gw-stack gw-gap-sm">
+      <h1>Sign in</h1>
+      <p>Use the account your administrator created for you on this server.</p>
+    </div>
+    <form class="gw-stack gw-gap-lg" action="/sign-in" method="post">
+      <div class="gw-field">
+        <label class="gw-field__label" for="sign-in-default-email">Email</label>
+        <input class="gw-field__control" id="sign-in-default-email" type="email" name="email" required autocomplete="username">
+      </div>
+      <div class="gw-field">
+        <label class="gw-field__label" for="sign-in-default-password">Password</label>
+        <input class="gw-field__control" id="sign-in-default-password" type="password" name="password" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="gw-button gw-button--primary">Sign in</button>
+    </form>
+    <p><a class="gw-link gw-link--quiet" href="/sign-in/help">Get help signing in</a></p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> The sign-in was refused</h3>
+<p data-gallery="state">State: <code>error</code></p>
+<p>The alert says what happened and the two things the reader can do about it, and the email they typed is kept. It does not say which of the two fields was wrong, so the screen gives nothing away about which accounts exist.</p>
+</figcaption>
+<div data-example="rejected" data-title="The sign-in was refused" data-state="error" data-gallery-frame data-reason="The alert says what happened and the two things the reader can do about it, and the email they typed is kept. It does not say which of the two fields was wrong, so the screen gives nothing away about which accounts exist.">
+  <div class="gw-sign-in">
+    <p class="gw-sign-in__product">Smelt</p>
+    <div class="gw-stack gw-gap-sm">
+      <h1>Sign in</h1>
+      <p>Use the account your administrator created for you on this server.</p>
+    </div>
+    <form class="gw-stack gw-gap-lg" action="/sign-in" method="post">
+      <div class="gw-alert gw-alert--danger" role="alert" id="sign-in-rejected-alert">
+        <div class="gw-alert__content">
+          <p class="gw-alert__label">Error</p>
+          <p class="gw-alert__title">That email and password do not match an account</p>
+          <p class="gw-alert__body">Check both and try again. If you have forgotten the password, your administrator can reset it. 3 tries are left before sign-in pauses for 15 minutes.</p>
+        </div>
+      </div>
+      <div class="gw-field">
+        <label class="gw-field__label" for="sign-in-rejected-email">Email</label>
+        <input class="gw-field__control" id="sign-in-rejected-email" type="email" name="email" required autocomplete="username" value="maya.okafor@acme.example" aria-describedby="sign-in-rejected-alert">
+      </div>
+      <div class="gw-field">
+        <label class="gw-field__label" for="sign-in-rejected-password">Password</label>
+        <input class="gw-field__control" id="sign-in-rejected-password" type="password" name="password" required autocomplete="current-password" aria-describedby="sign-in-rejected-alert">
+      </div>
+      <button type="submit" class="gw-button gw-button--primary">Sign in</button>
+    </form>
+    <p><a class="gw-link gw-link--quiet" href="/sign-in/help?email=maya.okafor%40acme.example">Get help signing in</a></p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Signing in</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="signing-in" data-title="Signing in" data-state="busy" data-gallery-frame>
+  <div class="gw-sign-in">
+    <p class="gw-sign-in__product">Smelt</p>
+    <div class="gw-stack gw-gap-sm">
+      <h1>Sign in</h1>
+      <p>Use the account your administrator created for you on this server.</p>
+    </div>
+    <form class="gw-stack gw-gap-lg" action="/sign-in" method="post">
+      <div class="gw-field">
+        <label class="gw-field__label" for="sign-in-busy-email">Email</label>
+        <input class="gw-field__control" id="sign-in-busy-email" type="email" name="email" required autocomplete="username" value="maya.okafor@acme.example" readonly>
+      </div>
+      <div class="gw-field">
+        <label class="gw-field__label" for="sign-in-busy-password">Password</label>
+        <input class="gw-field__control" id="sign-in-busy-password" type="password" name="password" required autocomplete="current-password" value="correct-horse-battery" readonly>
+      </div>
+      <button type="submit" class="gw-button gw-button--primary" aria-busy="true">Signing in</button>
+    </form>
+    <p><a class="gw-link gw-link--quiet" href="/sign-in/help">Get help signing in</a></p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Two ways in, both primary</h3>
+<p>Sign in and Create an account compete, and the reader who came to sign in has to read both. The screen has one task and one primary action. Anything else, such as asking for an account, is a quiet link after it.</p>
+<p>Checker rule: <code>one-primary-action</code></p>
+</figcaption>
+<div data-example="two-primaries" data-title="Two ways in, both primary" data-dont="one-primary-action" data-gallery-frame="short" data-reason="Sign in and Create an account compete, and the reader who came to sign in has to read both. The screen has one task and one primary action. Anything else, such as asking for an account, is a quiet link after it.">
+  <div class="gw-sign-in">
+    <p class="gw-sign-in__product">Smelt</p>
+    <h1>Sign in</h1>
+    <form class="gw-stack gw-gap-lg" action="/sign-in" method="post">
+      <div class="gw-field">
+        <label class="gw-field__label" for="sign-in-two-email">Email</label>
+        <input class="gw-field__control" id="sign-in-two-email" type="email" name="email" required autocomplete="username">
+      </div>
+      <div class="gw-field">
+        <label class="gw-field__label" for="sign-in-two-password">Password</label>
+        <input class="gw-field__control" id="sign-in-two-password" type="password" name="password" required autocomplete="current-password">
+      </div>
+      <div class="gw-button-group">
+        <a class="gw-button gw-button--primary" href="/accounts/new">Create an account</a>
+        <button type="submit" class="gw-button gw-button--primary">Sign in</button>
+      </div>
+    </form>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For the screen a signed-out reader meets before anything else in the app.</li>
+<li>For any other single focused task that stands outside the app's navigation, such as setting a new password or accepting an invitation. Keep the same shape: a name, a sentence, the fields, one action.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>To ask for the password again inside the app, before a sensitive action. Use a dialog.</li>
+<li>To describe or promote the product. This screen has no hero, no feature list and no picture. That belongs on the product's site.</li>
+<li>For creating an account in several steps. Use the multi-step form.</li>
+<li>With the app header or the navigation around it. A signed-out reader has nowhere to go, so the screen shows neither.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>In an app the element with gw-sign-in is the main element, and it is the only landmark on the page. The column starts at the leading edge of the page and is never centred.</li>
+<li>gw-sign-in__product is a p holding the product's name. The h1 after it reads Sign in, and one sentence under it says which account to use. There is no other copy.</li>
+<li>The fields are in one form. The email input has type=&quot;email&quot; and autocomplete=&quot;username&quot;, and the password input has type=&quot;password&quot; and autocomplete=&quot;current-password&quot;, so a password manager can fill both. Neither uses a placeholder as its label.</li>
+<li>Sign in is the form's submit button and the screen's one primary action. The link for trouble signing in is a quiet link after the form, and it names what it does.</li>
+<li>When the sign-in is refused, keep the email, clear the password, and add an alert with role=&quot;alert&quot; as the first thing in the form. Its title says what happened and its body says what to do. Link it from both inputs with aria-describedby, and move focus to the password input. Do not say which field was wrong.</li>
+<li>While the form is sent, set aria-busy=&quot;true&quot; on the button, change its label to Signing in, make the inputs read-only and ignore further presses.</li>
+<li>Tab moves through Email, Password, Sign in, then the help link. Enter in either input sends the form. The pattern needs no script of its own.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-sign-in</code></li>
+<li><code>gw-sign-in__product</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

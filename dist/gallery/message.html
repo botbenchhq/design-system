@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Message - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Message</h1>
+<p>One row of an agent transcript: a prompt, the agent's text, a tool call, its result, a denial, usage or the end of a turn.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="specimen">
+<figcaption>
+<h3>User prompt</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="user" data-title="User prompt" data-state="default">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--user">
+      <span class="gw-message__label">You</span>
+      <p class="gw-message__body">The session cookie expires after 15 minutes even while the tab is active. Find out why and fix it, then run the auth tests.</p>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Agent text</h3>
+</figcaption>
+<div data-example="agent" data-title="Agent text">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message">
+      <span class="gw-message__label">Claude Code</span>
+      <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page reload drops it. I will start it whenever a valid session is loaded and add a test for the reload case.</p>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Tool call</h3>
+</figcaption>
+<div data-example="tool-call" data-title="Tool call">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--tool-call">
+      <span class="gw-message__label">Tool call</span>
+      <span class="gw-message__tool">Bash</span>
+      <code class="gw-message__command">npm run test -- --run src/auth/session.test.ts</code>
+    </li>
+    <li class="gw-message gw-message--tool-call">
+      <span class="gw-message__label">Tool call</span>
+      <span class="gw-message__tool">Read</span>
+      <code class="gw-message__command">src/auth/session.ts</code>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Tool call with collapsed arguments</h3>
+<p>The summary names the tool and the file in text, so the row can be read without opening it. The arguments stay one press away.</p>
+</figcaption>
+<div data-example="tool-call-collapsed" data-title="Tool call with collapsed arguments" data-reason="The summary names the tool and the file in text, so the row can be read without opening it. The arguments stay one press away.">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--tool-call">
+      <details class="gw-message__details">
+        <summary class="gw-message__summary">
+          <span class="gw-message__label">Tool call</span>
+          <span class="gw-message__tool">Edit</span>
+          <code class="gw-message__command">src/auth/session.ts</code>
+        </summary>
+        <pre class="gw-message__code">{
+  "file_path": "src/auth/session.ts",
+  "old_string": "if (justSignedIn) startRefreshTimer(session);",
+  "new_string": "if (session.expiresAt > Date.now()) startRefreshTimer(session);"
+}</pre>
+      </details>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Tool call with its arguments open</h3>
+<p data-gallery="state">State: <code>open</code></p>
+</figcaption>
+<div data-example="tool-call-open" data-title="Tool call with its arguments open" data-state="open">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--tool-call">
+      <details class="gw-message__details" open>
+        <summary class="gw-message__summary">
+          <span class="gw-message__label">Tool call</span>
+          <span class="gw-message__tool">Grep</span>
+          <code class="gw-message__command">startRefreshTimer</code>
+        </summary>
+        <pre class="gw-message__code">{
+  "pattern": "startRefreshTimer",
+  "path": "src",
+  "output_mode": "files_with_matches"
+}</pre>
+      </details>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Tool result</h3>
+</figcaption>
+<div data-example="tool-result" data-title="Tool result">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--tool-result">
+      <span class="gw-message__label">Tool result</span>
+      <pre class="gw-message__code">src/auth/session.ts
+src/auth/session.test.ts
+src/routes/sign-in.tsx</pre>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Long tool result</h3>
+</figcaption>
+<div data-example="tool-result-long" data-title="Long tool result">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--tool-result">
+      <span class="gw-message__label">Tool result</span>
+      <pre class="gw-message__code"> RUN  v3.2.4 /srv/workspaces/acme-api/web
+
+ ✓ src/auth/session.test.ts (14 tests) 212ms
+ ✓ src/auth/refresh.test.ts (9 tests) 87ms</pre>
+      <details class="gw-message__details">
+        <summary class="gw-message__summary">Show full output (38 more lines)</summary>
+        <pre class="gw-message__code"> ✓ src/auth/cookie.test.ts (6 tests) 41ms
+ ✓ src/routes/sign-in.test.tsx (11 tests) 398ms
+
+ Test Files  4 passed (4)
+      Tests  40 passed (40)
+   Duration  1.92s (transform 310ms, setup 0ms, collect 1.04s, tests 738ms)</pre>
+      </details>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A long line wraps</h3>
+</figcaption>
+<div data-example="long-line" data-title="A long line wraps">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--tool-call">
+      <span class="gw-message__label">Tool call</span>
+      <span class="gw-message__tool">Bash</span>
+      <code class="gw-message__command">curl --silent --fail https://registry.npmjs.org/@acme%2Fsession-store/-/session-store-4.12.0-rc.3.tgz --output /srv/workspaces/acme-api/.cache/session-store-4.12.0-rc.3.tgz</code>
+    </li>
+    <li class="gw-message gw-message--tool-result">
+      <span class="gw-message__label">Tool result</span>
+      <pre class="gw-message__code">sha512-Zk3mJ9cQpXr7vT2bN8sLhW4yGdA6fUeR1oKiC5xMtPqVnBwS0aHjYlDg3EuFzOI7rTmXc2Nb9QsKvLpW8yAhJd== /srv/workspaces/acme-api/.cache/session-store-4.12.0-rc.3.tgz</pre>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Permission denied</h3>
+<p>The label and its icon say the call was denied, and the text says what was not run and why. The colour only adds to that.</p>
+</figcaption>
+<div data-example="denied" data-title="Permission denied" data-reason="The label and its icon say the call was denied, and the text says what was not run and why. The colour only adds to that.">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--denied">
+      <span class="gw-message__label">Denied</span>
+      <span class="gw-message__tool">Bash</span>
+      <code class="gw-message__command">git push --force origin main</code>
+      <p class="gw-message__body">This command was not run. Force pushes to main are blocked by the project's permission rules.</p>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Usage</h3>
+</figcaption>
+<div data-example="usage" data-title="Usage">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--usage">
+      <span class="gw-message__label">Usage</span>
+      <p class="gw-message__body">18,420 tokens in, 1,264 out, 42 seconds</p>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Turn end</h3>
+</figcaption>
+<div data-example="turn-end" data-title="Turn end">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--turn-end">
+      <span class="gw-message__label">End</span>
+      <p class="gw-message__body">Turn completed.</p>
+    </li>
+    <li class="gw-message gw-message--turn-end">
+      <span class="gw-message__label">End</span>
+      <p class="gw-message__body">Turn stopped before it finished.</p>
+    </li>
+    <li class="gw-message gw-message--turn-end">
+      <span class="gw-message__label">End</span>
+      <p class="gw-message__body">Turn ended with an error: Claude Code's usage limit was reached.</p>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>One turn of a transcript</h3>
+</figcaption>
+<div data-example="transcript" data-title="One turn of a transcript">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--user">
+      <span class="gw-message__label">You</span>
+      <p class="gw-message__body">Run the auth tests and tell me what fails.</p>
+    </li>
+    <li class="gw-message gw-message--tool-call">
+      <span class="gw-message__label">Tool call</span>
+      <span class="gw-message__tool">Bash</span>
+      <code class="gw-message__command">npm run test -- --run src/auth</code>
+    </li>
+    <li class="gw-message gw-message--tool-result">
+      <span class="gw-message__label">Tool result</span>
+      <pre class="gw-message__code"> ✗ src/auth/session.test.ts > keeps the session after a reload
+   AssertionError: expected null to be truthy
+
+ Test Files  1 failed | 2 passed (3)</pre>
+    </li>
+    <li class="gw-message">
+      <span class="gw-message__label">Claude Code</span>
+      <p class="gw-message__body">One test fails: the session is lost after a reload, because the refresh timer is not restarted. The other 29 tests pass.</p>
+    </li>
+    <li class="gw-message gw-message--usage">
+      <span class="gw-message__label">Usage</span>
+      <p class="gw-message__body">9,812 tokens in, 406 out, 17 seconds</p>
+    </li>
+    <li class="gw-message gw-message--turn-end">
+      <span class="gw-message__label">End</span>
+      <p class="gw-message__body">Turn completed.</p>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A denial marked by colour alone</h3>
+<p>Without the label, only the red background says this call was denied, and nothing says why. A reader who cannot see the colour takes it for a call that ran.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="colour-only" data-title="A denial marked by colour alone" data-dont="review" data-reason="Without the label, only the red background says this call was denied, and nothing says why. A reader who cannot see the colour takes it for a call that ran.">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--denied">
+      <span class="gw-message__tool">Bash</span>
+      <code class="gw-message__command">git push --force origin main</code>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A collapsed call with an empty summary</h3>
+<p>The summary is all a reader sees until they open the row. With no text they cannot tell which tool ran, and a screen reader announces an unnamed disclosure.</p>
+<p>Checker rule: <code>summary-without-text</code></p>
+</figcaption>
+<div data-example="summary-without-words" data-title="A collapsed call with an empty summary" data-dont="summary-without-text" data-reason="The summary is all a reader sees until they open the row. With no text they cannot tell which tool ran, and a screen reader announces an unnamed disclosure.">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--tool-call">
+      <details class="gw-message__details">
+        <summary class="gw-message__summary"></summary>
+        <pre class="gw-message__code">{ "file_path": "src/auth/session.ts" }</pre>
+      </details>
+    </li>
+  </ol>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For each event of an agent's turn, as a list item in the transcript's ol or ul, oldest first.</li>
+<li>To show what a tool was asked to do and what it returned, in mono, at phone width.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a request that still waits for the reader's answer. Use an approval, which carries Allow and Decline.</li>
+<li>For the note that the agent is still working. Use streaming as the last row.</li>
+<li>For a message about the app itself, such as a lost connection. Use an alert or a banner.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>agent</dt>
+<dd>The default, with no modifier class. Text the agent wrote. Label it with the agent's name.</dd>
+<dt>user <code>gw-message--user</code></dt>
+<dd>A prompt the reader sent. Label it You.</dd>
+<dt>tool-call <code>gw-message--tool-call</code></dt>
+<dd>A tool the agent ran: the tool name, then the command or path. Put long arguments in a details element whose summary keeps the label, the tool name and a short command.</dd>
+<dt>tool-result <code>gw-message--tool-result</code></dt>
+<dd>What a tool returned. Show the first lines, and put the rest in a details element whose summary reads Show full output.</dd>
+<dt>denied <code>gw-message--denied</code></dt>
+<dd>A call that was refused. Say what was not run and why.</dd>
+<dt>usage <code>gw-message--usage</code></dt>
+<dd>A quiet line of figures for the turn, such as tokens and duration.</dd>
+<dt>turn-end <code>gw-message--turn-end</code></dt>
+<dd>A quiet closing row under a rule, saying that the turn finished and how: completed, stopped or ended with an error.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Each row is an li in an ol or ul. Put role=&quot;log&quot; and an accessible name on the list when rows are added while the reader watches, so new rows are announced.</li>
+<li>Every row starts with gw-message__label, which says the kind in words: You, Claude Code, Tool call, Tool result, Denied, Usage, End. The kind is never the colour alone, and the denied row's icon is drawn by the stylesheet.</li>
+<li>Write transcript text as text, never as markup, and write out characters that cannot be seen.</li>
+<li>Collapsed arguments and long output use a native details element, with no script. Its summary holds text that says what is inside. Enter and Space open and close it, and its pointer target is 44px tall.</li>
+<li>When output is cut short, the lines after the preview go in the details element, so opened text continues where the preview stopped.</li>
+<li>The app sets nothing but the open attribute, which the browser manages.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-message</code></li>
+<li><code>gw-message--denied</code></li>
+<li><code>gw-message--tool-call</code></li>
+<li><code>gw-message--tool-result</code></li>
+<li><code>gw-message--turn-end</code></li>
+<li><code>gw-message--usage</code></li>
+<li><code>gw-message--user</code></li>
+<li><code>gw-message__body</code></li>
+<li><code>gw-message__code</code></li>
+<li><code>gw-message__command</code></li>
+<li><code>gw-message__details</code></li>
+<li><code>gw-message__label</code></li>
+<li><code>gw-message__summary</code></li>
+<li><code>gw-message__tool</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

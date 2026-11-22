@@ -1,0 +1,43 @@
+{
+  "name": "number-field",
+  "title": "Number field",
+  "purpose": "A numeric input as the control of a field, with an optional unit written beside it and optional stepper buttons.",
+  "status": "draft",
+  "whenToUse": [
+    "For an amount the reader types or nudges: a timeout in minutes, a retry count, a spending limit.",
+    "With stepper buttons when the value is small and usually changes by a step or two.",
+    "With a unit whenever the number alone could be misread."
+  ],
+  "whenNotToUse": [
+    "For a number that is a name, such as a run number, a port or a one-time code. Use a field with inputmode=\"numeric\", or the one-time-code input.",
+    "For a rough amount where the exact figure does not matter. Use a slider.",
+    "For one of a few fixed amounts. Use a select or a radio group.",
+    "For a date or a time. Use a date field."
+  ],
+  "variants": [
+    { "name": "plain", "use": "The input alone inside gw-number-field." },
+    { "name": "with a unit", "use": "A span with gw-number-field__unit after the input, holding the unit as a word." },
+    { "name": "with steppers", "use": "Two icon buttons with gw-number-field__step at the end of the row: decrease first, then increase." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "44px tall and at most 264px wide. Each stepper is 44px square." }
+  ],
+  "states": ["default", "focus", "invalid", "disabled"],
+  "accessibility": [
+    "Use input type=\"number\" carrying gw-field__control and gw-number-field__input, inside a div with gw-number-field, inside gw-field. The label, description and error are the field's.",
+    "Set min, max and step on the input, and say the range in the description. Set inputmode=\"numeric\" for whole numbers and inputmode=\"decimal\" when step is a fraction, so a phone shows the right keys.",
+    "Write the unit as a word in a span with gw-number-field__unit, give it an id and list that id first in the input's aria-describedby, so a screen reader hears Run timeout, 30, minutes.",
+    "A stepper is a button with type=\"button\" and the classes gw-button, gw-icon-button and gw-number-field__step, holding the minus or plus icon with aria-hidden=\"true\" and a gw-visually-hidden name that says what it changes and by how much, such as Increase the run timeout by 5 minutes.",
+    "The app wires the steppers: on a press it calls stepDown() or stepUp() on the input and dispatches an input event. It sets disabled on the decrease button at min and on the increase button at max.",
+    "The Up and Down arrow keys step the value while the input has focus. That comes from the input, and the browser's own small spin buttons are hidden.",
+    "For a value out of range, set aria-invalid=\"true\" on the input and link a gw-field__error that repeats the value and gives the limit.",
+    "When the input is disabled, set disabled on both steppers too."
+  ],
+  "icons": ["minus", "plus"],
+  "classes": [
+    "gw-number-field",
+    "gw-number-field__input",
+    "gw-number-field__step",
+    "gw-number-field__unit"
+  ]
+}

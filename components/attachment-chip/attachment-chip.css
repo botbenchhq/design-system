@@ -1,0 +1,165 @@
+/*
+ * Attachment chip: one file or image attached to a prompt, as a list item.
+ * An icon says the kind, the name loses its middle when it is long, the size is in words,
+ * and a small button removes it. While it uploads it holds a progress element, and when
+ * the upload fails it holds a message that says what to do.
+ */
+
+@layer gw.components {
+  /* No wider than seven pointer targets, because there is no token for a chip's width. */
+  .gw-attachment-chip {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    align-items: center;
+    column-gap: var(--gw-space-sm);
+    row-gap: var(--gw-space-xs);
+    min-width: 0;
+    max-width: min(100%, calc(var(--gw-size-touch) * 7));
+    padding-block: var(--gw-space-xs);
+    padding-inline: var(--gw-space-sm) var(--gw-space-xs);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  .gw-attachment-chip__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    color: var(--gw-color-muted);
+  }
+
+  /* The whole name is in the markup, so it stays readable to a screen reader however much is cut from view. */
+  .gw-attachment-chip__name {
+    display: flex;
+    min-width: 0;
+    font-weight: var(--gw-weight-medium);
+    white-space: nowrap;
+  }
+
+  /* The start gives way first and ends in an ellipsis, which lands in the middle of the name. */
+  .gw-attachment-chip__start {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* The end keeps its full width, and is cut only when it is wider than the chip by itself. */
+  .gw-attachment-chip__end {
+    flex: none;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gw-attachment-chip__size {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
+  }
+
+  .gw-attachment-chip__remove {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--gw-space-xl);
+    height: var(--gw-space-xl);
+    border-radius: var(--gw-radius-sm);
+    color: var(--gw-color-muted);
+    transition-property: background-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  /*
+   * The button is drawn 24px square. This invisible box, centred on it, keeps its
+   * pointer target at the touch size both ways without making the chip larger.
+   */
+  .gw-attachment-chip__remove::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--gw-size-touch);
+    height: var(--gw-size-touch);
+    translate: -50% -50%;
+  }
+
+  .gw-attachment-chip__remove-icon {
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+  }
+
+  @media (hover: hover) {
+    .gw-attachment-chip__remove:hover {
+      background-color: var(--gw-color-surface-sunken);
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-attachment-chip__remove:active {
+    background-color: var(--gw-color-surface-sunken);
+    color: var(--gw-color-on-surface);
+  }
+
+  /* After hover and active, so an unavailable button never answers the pointer. */
+  .gw-attachment-chip__remove:disabled {
+    background-color: transparent;
+    color: var(--gw-color-border-strong);
+  }
+
+  /* How much has uploaded, under the name. The value comes from the progress element, never from a style. */
+  .gw-attachment-chip__progress {
+    grid-column: 1 / -1;
+    appearance: none;
+    width: calc(100% - var(--gw-space-xs));
+    height: var(--gw-space-xs);
+    margin-bottom: var(--gw-space-xs);
+    border-radius: var(--gw-radius-sm);
+    overflow: hidden;
+    background-color: var(--gw-color-border);
+    color: var(--gw-color-accent);
+  }
+
+  .gw-attachment-chip__progress::-webkit-progress-bar {
+    background-color: var(--gw-color-border);
+  }
+
+  .gw-attachment-chip__progress::-webkit-progress-value {
+    background-color: var(--gw-color-accent);
+  }
+
+  .gw-attachment-chip__progress::-moz-progress-bar {
+    background-color: var(--gw-color-accent);
+  }
+
+  /* What went wrong and what to do. The icon is drawn here, so the failure is never the colour alone. */
+  .gw-attachment-chip__error {
+    display: flex;
+    grid-column: 1 / -1;
+    gap: var(--gw-space-xs);
+    padding-inline-end: var(--gw-space-xs);
+    padding-bottom: var(--gw-space-xs);
+    color: var(--gw-color-danger);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-attachment-chip__error::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-xs) * var(--gw-leading-xs));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  /* The chip that holds an error message is outlined in the danger colour. */
+  .gw-attachment-chip:has(> .gw-attachment-chip__error) {
+    border-color: var(--gw-color-danger);
+  }
+}

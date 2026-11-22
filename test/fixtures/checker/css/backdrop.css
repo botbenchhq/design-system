@@ -1,0 +1,3 @@
+.sheet {
+  backdrop-filter: blur(var(--gw-space-md));
+}

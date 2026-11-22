@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multi-step form - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Multi-step form</h1>
+<p>A longer task split into steps shown one at a time: which step this is in words, the step's fields, Back and one primary action, and a review step before the final action.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> One step, with Back and one primary action</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The view holds only this step's three fields, and a line in words says it is step 2 of 4. Continue is the one primary action and Back has secondary emphasis, so the way forward is never in doubt. The final verb, Start task, appears only on the last step.</p>
+</figcaption>
+<div data-example="step" data-title="One step, with Back and one primary action" data-state="default" data-gallery-frame data-reason="The view holds only this step's three fields, and a line in words says it is step 2 of 4. Continue is the one primary action and Back has secondary emphasis, so the way forward is never in doubt. The final verb, Start task, appears only on the last step.">
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-multi-step-form">
+      <header class="gw-page-header">
+        <div class="gw-page-header__text">
+          <h1 class="gw-page-header__title">New task in acme/api</h1>
+        </div>
+      </header>
+      <form class="gw-stack gw-gap-xl" action="/tasks/new/instructions" method="post">
+        <div class="gw-stack gw-gap-xs">
+          <p class="gw-multi-step-form__step">Step 2 of 4</p>
+          <h2>Instructions</h2>
+        </div>
+        <div class="gw-stack gw-gap-lg">
+          <div class="gw-field">
+            <label class="gw-field__label" for="multi-step-form-step-title">Task title <span class="gw-field__required">required</span></label>
+            <input class="gw-field__control" id="multi-step-form-step-title" type="text" name="title" required autocomplete="off" value="Refuse a session token older than 30 minutes">
+          </div>
+          <div class="gw-field">
+            <label class="gw-field__label" for="multi-step-form-step-prompt">What the agent should do <span class="gw-field__required">required</span></label>
+            <textarea class="gw-field__control gw-textarea" id="multi-step-form-step-prompt" name="prompt" required aria-describedby="multi-step-form-step-prompt-description">Sessions stay valid for 24 hours. Refuse a session token older than 30 minutes with a 401, so the client signs in again. Add a test for the reload case in src/auth/session.test.ts.</textarea>
+            <p class="gw-field__description" id="multi-step-form-step-prompt-description">Say what to change and how to tell that it worked.</p>
+          </div>
+          <div class="gw-field">
+            <label class="gw-field__label" for="multi-step-form-step-branch">Branch name</label>
+            <input class="gw-field__control" id="multi-step-form-step-branch" type="text" name="branch" autocomplete="off" value="fix/session-token-age" aria-describedby="multi-step-form-step-branch-description">
+            <p class="gw-field__description" id="multi-step-form-step-branch-description">Created from main when the run starts.</p>
+          </div>
+        </div>
+        <div class="gw-button-group">
+          <a class="gw-button" href="/tasks/new/repository">Back</a>
+          <button type="submit" class="gw-button gw-button--primary">Continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A step sent with mistakes</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="invalid" data-title="A step sent with mistakes" data-state="error" data-gallery-frame>
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-multi-step-form">
+      <header class="gw-page-header">
+        <div class="gw-page-header__text">
+          <h1 class="gw-page-header__title">New task</h1>
+        </div>
+      </header>
+      <form class="gw-stack gw-gap-xl" action="/tasks/new/repository" method="post" novalidate>
+        <div class="gw-stack gw-gap-xs">
+          <p class="gw-multi-step-form__step">Step 1 of 4</p>
+          <h2>Repository</h2>
+        </div>
+        <div class="gw-alert gw-alert--danger" role="alert">
+          <div class="gw-alert__content">
+            <p class="gw-alert__label">Error</p>
+            <p class="gw-alert__title">2 fields need fixing before you continue</p>
+            <p class="gw-alert__body">Repository needs a slash between the owner and the name, and Base branch has no branch chosen.</p>
+          </div>
+        </div>
+        <div class="gw-stack gw-gap-lg">
+          <div class="gw-field">
+            <label class="gw-field__label" for="multi-step-form-invalid-repository">Repository <span class="gw-field__required">required</span></label>
+            <input class="gw-field__control" id="multi-step-form-invalid-repository" type="text" name="repository" required autocomplete="off" value="acme api" aria-invalid="true" aria-describedby="multi-step-form-invalid-repository-description multi-step-form-invalid-repository-error">
+            <p class="gw-field__description" id="multi-step-form-invalid-repository-description">The owner and the name, such as acme/api.</p>
+            <p class="gw-field__error" id="multi-step-form-invalid-repository-error">Put a slash between the owner and the name.</p>
+          </div>
+          <div class="gw-field">
+            <label class="gw-field__label" for="multi-step-form-invalid-base">Base branch <span class="gw-field__required">required</span></label>
+            <div class="gw-select">
+              <select class="gw-field__control gw-select__control" id="multi-step-form-invalid-base" name="base" required aria-invalid="true" aria-describedby="multi-step-form-invalid-base-error">
+                <option value="" selected>Choose a branch</option>
+                <option value="main">main</option>
+                <option value="develop">develop</option>
+                <option value="release/2026-11">release/2026-11</option>
+              </select>
+            </div>
+            <p class="gw-field__error" id="multi-step-form-invalid-base-error">Choose the branch the task starts from.</p>
+          </div>
+        </div>
+        <div class="gw-button-group">
+          <a class="gw-button" href="/tasks">Cancel</a>
+          <button type="submit" class="gw-button gw-button--primary">Continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The review step, before the final action</h3>
+<p data-gallery="state">State: <code>review</code></p>
+</figcaption>
+<div data-example="review" data-title="The review step, before the final action" data-state="review" data-gallery-frame>
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-multi-step-form">
+      <header class="gw-page-header">
+        <div class="gw-page-header__text">
+          <h1 class="gw-page-header__title">New task in acme/billing</h1>
+        </div>
+      </header>
+      <form class="gw-stack gw-gap-xl" action="/tasks" method="post">
+        <div class="gw-stack gw-gap-xs">
+          <p class="gw-multi-step-form__step">Step 4 of 4</p>
+          <h2>Review and start</h2>
+        </div>
+        <dl class="gw-key-value">
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Repository</dt>
+            <dd class="gw-key-value__value">acme/billing</dd>
+          </div>
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Base branch</dt>
+            <dd class="gw-key-value__value gw-key-value__value--mono">main</dd>
+          </div>
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Task title</dt>
+            <dd class="gw-key-value__value">Remove the legacy invoice exporter</dd>
+          </div>
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Instructions</dt>
+            <dd class="gw-key-value__value">Delete src/billing/export/legacy and its tests. Nothing has called it since the March release. Update docs/billing/exports.md to match.</dd>
+          </div>
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Branch</dt>
+            <dd class="gw-key-value__value gw-key-value__value--mono">chore/remove-legacy-exporter</dd>
+          </div>
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Longest run</dt>
+            <dd class="gw-key-value__value">30 minutes</dd>
+          </div>
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Token limit</dt>
+            <dd class="gw-key-value__value">50,000 tokens for this run</dd>
+          </div>
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Approvals</dt>
+            <dd class="gw-key-value__value">Ask before a command outside the task's worktree</dd>
+          </div>
+        </dl>
+        <p>Starting the task creates the branch and queues a run. You can stop the run at any time.</p>
+        <div class="gw-button-group">
+          <a class="gw-button" href="/tasks/new/limits">Back</a>
+          <button type="submit" class="gw-button gw-button--primary">Start task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Two primary actions on one step</h3>
+<p>Continue and Start task now both claim to be the way forward, so the reader has to stop and work out which one skips the review. A step has one primary action. The final verb belongs to the last step alone.</p>
+<p>Checker rule: <code>one-primary-action</code></p>
+</figcaption>
+<div data-example="two-primaries" data-title="Two primary actions on one step" data-dont="one-primary-action" data-gallery-frame="short" data-reason="Continue and Start task now both claim to be the way forward, so the reader has to stop and work out which one skips the review. A step has one primary action. The final verb belongs to the last step alone.">
+  <div class="gw-multi-step-form">
+    <form class="gw-stack gw-gap-xl" action="/tasks/new/instructions" method="post">
+      <div class="gw-stack gw-gap-xs">
+        <p class="gw-multi-step-form__step">Step 2 of 4</p>
+        <h2>Instructions</h2>
+      </div>
+      <div class="gw-field">
+        <label class="gw-field__label" for="multi-step-form-two-title">Task title <span class="gw-field__required">required</span></label>
+        <input class="gw-field__control" id="multi-step-form-two-title" type="text" name="title" required autocomplete="off" value="Refuse a session token older than 30 minutes">
+      </div>
+      <div class="gw-button-group">
+        <a class="gw-button" href="/tasks/new/repository">Back</a>
+        <button type="submit" class="gw-button gw-button--primary">Continue</button>
+        <button type="submit" class="gw-button gw-button--primary" formaction="/tasks">Start task now</button>
+      </div>
+    </form>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a task with more fields than fit one view comfortably, where later steps depend on earlier answers, such as choosing a repository before writing the task.</li>
+<li>When the final action is costly or hard to undo, so the reader should see everything they chose before it runs.</li>
+<li>For three to five steps. Each step is its own address, so the browser's back button and a reload both work.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a form that fits one view. Use fields and a button group on one page, and put rarely changed fields in one advanced disclosure.</li>
+<li>For one question or one field. Use a dialog.</li>
+<li>For settings the reader changes one at a time. Use the settings page.</li>
+<li>For sections the reader may fill in any order. Use one page with headings.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>In an app the element with gw-multi-step-form is the main element. The h1 names the whole task and is the same on every step. Each step is one form, with an h2 that names the step.</li>
+<li>gw-multi-step-form__step is a p directly above the h2 that reads Step 2 of 4, in words. When a step loads, move focus to the h2, which takes tabindex=&quot;-1&quot;, so a screen reader reads the step's name, and put the step in the document title.</li>
+<li>To show the named steps above the form, with the completed and current ones marked, use the stepper component. Keep the step line in words as well.</li>
+<li>Every step ends with a button group. The secondary action comes first: Back, a link to the previous step that keeps what was typed, or Cancel on the first step. The primary action comes last: Continue on every step but the last.</li>
+<li>The last step is the review. It shows every answer in a key-value list, in the order the steps asked for them, then one sentence on what the final action does. Its primary button is a specific verb and what it acts on, such as Start task, never Submit or Finish.</li>
+<li>Validate a step when it is sent. Keep the reader on the step, add an alert with role=&quot;alert&quot; above the fields whose title counts the fields to fix and whose body names them, mark each field with aria-invalid=&quot;true&quot; and its own error message, and move focus to the first invalid field.</li>
+<li>A field's error says how to fix the value. Remove the error and aria-invalid when the value is fixed, and remove the alert when none is left.</li>
+<li>While a step is sent, set aria-busy=&quot;true&quot; on the primary button and change its label to say what is happening, such as Starting task.</li>
+<li>Nothing the reader must fill in sits inside a closed disclosure. A step may hold one advanced disclosure for optional fields that have defaults.</li>
+<li>Tab moves through the fields in order, then Back, then the primary action. Enter in a text input sends the step. The pattern needs no script of its own.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-multi-step-form</code></li>
+<li><code>gw-multi-step-form__step</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

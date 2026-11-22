@@ -1,0 +1,148 @@
+/*
+ * Command palette: a search input over a grouped list of commands, inside a dialog.
+ * The dialog is the dialog component's, and the input is the search field's. This stylesheet lays out
+ * what they hold: the search row, the list, each command with its shortcut, and the message when nothing matches.
+ * The input is a combobox that controls the list. Filtering and the arrow keys are script: see the metadata.
+ */
+
+@layer gw.components {
+  .gw-command-palette {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  /* The input and the button that closes the palette, which a touch screen has no Escape key for. */
+  .gw-command-palette__search {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gw-space-sm);
+    padding: var(--gw-space-md);
+    border-bottom-width: var(--gw-border-width);
+  }
+
+  .gw-command-palette__field {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* The list scrolls inside the dialog, so the input stays in view above it. */
+  .gw-command-palette__list {
+    display: flex;
+    flex-direction: column;
+    max-height: min(calc(var(--gw-size-touch) * 8), 50dvh);
+    padding: var(--gw-space-xs);
+    overflow-y: auto;
+  }
+
+  .gw-command-palette__group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gw-command-palette__label {
+    padding: var(--gw-space-sm) var(--gw-space-md) var(--gw-space-xs);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-command-palette__option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    width: 100%;
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-xs) var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    text-align: start;
+    overflow-wrap: anywhere;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-command-palette__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    color: var(--gw-color-muted);
+  }
+
+  .gw-command-palette__name {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* The keys that run the command without the palette, as a hint at the end of its row. */
+  .gw-command-palette__shortcut {
+    flex: none;
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
+  }
+
+  /* Nothing matches, or the commands are on their way: a sentence where the list would be. */
+  .gw-command-palette__message {
+    padding: var(--gw-space-lg);
+    overflow-wrap: anywhere;
+  }
+
+  /* A layered display value would otherwise beat the hidden attribute, which is how a command is filtered out. */
+  .gw-command-palette__list[hidden],
+  .gw-command-palette__group[hidden],
+  .gw-command-palette__option[hidden],
+  .gw-command-palette__message[hidden] {
+    display: none;
+  }
+
+  /* The quiet parts turn to the main text colour wherever the row is shaded, so they keep their contrast. */
+  @media (hover: hover) {
+    .gw-command-palette__option:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-command-palette__option:hover > :is(.gw-command-palette__icon, .gw-command-palette__shortcut) {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-command-palette__option:active {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* The command Enter would run: a bar at its start as well as a shade. */
+  .gw-command-palette__option[aria-selected="true"] {
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-command-palette__option[aria-selected="true"]::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: calc(var(--gw-border-width) * 2);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-accent);
+  }
+
+  .gw-command-palette__option[aria-selected="true"] > :is(.gw-command-palette__icon, .gw-command-palette__shortcut) {
+    color: var(--gw-color-on-surface);
+  }
+
+  /* After hover, active and selected, so an unavailable command never answers the pointer. */
+  .gw-command-palette__option[aria-disabled="true"] {
+    color: var(--gw-color-muted);
+    cursor: default;
+  }
+
+  .gw-command-palette__option[aria-disabled="true"]:not([aria-selected="true"]) {
+    background-color: transparent;
+  }
+
+  .gw-command-palette__option[aria-disabled="true"] > :is(.gw-command-palette__icon, .gw-command-palette__shortcut) {
+    color: var(--gw-color-muted);
+  }
+}

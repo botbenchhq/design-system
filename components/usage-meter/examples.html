@@ -1,0 +1,97 @@
+<div data-example="default" data-title="Within the limit" data-state="default" data-reason="The figures are written out with their unit, and the state is in words beside the label, so the bar only repeats what the text already says. The bar is a native meter whose thresholds set its tone, with no class to keep in step with the value.">
+  <div class="gw-usage-meter">
+    <div class="gw-usage-meter__header">
+      <span class="gw-usage-meter__label" id="usage-meter-default-label">Tokens for this run</span>
+      <span class="gw-usage-meter__state">Within the limit</span>
+    </div>
+    <meter class="gw-usage-meter__bar" aria-labelledby="usage-meter-default-label" min="0" max="50000" low="40000" high="47500" optimum="0" value="18420">18,420 of 50,000 tokens</meter>
+    <p class="gw-usage-meter__figures">18,420 of 50,000 tokens</p>
+  </div>
+</div>
+
+<div data-example="near-limit" data-title="Near the limit" data-state="near-limit">
+  <div class="gw-usage-meter">
+    <div class="gw-usage-meter__header">
+      <span class="gw-usage-meter__label" id="usage-meter-near-label">Tokens for this run</span>
+      <span class="gw-usage-meter__state">Near the limit</span>
+    </div>
+    <meter class="gw-usage-meter__bar" aria-labelledby="usage-meter-near-label" min="0" max="50000" low="40000" high="47500" optimum="0" value="43750">43,750 of 50,000 tokens</meter>
+    <p class="gw-usage-meter__figures">43,750 of 50,000 tokens. 6,250 left before the run stops.</p>
+  </div>
+</div>
+
+<div data-example="over-limit" data-title="Over the limit" data-state="over-limit">
+  <div class="gw-usage-meter">
+    <div class="gw-usage-meter__header">
+      <span class="gw-usage-meter__label" id="usage-meter-over-label">Runs this month</span>
+      <span class="gw-usage-meter__state">Over the limit</span>
+    </div>
+    <meter class="gw-usage-meter__bar" aria-labelledby="usage-meter-over-label" min="0" max="200" low="160" high="199" optimum="0" value="214">214 of 200 runs</meter>
+    <p class="gw-usage-meter__figures">214 of 200 runs. New tasks wait until 1 April, or until the plan's limit is raised.</p>
+  </div>
+</div>
+
+<div data-example="empty" data-title="Nothing used yet" data-state="empty">
+  <div class="gw-usage-meter">
+    <div class="gw-usage-meter__header">
+      <span class="gw-usage-meter__label" id="usage-meter-empty-label">Storage for worktrees</span>
+      <span class="gw-usage-meter__state">Nothing used</span>
+    </div>
+    <meter class="gw-usage-meter__bar" aria-labelledby="usage-meter-empty-label" min="0" max="20" low="16" high="19" optimum="0" value="0">0 of 20 GB</meter>
+    <p class="gw-usage-meter__figures">0 of 20 GB. No worktree has been created in acme/web.</p>
+  </div>
+</div>
+
+<div data-example="row" data-title="Row, in a usage table">
+  <table class="gw-data-table">
+    <caption class="gw-data-table__caption">Token use by repository, 1 to 14 March</caption>
+    <thead>
+      <tr>
+        <th scope="col">Repository</th>
+        <th scope="col" class="gw-data-table__numeric">Runs</th>
+        <th scope="col">Tokens used</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">acme/api</th>
+        <td class="gw-data-table__numeric" data-label="Runs">38</td>
+        <td data-label="Tokens used">
+          <div class="gw-usage-meter gw-usage-meter--row">
+            <meter class="gw-usage-meter__bar" aria-label="Tokens used by acme/api" min="0" max="2000000" low="1600000" high="1900000" optimum="0" value="1204000">1,204,000 of 2,000,000 tokens</meter>
+            <span class="gw-usage-meter__figures">1,204,000 of 2,000,000</span>
+            <span class="gw-usage-meter__state">Within the limit</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">acme/billing</th>
+        <td class="gw-data-table__numeric" data-label="Runs">61</td>
+        <td data-label="Tokens used">
+          <div class="gw-usage-meter gw-usage-meter--row">
+            <meter class="gw-usage-meter__bar" aria-label="Tokens used by acme/billing" min="0" max="2000000" low="1600000" high="1900000" optimum="0" value="1790000">1,790,000 of 2,000,000 tokens</meter>
+            <span class="gw-usage-meter__figures">1,790,000 of 2,000,000</span>
+            <span class="gw-usage-meter__state">Near the limit</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">acme/web</th>
+        <td class="gw-data-table__numeric" data-label="Runs">74</td>
+        <td data-label="Tokens used">
+          <div class="gw-usage-meter gw-usage-meter--row">
+            <meter class="gw-usage-meter__bar" aria-label="Tokens used by acme/web" min="0" max="2000000" low="1600000" high="1900000" optimum="0" value="2000000">2,000,000 of 2,000,000 tokens</meter>
+            <span class="gw-usage-meter__figures">2,000,000 of 2,000,000</span>
+            <span class="gw-usage-meter__state">At the limit</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div data-example="bar-only" data-title="A bar with no figures and no state" data-dont="review" data-reason="A bar alone says roughly how full and nothing else: not of what, not how much is left, and its warning tone is colour only. Write the figures with their unit and the state in words next to every meter.">
+  <div class="gw-usage-meter">
+    <meter class="gw-usage-meter__bar" aria-label="Usage" min="0" max="50000" low="40000" high="47500" optimum="0" value="43750"></meter>
+  </div>
+</div>

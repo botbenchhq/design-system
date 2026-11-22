@@ -1,0 +1,114 @@
+<div data-example="default" data-title="A group with a legend" data-state="default" data-reason="The fieldset and its legend name the question, so a screen reader reads Merge method before each option. The options are one above the other, each a full-width row to press.">
+  <fieldset class="gw-radio__group">
+    <legend class="gw-radio__legend">Merge method</legend>
+    <div class="gw-radio">
+      <input class="gw-radio__input" type="radio" id="radio-default-merge" name="radio-default-method" value="merge">
+      <label class="gw-radio__label" for="radio-default-merge">Create a merge commit</label>
+    </div>
+    <div class="gw-radio">
+      <input class="gw-radio__input" type="radio" id="radio-default-squash" name="radio-default-method" value="squash">
+      <label class="gw-radio__label" for="radio-default-squash">Squash and merge</label>
+    </div>
+    <div class="gw-radio">
+      <input class="gw-radio__input" type="radio" id="radio-default-rebase" name="radio-default-method" value="rebase">
+      <label class="gw-radio__label" for="radio-default-rebase">Rebase and merge</label>
+    </div>
+  </fieldset>
+</div>
+
+<div data-example="checked" data-title="One chosen, with descriptions" data-state="checked">
+  <fieldset class="gw-radio__group">
+    <legend class="gw-radio__legend">When a command needs approval</legend>
+    <div class="gw-radio">
+      <input class="gw-radio__input" type="radio" id="radio-checked-ask" name="radio-checked-approval" value="ask" checked aria-describedby="radio-checked-ask-description">
+      <label class="gw-radio__label" for="radio-checked-ask">Ask every time</label>
+      <p class="gw-radio__description" id="radio-checked-ask-description">The run waits until you allow or decline.</p>
+    </div>
+    <div class="gw-radio">
+      <input class="gw-radio__input" type="radio" id="radio-checked-worktree" name="radio-checked-approval" value="worktree" aria-describedby="radio-checked-worktree-description">
+      <label class="gw-radio__label" for="radio-checked-worktree">Allow inside the task's worktree</label>
+      <p class="gw-radio__description" id="radio-checked-worktree-description">Commands that reach outside it still ask.</p>
+    </div>
+  </fieldset>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <fieldset class="gw-radio__group">
+    <legend class="gw-radio__legend">Base branch</legend>
+    <div class="gw-radio">
+      <input class="gw-radio__input" type="radio" id="radio-hover-main" name="radio-hover-base" value="main" checked>
+      <label class="gw-radio__label" for="radio-hover-main">main</label>
+    </div>
+    <div class="gw-radio">
+      <input class="gw-radio__input" type="radio" id="radio-hover-develop" name="radio-hover-base" value="develop">
+      <label class="gw-radio__label" for="radio-hover-develop">develop</label>
+    </div>
+  </fieldset>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <fieldset class="gw-radio__group">
+    <legend class="gw-radio__legend">Base branch</legend>
+    <div class="gw-radio">
+      <input class="gw-radio__input" type="radio" id="radio-focus-main" name="radio-focus-base" value="main" checked>
+      <label class="gw-radio__label" for="radio-focus-main">main</label>
+    </div>
+  </fieldset>
+</div>
+
+<div data-example="disabled" data-title="One option disabled, and a whole group disabled" data-state="disabled">
+  <div class="gw-stack gw-gap-lg">
+    <fieldset class="gw-radio__group">
+      <legend class="gw-radio__legend">Run the task on</legend>
+      <div class="gw-radio">
+        <input class="gw-radio__input" type="radio" id="radio-disabled-local" name="radio-disabled-runner" value="local" checked>
+        <label class="gw-radio__label" for="radio-disabled-local">This machine</label>
+      </div>
+      <div class="gw-radio">
+        <input class="gw-radio__input" type="radio" id="radio-disabled-cloud" name="radio-disabled-runner" value="cloud" disabled aria-describedby="radio-disabled-cloud-description">
+        <label class="gw-radio__label" for="radio-disabled-cloud">A cloud runner</label>
+        <p class="gw-radio__description" id="radio-disabled-cloud-description">No runner is connected to acme/api.</p>
+      </div>
+    </fieldset>
+    <fieldset class="gw-radio__group" disabled>
+      <legend class="gw-radio__legend">Merge method</legend>
+      <div class="gw-radio">
+        <input class="gw-radio__input" type="radio" id="radio-disabled-merge" name="radio-disabled-method" value="merge">
+        <label class="gw-radio__label" for="radio-disabled-merge">Create a merge commit</label>
+      </div>
+      <div class="gw-radio">
+        <input class="gw-radio__input" type="radio" id="radio-disabled-squash" name="radio-disabled-method" value="squash" checked>
+        <label class="gw-radio__label" for="radio-disabled-squash">Squash and merge</label>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <fieldset class="gw-radio__group" role="radiogroup" aria-labelledby="radio-invalid-legend" aria-required="true" aria-invalid="true" aria-describedby="radio-invalid-error">
+    <legend class="gw-radio__legend" id="radio-invalid-legend">Merge method</legend>
+    <div class="gw-radio">
+      <input class="gw-radio__input" type="radio" id="radio-invalid-merge" name="radio-invalid-method" value="merge" required>
+      <label class="gw-radio__label" for="radio-invalid-merge">Create a merge commit</label>
+    </div>
+    <div class="gw-radio">
+      <input class="gw-radio__input" type="radio" id="radio-invalid-squash" name="radio-invalid-method" value="squash" required>
+      <label class="gw-radio__label" for="radio-invalid-squash">Squash and merge</label>
+    </div>
+    <p class="gw-radio__error" id="radio-invalid-error">Choose a merge method, then merge again.</p>
+  </fieldset>
+</div>
+
+<div data-example="no-legend" data-title="Options with no group name" data-dont="review" data-reason="Without a fieldset and a legend, a screen reader reads two options and never the question they answer. A heading above the options does not name the group.">
+  <div class="gw-stack gw-gap-xs">
+    <p>Merge method</p>
+    <div class="gw-radio">
+      <input class="gw-radio__input" type="radio" id="radio-no-legend-merge" name="radio-no-legend-method" value="merge">
+      <label class="gw-radio__label" for="radio-no-legend-merge">Create a merge commit</label>
+    </div>
+    <div class="gw-radio">
+      <input class="gw-radio__input" type="radio" id="radio-no-legend-squash" name="radio-no-legend-method" value="squash">
+      <label class="gw-radio__label" for="radio-no-legend-squash">Squash and merge</label>
+    </div>
+  </div>
+</div>

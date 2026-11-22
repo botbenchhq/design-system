@@ -1,0 +1,127 @@
+/*
+ * Radio: a native radio group. A fieldset with a legend holds one row per option, one above the other.
+ * In each row the input comes first, then the label and optionally a description.
+ * The circle is the input itself, so the focus ring fits it, and the dot is drawn here from native state.
+ */
+
+@layer gw.components {
+  .gw-radio__group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .gw-radio__legend {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* One line of text is centred in a row one target tall. Rows stack with no gap, so targets never overlap. */
+  .gw-radio {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    column-gap: var(--gw-space-sm);
+    row-gap: var(--gw-space-xs);
+    min-height: var(--gw-size-touch);
+    padding-block: calc((var(--gw-size-touch) - var(--gw-text-ui) * var(--gw-leading-ui)) / 2);
+  }
+
+  /*
+   * The margin centres the 20px circle on the first line of the label.
+   */
+  .gw-radio__input {
+    position: relative;
+    appearance: none;
+    width: calc(var(--gw-space-lg) + var(--gw-space-xs));
+    height: calc(var(--gw-space-lg) + var(--gw-space-xs));
+    margin-block: calc((var(--gw-text-ui) * var(--gw-leading-ui) - var(--gw-space-lg) - var(--gw-space-xs)) / 2);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-full);
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-accent);
+    cursor: pointer;
+    transition-property: border-color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  /* The circle is drawn 20px across. This invisible box, centred on it, keeps its pointer target at the touch size. */
+  .gw-radio__input::after {
+    content: "";
+    position: absolute;
+    inset: calc((var(--gw-space-lg) + var(--gw-space-xs) - var(--gw-size-touch)) / 2 - var(--gw-border-width));
+  }
+
+  .gw-radio__input:checked {
+    border-color: var(--gw-color-accent);
+  }
+
+  /* The dot, so that the chosen option is a shape as well as a colour. */
+  .gw-radio__input:checked::before {
+    content: "";
+    position: absolute;
+    inset: var(--gw-space-xs);
+    border-radius: var(--gw-radius-full);
+    background-color: currentColor;
+  }
+
+  .gw-radio__label {
+    grid-column: 2;
+    cursor: pointer;
+    overflow-wrap: anywhere;
+  }
+
+  .gw-radio__description {
+    grid-column: 2;
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  /* The error belongs to the group, after the last option. */
+  .gw-radio__error {
+    display: flex;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-danger);
+  }
+
+  /* The icon is drawn here, so an error is never marked by colour alone, whatever the markup holds. */
+  .gw-radio__error::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-radio__input:hover {
+      border-color: var(--gw-color-on-surface);
+    }
+
+    .gw-radio__input:checked:hover {
+      border-color: var(--gw-color-accent-hover);
+      color: var(--gw-color-accent-hover);
+    }
+  }
+
+  .gw-radio__group[aria-invalid="true"] .gw-radio__input {
+    border-color: var(--gw-color-danger);
+  }
+
+  /* After hover and invalid, so an unavailable option never answers the pointer. It also matches every option of a disabled fieldset. */
+  .gw-radio__input:disabled {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+    cursor: default;
+  }
+
+  .gw-radio__input:disabled ~ .gw-radio__label {
+    color: var(--gw-color-muted);
+    cursor: default;
+  }
+}

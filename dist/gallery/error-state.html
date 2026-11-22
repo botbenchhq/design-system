@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Error state - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Error state</h1>
+<p>What a view shows when its data could not be loaded, with a way to try again.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A view that failed to load</h3>
+<p data-gallery="state">State: <code>error</code></p>
+<p>The title says what failed, the sentence says what to do, and Retry does it without leaving the view. The role makes a screen reader announce the failure when it replaces the content.</p>
+</figcaption>
+<div data-example="default" data-title="A view that failed to load" data-state="error" data-reason="The title says what failed, the sentence says what to do, and Retry does it without leaving the view. The role makes a screen reader announce the failure when it replaces the content.">
+  <div class="gw-error-state" role="alert">
+    <h2 class="gw-error-state__title">The runs could not be loaded</h2>
+    <p>The server did not answer in time. Check your connection, then retry.</p>
+    <div class="gw-error-state__action">
+      <button type="button" class="gw-button">Retry</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With technical detail, closed</h3>
+</figcaption>
+<div data-example="with-detail" data-title="With technical detail, closed">
+  <div class="gw-error-state" role="alert">
+    <h2 class="gw-error-state__title">The diff for fix/login-timeout could not be loaded</h2>
+    <p>The repository host refused the request. Retry in a minute, or reconnect acme/api if it keeps failing.</p>
+    <div class="gw-error-state__action">
+      <button type="button" class="gw-button">Retry</button>
+    </div>
+    <details class="gw-error-state__detail">
+      <summary class="gw-error-state__summary">Technical detail</summary>
+      <pre class="gw-error-state__output">GET /api/repositories/acme/api/compare/main...fix/login-timeout
+403 Forbidden
+x-ratelimit-remaining: 0
+request id 7f3c2a91</pre>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With technical detail, open</h3>
+<p data-gallery="state">State: <code>open</code></p>
+</figcaption>
+<div data-example="detail-open" data-title="With technical detail, open" data-state="open">
+  <div class="gw-error-state" role="alert">
+    <h2 class="gw-error-state__title">The run log could not be loaded</h2>
+    <p>The runner is offline, so its log cannot be read. Retry when the runner is back, or start the run again on another runner.</p>
+    <div class="gw-error-state__action">
+      <button type="button" class="gw-button">Retry</button>
+    </div>
+    <details class="gw-error-state__detail" open>
+      <summary class="gw-error-state__summary">Technical detail</summary>
+      <pre class="gw-error-state__output">GET /api/runs/run_8842/log
+502 Bad Gateway
+upstream runner-eu-3.internal:7443 refused the connection after 3 attempts
+request id 2b9e0c14</pre>
+    </details>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>While the retry runs</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="retrying" data-title="While the retry runs" data-state="loading">
+  <div class="gw-error-state">
+    <h2 class="gw-error-state__title">The runs could not be loaded</h2>
+    <p>The server did not answer in time. Check your connection, then retry.</p>
+    <div class="gw-error-state__action">
+      <button type="button" class="gw-button" aria-busy="true">Retrying</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A summary with no text</h3>
+<p>A chevron alone does not say what it opens, and a screen reader announces only that something can be expanded. Write what the disclosure holds in its summary.</p>
+<p>Checker rule: <code>summary-without-text</code></p>
+</figcaption>
+<div data-example="icon-summary" data-title="A summary with no text" data-dont="summary-without-text" data-reason="A chevron alone does not say what it opens, and a screen reader announces only that something can be expanded. Write what the disclosure holds in its summary.">
+  <div class="gw-error-state" role="alert">
+    <h2 class="gw-error-state__title">The runs could not be loaded</h2>
+    <p>The server did not answer in time. Check your connection, then retry.</p>
+    <div class="gw-error-state__action">
+      <button type="button" class="gw-button">Retry</button>
+    </div>
+    <details class="gw-error-state__detail">
+      <summary class="gw-error-state__summary"></summary>
+      <pre class="gw-error-state__output">GET /api/runs
+504 Gateway Timeout</pre>
+    </details>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>In place of a list, table, panel or whole view whose data failed to load.</li>
+<li>When the reader can do something about it, at least trying again.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>When the view loaded and one action in it failed. Use an alert beside that action.</li>
+<li>For a mistake in a form control. Use the field's error message.</li>
+<li>When the view loaded and has nothing in it. Use an empty state.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Set role=&quot;alert&quot; on the error state when it replaces content after a failed load, so a screen reader announces it. Leave the role off while a retry is running, so the same failure is not announced twice.</li>
+<li>The title is a heading at the level that fits the view's outline, and says what failed in the reader's terms: The runs could not be loaded.</li>
+<li>The sentence after the title is a plain paragraph with no class. It says what to do next. Never show only a status code or a stack trace.</li>
+<li>The Retry action is a gw-button inside gw-error-state__action. While it runs, set aria-busy=&quot;true&quot; on it and change its label to Retrying.</li>
+<li>Technical detail goes in a native details element with a text summary, closed by default. Enter or Space on the summary opens and closes it.</li>
+<li>The detail is plain text in a pre element, so it can be selected and copied into a bug report. Long lines wrap.</li>
+<li>The icon beside the title is drawn by the stylesheet and needs no markup.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-error-state</code></li>
+<li><code>gw-error-state__action</code></li>
+<li><code>gw-error-state__detail</code></li>
+<li><code>gw-error-state__output</code></li>
+<li><code>gw-error-state__summary</code></li>
+<li><code>gw-error-state__title</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "name": "icon-button",
+  "title": "Icon button",
+  "purpose": "A button that shows only an icon, for a familiar action where a text label has no room.",
+  "status": "draft",
+  "whenToUse": [
+    "For a familiar action in a dense row or a toolbar, such as copying a branch name or opening a menu of more actions.",
+    "For a toggle that shows or hides part of the view, such as the terminal, with aria-pressed."
+  ],
+  "whenNotToUse": [
+    "When the icon would not be understood without words. Use a button with a text label, with or without a leading icon.",
+    "For the main action of a view. Use a primary button with a text label.",
+    "To go to another view or another site. Use a link.",
+    "For a setting that is saved. Use a switch or a checkbox."
+  ],
+  "variants": [
+    { "name": "bordered", "use": "The default: gw-button gw-icon-button on one element. A standalone action that should read as a control." },
+    { "name": "quiet", "class": "gw-button--quiet", "use": "gw-button gw-button--quiet gw-icon-button. No border until it is hovered or pressed, for a row or a toolbar that holds several." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "44px square, with a 16px icon. There is no smaller size: do not add gw-button--small, whose target would be narrower than 44px." }
+  ],
+  "states": ["default", "hover", "focus-visible", "active", "pressed", "disabled", "busy"],
+  "accessibility": [
+    "Use a button element with type=\"button\", carrying gw-button and gw-icon-button. The icon is an svg with class gw-button__icon and aria-hidden=\"true\".",
+    "The button must have an accessible name: an aria-label on the button, or text in a span with gw-visually-hidden inside it. The name is a verb and what it acts on, such as Copy branch name, and it names the item when the action repeats in a list, such as More actions for run 2184.",
+    "For a toggle, set aria-pressed=\"true\" or \"false\" and switch it on each press. Keep the same name in both states: the state is announced from aria-pressed. The stylesheet adds a border, a sunken fill and a bar under the icon while it is on.",
+    "Disabled, aria-disabled and aria-busy behave as on the button. While busy, the spinner takes the place of the icon and the name says what is happening, such as Copying branch name.",
+    "Enter and Space activate it. Both come from the button element.",
+    "A tooltip may repeat the name for sighted readers, and is never the only place the name lives."
+  ],
+  "icons": ["copy", "ellipsis", "external-link", "folder", "terminal"],
+  "classes": ["gw-icon-button"]
+}

@@ -1,0 +1,218 @@
+/*
+ * Chrome for the gallery pages: the bar, the page column and the frame around each example.
+ * It is not part of the system and is not in groundwork.css. It selects by element and by
+ * data-gallery attribute, never by class, and it uses token values only.
+ */
+
+/*
+ * The rules sit in the base layer so that a component's own styles always win
+ * over the gallery's element selectors inside an example.
+ */
+@layer gw.base {
+  [data-gallery="bar"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--gw-space-lg);
+    padding-inline: var(--gw-space-sm);
+    border-bottom-width: var(--gw-border-width);
+    background-color: var(--gw-color-surface-raised);
+  }
+
+  [data-gallery="bar"] nav {
+    display: flex;
+  }
+
+  [data-gallery="bar"] a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--gw-size-touch);
+    padding-inline: var(--gw-space-sm);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  [data-gallery="bar"] nav a {
+    color: var(--gw-color-muted);
+    font-weight: var(--gw-weight-normal);
+  }
+
+  [data-gallery="bar"] nav a[aria-current="true"] {
+    color: var(--gw-color-on-surface);
+    text-decoration-line: underline;
+    text-underline-offset: var(--gw-space-xs);
+  }
+
+  [data-gallery="page"] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-2xl);
+    padding: var(--gw-space-xl) var(--gw-space-lg) var(--gw-space-2xl);
+  }
+
+  /*
+   * The page's own header, headings and lists. Each leaves out markup inside an example,
+   * so that an example is drawn by the system alone.
+   */
+  [data-gallery="page"] header:not([data-example] *) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+  }
+
+  [data-gallery="page"] h2:not([data-example] *) {
+    margin-bottom: var(--gw-space-md);
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+  }
+
+  [data-gallery="status"],
+  [data-gallery="state"] {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  [data-gallery="page"] section > ul:not([data-example] *),
+  [data-gallery="page"] dl:not([data-example] *) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    max-width: var(--gw-size-column);
+  }
+
+  [data-gallery="page"] section > ul:not([data-example] *) {
+    padding-inline-start: var(--gw-space-lg);
+    list-style: disc;
+  }
+
+  [data-gallery="page"] dt:not([data-example] *) {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  [data-gallery="page"] dt:not([data-example] *) code {
+    margin-inline-start: var(--gw-space-xs);
+    color: var(--gw-color-muted);
+    font-weight: var(--gw-weight-normal);
+  }
+
+  [data-gallery="page"] dd:not([data-example] *) {
+    margin-inline-start: 0;
+    margin-bottom: var(--gw-space-xs);
+    color: var(--gw-color-muted);
+  }
+
+  /* The frame around one example: its caption, then the example on the page surface. */
+  figure[data-gallery] {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+    overflow: hidden;
+  }
+
+  figure[data-gallery="dont"] {
+    border-color: var(--gw-color-danger);
+  }
+
+  figure[data-gallery] > figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+    padding: var(--gw-space-md) var(--gw-space-lg);
+    border-bottom-width: var(--gw-border-width);
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-muted);
+  }
+
+  figure[data-gallery="dont"] > figcaption {
+    border-color: var(--gw-color-danger);
+  }
+
+  figure[data-gallery] h3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-sm);
+    color: var(--gw-color-on-surface);
+    font-size: var(--gw-text-ui);
+    line-height: var(--gw-leading-ui);
+  }
+
+  [data-gallery="verdict"] {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-xs);
+  }
+
+  [data-gallery="verdict"] svg {
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+  }
+
+  figure[data-gallery="do"] [data-gallery="verdict"] {
+    color: var(--gw-color-success);
+  }
+
+  figure[data-gallery="dont"] [data-gallery="verdict"] {
+    color: var(--gw-color-danger);
+  }
+
+  figure[data-gallery] > [data-example] {
+    flex: 1;
+    padding: var(--gw-space-xl) var(--gw-space-lg);
+  }
+
+  /*
+   * An example of an overlay. data-gallery-frame on the example makes it the box that a
+   * fixed element inside it is placed in, and gives it room, so a dialog, a sheet or a
+   * toast region is drawn inside its own example and not over the page.
+   */
+  figure[data-gallery] > [data-example][data-gallery-frame] {
+    min-height: var(--gw-size-column);
+    contain: layout;
+  }
+
+  figure[data-gallery] > [data-example][data-gallery-frame="short"] {
+    min-height: calc(var(--gw-size-column) / 2);
+  }
+
+  [data-gallery="index"] {
+    border-top-width: var(--gw-border-width);
+  }
+
+  [data-gallery="index"] li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-lg);
+    border-bottom-width: var(--gw-border-width);
+  }
+
+  [data-gallery="index"] a {
+    display: inline-flex;
+    align-items: center;
+    min-width: var(--gw-size-column);
+    min-height: var(--gw-size-touch);
+    font-weight: var(--gw-weight-medium);
+    text-decoration-line: underline;
+    text-underline-offset: var(--gw-space-xs);
+  }
+
+  [data-gallery="index"] span {
+    color: var(--gw-color-muted);
+  }
+}
+
+/*
+ * Outside the layers, so that it wins over the component. An open popover is fixed to the
+ * viewport and follows its button only when the next frame is drawn, so a test that scrolls
+ * and measures in one step would find it where it was. Placed in the page instead, it scrolls
+ * with its button. It also keeps its first position: a popover whose button is below the fold
+ * has no room in a viewport it is not in, and would flip above its button and cover the caption.
+ */
+[data-example][data-gallery-open] [popover] {
+  position: absolute;
+  position-try-fallbacks: none;
+}

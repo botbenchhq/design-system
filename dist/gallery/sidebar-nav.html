@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sidebar nav - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Sidebar nav</h1>
+<p>The destinations of an app in a column beside the content at 768px and up, each with an icon and a text label, grouped into labelled sections.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Sections, with a footer</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each item has an icon and a text label, and each section says what its items share. The current item carries aria-current, which draws the bar and the heavier label and tells a screen reader where the reader is.</p>
+</figcaption>
+<div data-example="sections" data-title="Sections, with a footer" data-state="default" data-reason="Each item has an icon and a text label, and each section says what its items share. The current item carries aria-current, which draws the bar and the heavier label and tells a screen reader where the reader is.">
+  <nav class="gw-sidebar-nav" aria-label="Main">
+    <div class="gw-sidebar-nav__section">
+      <p class="gw-sidebar-nav__heading" id="sidebar-nav-sections-work">Work</p>
+      <ul class="gw-sidebar-nav__items" aria-labelledby="sidebar-nav-sections-work">
+        <li>
+          <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
+            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+            <span class="gw-sidebar-nav__label">Runs</span>
+          </a>
+        </li>
+        <li>
+          <a class="gw-sidebar-nav__item" href="/tasks">
+            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+            <span class="gw-sidebar-nav__label">Tasks</span>
+          </a>
+        </li>
+        <li>
+          <a class="gw-sidebar-nav__item" href="/approvals">
+            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+            <span class="gw-sidebar-nav__label">Approvals</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="gw-sidebar-nav__section">
+      <p class="gw-sidebar-nav__heading" id="sidebar-nav-sections-repository">Repository</p>
+      <ul class="gw-sidebar-nav__items" aria-labelledby="sidebar-nav-sections-repository">
+        <li>
+          <a class="gw-sidebar-nav__item" href="/branches">
+            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+            <span class="gw-sidebar-nav__label">Branches</span>
+          </a>
+        </li>
+        <li>
+          <a class="gw-sidebar-nav__item" href="/workspaces">
+            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg>
+            <span class="gw-sidebar-nav__label">Workspaces</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="gw-sidebar-nav__footer">
+      <p class="gw-sidebar-nav__note">acme/api on runner build-03</p>
+    </div>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Beside the content, with the tab bar for phone width</h3>
+<p>The sidebar is the first child of gw-sidebar-layout and shows at 768px and up. Below that it is not shown and the tab bar lists the main destinations, so both are in the markup and the reader meets one of them.</p>
+</figcaption>
+<div data-example="in-layout" data-title="Beside the content, with the tab bar for phone width" data-reason="The sidebar is the first child of gw-sidebar-layout and shows at 768px and up. Below that it is not shown and the tab bar lists the main destinations, so both are in the markup and the reader meets one of them.">
+  <div class="gw-stack gw-gap-lg">
+    <div class="gw-sidebar-layout">
+      <nav class="gw-sidebar-nav" aria-label="Acme API">
+        <ul class="gw-sidebar-nav__items">
+          <li>
+            <a class="gw-sidebar-nav__item" href="/runs">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+              <span class="gw-sidebar-nav__label">Runs</span>
+            </a>
+          </li>
+          <li>
+            <a class="gw-sidebar-nav__item" href="/tasks" aria-current="page">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+              <span class="gw-sidebar-nav__label">Tasks</span>
+            </a>
+          </li>
+          <li>
+            <a class="gw-sidebar-nav__item" href="/branches">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+              <span class="gw-sidebar-nav__label">Branches</span>
+            </a>
+          </li>
+          <li>
+            <a class="gw-sidebar-nav__item" href="/approvals">
+              <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+              <span class="gw-sidebar-nav__label">Approvals</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="gw-stack">
+        <h3>Tasks</h3>
+        <p>4 tasks are running on acme/api and 2 are waiting for a runner.</p>
+      </div>
+    </div>
+    <nav class="gw-tab-bar" aria-label="Acme API">
+      <a class="gw-tab-bar__item" href="/runs">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+        <span class="gw-tab-bar__label">Runs</span>
+      </a>
+      <a class="gw-tab-bar__item" href="/tasks" aria-current="page">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        <span class="gw-tab-bar__label">Tasks</span>
+      </a>
+      <a class="gw-tab-bar__item" href="/branches">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+        <span class="gw-tab-bar__label">Branches</span>
+      </a>
+      <a class="gw-tab-bar__item" href="/approvals">
+        <svg class="gw-tab-bar__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+        <span class="gw-tab-bar__label">Approvals</span>
+      </a>
+    </nav>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>One list, no sections</h3>
+</figcaption>
+<div data-example="flat" data-title="One list, no sections">
+  <nav class="gw-sidebar-nav" aria-label="Screens">
+    <ul class="gw-sidebar-nav__items">
+      <li>
+        <a class="gw-sidebar-nav__item" href="/runs">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+          <span class="gw-sidebar-nav__label">Runs</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/tasks">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+          <span class="gw-sidebar-nav__label">Tasks</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/approvals" aria-current="page">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+          <span class="gw-sidebar-nav__label">Approvals</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Current item</h3>
+<p data-gallery="state">State: <code>current</code></p>
+</figcaption>
+<div data-example="current" data-title="Current item" data-state="current">
+  <nav class="gw-sidebar-nav" aria-label="Workspace">
+    <div class="gw-sidebar-nav__section">
+      <p class="gw-sidebar-nav__heading" id="sidebar-nav-current-work">Work</p>
+      <ul class="gw-sidebar-nav__items" aria-labelledby="sidebar-nav-current-work">
+        <li>
+          <a class="gw-sidebar-nav__item" href="/runs">
+            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+            <span class="gw-sidebar-nav__label">Runs</span>
+          </a>
+        </li>
+        <li>
+          <a class="gw-sidebar-nav__item" href="/tasks">
+            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+            <span class="gw-sidebar-nav__label">Tasks</span>
+          </a>
+        </li>
+        <li>
+          <a class="gw-sidebar-nav__item" href="/approvals" aria-current="page">
+            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+            <span class="gw-sidebar-nav__label">Approvals</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A footer that holds items</h3>
+</figcaption>
+<div data-example="footer-items" data-title="A footer that holds items">
+  <nav class="gw-sidebar-nav" aria-label="Project">
+    <ul class="gw-sidebar-nav__items">
+      <li>
+        <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+          <span class="gw-sidebar-nav__label">Runs</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/tasks">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+          <span class="gw-sidebar-nav__label">Tasks</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/branches">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+          <span class="gw-sidebar-nav__label">Branches</span>
+        </a>
+      </li>
+    </ul>
+    <div class="gw-sidebar-nav__footer">
+      <ul class="gw-sidebar-nav__items">
+        <li>
+          <a class="gw-sidebar-nav__item" href="/search">
+            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+            <span class="gw-sidebar-nav__label">Search</span>
+          </a>
+        </li>
+        <li>
+          <a class="gw-sidebar-nav__item" href="/runner">
+            <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-info"></use></svg>
+            <span class="gw-sidebar-nav__label">About this runner</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A label longer than the column</h3>
+</figcaption>
+<div data-example="long-label" data-title="A label longer than the column">
+  <nav class="gw-sidebar-nav" aria-label="Repository">
+    <ul class="gw-sidebar-nav__items">
+      <li>
+        <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+          <span class="gw-sidebar-nav__label">Runs</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/approvals">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+          <span class="gw-sidebar-nav__label">Approvals waiting for an answer</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/workspaces">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg>
+          <span class="gw-sidebar-nav__label">Workspaces</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <nav class="gw-sidebar-nav" aria-label="App">
+    <ul class="gw-sidebar-nav__items">
+      <li>
+        <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+          <span class="gw-sidebar-nav__label">Runs</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/tasks">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+          <span class="gw-sidebar-nav__label">Tasks</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/branches">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+          <span class="gw-sidebar-nav__label">Branches</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <nav class="gw-sidebar-nav" aria-label="Destinations">
+    <ul class="gw-sidebar-nav__items">
+      <li>
+        <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+          <span class="gw-sidebar-nav__label">Runs</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/tasks">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+          <span class="gw-sidebar-nav__label">Tasks</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/branches">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+          <span class="gw-sidebar-nav__label">Branches</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active">
+  <nav class="gw-sidebar-nav" aria-label="Views">
+    <ul class="gw-sidebar-nav__items">
+      <li>
+        <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+          <span class="gw-sidebar-nav__label">Runs</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/tasks">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+          <span class="gw-sidebar-nav__label">Tasks</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/branches">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+          <span class="gw-sidebar-nav__label">Branches</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A class for the current item</h3>
+<p>The current item is marked with aria-current on the link, which a screen reader also reads. A class marks nothing here, and it leaves the reader unable to hear where they are.</p>
+<p>Checker rule: <code>unknown-class</code></p>
+</figcaption>
+<div data-example="current-class" data-title="A class for the current item" data-dont="unknown-class" data-reason="The current item is marked with aria-current on the link, which a screen reader also reads. A class marks nothing here, and it leaves the reader unable to hear where they are.">
+  <nav class="gw-sidebar-nav" aria-label="Main navigation">
+    <ul class="gw-sidebar-nav__items">
+      <li>
+        <a class="gw-sidebar-nav__item gw-sidebar-nav__item--current" href="/runs">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+          <span class="gw-sidebar-nav__label">Runs</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/tasks">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+          <span class="gw-sidebar-nav__label">Tasks</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/approvals">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-circle-check"></use></svg>
+          <span class="gw-sidebar-nav__label">Approvals</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> An item for a screen that does not exist yet</h3>
+<p>A greyed item promises a screen the app does not have, and the reader cannot tell why it will not open. List only the screens that exist, and add the item when the screen ships.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="unbuilt-screen" data-title="An item for a screen that does not exist yet" data-dont="review" data-reason="A greyed item promises a screen the app does not have, and the reader cannot tell why it will not open. List only the screens that exist, and add the item when the screen ships.">
+  <nav class="gw-sidebar-nav" aria-label="Main screens">
+    <ul class="gw-sidebar-nav__items">
+      <li>
+        <a class="gw-sidebar-nav__item" href="/runs" aria-current="page">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+          <span class="gw-sidebar-nav__label">Runs</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" href="/tasks">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+          <span class="gw-sidebar-nav__label">Tasks</span>
+        </a>
+      </li>
+      <li>
+        <a class="gw-sidebar-nav__item" role="link" aria-disabled="true">
+          <svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+          <span class="gw-sidebar-nav__label">Search (coming soon)</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For moving between the screens of an app at 768px and wider, as the first child of gw-sidebar-layout.</li>
+<li>Together with the tab bar: the sidebar is not shown below 768px, where the tab bar lists the two to five main destinations along the bottom. Put both in the markup, with the same destinations in the same order.</li>
+<li>When there are more destinations than a tab bar holds. The sidebar lists them all, in sections, and the tab bar keeps the five most used.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>Below 768px. It is not shown there, so use the tab bar for the main destinations.</li>
+<li>For switching between panels inside one view. Use tabs.</li>
+<li>For the details of a selected item beside the content. Use the inspector.</li>
+<li>For an action such as New task. A destination is a screen, so use a button in the view.</li>
+<li>For a screen that does not exist yet. List only screens that exist.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>with sections</dt>
+<dd>Each gw-sidebar-nav__section holds a gw-sidebar-nav__heading and a gw-sidebar-nav__items list. Use it for six destinations or more.</dd>
+<dt>flat</dt>
+<dd>One gw-sidebar-nav__items list directly in the nav, with no section and no heading. Use it for five destinations or fewer.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>220px wide, with each item 44px tall. Shown only at 768px and up.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a nav element with an aria-label, such as Main. When the tab bar is also in the markup it may carry the same label, because only one of the two is ever shown and the other is out of the accessibility tree.</li>
+<li>Each list of items is a ul of li, each holding one link with the gw-sidebar-nav__item class. A section's heading is a p with an id, and the section's ul points at it with aria-labelledby, so the list is announced by its section name.</li>
+<li>Set aria-current=&quot;page&quot; on the link for the screen that is open, and on no other. It draws the bar, the shade and the heavier label, and is what a screen reader announces. Never mark the current item with a class.</li>
+<li>Every item has a text label in gw-sidebar-nav__label. The icon is decoration and carries aria-hidden=&quot;true&quot;. A label too long for the column is cut with an ellipsis, so keep labels to one to three words.</li>
+<li>Tab moves through the items in order and Enter follows one. Both come from the link element.</li>
+<li>Keep the items in the same order on every screen.</li>
+<li>gw-sidebar-nav__footer is optional and comes last. It holds a gw-sidebar-nav__items list or a gw-sidebar-nav__note, such as the repository and runner in use.</li>
+<li>The component needs no script. The app sets aria-current on the right link when the screen changes.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-sidebar-nav</code></li>
+<li><code>gw-sidebar-nav__footer</code></li>
+<li><code>gw-sidebar-nav__heading</code></li>
+<li><code>gw-sidebar-nav__icon</code></li>
+<li><code>gw-sidebar-nav__item</code></li>
+<li><code>gw-sidebar-nav__items</code></li>
+<li><code>gw-sidebar-nav__label</code></li>
+<li><code>gw-sidebar-nav__note</code></li>
+<li><code>gw-sidebar-nav__section</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

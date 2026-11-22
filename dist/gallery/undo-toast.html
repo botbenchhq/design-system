@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Undo toast - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Undo toast</h1>
+<p>A toast for an action that can be taken back: it says what happened, offers Undo and shows how long Undo stays.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Archived, with the time left in words</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The task is archived at once, with no question first, because archiving can be taken back. The toast says what happened, Undo names the way back, and the line under it says how long Undo stays.</p>
+</figcaption>
+<div data-example="default" data-title="Archived, with the time left in words" data-state="default" data-gallery-frame="short" data-reason="The task is archived at once, with no question first, because archiving can be taken back. The toast says what happened, Undo names the way back, and the line under it says how long Undo stays.">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--success gw-undo-toast">
+      <p class="gw-toast__message">
+        <span class="gw-toast__label">Done:</span> Task 41 archived.
+        <span class="gw-visually-hidden">You have 10 seconds to undo.</span>
+        <span class="gw-undo-toast__countdown" aria-hidden="true">8 seconds left to undo</span>
+      </p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Undo</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a progress bar</h3>
+</figcaption>
+<div data-example="progress" data-title="With a progress bar" data-gallery-frame="short">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--success gw-undo-toast">
+      <p class="gw-toast__message">
+        <span class="gw-toast__label">Done:</span> 3 runs removed from the board.
+        <span class="gw-visually-hidden">You have 10 seconds to undo.</span>
+        <span class="gw-undo-toast__countdown" aria-hidden="true">6 seconds left to undo</span>
+      </p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Undo</button>
+      <progress class="gw-undo-toast__progress" max="10" value="6" aria-hidden="true"></progress>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Undoing</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="busy" data-title="Undoing" data-state="busy" data-gallery-frame="short">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--success gw-undo-toast">
+      <p class="gw-toast__message"><span class="gw-toast__label">Done:</span> Task 41 archived.</p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action" aria-busy="true">Restoring task</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The undo failed</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The undo failed" data-state="error" data-gallery-frame="short">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--danger gw-undo-toast">
+      <p class="gw-toast__message"><span class="gw-toast__label">Error:</span> Task 41 is still archived, because the server did not answer. Restore it from the Archived list, or try again.</p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Undo again</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Undo offered for something that is already gone</h3>
+<p>The worktree was deleted from disk before the toast appeared, so Undo cannot bring the uncommitted files back and the promise is false. Offer Undo only when the app can restore everything. Ask first with a confirm dialog when it cannot.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="cannot-undo" data-title="Undo offered for something that is already gone" data-dont="review" data-gallery-frame="short" data-reason="The worktree was deleted from disk before the toast appeared, so Undo cannot bring the uncommitted files back and the promise is false. Offer Undo only when the app can restore everything. Ask first with a confirm dialog when it cannot.">
+  <div class="gw-toast__region" role="status" aria-live="polite" aria-atomic="false">
+    <div class="gw-toast gw-toast--success gw-undo-toast">
+      <p class="gw-toast__message"><span class="gw-toast__label">Done:</span> Workspace api-refactor deleted.</p>
+      <button type="button" class="gw-button gw-button--small gw-toast__action">Undo</button>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>After an action the app carries out at once and can fully reverse, such as archiving a task or removing runs from a board.</li>
+<li>In place of a question before a reversible action. Acting and offering Undo is faster than asking first.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>After an action the app cannot fully reverse, such as deleting a workspace from disk. Ask first with the confirm dialog.</li>
+<li>For a message with nothing to take back. Use a toast.</li>
+<li>When Undo is the only way back. The reader must also be able to restore the thing elsewhere, such as from an Archived list.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>words</dt>
+<dd>The default. gw-undo-toast__countdown under the message says how many seconds are left.</dd>
+<dt>progress</dt>
+<dd>A native progress element with gw-undo-toast__progress after the button, as well as the words. Its max is the seconds Undo stays and its value the seconds left.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use the toast markup inside the page's gw-toast__region, with gw-toast, gw-toast--success and gw-undo-toast on the toast element. The message says what happened and to what: Task 41 archived.</li>
+<li>Undo is the toast's one action, a button with gw-button gw-button--small gw-toast__action. The toast never takes focus, so also give the reader a way back that does not expire, such as a Restore button in the Archived list.</li>
+<li>The app keeps the toast for at least 10 seconds, and pauses its timer while the pointer is over the toast or focus is inside it. When the time runs out the app removes the toast.</li>
+<li>Once a second the app writes the seconds left into gw-undo-toast__countdown, and sets the value attribute of the progress element when there is one. Both carry aria-hidden=&quot;true&quot;, so a screen reader is not interrupted every second. A gw-visually-hidden sentence in the message says the whole time once: You have 10 seconds to undo.</li>
+<li>When Undo is pressed, set aria-busy=&quot;true&quot; on it, change its label to say what is happening, such as Restoring task, and remove the countdown. Then replace the toast with a plain toast that says the thing is back.</li>
+<li>If the undo fails, replace the toast with a gw-toast--danger one that says the thing is still archived and what to do, with Undo again as its action.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-undo-toast</code></li>
+<li><code>gw-undo-toast__countdown</code></li>
+<li><code>gw-undo-toast__progress</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

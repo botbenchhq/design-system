@@ -1,0 +1,42 @@
+{
+  "name": "notification-list",
+  "title": "Notification list",
+  "purpose": "What happened while the reader was away, grouped as unread and earlier: each entry says what happened, where and when, and offers at most one action.",
+  "status": "draft",
+  "whenToUse": [
+    "For the reader's notifications, in a view of their own or in a sheet or popover opened from the app header.",
+    "When each entry points at something that changed, such as a run that needs approval, finished or failed, and opening it is the usual next step."
+  ],
+  "whenNotToUse": [
+    "For a message about something on the current view. Use an alert, or a toast for a passing confirmation.",
+    "For everything that happened during one run. Use the activity feed or the timeline.",
+    "For approvals the reader answers in place. Use the approval, or the pending tray for how many wait.",
+    "For a list with no read or unread state. Use the list."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "all-read", "empty", "loading", "error"],
+  "accessibility": [
+    "Wrap everything in a div with gw-notification-list. gw-notification-list__header holds gw-notification-list__heading, with the title as a heading at the level the view needs and a p with gw-notification-list__count that says how many are unread in words, then the Mark all as read button.",
+    "Give the count role=\"status\". After Mark all as read, or when a notification arrives, the app changes its text, such as All read or 3 unread, and a screen reader announces it.",
+    "Mark all as read is a gw-button gw-button--quiet gw-button--small. Disable it when nothing is unread. It marks the notifications read and moves them under Earlier; it deletes nothing.",
+    "Each group is a heading with gw-notification-list__group, Unread or Earlier, one level below the title, followed by a ul with the class gw-list. Leave a group out when it has no entries.",
+    "Each entry is an li with gw-list__row and gw-notification-list__item holding one a with gw-list__link that opens the thing the notification is about. Inside it, gw-list__primary says what happened in a sentence that names the thing, gw-list__secondary says where, and gw-list__meta holds when, in a time element with a datetime attribute.",
+    "An unread entry starts its gw-list__secondary with a span with gw-notification-list__unread holding the word Unread. The stylesheet draws the dot before it, so unread is never a dot or a colour alone. Following the link marks the entry read: the app removes that span.",
+    "An entry has at most one action, and only when the reader can settle it from here: a gw-button gw-button--small inside a div with gw-list__action and gw-notification-list__action, after the link, never primary. Its aria-label starts with its visible words and names the thing, such as Review request for run 2292. Below 768px it sits under the entry's text.",
+    "Tab moves through each entry's link and then its action. Enter follows the link. There are no arrow-key bindings, and the component needs no script.",
+    "While the notifications load, show a spinner in place of the groups. If they cannot be read, an error state with Retry. When there are none at all, an empty state that says what will appear here."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-notification-list",
+    "gw-notification-list__action",
+    "gw-notification-list__count",
+    "gw-notification-list__group",
+    "gw-notification-list__header",
+    "gw-notification-list__heading",
+    "gw-notification-list__item",
+    "gw-notification-list__title",
+    "gw-notification-list__unread"
+  ]
+}

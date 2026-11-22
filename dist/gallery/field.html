@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Field - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Field</h1>
+<p>One labelled control, a text input, a textarea or a select, with its description and its error message.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Label, control and description</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The label stays above the control while the reader types, and the description says what a valid value looks like before they start.</p>
+</figcaption>
+<div data-example="default" data-title="Label, control and description" data-state="default" data-reason="The label stays above the control while the reader types, and the description says what a valid value looks like before they start.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="field-default-repository">Repository <span class="gw-field__required">required</span></label>
+    <input class="gw-field__control" id="field-default-repository" type="text" name="repository" required autocomplete="off" aria-describedby="field-default-description">
+    <p class="gw-field__description" id="field-default-description">The owner and the name, such as acme/api.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Optional, with no description</h3>
+</figcaption>
+<div data-example="optional" data-title="Optional, with no description">
+  <div class="gw-field">
+    <label class="gw-field__label" for="field-optional-branch">Branch name</label>
+    <input class="gw-field__control" id="field-optional-branch" type="text" name="branch" autocomplete="off" value="fix/login-timeout">
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Focus</h3>
+<p data-gallery="state">State: <code>focus</code></p>
+</figcaption>
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="field-focus-title">Task title <span class="gw-field__required">required</span></label>
+    <input class="gw-field__control" id="field-focus-title" type="text" name="title" required autocomplete="off" value="Fix the login timeout">
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Invalid</h3>
+<p data-gallery="state">State: <code>invalid</code></p>
+<p>aria-invalid on the control sets the state, aria-describedby links the message so a screen reader announces it, and the message says how to fix the value. An icon marks it as well as the colour.</p>
+</figcaption>
+<div data-example="invalid" data-title="Invalid" data-state="invalid" data-reason="aria-invalid on the control sets the state, aria-describedby links the message so a screen reader announces it, and the message says how to fix the value. An icon marks it as well as the colour.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="field-invalid-repository">Repository <span class="gw-field__required">required</span></label>
+    <input class="gw-field__control" id="field-invalid-repository" type="text" name="repository" required autocomplete="off" value="acme api" aria-invalid="true" aria-describedby="field-invalid-description field-invalid-error">
+    <p class="gw-field__description" id="field-invalid-description">The owner and the name, such as acme/api.</p>
+    <p class="gw-field__error" id="field-invalid-error">Put a slash between the owner and the name.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="field-disabled-base">Base branch</label>
+    <input class="gw-field__control" id="field-disabled-base" type="text" name="base" value="main" disabled aria-describedby="field-disabled-description">
+    <p class="gw-field__description" id="field-disabled-description">Choose a repository first.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Read-only</h3>
+<p data-gallery="state">State: <code>read-only</code></p>
+</figcaption>
+<div data-example="read-only" data-title="Read-only" data-state="read-only">
+  <div class="gw-field">
+    <label class="gw-field__label" for="field-read-only-workspace">Workspace path</label>
+    <input class="gw-field__control" id="field-read-only-workspace" type="text" name="workspace" value="/srv/workspaces/acme-api" readonly aria-describedby="field-read-only-description">
+    <p class="gw-field__description" id="field-read-only-description">Set when the workspace was created.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A class for the invalid state</h3>
+<p>State comes from aria-invalid on the control, which a screen reader also reads. A state class does nothing here, and it leaves the error unannounced.</p>
+<p>Checker rule: <code>unknown-class</code></p>
+</figcaption>
+<div data-example="state-class" data-title="A class for the invalid state" data-dont="unknown-class" data-reason="State comes from aria-invalid on the control, which a screen reader also reads. A state class does nothing here, and it leaves the error unannounced.">
+  <div class="gw-field gw-field--invalid">
+    <label class="gw-field__label" for="field-state-class-repository">Repository</label>
+    <input class="gw-field__control" id="field-state-class-repository" type="text" name="repository" autocomplete="off" value="acme api">
+    <p class="gw-field__error">Put a slash between the owner and the name.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A placeholder as the label</h3>
+<p>The placeholder disappears with the first character, so the reader can no longer see what the field is for, and a screen reader may not announce it at all.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="placeholder-label" data-title="A placeholder as the label" data-dont="review" data-reason="The placeholder disappears with the first character, so the reader can no longer see what the field is for, and a screen reader may not announce it at all.">
+  <div class="gw-field">
+    <input class="gw-field__control" type="text" name="repository" autocomplete="off" placeholder="Repository (owner/name)">
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For one line of text the reader types: a name, a path, a branch, a search term.</li>
+<li>Around a textarea or a select, which take their label, description and error from the field.</li>
+<li>Whenever a control needs a label, which is always.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>With a bare text input for more than one line of text. Use a textarea as the field's control.</li>
+<li>With a bare text input for a choice from a fixed list. Use a select as the field's control.</li>
+<li>For the prompt under a transcript. Use a composer.</li>
+<li>For a value the reader cannot change but will copy. Use a copy field.</li>
+<li>For a value the reader cannot change and never needs to copy. Write it as plain text.</li>
+</ul>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>The control is 44px tall and as wide as the field. Limit the width on the field's container.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Every control has a label element whose for attribute matches the control's id. A placeholder is not a label.</li>
+<li>Mark a required control with the required attribute and the word required in the label. Never use colour or an asterisk alone.</li>
+<li>Link the description, and the error while there is one, by listing their ids in aria-describedby on the control.</li>
+<li>For an invalid value, set aria-invalid=&quot;true&quot; on the control and add the error element. Remove both when the value is fixed.</li>
+<li>The error message says how to fix the value. Its icon is drawn by the stylesheet, so it needs no markup.</li>
+<li>A read-only control stays focusable and its text can be copied. A disabled one leaves the tab order.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-field</code></li>
+<li><code>gw-field__control</code></li>
+<li><code>gw-field__description</code></li>
+<li><code>gw-field__error</code></li>
+<li><code>gw-field__label</code></li>
+<li><code>gw-field__required</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

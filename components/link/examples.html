@@ -1,0 +1,63 @@
+<div data-example="inline" data-title="Inline, in running text" data-state="default" data-reason="A link in a sentence takes no class. It is underlined, so it can be found without telling colours apart, and its text says where it goes.">
+  <p>The run stopped at step 4 because <a href="/branches/fix-login-timeout">fix/login-timeout</a> has a merge conflict with main. Read <a href="/runs/2291/log">the log for run 2291</a> for the command that failed.</p>
+</div>
+
+<div data-example="standalone" data-title="Standalone" class="gw-cluster gw-gap-xl">
+  <a class="gw-link" href="/runs">View all runs</a>
+  <a class="gw-link" href="/tasks/412">
+    Open task 412
+    <svg class="gw-link__icon" aria-hidden="true"><use href="icons.svg#gw-icon-arrow-right"></use></svg>
+  </a>
+</div>
+
+<div data-example="quiet" data-title="Quiet" class="gw-cluster gw-gap-xl">
+  <a class="gw-link gw-link--quiet" href="/settings/approval-rules">Edit approval rules</a>
+  <a class="gw-link gw-link--quiet" href="/runs/2291/log">
+    View raw log
+    <svg class="gw-link__icon" aria-hidden="true"><use href="icons.svg#gw-icon-arrow-right"></use></svg>
+  </a>
+</div>
+
+<div data-example="external" data-title="External, standalone" data-reason="The icon shows the link leaves the app, and the hidden text tells a screen reader that it opens in a new tab before the reader follows it." class="gw-cluster gw-gap-xl">
+  <a class="gw-link" href="https://github.com/acme/api/pull/482" target="_blank" rel="noopener">
+    Pull request 482 on GitHub
+    <svg class="gw-link__icon" aria-hidden="true"><use href="icons.svg#gw-icon-external-link"></use></svg>
+    <span class="gw-link__hint">(opens in a new tab)</span>
+  </a>
+  <a class="gw-link gw-link--quiet" href="https://github.com/acme/api/actions" target="_blank" rel="noopener">
+    Checks for acme/api
+    <svg class="gw-link__icon" aria-hidden="true"><use href="icons.svg#gw-icon-external-link"></use></svg>
+    <span class="gw-link__hint">(opens in a new tab)</span>
+  </a>
+</div>
+
+<div data-example="external-inline" data-title="External, in running text">
+  <p>The agent pushed 3 commits to fix/login-timeout. Review them in <a href="https://github.com/acme/api/pull/482" target="_blank" rel="noopener">pull request 482 on GitHub <svg class="gw-link__icon" aria-hidden="true"><use href="icons.svg#gw-icon-external-link"></use></svg><span class="gw-link__hint"> (opens in a new tab)</span></a> before you approve the merge.</p>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover" class="gw-cluster gw-gap-xl">
+  <a class="gw-link" href="/runs">View all runs</a>
+  <a class="gw-link gw-link--quiet" href="/settings/approval-rules">Edit approval rules</a>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible" class="gw-cluster gw-gap-xl">
+  <a class="gw-link" href="/runs">View all runs</a>
+  <a class="gw-link gw-link--quiet" href="/settings/approval-rules">Edit approval rules</a>
+</div>
+
+<div data-example="active" data-title="Pressed" data-state="active" class="gw-cluster gw-gap-xl">
+  <a class="gw-link" href="/runs">View all runs</a>
+  <a class="gw-link gw-link--quiet" href="/settings/approval-rules">Edit approval rules</a>
+</div>
+
+<div data-example="no-underline" data-title="The underline removed" data-dont="visual-utility" data-reason="Without the underline the link is told from the text around it by colour or weight alone, which many readers cannot see. A link is always underlined." class="gw-cluster">
+  <a class="gw-link no-underline" href="/runs">View all runs</a>
+</div>
+
+<div data-example="vague-text" data-title="Link text that does not say where it goes" data-dont="review" data-reason="A screen reader can list the links on a page out of context, where two links both called here are no use. Make the link the name of what it opens.">
+  <p>The run stopped at step 4. To read the log, click <a href="/runs/2291/log">here</a>. The pull request is <a href="https://github.com/acme/api/pull/482">here</a>.</p>
+</div>
+
+<div data-example="link-as-action" data-title="A link that performs an action" data-dont="review" data-reason="A link goes somewhere. Deleting a branch changes something, so it is a button, which a screen reader announces as one and which Space presses." class="gw-cluster">
+  <a class="gw-link" href="#">Delete branch</a>
+</div>

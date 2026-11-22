@@ -1,0 +1,46 @@
+{
+  "advanced-sprawl.html": [
+    "one-advanced-disclosure"
+  ],
+  "all-primary.html": [
+    "one-primary-action",
+    "one-primary-action",
+    "one-primary-action"
+  ],
+  "badge-clutter.html": [
+    "excess-badges"
+  ],
+  "centred-copy.html": [
+    "centred-body-text",
+    "visual-utility"
+  ],
+  "deep-disclosure.html": [
+    "disclosure-depth"
+  ],
+  "emoji-icons.html": [
+    "emoji-as-icon",
+    "emoji-as-icon",
+    "emoji-as-icon"
+  ],
+  "feature-grid.html": [
+    "identical-card-grid"
+  ],
+  "get-started.html": [
+    "stock-phrase"
+  ],
+  "hidden-delete.html": [
+    "hidden-critical-action"
+  ],
+  "icon-summary.html": [
+    "summary-without-text"
+  ],
+  "nested-cards.html": [
+    "nested-cards",
+    "nested-cards"
+  ],
+  "row-primaries.html": [
+    "repeated-item-primary",
+    "repeated-item-primary",
+    "repeated-item-primary"
+  ]
+}

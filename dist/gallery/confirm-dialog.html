@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confirm dialog - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Confirm dialog</h1>
+<p>A dialog that asks before something is deleted or discarded, and says in plain words what will be lost.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Deleting a workspace</h3>
+<p data-gallery="state">State: <code>open</code></p>
+<p>The title names the thing, the body lists what will be lost in plain words and says what is kept, and the button repeats the verb. Cancel comes first, so focus lands on it when the dialog opens and a stray Enter deletes nothing.</p>
+</figcaption>
+<div data-example="default" data-title="Deleting a workspace" data-state="open" data-gallery-frame data-reason="The title names the thing, the body lists what will be lost in plain words and says what is kept, and the button repeats the verb. Cancel comes first, so focus lands on it when the dialog opens and a stray Enter deletes nothing.">
+  <dialog class="gw-dialog gw-confirm-dialog" id="confirm-dialog-default" role="alertdialog" aria-labelledby="confirm-dialog-default-title" aria-describedby="confirm-dialog-default-body" open>
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="confirm-dialog-default-title">Delete the workspace api-refactor?</h2>
+      <div class="gw-dialog__body" id="confirm-dialog-default-body">
+        <p>This removes the workspace from this machine and cannot be undone. You will lose:</p>
+        <ul class="gw-confirm-dialog__losses">
+          <li class="gw-confirm-dialog__loss">3 changed files that were never committed</li>
+          <li class="gw-confirm-dialog__loss">The branch fix/session-refresh, which was never pushed</li>
+          <li class="gw-confirm-dialog__loss">The transcripts of 4 runs</li>
+        </ul>
+        <p>The repository acme/api and its pull requests stay as they are.</p>
+      </div>
+      <div class="gw-dialog__footer gw-confirm-dialog__actions">
+        <button type="submit" class="gw-button" value="cancel">Cancel</button>
+        <button type="submit" class="gw-button gw-button--danger" value="delete">Delete workspace</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>One thing lost</h3>
+</figcaption>
+<div data-example="one-loss" data-title="One thing lost" data-gallery-frame="short">
+  <dialog class="gw-dialog gw-confirm-dialog" id="confirm-dialog-one-loss" role="alertdialog" aria-labelledby="confirm-dialog-one-loss-title" aria-describedby="confirm-dialog-one-loss-body" open>
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="confirm-dialog-one-loss-title">Discard the draft prompt?</h2>
+      <div class="gw-dialog__body" id="confirm-dialog-one-loss-body">
+        <p>The 214 words you wrote for task 41 are removed. This cannot be undone.</p>
+      </div>
+      <div class="gw-dialog__footer gw-confirm-dialog__actions">
+        <button type="submit" class="gw-button" value="cancel">Keep editing</button>
+        <button type="submit" class="gw-button gw-button--danger" value="discard">Discard draft</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Deleting</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="busy" data-title="Deleting" data-state="busy" data-gallery-frame>
+  <dialog class="gw-dialog gw-confirm-dialog" id="confirm-dialog-busy" role="alertdialog" aria-labelledby="confirm-dialog-busy-title" aria-describedby="confirm-dialog-busy-body" open>
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="confirm-dialog-busy-title">Delete the workspace api-refactor?</h2>
+      <div class="gw-dialog__body" id="confirm-dialog-busy-body">
+        <p>This removes the workspace from this machine and cannot be undone. You will lose:</p>
+        <ul class="gw-confirm-dialog__losses">
+          <li class="gw-confirm-dialog__loss">3 changed files that were never committed</li>
+          <li class="gw-confirm-dialog__loss">The branch fix/session-refresh, which was never pushed</li>
+        </ul>
+      </div>
+      <div class="gw-dialog__footer gw-confirm-dialog__actions">
+        <button type="submit" class="gw-button" value="cancel" disabled>Cancel</button>
+        <button type="submit" class="gw-button gw-button--danger" value="delete" aria-busy="true">Deleting workspace</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The delete failed</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The delete failed" data-state="error" data-gallery-frame>
+  <dialog class="gw-dialog gw-confirm-dialog" id="confirm-dialog-error" role="alertdialog" aria-labelledby="confirm-dialog-error-title" aria-describedby="confirm-dialog-error-body" open>
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="confirm-dialog-error-title">Delete the workspace api-refactor?</h2>
+      <div class="gw-dialog__body" id="confirm-dialog-error-body">
+        <div class="gw-alert gw-alert--danger" role="alert">
+          <div class="gw-alert__content">
+            <p class="gw-alert__label">Error</p>
+            <p class="gw-alert__body">Nothing was deleted: a run is still using the worktree. Stop run 7, then delete the workspace again.</p>
+          </div>
+        </div>
+        <p>This removes the workspace from this machine and cannot be undone. You will lose:</p>
+        <ul class="gw-confirm-dialog__losses">
+          <li class="gw-confirm-dialog__loss">3 changed files that were never committed</li>
+          <li class="gw-confirm-dialog__loss">The branch fix/session-refresh, which was never pushed</li>
+        </ul>
+      </div>
+      <div class="gw-dialog__footer gw-confirm-dialog__actions">
+        <button type="submit" class="gw-button" value="cancel">Cancel</button>
+        <button type="submit" class="gw-button gw-button--danger" value="delete">Delete workspace</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A vague question with the destructive button first</h3>
+<p>The reader cannot tell what Yes will destroy, and Yes comes first, so focus lands on it and a stray Enter deletes the workspace. Name the thing, list what is lost, repeat the verb on the button and put Cancel first.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="vague" data-title="A vague question with the destructive button first" data-dont="review" data-gallery-frame="short" data-reason="The reader cannot tell what Yes will destroy, and Yes comes first, so focus lands on it and a stray Enter deletes the workspace. Name the thing, list what is lost, repeat the verb on the button and put Cancel first.">
+  <dialog class="gw-dialog gw-confirm-dialog" id="confirm-dialog-vague" role="alertdialog" aria-labelledby="confirm-dialog-vague-title" open>
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="confirm-dialog-vague-title">Are you sure?</h2>
+      <div class="gw-dialog__body">
+        <p>This action cannot be undone.</p>
+      </div>
+      <div class="gw-dialog__footer gw-confirm-dialog__actions">
+        <button type="submit" class="gw-button gw-button--danger" value="yes">Yes</button>
+        <button type="submit" class="gw-button" value="no">No</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>Before an action the reader started that deletes or discards something and cannot be undone, such as deleting a workspace or discarding a draft.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For an action that can be reversed. Do it at once and show an undo toast.</li>
+<li>For a request from an agent that waits for an answer. Use an approval.</li>
+<li>For a task with fields to fill in. Use a dialog.</li>
+<li>To confirm an ordinary action such as saving. Do not ask.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use the dialog markup with both classes on the dialog element, gw-dialog and gw-confirm-dialog, and add role=&quot;alertdialog&quot;. A screen reader then reads the question and its description at once, where a plain dialog would read only the title.</li>
+<li>Point aria-labelledby at the title and aria-describedby at gw-dialog__body, so the list of what is lost is part of what is read.</li>
+<li>The title names the thing: Delete the workspace api-refactor? The body says what will be lost, one thing per gw-confirm-dialog__loss, and that it cannot be undone. Say what is kept when the reader might fear for it.</li>
+<li>Cancel is the first button and the destructive button the second. Open with showModal(), which moves focus to the first button, so focus starts on Cancel. Never put autofocus on the destructive button.</li>
+<li>The destructive button is gw-button gw-button--danger and repeats the verb and the thing: Delete workspace. It is never gw-button--primary, and a confirm dialog has no primary button.</li>
+<li>The footer carries gw-dialog__footer and gw-confirm-dialog__actions, which holds Cancel at the start and the destructive button at the far end.</li>
+<li>Escape cancels. Both buttons close the dialog through the form with method=&quot;dialog&quot;, and the app deletes only when dialog.returnValue is the destructive button's value.</li>
+<li>While deleting, set aria-busy=&quot;true&quot; on the destructive button, change its label and disable Cancel. If it fails, keep the dialog open and put an alert with role=&quot;alert&quot; at the top of the body saying that nothing was deleted and what to do.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-confirm-dialog</code></li>
+<li><code>gw-confirm-dialog__actions</code></li>
+<li><code>gw-confirm-dialog__loss</code></li>
+<li><code>gw-confirm-dialog__losses</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Composer - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Composer</h1>
+<p>The prompt input under a transcript: a textarea that grows with its content, and Send.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Label, textarea and Send</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The label stays visible while the reader types, and Send is the one primary action of the view.</p>
+</figcaption>
+<div data-example="default" data-title="Label, textarea and Send" data-state="default" data-reason="The label stays visible while the reader types, and Send is the one primary action of the view.">
+  <form class="gw-composer">
+    <label class="gw-composer__label" for="composer-default-prompt">Message Claude Code</label>
+    <div class="gw-composer__row">
+      <textarea class="gw-composer__input" id="composer-default-prompt" name="prompt" rows="1"></textarea>
+      <button type="submit" class="gw-button gw-button--primary">Send</button>
+    </div>
+  </form>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Grown with its content</h3>
+</figcaption>
+<div data-example="grown" data-title="Grown with its content">
+  <form class="gw-composer">
+    <label class="gw-composer__label" for="composer-grown-prompt">Message Claude Code</label>
+    <div class="gw-composer__row">
+      <textarea class="gw-composer__input" id="composer-grown-prompt" name="prompt" rows="1">The session cookie expires after 15 minutes even while the tab is active.
+
+Find out why, fix it, and run the auth tests.</textarea>
+      <button type="submit" class="gw-button gw-button--primary">Send</button>
+    </div>
+  </form>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>No visible label, with an accessible name</h3>
+</figcaption>
+<div data-example="accessible-name" data-title="No visible label, with an accessible name">
+  <form class="gw-composer">
+    <div class="gw-composer__row">
+      <textarea class="gw-composer__input" name="prompt" rows="1" aria-label="Message Claude Code">Run the auth tests again.</textarea>
+      <button type="submit" class="gw-button gw-button--primary">Send</button>
+    </div>
+  </form>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With quiet secondary controls</h3>
+</figcaption>
+<div data-example="controls" data-title="With quiet secondary controls">
+  <form class="gw-composer">
+    <label class="gw-composer__label" for="composer-controls-prompt">Message Claude Code</label>
+    <div class="gw-composer__row">
+      <textarea class="gw-composer__input" id="composer-controls-prompt" name="prompt" rows="1">Open a pull request for this branch.</textarea>
+      <button type="submit" class="gw-button gw-button--primary">Send</button>
+    </div>
+    <div class="gw-composer__controls">
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+        Attach file
+      </button>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+        fix/session-refresh
+      </button>
+    </div>
+  </form>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Focus</h3>
+<p data-gallery="state">State: <code>focus</code></p>
+</figcaption>
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <form class="gw-composer">
+    <label class="gw-composer__label" for="composer-focus-prompt">Message Claude Code</label>
+    <div class="gw-composer__row">
+      <textarea class="gw-composer__input" id="composer-focus-prompt" name="prompt" rows="1">Add a test for the reload case.</textarea>
+      <button type="submit" class="gw-button gw-button--primary">Send</button>
+    </div>
+  </form>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Busy: a turn is running</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+<p>While a turn runs, Stop takes the place of Send with secondary emphasis, so the view never shows two main actions. The textarea stays open for drafting the next prompt.</p>
+</figcaption>
+<div data-example="busy" data-title="Busy: a turn is running" data-state="busy" data-reason="While a turn runs, Stop takes the place of Send with secondary emphasis, so the view never shows two main actions. The textarea stays open for drafting the next prompt.">
+  <form class="gw-composer" aria-busy="true">
+    <label class="gw-composer__label" for="composer-busy-prompt">Message Claude Code</label>
+    <div class="gw-composer__row">
+      <textarea class="gw-composer__input" id="composer-busy-prompt" name="prompt" rows="1" aria-describedby="composer-busy-reason"></textarea>
+      <button type="button" class="gw-button">Stop</button>
+    </div>
+    <p class="gw-composer__reason" id="composer-busy-reason">Claude Code is working. You can send again when this turn ends.</p>
+  </form>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Disabled, with the reason</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+<p>The reason sits beside the controls it explains and is linked to both, so the reader learns what to do instead of meeting a dead button.</p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled, with the reason" data-state="disabled" data-reason="The reason sits beside the controls it explains and is linked to both, so the reader learns what to do instead of meeting a dead button.">
+  <form class="gw-composer">
+    <label class="gw-composer__label" for="composer-disabled-prompt">Message Claude Code</label>
+    <div class="gw-composer__row">
+      <textarea class="gw-composer__input" id="composer-disabled-prompt" name="prompt" rows="1" disabled aria-describedby="composer-disabled-reason"></textarea>
+      <button type="submit" class="gw-button gw-button--primary" disabled aria-describedby="composer-disabled-reason">Send</button>
+    </div>
+    <p class="gw-composer__reason" id="composer-disabled-reason">Sign in to Claude Code to send. Run claude login on the machine that hosts this workspace.</p>
+  </form>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The prompt was not sent</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The prompt was not sent" data-state="error">
+  <form class="gw-composer">
+    <label class="gw-composer__label" for="composer-error-prompt">Message Claude Code</label>
+    <div class="gw-composer__row">
+      <textarea class="gw-composer__input" id="composer-error-prompt" name="prompt" rows="1" aria-describedby="composer-error-message">Run the auth tests again.</textarea>
+      <button type="submit" class="gw-button gw-button--primary">Send</button>
+    </div>
+    <p class="gw-composer__error" id="composer-error-message" role="alert">Your message was not sent: the server could not be reached. It is still in the box, so you can send it again.</p>
+  </form>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Held to the bottom of the view</h3>
+</figcaption>
+<div data-example="sticky" data-title="Held to the bottom of the view">
+  <form class="gw-composer gw-composer--sticky">
+    <label class="gw-composer__label" for="composer-sticky-prompt">Message Claude Code</label>
+    <div class="gw-composer__row">
+      <textarea class="gw-composer__input" id="composer-sticky-prompt" name="prompt" rows="1"></textarea>
+      <button type="submit" class="gw-button gw-button--primary">Send</button>
+    </div>
+  </form>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Send and Stop both primary</h3>
+<p>Two primary buttons compete, and on a phone the wrong one is a thumb's width away. Show only the one that applies: Send while idle, Stop while a turn runs.</p>
+<p>Checker rule: <code>one-primary-action</code></p>
+</figcaption>
+<div data-example="send-and-stop" data-title="Send and Stop both primary" data-dont="one-primary-action" data-reason="Two primary buttons compete, and on a phone the wrong one is a thumb's width away. Show only the one that applies: Send while idle, Stop while a turn runs.">
+  <form class="gw-composer" aria-busy="true">
+    <label class="gw-composer__label" for="composer-send-and-stop-prompt">Message Claude Code</label>
+    <div class="gw-composer__row">
+      <textarea class="gw-composer__input" id="composer-send-and-stop-prompt" name="prompt" rows="1"></textarea>
+      <button type="button" class="gw-button gw-button--primary">Stop</button>
+      <button type="submit" class="gw-button gw-button--primary">Send</button>
+    </div>
+  </form>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Disabled with no reason</h3>
+<p>A greyed-out composer with nothing beside it leaves the reader guessing whether the app is broken, still loading or waiting for them.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="disabled-no-reason" data-title="Disabled with no reason" data-dont="review" data-reason="A greyed-out composer with nothing beside it leaves the reader guessing whether the app is broken, still loading or waiting for them.">
+  <form class="gw-composer">
+    <div class="gw-composer__row">
+      <textarea class="gw-composer__input" name="prompt" rows="1" aria-label="Message Claude Code" disabled></textarea>
+      <button type="submit" class="gw-button gw-button--primary" disabled>Send</button>
+    </div>
+  </form>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>At the bottom of a transcript, to send the next prompt to the agent.</li>
+<li>To stop a running turn from the same place the reader sends from.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For one line of text in a form, such as a task title. Use a field.</li>
+<li>For longer text that is saved with a form and not sent as a message. Use a textarea.</li>
+<li>To answer an approval request. Use the approval's own Allow and Decline.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>default</dt>
+<dd>In the flow of the page, as wide as its container.</dd>
+<dt>sticky <code>gw-composer--sticky</code></dt>
+<dd>Held to the bottom of the scrolling view, with a top border, its own padding and room for the home indicator. Make the view's scroller end at the visible viewport, with a height in dvh or interactive-widget=resizes-content in the viewport meta tag, so it stays above an on-screen keyboard.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>The textarea is one line and 44px tall when empty and grows with its content to 176px, then scrolls. Where field-sizing is not supported it is a fixed 88px. Send stays beside the last line.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a form element, so Send submits it. The textarea has a visible gw-composer__label whose for attribute matches its id, or an aria-label when the view has no room for one. A placeholder is not a label.</li>
+<li>Send is a button of type submit with gw-button gw-button--primary. It is the view's one primary action, so nothing else in the view is primary.</li>
+<li>While a turn runs, the app sets aria-busy=&quot;true&quot; on the form and replaces Send with a Stop button of type button and secondary emphasis. Never show both. The textarea stays editable, and a line of gw-composer__reason linked by aria-describedby says when sending is possible again.</li>
+<li>When the reader cannot send, set disabled on the textarea and on Send, and say why in gw-composer__reason, linked from both by aria-describedby. The reason says what to do next.</li>
+<li>When a prompt fails to send, keep the text in the textarea and add gw-composer__error with role=&quot;alert&quot;, linked by aria-describedby. Its icon is drawn by the stylesheet.</li>
+<li>Tab moves from the textarea to Send, then to the quiet controls. The app decides whether Enter sends. If it does, Shift+Enter adds a line, and the button remains the way to send on a phone.</li>
+<li>The component needs no script. The app sets disabled, aria-busy and aria-describedby, and swaps Send for Stop.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-composer</code></li>
+<li><code>gw-composer--sticky</code></li>
+<li><code>gw-composer__controls</code></li>
+<li><code>gw-composer__error</code></li>
+<li><code>gw-composer__input</code></li>
+<li><code>gw-composer__label</code></li>
+<li><code>gw-composer__reason</code></li>
+<li><code>gw-composer__row</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

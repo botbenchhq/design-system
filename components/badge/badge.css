@@ -1,0 +1,53 @@
+/*
+ * Badge: a status written in a word or two, on a subtle background.
+ * The plain class is the neutral tone. A modifier changes the tone, and the words always carry the meaning.
+ */
+
+@layer gw.components {
+  .gw-badge {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    min-height: var(--gw-space-xl);
+    padding-inline: var(--gw-space-sm);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    color: var(--gw-color-on-surface);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+    white-space: nowrap;
+  }
+
+  .gw-badge--info {
+    border-color: transparent;
+    background-color: var(--gw-color-info-subtle);
+    color: var(--gw-color-info);
+  }
+
+  .gw-badge--success {
+    border-color: transparent;
+    background-color: var(--gw-color-success-subtle);
+    color: var(--gw-color-success);
+  }
+
+  .gw-badge--warning {
+    border-color: transparent;
+    background-color: var(--gw-color-warning-subtle);
+    color: var(--gw-color-warning);
+  }
+
+  .gw-badge--danger {
+    border-color: transparent;
+    background-color: var(--gw-color-danger-subtle);
+    color: var(--gw-color-danger);
+  }
+
+  .gw-badge__icon {
+    flex: none;
+    width: var(--gw-space-md);
+    height: var(--gw-space-md);
+  }
+}

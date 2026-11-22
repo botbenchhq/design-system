@@ -1,0 +1,37 @@
+{
+  "name": "accordion",
+  "title": "Accordion",
+  "purpose": "A set of disclosures of which one is open at a time, built on details elements that share a name.",
+  "status": "draft",
+  "whenToUse": [
+    "For three or more sections of detail about one thing, such as the environment, commands and test output of a run, when the reader wants one at a time and the set should stay short.",
+    "When each section's summary can say in a few words what it holds."
+  ],
+  "whenNotToUse": [
+    "When the reader compares sections or needs two open together. Use separate disclosures, which open and close alone.",
+    "For one section. Use a disclosure.",
+    "For panels that are the main content of a view. Use tabs.",
+    "For anything the reader must see or do in order to go on. An action marked data-gw-critical inside a closed section fails the hidden-critical-action rule.",
+    "Nested more than two levels. A disclosure inside a section is the limit, and a third level fails the disclosure-depth rule."
+  ],
+  "variants": [],
+  "sizes": [
+    { "name": "default", "use": "Each summary is at least 44px tall and as wide as the set, with a rule between sections and above and below the set." }
+  ],
+  "states": ["default", "open", "hover", "focus-visible", "active"],
+  "accessibility": [
+    "The set is a div with the gw-accordion class. Each section is a details element with the classes gw-disclosure and gw-accordion__section, a gw-disclosure__summary as its first child and one gw-disclosure__content after it. Copy the inside of a section from the disclosure component.",
+    "Give every section of one set the same name attribute, and a name no other set on the page uses. The browser then closes the open section when another opens. Where the name attribute is not supported the sections open and close alone, and nothing is lost.",
+    "At most one section carries the open attribute in the markup. The open attribute is the only state: never toggle a class.",
+    "Every summary holds text that says what the section holds. A summary without text fails the summary-without-text rule. Trailing text such as a count goes in a gw-disclosure__meta span.",
+    "Tab reaches each summary in order. Enter and Space open and close it. Both come from the summary element. Closed content is out of the tab order, and the browser's find-in-page opens the section that holds a match.",
+    "Opening a section closes another without the reader asking, so keep nothing in a section that the reader is filling in, such as a half-written form.",
+    "A section may hold one more level of disclosure, a plain gw-disclosure with no name. Do not nest an accordion in an accordion.",
+    "The component needs no script."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-accordion",
+    "gw-accordion__section"
+  ]
+}

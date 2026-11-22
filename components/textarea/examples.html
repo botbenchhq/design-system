@@ -1,0 +1,86 @@
+<div data-example="default" data-title="Empty, at its minimum height" data-state="default" data-reason="A prompt runs to several lines, so the control starts tall enough to show that and grows as the reader types. The label and description come from the field.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-default-prompt">Prompt <span class="gw-field__required">required</span></label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-default-prompt" name="prompt" required aria-describedby="textarea-default-description"></textarea>
+    <p class="gw-field__description" id="textarea-default-description">Say what to change and how to tell that it worked.</p>
+  </div>
+</div>
+
+<div data-example="grown" data-title="Grown to fit its content">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-grown-prompt">Prompt <span class="gw-field__required">required</span></label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-grown-prompt" name="prompt" required>The login page signs people out after 30 seconds when the API is slow.
+
+Raise the session request timeout to 10 seconds and retry once before showing an error.
+
+Add a test that fails on the current code and passes with the change. Do not touch the password reset flow.</textarea>
+  </div>
+</div>
+
+<div data-example="scrolling" data-title="At its maximum height, scrolling">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-scrolling-notes">Review notes</label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-scrolling-notes" name="notes">The timeout change is right, and the retry is in the correct place.
+
+Three things to fix before this merges:
+
+1. The retry also fires on a 401, which signs the reader out twice. Retry only when the request timed out.
+
+2. The new test sleeps for 11 seconds. Use the fake clock from test/helpers so the suite stays fast.
+
+3. The error message says "Something went wrong". Say that the server did not answer and that signing in again will work.
+
+The password reset flow is untouched, as asked.
+
+Run the session tests again after the change and paste the summary line into the pull request.</textarea>
+  </div>
+</div>
+
+<div data-example="mono" data-title="Mono, for a prompt or a command">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-mono-setup">Setup commands</label>
+    <textarea class="gw-field__control gw-textarea gw-textarea--mono" id="textarea-mono-setup" name="setup" spellcheck="false" autocapitalize="off" aria-describedby="textarea-mono-description">npm ci
+npm run build
+npm test -- --grep session</textarea>
+    <p class="gw-field__description" id="textarea-mono-description">One command on each line. They run in the workspace before the task starts.</p>
+  </div>
+</div>
+
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-focus-prompt">Prompt <span class="gw-field__required">required</span></label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-focus-prompt" name="prompt" required>Raise the session request timeout to 10 seconds.</textarea>
+  </div>
+</div>
+
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-invalid-prompt">Prompt <span class="gw-field__required">required</span></label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-invalid-prompt" name="prompt" required aria-invalid="true" aria-describedby="textarea-invalid-description textarea-invalid-error"></textarea>
+    <p class="gw-field__description" id="textarea-invalid-description">Say what to change and how to tell that it worked.</p>
+    <p class="gw-field__error" id="textarea-invalid-error">Write a prompt before starting the task.</p>
+  </div>
+</div>
+
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-disabled-prompt">Prompt</label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-disabled-prompt" name="prompt" disabled aria-describedby="textarea-disabled-description"></textarea>
+    <p class="gw-field__description" id="textarea-disabled-description">Choose a repository first.</p>
+  </div>
+</div>
+
+<div data-example="read-only" data-title="Read-only" data-state="read-only">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-read-only-prompt">Prompt</label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-read-only-prompt" name="prompt" readonly aria-describedby="textarea-read-only-description">Raise the session request timeout to 10 seconds and retry once before showing an error.</textarea>
+    <p class="gw-field__description" id="textarea-read-only-description">The prompt cannot change once the run has started.</p>
+  </div>
+</div>
+
+<div data-example="single-line" data-title="A one-line input for a prompt" data-dont="review" data-reason="A prompt is several sentences. A one-line input hides all but the last few words, so the reader cannot check what they wrote before starting the task.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-single-line-prompt">Prompt</label>
+    <input class="gw-field__control" id="textarea-single-line-prompt" type="text" name="prompt" autocomplete="off" value="The login page signs people out after 30 seconds when the API is slow. Raise the session request timeout to 10 seconds and retry once.">
+  </div>
+</div>

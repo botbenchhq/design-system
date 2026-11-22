@@ -1,7 +1,7 @@
-// Generates everything in dist/ from tokens/ and base/. Run with `npm run build`.
+// Generates everything in dist/ from tokens/, base/, components/, patterns/, gallery/, behaviors/, checker/, rules/ and hooks/. Run with `npm run build`.
 // `npm run vendor` refreshes the font and icon files under base/ from node_modules.
 
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -17,7 +17,7 @@ const CATEGORIES = [
 ];
 
 // The bundled stylesheet is tokens.css followed by these, in this order.
-const BASE_STYLES = ["reset.css", "typography.css", "layout.css", "focus.css", "fonts.css"];
+const BASE_STYLES = ["reset.css", "typography.css", "layout.css", "visually-hidden.css", "focus.css", "fonts.css"];
 
 // Each file in base/fonts/ and the place in node_modules it is copied from.
 const FONT_SOURCES = {
@@ -32,7 +32,31 @@ const FONT_SOURCES = {
 // What a symbol keeps from an icon's root element, so one drawn through <use> looks like the single file.
 const SYMBOL_ATTRIBUTES = ["viewBox", "fill", "stroke", "stroke-width", "stroke-linecap", "stroke-linejoin"];
 
+// The rendered check is these checker files joined in this order, each after the ones it imports from.
+const DOM_BUNDLE = [
+  "rules/stock-phrases.mjs", "rules/tree.mjs", "rules/disclosure.mjs", "rules/tells.mjs", "rules/copy.mjs",
+  "rules/index.mjs", "dom-entry.mjs",
+];
+
 const MINIMUM_CONTRAST = { text: 4.5, ui: 3 };
+
+// rules/core.md is the one file every agent reads, so its length is capped. About 400 tokens.
+export const CORE_RULES_LIMIT = 2400;
+
+// What meta.json holds, in the order components.json lists it. The contract is docs/authoring.md.
+const COMPONENT_FIELDS = {
+  name: "text", title: "text", purpose: "text", status: "text",
+  whenToUse: "list", whenNotToUse: "list", variants: "list", sizes: "list", states: "list",
+  accessibility: "list", icons: "list", classes: "list",
+};
+const STATUSES = ["draft", "stable"];
+
+// The two kinds of folder built to the authoring contract, and the directory each lives in.
+// A page pattern is a whole screen composed from components. Its meta.json says "kind": "pattern".
+const KINDS = { component: "components", pattern: "patterns" };
+
+// The gallery's own stylesheet and script, copied from gallery/ beside the generated pages.
+const GALLERY_FILES = ["gallery.css", "gallery.js"];
 
 // Utility classes a screen may use: layout, spacing and sizing only.
 const UTILITIES = {
@@ -294,7 +318,17 @@ function designTokens(groups, tokens) {
   return `---\n${yaml(block)}---\n`;
 }
 
-function manifest(groups, tokens) {
+// Every rule ID the checker can emit, read from its source. A rule is named where it is defined (id: "…"),
+// where a finding is made (rule: "…", add(line, "…")) or where a scale rule is set up (scaleCategory("…")).
+export function ruleIds(checker) {
+  const named = /(?:\b(?:rule|id): |\badd\([\w.]+, |\bscaleCategory\()"([a-z]+(?:-[a-z]+)+)"/g;
+  const ids = listFiles(checker)
+    .filter((file) => file.endsWith(".mjs"))
+    .flatMap((file) => [...readFileSync(join(checker, file), "utf8").matchAll(named)].map(([, id]) => id));
+  return [...new Set(ids)].sort();
+}
+
+function manifest(groups, tokens, classes, rules) {
   const names = {};
   const values = {};
   for (const [category, keys] of Object.entries(groups)) {
@@ -313,6 +347,8 @@ function manifest(groups, tokens) {
       spacingKeys: ["0", ...Object.keys(groups.space)],
       sizeKeys: [...Object.keys(groups.size), "auto", "full", "screen", "none"],
     },
+    classes,
+    rules,
   };
 }
 
@@ -330,6 +366,288 @@ function symbol(name, svg) {
 function sprite(icons) {
   const symbols = Object.entries(icons).map(([name, svg]) => symbol(name, svg.toString()));
   return `<!-- Icons from Lucide, ISC License. The notice is in icons/LICENSE. -->\n<svg xmlns="http://www.w3.org/2000/svg">\n${symbols.join("")}</svg>\n`;
+}
+
+// One classic script holding the structural rules, for a browser test to inject into a page.
+// The modules share one scope, so their imports and exports are dropped.
+function domBundle(checker, readingColumn) {
+  const modules = DOM_BUNDLE.map((name) => {
+    const source = readFileSync(join(checker, name), "utf8");
+    return `// ${name}\n${source.replace(/^import [^;]+;\n/gm, "").replace(/^export /gm, "").trim()}\n`;
+  });
+  return [
+    "// Generated from checker/. Defines gwCheckDom(root), which returns the structural findings of the rendered page.",
+    "(() => {",
+    '"use strict";',
+    ...modules,
+    `globalThis.gwCheckDom = (root = document.documentElement) => checkDom(root, ${parseFloat(readingColumn)});`,
+    "})();",
+    "",
+  ].join("\n");
+}
+
+const withoutComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
+const classesIn = (css) => [...new Set([...withoutComments(css).matchAll(/\.(gw-[\w-]+)/g)].map(([, name]) => name))].sort();
+
+const ENTITIES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
+const escapeHtml = (text) => text.replace(/[&<>"]/g, (character) => ENTITIES[character]);
+const unescapeHtml = (text) =>
+  text.replace(/&(?:amp|lt|gt|quot);/g, (entity) => Object.keys(ENTITIES).find((character) => ENTITIES[character] === entity));
+
+function dedent(markup) {
+  const lines = markup.replace(/^\s*\n|\s+$/g, "").split("\n");
+  const indent = Math.min(...lines.filter((line) => line.trim() !== "").map((line) => line.match(/^\s*/)[0].length));
+  return lines.map((line) => line.slice(indent)).join("\n");
+}
+
+// The examples in one examples.html. Each is a top-level element carrying data-example:
+//   { id, title, state, dont, reason, markup, html }
+// where markup is what the element holds and html is the element itself.
+function parseExamples(source) {
+  const examples = [];
+  const opening = /\s*(?:<!--[\s\S]*?-->\s*)*<([a-z][\w-]*)\b([^>]*)>/y;
+  let at = 0;
+  for (;;) {
+    opening.lastIndex = at;
+    const match = opening.exec(source);
+    if (!match) break;
+    const [whole, tag, attributeText] = match;
+    const attrs = Object.fromEntries(
+      [...attributeText.matchAll(/([\w-]+)="([^"]*)"/g)].map(([, name, value]) => [name, unescapeHtml(value)]),
+    );
+    const id = attrs["data-example"];
+    if (!id) throw new Error(`examples.html has a top-level <${tag}> without data-example`);
+    const bodyStart = at + whole.length;
+    // The matching end tag, counting elements of the same name nested inside.
+    const edge = new RegExp(`<(/?)${tag}\\b[^>]*>`, "g");
+    edge.lastIndex = bodyStart;
+    let closing;
+    for (let depth = 1; depth > 0; depth += closing[1] ? -1 : 1) {
+      closing = edge.exec(source);
+      if (!closing) throw new Error(`the example "${id}" has no end tag`);
+    }
+    examples.push({
+      id,
+      title: attrs["data-title"] ?? null,
+      state: attrs["data-state"] ?? null,
+      dont: attrs["data-dont"] ?? null,
+      reason: attrs["data-reason"] ?? null,
+      markup: dedent(source.slice(bodyStart, closing.index)),
+      html: source.slice(at, edge.lastIndex).trim(),
+    });
+    at = edge.lastIndex;
+  }
+  if (source.slice(at).replace(/<!--[\s\S]*?-->/g, "").trim() !== "") {
+    throw new Error("examples.html holds markup outside an element with data-example");
+  }
+  return examples;
+}
+
+// Icons a component draws: sprite references in its examples and single files its stylesheet uses as masks.
+function iconsIn(css, examples) {
+  const names = [
+    ...[...withoutComments(css).matchAll(/url\("icons\/([\w-]+)\.svg"\)/g)].map(([, name]) => name),
+    ...examples.flatMap((example) => [...example.html.matchAll(/icons\.svg#gw-icon-([\w-]+)/g)].map(([, name]) => name)),
+  ];
+  return [...new Set(names)].sort();
+}
+
+const same = (a, b) => JSON.stringify([...a].sort()) === JSON.stringify([...b].sort());
+
+function checkComponent(name, { meta, css, examples }, iconNames, kind = "component") {
+  if (kind === "pattern" && meta.kind !== "pattern") throw new Error('meta.json of a pattern needs "kind": "pattern"');
+  if (kind === "component" && meta.kind !== undefined && meta.kind !== "component") {
+    throw new Error(`meta.json has the kind "${meta.kind}". A folder in components/ is a component. A pattern goes in patterns/`);
+  }
+  for (const [field, type] of Object.entries(COMPONENT_FIELDS)) {
+    const present = type === "list" ? Array.isArray(meta[field]) : typeof meta[field] === "string" && meta[field] !== "";
+    if (!present) throw new Error(`meta.json needs ${field} as ${type === "list" ? "a list" : "text"}`);
+  }
+  if (meta.name !== name) throw new Error(`meta.json has the name "${meta.name}", which is not the folder name`);
+  if (!STATUSES.includes(meta.status)) throw new Error(`meta.json has the status "${meta.status}". It is ${STATUSES.join(" or ")}`);
+
+  if (!withoutComments(css).includes("@layer gw.components")) throw new Error(`${name}.css must put its rules in @layer gw.components`);
+  const defined = classesIn(css);
+  const foreign = defined.filter((item) => item !== `gw-${name}` && !/^(?:__|--)/.test(item.slice(`gw-${name}`.length)));
+  if (foreign.length > 0) {
+    throw new Error(`${name}.css defines ${foreign.join(", ")}. Its classes are gw-${name}, gw-${name}__part and gw-${name}--variant`);
+  }
+  const unlisted = defined.filter((item) => !meta.classes.includes(item));
+  const undefinedClasses = meta.classes.filter((item) => !defined.includes(item));
+  if (unlisted.length > 0) throw new Error(`${name}.css defines ${unlisted.join(", ")}, which the classes list in meta.json leaves out`);
+  if (undefinedClasses.length > 0) throw new Error(`meta.json lists ${undefinedClasses.join(", ")}, which ${name}.css does not define`);
+
+  const ids = examples.map((example) => example.id);
+  const repeated = ids.find((id, index) => ids.indexOf(id) !== index);
+  if (repeated) throw new Error(`examples.html has two examples named "${repeated}"`);
+  for (const example of examples) {
+    if (!example.title) throw new Error(`the example "${example.id}" needs data-title`);
+    if (example.dont && !example.reason) throw new Error(`the don't example "${example.id}" needs data-reason`);
+  }
+  const dos = examples.filter((example) => !example.dont);
+  if (dos.length === 0) throw new Error("examples.html needs at least one do example");
+  if (dos.length === examples.length) throw new Error("examples.html needs at least one don't example, marked with data-dont");
+  if (!dos.some((example) => example.reason)) throw new Error("one do example needs data-reason, to pair with the don't example");
+  for (const state of meta.states) {
+    if (!dos.some((example) => example.state === state)) {
+      throw new Error(`the state "${state}" in meta.json has no do example with data-state="${state}"`);
+    }
+  }
+
+  const used = iconsIn(css, examples);
+  const unknown = used.filter((icon) => !iconNames.includes(icon));
+  if (unknown.length > 0) throw new Error(`uses the icon ${unknown.join(", ")}, which base/icons.json does not list`);
+  if (!same(used, meta.icons)) throw new Error(`meta.json lists the icons [${meta.icons.join(", ")}], and the stylesheet and examples use [${used.join(", ")}]`);
+}
+
+// Every folder of one kind, read and checked against the authoring contract: [{ name, meta, css, examples }].
+// An error names the folder.
+function readFolders(root, kind) {
+  const dir = KINDS[kind];
+  if (!existsSync(join(root, dir))) return [];
+  const iconNames = JSON.parse(readFileSync(join(root, "base", "icons.json"), "utf8"));
+  const folders = readdirSync(join(root, dir), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort();
+  return folders.map((name) => {
+    try {
+      const read = (file) => {
+        const path = join(root, dir, name, file);
+        if (!existsSync(path)) throw new Error(`${file} is missing. A ${kind} is ${name}.css, examples.html and meta.json`);
+        return readFileSync(path, "utf8");
+      };
+      const folder = { name, meta: JSON.parse(read("meta.json")), css: read(`${name}.css`), examples: parseExamples(read("examples.html")) };
+      checkComponent(name, folder, iconNames, kind);
+      return folder;
+    } catch (error) {
+      throw new Error(`${dir}/${name}: ${error.message}`);
+    }
+  });
+}
+
+// Every component folder.
+export function readComponents(root = repoRoot) {
+  return readFolders(root, "component");
+}
+
+// Every page pattern folder. A pattern shares the gallery, the class list and the index with the components,
+// so it cannot take the name of one.
+export function readPatterns(root = repoRoot) {
+  const taken = new Set(readdirSync(join(root, KINDS.component)));
+  const patterns = readFolders(root, "pattern");
+  for (const { name } of patterns) {
+    if (taken.has(name)) throw new Error(`patterns/${name}: components/${name} has the same name. A component and a pattern cannot share one`);
+  }
+  return patterns;
+}
+
+// One entry per component and one per pattern: its metadata and the markup of each do example, for an agent to copy.
+// Components keep their own list, so a reader of `components` sees what it always has. A pattern entry also says
+// "kind": "pattern".
+function componentIndex(components, patterns) {
+  const entry = ({ meta, examples }) => ({
+    ...Object.fromEntries(Object.keys(COMPONENT_FIELDS).map((field) => [field, meta[field]])),
+    ...(meta.kind === "pattern" && { kind: "pattern" }),
+    examples: examples
+      .filter((example) => !example.dont)
+      .map(({ id, title, state, reason, markup }) => ({ id, title, ...(state && { state }), ...(reason && { reason }), markup })),
+  });
+  return { components: components.map(entry), patterns: patterns.map(entry) };
+}
+
+const galleryIcon = (name) => `<svg aria-hidden="true"><use href="../icons.svg#gw-icon-${name}"></use></svg>`;
+
+// Every gallery page loads each behaviour module, so an example wrapped in one of their elements works.
+function galleryPage(title, body, behaviors) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${escapeHtml(title)}</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+${behaviors.map((name) => `<script type="module" src="../behaviors/${name}"></script>`).join("\n")}
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+${body}
+</main>
+</body>
+</html>
+`;
+}
+
+const galleryList = (items) => `<ul>\n${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("\n")}\n</ul>`;
+
+// A do example with a reason and a don't example each get a verdict. Any other example is a plain specimen.
+function galleryExample(example) {
+  const kind = example.dont ? "dont" : example.reason ? "do" : "specimen";
+  const verdict = { do: `${galleryIcon("check")}Do`, dont: `${galleryIcon("x")}Don't` }[kind];
+  const caught = example.dont === "review" ? "Caught in review, not by the checker." : `Checker rule: <code>${escapeHtml(example.dont ?? "")}</code>`;
+  return [
+    `<figure data-gallery="${kind}">`,
+    "<figcaption>",
+    `<h3>${verdict ? `<span data-gallery="verdict">${verdict}</span> ` : ""}${escapeHtml(example.title)}</h3>`,
+    ...(example.state ? [`<p data-gallery="state">State: <code>${escapeHtml(example.state)}</code></p>`] : []),
+    ...(example.reason ? [`<p>${escapeHtml(example.reason)}</p>`] : []),
+    ...(example.dont ? [`<p>${caught}</p>`] : []),
+    "</figcaption>",
+    // An example names the sprite as it sits in dist/. A gallery page is one directory down.
+    example.html.replaceAll('"icons.svg#', '"../icons.svg#'),
+    "</figure>",
+  ].join("\n");
+}
+
+// A pattern is a whole screen, so its examples run down the page in one column. A component's sit two abreast.
+function galleryComponent({ meta, examples }, behaviors) {
+  const columns = meta.kind === "pattern" ? "gw-grid" : "gw-grid gw-grid-2";
+  const options = (heading, items) =>
+    items.length === 0
+      ? []
+      : [
+          `<section>\n<h2>${heading}</h2>\n<dl>`,
+          ...items.map(
+            (item) => `<dt>${escapeHtml(item.name)}${item.class ? ` <code>${escapeHtml(item.class)}</code>` : ""}</dt>\n<dd>${escapeHtml(item.use)}</dd>`,
+          ),
+          "</dl>\n</section>",
+        ];
+  return galleryPage(`${meta.title} - Groundwork gallery`, [
+    `<header>\n<h1>${escapeHtml(meta.title)}</h1>\n<p>${escapeHtml(meta.purpose)}</p>\n<p data-gallery="status">Status: ${meta.status}</p>\n</header>`,
+    `<section>\n<h2>Examples</h2>\n<div class="${columns}">\n${examples.map(galleryExample).join("\n")}\n</div>\n</section>`,
+    `<div class="gw-grid gw-grid-2">`,
+    `<section>\n<h2>When to use it</h2>\n${galleryList(meta.whenToUse)}\n</section>`,
+    `<section>\n<h2>When not to use it</h2>\n${galleryList(meta.whenNotToUse)}\n</section>`,
+    ...options("Variants", meta.variants),
+    ...options("Sizes", meta.sizes),
+    `<section>\n<h2>Accessibility</h2>\n${galleryList(meta.accessibility)}\n</section>`,
+    `<section>\n<h2>Classes</h2>\n<ul>\n${meta.classes.map((item) => `<li><code>${escapeHtml(item)}</code></li>`).join("\n")}\n</ul>\n</section>`,
+    "</div>",
+  ].join("\n"), behaviors);
+}
+
+function galleryIndex(components, patterns, behaviors) {
+  const rows = (folders) =>
+    folders.map(
+      ({ name, meta }) =>
+        `<li><a href="${name}.html">${escapeHtml(meta.title)}</a> <span>${escapeHtml(meta.purpose)}</span> <span data-gallery="status">${meta.status}</span></li>`,
+    );
+  return galleryPage("Groundwork gallery", [
+    "<header>\n<h1>Components</h1>\n<p>Each page shows a component in every variant and state, with a do and a don't.</p>\n</header>",
+    `<ul data-gallery="index">\n${rows(components).join("\n")}\n</ul>`,
+    ...(patterns.length === 0
+      ? []
+      : [
+          "<header>\n<h2>Page patterns</h2>\n<p>Each page shows a whole screen composed from the components, in every state, with a do and a don't.</p>\n</header>",
+          `<ul data-gallery="index">\n${rows(patterns).join("\n")}\n</ul>`,
+        ]),
+  ].join("\n"), behaviors);
 }
 
 // Every file under dir, as a path relative to it with forward slashes.
@@ -371,20 +689,49 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   const baseStyles = BASE_STYLES.map((name) => readFileSync(join(base, name), "utf8"));
   const iconNames = JSON.parse(readFileSync(join(base, "icons.json"), "utf8"));
   const icons = Object.fromEntries(iconNames.map((name) => [name, readFileSync(join(base, "icons", `${name}.svg`))]));
+  const components = readComponents(root);
+  const patterns = readPatterns(root);
+  const folders = [...components, ...patterns];
+  const classes = [...new Set([...baseStyles.flatMap(classesIn), ...folders.flatMap(({ meta }) => meta.classes)])].sort();
+  const behaviors = listFiles(join(root, "behaviors"));
+  const modules = behaviors.filter((name) => name.endsWith(".js"));
+  const checker = join(root, "checker");
+  const { version } = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
+  const coreRules = readFileSync(join(root, "rules", "core.md"), "utf8");
+  if (coreRules.length > CORE_RULES_LIMIT) {
+    throw new Error(`rules/core.md is ${coreRules.length} characters. The limit is ${CORE_RULES_LIMIT}. Move detail to another rules file.`);
+  }
 
   const files = {
     "tokens.css": source,
-    "groundwork.css": [source, ...baseStyles].join("\n"),
+    // Patterns come after every component, so a pattern's layout wins over a component it arranges.
+    "groundwork.css": [source, ...baseStyles, ...folders.map(({ css }) => css)].join("\n"),
     "icons.svg": sprite(icons),
     "icons/LICENSE": readFileSync(join(base, "icons", "LICENSE")),
     "tokens.json": json(tokenData(groups, tokens)),
     "tailwind-preset.js": `export default ${JSON.stringify(preset, null, 2)};\n`,
     "tailwind-preset.d.ts": presetTypes(preset),
     "design-tokens.md": designTokens(groups, tokens),
-    "manifest.json": json(manifest(groups, tokens)),
+    "manifest.json": json(manifest(groups, tokens, classes, ruleIds(checker))),
+    "components.json": json(componentIndex(components, patterns)),
+    "gallery/index.html": galleryIndex(components, patterns, modules),
+    VERSION: `${version}\n`,
   };
+  for (const folder of folders) files[`gallery/${folder.name}.html`] = galleryComponent(folder, modules);
+  for (const name of GALLERY_FILES) files[`gallery/${name}`] = readFileSync(join(root, "gallery", name));
   for (const [name, svg] of Object.entries(icons)) files[`icons/${name}.svg`] = svg;
   for (const name of Object.keys(FONT_SOURCES)) files[`fonts/${name}`] = readFileSync(join(base, "fonts", name));
+  // The checker ships as source: it has no dependencies and reads the manifest one directory up.
+  for (const name of listFiles(checker).filter((file) => file.endsWith(".mjs"))) {
+    files[`checker/${name}`] = readFileSync(join(checker, name));
+  }
+  files["check-dom.js"] = domBundle(checker, tokens.light[groups.size.column]);
+  for (const name of listFiles(join(root, "rules")).filter((file) => file.endsWith(".md"))) {
+    files[`rules/${name}`] = readFileSync(join(root, "rules", name));
+  }
+  // The optional behaviour modules, for an app without a framework.
+  for (const name of behaviors) files[`behaviors/${name}`] = readFileSync(join(root, "behaviors", name));
+  for (const name of listFiles(join(root, "hooks"))) files[`hooks/${name}`] = readFileSync(join(root, "hooks", name));
 
   rmSync(outDir, { recursive: true, force: true });
   for (const [name, content] of Object.entries(files)) {

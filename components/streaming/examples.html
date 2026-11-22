@@ -1,0 +1,43 @@
+<div data-example="default" data-title="Mark and words" data-state="default" data-reason="The words say what is happening, and role=&quot;status&quot; announces them. The mark only shows that the page is not stuck.">
+  <p class="gw-streaming" role="status">Working…</p>
+</div>
+
+<div data-example="named" data-title="Saying who is working, and stopping">
+  <div class="gw-stack">
+    <p class="gw-streaming" role="status">Claude Code is working.</p>
+    <p class="gw-streaming" role="status">Stopping the turn.</p>
+  </div>
+</div>
+
+<div data-example="detail" data-title="With figures that change">
+  <p class="gw-streaming">
+    <span role="status">Claude Code is working.</span>
+    <span class="gw-streaming__detail">42s, 3 tool calls</span>
+  </p>
+</div>
+
+<div data-example="row" data-title="As the last row of a transcript">
+  <ol class="gw-stack gw-gap-sm">
+    <li class="gw-message gw-message--user">
+      <span class="gw-message__label">You</span>
+      <p class="gw-message__body">Run the auth tests and tell me what fails.</p>
+    </li>
+    <li class="gw-message gw-message--tool-call">
+      <span class="gw-message__label">Tool call</span>
+      <span class="gw-message__tool">Bash</span>
+      <code class="gw-message__command">npm run test -- --run src/auth</code>
+    </li>
+    <li class="gw-streaming gw-streaming--row"><span role="status">Claude Code is working.</span></li>
+  </ol>
+</div>
+
+<div data-example="with-stop" data-title="Beside the control that stops it">
+  <div class="gw-split">
+    <p class="gw-streaming" role="status">Running the auth tests…</p>
+    <button type="button" class="gw-button gw-button--small">Stop</button>
+  </div>
+</div>
+
+<div data-example="mark-only" data-title="The mark with no words" data-dont="review" data-reason="A turning mark alone says nothing to a screen reader and nothing to anyone once motion is reduced. The reader cannot tell what is running or whether it has stalled.">
+  <p class="gw-streaming" role="status"></p>
+</div>

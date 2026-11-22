@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search field - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Search field</h1>
+<p>A search input with a search icon, an optional clear button and a line that counts the results.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Visible label, placeholder hint and a count</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The label says what is searched and stays visible while the reader types. The placeholder only hints at what can be typed, and the line below already tells them how much there is to search.</p>
+</figcaption>
+<div data-example="default" data-title="Visible label, placeholder hint and a count" data-state="default" data-reason="The label says what is searched and stays visible while the reader types. The placeholder only hints at what can be typed, and the line below already tells them how much there is to search.">
+  <form class="gw-search-field" role="search" aria-label="Runs">
+    <label class="gw-search-field__label" for="search-field-default-input">Search runs</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-default-input" name="q" placeholder="Branch, task or run number" autocomplete="off">
+    </div>
+    <p class="gw-search-field__count" aria-live="polite">128 runs</p>
+  </form>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a value, a clear button and a count</h3>
+<p data-gallery="state">State: <code>filled</code></p>
+</figcaption>
+<div data-example="filled" data-title="With a value, a clear button and a count" data-state="filled">
+  <form class="gw-search-field" role="search" aria-label="Runs matching a search">
+    <label class="gw-search-field__label" for="search-field-filled-input">Search runs</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-filled-input" name="q" placeholder="Branch, task or run number" autocomplete="off" value="session">
+      <button type="button" class="gw-search-field__clear"><span class="gw-visually-hidden">Clear the search</span></button>
+    </div>
+    <p class="gw-search-field__count" aria-live="polite">3 of 128 runs match "session"</p>
+  </form>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A visually hidden label, with no clear button</h3>
+</figcaption>
+<div data-example="hidden-label" data-title="A visually hidden label, with no clear button">
+  <div class="gw-search-field">
+    <label class="gw-search-field__label gw-visually-hidden" for="search-field-hidden-label-input">Filter changed files</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-hidden-label-input" name="file" placeholder="Filter changed files" autocomplete="off" value="src/auth">
+    </div>
+    <p class="gw-search-field__count" aria-live="polite">4 of 12 changed files</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Focus</h3>
+<p data-gallery="state">State: <code>focus</code></p>
+</figcaption>
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-search-field">
+    <label class="gw-search-field__label" for="search-field-focus-input">Search branches</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-focus-input" name="branch" placeholder="Branch name" autocomplete="off" value="fix/">
+    </div>
+    <p class="gw-search-field__count" aria-live="polite">7 of 41 branches match "fix/"</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Searching</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="Searching" data-state="loading">
+  <div class="gw-search-field">
+    <label class="gw-search-field__label" for="search-field-loading-input">Search the transcript</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-loading-input" name="q" placeholder="A command, a path or a phrase" autocomplete="off" value="npm run test">
+    </div>
+    <p class="gw-search-field__count" aria-live="polite">Searching 2,140 messages</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>No results</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="No results" data-state="empty">
+  <div class="gw-search-field">
+    <label class="gw-search-field__label" for="search-field-empty-input">Search runs</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-empty-input" name="q" placeholder="Branch, task or run number" autocomplete="off" value="sesion-refresh">
+    </div>
+    <p class="gw-search-field__count" aria-live="polite">No runs match "sesion-refresh". Check the spelling, or clear the search to see all 128 runs.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-search-field">
+    <label class="gw-search-field__label" for="search-field-disabled-input">Search runs</label>
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" id="search-field-disabled-input" name="q" placeholder="Branch, task or run number" autocomplete="off" disabled aria-describedby="search-field-disabled-count">
+    </div>
+    <p class="gw-search-field__count" id="search-field-disabled-count">Choose a repository to search its runs.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A placeholder as the only label</h3>
+<p>The placeholder goes with the first character, and a screen reader may not announce it. Keep a label element, visible or visually hidden, tied to the input.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="placeholder-label" data-title="A placeholder as the only label" data-dont="review" data-reason="The placeholder goes with the first character, and a screen reader may not announce it. Keep a label element, visible or visually hidden, tied to the input.">
+  <div class="gw-search-field">
+    <div class="gw-search-field__box">
+      <input class="gw-field__control gw-search-field__input" type="search" name="q" placeholder="Search runs" autocomplete="off">
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>To search or filter a list the reader can see, such as runs, branches or changed files.</li>
+<li>At the top of the list it filters, with the count line between the field and the results.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For any other text value, such as a branch name to create. Use a field.</li>
+<li>To pick one of a known, short set. Use a select or a segmented control.</li>
+<li>As the only way to reach an item. The list stays browsable without a search.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>visible label</dt>
+<dd>The default. A label with gw-search-field__label above the input.</dd>
+<dt>hidden label</dt>
+<dd>The same label with gw-visually-hidden added, where the list's heading already says what is searched. The label element stays in the markup.</dd>
+<dt>with a clear button</dt>
+<dd>A button with gw-search-field__clear after the input. Leave it out where the field is cleared some other way.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use input type=&quot;search&quot; carrying gw-field__control and gw-search-field__input, inside a div with gw-search-field__box. The search icon is drawn by the stylesheet and needs no markup.</li>
+<li>Every search field has a label element with gw-search-field__label tied to the input by for and id. Add gw-visually-hidden to hide it from sight. A placeholder is a hint, never the label.</li>
+<li>The outer element with gw-search-field is a form with role=&quot;search&quot; and an aria-label when it is the search for the page, and a plain div when it filters one list in place. Give each search landmark on a page a different label.</li>
+<li>The clear button is a button with gw-search-field__clear, placed after the input, holding its name in a span with gw-visually-hidden, such as Clear the search. Its cross is drawn by the stylesheet and its target is 44px square.</li>
+<li>With type=&quot;reset&quot; inside a form the clear button needs no script, as long as the form is served with an empty value. Otherwise use type=&quot;button&quot;, and the app empties the input and moves focus back to it.</li>
+<li>The clear button is hidden while the input is empty. That relies on the input having a placeholder attribute: give it hint text, or a single space where no hint is wanted.</li>
+<li>The count line is a p with gw-search-field__count and aria-live=&quot;polite&quot;. Keep it in the page from the start, and change only its text when the results change, after the reader pauses typing, so a screen reader announces the new count without losing focus. It gives a number and its unit, such as 3 of 128 runs match &quot;session&quot;.</li>
+<li>While results load, the count line says what is being searched. With no results it says so, repeats the query and says what to try next. The stylesheet has no styling of its own for either.</li>
+<li>When the input is disabled, say why in the count line and link it with aria-describedby. Leave aria-live off a line that never changes.</li>
+<li>Tab reaches the input and then the clear button. Escape clears the input in browsers that support it for a search input, and Enter submits the form.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-search-field</code></li>
+<li><code>gw-search-field__box</code></li>
+<li><code>gw-search-field__clear</code></li>
+<li><code>gw-search-field__count</code></li>
+<li><code>gw-search-field__input</code></li>
+<li><code>gw-search-field__label</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

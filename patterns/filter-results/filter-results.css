@@ -1,0 +1,31 @@
+/*
+ * Filter and results: a filter bar above the list or table it narrows.
+ * The page stacks the bar, the filters in force, the count and the results. From 768px the search
+ * field and the filters share one row, with the search field taking the most room.
+ */
+
+@layer gw.components {
+  .gw-filter-results {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+  }
+
+  .gw-filter-results__bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: var(--gw-space-md);
+  }
+
+  @media (min-width: 768px) {
+    .gw-filter-results__bar {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+
+  /* The count in words, directly above the results it counts. */
+  .gw-filter-results__count {
+    font-weight: var(--gw-weight-medium);
+  }
+}

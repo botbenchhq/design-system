@@ -1,0 +1,35 @@
+{
+  "name": "multi-step-form",
+  "title": "Multi-step form",
+  "kind": "pattern",
+  "purpose": "A longer task split into steps shown one at a time: which step this is in words, the step's fields, Back and one primary action, and a review step before the final action.",
+  "status": "draft",
+  "whenToUse": [
+    "For a task with more fields than fit one view comfortably, where later steps depend on earlier answers, such as choosing a repository before writing the task.",
+    "When the final action is costly or hard to undo, so the reader should see everything they chose before it runs.",
+    "For three to five steps. Each step is its own address, so the browser's back button and a reload both work."
+  ],
+  "whenNotToUse": [
+    "For a form that fits one view. Use fields and a button group on one page, and put rarely changed fields in one advanced disclosure.",
+    "For one question or one field. Use a dialog.",
+    "For settings the reader changes one at a time. Use the settings page.",
+    "For sections the reader may fill in any order. Use one page with headings."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "error", "review"],
+  "accessibility": [
+    "In an app the element with gw-multi-step-form is the main element. The h1 names the whole task and is the same on every step. Each step is one form, with an h2 that names the step.",
+    "gw-multi-step-form__step is a p directly above the h2 that reads Step 2 of 4, in words. When a step loads, move focus to the h2, which takes tabindex=\"-1\", so a screen reader reads the step's name, and put the step in the document title.",
+    "To show the named steps above the form, with the completed and current ones marked, use the stepper component. Keep the step line in words as well.",
+    "Every step ends with a button group. The secondary action comes first: Back, a link to the previous step that keeps what was typed, or Cancel on the first step. The primary action comes last: Continue on every step but the last.",
+    "The last step is the review. It shows every answer in a key-value list, in the order the steps asked for them, then one sentence on what the final action does. Its primary button is a specific verb and what it acts on, such as Start task, never Submit or Finish.",
+    "Validate a step when it is sent. Keep the reader on the step, add an alert with role=\"alert\" above the fields whose title counts the fields to fix and whose body names them, mark each field with aria-invalid=\"true\" and its own error message, and move focus to the first invalid field.",
+    "A field's error says how to fix the value. Remove the error and aria-invalid when the value is fixed, and remove the alert when none is left.",
+    "While a step is sent, set aria-busy=\"true\" on the primary button and change its label to say what is happening, such as Starting task.",
+    "Nothing the reader must fill in sits inside a closed disclosure. A step may hold one advanced disclosure for optional fields that have defaults.",
+    "Tab moves through the fields in order, then Back, then the primary action. Enter in a text input sends the step. The pattern needs no script of its own."
+  ],
+  "icons": [],
+  "classes": ["gw-multi-step-form", "gw-multi-step-form__step"]
+}

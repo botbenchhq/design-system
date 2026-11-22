@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tabs - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Tabs</h1>
+<p>A row of tabs that switches between panels of one view, showing one panel at a time.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Three panels of one run</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The tabs name what each panel holds, and the selected one is marked by a bar and a heavier label as well as by colour. The markup already says which tab is selected and which panels are hidden, so the first paint is right before any script runs.</p>
+</figcaption>
+<div data-example="default" data-title="Three panels of one run" data-state="default" data-reason="The tabs name what each panel holds, and the selected one is marked by a bar and a heavier label as well as by colour. The markup already says which tab is selected and which panels are hidden, so the first paint is right before any script runs.">
+  <gw-tabs class="gw-tabs">
+    <div class="gw-tabs__list" role="tablist" aria-label="Run 4182">
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-default-tab-summary" aria-controls="tabs-default-panel-summary" aria-selected="true">Summary</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-default-tab-diff" aria-controls="tabs-default-panel-diff" aria-selected="false">Diff</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-default-tab-log" aria-controls="tabs-default-panel-log" aria-selected="false">Log</button>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-default-panel-summary" aria-labelledby="tabs-default-tab-summary" tabindex="0">
+      <p>Run 4182 finished in 6 minutes 12 seconds on <code>fix/login-timeout</code>. 213 of 213 tests passed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-default-panel-diff" aria-labelledby="tabs-default-tab-diff" tabindex="0" hidden>
+      <p>3 files changed in <code>src/session/</code>, with 32 lines added and 5 removed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-default-panel-log" aria-labelledby="tabs-default-tab-log" tabindex="0" hidden>
+      <p>The log holds 412 lines. The last one is <code>tests 213, pass 213, fail 0</code>.</p>
+    </div>
+  </gw-tabs>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Another tab selected</h3>
+<p data-gallery="state">State: <code>selected</code></p>
+</figcaption>
+<div data-example="selected" data-title="Another tab selected" data-state="selected">
+  <gw-tabs class="gw-tabs">
+    <div class="gw-tabs__list" role="tablist" aria-label="Run 4183">
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-selected-tab-summary" aria-controls="tabs-selected-panel-summary" aria-selected="false">Summary</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-selected-tab-diff" aria-controls="tabs-selected-panel-diff" aria-selected="true">Diff</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-selected-tab-log" aria-controls="tabs-selected-panel-log" aria-selected="false">Log</button>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-selected-panel-summary" aria-labelledby="tabs-selected-tab-summary" tabindex="0" hidden>
+      <p>Run 4182 finished in 6 minutes 12 seconds on <code>fix/login-timeout</code>. 213 of 213 tests passed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-selected-panel-diff" aria-labelledby="tabs-selected-tab-diff" tabindex="0">
+      <p>3 files changed in <code>src/session/</code>, with 32 lines added and 5 removed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-selected-panel-log" aria-labelledby="tabs-selected-tab-log" tabindex="0" hidden>
+      <p>The log holds 412 lines. The last one is <code>tests 213, pass 213, fail 0</code>.</p>
+    </div>
+  </gw-tabs>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>More tabs than fit: the row scrolls inside itself</h3>
+</figcaption>
+<div data-example="scrolling" data-title="More tabs than fit: the row scrolls inside itself">
+  <gw-tabs class="gw-tabs">
+    <div class="gw-tabs__list" role="tablist" aria-label="Run 4184">
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-scrolling-tab-summary" aria-controls="tabs-scrolling-panel-summary" aria-selected="true">Summary</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-scrolling-tab-diff" aria-controls="tabs-scrolling-panel-diff" aria-selected="false">Diff</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-scrolling-tab-log" aria-controls="tabs-scrolling-panel-log" aria-selected="false">Log</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-scrolling-tab-checks" aria-controls="tabs-scrolling-panel-checks" aria-selected="false">Checks</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-scrolling-tab-commands" aria-controls="tabs-scrolling-panel-commands" aria-selected="false">Commands</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-scrolling-tab-environment" aria-controls="tabs-scrolling-panel-environment" aria-selected="false">Environment</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-scrolling-tab-approvals" aria-controls="tabs-scrolling-panel-approvals" aria-selected="false">Approvals</button>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-scrolling-panel-summary" aria-labelledby="tabs-scrolling-tab-summary" tabindex="0">
+      <p>Run 4182 finished in 6 minutes 12 seconds on <code>fix/login-timeout</code>. 213 of 213 tests passed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-scrolling-panel-diff" aria-labelledby="tabs-scrolling-tab-diff" tabindex="0" hidden>
+      <p>3 files changed in <code>src/session/</code>, with 32 lines added and 5 removed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-scrolling-panel-log" aria-labelledby="tabs-scrolling-tab-log" tabindex="0" hidden>
+      <p>The log holds 412 lines. The last one is <code>tests 213, pass 213, fail 0</code>.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-scrolling-panel-checks" aria-labelledby="tabs-scrolling-tab-checks" tabindex="0" hidden>
+      <p>7 of 12 checks passed. 5 are still running.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-scrolling-panel-commands" aria-labelledby="tabs-scrolling-tab-commands" tabindex="0" hidden>
+      <p>The run used 4 commands: npm ci, npm test, git add and git commit.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-scrolling-panel-environment" aria-labelledby="tabs-scrolling-tab-environment" tabindex="0" hidden>
+      <p>Node 24 in <code>/srv/workspaces/acme-api</code>, with 2 variables set.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-scrolling-panel-approvals" aria-labelledby="tabs-scrolling-tab-approvals" tabindex="0" hidden>
+      <p>1 approval was asked for and allowed: <code>git push origin fix/login-timeout</code>.</p>
+    </div>
+  </gw-tabs>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Without the element: the app sets the attributes</h3>
+<p>A React or Alpine app renders a plain div and sets aria-selected, tabindex and hidden itself. The classes and the result are the same, because the styles read only those attributes.</p>
+</figcaption>
+<div data-example="app-set" data-title="Without the element: the app sets the attributes" data-reason="A React or Alpine app renders a plain div and sets aria-selected, tabindex and hidden itself. The classes and the result are the same, because the styles read only those attributes.">
+  <div class="gw-tabs">
+    <div class="gw-tabs__list" role="tablist" aria-label="Run 4185">
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-app-set-tab-summary" aria-controls="tabs-app-set-panel-summary" aria-selected="false" tabindex="-1">Summary</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-app-set-tab-diff" aria-controls="tabs-app-set-panel-diff" aria-selected="false" tabindex="-1">Diff</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-app-set-tab-log" aria-controls="tabs-app-set-panel-log" aria-selected="true" tabindex="0">Log</button>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-app-set-panel-summary" aria-labelledby="tabs-app-set-tab-summary" tabindex="0" hidden>
+      <p>Run 4182 finished in 6 minutes 12 seconds on <code>fix/login-timeout</code>. 213 of 213 tests passed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-app-set-panel-diff" aria-labelledby="tabs-app-set-tab-diff" tabindex="0" hidden>
+      <p>3 files changed in <code>src/session/</code>, with 32 lines added and 5 removed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-app-set-panel-log" aria-labelledby="tabs-app-set-tab-log" tabindex="0">
+      <p>The log holds 412 lines. The last one is <code>tests 213, pass 213, fail 0</code>.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A panel that is being fetched</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="A panel that is being fetched" data-state="loading">
+  <gw-tabs class="gw-tabs">
+    <div class="gw-tabs__list" role="tablist" aria-label="Run 4186">
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-loading-tab-summary" aria-controls="tabs-loading-panel-summary" aria-selected="false">Summary</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-loading-tab-diff" aria-controls="tabs-loading-panel-diff" aria-selected="false">Diff</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-loading-tab-log" aria-controls="tabs-loading-panel-log" aria-selected="true">Log</button>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-loading-panel-summary" aria-labelledby="tabs-loading-tab-summary" tabindex="0" hidden>
+      <p>Run 4182 finished in 6 minutes 12 seconds on <code>fix/login-timeout</code>. 213 of 213 tests passed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-loading-panel-diff" aria-labelledby="tabs-loading-tab-diff" tabindex="0" hidden>
+      <p>3 files changed in <code>src/session/</code>, with 32 lines added and 5 removed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-loading-panel-log" aria-labelledby="tabs-loading-tab-log" tabindex="0" aria-busy="true">
+      <p class="gw-spinner" role="status">Reading the log of run 4186</p>
+    </div>
+  </gw-tabs>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A panel with nothing in it yet</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="A panel with nothing in it yet" data-state="empty">
+  <gw-tabs class="gw-tabs">
+    <div class="gw-tabs__list" role="tablist" aria-label="Run 4187">
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-empty-tab-summary" aria-controls="tabs-empty-panel-summary" aria-selected="false">Summary</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-empty-tab-diff" aria-controls="tabs-empty-panel-diff" aria-selected="true">Diff</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-empty-tab-log" aria-controls="tabs-empty-panel-log" aria-selected="false">Log</button>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-empty-panel-summary" aria-labelledby="tabs-empty-tab-summary" tabindex="0" hidden>
+      <p>Run 4182 finished in 6 minutes 12 seconds on <code>fix/login-timeout</code>. 213 of 213 tests passed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-empty-panel-diff" aria-labelledby="tabs-empty-tab-diff" tabindex="0">
+      <p>No files changed yet. The diff appears here after the first commit of run 4187.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-empty-panel-log" aria-labelledby="tabs-empty-tab-log" tabindex="0" hidden>
+      <p>The log holds 412 lines. The last one is <code>tests 213, pass 213, fail 0</code>.</p>
+    </div>
+  </gw-tabs>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A panel that could not be fetched</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="A panel that could not be fetched" data-state="error">
+  <gw-tabs class="gw-tabs">
+    <div class="gw-tabs__list" role="tablist" aria-label="Run 4188">
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-error-tab-summary" aria-controls="tabs-error-panel-summary" aria-selected="false">Summary</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-error-tab-diff" aria-controls="tabs-error-panel-diff" aria-selected="false">Diff</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-error-tab-log" aria-controls="tabs-error-panel-log" aria-selected="true">Log</button>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-error-panel-summary" aria-labelledby="tabs-error-tab-summary" tabindex="0" hidden>
+      <p>Run 4182 finished in 6 minutes 12 seconds on <code>fix/login-timeout</code>. 213 of 213 tests passed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-error-panel-diff" aria-labelledby="tabs-error-tab-diff" tabindex="0" hidden>
+      <p>3 files changed in <code>src/session/</code>, with 32 lines added and 5 removed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-error-panel-log" aria-labelledby="tabs-error-tab-log" tabindex="0">
+      <div class="gw-alert gw-alert--danger" role="alert">
+      <div class="gw-alert__content">
+        <p class="gw-alert__label">Error</p>
+        <p class="gw-alert__body">The log of run 4188 could not be read because runner build-03 did not answer. Select the Log tab again in a minute.</p>
+      </div>
+    </div>
+    </div>
+  </gw-tabs>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <gw-tabs class="gw-tabs">
+    <div class="gw-tabs__list" role="tablist" aria-label="Run 4189">
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-hover-tab-summary" aria-controls="tabs-hover-panel-summary" aria-selected="true">Summary</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-hover-tab-diff" aria-controls="tabs-hover-panel-diff" aria-selected="false">Diff</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-hover-tab-log" aria-controls="tabs-hover-panel-log" aria-selected="false">Log</button>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-hover-panel-summary" aria-labelledby="tabs-hover-tab-summary" tabindex="0">
+      <p>Run 4182 finished in 6 minutes 12 seconds on <code>fix/login-timeout</code>. 213 of 213 tests passed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-hover-panel-diff" aria-labelledby="tabs-hover-tab-diff" tabindex="0" hidden>
+      <p>3 files changed in <code>src/session/</code>, with 32 lines added and 5 removed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-hover-panel-log" aria-labelledby="tabs-hover-tab-log" tabindex="0" hidden>
+      <p>The log holds 412 lines. The last one is <code>tests 213, pass 213, fail 0</code>.</p>
+    </div>
+  </gw-tabs>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <gw-tabs class="gw-tabs">
+    <div class="gw-tabs__list" role="tablist" aria-label="Run 4190">
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-focus-visible-tab-summary" aria-controls="tabs-focus-visible-panel-summary" aria-selected="true">Summary</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-focus-visible-tab-diff" aria-controls="tabs-focus-visible-panel-diff" aria-selected="false">Diff</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-focus-visible-tab-log" aria-controls="tabs-focus-visible-panel-log" aria-selected="false">Log</button>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-focus-visible-panel-summary" aria-labelledby="tabs-focus-visible-tab-summary" tabindex="0">
+      <p>Run 4182 finished in 6 minutes 12 seconds on <code>fix/login-timeout</code>. 213 of 213 tests passed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-focus-visible-panel-diff" aria-labelledby="tabs-focus-visible-tab-diff" tabindex="0" hidden>
+      <p>3 files changed in <code>src/session/</code>, with 32 lines added and 5 removed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-focus-visible-panel-log" aria-labelledby="tabs-focus-visible-tab-log" tabindex="0" hidden>
+      <p>The log holds 412 lines. The last one is <code>tests 213, pass 213, fail 0</code>.</p>
+    </div>
+  </gw-tabs>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active">
+  <gw-tabs class="gw-tabs">
+    <div class="gw-tabs__list" role="tablist" aria-label="Run 4191">
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-active-tab-summary" aria-controls="tabs-active-panel-summary" aria-selected="true">Summary</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-active-tab-diff" aria-controls="tabs-active-panel-diff" aria-selected="false">Diff</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-active-tab-log" aria-controls="tabs-active-panel-log" aria-selected="false">Log</button>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-active-panel-summary" aria-labelledby="tabs-active-tab-summary" tabindex="0">
+      <p>Run 4182 finished in 6 minutes 12 seconds on <code>fix/login-timeout</code>. 213 of 213 tests passed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-active-panel-diff" aria-labelledby="tabs-active-tab-diff" tabindex="0" hidden>
+      <p>3 files changed in <code>src/session/</code>, with 32 lines added and 5 removed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-active-panel-log" aria-labelledby="tabs-active-tab-log" tabindex="0" hidden>
+      <p>The log holds 412 lines. The last one is <code>tests 213, pass 213, fail 0</code>.</p>
+    </div>
+  </gw-tabs>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A class for the selected tab</h3>
+<p>No tab carries aria-selected, so nothing is drawn as selected and a screen reader cannot say which panel is showing. The selected tab is marked with aria-selected and nothing else.</p>
+<p>Checker rule: <code>unknown-class</code></p>
+</figcaption>
+<div data-example="selected-class" data-title="A class for the selected tab" data-dont="unknown-class" data-reason="No tab carries aria-selected, so nothing is drawn as selected and a screen reader cannot say which panel is showing. The selected tab is marked with aria-selected and nothing else.">
+  <gw-tabs class="gw-tabs">
+    <div class="gw-tabs__list" role="tablist" aria-label="Run 4192">
+      <button type="button" class="gw-tabs__tab gw-tabs__tab--selected" role="tab" id="tabs-selected-class-tab-summary" aria-controls="tabs-selected-class-panel-summary">Summary</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-selected-class-tab-diff" aria-controls="tabs-selected-class-panel-diff">Diff</button>
+      <button type="button" class="gw-tabs__tab" role="tab" id="tabs-selected-class-tab-log" aria-controls="tabs-selected-class-panel-log">Log</button>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-selected-class-panel-summary" aria-labelledby="tabs-selected-class-tab-summary" tabindex="0">
+      <p>Run 4182 finished in 6 minutes 12 seconds on <code>fix/login-timeout</code>. 213 of 213 tests passed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-selected-class-panel-diff" aria-labelledby="tabs-selected-class-tab-diff" tabindex="0" hidden>
+      <p>3 files changed in <code>src/session/</code>, with 32 lines added and 5 removed.</p>
+    </div>
+    <div class="gw-tabs__panel" role="tabpanel" id="tabs-selected-class-panel-log" aria-labelledby="tabs-selected-class-tab-log" tabindex="0" hidden>
+      <p>The log holds 412 lines. The last one is <code>tests 213, pass 213, fail 0</code>.</p>
+    </div>
+  </gw-tabs>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Tabs that go to other screens</h3>
+<p>These are destinations, not panels of one view: each loads a different screen. Use links in the sidebar nav or the tab bar, with aria-current on the open one, and keep tabs for panels that share a view.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="as-navigation" data-title="Tabs that go to other screens" data-dont="review" data-reason="These are destinations, not panels of one view: each loads a different screen. Use links in the sidebar nav or the tab bar, with aria-current on the open one, and keep tabs for panels that share a view.">
+  <div class="gw-tabs">
+    <div class="gw-tabs__list" role="tablist" aria-label="Acme API">
+      <a class="gw-tabs__tab" role="tab" href="/runs" aria-selected="true">Runs</a>
+      <a class="gw-tabs__tab" role="tab" href="/tasks" aria-selected="false">Tasks</a>
+      <a class="gw-tabs__tab" role="tab" href="/branches" aria-selected="false">Branches</a>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For two to seven panels that belong to one thing, such as the summary, diff and log of a run, when the reader looks at one at a time.</li>
+<li>Wrapped in the gw-tabs element from behaviors/groundwork.js, which handles selection and the arrow keys.</li>
+<li>On a plain div with the same classes when the app, such as a React app, sets aria-selected, tabindex and hidden itself.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For moving between screens. Use the tab bar below 768px and the sidebar nav at 768px and up, with links and aria-current.</li>
+<li>For sections the reader may want open together or scan in one pass. Use an accordion or plain headings.</li>
+<li>For a choice that changes a setting or filters a list. Use a select.</li>
+<li>For one panel. Show the content with no tabs.</li>
+</ul>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>Each tab is 44px tall and as wide as its label, at least 44px. A row wider than its container scrolls sideways inside itself, at any width.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Markup: a gw-tabs element (or a div) with the gw-tabs class holds one gw-tabs__list with role=&quot;tablist&quot; and an aria-label, then one gw-tabs__panel per tab.</li>
+<li>Each tab is a button with type=&quot;button&quot;, role=&quot;tab&quot;, an id, and aria-controls naming its panel. Each panel has role=&quot;tabpanel&quot;, an id, aria-labelledby naming its tab, and tabindex=&quot;0&quot; so a panel of plain text can take focus.</li>
+<li>Write the first state in the markup: aria-selected=&quot;true&quot; on one tab and &quot;false&quot; on the rest, and the hidden attribute on every panel but the selected one. The page is then right before any script runs.</li>
+<li>What gw-tabs does: on connection and on every selection it sets aria-selected on each tab, tabindex=&quot;0&quot; on the selected tab and &quot;-1&quot; on the others, and hidden on every panel except the one the selected tab controls. A click selects a tab. It sets no class and no inline style.</li>
+<li>Keyboard, with gw-tabs: Tab moves into the row onto the selected tab, and Tab again moves to the panel. Left and Right move to the previous and next tab and select it, wrapping at the ends. Home selects the first tab and End the last.</li>
+<li>Without gw-tabs the app does the same: it sets those three attributes and handles click, Left, Right, Home and End. Nothing else is needed for the styles.</li>
+<li>The selected tab is marked by a bar and a heavier label as well as by colour. Never mark it with a class.</li>
+<li>Load behaviors/groundwork.js once as a module: &lt;script type=&quot;module&quot; src=&quot;behaviors/groundwork.js&quot;&gt;&lt;/script&gt;. Loading it twice is harmless.</li>
+<li>While a panel is fetched, set aria-busy=&quot;true&quot; on it and show a spinner with text. When the fetch fails, put an alert in the panel that says what to do.</li>
+<li>Keep labels to one or two words. A label is never cut: the row scrolls instead, and a tab that takes focus is scrolled into view.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-tabs</code></li>
+<li><code>gw-tabs__list</code></li>
+<li><code>gw-tabs__panel</code></li>
+<li><code>gw-tabs__tab</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

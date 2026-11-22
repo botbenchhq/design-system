@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Textarea - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Textarea</h1>
+<p>The multi-line control of a field, which grows with what the reader types.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Empty, at its minimum height</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>A prompt runs to several lines, so the control starts tall enough to show that and grows as the reader types. The label and description come from the field.</p>
+</figcaption>
+<div data-example="default" data-title="Empty, at its minimum height" data-state="default" data-reason="A prompt runs to several lines, so the control starts tall enough to show that and grows as the reader types. The label and description come from the field.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-default-prompt">Prompt <span class="gw-field__required">required</span></label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-default-prompt" name="prompt" required aria-describedby="textarea-default-description"></textarea>
+    <p class="gw-field__description" id="textarea-default-description">Say what to change and how to tell that it worked.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Grown to fit its content</h3>
+</figcaption>
+<div data-example="grown" data-title="Grown to fit its content">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-grown-prompt">Prompt <span class="gw-field__required">required</span></label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-grown-prompt" name="prompt" required>The login page signs people out after 30 seconds when the API is slow.
+
+Raise the session request timeout to 10 seconds and retry once before showing an error.
+
+Add a test that fails on the current code and passes with the change. Do not touch the password reset flow.</textarea>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>At its maximum height, scrolling</h3>
+</figcaption>
+<div data-example="scrolling" data-title="At its maximum height, scrolling">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-scrolling-notes">Review notes</label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-scrolling-notes" name="notes">The timeout change is right, and the retry is in the correct place.
+
+Three things to fix before this merges:
+
+1. The retry also fires on a 401, which signs the reader out twice. Retry only when the request timed out.
+
+2. The new test sleeps for 11 seconds. Use the fake clock from test/helpers so the suite stays fast.
+
+3. The error message says "Something went wrong". Say that the server did not answer and that signing in again will work.
+
+The password reset flow is untouched, as asked.
+
+Run the session tests again after the change and paste the summary line into the pull request.</textarea>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Mono, for a prompt or a command</h3>
+</figcaption>
+<div data-example="mono" data-title="Mono, for a prompt or a command">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-mono-setup">Setup commands</label>
+    <textarea class="gw-field__control gw-textarea gw-textarea--mono" id="textarea-mono-setup" name="setup" spellcheck="false" autocapitalize="off" aria-describedby="textarea-mono-description">npm ci
+npm run build
+npm test -- --grep session</textarea>
+    <p class="gw-field__description" id="textarea-mono-description">One command on each line. They run in the workspace before the task starts.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Focus</h3>
+<p data-gallery="state">State: <code>focus</code></p>
+</figcaption>
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-focus-prompt">Prompt <span class="gw-field__required">required</span></label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-focus-prompt" name="prompt" required>Raise the session request timeout to 10 seconds.</textarea>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Invalid</h3>
+<p data-gallery="state">State: <code>invalid</code></p>
+</figcaption>
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-invalid-prompt">Prompt <span class="gw-field__required">required</span></label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-invalid-prompt" name="prompt" required aria-invalid="true" aria-describedby="textarea-invalid-description textarea-invalid-error"></textarea>
+    <p class="gw-field__description" id="textarea-invalid-description">Say what to change and how to tell that it worked.</p>
+    <p class="gw-field__error" id="textarea-invalid-error">Write a prompt before starting the task.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-disabled-prompt">Prompt</label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-disabled-prompt" name="prompt" disabled aria-describedby="textarea-disabled-description"></textarea>
+    <p class="gw-field__description" id="textarea-disabled-description">Choose a repository first.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Read-only</h3>
+<p data-gallery="state">State: <code>read-only</code></p>
+</figcaption>
+<div data-example="read-only" data-title="Read-only" data-state="read-only">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-read-only-prompt">Prompt</label>
+    <textarea class="gw-field__control gw-textarea" id="textarea-read-only-prompt" name="prompt" readonly aria-describedby="textarea-read-only-description">Raise the session request timeout to 10 seconds and retry once before showing an error.</textarea>
+    <p class="gw-field__description" id="textarea-read-only-description">The prompt cannot change once the run has started.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A one-line input for a prompt</h3>
+<p>A prompt is several sentences. A one-line input hides all but the last few words, so the reader cannot check what they wrote before starting the task.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="single-line" data-title="A one-line input for a prompt" data-dont="review" data-reason="A prompt is several sentences. A one-line input hides all but the last few words, so the reader cannot check what they wrote before starting the task.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="textarea-single-line-prompt">Prompt</label>
+    <input class="gw-field__control" id="textarea-single-line-prompt" type="text" name="prompt" autocomplete="off" value="The login page signs people out after 30 seconds when the API is slow. Raise the session request timeout to 10 seconds and retry once.">
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For text that runs to more than one line: a prompt, review notes, a list of commands.</li>
+<li>With the mono variant, for text a machine will read, such as commands or a prompt with code in it.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For one line of text, such as a name or a branch. Use a text input in a field.</li>
+<li>To show text the reader never edits or copies. Write it as plain text.</li>
+<li>Outside a field. The label, description and error come from the field.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>default</dt>
+<dd>Prose in the interface typeface. No modifier class.</dd>
+<dt>mono <code>gw-textarea--mono</code></dt>
+<dd>Commands, code and prompts where spacing and punctuation matter. Set spellcheck=&quot;false&quot; with it.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>As wide as the field, 88px tall when empty, growing with its content to 264px and scrolling after that. Where the browser cannot grow it, it is 132px tall and the reader can drag it taller.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a textarea element carrying both gw-field__control and gw-textarea, inside gw-field, with a label element whose for attribute matches its id.</li>
+<li>State comes from the field control: aria-invalid=&quot;true&quot; with a linked gw-field__error, the disabled attribute, or the readonly attribute.</li>
+<li>Link the description, and the error while there is one, by listing their ids in aria-describedby.</li>
+<li>Enter adds a line. It never submits the form, so the form needs a button for that.</li>
+<li>Past its maximum height the control scrolls with the arrow keys and Page Up and Page Down, as any textarea does.</li>
+<li>A read-only textarea stays focusable and its text can be selected and copied. A disabled one leaves the tab order.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-textarea</code></li>
+<li><code>gw-textarea--mono</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

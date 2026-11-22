@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Settings</title>
+    <link rel="stylesheet" href="/groundwork.css">
+  </head>
+  <body>
+    <main class="gw-container gw-stack">
+      <h1>Settings</h1>
+      <form class="gw-stack">
+        <label>Workspace name <input type="text" name="name"></label>
+        <label>Default branch <input type="text" name="branch"></label>
+        <details data-gw-advanced>
+          <summary>Advanced</summary>
+          <div class="gw-stack">
+            <label>Request timeout in seconds <input type="text" name="timeout"></label>
+            <details>
+              <summary>Proxy</summary>
+              <label>Proxy address <input type="text" name="proxy"></label>
+            </details>
+            <button type="button" class="gw-button" data-gw-critical>Delete workspace</button>
+          </div>
+        </details>
+        <div class="gw-split">
+          <button type="button" class="gw-button">Delete workspace</button>
+          <button type="submit" class="gw-button gw-button--primary">Save</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skeleton - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Skeleton</h1>
+<p>Plain shapes that stand where content is about to appear, so the page keeps its layout while it loads.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Rows, in place of a list of tasks</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+<p>The shapes have the size and rhythm of the rows that will replace them, so the page does not jump when they arrive. The container carries aria-busy and a sentence for screen readers, so the wait is never shapes alone.</p>
+</figcaption>
+<div data-example="rows" data-title="Rows, in place of a list of tasks" data-state="loading" data-reason="The shapes have the size and rhythm of the rows that will replace them, so the page does not jump when they arrive. The container carries aria-busy and a sentence for screen readers, so the wait is never shapes alone.">
+  <div class="gw-skeleton gw-skeleton--rows" aria-busy="true">
+    <span class="gw-visually-hidden">Loading tasks</span>
+    <span class="gw-skeleton__row">
+      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+    </span>
+    <span class="gw-skeleton__row">
+      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+    </span>
+    <span class="gw-skeleton__row">
+      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+    </span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Lines of text, in place of a description</h3>
+</figcaption>
+<div data-example="lines" data-title="Lines of text, in place of a description">
+  <div class="gw-skeleton" aria-busy="true">
+    <span class="gw-visually-hidden">Loading the description of task 861</span>
+    <span class="gw-skeleton__line"></span>
+    <span class="gw-skeleton__line"></span>
+    <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A block, in place of a diff</h3>
+</figcaption>
+<div data-example="block" data-title="A block, in place of a diff">
+  <div class="gw-skeleton" aria-busy="true">
+    <span class="gw-visually-hidden">Loading the diff of src/session/verify.mjs</span>
+    <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+    <span class="gw-skeleton__block"></span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A skeleton and a spinner together</h3>
+<p>Two signs for one wait compete, and the spinner's motion beside the pulse is noise. Use a skeleton when the shape of the content is known and a spinner when it is not, never both.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="with-spinner" data-title="A skeleton and a spinner together" data-dont="review" data-reason="Two signs for one wait compete, and the spinner's motion beside the pulse is noise. Use a skeleton when the shape of the content is known and a spinner when it is not, never both.">
+  <div class="gw-stack">
+    <p class="gw-spinner" role="status">Loading tasks</p>
+    <div class="gw-skeleton gw-skeleton--rows" aria-busy="true">
+      <span class="gw-skeleton__row">
+        <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+        <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+      </span>
+      <span class="gw-skeleton__row">
+        <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+        <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+      </span>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A skeleton left in place when the fetch has failed</h3>
+<p>The shapes still promise content that is not coming, and nothing tells the reader to retry. When the fetch fails or takes longer than about ten seconds, replace the skeleton with an error state that says what to do.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="never-resolves" data-title="A skeleton left in place when the fetch has failed" data-dont="review" data-reason="The shapes still promise content that is not coming, and nothing tells the reader to retry. When the fetch fails or takes longer than about ten seconds, replace the skeleton with an error state that says what to do.">
+  <div class="gw-skeleton gw-skeleton--rows">
+    <span class="gw-skeleton__row">
+      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+    </span>
+    <span class="gw-skeleton__row">
+      <span class="gw-skeleton__line gw-skeleton__line--medium"></span>
+      <span class="gw-skeleton__line gw-skeleton__line--short"></span>
+    </span>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>While a list, a description or a block of content is fetched, when its shape is known and it usually arrives within a few seconds.</li>
+<li>On the first load of a view. The shapes match what will replace them: as many rows as usually show, lines the length of the text.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>When the shape of what is coming is not known, or the wait is an action the reader started. Use a spinner, with text that says what is happening.</li>
+<li>When the wait has a measurable length, such as 7 of 12 checks. Use progress.</li>
+<li>Together with a spinner for the same wait. Use one of the two.</li>
+<li>After the fetch has failed, or after about ten seconds. Replace it with an error state that says what to do: a skeleton that never resolves is a broken promise.</li>
+<li>While content already on screen is refreshed. Keep the content and set aria-busy on its container.</li>
+<li>For text that is streaming in. Use streaming.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>line <code>gw-skeleton__line</code></dt>
+<dd>A bar 12px tall in the space of one line of text, as wide as its container. For a paragraph or a set of facts, one above the other.</dd>
+<dt>medium line <code>gw-skeleton__line--medium</code></dt>
+<dd>With gw-skeleton__line: 60% of the width, for a title or the last line of a paragraph.</dd>
+<dt>short line <code>gw-skeleton__line--short</code></dt>
+<dd>With gw-skeleton__line: 35% of the width, for a label, a branch name or a time.</dd>
+<dt>row <code>gw-skeleton__row</code></dt>
+<dd>A list row at least 44px tall, holding one or two lines. Its container also takes gw-skeleton--rows, so the rows touch and are divided by a rule, as list rows are.</dd>
+<dt>block <code>gw-skeleton__block</code></dt>
+<dd>A rectangle 132px tall and as wide as its container, for a code block or a diff.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>The container is a div with the gw-skeleton class and aria-busy=&quot;true&quot;. Its first child is a span with the gw-visually-hidden class that says what is loading, such as Loading tasks. The shapes are empty span elements and are not read out.</li>
+<li>When the content arrives, the app replaces the whole container with it. Nothing of the skeleton stays, so aria-busy goes with it. When the skeleton stands inside a region that stays, such as a section with a heading, put aria-busy on that region and remove it when the content arrives.</li>
+<li>When the fetch fails, or has taken about ten seconds, the app replaces the container with an error state that says what happened and offers Retry.</li>
+<li>The shapes fade slowly between full and partial strength. Under prefers-reduced-motion: reduce the animation is off and the shapes hold still.</li>
+<li>A skeleton has no controls and takes no focus. If the content it replaces had focus, move focus to the view's heading until the content is back.</li>
+<li>The component needs no script beyond the app swapping it for the content.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-skeleton</code></li>
+<li><code>gw-skeleton--rows</code></li>
+<li><code>gw-skeleton__block</code></li>
+<li><code>gw-skeleton__line</code></li>
+<li><code>gw-skeleton__line--medium</code></li>
+<li><code>gw-skeleton__line--short</code></li>
+<li><code>gw-skeleton__row</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

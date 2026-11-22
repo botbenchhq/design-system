@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toggle button - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Toggle button</h1>
+<p>A button that turns one view option on or off, such as Wrap lines, and says which with aria-pressed.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> One option off and one on</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The label names the option and never changes. aria-pressed says whether it is on, and the fill and the bar under the label show the same thing to the eye without relying on colour.</p>
+</figcaption>
+<div data-example="default" data-title="One option off and one on" data-state="default" data-reason="The label names the option and never changes. aria-pressed says whether it is on, and the fill and the bar under the label show the same thing to the eye without relying on colour.">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Log view options">
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="false">Wrap lines</button>
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="true">Show timestamps</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>On</h3>
+<p data-gallery="state">State: <code>pressed</code></p>
+</figcaption>
+<div data-example="pressed" data-title="On" data-state="pressed">
+  <button type="button" class="gw-button gw-toggle-button" aria-pressed="true">Wrap lines</button>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Small, in a toolbar above a diff</h3>
+</figcaption>
+<div data-example="small" data-title="Small, in a toolbar above a diff">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Diff view options">
+    <button type="button" class="gw-button gw-button--small gw-toggle-button" aria-pressed="true">Wrap lines</button>
+    <button type="button" class="gw-button gw-button--small gw-toggle-button" aria-pressed="false">Show whitespace</button>
+    <button type="button" class="gw-button gw-button--small gw-toggle-button" aria-pressed="false">Hide unchanged files</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a leading icon</h3>
+</figcaption>
+<div data-example="with-icon" data-title="With a leading icon">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Transcript view options">
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="true">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+      Show tool calls
+    </button>
+    <button type="button" class="gw-button gw-button--small gw-toggle-button" aria-pressed="false">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+      Show tool calls
+    </button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Log view options, hovered">
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="false">Wrap lines</button>
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="true">Show timestamps</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Log view options, focused">
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="false">Wrap lines</button>
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="true">Show timestamps</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Being pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Being pressed" data-state="active">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Log view options, being pressed">
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="false">Wrap lines</button>
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="true">Show timestamps</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled while the log loads</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled while the log loads" data-state="disabled">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Log view options, unavailable">
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="false" disabled>Wrap lines</button>
+    <button type="button" class="gw-button gw-toggle-button" aria-pressed="true" disabled>Show timestamps</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> The primary fill used to mean on</h3>
+<p>The accent fill marks the one main action of a view. Used for on, it says nothing to a screen reader, and two options that are on become two main actions. Set aria-pressed and let the toggle button draw the state.</p>
+<p>Checker rule: <code>one-primary-action</code></p>
+</figcaption>
+<div data-example="primary-as-on" data-title="The primary fill used to mean on" data-dont="one-primary-action" data-reason="The accent fill marks the one main action of a view. Used for on, it says nothing to a screen reader, and two options that are on become two main actions. Set aria-pressed and let the toggle button draw the state.">
+  <div class="gw-cluster gw-gap-md" role="group" aria-label="Log view options, drawn as primary buttons">
+    <button type="button" class="gw-button gw-button--primary">Wrap lines</button>
+    <button type="button" class="gw-button gw-button--primary">Show timestamps</button>
+    <button type="button" class="gw-button">Show tool calls</button>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For an option of the current view that takes effect at once and is not saved as a setting: Wrap lines, Show whitespace, Show tool calls.</li>
+<li>In a toolbar above a log, a diff or a transcript, in its small size.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a setting that is stored, in a settings form. Use a switch, or a checkbox when it is sent with the form.</li>
+<li>To choose one of several views, such as Unified or Split. Use a segmented control.</li>
+<li>For an option with only an icon. Use an icon button with aria-pressed.</li>
+<li>For an action that happens once, such as Copy. Use a button.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>off</dt>
+<dd>aria-pressed=&quot;false&quot;. Drawn as a plain button.</dd>
+<dt>on</dt>
+<dd>aria-pressed=&quot;true&quot;. A stronger border, a sunken fill and a bar under the label.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>44px tall.</dd>
+<dt>small <code>gw-button--small</code></dt>
+<dd>The button component's small size: drawn 32px tall for a toolbar, with a 44px pointer target. Lay small toggles out with gw-cluster gw-gap-md, so the targets of two wrapped rows do not overlap.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a button element with type=&quot;button&quot;, the classes gw-button and gw-toggle-button, and aria-pressed set to &quot;true&quot; or &quot;false&quot;. The attribute is always present, so a screen reader announces a toggle button in both states.</li>
+<li>The label names the option and stays the same in both states: Wrap lines, never Unwrap lines. Only aria-pressed changes. An icon is decoration and carries aria-hidden=&quot;true&quot;.</li>
+<li>The app flips aria-pressed on each press and applies the option at once. Nothing else is needed: the styles read aria-pressed only.</li>
+<li>Never add gw-button--primary to show that an option is on.</li>
+<li>Group related toggles in an element with role=&quot;group&quot; and an aria-label that says what they change, such as Diff view options.</li>
+<li>Tab reaches each toggle, and Enter and Space flip it. Both come from the button element.</li>
+<li>Set the disabled attribute while the option cannot change. The bar stays, so the reader can still see which options were on.</li>
+<li>A toggle button is never busy: the bar is drawn where the button component draws its spinner.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-toggle-button</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

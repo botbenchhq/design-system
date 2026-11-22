@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activity feed - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Activity feed</h1>
+<p>A chronological record of what agents and people did, grouped by day, each entry with its time, its actor, a verb phrase and an optional source or excerpt.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> The latest entries, grouped by day</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each entry says when, who and what in one line, with the file or the output that backs it. Older days stay behind one quiet control, so the reader starts at what just happened.</p>
+</figcaption>
+<div data-example="latest" data-title="The latest entries, grouped by day" data-state="default" data-reason="Each entry says when, who and what in one line, with the file or the output that backs it. Older days stay behind one quiet control, so the reader starts at what just happened.">
+  <section class="gw-activity-feed" aria-label="Activity for task 41">
+    <div class="gw-activity-feed__more">
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-up"></use></svg>
+        Show earlier activity
+      </button>
+    </div>
+    <div class="gw-activity-feed__day">
+      <h4 class="gw-activity-feed__heading">Yesterday, 21 November</h4>
+      <ol class="gw-activity-feed__entries">
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-21T17:48">17:48</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">Claude Code</span> created the worktree from main</p>
+          <div class="gw-activity-feed__evidence">
+            <a class="gw-source-chip" href="/repositories/acme/api/commits/9f2c1ab">
+              <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-commit-horizontal"></use></svg>
+              <span class="gw-source-chip__text"><span class="gw-visually-hidden">Commit </span><span class="gw-source-chip__end">9f2c1ab</span></span>
+            </a>
+          </div>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-21T17:55">17:55</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">You</span> stopped the run</p>
+        </li>
+      </ol>
+    </div>
+    <div class="gw-activity-feed__day">
+      <h4 class="gw-activity-feed__heading">Today, 22 November</h4>
+      <ol class="gw-activity-feed__entries">
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T09:02">09:02</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">You</span> resumed the run</p>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T09:04">09:04</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">Claude Code</span> edited the session loader</p>
+          <div class="gw-activity-feed__evidence">
+            <a class="gw-source-chip" href="/repositories/acme/api/files/src/auth/session.ts#L42-L58">
+              <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+              <span class="gw-source-chip__text"><span class="gw-source-chip__start">src/auth/</span><span class="gw-source-chip__end">session.ts</span></span>
+              <span class="gw-source-chip__detail">lines 42–58</span>
+            </a>
+          </div>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T09:09">09:09</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">Claude Code</span> ran the auth tests, and 1 of 30 failed</p>
+          <div class="gw-activity-feed__evidence">
+            <code class="gw-activity-feed__excerpt">✗ src/auth/session.test.ts > keeps the session after a reload</code>
+          </div>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T09:16">09:16</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">Reviewer agent</span> asked for a test of the reload case</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A feed that grows while the reader watches</h3>
+</figcaption>
+<div data-example="live" data-title="A feed that grows while the reader watches">
+  <section class="gw-activity-feed" role="log" aria-label="Live activity for task 38">
+    <div class="gw-activity-feed__day">
+      <h4 class="gw-activity-feed__heading">Today, 22 November</h4>
+      <ol class="gw-activity-feed__entries">
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T14:02">14:02</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">Claude Code</span> started building</p>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T14:06">14:06</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">Claude Code</span> asked to run a command outside the worktree</p>
+          <div class="gw-activity-feed__evidence">
+            <code class="gw-activity-feed__excerpt">rm -rf ../shared-config/.cache</code>
+          </div>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T14:07">14:07</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">You</span> declined the request with a note</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Long text and long paths stay inside the column</h3>
+</figcaption>
+<div data-example="long-values" data-title="Long text and long paths stay inside the column">
+  <section class="gw-activity-feed" aria-label="Activity for task 52">
+    <div class="gw-activity-feed__day">
+      <h4 class="gw-activity-feed__heading">Today, 22 November</h4>
+      <ol class="gw-activity-feed__entries">
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T11:31">11:31</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">Claude Code</span> replaced the hand-written retry loop with the shared backoff helper and updated the three call sites that passed their own delay</p>
+          <div class="gw-activity-feed__evidence">
+            <a class="gw-source-chip" href="/repositories/acme/api/files/packages/session-store/src/adapters/redis/__tests__/refresh-token-rotation.integration.test.ts#L118">
+              <svg class="gw-source-chip__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg>
+              <span class="gw-source-chip__text"><span class="gw-source-chip__start">packages/session-store/src/adapters/redis/__tests__/</span><span class="gw-source-chip__end">refresh-token-rotation.integration.test.ts</span></span>
+              <span class="gw-source-chip__detail">line 118</span>
+            </a>
+          </div>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T11:34">11:34</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">Claude Code</span> downloaded the release candidate of the session store</p>
+          <div class="gw-activity-feed__evidence">
+            <code class="gw-activity-feed__excerpt">curl --silent --fail https://registry.npmjs.org/@acme%2Fsession-store/-/session-store-4.12.0-rc.3.tgz --output .cache/session-store-4.12.0-rc.3.tgz</code>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Fetching earlier entries</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="loading-earlier" data-title="Fetching earlier entries" data-state="busy">
+  <section class="gw-activity-feed" aria-label="Activity for task 44" aria-busy="true">
+    <div class="gw-activity-feed__more">
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" aria-busy="true">Loading earlier activity</button>
+    </div>
+    <div class="gw-activity-feed__day">
+      <h4 class="gw-activity-feed__heading">Today, 22 November</h4>
+      <ol class="gw-activity-feed__entries">
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T09:02">09:02</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">You</span> resumed the run</p>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <time class="gw-activity-feed__time" datetime="2026-11-22T09:04">09:04</time>
+          <p class="gw-activity-feed__text"><span class="gw-activity-feed__actor">Claude Code</span> edited the session loader</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The first fetch</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="The first fetch" data-state="loading">
+  <section class="gw-activity-feed" aria-label="Activity for task 45" aria-busy="true">
+    <p class="gw-spinner" role="status">Loading activity for task 45</p>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing has happened yet</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="Nothing has happened yet" data-state="empty">
+  <section class="gw-activity-feed" aria-label="Activity for task 46">
+    <div class="gw-empty-state gw-empty-state--compact">
+      <h4 class="gw-empty-state__title">No activity yet</h4>
+      <p class="gw-empty-state__body">This task is queued. Each thing an agent does appears here once it starts.</p>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The feed could not be loaded</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The feed could not be loaded" data-state="error">
+  <section class="gw-activity-feed" aria-label="Activity for task 47">
+    <div class="gw-error-state" role="alert">
+      <h4 class="gw-error-state__title">The activity for task 47 could not be loaded</h4>
+      <p>The server did not answer in time. Check your connection, then retry.</p>
+      <div class="gw-error-state__action">
+        <button type="button" class="gw-button">Retry</button>
+      </div>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Entries that do not say who, when or what</h3>
+<p>Updated files tells the reader nothing they can check, and without a time or an actor the entries cannot be put in order or traced to an agent. Every entry has a time, an actor and a verb phrase that names the thing.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="vague-entries" data-title="Entries that do not say who, when or what" data-dont="review" data-reason="Updated files tells the reader nothing they can check, and without a time or an actor the entries cannot be put in order or traced to an agent. Every entry has a time, an actor and a verb phrase that names the thing.">
+  <section class="gw-activity-feed" aria-label="Activity for task 48">
+    <div class="gw-activity-feed__day">
+      <ol class="gw-activity-feed__entries">
+        <li class="gw-activity-feed__entry">
+          <p class="gw-activity-feed__text">Updated files</p>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <p class="gw-activity-feed__text">Ran a command</p>
+        </li>
+        <li class="gw-activity-feed__entry">
+          <p class="gw-activity-feed__text">Done</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For the history of a task, a run or a repository, read from the oldest entry shown to the newest.</li>
+<li>When each event fits one line: who did what, and when.</li>
+<li>With role=&quot;log&quot; when entries are added while the reader watches.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For the full exchange with an agent, with prompts, tool output and answers. Use a transcript of messages.</li>
+<li>For one tool call with its arguments and output. Use a tool call.</li>
+<li>For a list of runs or tasks to open. Use a list with run status rows.</li>
+<li>For a message about the app itself. Use an alert or a banner.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a section with an aria-label that names what the activity belongs to, such as Activity for task 41. Each label is unique in the view.</li>
+<li>Inside it, each day is a div with the class gw-activity-feed__day: a heading, at the level the view needs, that names the day in words such as Today, 22 November, then an ol of entries, oldest first.</li>
+<li>An entry is an li holding a time element with a datetime attribute, then a p with the actor in gw-activity-feed__actor followed by a verb phrase that names the thing acted on, then optionally one gw-activity-feed__evidence holding a source chip or a short gw-activity-feed__excerpt.</li>
+<li>When entries are appended while the reader watches, put role=&quot;log&quot; on the section. A log is announced politely, entry by entry, and needs no script beyond adding the li. Keep role=&quot;log&quot; off a feed that only changes when the reader asks.</li>
+<li>Use role=&quot;feed&quot; only when the app loads entries as the reader scrolls and implements the feed keyboard contract itself: each entry an article with aria-posinset and aria-setsize, and Page Down and Page Up moving between entries. The component does not provide that behaviour.</li>
+<li>A long feed shows the latest entries. Earlier ones come in through one quiet small button, Show earlier activity, with a chevron-up icon, in gw-activity-feed__more above the first day. While they are fetched, set aria-busy=&quot;true&quot; on the button and on the section, and change the button's words to Loading earlier activity. Afterwards move focus to the first entry that was added, so the reader continues from there.</li>
+<li>For the first fetch, an empty feed and a failed fetch, the section holds a spinner, a compact empty state or an error state in place of the days.</li>
+<li>An excerpt is text, never markup, and is short: one command or one line of output. Longer output belongs in a tool call.</li>
+<li>Tab reaches the Show earlier activity button and any source chips, in order. Entries themselves take no focus.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-activity-feed</code></li>
+<li><code>gw-activity-feed__actor</code></li>
+<li><code>gw-activity-feed__day</code></li>
+<li><code>gw-activity-feed__entries</code></li>
+<li><code>gw-activity-feed__entry</code></li>
+<li><code>gw-activity-feed__evidence</code></li>
+<li><code>gw-activity-feed__excerpt</code></li>
+<li><code>gw-activity-feed__heading</code></li>
+<li><code>gw-activity-feed__more</code></li>
+<li><code>gw-activity-feed__text</code></li>
+<li><code>gw-activity-feed__time</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Progress</h1>
+<p>How far a job with a known length has got: a labelled bar on a native progress element, with the value written in words.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Checks on a branch</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The label says what is measured and the sentence gives the count with its total and unit, so the reader does not have to judge the bar by eye. The bar is a native progress element, sized by its value and max attributes with no inline style.</p>
+</figcaption>
+<div data-example="default" data-title="Checks on a branch" data-state="default" data-reason="The label says what is measured and the sentence gives the count with its total and unit, so the reader does not have to judge the bar by eye. The bar is a native progress element, sized by its value and max attributes with no inline style.">
+  <div class="gw-progress">
+    <label class="gw-progress__label" for="progress-default-bar">Checks on fix/login-timeout</label>
+    <p class="gw-progress__value">7 of 12 checks passed</p>
+    <progress class="gw-progress__bar" id="progress-default-bar" value="7" max="12" aria-valuetext="7 of 12 checks passed"></progress>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Indeterminate: the length is not known yet</h3>
+<p data-gallery="state">State: <code>indeterminate</code></p>
+</figcaption>
+<div data-example="indeterminate" data-title="Indeterminate: the length is not known yet" data-state="indeterminate">
+  <div class="gw-progress">
+    <label class="gw-progress__label" for="progress-indeterminate-bar">Cloning acme/api</label>
+    <p class="gw-progress__value">Counting objects</p>
+    <progress class="gw-progress__bar" id="progress-indeterminate-bar" aria-valuetext="Counting objects"></progress>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing done yet</h3>
+</figcaption>
+<div data-example="none-yet" data-title="Nothing done yet">
+  <div class="gw-progress">
+    <label class="gw-progress__label" for="progress-none-yet-bar">Files uploaded to the workspace</label>
+    <p class="gw-progress__value">0 of 48 files uploaded</p>
+    <progress class="gw-progress__bar" id="progress-none-yet-bar" value="0" max="48" aria-valuetext="0 of 48 files uploaded"></progress>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Complete</h3>
+</figcaption>
+<div data-example="complete" data-title="Complete">
+  <div class="gw-progress">
+    <label class="gw-progress__label" for="progress-complete-bar">Tests in test/session.test.mjs</label>
+    <p class="gw-progress__value">14 of 14 tests passed</p>
+    <progress class="gw-progress__bar" id="progress-complete-bar" value="14" max="14" aria-valuetext="14 of 14 tests passed"></progress>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A long label and a long value</h3>
+</figcaption>
+<div data-example="long-text" data-title="A long label and a long value">
+  <div class="gw-progress">
+    <label class="gw-progress__label" for="progress-long-text-bar">Dependencies installed in /srv/workspaces/acme-payments-gateway</label>
+    <p class="gw-progress__value">1,204 of 1,460 packages installed, about 40 seconds left</p>
+    <progress class="gw-progress__bar" id="progress-long-text-bar" value="1204" max="1460" aria-valuetext="1,204 of 1,460 packages installed, about 40 seconds left"></progress>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Several in a view</h3>
+</figcaption>
+<div data-example="several" data-title="Several in a view">
+  <div class="gw-stack gw-gap-lg">
+    <div class="gw-progress">
+      <label class="gw-progress__label" for="progress-several-lint">Lint</label>
+      <p class="gw-progress__value">212 of 212 files checked</p>
+      <progress class="gw-progress__bar" id="progress-several-lint" value="212" max="212" aria-valuetext="212 of 212 files checked"></progress>
+    </div>
+    <div class="gw-progress">
+      <label class="gw-progress__label" for="progress-several-tests">Tests</label>
+      <p class="gw-progress__value">96 of 213 tests run</p>
+      <progress class="gw-progress__bar" id="progress-several-tests" value="96" max="213" aria-valuetext="96 of 213 tests run"></progress>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A bar sized with an inline style</h3>
+<p>The apps' content security policies block the style attribute, so the bar would show empty, and a div says nothing to a screen reader. Use a progress element with value and max.</p>
+<p>Checker rule: <code>inline-style</code></p>
+</figcaption>
+<div data-example="inline-width" data-title="A bar sized with an inline style" data-dont="inline-style" data-reason="The apps' content security policies block the style attribute, so the bar would show empty, and a div says nothing to a screen reader. Use a progress element with value and max.">
+  <div class="gw-progress">
+    <p class="gw-progress__label">Checks on fix/login-timeout</p>
+    <p class="gw-progress__value">7 of 12 checks passed</p>
+    <div class="gw-progress__bar"><div style="width: 58%"></div></div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A bare percentage with no label</h3>
+<p>58% does not say of what, or how much work is left. Label the bar and write the value as a count with its total and unit.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="bare-percent" data-title="A bare percentage with no label" data-dont="review" data-reason="58% does not say of what, or how much work is left. Label the bar and write the value as a count with its total and unit.">
+  <div class="gw-progress">
+    <p class="gw-progress__value">58%</p>
+    <progress class="gw-progress__bar" value="58" max="100" aria-label="Progress"></progress>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For work that can be counted: 7 of 12 checks passed, 96 of 213 tests run, 31 of 48 files uploaded.</li>
+<li>In the indeterminate form, for the first moments of such a job, before its length is known. Switch to the determinate form as soon as there is a total.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a wait with no length at all. Use a spinner, with text that says what is happening.</li>
+<li>In place of content that is loading. Use a skeleton.</li>
+<li>For a status, such as Finished or Failed. Use a badge, or plain text.</li>
+<li>For a measurement that is not progress, such as disk space used. Write it as text: 412 MB of 20 GB is free.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>determinate</dt>
+<dd>The progress element has value and max. The fill is as wide as value over max.</dd>
+<dt>indeterminate</dt>
+<dd>The progress element has no value attribute. The whole bar is one mid tone that fades slowly, and holds still under reduced motion. The value text says what is happening.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>The bar is 8px tall and as wide as its container, under a row that holds the label and the value.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Markup, in this order: a label with the gw-progress__label class and a for attribute, a p with the gw-progress__value class, and a progress element with the gw-progress__bar class and the id the label names. The stylesheet draws the bar under the two lines of text.</li>
+<li>The label says what is measured. The value is a sentence with the count, the total and the unit: 7 of 12 checks passed. Never a bare number or a bare percentage.</li>
+<li>Set value and max on the progress element to the same two numbers, and aria-valuetext to the same sentence, so a screen reader says the count in words instead of a percentage.</li>
+<li>As work goes on, the app updates three things together: the value attribute, aria-valuetext, and the text of gw-progress__value. It sets no inline style and no class.</li>
+<li>For the indeterminate form, leave the value attribute off, and remove it with removeAttribute to go back to that form. The value text says what is happening, such as Counting objects.</li>
+<li>Do not make the value text a live region: a count that changes every second would be read out every second. When the job ends, announce the result once, in an alert or a status message.</li>
+<li>The bar has no controls and takes no focus. The component needs no script beyond those updates.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-progress</code></li>
+<li><code>gw-progress__bar</code></li>
+<li><code>gw-progress__label</code></li>
+<li><code>gw-progress__value</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

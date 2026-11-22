@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Number field - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Number field</h1>
+<p>A numeric input as the control of a field, with an optional unit written beside it and optional stepper buttons.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> With a unit and stepper buttons</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The unit is written beside the value, so 30 cannot be read as seconds. The stepper buttons are full pointer targets with names of their own, and the description gives the range before the reader types.</p>
+</figcaption>
+<div data-example="default" data-title="With a unit and stepper buttons" data-state="default" data-reason="The unit is written beside the value, so 30 cannot be read as seconds. The stepper buttons are full pointer targets with names of their own, and the description gives the range before the reader types.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="number-field-default-input">Run timeout</label>
+    <div class="gw-number-field">
+      <input class="gw-field__control gw-number-field__input" id="number-field-default-input" type="number" inputmode="numeric" name="timeout" min="5" max="120" step="5" value="30" autocomplete="off" aria-describedby="number-field-default-unit number-field-default-description">
+      <span class="gw-number-field__unit" id="number-field-default-unit">minutes</span>
+      <button type="button" class="gw-button gw-icon-button gw-number-field__step">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-minus"></use></svg>
+        <span class="gw-visually-hidden">Decrease the run timeout by 5 minutes</span>
+      </button>
+      <button type="button" class="gw-button gw-icon-button gw-number-field__step">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        <span class="gw-visually-hidden">Increase the run timeout by 5 minutes</span>
+      </button>
+    </div>
+    <p class="gw-field__description" id="number-field-default-description">From 5 to 120 minutes, in steps of 5. The run is stopped when the time is up.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A number alone</h3>
+</figcaption>
+<div data-example="plain" data-title="A number alone">
+  <div class="gw-field">
+    <label class="gw-field__label" for="number-field-plain-input">Retries after a failed test</label>
+    <div class="gw-number-field">
+      <input class="gw-field__control gw-number-field__input" id="number-field-plain-input" type="number" inputmode="numeric" name="retries" min="0" max="5" step="1" value="2" autocomplete="off" aria-describedby="number-field-plain-description">
+    </div>
+    <p class="gw-field__description" id="number-field-plain-description">From 0 to 5.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a unit, and a decimal value</h3>
+</figcaption>
+<div data-example="unit" data-title="With a unit, and a decimal value">
+  <div class="gw-field">
+    <label class="gw-field__label" for="number-field-unit-input">Spending limit for one run</label>
+    <div class="gw-number-field">
+      <input class="gw-field__control gw-number-field__input" id="number-field-unit-input" type="number" inputmode="decimal" name="limit" min="0.5" max="50" step="0.5" value="2.5" autocomplete="off" aria-describedby="number-field-unit-unit number-field-unit-description">
+      <span class="gw-number-field__unit" id="number-field-unit-unit">US dollars</span>
+    </div>
+    <p class="gw-field__description" id="number-field-unit-description">From 0.50 to 50.00. The run pauses and asks you when it reaches the limit.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>At the lowest value, with nothing left to step down to</h3>
+</figcaption>
+<div data-example="at-minimum" data-title="At the lowest value, with nothing left to step down to">
+  <div class="gw-field">
+    <label class="gw-field__label" for="number-field-at-minimum-input">Agents working at once</label>
+    <div class="gw-number-field">
+      <input class="gw-field__control gw-number-field__input" id="number-field-at-minimum-input" type="number" inputmode="numeric" name="agents" min="1" max="8" step="1" value="1" autocomplete="off" aria-describedby="number-field-at-minimum-description">
+      <button type="button" class="gw-button gw-icon-button gw-number-field__step" disabled>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-minus"></use></svg>
+        <span class="gw-visually-hidden">Use one agent fewer</span>
+      </button>
+      <button type="button" class="gw-button gw-icon-button gw-number-field__step">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        <span class="gw-visually-hidden">Use one agent more</span>
+      </button>
+    </div>
+    <p class="gw-field__description" id="number-field-at-minimum-description">From 1 to 8 agents.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Focus</h3>
+<p data-gallery="state">State: <code>focus</code></p>
+</figcaption>
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="number-field-focus-input">Run timeout</label>
+    <div class="gw-number-field">
+      <input class="gw-field__control gw-number-field__input" id="number-field-focus-input" type="number" inputmode="numeric" name="timeout" min="5" max="120" step="5" value="45" autocomplete="off" aria-describedby="number-field-focus-unit">
+      <span class="gw-number-field__unit" id="number-field-focus-unit">minutes</span>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Invalid</h3>
+<p data-gallery="state">State: <code>invalid</code></p>
+</figcaption>
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <div class="gw-field">
+    <label class="gw-field__label" for="number-field-invalid-input">Run timeout</label>
+    <div class="gw-number-field">
+      <input class="gw-field__control gw-number-field__input" id="number-field-invalid-input" type="number" inputmode="numeric" name="timeout" min="5" max="120" step="5" value="240" autocomplete="off" aria-invalid="true" aria-describedby="number-field-invalid-unit number-field-invalid-description number-field-invalid-error">
+      <span class="gw-number-field__unit" id="number-field-invalid-unit">minutes</span>
+      <button type="button" class="gw-button gw-icon-button gw-number-field__step">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-minus"></use></svg>
+        <span class="gw-visually-hidden">Decrease the run timeout by 5 minutes</span>
+      </button>
+      <button type="button" class="gw-button gw-icon-button gw-number-field__step" disabled>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        <span class="gw-visually-hidden">Increase the run timeout by 5 minutes</span>
+      </button>
+    </div>
+    <p class="gw-field__description" id="number-field-invalid-description">From 5 to 120 minutes, in steps of 5.</p>
+    <p class="gw-field__error" id="number-field-invalid-error">240 minutes is over the limit. Enter 120 or less, or split the task into shorter runs.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="number-field-disabled-input">Run timeout</label>
+    <div class="gw-number-field">
+      <input class="gw-field__control gw-number-field__input" id="number-field-disabled-input" type="number" inputmode="numeric" name="timeout" min="5" max="120" step="5" value="30" disabled aria-describedby="number-field-disabled-unit number-field-disabled-description">
+      <span class="gw-number-field__unit" id="number-field-disabled-unit">minutes</span>
+      <button type="button" class="gw-button gw-icon-button gw-number-field__step" disabled>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-minus"></use></svg>
+        <span class="gw-visually-hidden">Decrease the run timeout by 5 minutes</span>
+      </button>
+      <button type="button" class="gw-button gw-icon-button gw-number-field__step" disabled>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        <span class="gw-visually-hidden">Increase the run timeout by 5 minutes</span>
+      </button>
+    </div>
+    <p class="gw-field__description" id="number-field-disabled-description">Set by the workspace owner.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A number field for a run number</h3>
+<p>A run number is a name made of digits, not an amount. Nobody steps it up by one, and an arrow key or a scroll wheel changes it by accident. Use a plain field with inputmode numeric for an identifier, a port or a code.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="identifier" data-title="A number field for a run number" data-dont="review" data-reason="A run number is a name made of digits, not an amount. Nobody steps it up by one, and an arrow key or a scroll wheel changes it by accident. Use a plain field with inputmode numeric for an identifier, a port or a code.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="number-field-identifier-input">Run number</label>
+    <div class="gw-number-field">
+      <input class="gw-field__control gw-number-field__input" id="number-field-identifier-input" type="number" inputmode="numeric" name="run" value="4182" autocomplete="off">
+      <button type="button" class="gw-button gw-icon-button gw-number-field__step">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-minus"></use></svg>
+        <span class="gw-visually-hidden">Previous run number</span>
+      </button>
+      <button type="button" class="gw-button gw-icon-button gw-number-field__step">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        <span class="gw-visually-hidden">Next run number</span>
+      </button>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For an amount the reader types or nudges: a timeout in minutes, a retry count, a spending limit.</li>
+<li>With stepper buttons when the value is small and usually changes by a step or two.</li>
+<li>With a unit whenever the number alone could be misread.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a number that is a name, such as a run number, a port or a one-time code. Use a field with inputmode=&quot;numeric&quot;, or the one-time-code input.</li>
+<li>For a rough amount where the exact figure does not matter. Use a slider.</li>
+<li>For one of a few fixed amounts. Use a select or a radio group.</li>
+<li>For a date or a time. Use a date field.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>plain</dt>
+<dd>The input alone inside gw-number-field.</dd>
+<dt>with a unit</dt>
+<dd>A span with gw-number-field__unit after the input, holding the unit as a word.</dd>
+<dt>with steppers</dt>
+<dd>Two icon buttons with gw-number-field__step at the end of the row: decrease first, then increase.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>44px tall and at most 264px wide. Each stepper is 44px square.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use input type=&quot;number&quot; carrying gw-field__control and gw-number-field__input, inside a div with gw-number-field, inside gw-field. The label, description and error are the field's.</li>
+<li>Set min, max and step on the input, and say the range in the description. Set inputmode=&quot;numeric&quot; for whole numbers and inputmode=&quot;decimal&quot; when step is a fraction, so a phone shows the right keys.</li>
+<li>Write the unit as a word in a span with gw-number-field__unit, give it an id and list that id first in the input's aria-describedby, so a screen reader hears Run timeout, 30, minutes.</li>
+<li>A stepper is a button with type=&quot;button&quot; and the classes gw-button, gw-icon-button and gw-number-field__step, holding the minus or plus icon with aria-hidden=&quot;true&quot; and a gw-visually-hidden name that says what it changes and by how much, such as Increase the run timeout by 5 minutes.</li>
+<li>The app wires the steppers: on a press it calls stepDown() or stepUp() on the input and dispatches an input event. It sets disabled on the decrease button at min and on the increase button at max.</li>
+<li>The Up and Down arrow keys step the value while the input has focus. That comes from the input, and the browser's own small spin buttons are hidden.</li>
+<li>For a value out of range, set aria-invalid=&quot;true&quot; on the input and link a gw-field__error that repeats the value and gives the limit.</li>
+<li>When the input is disabled, set disabled on both steppers too.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-number-field</code></li>
+<li><code>gw-number-field__input</code></li>
+<li><code>gw-number-field__step</code></li>
+<li><code>gw-number-field__unit</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

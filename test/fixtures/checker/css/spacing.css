@@ -1,0 +1,9 @@
+.a {
+  padding: 13px;
+}
+.b {
+  padding: var(--gw-space-md);
+}
+.c {
+  padding: 0;
+}

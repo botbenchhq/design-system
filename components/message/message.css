@@ -1,0 +1,172 @@
+/*
+ * Message: one row of an agent transcript. It is a list item in the transcript's ol or ul.
+ * The plain class is the agent's text. A modifier sets any other kind of row, and the
+ * label inside the row says the kind in words.
+ */
+
+@layer gw.components {
+  .gw-message {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--gw-space-sm);
+    row-gap: var(--gw-space-xs);
+    min-width: 0;
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-radius: var(--gw-radius-md);
+  }
+
+  /* The kind of row, in words. It takes the line height of the text beside it, so the two share a baseline. */
+  .gw-message__label {
+    flex: none;
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+  }
+
+  .gw-message__tool {
+    flex: none;
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-mono);
+  }
+
+  /* Prose, on its own line under the label. Line breaks in the text are kept. */
+  .gw-message__body {
+    flex: 1 1 100%;
+    min-width: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  /* A short command or path beside the tool name. It wraps anywhere, so a long one never widens the page. */
+  .gw-message__command {
+    flex: 1 1 0;
+    min-width: 0;
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  /* A block of arguments or output. */
+  .gw-message__code {
+    flex: 1 1 100%;
+    min-width: 0;
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-surface-sunken);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    line-height: var(--gw-leading-mono);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .gw-message__details {
+    display: flex;
+    flex: 1 1 100%;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  /* The summary is as tall as a pointer target, and its text sits in the middle of that height. */
+  .gw-message__summary {
+    display: flex;
+    align-items: baseline;
+    column-gap: var(--gw-space-sm);
+    min-height: var(--gw-size-touch);
+    padding-block: var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    font-weight: var(--gw-weight-medium);
+    cursor: pointer;
+  }
+
+  .gw-message__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .gw-message__summary::before {
+    content: "";
+    flex: none;
+    align-self: flex-start;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+    background-color: currentColor;
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+  }
+
+  .gw-message__details[open] > .gw-message__summary::before {
+    mask-image: url("icons/chevron-down.svg");
+  }
+
+  .gw-message__details[open] > .gw-message__summary {
+    padding-bottom: var(--gw-space-sm);
+  }
+
+  @media (hover: hover) {
+    .gw-message__summary:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  /* The label is not muted here: muted text on the sunken surface is too faint. */
+  .gw-message--user {
+    padding-block: var(--gw-space-md);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-message--user > .gw-message__label {
+    color: var(--gw-color-on-surface);
+  }
+
+  .gw-message--denied {
+    padding-block: var(--gw-space-md);
+    background-color: var(--gw-color-danger-subtle);
+  }
+
+  .gw-message--denied > .gw-message__label {
+    display: flex;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-danger);
+  }
+
+  /* Drawn here, so a denial is never marked by colour alone, whatever the markup holds. */
+  .gw-message--denied > .gw-message__label::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  /* Tool rows are the bulk of a transcript, so they sit closer together. */
+  .gw-message--tool-call,
+  .gw-message--tool-result {
+    padding-block: var(--gw-space-xs);
+  }
+
+  /* Quiet rows: the label and the text share one line. */
+  .gw-message--usage,
+  .gw-message--turn-end {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: calc(var(--gw-text-mono) * var(--gw-leading-mono));
+  }
+
+  .gw-message--usage > .gw-message__body,
+  .gw-message--turn-end > .gw-message__body {
+    flex: 1 1 0;
+  }
+
+  /* The rule above the row is what closes the turn. */
+  .gw-message--turn-end {
+    padding-top: var(--gw-space-md);
+    border-top-width: var(--gw-border-width);
+    border-radius: 0;
+  }
+}

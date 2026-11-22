@@ -1,0 +1,178 @@
+<div data-example="name-and-actions" data-title="Product name and actions" data-state="default" data-reason="The name leads the row and links to the first screen. Each action is an icon with a name a screen reader can read, and none of them is primary, so the view below keeps its one main action.">
+  <header class="gw-app-header">
+    <a class="gw-app-header__name" href="/">Smelt</a>
+    <div class="gw-app-header__actions">
+      <a class="gw-app-header__action" href="/search" aria-label="Search tasks">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
+      </a>
+      <button type="button" class="gw-app-header__action" aria-label="Open menu">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-menu"></use></svg>
+      </button>
+    </div>
+  </header>
+</div>
+
+<div data-example="back-and-title" data-title="Back link and view title">
+  <header class="gw-app-header">
+    <a class="gw-app-header__back" href="/tasks">
+      <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
+      Tasks
+    </a>
+    <h1 class="gw-app-header__title">Fix the login timeout</h1>
+  </header>
+</div>
+
+<div data-example="back-title-action" data-title="Icon-only back link, title and one action">
+  <header class="gw-app-header">
+    <a class="gw-app-header__back" href="/runs" aria-label="Back to runs">
+      <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
+    </a>
+    <h1 class="gw-app-header__title">Run 2291</h1>
+    <div class="gw-app-header__actions">
+      <button type="button" class="gw-app-header__action" aria-label="More actions for run 2291">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-ellipsis"></use></svg>
+      </button>
+    </div>
+  </header>
+</div>
+
+<div data-example="long-title" data-title="A title longer than the row">
+  <header class="gw-app-header">
+    <a class="gw-app-header__back" href="/tasks" aria-label="Back to tasks">
+      <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
+    </a>
+    <h1 class="gw-app-header__title">Fix the login timeout on the mobile sign-in screen when the session cookie has expired</h1>
+    <div class="gw-app-header__actions">
+      <button type="button" class="gw-app-header__action" aria-label="More actions for this task">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-ellipsis"></use></svg>
+      </button>
+    </div>
+  </header>
+</div>
+
+<div data-example="tray" data-title="With the approvals tray">
+  <header class="gw-app-header">
+    <a class="gw-app-header__name" href="/">Smelt</a>
+    <div class="gw-app-header__actions">
+      <a class="gw-app-header__action" href="/search" aria-label="Search tasks">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
+      </a>
+    </div>
+    <div class="gw-app-header__tray">
+      <div class="gw-split">
+        <p>2 approvals waiting. The oldest is 6 minutes old.</p>
+        <a class="gw-button gw-button--small" href="/approvals">Review approvals</a>
+      </div>
+    </div>
+  </header>
+</div>
+
+<div data-example="empty" data-title="Tray with nothing waiting" data-state="empty">
+  <header class="gw-app-header">
+    <a class="gw-app-header__name" href="/">Smelt</a>
+    <div class="gw-app-header__actions">
+      <a class="gw-app-header__action" href="/search" aria-label="Search tasks">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
+      </a>
+    </div>
+    <div class="gw-app-header__tray"></div>
+  </header>
+</div>
+
+<div data-example="sticky" data-title="Sticky">
+  <header class="gw-app-header gw-app-header--sticky">
+    <a class="gw-app-header__back" href="/branches">
+      <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
+      Branches
+    </a>
+    <h1 class="gw-app-header__title">fix/login-timeout</h1>
+  </header>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <header class="gw-app-header">
+    <a class="gw-app-header__back" href="/tasks">
+      <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
+      Tasks
+    </a>
+    <h1 class="gw-app-header__title">Task 412</h1>
+    <div class="gw-app-header__actions">
+      <button type="button" class="gw-app-header__action" aria-label="Search this task">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
+      </button>
+    </div>
+  </header>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <header class="gw-app-header">
+    <a class="gw-app-header__back" href="/tasks">
+      <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
+      Tasks
+    </a>
+    <h1 class="gw-app-header__title">Task 412</h1>
+    <div class="gw-app-header__actions">
+      <button type="button" class="gw-app-header__action" aria-label="Search this task">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
+      </button>
+    </div>
+  </header>
+</div>
+
+<div data-example="active" data-title="Pressed" data-state="active">
+  <header class="gw-app-header">
+    <a class="gw-app-header__back" href="/tasks">
+      <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
+      Tasks
+    </a>
+    <h1 class="gw-app-header__title">Task 412</h1>
+    <div class="gw-app-header__actions">
+      <button type="button" class="gw-app-header__action" aria-label="Search this task">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
+      </button>
+    </div>
+  </header>
+</div>
+
+<div data-example="disabled" data-title="Unavailable action" data-state="disabled">
+  <header class="gw-app-header">
+    <a class="gw-app-header__name" href="/">Smelt</a>
+    <div class="gw-app-header__actions">
+      <button type="button" class="gw-app-header__action" aria-label="Search tasks" disabled>
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
+      </button>
+      <button type="button" class="gw-app-header__action" aria-label="Open menu">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-menu"></use></svg>
+      </button>
+    </div>
+  </header>
+</div>
+
+<div data-example="primary-in-header" data-title="A primary button in the header" data-dont="one-primary-action" data-reason="The header is on every screen, so a primary button in it competes with the main action of whichever view is open. Keep header actions quiet and leave the primary to the view." class="gw-stack">
+  <header class="gw-app-header">
+    <a class="gw-app-header__name" href="/">Smelt</a>
+    <div class="gw-app-header__actions">
+      <a class="gw-button gw-button--primary" href="/tasks/new">New task</a>
+    </div>
+  </header>
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-button--primary">Approve command</button>
+  </div>
+</div>
+
+<div data-example="unnamed-actions" data-title="Icon-only controls with no name" data-dont="review" data-reason="An icon with no aria-label is announced only as link or button, so a screen reader user cannot tell back from search from menu.">
+  <header class="gw-app-header">
+    <a class="gw-app-header__back" href="/tasks">
+      <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
+    </a>
+    <h1 class="gw-app-header__title">Task 412</h1>
+    <div class="gw-app-header__actions">
+      <button type="button" class="gw-app-header__action">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-search"></use></svg>
+      </button>
+      <button type="button" class="gw-app-header__action">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-menu"></use></svg>
+      </button>
+    </div>
+  </header>
+</div>

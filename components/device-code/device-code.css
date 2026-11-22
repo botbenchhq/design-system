@@ -1,0 +1,94 @@
+/*
+ * Device code: what a view shows while the reader connects an outside account by typing a short code
+ * on that account's own site. Numbered steps hold the link to the site and the code in large mono text,
+ * and a status under them says the app is waiting. It sits in a sheet's body or straight on a page.
+ */
+
+@layer gw.components {
+  .gw-device-code {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-lg);
+    max-width: var(--gw-size-column);
+    min-width: 0;
+  }
+
+  .gw-device-code__steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+    counter-reset: gw-device-code;
+  }
+
+  /* The number is drawn from the step's place in the list, in a column of its own. */
+  .gw-device-code__step {
+    display: grid;
+    grid-template-columns: var(--gw-space-xl) minmax(0, 1fr);
+    align-items: baseline;
+    row-gap: var(--gw-space-sm);
+    counter-increment: gw-device-code;
+    overflow-wrap: anywhere;
+  }
+
+  .gw-device-code__step::before {
+    content: counter(gw-device-code) ".";
+    color: var(--gw-color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Everything in a step after its first line sits under that line, clear of the numbers. */
+  .gw-device-code__step > * {
+    grid-column: 2;
+  }
+
+  /* The code and its Copy button, on a sunken band so the code is the first thing the eye finds. */
+  .gw-device-code__entry {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gw-space-sm) var(--gw-space-lg);
+    padding: var(--gw-space-md) var(--gw-space-lg);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* One press or one drag selects the whole code, for a reader who copies it by hand. */
+  .gw-device-code__code {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--gw-space-sm);
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-2xl);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-2xl);
+    user-select: all;
+  }
+
+  /* A group of the code's characters, spaced so each can be read off one at a time. */
+  .gw-device-code__group {
+    letter-spacing: calc(var(--gw-space-xs) / 2);
+    white-space: nowrap;
+  }
+
+  /* A code that can no longer be used is written in an s element: struck through, and said to be expired in words next to it. */
+  .gw-device-code__code:has(s) {
+    color: var(--gw-color-muted);
+    user-select: none;
+  }
+
+  .gw-device-code__note {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  /* The waiting line and when the code runs out. */
+  .gw-device-code__status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gw-space-xs);
+  }
+}

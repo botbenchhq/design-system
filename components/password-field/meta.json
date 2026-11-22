@@ -1,0 +1,42 @@
+{
+  "name": "password-field",
+  "title": "Password field",
+  "purpose": "A password input as the control of a field, with a button that shows or hides what was typed.",
+  "status": "draft",
+  "whenToUse": [
+    "For a password, a passphrase or another secret the reader types or pastes and may want to check: a registry password, a deploy key passphrase.",
+    "For signing in and for choosing a new password, with the autocomplete value that fits each."
+  ],
+  "whenNotToUse": [
+    "For a one-time code from a message or an authenticator app. Use the one-time-code input.",
+    "For a secret the app made and the reader only copies, such as an access token. Use a copy field.",
+    "For text that is not secret. Use a field."
+  ],
+  "variants": [
+    { "name": "with a show button", "use": "The default. A button with gw-password-field__toggle after the input." },
+    { "name": "input alone", "use": "The same input with no button, only where the password is pasted by a script and never typed." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "44px tall and as wide as the field. The button is 60px wide and 44px tall." }
+  ],
+  "states": ["default", "shown", "hover", "focus", "invalid", "disabled"],
+  "accessibility": [
+    "Use input type=\"password\" carrying gw-field__control and gw-password-field__input, inside a div with gw-password-field, inside gw-field. The label, description and error are the field's.",
+    "Set autocomplete=\"current-password\" where the reader enters a password they already have and autocomplete=\"new-password\" where they choose one, with a stable name attribute. Never set autocomplete=\"off\", and never block pasting. Add autocapitalize=\"none\" and spellcheck=\"false\".",
+    "The button is a button with type=\"button\", the class gw-password-field__toggle and aria-controls pointing at the input. It takes no aria-pressed: its words change with its state, and a pressed state on top of them would say it twice. It holds two spans, gw-password-field__show and gw-password-field__hide, each a word followed by a gw-visually-hidden span that names the password: Show the registry password, Hide the registry password.",
+    "The stylesheet draws one of the two spans, chosen from the input's type, and hides the other from screen readers too. So the button's name changes in words with its state, and the app never rewrites the label.",
+    "The app does one thing on a press: it sets the input's type to text, and on the next press back to password. It sets the type back to password before the form is sent, so the browser does not remember the value as plain text.",
+    "Caps Lock and strength messages are the app's. Write them as text in a second gw-field__description with aria-live=\"polite\", listed in the input's aria-describedby. A strength message is words, such as Too short: 9 of 16 characters, never a colour bar alone.",
+    "State the rule for a new password in the description before the reader types. For a rejected password, set aria-invalid=\"true\" and link a gw-field__error that says what to do next. Do not clear the input.",
+    "Tab reaches the input and then the button. Enter and Space press the button, and focus stays on it.",
+    "When the input is disabled, set disabled on the button too."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-password-field",
+    "gw-password-field__hide",
+    "gw-password-field__input",
+    "gw-password-field__show",
+    "gw-password-field__toggle"
+  ]
+}

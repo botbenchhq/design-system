@@ -1,0 +1,35 @@
+/*
+ * Icon button: a button that shows only an icon. It sits on the same element as the button class,
+ * which draws the border, the fill, hover, pressed-down, busy and disabled, so this stylesheet must load after the button's.
+ * It makes the button a square one target wide and adds the look of a toggle that is on.
+ */
+
+@layer gw.components {
+  .gw-icon-button {
+    flex: none;
+    width: var(--gw-size-touch);
+    padding: 0;
+  }
+
+  /* A toggle that is on: a border and a sunken fill, with a bar under the icon so the state is never colour alone. */
+  .gw-icon-button[aria-pressed="true"] {
+    border-color: var(--gw-color-border-strong);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-icon-button[aria-pressed="true"]::after {
+    content: "";
+    position: absolute;
+    bottom: var(--gw-space-sm);
+    inset-inline: var(--gw-space-md);
+    height: calc(var(--gw-border-width) * 2);
+    background-color: currentColor;
+  }
+
+  /* After the pressed rules, so an unavailable toggle keeps its bar and loses the fill. */
+  .gw-icon-button[aria-pressed="true"]:disabled,
+  .gw-icon-button[aria-pressed="true"][aria-disabled="true"] {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+  }
+}

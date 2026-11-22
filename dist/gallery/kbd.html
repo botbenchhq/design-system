@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kbd - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Kbd</h1>
+<p>A keyboard key or shortcut named in text, such as Ctrl + K.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A single key in a sentence</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="key" data-title="A single key in a sentence" data-state="default">
+  <p>Press <kbd class="gw-kbd">/</kbd> to search runs, and <kbd class="gw-kbd">Esc</kbd> to close the search.</p>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A combination</h3>
+<p>Each key is its own kbd and the plus between them is text, so a screen reader reads Ctrl plus K and the reader sees two keys, not one key with a long name.</p>
+</figcaption>
+<div data-example="combination" data-title="A combination" data-reason="Each key is its own kbd and the plus between them is text, so a screen reader reads Ctrl plus K and the reader sees two keys, not one key with a long name.">
+  <p>Open the command palette with <kbd class="gw-kbd__combo"><kbd class="gw-kbd">Ctrl</kbd> + <kbd class="gw-kbd">K</kbd></kbd>, or reopen the last run with <kbd class="gw-kbd__combo"><kbd class="gw-kbd">Ctrl</kbd> + <kbd class="gw-kbd">Shift</kbd> + <kbd class="gw-kbd">R</kbd></kbd>.</p>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keys pressed one after the other</h3>
+</figcaption>
+<div data-example="sequence" data-title="Keys pressed one after the other">
+  <p>Go to the runs board with <kbd class="gw-kbd">G</kbd> then <kbd class="gw-kbd">R</kbd>.</p>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Beside the control it belongs to</h3>
+<p>The button is how the reader finds and performs the action. The key beside it is a faster way for someone who already knows the view, and the button reports the same shortcut to assistive technology.</p>
+</figcaption>
+<div data-example="beside-control" data-title="Beside the control it belongs to" data-reason="The button is how the reader finds and performs the action. The key beside it is a faster way for someone who already knows the view, and the button reports the same shortcut to assistive technology.">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button" aria-keyshortcuts="Control+K">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+      Search runs
+    </button>
+    <kbd class="gw-kbd__combo"><kbd class="gw-kbd">Ctrl</kbd> + <kbd class="gw-kbd">K</kbd></kbd>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A list of shortcuts</h3>
+</figcaption>
+<div data-example="shortcut-list" data-title="A list of shortcuts">
+  <dl class="gw-key-value">
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Search runs</dt>
+      <dd class="gw-key-value__value"><kbd class="gw-kbd">/</kbd></dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Open the command palette</dt>
+      <dd class="gw-key-value__value"><kbd class="gw-kbd__combo"><kbd class="gw-kbd">Ctrl</kbd> + <kbd class="gw-kbd">K</kbd></kbd></dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Send the message</dt>
+      <dd class="gw-key-value__value"><kbd class="gw-kbd__combo"><kbd class="gw-kbd">Ctrl</kbd> + <kbd class="gw-kbd">Enter</kbd></kbd></dd>
+    </div>
+    <div class="gw-key-value__item">
+      <dt class="gw-key-value__label">Move to the next approval</dt>
+      <dd class="gw-key-value__value"><kbd class="gw-kbd">J</kbd> or <kbd class="gw-kbd">Down arrow</kbd></dd>
+    </div>
+  </dl>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> An action that only a shortcut reaches</h3>
+<p>A phone has no keyboard, and a reader who does not know the keys has nothing to press. Allow and Decline are buttons in the view, and the keys are a hint beside them.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="shortcut-only" data-title="An action that only a shortcut reaches" data-dont="review" data-reason="A phone has no keyboard, and a reader who does not know the keys has nothing to press. Allow and Decline are buttons in the view, and the keys are a hint beside them.">
+  <p>Claude Code asks to run <code>npm run test</code>. Press <kbd class="gw-kbd">A</kbd> to allow or <kbd class="gw-kbd">D</kbd> to decline.</p>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A combination written as one key</h3>
+<p>Written as one key, the combination looks like a single key named Ctrl+K, and the symbol for a modifier is read differently by each screen reader. Give each key its own kbd, name it in a word and join the keys with a plus sign as text.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="one-box" data-title="A combination written as one key" data-dont="review" data-reason="Written as one key, the combination looks like a single key named Ctrl+K, and the symbol for a modifier is read differently by each screen reader. Give each key its own kbd, name it in a word and join the keys with a plus sign as text.">
+  <p>Open the command palette with <kbd class="gw-kbd">⌃K</kbd>.</p>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>To name the shortcut for an action that the view also offers as a control: beside a button, in a sentence of help, or in a list of shortcuts.</li>
+<li>To name a key the reader presses in a terminal or a form, such as Enter or Esc.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>As the only way to learn or reach an action. Every shortcut belongs to a button, a link or a menu item the reader can see and press.</li>
+<li>For a command, a path or other text the reader types out. Use a code element.</li>
+<li>For something the reader presses on screen. Use a button.</li>
+<li>For a status or a count. Use a badge or plain text.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>key</dt>
+<dd>One key: a kbd element with the class gw-kbd.</dd>
+<dt>combination <code>gw-kbd__combo</code></dt>
+<dd>Keys pressed together: an outer kbd with gw-kbd__combo holding one gw-kbd per key, with a plus sign and spaces written as text between them.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>12px mono text in a 1px border, about 19px tall. It fits a line of body text, a list row and a small button's row without adding height.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use the kbd element. A screen reader reads the key's text in place, so write the key as a word or a character it can say: Ctrl, Shift, Enter, Esc, Up arrow, K. Do not use a symbol alone for a modifier, because it is read differently by each screen reader or not at all.</li>
+<li>A combination is an outer kbd with gw-kbd__combo holding one kbd with gw-kbd per key, joined by a plus sign as text with a space each side: Ctrl + K. A screen reader then reads Ctrl plus K. Never draw the plus with a stylesheet or an icon.</li>
+<li>Keys pressed one after the other are separate keys joined by the word then: G then R.</li>
+<li>Name the platform's own key. Where the app knows the reader is on a Mac it writes Cmd in place of Ctrl; it does not show both.</li>
+<li>A shortcut is never the only way to an action. Show it next to the control that does the same thing, or in a list the reader can open from a visible control.</li>
+<li>A key is text. It is not focusable and takes no press, and it has no hover or pressed state.</li>
+<li>The app wires the shortcut itself. For a button, set aria-keyshortcuts to the same keys, such as aria-keyshortcuts=&quot;Control+K&quot;, so assistive technology can report it.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-kbd</code></li>
+<li><code>gw-kbd__combo</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

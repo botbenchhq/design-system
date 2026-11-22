@@ -3,6 +3,7 @@ version: alpha
 name: Groundwork
 colors:
   accent: "#1A1A1A"
+  accent-hover: "#3D3D3A"
   on-accent: "#FAFAF9"
   surface: "#FAFAF9"
   surface-raised: "#FFFFFF"
@@ -22,6 +23,7 @@ colors:
   info-subtle: "#E6EEF6"
 colors-dark:
   accent: "#EDEDEB"
+  accent-hover: "#CFCFCB"
   on-accent: "#171717"
   surface: "#141413"
   surface-raised: "#1C1C1A"
@@ -77,6 +79,7 @@ fontWeights:
 rounded:
   sm: 4px
   md: 8px
+  full: 9999px
 spacing:
   xs: 4px
   sm: 8px

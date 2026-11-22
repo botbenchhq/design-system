@@ -1,0 +1,120 @@
+/*
+ * Sidebar nav: the destinations of an app in a column beside the content, at the regular width.
+ * Below 768px it is not shown, and the tab bar lists the main destinations along the bottom instead.
+ * It is the first child of gw-sidebar-layout, which gives it the leading column.
+ */
+
+@layer gw.components {
+  .gw-sidebar-nav {
+    display: none;
+  }
+
+  /* The column is five pointer targets wide. There is no width token for a sidebar. */
+  @media (min-width: 768px) {
+    .gw-sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gw-space-lg);
+      width: calc(var(--gw-size-touch) * 5);
+      min-width: 0;
+      padding: var(--gw-space-md) var(--gw-space-sm);
+      border-inline-end-width: var(--gw-border-width);
+      background-color: var(--gw-color-surface);
+    }
+  }
+
+  .gw-sidebar-nav__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+  }
+
+  /* The label of a section, starting on the same line as the icons below it. */
+  .gw-sidebar-nav__heading {
+    padding-inline: var(--gw-space-md);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+  }
+
+  .gw-sidebar-nav__items {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gw-sidebar-nav__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--gw-space-md);
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-xs) var(--gw-space-md);
+    border-radius: var(--gw-radius-sm);
+    color: var(--gw-color-muted);
+    transition-property: background-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  .gw-sidebar-nav__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+  }
+
+  /* One line. A label too long for the column is cut with an ellipsis. */
+  .gw-sidebar-nav__label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* The last thing in the column, pushed to its foot: a short list of items or a note. */
+  .gw-sidebar-nav__footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+    margin-top: auto;
+    padding-top: var(--gw-space-sm);
+    border-top-width: var(--gw-border-width);
+  }
+
+  .gw-sidebar-nav__note {
+    padding: var(--gw-space-xs) var(--gw-space-md);
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-sidebar-nav__item:hover {
+      background-color: var(--gw-color-surface-sunken);
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-sidebar-nav__item:active {
+    background-color: var(--gw-color-border);
+    color: var(--gw-color-on-surface);
+  }
+
+  /* The current item is marked by weight and by a bar at its leading edge, as well as by its shade. */
+  .gw-sidebar-nav__item[aria-current]:not([aria-current="false"]) {
+    background-color: var(--gw-color-surface-sunken);
+    color: var(--gw-color-on-surface);
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  .gw-sidebar-nav__item[aria-current]:not([aria-current="false"])::before {
+    content: "";
+    position: absolute;
+    inset-block: var(--gw-space-sm);
+    inset-inline-start: 0;
+    width: calc(var(--gw-border-width) * 2);
+    background-color: var(--gw-color-accent);
+  }
+}

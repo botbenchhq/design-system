@@ -1,0 +1,23 @@
+/*
+ * Suggestion chips: two to four suggested next prompts under a composer or an empty transcript.
+ * Each chip is a button from the button component. This stylesheet lays the chips out and
+ * quietens them, so it must load after the button's.
+ */
+
+@layer gw.components {
+  /* On a ul. The chips wrap, and a chip too long for the line wraps its own text. */
+  .gw-suggestion-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+  }
+
+  /* On the same element as gw-button: lighter, see-through and set from the start, so it reads as a prompt and not as the view's action. */
+  .gw-suggestion-chips__chip {
+    justify-content: flex-start;
+    background-color: transparent;
+    font-weight: var(--gw-weight-normal);
+    text-align: start;
+  }
+}

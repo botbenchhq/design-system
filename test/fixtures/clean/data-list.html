@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Services</title>
+    <link rel="stylesheet" href="/groundwork.css">
+  </head>
+  <body>
+    <main class="gw-container gw-stack">
+      <div class="gw-split">
+        <h1>Services</h1>
+        <button type="button" class="gw-button gw-button--primary">Add service</button>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Status</th><th>Latency</th><th></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>api</td><td><span class="gw-badge">Healthy</span></td><td>12 ms</td><td><a href="/services/api">Open</a></td></tr>
+          <tr><td>worker</td><td><span class="gw-badge">Healthy</span></td><td>40 ms</td><td><a href="/services/worker">Open</a></td></tr>
+          <tr><td>billing</td><td><span class="gw-badge">Degraded</span></td><td>310 ms</td><td><a href="/services/billing">Open</a></td></tr>
+          <tr><td>search</td><td><span class="gw-badge">Healthy</span></td><td>22 ms</td><td><a href="/services/search">Open</a></td></tr>
+          <tr><td>mail</td><td><span class="gw-badge">Down</span></td><td>none</td><td><a href="/services/mail">Open</a></td></tr>
+          <tr><td>auth</td><td><span class="gw-badge">Healthy</span></td><td>9 ms</td><td><a href="/services/auth">Open</a></td></tr>
+          <tr><td>files</td><td><span class="gw-badge">Healthy</span></td><td>31 ms</td><td><a href="/services/files">Open</a></td></tr>
+          <tr><td>export</td><td><span class="gw-badge">Degraded</span></td><td>280 ms</td><td><a href="/services/export">Open</a></td></tr>
+          <tr><td>audit</td><td><span class="gw-badge">Healthy</span></td><td>15 ms</td><td><a href="/services/audit">Open</a></td></tr>
+          <tr><td>cron</td><td><span class="gw-badge">Healthy</span></td><td>5 ms</td><td><a href="/services/cron">Open</a></td></tr>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>

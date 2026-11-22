@@ -1,0 +1,41 @@
+{
+  "name": "device-code",
+  "title": "Device code",
+  "purpose": "What a view shows while the reader connects an outside account by entering a short code on that account's own site: the steps, the link, the code, and whether the app is still waiting.",
+  "status": "draft",
+  "whenToUse": [
+    "To connect GitHub or another account with the device authorisation flow, where the reader opens the provider's page, on this device or another, and types a code the app shows.",
+    "Inside a sheet's body opened from a Connect button, or straight on a setup page."
+  ],
+  "whenNotToUse": [
+    "When the provider can send the reader back to the app by itself. Use a button that starts that sign-in.",
+    "For a token or a key the reader pastes into the app. Use a field.",
+    "For a value to copy that is not a one-time code, such as a clone URL. Use the copy field.",
+    "For a code the app sends to the reader's phone or email to type back in. Use a field with autocomplete=\"one-time-code\"."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "copied", "loading", "connected", "expired", "error"],
+  "accessibility": [
+    "Use a div with gw-device-code. The steps are an ol with gw-device-code__steps, one li with gw-device-code__step for each, in plain words: open the page, enter the code, approve and come back. The stylesheet draws the numbers and a screen reader announces them from the ol.",
+    "The verification address is a real link whose text shows the host and path, such as github.com/login/device, so the reader can check where the code is going before they follow it. It opens in a new tab so this view keeps waiting, and says so in a gw-link__hint.",
+    "The code is a p with gw-device-code__code inside gw-device-code__entry. For the eye it is split into spans with gw-device-code__group, with the provider's separator between them, inside a span with aria-hidden=\"true\". For a screen reader it is one string, exactly as the provider issued it, in a gw-visually-hidden span before that: Code: WDJB-MJHT. Never give the code only as an image.",
+    "The Copy control is the copy button: a gw-button named Copy code, with its gw-copy-button__status beside it. It copies the code exactly as issued, and the app writes Code copied into the status.",
+    "gw-device-code__status holds the waiting line, a p with gw-spinner and role=\"status\", and a p with gw-device-code__note that says when the code expires as a time of day. A screen reader hears the waiting line once. Do not announce a countdown.",
+    "The app polls the provider. When the account is connected it replaces the steps and the status with a success alert that has role=\"status\", says which account was connected, and offers the one way on.",
+    "When the code expires, write the visible code in an s element in place of the aria-hidden span, which strikes it through, add the word expired to the string for screen readers, disable Copy code, and replace the waiting line with a warning alert that has role=\"alert\", says the code can no longer be used and offers Get a new code. A new code replaces the old one in place, and the app says so in the waiting line.",
+    "When the reader declines at the provider, or the provider cannot be reached, show a danger alert with role=\"alert\" that says which of the two happened, that nothing was connected, and what to do.",
+    "Tab reaches the link, Copy code and then whatever follows in the sheet or the page. The component has no keys of its own and needs no script beyond the polling and the copy."
+  ],
+  "icons": ["copy", "external-link", "x"],
+  "classes": [
+    "gw-device-code",
+    "gw-device-code__code",
+    "gw-device-code__entry",
+    "gw-device-code__group",
+    "gw-device-code__note",
+    "gw-device-code__status",
+    "gw-device-code__step",
+    "gw-device-code__steps"
+  ]
+}

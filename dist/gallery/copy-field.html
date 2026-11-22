@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Copy field - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Copy field</h1>
+<p>A read-only value the reader takes somewhere else, with a button that copies it.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A value and its Copy button</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The value is real text in a read-only input, so it can be selected by hand as well as copied with the button. The empty status line is already in the page, ready for the app to write the result into.</p>
+</figcaption>
+<div data-example="default" data-title="A value and its Copy button" data-state="default" data-reason="The value is real text in a read-only input, so it can be selected by hand as well as copied with the button. The empty status line is already in the page, ready for the app to write the result into.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="copy-field-default-branch">Branch</label>
+    <div class="gw-copy-field">
+      <input class="gw-copy-field__value" id="copy-field-default-branch" type="text" readonly value="fix/login-timeout">
+      <button type="button" class="gw-button" aria-label="Copy branch name">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+      <p class="gw-copy-field__status" role="status"></p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>After a copy</h3>
+<p data-gallery="state">State: <code>copied</code></p>
+</figcaption>
+<div data-example="copied" data-title="After a copy" data-state="copied">
+  <div class="gw-field">
+    <label class="gw-field__label" for="copy-field-copied-branch">Branch</label>
+    <div class="gw-copy-field">
+      <input class="gw-copy-field__value" id="copy-field-copied-branch" type="text" readonly value="fix/login-timeout">
+      <button type="button" class="gw-button" aria-label="Copy branch name">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+      <p class="gw-copy-field__status" role="status">Branch name copied.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A value longer than the row</h3>
+</figcaption>
+<div data-example="long" data-title="A value longer than the row">
+  <div class="gw-field">
+    <label class="gw-field__label" for="copy-field-long-command">Checkout command</label>
+    <div class="gw-copy-field">
+      <input class="gw-copy-field__value" id="copy-field-long-command" type="text" readonly value="git fetch origin task/raise-session-timeout-and-retry-once && git checkout task/raise-session-timeout-and-retry-once">
+      <button type="button" class="gw-button" aria-label="Copy checkout command">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+      <p class="gw-copy-field__status" role="status"></p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Focus</h3>
+<p data-gallery="state">State: <code>focus</code></p>
+</figcaption>
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="copy-field-focus-commit">Commit</label>
+    <div class="gw-copy-field">
+      <input class="gw-copy-field__value" id="copy-field-focus-commit" type="text" readonly value="9c41e7a2d0b5f86e3a17c4d92e6b08f1a35d7c60">
+      <button type="button" class="gw-button" aria-label="Copy commit hash">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+      <p class="gw-copy-field__status" role="status"></p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>When the copy fails</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="When the copy fails" data-state="error">
+  <div class="gw-field">
+    <label class="gw-field__label" for="copy-field-error-branch">Branch</label>
+    <div class="gw-copy-field">
+      <input class="gw-copy-field__value" id="copy-field-error-branch" type="text" readonly value="fix/login-timeout">
+      <button type="button" class="gw-button" aria-label="Copy branch name">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+      <p class="gw-copy-field__status" role="status">The browser blocked the copy. Select the branch name and copy it by hand.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Named without a visible label</h3>
+</figcaption>
+<div data-example="no-visible-label" data-title="Named without a visible label">
+  <div class="gw-copy-field">
+    <input class="gw-copy-field__value" type="text" readonly value="/srv/workspaces/acme-api" aria-label="Workspace path">
+    <button type="button" class="gw-button" aria-label="Copy workspace path">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+      Copy
+    </button>
+    <p class="gw-copy-field__status" role="status"></p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> The value in a disabled input</h3>
+<p>A disabled input cannot take focus, so the keyboard cannot reach the value to select it, and it reads as unavailable. Use the readonly attribute, which keeps the value focusable and selectable.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="disabled-value" data-title="The value in a disabled input" data-dont="review" data-reason="A disabled input cannot take focus, so the keyboard cannot reach the value to select it, and it reads as unavailable. Use the readonly attribute, which keeps the value focusable and selectable.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="copy-field-disabled-value-branch">Branch</label>
+    <div class="gw-copy-field">
+      <input class="gw-copy-field__value" id="copy-field-disabled-value-branch" type="text" disabled value="fix/login-timeout">
+      <button type="button" class="gw-button" aria-label="Copy branch name">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+        Copy
+      </button>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a value the reader will paste into a terminal or another tool: a branch name, a commit hash, a path, a command.</li>
+<li>When the value is one line. A long one is cut short with an ellipsis and still copies whole.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a value the reader can change. Use a text input in a field.</li>
+<li>For several lines, such as a log or a diff. Show them in a pre element.</li>
+<li>For a value nobody needs to copy. Write it as plain text.</li>
+<li>For a secret that must stay hidden. This component always shows its value.</li>
+</ul>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>44px tall and as wide as its container, with the button at its natural width. Limit the width on the container.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>The value is an input element with type=&quot;text&quot; and the readonly attribute, never disabled. It stays in the tab order, its text can be selected, and the arrow keys scroll a long value.</li>
+<li>Name the input with a label element, usually by putting the copy field inside gw-field after its gw-field__label, or with aria-label when the view has no room for a visible label.</li>
+<li>The button is a gw-button with the visible label Copy. Give it an aria-label that names the value, such as Copy branch name, so several on one view can be told apart.</li>
+<li>Keep an empty gw-copy-field__status element with role=&quot;status&quot; in the page from the start. role=&quot;status&quot; is a polite live region, the same as aria-live=&quot;polite&quot;.</li>
+<li>After a copy, the app sets the status text to say what was copied, such as Branch name copied. A screen reader announces it and sighted readers see the same words. Clear the text after a few seconds.</li>
+<li>If the copy fails, the app sets the status text to say so and what to do: select the value and copy it by hand.</li>
+<li>The confirmation is that text. Do not signal a copy with a colour change alone, and do not move focus away from the button.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-copy-field</code></li>
+<li><code>gw-copy-field__status</code></li>
+<li><code>gw-copy-field__value</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

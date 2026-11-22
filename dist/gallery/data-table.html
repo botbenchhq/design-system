@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data table - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Data table</h1>
+<p>Things compared across columns on a real table: a caption, sortable headers, numeric columns, one action for each row, rows that expand, and a stacked layout on a phone.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Runs compared across columns</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>It is a real table with a caption, column headers and a header cell for each row, so a screen reader can read any cell with its headers. The numbers are right-aligned in tabular figures with their units, and on a phone each row becomes a block whose cells print their column label from data-label.</p>
+</figcaption>
+<div data-example="default" data-title="Runs compared across columns" data-state="default" data-reason="It is a real table with a caption, column headers and a header cell for each row, so a screen reader can read any cell with its headers. The numbers are right-aligned in tabular figures with their units, and on a phone each row becomes a block whose cells print their column label from data-label.">
+  <table class="gw-data-table">
+    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Branch</th>
+        <th scope="col">Status</th>
+        <th scope="col" class="gw-data-table__numeric">Duration</th>
+        <th scope="col" class="gw-data-table__numeric">Tokens</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Fix the login timeout</th>
+        <td data-label="Branch">fix/login-timeout</td>
+        <td data-label="Status">Building</td>
+        <td class="gw-data-table__numeric" data-label="Duration">6 min 12 s</td>
+        <td class="gw-data-table__numeric" data-label="Tokens">18,420</td>
+      </tr>
+      <tr>
+        <th scope="row">Add rate limiting to the webhook endpoint</th>
+        <td data-label="Branch">feat/webhook-rate-limit</td>
+        <td data-label="Status">Awaiting decision</td>
+        <td class="gw-data-table__numeric" data-label="Duration">21 min 40 s</td>
+        <td class="gw-data-table__numeric" data-label="Tokens">47,900</td>
+      </tr>
+      <tr>
+        <th scope="row">Upgrade Postgres client to 8.13</th>
+        <td data-label="Branch">chore/pg-8-13</td>
+        <td data-label="Status">Tests failed</td>
+        <td class="gw-data-table__numeric" data-label="Duration">2 min 5 s</td>
+        <td class="gw-data-table__numeric" data-label="Tokens">6,310</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> One quiet action for each row</h3>
+<p>The action repeats on every row, so it is small and quiet, and its label names the row for a screen reader. Its cell pads the 32px button out to 44px, so the pointer target fits inside the row and a one-line row stays 44px tall.</p>
+</figcaption>
+<div data-example="row-action" data-title="One quiet action for each row" data-reason="The action repeats on every row, so it is small and quiet, and its label names the row for a screen reader. Its cell pads the 32px button out to 44px, so the pointer target fits inside the row and a one-line row stays 44px tall.">
+  <table class="gw-data-table">
+    <caption class="gw-data-table__caption">Running now in acme/api</caption>
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Branch</th>
+        <th scope="col">Status</th>
+        <th scope="col" class="gw-data-table__numeric">Duration</th>
+        <th scope="col"><span class="gw-visually-hidden">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Fix the login timeout</th>
+        <td data-label="Branch">fix/login-timeout</td>
+        <td data-label="Status">Building</td>
+        <td class="gw-data-table__numeric" data-label="Duration">6 min 12 s</td>
+        <td class="gw-data-table__action"><button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Stop run for Fix the login timeout">Stop run</button></td>
+      </tr>
+      <tr>
+        <th scope="row">Add rate limiting to the webhook endpoint</th>
+        <td data-label="Branch">feat/webhook-rate-limit</td>
+        <td data-label="Status">Awaiting decision</td>
+        <td class="gw-data-table__numeric" data-label="Duration">21 min 40 s</td>
+        <td class="gw-data-table__action"><button type="button" class="gw-button gw-button--quiet gw-button--small" aria-label="Stop run for Add rate limiting to the webhook endpoint">Stop run</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Sortable columns, in the scroll variant</h3>
+<p data-gallery="state">State: <code>sorted</code></p>
+<p>Each sortable header is a button inside its th, and the th carries aria-sort for the one column the rows are ordered by. The table keeps its columns on a phone and scrolls sideways inside its wrapper, so the header buttons stay on screen and the page itself never scrolls.</p>
+</figcaption>
+<div data-example="sortable" data-title="Sortable columns, in the scroll variant" data-state="sorted" data-reason="Each sortable header is a button inside its th, and the th carries aria-sort for the one column the rows are ordered by. The table keeps its columns on a phone and scrolls sideways inside its wrapper, so the header buttons stay on screen and the page itself never scrolls.">
+  <div class="gw-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-sortable-caption">
+    <table class="gw-data-table gw-data-table--scroll">
+      <caption class="gw-data-table__caption" id="data-table-sortable-caption">Runs in acme/api, newest first</caption>
+      <thead>
+        <tr>
+          <th scope="col"><button type="button" class="gw-data-table__sort">Task</button></th>
+          <th scope="col" aria-sort="descending"><button type="button" class="gw-data-table__sort">Started</button></th>
+          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Duration</button></th>
+          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Tokens</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Fix the login timeout</th>
+          <td><time datetime="2026-03-14T09:30">14 March, 09:30</time></td>
+          <td class="gw-data-table__numeric">6 min 12 s</td>
+          <td class="gw-data-table__numeric">18,420</td>
+        </tr>
+        <tr>
+          <th scope="row">Add rate limiting to the webhook endpoint</th>
+          <td><time datetime="2026-03-14T09:14">14 March, 09:14</time></td>
+          <td class="gw-data-table__numeric">21 min 40 s</td>
+          <td class="gw-data-table__numeric">47,900</td>
+        </tr>
+        <tr>
+          <th scope="row">Upgrade Postgres client to 8.13</th>
+          <td><time datetime="2026-03-13T17:52">13 March, 17:52</time></td>
+          <td class="gw-data-table__numeric">2 min 5 s</td>
+          <td class="gw-data-table__numeric">6,310</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover on a header button</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover on a header button" data-state="hover">
+  <div class="gw-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-hover-caption">
+    <table class="gw-data-table gw-data-table--scroll">
+      <caption class="gw-data-table__caption" id="data-table-hover-caption">Runs in acme/billing, newest first</caption>
+      <thead>
+        <tr>
+          <th scope="col"><button type="button" class="gw-data-table__sort">Task</button></th>
+          <th scope="col" aria-sort="descending"><button type="button" class="gw-data-table__sort">Started</button></th>
+          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Duration</button></th>
+          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Tokens</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Fix the login timeout</th>
+          <td><time datetime="2026-03-14T09:30">14 March, 09:30</time></td>
+          <td class="gw-data-table__numeric">6 min 12 s</td>
+          <td class="gw-data-table__numeric">18,420</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus on a header button</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus on a header button" data-state="focus-visible">
+  <div class="gw-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-focus-visible-caption">
+    <table class="gw-data-table gw-data-table--scroll">
+      <caption class="gw-data-table__caption" id="data-table-focus-visible-caption">Runs in acme/web, newest first</caption>
+      <thead>
+        <tr>
+          <th scope="col"><button type="button" class="gw-data-table__sort">Task</button></th>
+          <th scope="col" aria-sort="descending"><button type="button" class="gw-data-table__sort">Started</button></th>
+          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Duration</button></th>
+          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Tokens</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Fix the login timeout</th>
+          <td><time datetime="2026-03-14T09:30">14 March, 09:30</time></td>
+          <td class="gw-data-table__numeric">6 min 12 s</td>
+          <td class="gw-data-table__numeric">18,420</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A header button being pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="A header button being pressed" data-state="active">
+  <div class="gw-data-table__scroll" tabindex="0" role="region" aria-labelledby="data-table-active-caption">
+    <table class="gw-data-table gw-data-table--scroll">
+      <caption class="gw-data-table__caption" id="data-table-active-caption">Runs in acme/docs, newest first</caption>
+      <thead>
+        <tr>
+          <th scope="col"><button type="button" class="gw-data-table__sort">Task</button></th>
+          <th scope="col" aria-sort="descending"><button type="button" class="gw-data-table__sort">Started</button></th>
+          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Duration</button></th>
+          <th scope="col" class="gw-data-table__numeric"><button type="button" class="gw-data-table__sort">Tokens</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Fix the login timeout</th>
+          <td><time datetime="2026-03-14T09:30">14 March, 09:30</time></td>
+          <td class="gw-data-table__numeric">6 min 12 s</td>
+          <td class="gw-data-table__numeric">18,420</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Rows that open a detail row beneath</h3>
+<p data-gallery="state">State: <code>open</code></p>
+<p>The button holds the words that name the row and says whether it is open through aria-expanded, which is also what the stylesheet reads to draw the chevron and to show or hide the detail row. The app changes that one attribute and nothing else.</p>
+</figcaption>
+<div data-example="expandable" data-title="Rows that open a detail row beneath" data-state="open" data-reason="The button holds the words that name the row and says whether it is open through aria-expanded, which is also what the stylesheet reads to draw the chevron and to show or hide the detail row. The app changes that one attribute and nothing else.">
+  <table class="gw-data-table">
+    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Branch</th>
+        <th scope="col">Status</th>
+        <th scope="col" class="gw-data-table__numeric">Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><button type="button" class="gw-data-table__expand" aria-expanded="true" aria-controls="data-table-expandable-detail-1">Upgrade Postgres client to 8.13</button></th>
+        <td data-label="Branch">chore/pg-8-13</td>
+        <td data-label="Status">Tests failed</td>
+        <td class="gw-data-table__numeric" data-label="Duration">2 min 5 s</td>
+      </tr>
+      <tr class="gw-data-table__detail" id="data-table-expandable-detail-1">
+        <td colspan="4"><code>npm test</code> stopped with 1 of 213 tests failing: session.test.ts, &quot;refreshes the cookie on reload&quot;. The agent is waiting for you to decide whether it should try again.</td>
+      </tr>
+      <tr>
+        <th scope="row"><button type="button" class="gw-data-table__expand" aria-expanded="false" aria-controls="data-table-expandable-detail-2">Fix the login timeout</button></th>
+        <td data-label="Branch">fix/login-timeout</td>
+        <td data-label="Status">Building</td>
+        <td class="gw-data-table__numeric" data-label="Duration">6 min 12 s</td>
+      </tr>
+      <tr class="gw-data-table__detail" id="data-table-expandable-detail-2">
+        <td colspan="4">Step 3 of 5: running <code>npm run build</code> in /srv/workspaces/acme-api.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A selected row</h3>
+<p data-gallery="state">State: <code>selected</code></p>
+</figcaption>
+<div data-example="selected" data-title="A selected row" data-state="selected">
+  <table class="gw-data-table">
+    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Branch</th>
+        <th scope="col">Status</th>
+        <th scope="col" class="gw-data-table__numeric">Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Fix the login timeout</th>
+        <td data-label="Branch">fix/login-timeout</td>
+        <td data-label="Status">Building</td>
+        <td class="gw-data-table__numeric" data-label="Duration">6 min 12 s</td>
+      </tr>
+      <tr aria-selected="true">
+        <th scope="row">Add rate limiting to the webhook endpoint</th>
+        <td data-label="Branch">feat/webhook-rate-limit</td>
+        <td data-label="Status">Awaiting decision</td>
+        <td class="gw-data-table__numeric" data-label="Duration">21 min 40 s</td>
+      </tr>
+      <tr>
+        <th scope="row">Upgrade Postgres client to 8.13</th>
+        <td data-label="Branch">chore/pg-8-13</td>
+        <td data-label="Status">Tests failed</td>
+        <td class="gw-data-table__numeric" data-label="Duration">2 min 5 s</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>No rows to show</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="No rows to show" data-state="empty">
+  <table class="gw-data-table">
+    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Branch</th>
+        <th scope="col">Status</th>
+        <th scope="col" class="gw-data-table__numeric">Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="gw-data-table__state" colspan="4">
+          <p class="gw-data-table__message">No runs match "status: failed". All 38 runs in acme/api passed or are still running.</p>
+          <button type="button" class="gw-button gw-button--small">Clear filter</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Loading the rows</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="Loading the rows" data-state="loading">
+  <table class="gw-data-table" aria-busy="true">
+    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Branch</th>
+        <th scope="col">Status</th>
+        <th scope="col" class="gw-data-table__numeric">Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="gw-data-table__state" colspan="4">
+          <p class="gw-spinner" role="status">Loading runs</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The rows could not be loaded</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The rows could not be loaded" data-state="error">
+  <table class="gw-data-table">
+    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Branch</th>
+        <th scope="col">Status</th>
+        <th scope="col" class="gw-data-table__numeric">Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="gw-data-table__state" colspan="4">
+          <p class="gw-data-table__message" role="alert">The runs could not be loaded. The server did not answer in time. Check your connection, then retry.</p>
+          <button type="button" class="gw-button gw-button--small">Retry</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A sticky header, for a long table that scrolls with the page</h3>
+</figcaption>
+<div data-example="sticky" data-title="A sticky header, for a long table that scrolls with the page">
+  <table class="gw-data-table gw-data-table--sticky">
+    <caption class="gw-data-table__caption">Runs in acme/api this week</caption>
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Branch</th>
+        <th scope="col">Status</th>
+        <th scope="col" class="gw-data-table__numeric">Duration</th>
+        <th scope="col" class="gw-data-table__numeric">Tokens</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Fix the login timeout</th>
+        <td data-label="Branch">fix/login-timeout</td>
+        <td data-label="Status">Building</td>
+        <td class="gw-data-table__numeric" data-label="Duration">6 min 12 s</td>
+        <td class="gw-data-table__numeric" data-label="Tokens">18,420</td>
+      </tr>
+      <tr>
+        <th scope="row">Add rate limiting to the webhook endpoint</th>
+        <td data-label="Branch">feat/webhook-rate-limit</td>
+        <td data-label="Status">Awaiting decision</td>
+        <td class="gw-data-table__numeric" data-label="Duration">21 min 40 s</td>
+        <td class="gw-data-table__numeric" data-label="Tokens">47,900</td>
+      </tr>
+      <tr>
+        <th scope="row">Upgrade Postgres client to 8.13</th>
+        <td data-label="Branch">chore/pg-8-13</td>
+        <td data-label="Status">Tests failed</td>
+        <td class="gw-data-table__numeric" data-label="Duration">2 min 5 s</td>
+        <td class="gw-data-table__numeric" data-label="Tokens">6,310</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Stacked cells with no data-label</h3>
+<p>Below 768px the header row is not drawn, so a cell with no data-label is a bare value: nothing says that 18,420 is a count of tokens. Give every td the text of its column header in data-label, or use the scroll variant.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="no-labels" data-title="Stacked cells with no data-label" data-dont="review" data-reason="Below 768px the header row is not drawn, so a cell with no data-label is a bare value: nothing says that 18,420 is a count of tokens. Give every td the text of its column header in data-label, or use the scroll variant.">
+  <table class="gw-data-table">
+    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Branch</th>
+        <th scope="col">Status</th>
+        <th scope="col" class="gw-data-table__numeric">Duration</th>
+        <th scope="col" class="gw-data-table__numeric">Tokens</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Fix the login timeout</th>
+        <td>fix/login-timeout</td>
+        <td>Building</td>
+        <td class="gw-data-table__numeric">6 min 12 s</td>
+        <td class="gw-data-table__numeric">18,420</td>
+      </tr>
+      <tr>
+        <th scope="row">Add rate limiting to the webhook endpoint</th>
+        <td>feat/webhook-rate-limit</td>
+        <td>Awaiting decision</td>
+        <td class="gw-data-table__numeric">21 min 40 s</td>
+        <td class="gw-data-table__numeric">47,900</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A primary button on every row</h3>
+<p>A primary button on each row gives the view as many main actions as it has rows. Give the repeated action quiet emphasis and a label that names its row.</p>
+<p>Checker rule: <code>repeated-item-primary</code></p>
+</figcaption>
+<div data-example="primary-in-rows" data-title="A primary button on every row" data-dont="repeated-item-primary" data-reason="A primary button on each row gives the view as many main actions as it has rows. Give the repeated action quiet emphasis and a label that names its row.">
+  <table class="gw-data-table">
+    <caption class="gw-data-table__caption">Runs in acme/api today</caption>
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Branch</th>
+        <th scope="col"><span class="gw-visually-hidden">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Fix the login timeout</th>
+        <td data-label="Branch">fix/login-timeout</td>
+        <td class="gw-data-table__action"><button type="button" class="gw-button gw-button--primary gw-button--small">Open run</button></td>
+      </tr>
+      <tr>
+        <th scope="row">Add rate limiting to the webhook endpoint</th>
+        <td data-label="Branch">feat/webhook-rate-limit</td>
+        <td class="gw-data-table__action"><button type="button" class="gw-button gw-button--primary gw-button--small">Open run</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>When the reader compares the same facts across several things: runs by duration and tokens, repositories by usage, branches by age.</li>
+<li>With the default stacked layout when each row can be read by itself on a phone: below 768px a row becomes a block and each cell prints its column label beside its value.</li>
+<li>With the scroll variant when the reader compares down a column even on a phone, or when the headers sort: the columns stay and the table scrolls sideways inside its wrapper.</li>
+<li>With the sticky variant for a table long enough that the header would scroll out of sight.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For things the reader scans and opens, with one or two facts each. Use the list.</li>
+<li>For the facts of one thing. Use the key-value list.</li>
+<li>For layout. A table is for data with column headers.</li>
+<li>For a sortable table in the stacked layout. The header row is not drawn below 768px, so its buttons would be out of reach: use the scroll variant, or offer the order in a select above the table.</li>
+<li>For a row with two or more actions. Open the row's own view, or put the rest in its detail row.</li>
+<li>For a table nested in a table's detail row. Put facts there as text or a key-value list.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>stacked</dt>
+<dd>The default, with no modifier class. Columns at 768px and wider. Below that each row is a block: its th is the block's title and each td prints the label in its data-label attribute beside its value. The header row is not drawn.</dd>
+<dt>scroll <code>gw-data-table--scroll</code></dt>
+<dd>Columns at every width. Put the table inside a div with the class gw-data-table__scroll, which scrolls sideways when the columns do not fit. Cells do not wrap.</dd>
+<dt>sticky <code>gw-data-table--sticky</code></dt>
+<dd>The header row stays at the top of whatever scrolls the table up and down, on the page surface. It has no effect inside gw-data-table__scroll unless the app gives that wrapper a height, and none in the stacked layout below 768px.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a table with a caption, gw-data-table__caption, that says what the rows are. Column headers are th scope=&quot;col&quot; in a thead, and the cell that names each row is a th scope=&quot;row&quot;. Do not build a table from divs.</li>
+<li>Give every td a data-label attribute holding the text of its column header. Below 768px the stylesheet prints it beside the value, and it is read out with the value. Leave it off the action cell, a detail cell and a state cell.</li>
+<li>A cell holds one run of text or one element. In the stacked layout a second element would start a new line under the label.</li>
+<li>A column of numbers carries gw-data-table__numeric on its th and on every td: right-aligned, in tabular figures, each number with its unit.</li>
+<li>A sortable header is a button with the class gw-data-table__sort inside the th, holding the header's words. Set aria-sort=&quot;ascending&quot; or aria-sort=&quot;descending&quot; on the th of the one column the rows are ordered by, and leave it off the others. The stylesheet draws the direction from that attribute. The app reorders the rows and moves the attribute, and the caption or a role=&quot;status&quot; line says the new order.</li>
+<li>A row has at most one action: a small quiet button in a td with the class gw-data-table__action, the last cell of the row, under a th whose text is in a gw-visually-hidden span. When every row's button has the same words, add an aria-label that starts with those words and names the row. The cell pads the 32px button out to 44px, so its pointer target fits the row and a one-line row is no taller.</li>
+<li>A row that expands has a button with the class gw-data-table__expand in its th, holding the words that name the row, with aria-expanded and with aria-controls pointing at the next row. That next row is a tr with the class gw-data-table__detail holding one td that spans every column. The app sets aria-expanded to true or false and nothing else: the stylesheet does not draw the detail row while the button says false. Do not use the hidden attribute on the detail row.</li>
+<li>Mark the selected row with aria-selected=&quot;true&quot; on its tr. It is drawn with a bar at its start as well as a shade.</li>
+<li>With no rows, while loading and after a failure, keep the caption and the header and put one row in the tbody whose single td has the class gw-data-table__state and spans every column. Empty: a gw-data-table__message sentence saying why, and at most one small button. Loading: a spinner with role=&quot;status&quot;, and aria-busy=&quot;true&quot; on the table. Error: a gw-data-table__message with role=&quot;alert&quot; that says what to do, and a small Retry button. The stylesheet draws the failure's icon.</li>
+<li>A status in a cell is written in words. One badge may hold it.</li>
+<li>The wrapper of the scroll variant carries tabindex=&quot;0&quot;, role=&quot;region&quot; and aria-labelledby pointing at the caption's id, so a keyboard can scroll it with the arrow keys. Give each such table on a view a different caption.</li>
+<li>Tab moves through the header buttons, then each row's expand button and action, in order. Enter and Space activate them. There are no arrow-key bindings between cells.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-data-table</code></li>
+<li><code>gw-data-table--scroll</code></li>
+<li><code>gw-data-table--sticky</code></li>
+<li><code>gw-data-table__action</code></li>
+<li><code>gw-data-table__caption</code></li>
+<li><code>gw-data-table__detail</code></li>
+<li><code>gw-data-table__expand</code></li>
+<li><code>gw-data-table__message</code></li>
+<li><code>gw-data-table__numeric</code></li>
+<li><code>gw-data-table__scroll</code></li>
+<li><code>gw-data-table__sort</code></li>
+<li><code>gw-data-table__state</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,85 @@
+/*
+ * Number field: a numeric input as the control of a field, optionally joined to its unit as text
+ * and to two stepper buttons. The input also carries gw-field__control, which draws the border,
+ * the fill and the invalid, read-only and disabled states, and the steppers are icon buttons,
+ * so this stylesheet must load after the field's and the button's.
+ */
+
+@layer gw.components {
+  /*
+   * One joined row. A number is short, so the row is no wider than six pointer targets,
+   * because there is no token for a control's width. It is its own stacking context for the focused part below.
+   */
+  .gw-number-field {
+    display: flex;
+    min-width: 0;
+    max-width: calc(var(--gw-size-touch) * 6);
+    isolation: isolate;
+  }
+
+  /* The browser's own spin buttons are too small to press, so they go. The Up and Down keys still step the value. */
+  .gw-number-field__input {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    appearance: textfield;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gw-number-field__input::-webkit-inner-spin-button,
+  .gw-number-field__input::-webkit-outer-spin-button {
+    appearance: none;
+  }
+
+  /* The unit, as text beside the value. It shares the input's border, and its shaded fill sets it apart from what is typed. */
+  .gw-number-field__unit {
+    display: flex;
+    flex: none;
+    align-items: center;
+    padding-inline: var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  /* A stepper is an icon button. It takes the input's border colour, so the row reads as one control. */
+  .gw-number-field__step {
+    border-color: var(--gw-color-border-strong);
+  }
+
+  /* Only the two ends of the row are rounded, and each part after the first gives up its leading border. */
+  .gw-number-field > * {
+    border-radius: 0;
+  }
+
+  .gw-number-field > :first-child {
+    border-start-start-radius: var(--gw-radius-md);
+    border-end-start-radius: var(--gw-radius-md);
+  }
+
+  .gw-number-field > :last-child {
+    border-start-end-radius: var(--gw-radius-md);
+    border-end-end-radius: var(--gw-radius-md);
+  }
+
+  .gw-number-field > :not(:first-child) {
+    border-inline-start-width: 0;
+  }
+
+  /* The focused part comes above its neighbours, so its focus ring is whole. */
+  .gw-number-field > :focus-visible {
+    position: relative;
+    z-index: var(--gw-z-sticky);
+  }
+
+  /* After the rules above, so an unavailable row is quiet in every part. */
+  .gw-number-field__step:disabled {
+    border-color: var(--gw-color-border);
+  }
+
+  .gw-number-field:has(> .gw-number-field__input:disabled) > .gw-number-field__unit {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+  }
+}

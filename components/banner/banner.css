@@ -1,0 +1,106 @@
+/*
+ * Banner: one message about the state of the whole app, across the full width under the app header.
+ * The plain class is the info tone. A modifier changes the tone, and with it the icon.
+ */
+
+@layer gw.components {
+  /* One row. When the text would be squeezed, the actions move to a row below it, at the end. */
+  .gw-banner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--gw-space-xs) var(--gw-space-sm);
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-xs) var(--gw-space-lg);
+    border-bottom-width: var(--gw-border-width);
+    background-color: var(--gw-color-info-subtle);
+  }
+
+  /* The icon is drawn here, so a tone is never marked by colour alone, whatever the markup holds. */
+  .gw-banner::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: var(--gw-color-info);
+    mask: url("icons/info.svg") center / contain no-repeat;
+  }
+
+  .gw-banner--warning {
+    background-color: var(--gw-color-warning-subtle);
+  }
+
+  .gw-banner--warning::before {
+    background-color: var(--gw-color-warning);
+    mask-image: url("icons/triangle-alert.svg");
+  }
+
+  .gw-banner--danger {
+    background-color: var(--gw-color-danger-subtle);
+  }
+
+  .gw-banner--danger::before {
+    background-color: var(--gw-color-danger);
+    mask-image: url("icons/circle-alert.svg");
+  }
+
+  /* Takes the width the actions leave, and never less than this. */
+  .gw-banner__text {
+    flex: 1 1 0;
+    min-width: min(100%, calc(var(--gw-space-2xl) * 5));
+    padding-block: var(--gw-space-xs);
+  }
+
+  /* The action and the dismiss button stay side by side, in the row or below it. */
+  .gw-banner__actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gw-space-sm);
+  }
+
+  .gw-banner__dismiss {
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--gw-space-2xl);
+    height: var(--gw-space-2xl);
+    margin-inline-end: calc(var(--gw-space-sm) * -1);
+    border-radius: var(--gw-radius-sm);
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /*
+   * The dismiss button is drawn 32px square. This invisible box, centred on it,
+   * keeps its pointer target at the touch size without making the banner taller.
+   */
+  .gw-banner__dismiss::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--gw-size-touch);
+    height: var(--gw-size-touch);
+    translate: -50% -50%;
+  }
+
+  .gw-banner__icon {
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-banner__dismiss:hover {
+      background-color: var(--gw-color-surface-raised);
+    }
+  }
+
+  .gw-banner__dismiss:active {
+    background-color: var(--gw-color-surface);
+  }
+}

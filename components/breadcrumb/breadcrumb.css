@@ -1,0 +1,103 @@
+/*
+ * Breadcrumb: where the current page sits, as links to each page above it.
+ * The separators are drawn here, so the markup is only an ordered list of links ending in the current page as text.
+ * It stays on one line: below 768px the items between the first and the last are cut with an ellipsis.
+ */
+
+@layer gw.components {
+  .gw-breadcrumb {
+    min-width: 0;
+  }
+
+  /* Pulled back by the first link's padding, so its text starts on the content's edge. */
+  .gw-breadcrumb__list {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    margin-inline-start: calc(var(--gw-space-xs) * -1);
+  }
+
+  /* When the line is full the items in the middle give way first, then the current page. The first item keeps its text. */
+  .gw-breadcrumb__item {
+    display: flex;
+    flex: 0 1000000 auto;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .gw-breadcrumb__item:first-child {
+    flex: none;
+  }
+
+  .gw-breadcrumb__item:last-child {
+    flex-shrink: 1;
+  }
+
+  /* An item that holds a link never gets narrower than its chevron and a pointer target. */
+  .gw-breadcrumb__item:not(:first-child, :last-child) {
+    min-width: calc(var(--gw-space-lg) + var(--gw-size-touch));
+  }
+
+  .gw-breadcrumb__item + .gw-breadcrumb__item::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: var(--gw-color-muted);
+    mask: url("icons/chevron-right.svg") center / contain no-repeat;
+  }
+
+  /*
+   * One line each, as tall as a pointer target. The padding makes a short label wide enough to press.
+   * Underlined at rest, so a link never depends on colour to be told from the current page.
+   */
+  .gw-breadcrumb__link,
+  .gw-breadcrumb__current {
+    display: block;
+    min-width: 0;
+    padding-inline: var(--gw-space-xs);
+    overflow: hidden;
+    line-height: var(--gw-size-touch);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gw-breadcrumb__link {
+    min-width: var(--gw-size-touch);
+    border-radius: var(--gw-radius-sm);
+    color: var(--gw-color-muted);
+    text-align: center;
+    text-decoration-line: underline;
+    text-decoration-thickness: var(--gw-border-width);
+    text-underline-offset: var(--gw-space-xs);
+    transition: color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  .gw-breadcrumb__current {
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  /* Two pointer targets wide at most, on a phone. The first item and the current page keep their text. */
+  .gw-breadcrumb__item:not(:first-child, :last-child) > .gw-breadcrumb__link {
+    max-width: calc(var(--gw-size-touch) * 2);
+  }
+
+  @media (min-width: 768px) {
+    .gw-breadcrumb__item:not(:first-child, :last-child) > .gw-breadcrumb__link {
+      max-width: none;
+    }
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-breadcrumb__link:hover {
+      color: var(--gw-color-on-surface);
+      text-decoration-thickness: calc(var(--gw-border-width) * 2);
+    }
+  }
+
+  .gw-breadcrumb__link:active {
+    color: var(--gw-color-on-surface);
+    text-decoration-thickness: calc(var(--gw-border-width) * 2);
+  }
+}

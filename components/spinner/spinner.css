@@ -1,0 +1,46 @@
+/*
+ * Spinner: a sign that something is in progress and its length is not known.
+ * The text inside it is the label. The turning mark is decoration, so when motion is off the text still says what is happening.
+ */
+
+@layer gw.components {
+  .gw-spinner {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+  }
+
+  .gw-spinner::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/loader.svg") center / contain no-repeat;
+    animation: gw-spinner-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  .gw-spinner--large {
+    gap: var(--gw-space-md);
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+  }
+
+  .gw-spinner--large::before {
+    width: var(--gw-space-xl);
+    height: var(--gw-space-xl);
+  }
+
+  /* The mark has eight spokes, so eight steps a turn moves it one spoke at a time. */
+  @keyframes gw-spinner-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gw-spinner::before {
+      animation: none;
+    }
+  }
+}

@@ -1,0 +1,79 @@
+/*
+ * Popover: a small panel beside the button that opens it, built on the Popover API.
+ * It does not block the page. The button's popovertarget attribute opens and closes it,
+ * and a press outside or Escape closes it, all with no script.
+ */
+
+@layer gw.components {
+  /*
+   * Without anchor positioning there is no way to find the button, so the panel sits
+   * at the bottom of the screen, centred, where a thumb reaches it.
+   */
+  .gw-popover {
+    inset: auto var(--gw-space-lg) var(--gw-space-lg);
+    width: fit-content;
+    min-width: calc(var(--gw-size-touch) * 5);
+    max-width: min(calc(var(--gw-size-column) * 0.75), calc(100vw - var(--gw-space-lg) * 2));
+    margin: 0 auto;
+    padding: var(--gw-space-lg);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-on-surface);
+    box-shadow: var(--gw-shadow-overlay);
+    overflow-wrap: anywhere;
+  }
+
+  /* Set only while open, so a closed popover stays hidden. */
+  .gw-popover:popover-open {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+  }
+
+  /*
+   * The button that opened the popover is its anchor, with no name to keep unique.
+   * The panel hangs below the button from its leading edge, and moves above it or
+   * to its trailing edge when it would leave the screen.
+   */
+  @supports (position-area: block-end) {
+    .gw-popover {
+      inset: auto;
+      /* The trailing margin keeps a wide panel off the edge of the screen. A flip mirrors it. */
+      margin: var(--gw-space-xs) var(--gw-space-lg) var(--gw-space-xs) 0;
+      position-area: block-end span-inline-end;
+      position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+    }
+  }
+
+  .gw-popover__title {
+    margin: 0;
+    font-weight: var(--gw-weight-semibold);
+  }
+
+  /* A term column and a value column, for a few facts. */
+  .gw-popover__facts {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--gw-space-lg);
+    row-gap: var(--gw-space-xs);
+  }
+
+  .gw-popover__fact {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
+
+  .gw-popover__term {
+    color: var(--gw-color-muted);
+  }
+
+  .gw-popover__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gw-space-sm);
+  }
+}

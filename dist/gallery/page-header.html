@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page header - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Page header</h1>
+<p>The top of a view: its title, an optional one-line description and the view's one optional primary action.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Title, description and the primary action</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The title names the view, one line says what it holds, and the single primary button is the main thing to do here.</p>
+</figcaption>
+<div data-example="default" data-title="Title, description and the primary action" data-state="default" data-reason="The title names the view, one line says what it holds, and the single primary button is the main thing to do here.">
+  <header class="gw-page-header">
+    <div class="gw-page-header__text">
+      <h1 class="gw-page-header__title">Tasks</h1>
+      <p class="gw-page-header__description">Work queued for the agent, newest first.</p>
+    </div>
+    <div class="gw-page-header__action">
+      <a class="gw-button gw-button--primary" href="/tasks/new">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-plus"></use></svg>
+        New task
+      </a>
+    </div>
+  </header>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Title alone</h3>
+</figcaption>
+<div data-example="title-only" data-title="Title alone">
+  <header class="gw-page-header">
+    <div class="gw-page-header__text">
+      <h1 class="gw-page-header__title">Branches</h1>
+    </div>
+  </header>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Title and description, no action</h3>
+</figcaption>
+<div data-example="no-action" data-title="Title and description, no action">
+  <header class="gw-page-header">
+    <div class="gw-page-header__text">
+      <h1 class="gw-page-header__title">Approvals</h1>
+      <p class="gw-page-header__description">Commands the agent will not run until you allow them.</p>
+    </div>
+  </header>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A long title beside the action</h3>
+</figcaption>
+<div data-example="long-title" data-title="A long title beside the action">
+  <header class="gw-page-header">
+    <div class="gw-page-header__text">
+      <h1 class="gw-page-header__title">Fix the login timeout on the mobile sign-in screen</h1>
+      <p class="gw-page-header__description">Task 412 on acme/api, branch fix/login-timeout.</p>
+    </div>
+    <div class="gw-page-header__action">
+      <button type="button" class="gw-button gw-button--primary">Start run</button>
+    </div>
+  </header>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Compact</h3>
+</figcaption>
+<div data-example="compact" data-title="Compact">
+  <header class="gw-page-header gw-page-header--compact">
+    <div class="gw-page-header__text">
+      <h1 class="gw-page-header__title">Run 2291</h1>
+      <p class="gw-page-header__description">fix/login-timeout, started 4 minutes ago.</p>
+    </div>
+    <div class="gw-page-header__action">
+      <button type="button" class="gw-button gw-button--small">Stop run</button>
+    </div>
+  </header>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Compact, title alone</h3>
+</figcaption>
+<div data-example="compact-title-only" data-title="Compact, title alone">
+  <header class="gw-page-header gw-page-header--compact">
+    <div class="gw-page-header__text">
+      <h1 class="gw-page-header__title">Transcript</h1>
+    </div>
+  </header>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Two primary actions</h3>
+<p>A page header holds one action, the main one of the view. A second primary button makes the reader choose between them, so move it into the view as a secondary button.</p>
+<p>Checker rule: <code>one-primary-action</code></p>
+</figcaption>
+<div data-example="two-actions" data-title="Two primary actions" data-dont="one-primary-action" data-reason="A page header holds one action, the main one of the view. A second primary button makes the reader choose between them, so move it into the view as a secondary button.">
+  <header class="gw-page-header">
+    <div class="gw-page-header__text">
+      <h1 class="gw-page-header__title">Tasks</h1>
+      <p class="gw-page-header__description">Work queued for the agent, newest first.</p>
+    </div>
+    <div class="gw-page-header__action gw-cluster">
+      <a class="gw-button gw-button--primary" href="/tasks/import">Import tasks</a>
+      <a class="gw-button gw-button--primary" href="/tasks/new">New task</a>
+    </div>
+  </header>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A paragraph as the description</h3>
+<p>The description is one line that says what the view holds. Instructions and background belong in the view or in the documentation, where they do not push the content down on a phone.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="paragraph-description" data-title="A paragraph as the description" data-dont="review" data-reason="The description is one line that says what the view holds. Instructions and background belong in the view or in the documentation, where they do not push the content down on a phone.">
+  <header class="gw-page-header">
+    <div class="gw-page-header__text">
+      <h1 class="gw-page-header__title">Approvals</h1>
+      <p class="gw-page-header__description">This is where the commands the agent wants to run are listed. The agent stops whenever it reaches a command that is not on the allowed list for the repository, and it waits here until someone with the maintainer role reads the command and allows or refuses it. Refusing a command ends the run.</p>
+    </div>
+  </header>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>Once, at the top of a view's content, to say what the view is.</li>
+<li>With the action when the view has one main thing to do, such as New task on the task list.</li>
+<li>In the compact variant above a board, a transcript or a diff, where the content needs the height.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For the bar across the top of the app with the product name and the back link. Use an app header.</li>
+<li>For the heading of a section inside a view. Use a plain h2.</li>
+<li>For a second or third action. Put those in the view as secondary buttons, or behind a menu.</li>
+<li>For help text of more than a line. Put it in the view or link to the documentation.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>default</dt>
+<dd>The title at 20px on a phone and 24px from 768px. Use it on most views.</dd>
+<dt>compact <code>gw-page-header--compact</code></dt>
+<dd>The title at 16px with a 12px description, for a dense screen. Pair it with a small button.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a header element, with the title as the page's h1. When the app header already shows the view title as the h1, leave the page header out.</li>
+<li>The description is a p directly after the title, one sentence long.</li>
+<li>The action is one button, or one link styled as a button when it goes to another view. It may be the view's primary button, and then no other button in the view is primary.</li>
+<li>In the compact variant use gw-button--small, which keeps a 44px pointer target.</li>
+<li>On a narrow screen the action moves below the text instead of squeezing it. A long title wraps and is never cut.</li>
+<li>The header adds no keyboard behaviour. Tab reaches the action in document order, after the title and description.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-page-header</code></li>
+<li><code>gw-page-header--compact</code></li>
+<li><code>gw-page-header__action</code></li>
+<li><code>gw-page-header__description</code></li>
+<li><code>gw-page-header__text</code></li>
+<li><code>gw-page-header__title</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tooltip - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Tooltip</h1>
+<p>A line of supplementary text for a control that already has a visible label or an accessible name.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Supplementary text for a labelled button</h3>
+<p data-gallery="state">State: <code>open</code></p>
+<p>The button already says what it does. The tooltip adds detail the reader can act without, and aria-describedby gives a screen reader the same detail.</p>
+</figcaption>
+<div data-example="default" data-title="Supplementary text for a labelled button" data-state="open" data-gallery-open data-reason="The button already says what it does. The tooltip adds detail the reader can act without, and aria-describedby gives a screen reader the same detail.">
+  <div class="gw-stack gw-gap-2xl">
+    <p>fix/login-timeout is 4 commits ahead of main.</p>
+    <div class="gw-cluster">
+      <span class="gw-tooltip">
+        <button type="button" class="gw-button" aria-describedby="tooltip-default-text" interestfor="tooltip-default-text">Squash and merge</button>
+        <span class="gw-tooltip__content" id="tooltip-default-text" role="tooltip" popover="hint">Combines the 4 commits into one.</span>
+      </span>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Below an icon button that has a name</h3>
+</figcaption>
+<div data-example="below" data-title="Below an icon button that has a name" data-gallery-open>
+  <div class="gw-stack gw-gap-2xl">
+    <div class="gw-cluster">
+      <span class="gw-tooltip gw-tooltip--below">
+        <button type="button" class="gw-button gw-button--quiet" aria-keyshortcuts="/" aria-describedby="tooltip-below-text" interestfor="tooltip-below-text">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg>
+          <span class="gw-visually-hidden">Search tasks</span>
+        </button>
+        <span class="gw-tooltip__content" id="tooltip-below-text" role="tooltip" popover="hint">Search tasks, or press /</span>
+      </span>
+    </div>
+    <p>12 tasks in acme/api.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Aligned to the trailing edge</h3>
+</figcaption>
+<div data-example="end" data-title="Aligned to the trailing edge" data-gallery-open>
+  <div class="gw-stack gw-gap-2xl">
+    <p>Run 7 finished 2 minutes ago.</p>
+    <div class="gw-split">
+      <span>214 of 214 tests passed</span>
+      <span class="gw-tooltip gw-tooltip--end">
+        <button type="button" class="gw-button" aria-describedby="tooltip-end-text" interestfor="tooltip-end-text">Run again</button>
+        <span class="gw-tooltip__content" id="tooltip-end-text" role="tooltip" popover="hint">Starts run 8 from the same prompt.</span>
+      </span>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>At rest, before hover, focus or a long press</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="rest" data-title="At rest, before hover, focus or a long press" data-state="default">
+  <div class="gw-stack gw-gap-2xl">
+    <p>fix/login-timeout is 4 commits ahead of main.</p>
+    <div class="gw-cluster">
+      <span class="gw-tooltip">
+        <button type="button" class="gw-button" aria-describedby="tooltip-rest-text" interestfor="tooltip-rest-text">Squash and merge</button>
+        <span class="gw-tooltip__content" id="tooltip-rest-text" role="tooltip" popover="hint">Combines the 4 commits into one.</span>
+      </span>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A tooltip as the only label of an icon button</h3>
+<p>The button has no name until the tooltip opens, so a screen reader announces only a button, voice control cannot name it, and on a touch screen the reader must guess what the icon does. Give the button its own name, in visible text or in gw-visually-hidden text.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="only-label" data-title="A tooltip as the only label of an icon button" data-dont="review" data-gallery-open data-reason="The button has no name until the tooltip opens, so a screen reader announces only a button, voice control cannot name it, and on a touch screen the reader must guess what the icon does. Give the button its own name, in visible text or in gw-visually-hidden text.">
+  <div class="gw-stack gw-gap-2xl">
+    <div class="gw-cluster">
+      <span class="gw-tooltip gw-tooltip--below">
+        <button type="button" class="gw-button gw-button--quiet" interestfor="tooltip-only-label-text">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>
+        </button>
+        <span class="gw-tooltip__content" id="tooltip-only-label-text" role="tooltip" popover="hint">Create branch</span>
+      </span>
+    </div>
+    <p>12 tasks in acme/api.</p>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>To add a detail to a labelled control: what exactly it will do, or its keyboard shortcut.</li>
+<li>To show the name of an icon button to a sighted reader, when the button also carries that name for assistive technology.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>As the only label of a control. Give the control a visible label or gw-visually-hidden text.</li>
+<li>For anything the reader needs in order to act, such as why a button is unavailable or what a field accepts. Write it in the view, for example in the field's description.</li>
+<li>For content with a link, a button or more than a sentence. Use a popover.</li>
+<li>For an error. Use the field's error or an alert.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>above</dt>
+<dd>The default, with no modifier class. The text sits above the control, from its leading edge.</dd>
+<dt>below <code>gw-tooltip--below</code></dt>
+<dd>A control at the top of the screen, such as an action in the app header.</dd>
+<dt>end <code>gw-tooltip--end</code></dt>
+<dd>A control at the trailing edge of the view. The text lines up with the control's trailing edge and grows towards the start. It combines with gw-tooltip--below.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Wrap the control in a span with the class gw-tooltip, and put the text straight after the control in a span with gw-tooltip__content, role=&quot;tooltip&quot; and an id.</li>
+<li>The control keeps its own name. Point its aria-describedby at the text, so a screen reader reads the text after the name.</li>
+<li>The text holds words only: no link, no button, and nothing the reader cannot find elsewhere.</li>
+<li>With that markup alone the tooltip opens on hover and on keyboard focus with no script, and stays open while the pointer is on the text. It closes when the pointer and the focus leave.</li>
+<li>Add popover=&quot;hint&quot; to the text and interestfor with the text's id to the control. A browser with interest invokers then also opens it on a long press on a touch screen, closes it on Escape, and draws it in the top layer where no container clips it. Other browsers ignore both attributes.</li>
+<li>On a touch screen without interest invokers, a tap shows the tooltip only where the browser moves focus to a tapped button. iOS Safari does not. To cover it, the app listens for a long press on the control and calls showPopover({ source: control }) on the text, then hidePopover() on the next press anywhere. The text needs the popover attribute for that.</li>
+<li>Without the popover attribute the text is clipped by an ancestor that hides its overflow. Use gw-tooltip--below under the top edge of the screen and gw-tooltip--end at the trailing edge, so the text stays on the screen.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-tooltip</code></li>
+<li><code>gw-tooltip--below</code></li>
+<li><code>gw-tooltip--end</code></li>
+<li><code>gw-tooltip__content</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

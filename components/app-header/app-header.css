@@ -1,0 +1,114 @@
+/*
+ * App header: the top bar of an app. One row holds the product name or the current view's
+ * title, an optional back link before it and optional actions after it. A tray below the
+ * row holds what must stay in sight on every screen, such as approvals waiting for an answer.
+ */
+
+@layer gw.components {
+  .gw-app-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-xs);
+    padding: var(--gw-space-xs) var(--gw-space-sm);
+    border-bottom-width: var(--gw-border-width);
+    background-color: var(--gw-color-surface);
+  }
+
+  /* Stays at the top of the page while the content scrolls beneath it. */
+  .gw-app-header--sticky {
+    position: sticky;
+    top: 0;
+    z-index: var(--gw-z-sticky);
+  }
+
+  .gw-app-header__name,
+  .gw-app-header__back,
+  .gw-app-header__action {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gw-space-xs);
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-size-touch);
+    padding-inline: var(--gw-space-sm);
+    border-radius: var(--gw-radius-md);
+    transition-property: background-color, color;
+    transition-duration: var(--gw-duration-fast);
+    transition-timing-function: var(--gw-ease);
+  }
+
+  .gw-app-header__name {
+    font-family: var(--gw-font-mono);
+    font-size: var(--gw-text-mono);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-mono);
+  }
+
+  .gw-app-header__back {
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* One line. A title too long for the row is cut with an ellipsis, so the actions never leave the row. */
+  .gw-app-header__title {
+    flex: 1;
+    min-width: 0;
+    padding-inline: var(--gw-space-sm);
+    overflow: hidden;
+    font-size: var(--gw-text-lg);
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-lg);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gw-app-header__actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    margin-inline-start: auto;
+  }
+
+  .gw-app-header__action {
+    justify-content: center;
+  }
+
+  .gw-app-header__icon {
+    flex: none;
+    width: calc(var(--gw-space-lg) + var(--gw-space-xs));
+    height: calc(var(--gw-space-lg) + var(--gw-space-xs));
+  }
+
+  /* A row of its own under the bar. With nothing in it, it takes no space. */
+  .gw-app-header__tray {
+    flex: 1 0 100%;
+    padding: var(--gw-space-xs) var(--gw-space-sm);
+  }
+
+  .gw-app-header__tray:empty {
+    display: none;
+  }
+
+  /* A touch screen has no hover, and would otherwise keep this look after a tap. */
+  @media (hover: hover) {
+    .gw-app-header__name:hover,
+    .gw-app-header__back:hover,
+    .gw-app-header__action:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+  }
+
+  .gw-app-header__name:active,
+  .gw-app-header__back:active,
+  .gw-app-header__action:active {
+    background-color: var(--gw-color-border);
+  }
+
+  /* After hover and active, so an unavailable action never answers the pointer. */
+  .gw-app-header__action:disabled,
+  .gw-app-header__action[aria-disabled="true"] {
+    background-color: transparent;
+    color: var(--gw-color-muted);
+    cursor: default;
+  }
+}

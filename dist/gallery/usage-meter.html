@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usage meter - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Usage meter</h1>
+<p>How much of a limit is used, on a native meter, with the figures and the state written in words.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Within the limit</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The figures are written out with their unit, and the state is in words beside the label, so the bar only repeats what the text already says. The bar is a native meter whose thresholds set its tone, with no class to keep in step with the value.</p>
+</figcaption>
+<div data-example="default" data-title="Within the limit" data-state="default" data-reason="The figures are written out with their unit, and the state is in words beside the label, so the bar only repeats what the text already says. The bar is a native meter whose thresholds set its tone, with no class to keep in step with the value.">
+  <div class="gw-usage-meter">
+    <div class="gw-usage-meter__header">
+      <span class="gw-usage-meter__label" id="usage-meter-default-label">Tokens for this run</span>
+      <span class="gw-usage-meter__state">Within the limit</span>
+    </div>
+    <meter class="gw-usage-meter__bar" aria-labelledby="usage-meter-default-label" min="0" max="50000" low="40000" high="47500" optimum="0" value="18420">18,420 of 50,000 tokens</meter>
+    <p class="gw-usage-meter__figures">18,420 of 50,000 tokens</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Near the limit</h3>
+<p data-gallery="state">State: <code>near-limit</code></p>
+</figcaption>
+<div data-example="near-limit" data-title="Near the limit" data-state="near-limit">
+  <div class="gw-usage-meter">
+    <div class="gw-usage-meter__header">
+      <span class="gw-usage-meter__label" id="usage-meter-near-label">Tokens for this run</span>
+      <span class="gw-usage-meter__state">Near the limit</span>
+    </div>
+    <meter class="gw-usage-meter__bar" aria-labelledby="usage-meter-near-label" min="0" max="50000" low="40000" high="47500" optimum="0" value="43750">43,750 of 50,000 tokens</meter>
+    <p class="gw-usage-meter__figures">43,750 of 50,000 tokens. 6,250 left before the run stops.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Over the limit</h3>
+<p data-gallery="state">State: <code>over-limit</code></p>
+</figcaption>
+<div data-example="over-limit" data-title="Over the limit" data-state="over-limit">
+  <div class="gw-usage-meter">
+    <div class="gw-usage-meter__header">
+      <span class="gw-usage-meter__label" id="usage-meter-over-label">Runs this month</span>
+      <span class="gw-usage-meter__state">Over the limit</span>
+    </div>
+    <meter class="gw-usage-meter__bar" aria-labelledby="usage-meter-over-label" min="0" max="200" low="160" high="199" optimum="0" value="214">214 of 200 runs</meter>
+    <p class="gw-usage-meter__figures">214 of 200 runs. New tasks wait until 1 April, or until the plan's limit is raised.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing used yet</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="Nothing used yet" data-state="empty">
+  <div class="gw-usage-meter">
+    <div class="gw-usage-meter__header">
+      <span class="gw-usage-meter__label" id="usage-meter-empty-label">Storage for worktrees</span>
+      <span class="gw-usage-meter__state">Nothing used</span>
+    </div>
+    <meter class="gw-usage-meter__bar" aria-labelledby="usage-meter-empty-label" min="0" max="20" low="16" high="19" optimum="0" value="0">0 of 20 GB</meter>
+    <p class="gw-usage-meter__figures">0 of 20 GB. No worktree has been created in acme/web.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Row, in a usage table</h3>
+</figcaption>
+<div data-example="row" data-title="Row, in a usage table">
+  <table class="gw-data-table">
+    <caption class="gw-data-table__caption">Token use by repository, 1 to 14 March</caption>
+    <thead>
+      <tr>
+        <th scope="col">Repository</th>
+        <th scope="col" class="gw-data-table__numeric">Runs</th>
+        <th scope="col">Tokens used</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">acme/api</th>
+        <td class="gw-data-table__numeric" data-label="Runs">38</td>
+        <td data-label="Tokens used">
+          <div class="gw-usage-meter gw-usage-meter--row">
+            <meter class="gw-usage-meter__bar" aria-label="Tokens used by acme/api" min="0" max="2000000" low="1600000" high="1900000" optimum="0" value="1204000">1,204,000 of 2,000,000 tokens</meter>
+            <span class="gw-usage-meter__figures">1,204,000 of 2,000,000</span>
+            <span class="gw-usage-meter__state">Within the limit</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">acme/billing</th>
+        <td class="gw-data-table__numeric" data-label="Runs">61</td>
+        <td data-label="Tokens used">
+          <div class="gw-usage-meter gw-usage-meter--row">
+            <meter class="gw-usage-meter__bar" aria-label="Tokens used by acme/billing" min="0" max="2000000" low="1600000" high="1900000" optimum="0" value="1790000">1,790,000 of 2,000,000 tokens</meter>
+            <span class="gw-usage-meter__figures">1,790,000 of 2,000,000</span>
+            <span class="gw-usage-meter__state">Near the limit</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">acme/web</th>
+        <td class="gw-data-table__numeric" data-label="Runs">74</td>
+        <td data-label="Tokens used">
+          <div class="gw-usage-meter gw-usage-meter--row">
+            <meter class="gw-usage-meter__bar" aria-label="Tokens used by acme/web" min="0" max="2000000" low="1600000" high="1900000" optimum="0" value="2000000">2,000,000 of 2,000,000 tokens</meter>
+            <span class="gw-usage-meter__figures">2,000,000 of 2,000,000</span>
+            <span class="gw-usage-meter__state">At the limit</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A bar with no figures and no state</h3>
+<p>A bar alone says roughly how full and nothing else: not of what, not how much is left, and its warning tone is colour only. Write the figures with their unit and the state in words next to every meter.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="bar-only" data-title="A bar with no figures and no state" data-dont="review" data-reason="A bar alone says roughly how full and nothing else: not of what, not how much is left, and its warning tone is colour only. Write the figures with their unit and the state in words next to every meter.">
+  <div class="gw-usage-meter">
+    <meter class="gw-usage-meter__bar" aria-label="Usage" min="0" max="50000" low="40000" high="47500" optimum="0" value="43750"></meter>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For use against a known limit: tokens for a run, runs in a month, storage for worktrees.</li>
+<li>With the row variant in a cell of a usage table or in a list row, where the row already names what is measured.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For the progress of a task towards being done. Use a progress element, or a spinner when the length is not known.</li>
+<li>When there is no limit. Write the number as text, or use a stat.</li>
+<li>For a number with a comparison and no limit. Use the stat.</li>
+<li>For a status. Use a badge.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>default</dt>
+<dd>The label and the state on one line, the bar under them, the figures under the bar.</dd>
+<dt>row <code>gw-usage-meter--row</code></dt>
+<dd>The bar, the figures and the state on one line, with no label of its own. The meter takes an aria-label that names what the row measures.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a meter element with the class gw-usage-meter__bar. Set min, max and value from the data, and put the figures as text inside it for a browser that cannot draw it.</li>
+<li>Name the meter: aria-labelledby pointing at gw-usage-meter__label, or aria-label in the row variant.</li>
+<li>Always write the figures with their unit in gw-usage-meter__figures, such as 18,420 of 50,000 tokens. The bar never stands alone.</li>
+<li>The tone comes from the meter's own thresholds, so no class follows the value. Set optimum=&quot;0&quot;, low to the value where the warning starts and high to the value where the limit is reached or nearly so. The bar is neutral up to low, takes the warning tone between low and high, and the danger tone above high.</li>
+<li>Say the same state in words in gw-usage-meter__state, and choose the words by the same thresholds: Within the limit, Near the limit, Over the limit. Colour is never the only signal.</li>
+<li>A value above max draws a full bar. Write the real figures, such as 214 of 200 runs, and say what happens next.</li>
+<li>With nothing used, keep the meter at 0 and say so. While the figures load, show a spinner in place of the meter. If they cannot be read, show an error message in its place, never an empty bar.</li>
+<li>When the state changes while the reader watches, announce it from a role=&quot;status&quot; element in the view. The meter is not focusable and needs no script beyond setting its attributes and text.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-usage-meter</code></li>
+<li><code>gw-usage-meter--row</code></li>
+<li><code>gw-usage-meter__bar</code></li>
+<li><code>gw-usage-meter__figures</code></li>
+<li><code>gw-usage-meter__header</code></li>
+<li><code>gw-usage-meter__label</code></li>
+<li><code>gw-usage-meter__state</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

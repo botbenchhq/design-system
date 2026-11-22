@@ -1,0 +1,33 @@
+{
+  "name": "reasoning",
+  "title": "Reasoning",
+  "purpose": "A closed disclosure holding an agent's reasoning or plan notes, drawn quietly so it defers to the answer.",
+  "status": "draft",
+  "whenToUse": [
+    "For the reasoning an agent wrote before its answer, above that answer in a transcript row.",
+    "For plan notes the reader may want to check but does not need in order to act."
+  ],
+  "whenNotToUse": [
+    "For the answer itself, or anything the reader must read. Use a message.",
+    "For tool arguments or output. Use a message's details, or a tool call.",
+    "For anything that holds an action. An action goes beside the answer, or in an approval when the agent is waiting on it.",
+    "For settings or secondary content of a view. Use a disclosure."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "open", "hover", "focus-visible"],
+  "accessibility": [
+    "Use a native details element with the class on it and a summary as its first child. It starts closed: leave the open attribute off and let the reader open it.",
+    "The summary is text that says what is inside and how long it is: Reasoning, 14 lines, or Plan, 4 steps. Count what the reader will see, in a unit they know.",
+    "gw-reasoning__body holds text only: paragraphs, or the steps of a plan as a list with the numbers written in the text. Never put a button, a link the reader must follow or a form control inside.",
+    "Line breaks in the text are kept. Write the reasoning as text, never as markup.",
+    "The text is muted on the page surface. Do not place the component on a sunken or tinted surface, where muted text is too faint.",
+    "Enter and Space open and close the summary, and its pointer target is 44px tall. The component needs no script."
+  ],
+  "icons": ["chevron-down", "chevron-right"],
+  "classes": [
+    "gw-reasoning",
+    "gw-reasoning__body",
+    "gw-reasoning__summary"
+  ]
+}

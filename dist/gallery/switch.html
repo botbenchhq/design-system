@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Switch - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Switch</h1>
+<p>An on-or-off setting that takes effect as soon as it changes.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Off, with a description</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The setting changes the moment the switch moves, with no Save button. The thumb's position and the word Off both show the state, so it does not rest on the colour of the track.</p>
+</figcaption>
+<div data-example="default" data-title="Off, with a description" data-state="default" data-reason="The setting changes the moment the switch moves, with no Save button. The thumb's position and the word Off both show the state, so it does not rest on the colour of the track.">
+  <div class="gw-switch">
+    <label class="gw-switch__label" for="switch-default-read-only">Auto-approve read-only commands</label>
+    <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+    <input class="gw-switch__input" type="checkbox" role="switch" id="switch-default-read-only" name="auto-approve-read-only" aria-describedby="switch-default-description">
+    <p class="gw-switch__description" id="switch-default-description">Commands such as git status and ls run without asking. Applies from the next request.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>On</h3>
+<p data-gallery="state">State: <code>on</code></p>
+</figcaption>
+<div data-example="on" data-title="On" data-state="on">
+  <div class="gw-switch">
+    <label class="gw-switch__label" for="switch-on-notify">Notify me when a run needs approval</label>
+    <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+    <input class="gw-switch__input" type="checkbox" role="switch" id="switch-on-notify" name="notify-approval" checked>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Several settings</h3>
+</figcaption>
+<div data-example="settings" data-title="Several settings">
+  <div class="gw-stack gw-gap-xs">
+    <div class="gw-switch">
+      <label class="gw-switch__label" for="switch-settings-notify">Notify me when a run needs approval</label>
+      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-settings-notify" name="notify-approval" checked>
+    </div>
+    <div class="gw-switch">
+      <label class="gw-switch__label" for="switch-settings-finished">Notify me when a run finishes</label>
+      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-settings-finished" name="notify-finished">
+    </div>
+    <div class="gw-switch">
+      <label class="gw-switch__label" for="switch-settings-pause">Pause new runs on acme/api</label>
+      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-settings-pause" name="pause-runs" aria-describedby="switch-settings-pause-description">
+      <p class="gw-switch__description" id="switch-settings-pause-description">Runs already in progress carry on. Queued tasks wait.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-stack gw-gap-xs">
+    <div class="gw-switch">
+      <label class="gw-switch__label" for="switch-hover-finished">Notify me when a run finishes</label>
+      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-hover-finished" name="notify-finished">
+    </div>
+    <div class="gw-switch">
+      <label class="gw-switch__label" for="switch-hover-notify">Notify me when a run needs approval</label>
+      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-hover-notify" name="notify-approval" checked>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-switch">
+    <label class="gw-switch__label" for="switch-focus-notify">Notify me when a run needs approval</label>
+    <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+    <input class="gw-switch__input" type="checkbox" role="switch" id="switch-focus-notify" name="notify-approval" checked>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled, off and on</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled, off and on" data-state="disabled">
+  <div class="gw-stack gw-gap-xs">
+    <div class="gw-switch">
+      <label class="gw-switch__label" for="switch-disabled-force">Allow force-push to main</label>
+      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-disabled-force" name="allow-force-push" disabled aria-describedby="switch-disabled-force-description">
+      <p class="gw-switch__description" id="switch-disabled-force-description">Only a repository owner can change this.</p>
+    </div>
+    <div class="gw-switch">
+      <label class="gw-switch__label" for="switch-disabled-review">Require a review before merging</label>
+      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-disabled-review" name="require-review" checked disabled aria-describedby="switch-disabled-review-description">
+      <p class="gw-switch__description" id="switch-disabled-review-description">Set for every repository in the acme organisation.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The change could not be saved</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The change could not be saved" data-state="error">
+  <div class="gw-switch">
+    <label class="gw-switch__label" for="switch-error-pause">Pause new runs on acme/api</label>
+    <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+    <input class="gw-switch__input" type="checkbox" role="switch" id="switch-error-pause" name="pause-runs" aria-describedby="switch-error-message">
+    <p class="gw-switch__error" id="switch-error-message" role="alert">New runs are not paused: the server did not answer. Check your connection, then switch it on again.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A switch that waits for Save</h3>
+<p>A switch promises that the setting changes at once. In a form that is sent with a button, the reader cannot tell whether it has taken effect. Use a checkbox there.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="with-save" data-title="A switch that waits for Save" data-dont="review" data-reason="A switch promises that the setting changes at once. In a form that is sent with a button, the reader cannot tell whether it has taken effect. Use a checkbox there.">
+  <form class="gw-stack">
+    <div class="gw-switch">
+      <label class="gw-switch__label" for="switch-with-save-draft">Open the pull request as a draft</label>
+      <span class="gw-switch__state" aria-hidden="true"><span class="gw-switch__on">On</span><span class="gw-switch__off">Off</span></span>
+      <input class="gw-switch__input" type="checkbox" role="switch" id="switch-with-save-draft" name="draft" checked>
+    </div>
+    <div class="gw-cluster">
+      <button type="button" class="gw-button gw-button--primary">Save settings</button>
+    </div>
+  </form>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a setting the app saves the moment it changes, such as Notify me when a run needs approval.</li>
+<li>In a list of settings, one switch per row, each with its own label.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>In a form that is sent with a button. Use a checkbox, which is read as part of the form.</li>
+<li>To choose between two named options, such as Unified and Split. Use a segmented control.</li>
+<li>To start or stop something that takes time or cannot be undone, such as cancelling a run. Use a button.</li>
+<li>To show or hide part of the view from a toolbar. Use an icon button with aria-pressed.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use input type=&quot;checkbox&quot; with role=&quot;switch&quot; and gw-switch__input, and a label with gw-switch__label whose for attribute is the input's id. A screen reader announces the label, the switch role and on or off.</li>
+<li>Inside the div with gw-switch the order is: the label, the state text, the input, then the description and the error if there are any.</li>
+<li>The state text is a span with gw-switch__state and aria-hidden=&quot;true&quot;, holding two spans: gw-switch__on with the word On and gw-switch__off with the word Off. The stylesheet shows the one that matches the input, so no script changes the text. It is hidden from assistive technology because the switch role already says on or off. Always include it: with the thumb's position, it is what keeps the state from resting on colour.</li>
+<li>The label names the setting and does not change with the state. Write it so that On means the thing in the label happens.</li>
+<li>A description is a p with gw-switch__description, linked from the input with aria-describedby.</li>
+<li>The component needs no script to move. The app listens for the change event and saves the setting. If saving fails, it sets the checked property back and adds a p with gw-switch__error and role=&quot;alert&quot;, linked through aria-describedby, saying which state the setting is in and what to do.</li>
+<li>Set the disabled attribute when the setting cannot be changed, and say why in the description.</li>
+<li>Tab reaches the switch and Space toggles it. The track is drawn 44px by 24px and its pointer target is 44px each way; a press on the label toggles it too.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-switch</code></li>
+<li><code>gw-switch__description</code></li>
+<li><code>gw-switch__error</code></li>
+<li><code>gw-switch__input</code></li>
+<li><code>gw-switch__label</code></li>
+<li><code>gw-switch__off</code></li>
+<li><code>gw-switch__on</code></li>
+<li><code>gw-switch__state</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

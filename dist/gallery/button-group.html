@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Button group - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Button group</h1>
+<p>Related buttons shown together: the actions at the end of a form, or a joined row of closely related actions.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Form actions</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The group has one primary action and it comes last: at the far end of the row at the regular width, and at the bottom of the stack on a phone, nearest the thumb. Source order and visual order are the same.</p>
+</figcaption>
+<div data-example="actions" data-title="Form actions" data-state="default" data-reason="The group has one primary action and it comes last: at the far end of the row at the regular width, and at the bottom of the stack on a phone, nearest the thumb. Source order and visual order are the same.">
+  <div class="gw-button-group" role="group" aria-label="Task actions">
+    <button type="button" class="gw-button gw-button--quiet">Cancel</button>
+    <button type="button" class="gw-button">Save as template</button>
+    <button type="submit" class="gw-button gw-button--primary">Start task</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Attached</h3>
+</figcaption>
+<div data-example="attached" data-title="Attached">
+  <div class="gw-button-group gw-button-group--attached" role="group" aria-label="Rerun checks">
+    <button type="button" class="gw-button">Rerun failed</button>
+    <button type="button" class="gw-button">Rerun all</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Attached icon buttons</h3>
+</figcaption>
+<div data-example="attached-icons" data-title="Attached icon buttons">
+  <div class="gw-split">
+    <span>File 3 of 12 · src/auth/session.ts</span>
+    <div class="gw-button-group gw-button-group--attached" role="group" aria-label="Changed files">
+      <button type="button" class="gw-button gw-icon-button" aria-label="Previous file">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+      </button>
+      <button type="button" class="gw-button gw-icon-button" aria-label="Next file">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-button-group gw-button-group--attached" role="group" aria-label="Rerun checks">
+    <button type="button" class="gw-button">Rerun failed</button>
+    <button type="button" class="gw-button">Rerun all</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a disabled button</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="With a disabled button" data-state="disabled">
+  <div class="gw-stack gw-gap-lg">
+    <div class="gw-button-group gw-button-group--attached" role="group" aria-label="Changed files">
+      <button type="button" class="gw-button gw-icon-button" aria-label="Previous file" disabled>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+      </button>
+      <button type="button" class="gw-button gw-icon-button" aria-label="Next file">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </button>
+    </div>
+    <div class="gw-button-group" role="group" aria-label="Pull request actions">
+      <button type="button" class="gw-button gw-button--quiet">Cancel</button>
+      <button type="submit" class="gw-button gw-button--primary" disabled>Open pull request</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Two primary buttons in one group</h3>
+<p>Two primary buttons compete, and the reader has to work out which one the form is for. Keep the primary class on the last button and give the other secondary emphasis.</p>
+<p>Checker rule: <code>one-primary-action</code></p>
+</figcaption>
+<div data-example="two-primaries" data-title="Two primary buttons in one group" data-dont="one-primary-action" data-reason="Two primary buttons compete, and the reader has to work out which one the form is for. Keep the primary class on the last button and give the other secondary emphasis.">
+  <div class="gw-button-group" role="group" aria-label="Task actions">
+    <button type="button" class="gw-button gw-button--primary">Save as template</button>
+    <button type="submit" class="gw-button gw-button--primary">Start task</button>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For the actions at the end of a form, a dialog or a sheet: one primary action and the ways out of it.</li>
+<li>Attached, for two to four actions on the same thing that belong side by side, such as Previous file and Next file.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>To choose one of several options. Use a segmented control, which keeps the choice.</li>
+<li>For unrelated buttons that happen to share a row. Use the cluster layout class.</li>
+<li>For Allow and Decline on an approval. The approval sets them at opposite ends of its own actions row.</li>
+<li>For more than four attached actions. Keep the most used and put the rest in a menu.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>actions</dt>
+<dd>The default, with no modifier class. Buttons stack at full width below 768px and form a row at the far end from 768px. Write them in the order they are read, with the primary button last.</dd>
+<dt>attached <code>gw-button-group--attached</code></dt>
+<dd>One row at every width, with shared borders and rounded outer corners only. For secondary buttons and icon buttons with short labels. It does not wrap, so keep it narrow enough for a phone.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a div with role=&quot;group&quot; and an aria-label that says what the buttons act on, such as Task actions. Inside a form, a dialog or a fieldset that already names them, the role and label may be left out.</li>
+<li>The children are buttons from the button and icon button components, copied from their examples. The group adds no state of its own: disabled, busy and pressed stay on each button.</li>
+<li>A group holds at most one primary button, written last. Source order is visual order at both widths, so Tab moves through the buttons as they are read.</li>
+<li>Tab reaches each button in turn, and Enter and Space activate it. The group is not a toolbar and adds no arrow keys.</li>
+<li>In an attached group the focused button is drawn above its neighbours, so its focus ring is whole.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-button-group</code></li>
+<li><code>gw-button-group--attached</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

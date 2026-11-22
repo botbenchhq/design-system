@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Card - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Card</h1>
+<p>One section of a view set apart by a border or a background shift, with an optional title, one quiet action and a body.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> One section set apart, with a title and one quiet action</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The limits are a group of their own with an action that applies to all of them, so one card earns its border. The rest of the view stays on the page.</p>
+</figcaption>
+<div data-example="default" data-title="One section set apart, with a title and one quiet action" data-state="default" data-reason="The limits are a group of their own with an action that applies to all of them, so one card earns its border. The rest of the view stays on the page.">
+  <section class="gw-card" aria-labelledby="card-default-title">
+    <div class="gw-card__header">
+      <h2 class="gw-card__title" id="card-default-title">Run limits for acme/api</h2>
+      <div class="gw-card__action">
+        <button type="button" class="gw-button gw-button--quiet gw-button--small">Edit limits</button>
+      </div>
+    </div>
+    <div class="gw-card__body">
+      <dl class="gw-key-value">
+        <div class="gw-key-value__item">
+          <dt class="gw-key-value__label">Tokens for each run</dt>
+          <dd class="gw-key-value__value">50,000</dd>
+        </div>
+        <div class="gw-key-value__item">
+          <dt class="gw-key-value__label">Longest run</dt>
+          <dd class="gw-key-value__value">30 minutes</dd>
+        </div>
+        <div class="gw-key-value__item">
+          <dt class="gw-key-value__label">Runs at the same time</dt>
+          <dd class="gw-key-value__value">4</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A body with no header</h3>
+</figcaption>
+<div data-example="body-only" data-title="A body with no header">
+  <div class="gw-card">
+    <div class="gw-card__body">
+      <p>Runs in acme/billing are paused until 14 March, 09:30, while the database migration finishes. Tasks you start before then wait in the queue.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Sunken: a background shift in place of the border</h3>
+</figcaption>
+<div data-example="sunken" data-title="Sunken: a background shift in place of the border">
+  <section class="gw-card gw-card--sunken" aria-labelledby="card-sunken-title">
+    <div class="gw-card__header">
+      <h2 class="gw-card__title" id="card-sunken-title">Setup command</h2>
+    </div>
+    <div class="gw-card__body">
+      <p>Runs once in each new worktree, before the agent starts.</p>
+      <p><code>npm ci &amp;&amp; npm run db:migrate</code></p>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Two different sections, each laid out by what it holds</h3>
+<p>The two cards hold different things and are shaped by them: a few facts, and a short list. Neither sits inside the other, and the list of branches is a list, not a grid of cards.</p>
+</figcaption>
+<div data-example="on-the-page" data-title="Two different sections, each laid out by what it holds" data-reason="The two cards hold different things and are shaped by them: a few facts, and a short list. Neither sits inside the other, and the list of branches is a list, not a grid of cards.">
+  <div class="gw-stack gw-gap-lg">
+    <section class="gw-card" aria-labelledby="card-page-worktree">
+      <div class="gw-card__header">
+        <h2 class="gw-card__title" id="card-page-worktree">Worktree</h2>
+      </div>
+      <div class="gw-card__body">
+        <dl class="gw-key-value">
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Path</dt>
+            <dd class="gw-key-value__value gw-key-value__value--mono">/srv/workspaces/acme-api</dd>
+          </div>
+          <div class="gw-key-value__item">
+            <dt class="gw-key-value__label">Size on disk</dt>
+            <dd class="gw-key-value__value">214 MB</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+    <section class="gw-card" aria-labelledby="card-page-branches">
+      <div class="gw-card__header">
+        <h2 class="gw-card__title" id="card-page-branches">Open branches</h2>
+        <div class="gw-card__action">
+          <a class="gw-button gw-button--quiet gw-button--small" href="/repositories/acme/api/branches">View all 12</a>
+        </div>
+      </div>
+      <div class="gw-card__body">
+        <ul class="gw-list gw-list--dense">
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/repositories/acme/api/branches/fix/login-timeout">
+              <span class="gw-list__body"><span class="gw-list__primary">fix/login-timeout</span></span>
+              <span class="gw-list__meta">2 min ago</span>
+            </a>
+          </li>
+          <li class="gw-list__row">
+            <a class="gw-list__link" href="/repositories/acme/api/branches/feat/webhook-rate-limit">
+              <span class="gw-list__body"><span class="gw-list__primary">feat/webhook-rate-limit</span></span>
+              <span class="gw-list__meta">40 min ago</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A card inside a card</h3>
+<p>The inner box adds a second border and takes room from the content without saying anything new. Use one card and separate what is inside it with a heading or a divider.</p>
+<p>Checker rule: <code>nested-cards</code></p>
+</figcaption>
+<div data-example="nested" data-title="A card inside a card" data-dont="nested-cards" data-reason="The inner box adds a second border and takes room from the content without saying anything new. Use one card and separate what is inside it with a heading or a divider.">
+  <section class="gw-card" aria-labelledby="card-nested-title">
+    <div class="gw-card__header">
+      <h2 class="gw-card__title" id="card-nested-title">Worktree</h2>
+    </div>
+    <div class="gw-card__body">
+      <div class="gw-card">
+        <div class="gw-card__body">
+          <p>/srv/workspaces/acme-api, on fix/login-timeout, 214 MB.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Three identical cards in a row</h3>
+<p>Three cards of the same shape are a list drawn as boxes: the reader compares them across borders and gaps for no gain. Put similar items in a list or a table.</p>
+<p>Checker rule: <code>identical-card-grid</code></p>
+</figcaption>
+<div data-example="identical-grid" data-title="Three identical cards in a row" data-dont="identical-card-grid" data-reason="Three cards of the same shape are a list drawn as boxes: the reader compares them across borders and gaps for no gain. Put similar items in a list or a table.">
+  <div class="gw-grid gw-grid-3">
+    <div class="gw-card">
+      <div class="gw-card__header"><h2 class="gw-card__title">acme/api</h2></div>
+      <div class="gw-card__body"><p>12 tasks, 2 running.</p></div>
+    </div>
+    <div class="gw-card">
+      <div class="gw-card__header"><h2 class="gw-card__title">acme/billing</h2></div>
+      <div class="gw-card__body"><p>3 tasks, none running.</p></div>
+    </div>
+    <div class="gw-card">
+      <div class="gw-card__header"><h2 class="gw-card__title">acme/web</h2></div>
+      <div class="gw-card__body"><p>No tasks yet.</p></div>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>Sparingly. Content sits on the page by default, under a heading. Reach for a card only when grouping helps: a set of facts with an action that applies to all of them, or a region that must read as separate from the content around it.</li>
+<li>For one or two sections of a view that hold different things, each laid out by what it holds.</li>
+<li>With the sunken variant for a quieter region inside a bordered layout, where a second border would be noise.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For each of several similar items. A list of similar items is a list, not a card grid: use the list or the data table. Three or more sibling cards with the same structure fail the identical-card-grid rule.</li>
+<li>Inside another card. Use one card and separate what is inside it with a heading or a divider. A nested card fails the nested-cards rule.</li>
+<li>As the frame of a whole view, or around every section of it. Use headings and spacing on the page.</li>
+<li>For a request that waits for an answer. Use the approval.</li>
+<li>For a message about the view. Use an alert.</li>
+<li>For content that floats above the page. Only an overlay takes a shadow, and a card never does.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>bordered</dt>
+<dd>The default, with no modifier class. A 1px border on the raised surface.</dd>
+<dt>sunken <code>gw-card--sunken</code></dt>
+<dd>A background shift with no border. Keep quiet, muted text out of it: the muted colour does not reach 4.5:1 on the sunken surface in the light theme.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a section with aria-labelledby pointing at gw-card__title when the card has a title, so it is a named region. Give each card on a view a different title. Use a div for a card with no title.</li>
+<li>gw-card__title is a heading at the level the view's outline needs. It is drawn at the size of body text whatever its level.</li>
+<li>The header holds at most one action, in gw-card__action: a small quiet button or a link with the same classes. It is never primary. When several cards carry the same words, add an aria-label that starts with those words and names the card.</li>
+<li>The header is 44px tall, so the small button's padded pointer target stays inside it.</li>
+<li>A card is not focusable and takes no press. To make something pressable, put a link or a button inside it.</li>
+<li>The card needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-card</code></li>
+<li><code>gw-card--sunken</code></li>
+<li><code>gw-card__action</code></li>
+<li><code>gw-card__body</code></li>
+<li><code>gw-card__header</code></li>
+<li><code>gw-card__title</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

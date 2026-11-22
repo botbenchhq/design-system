@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toolbar - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Toolbar</h1>
+<p>A row of related controls for one view, grouped and labelled, that wraps or scrolls on a narrow screen.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Groups, toggles and a More menu below 768px</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The toolbar has a label, its controls are grouped by what they act on, and every icon button has a name. The two toggles say whether they are on through aria-pressed, drawn as a fill and a bar. Below 768px the least used group leaves the row and the More menu offers the same actions.</p>
+</figcaption>
+<div data-example="default" data-title="Groups, toggles and a More menu below 768px" data-state="default" data-reason="The toolbar has a label, its controls are grouped by what they act on, and every icon button has a name. The two toggles say whether they are on through aria-pressed, drawn as a fill and a bar. Below 768px the least used group leaves the row and the More menu offers the same actions.">
+  <div class="gw-toolbar" role="toolbar" aria-label="Diff of task 41">
+    <div class="gw-toolbar__group" role="group" aria-label="Move between changes">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Go to the previous change"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-up"></use></svg></button>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Go to the next change"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg></button>
+      <span class="gw-toolbar__text">Change 3 of 12</span>
+    </div>
+    <div class="gw-toolbar__separator" role="separator" aria-orientation="vertical"></div>
+    <div class="gw-toolbar__group" role="group" aria-label="Panels">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Show the file tree" aria-pressed="true"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg></button>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Show the terminal" aria-pressed="false"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg></button>
+    </div>
+    <div class="gw-toolbar__overflow">
+      <div class="gw-toolbar__separator" role="separator" aria-orientation="vertical"></div>
+      <div class="gw-toolbar__group" role="group" aria-label="Share the diff">
+        <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Copy the diff"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg></button>
+        <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Open the diff on GitHub"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg></button>
+      </div>
+    </div>
+    <div class="gw-toolbar__more">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" popovertarget="toolbar-default-more" aria-haspopup="menu" aria-label="More actions for the diff">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg>
+      </button>
+      <div class="gw-menu" id="toolbar-default-more" popover role="menu" aria-label="More actions for the diff">
+        <button type="button" class="gw-menu__item" role="menuitem">
+          <svg class="gw-menu__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+          Copy the diff
+        </button>
+        <button type="button" class="gw-menu__item" role="menuitem">
+          <svg class="gw-menu__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg>
+          Open the diff on GitHub
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Toggles that are on</h3>
+<p data-gallery="state">State: <code>pressed</code></p>
+</figcaption>
+<div data-example="pressed" data-title="Toggles that are on" data-state="pressed">
+  <div class="gw-toolbar" role="toolbar" aria-label="Panels of the workspace">
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Show the file tree" aria-pressed="true"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg></button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Show the terminal" aria-pressed="true"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg></button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Show the search panel" aria-pressed="false"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg></button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Text buttons, wrapping onto a second row</h3>
+</figcaption>
+<div data-example="text-buttons" data-title="Text buttons, wrapping onto a second row">
+  <div class="gw-toolbar" role="toolbar" aria-label="Branch fix/login-timeout">
+    <div class="gw-toolbar__group" role="group" aria-label="Update the branch">
+      <button type="button" class="gw-button gw-button--quiet">Fetch origin</button>
+      <button type="button" class="gw-button gw-button--quiet">Rebase onto main</button>
+    </div>
+    <div class="gw-toolbar__separator" role="separator" aria-orientation="vertical"></div>
+    <div class="gw-toolbar__group" role="group" aria-label="Publish the branch">
+      <button type="button" class="gw-button gw-button--quiet">Push</button>
+      <button type="button" class="gw-button gw-button--quiet">Open pull request</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Scrolling inside itself</h3>
+</figcaption>
+<div data-example="scroll" data-title="Scrolling inside itself">
+  <div class="gw-toolbar gw-toolbar--scroll" role="toolbar" aria-label="Transcript of run 4182">
+    <div class="gw-toolbar__group" role="group" aria-label="Move through the transcript">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Go to the previous message"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-up"></use></svg></button>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Go to the next message"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg></button>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Search the transcript"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-search"></use></svg></button>
+    </div>
+    <div class="gw-toolbar__separator" role="separator" aria-orientation="vertical"></div>
+    <div class="gw-toolbar__group" role="group" aria-label="What the transcript shows">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Show tool calls" aria-pressed="true"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg></button>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Show file edits" aria-pressed="true"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg></button>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Show screenshots" aria-pressed="false"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-image"></use></svg></button>
+    </div>
+    <div class="gw-toolbar__separator" role="separator" aria-orientation="vertical"></div>
+    <div class="gw-toolbar__group" role="group" aria-label="Share the transcript">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Copy the transcript"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg></button>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Open the run on GitHub"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg></button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-toolbar" role="toolbar" aria-label="Changes in session.ts">
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Go to the previous change in session.ts"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-up"></use></svg></button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Go to the next change in session.ts"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg></button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Copy the path of session.ts"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg></button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-toolbar" role="toolbar" aria-label="Changes in refresh.ts">
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Go to the previous change in refresh.ts"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-up"></use></svg></button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Go to the next change in refresh.ts"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg></button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Copy the path of refresh.ts"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg></button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Controls that are unavailable</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Controls that are unavailable" data-state="disabled">
+  <div class="gw-toolbar" role="toolbar" aria-label="Changes in cookies.ts, at the first change">
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Go to the previous change in cookies.ts" disabled><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-up"></use></svg></button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Go to the next change in cookies.ts"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg></button>
+    <span class="gw-toolbar__text">Change 1 of 4</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Primary actions in a toolbar</h3>
+<p>A toolbar holds the supporting controls of a view, all at the same quiet weight. Two primary buttons in it compete with each other and with the view's own main action. Use quiet buttons here and keep the one primary action outside the toolbar.</p>
+<p>Checker rule: <code>one-primary-action</code></p>
+</figcaption>
+<div data-example="two-primaries" data-title="Primary actions in a toolbar" data-dont="one-primary-action" data-reason="A toolbar holds the supporting controls of a view, all at the same quiet weight. Two primary buttons in it compete with each other and with the view's own main action. Use quiet buttons here and keep the one primary action outside the toolbar.">
+  <div class="gw-toolbar" role="toolbar" aria-label="Branch actions with two primary buttons">
+    <button type="button" class="gw-button gw-button--primary">Push</button>
+    <button type="button" class="gw-button gw-button--primary">Open pull request</button>
+    <button type="button" class="gw-button gw-button--quiet">Fetch origin</button>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For three or more controls that act on the same view or selection, such as moving through a diff and showing or hiding its panels.</li>
+<li>For toggles and familiar icon actions that should stay one press away while the reader works.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For one or two buttons. Put them in a gw-cluster.</li>
+<li>For the main action of a view. Show it as the primary button, outside the toolbar.</li>
+<li>For a choice between views of the same content. Use a segmented control or tabs.</li>
+<li>For the destinations of the app. Use the app header or the sidebar nav.</li>
+<li>For fields of a form. A toolbar holds buttons, toggles and a menu button, not text inputs.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>wrap</dt>
+<dd>The default, with no modifier class. Groups that do not fit move to a second row.</dd>
+<dt>scroll <code>gw-toolbar--scroll</code></dt>
+<dd>One row that scrolls sideways inside the toolbar, where a second row would push the content down. Put the controls used most first.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>Each control is 44px tall, and an icon button 44px square. The toolbar is as wide as its controls and never wider than its container.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a div with the class gw-toolbar, role=&quot;toolbar&quot; and an aria-label that says what the controls act on. Give each toolbar on a page a different label.</li>
+<li>The controls are buttons from the button and icon button components, quiet in emphasis: gw-button gw-button--quiet, with gw-icon-button for an icon alone. Every icon button has a name in aria-label or in gw-visually-hidden text.</li>
+<li>A toggle carries aria-pressed, &quot;true&quot; or &quot;false&quot;, which the app switches on each press. Its name stays the same in both states.</li>
+<li>Related controls sit in a div with gw-toolbar__group, role=&quot;group&quot; and an aria-label. Between groups goes a div with gw-toolbar__separator, role=&quot;separator&quot; and aria-orientation=&quot;vertical&quot;. A short fact, such as Change 3 of 12, goes in a span with gw-toolbar__text.</li>
+<li>For a narrow screen, wrap the least used controls, with their separator, in a div with gw-toolbar__overflow, and add a div with gw-toolbar__more holding an icon button named More actions and a menu with the same actions as items. Below 768px the overflow controls are not rendered and the More button is. At 768px and up it is the other way round.</li>
+<li>With no script every control is a tab stop, and Enter and Space activate it. That is complete, if slower than the toolbar pattern.</li>
+<li>The roving tabindex is the app's to add. The script sets tabindex=&quot;-1&quot; on every control except one, so the toolbar is a single tab stop. Left and Right move focus to the previous and the next control that is rendered and not disabled, and wrap at the ends. Home and End go to the first and the last. On each move the script swaps the tabindex values and calls focus(). Tab leaves the toolbar, and coming back lands on the control that last had focus.</li>
+<li>Do not write tabindex=&quot;-1&quot; in the markup: without the script those controls could not be reached. The script adds it, and runs again when the 768px change shows or hides controls.</li>
+<li>A control that is unavailable carries the disabled attribute, and the reason is in the view, as the count Change 1 of 4 explains a disabled Previous.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-toolbar</code></li>
+<li><code>gw-toolbar--scroll</code></li>
+<li><code>gw-toolbar__group</code></li>
+<li><code>gw-toolbar__more</code></li>
+<li><code>gw-toolbar__overflow</code></li>
+<li><code>gw-toolbar__separator</code></li>
+<li><code>gw-toolbar__text</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

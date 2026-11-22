@@ -1,0 +1,17 @@
+/*
+ * Text for assistive technology that is not drawn: the label of an icon-only
+ * control, or a heading a landmark needs and the layout has no room for.
+ */
+
+@layer gw.base {
+  .gw-visually-hidden {
+    position: absolute;
+    /* One pixel square: an element with no size is skipped by some screen readers. */
+    width: var(--gw-border-width);
+    height: var(--gw-border-width);
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

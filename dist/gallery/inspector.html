@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inspector - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Inspector</h1>
+<p>A panel for the details of the item selected in the content beside it, with a title, a close button and sections of labelled values.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Beside the list it describes</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The panel shows the details of the row marked as current, so the reader keeps the list in view while reading them. Its title names the item, and each fact is a label with its value in words.</p>
+</figcaption>
+<div data-example="default" data-title="Beside the list it describes" data-state="default" data-reason="The panel shows the details of the row marked as current, so the reader keeps the list in view while reading them. Its title names the item, and each fact is a label with its value in words.">
+  <div class="gw-inspector__layout">
+    <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/runs/4182" aria-current="true">
+          <span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">Run 4182</span></span>
+          <span class="gw-list__meta">Finished</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/runs/4181">
+          <span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">Run 4181</span></span>
+          <span class="gw-list__meta">Running</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/runs/4180">
+          <span class="gw-list__body"><span class="gw-list__primary">Remove the unused v1 billing routes</span><span class="gw-list__secondary">Run 4180</span></span>
+          <span class="gw-list__meta">Finished</span>
+        </a>
+      </li>
+    </ul>
+    <aside class="gw-inspector" aria-label="Details of run 4182">
+      <div class="gw-inspector__header">
+        <h3 class="gw-inspector__title">Run 4182</h3>
+        <button type="button" class="gw-button gw-button--quiet gw-inspector__close">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+          <span class="gw-visually-hidden">Close details of run 4182</span>
+        </button>
+      </div>
+      <section class="gw-inspector__section">
+        <h4 class="gw-inspector__heading">Run</h4>
+        <dl class="gw-inspector__facts">
+          <div class="gw-inspector__fact"><dt class="gw-inspector__label">Status</dt><dd class="gw-inspector__value">Finished, 213 of 213 tests passed</dd></div>
+          <div class="gw-inspector__fact"><dt class="gw-inspector__label">Branch</dt><dd class="gw-inspector__value"><code>fix/login-timeout</code></dd></div>
+          <div class="gw-inspector__fact"><dt class="gw-inspector__label">Started</dt><dd class="gw-inspector__value">14 March, 09:30</dd></div>
+          <div class="gw-inspector__fact"><dt class="gw-inspector__label">Duration</dt><dd class="gw-inspector__value">6 minutes 12 seconds</dd></div>
+        </dl>
+      </section>
+      <section class="gw-inspector__section">
+        <h4 class="gw-inspector__heading">Usage</h4>
+        <dl class="gw-inspector__facts">
+          <div class="gw-inspector__fact"><dt class="gw-inspector__label">Model</dt><dd class="gw-inspector__value">claude-sonnet-4</dd></div>
+          <div class="gw-inspector__fact"><dt class="gw-inspector__label">Tokens</dt><dd class="gw-inspector__value">184,300 in, 12,870 out</dd></div>
+          <div class="gw-inspector__fact"><dt class="gw-inspector__label">Cost</dt><dd class="gw-inspector__value">$0.84 for this run</dd></div>
+        </dl>
+      </section>
+    </aside>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The panel by itself, with a long title and long values</h3>
+</figcaption>
+<div data-example="alone" data-title="The panel by itself, with a long title and long values">
+  <aside class="gw-inspector" aria-label="Details of the task">
+    <div class="gw-inspector__header">
+      <h3 class="gw-inspector__title">Refuse a session token older than 30 minutes and tell the client to sign in again</h3>
+      <button type="button" class="gw-button gw-button--quiet gw-inspector__close">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Close details of the task</span>
+      </button>
+    </div>
+    <section class="gw-inspector__section">
+      <h4 class="gw-inspector__heading">Task</h4>
+      <dl class="gw-inspector__facts">
+        <div class="gw-inspector__fact"><dt class="gw-inspector__label">Repository</dt><dd class="gw-inspector__value">acme/payments-gateway</dd></div>
+        <div class="gw-inspector__fact"><dt class="gw-inspector__label">Worktree</dt><dd class="gw-inspector__value"><code>/srv/workspaces/acme-payments-gateway/worktrees/fix-login-timeout</code></dd></div>
+        <div class="gw-inspector__fact"><dt class="gw-inspector__label">Base branch</dt><dd class="gw-inspector__value"><code>main</code></dd></div>
+      </dl>
+    </section>
+  </aside>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing selected</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="Nothing selected" data-state="empty">
+  <aside class="gw-inspector" aria-label="Run details">
+    <p class="gw-inspector__note">Select a run in the list to see its branch, timing and usage here.</p>
+  </aside>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The details are being fetched</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="The details are being fetched" data-state="loading">
+  <aside class="gw-inspector" aria-label="Details of run 4181" aria-busy="true">
+    <div class="gw-inspector__header">
+      <h3 class="gw-inspector__title">Run 4181</h3>
+      <button type="button" class="gw-button gw-button--quiet gw-inspector__close">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Close details of run 4181</span>
+      </button>
+    </div>
+    <p class="gw-inspector__note gw-spinner" role="status">Loading the details of run 4181</p>
+  </aside>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The details could not be fetched</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The details could not be fetched" data-state="error">
+  <aside class="gw-inspector" aria-label="Details of run 4180">
+    <div class="gw-inspector__header">
+      <h3 class="gw-inspector__title">Run 4180</h3>
+      <button type="button" class="gw-button gw-button--quiet gw-inspector__close">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>
+        <span class="gw-visually-hidden">Close details of run 4180</span>
+      </button>
+    </div>
+    <div class="gw-alert gw-alert--danger" role="alert">
+      <div class="gw-alert__content">
+        <p class="gw-alert__label">Error</p>
+        <p class="gw-alert__body">The details of run 4180 could not be loaded because the server did not answer. Select the run again in a minute.</p>
+      </div>
+    </div>
+  </aside>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A panel with no label and no way to close it</h3>
+<p>Without aria-label the aside is announced as an unnamed region, and without a close button the reader on a phone cannot get the panel out of the way of the list. Name the aside after the item and keep the close button in its header.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="no-label-no-close" data-title="A panel with no label and no way to close it" data-dont="review" data-reason="Without aria-label the aside is announced as an unnamed region, and without a close button the reader on a phone cannot get the panel out of the way of the list. Name the aside after the item and keep the close button in its header.">
+  <aside class="gw-inspector">
+    <div class="gw-inspector__header">
+      <h3 class="gw-inspector__title">Run 4179</h3>
+    </div>
+    <section class="gw-inspector__section">
+      <h4 class="gw-inspector__heading">Run</h4>
+      <dl class="gw-inspector__facts">
+        <div class="gw-inspector__fact"><dt class="gw-inspector__label">Status</dt><dd class="gw-inspector__value">Finished, 213 of 213 tests passed</dd></div>
+        <div class="gw-inspector__fact"><dt class="gw-inspector__label">Branch</dt><dd class="gw-inspector__value"><code>fix/login-timeout</code></dd></div>
+      </dl>
+    </section>
+  </aside>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>When the reader picks an item in a list, a board or a diff and wants its facts while the list stays in view: the branch, timing and usage of a run.</li>
+<li>At 768px and up, as the second child of gw-inspector__layout, where it is a column after the content.</li>
+<li>Below 768px, either stacked under the content in the same layout, or opened over it as a sheet. The sheet is the app's dialog pattern, a dialog element holding the same aside markup, opened when a row is pressed and closed by the same close button. This component does not style the sheet.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For the destinations of the app. Use the sidebar nav.</li>
+<li>For an item the reader will work in for a while, such as a transcript. Give it a screen of its own.</li>
+<li>For a request that waits for an answer. Use an approval.</li>
+<li>For a form with several steps. The panel shows facts and at most a few actions.</li>
+</ul>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>288px wide beside the content at 768px and up, with a rule on its leading edge. Full width under the content below that, with a rule above it.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use an aside with the gw-inspector class and an aria-label that names the item, such as Details of run 4182. Change the label when the selection changes.</li>
+<li>gw-inspector__header holds the title, a heading with the gw-inspector__title class at the level the view needs, and the close button.</li>
+<li>The close button is a button with the classes gw-button, gw-button--quiet and gw-inspector__close. It holds the x icon with aria-hidden=&quot;true&quot; and its name in a gw-visually-hidden span, such as Close details of run 4182. When it is pressed the app removes the aside, or sets the hidden attribute on it, clears the selection and moves focus back to the row that was selected.</li>
+<li>Each gw-inspector__section has a heading with the gw-inspector__heading class and a dl with the gw-inspector__facts class. Each fact is a div with the gw-inspector__fact class holding a dt, gw-inspector__label, and a dd, gw-inspector__value. A value is written in words with its unit.</li>
+<li>Mark the selected item in the content with aria-current=&quot;true&quot;, as a list row does, so the reader can tell what the panel describes without relying on position.</li>
+<li>Selecting an item does not move focus into the panel. The panel follows the content in the markup, so Tab reaches it after the list.</li>
+<li>With nothing selected, either leave the aside out or show one gw-inspector__note sentence that says what to select. While the details are fetched, set aria-busy=&quot;true&quot; on the aside and show a spinner with text. When the fetch fails, show an alert that says what to do.</li>
+<li>The component needs no script of its own. The app fills the panel, sets aria-label and handles the close button.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-inspector</code></li>
+<li><code>gw-inspector__close</code></li>
+<li><code>gw-inspector__fact</code></li>
+<li><code>gw-inspector__facts</code></li>
+<li><code>gw-inspector__heading</code></li>
+<li><code>gw-inspector__header</code></li>
+<li><code>gw-inspector__label</code></li>
+<li><code>gw-inspector__layout</code></li>
+<li><code>gw-inspector__note</code></li>
+<li><code>gw-inspector__section</code></li>
+<li><code>gw-inspector__title</code></li>
+<li><code>gw-inspector__value</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

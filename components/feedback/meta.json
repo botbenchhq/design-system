@@ -1,0 +1,40 @@
+{
+  "name": "feedback",
+  "title": "Feedback",
+  "purpose": "A control for rating an agent's answer as helpful or not helpful, with an optional follow-up note and a confirmation.",
+  "status": "draft",
+  "whenToUse": [
+    "Under an agent's answer or at the end of a turn, to record whether it helped.",
+    "When a rating can be followed by an optional note on what was wrong."
+  ],
+  "whenNotToUse": [
+    "To answer a request an agent is waiting on. Use an approval, which carries Allow and Decline.",
+    "To accept or reject a run's work. Use buttons that name the action, such as Accept changes.",
+    "For a rating on a scale, or a choice among several options. Use radio inputs in a field.",
+    "For a setting that turns something on or off. Use a checkbox or a switch."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "selected", "hover", "focus-visible", "disabled", "error"],
+  "accessibility": [
+    "Use a div with role=\"group\" and aria-labelledby pointing at gw-feedback__prompt, which asks the question in words, such as Was this answer helpful?",
+    "Each choice is a button element with type=\"button\" and the classes gw-button gw-button--small gw-feedback__choice, and the two sit together in gw-feedback__choices. It holds an icon with aria-hidden=\"true\" and the words Helpful or Not helpful. Never use the icon alone.",
+    "Both buttons carry aria-pressed. The app sets aria-pressed=\"true\" on the chosen one and \"false\" on the other. Pressing the chosen button again clears the rating. The pressed button is drawn with a darker outline, a shade and a heavier label, not a colour alone.",
+    "Keep an empty p with the class gw-feedback__confirmation and role=\"status\" in the group from the start. After a choice is saved, the app writes one line into it, such as Rated helpful. Thank you., and a screen reader announces it. It takes no room while empty.",
+    "The follow-up note is an app-set pattern, not a state of the component. After a choice, the app inserts gw-feedback__note between the row and the confirmation, or removes its hidden attribute: a gw-field whose control is a gw-textarea, with a visible label, and a secondary button, Send note. The rating is saved by the first press, and the note is optional. Do not move focus into the field: the reader reaches it with Tab.",
+    "After the note is sent, set the disabled attribute on both choices, leave aria-pressed as it is, remove the note field and say so in the confirmation.",
+    "If saving fails, set both buttons back to aria-pressed=\"false\" and add a p with the class gw-feedback__error and role=\"alert\" that says the rating was not saved and what to do. Its icon is drawn by the stylesheet.",
+    "Tab reaches Helpful, then Not helpful, then the note field and Send note when shown. Enter and Space press a button. The buttons are drawn 32px tall with a 44px pointer target."
+  ],
+  "icons": ["circle-alert", "thumbs-down", "thumbs-up"],
+  "classes": [
+    "gw-feedback",
+    "gw-feedback__choice",
+    "gw-feedback__choices",
+    "gw-feedback__confirmation",
+    "gw-feedback__error",
+    "gw-feedback__note",
+    "gw-feedback__prompt",
+    "gw-feedback__row"
+  ]
+}

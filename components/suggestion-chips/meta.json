@@ -1,0 +1,34 @@
+{
+  "name": "suggestion-chips",
+  "title": "Suggestion chips",
+  "purpose": "Two to four suggested next prompts, as quiet buttons under a composer or an empty transcript.",
+  "status": "draft",
+  "whenToUse": [
+    "Under a composer after a turn ends, to offer the prompts most likely to come next.",
+    "Under an empty transcript, to show what can be asked of this repository or task."
+  ],
+  "whenNotToUse": [
+    "For the view's actions, such as Start task or Stop. Use buttons.",
+    "For a choice among fixed options that stays selected. Use a select or radio inputs.",
+    "For an answer the agent is waiting on. Use an approval.",
+    "When there are no specific prompts to offer. Render nothing: a generic chip is worse than none.",
+    "For more than four. Pick the four most likely."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "hover", "focus-visible", "active", "disabled"],
+  "accessibility": [
+    "Use a ul with the class gw-suggestion-chips and an aria-label such as Suggested prompts, with one li per chip. A screen reader then announces the group and how many chips it holds.",
+    "Each chip is a button element with type=\"button\" and the classes gw-button gw-suggestion-chips__chip. It is never a link and never primary.",
+    "The chip's text is the whole prompt it sends or places in the composer, specific to this conversation: Run the failing test again, not Tell me more. Do the same thing on every press, sending or filling, across the app.",
+    "A long prompt wraps inside its chip. Do not cut it short, because the text is what the reader agrees to send.",
+    "While a turn runs and a prompt cannot be sent, set the disabled attribute on every chip or remove the group.",
+    "Chips are 44px tall, and wrap onto further lines at phone width.",
+    "Tab moves through the chips in order. Enter and Space activate one. After a press, move focus to the composer or leave it on the transcript's new row. The component needs no script of its own."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-suggestion-chips",
+    "gw-suggestion-chips__chip"
+  ]
+}

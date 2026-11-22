@@ -1,0 +1,45 @@
+/*
+ * Sparkline: a small trend line beside a value, drawn as an inline SVG the app generates.
+ * The line takes the text colour. The words next to it say the trend and the latest value,
+ * because the drawing is hidden from assistive technology and too small to read a number from.
+ */
+
+@layer gw.components {
+  .gw-sparkline {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--gw-space-sm);
+    min-width: 0;
+    vertical-align: middle;
+  }
+
+  /* 64px by 16px, the size of the viewBox, so one unit in the drawing is one pixel. The line keeps the main text colour inside quiet text. */
+  .gw-sparkline__chart {
+    flex: none;
+    color: var(--gw-color-on-surface);
+    width: calc(var(--gw-space-2xl) * 2);
+    height: var(--gw-space-lg);
+    overflow: visible;
+  }
+
+  .gw-sparkline__line {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: calc(var(--gw-border-width) * 1.5);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* The latest value, marked so the eye knows which end is now. */
+  .gw-sparkline__last {
+    fill: currentColor;
+  }
+
+  .gw-sparkline__text {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+}

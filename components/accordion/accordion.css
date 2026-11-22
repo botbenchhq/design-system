@@ -1,0 +1,24 @@
+/*
+ * Accordion: a set of disclosures of which one is open at a time.
+ * Each section is a details element that carries the disclosure classes and shares a name attribute
+ * with the others, so the browser closes the open one when another opens. No script is involved.
+ * This file adds only what the set needs: the rules between sections and summaries that run edge to edge.
+ */
+
+@layer gw.components {
+  .gw-accordion {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-block-width: var(--gw-border-width);
+  }
+
+  .gw-accordion__section + .gw-accordion__section {
+    border-top-width: var(--gw-border-width);
+  }
+
+  /* Between two rules a rounded shade would look like a button inside the row, so the summary is square. */
+  .gw-accordion__section > summary {
+    border-radius: 0;
+  }
+}

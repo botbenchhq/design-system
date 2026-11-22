@@ -1,0 +1,58 @@
+/*
+ * Split panel: two labelled regions, a list and the detail of what is chosen in it.
+ * They sit side by side at 768px and up, the list in a fixed column, and one above the other below that.
+ * Each region scrolls by itself. The split is fixed: there is no handle to drag and no script.
+ */
+
+@layer gw.components {
+  /* Stacked: the list takes two fifths of the height and the detail the rest. */
+  .gw-split-panel {
+    display: grid;
+    grid-template-rows: minmax(0, 2fr) minmax(0, 3fr);
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    height: var(--gw-size-column);
+    border-width: var(--gw-border-width);
+    border-radius: var(--gw-radius-md);
+  }
+
+  /* Inside an app shell that already gives it a height and an edge. */
+  .gw-split-panel--fill {
+    height: 100%;
+    border-width: 0;
+    border-radius: 0;
+  }
+
+  .gw-split-panel__list,
+  .gw-split-panel__detail {
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  /* A rule between the two regions, on whichever edge they share. */
+  .gw-split-panel__list {
+    border-bottom-width: var(--gw-border-width);
+  }
+
+  .gw-split-panel__detail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-md);
+    padding: var(--gw-space-lg);
+    overflow-wrap: anywhere;
+  }
+
+  /* Side by side. There is no width token for a list column, so it is a fraction of the reading column. */
+  @media (min-width: 768px) {
+    .gw-split-panel {
+      grid-template-rows: minmax(0, 1fr);
+      grid-template-columns: calc(var(--gw-size-column) * 0.6) minmax(0, 1fr);
+    }
+
+    .gw-split-panel__list {
+      border-bottom-width: 0;
+      border-inline-end-width: var(--gw-border-width);
+    }
+  }
+}

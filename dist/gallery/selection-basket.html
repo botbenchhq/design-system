@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selection basket - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Selection basket</h1>
+<p>The bar that appears while rows of a list or a table are selected: how many are selected, one bulk action, a More menu and Clear selection.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Three rows selected</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The bar says in words how many rows the action will touch, and the action repeats the number. One action is offered outright, the rest are behind More, and Clear selection is the way out.</p>
+</figcaption>
+<div data-example="default" data-title="Three rows selected" data-state="default" data-reason="The bar says in words how many rows the action will touch, and the action repeats the number. One action is offered outright, the rest are behind More, and Clear selection is the way out.">
+  <div class="gw-selection-basket" role="region" aria-label="Selected runs">
+    <div class="gw-selection-basket__selection">
+      <p class="gw-selection-basket__count" role="status">3 runs selected</p>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear selection</button>
+    </div>
+    <div class="gw-selection-basket__actions">
+      <button type="button" class="gw-button gw-button--small">Archive 3 runs</button>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" popovertarget="selection-basket-default-menu" aria-haspopup="menu">
+        More
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+      </button>
+      <div class="gw-menu" id="selection-basket-default-menu" popover role="menu" aria-label="More actions for the 3 selected runs">
+        <button type="button" class="gw-menu__item" role="menuitem">Run 3 again</button>
+        <button type="button" class="gw-menu__item" role="menuitem">Copy 3 branch names</button>
+        <hr class="gw-menu__divider">
+        <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete 3 runs</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>After the list it acts on</h3>
+</figcaption>
+<div data-example="in-context" data-title="After the list it acts on">
+  <div class="gw-stack gw-gap-sm">
+    <ul class="gw-list">
+      <li class="gw-list__row">
+        <div class="gw-list__content">
+          <div class="gw-checkbox">
+            <input class="gw-checkbox__input" type="checkbox" id="selection-basket-context-2295" name="runs" value="2295" checked aria-describedby="selection-basket-context-2295-where">
+            <label class="gw-checkbox__label" for="selection-basket-context-2295">Add rate limiting to the webhook endpoint</label>
+            <p class="gw-checkbox__description" id="selection-basket-context-2295-where">acme/api · feat/webhook-rate-limit</p>
+          </div>
+        </div>
+      </li>
+      <li class="gw-list__row">
+        <div class="gw-list__content">
+          <div class="gw-checkbox">
+            <input class="gw-checkbox__input" type="checkbox" id="selection-basket-context-2294" name="runs" value="2294" checked aria-describedby="selection-basket-context-2294-where">
+            <label class="gw-checkbox__label" for="selection-basket-context-2294">Upgrade Postgres client to 8.13</label>
+            <p class="gw-checkbox__description" id="selection-basket-context-2294-where">acme/billing · chore/pg-8-13</p>
+          </div>
+        </div>
+      </li>
+      <li class="gw-list__row">
+        <div class="gw-list__content">
+          <div class="gw-checkbox">
+            <input class="gw-checkbox__input" type="checkbox" id="selection-basket-context-2293" name="runs" value="2293" aria-describedby="selection-basket-context-2293-where">
+            <label class="gw-checkbox__label" for="selection-basket-context-2293">Move session storage to Redis</label>
+            <p class="gw-checkbox__description" id="selection-basket-context-2293-where">acme/api · feat/redis-sessions</p>
+          </div>
+        </div>
+      </li>
+      <li class="gw-list__row">
+        <div class="gw-list__content">
+          <div class="gw-checkbox">
+            <input class="gw-checkbox__input" type="checkbox" id="selection-basket-context-2291" name="runs" value="2291" checked aria-describedby="selection-basket-context-2291-where">
+            <label class="gw-checkbox__label" for="selection-basket-context-2291">Paginate the audit log</label>
+            <p class="gw-checkbox__description" id="selection-basket-context-2291-where">acme/web · feat/audit-log-pages</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="gw-selection-basket" role="region" aria-label="Runs selected in this list">
+      <div class="gw-selection-basket__selection">
+        <p class="gw-selection-basket__count" role="status">3 runs selected</p>
+        <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear selection</button>
+      </div>
+      <div class="gw-selection-basket__actions">
+        <button type="button" class="gw-button gw-button--small">Archive 3 runs</button>
+        <button type="button" class="gw-button gw-button--quiet gw-button--small" popovertarget="selection-basket-context-menu" aria-haspopup="menu">
+          More
+          <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+        </button>
+        <div class="gw-menu" id="selection-basket-context-menu" popover role="menu" aria-label="More actions for the 3 selected runs">
+          <button type="button" class="gw-menu__item" role="menuitem">Run 3 again</button>
+          <button type="button" class="gw-menu__item" role="menuitem">Copy 3 branch names</button>
+          <hr class="gw-menu__divider">
+          <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete 3 runs</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>As the view's one primary action</h3>
+</figcaption>
+<div data-example="primary" data-title="As the view's one primary action">
+  <div class="gw-selection-basket" role="region" aria-label="All runs selected">
+    <div class="gw-selection-basket__selection">
+      <p class="gw-selection-basket__count" role="status">All 38 runs selected</p>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear selection</button>
+    </div>
+    <div class="gw-selection-basket__actions">
+      <button type="button" class="gw-button gw-button--primary gw-button--small">Archive 38 runs</button>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" popovertarget="selection-basket-primary-menu" aria-haspopup="menu">
+        More
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+      </button>
+      <div class="gw-menu" id="selection-basket-primary-menu" popover role="menu" aria-label="More actions for the 38 selected runs">
+        <button type="button" class="gw-menu__item" role="menuitem">Run 38 again</button>
+        <button type="button" class="gw-menu__item" role="menuitem">Copy 38 branch names</button>
+        <hr class="gw-menu__divider">
+        <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete 38 runs</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>One row selected, and no More menu</h3>
+</figcaption>
+<div data-example="one-action" data-title="One row selected, and no More menu">
+  <div class="gw-selection-basket" role="region" aria-label="Selected run">
+    <div class="gw-selection-basket__selection">
+      <p class="gw-selection-basket__count" role="status">1 run selected</p>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear selection</button>
+    </div>
+    <div class="gw-selection-basket__actions">
+      <button type="button" class="gw-button gw-button--small">Archive 1 run</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>While the bulk action runs</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="busy" data-title="While the bulk action runs" data-state="busy">
+  <div class="gw-selection-basket" role="region" aria-label="Selected runs being archived">
+    <div class="gw-selection-basket__selection">
+      <p class="gw-selection-basket__count" role="status">3 runs selected</p>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" disabled>Clear selection</button>
+    </div>
+    <div class="gw-selection-basket__actions">
+      <button type="button" class="gw-button gw-button--small" aria-busy="true">Archiving 3 runs</button>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" popovertarget="selection-basket-busy-menu" aria-haspopup="menu" disabled>
+        More
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+      </button>
+      <div class="gw-menu" id="selection-basket-busy-menu" popover role="menu" aria-label="More actions for the 3 selected runs">
+        <button type="button" class="gw-menu__item" role="menuitem">Run 3 again</button>
+        <button type="button" class="gw-menu__item" role="menuitem">Copy 3 branch names</button>
+        <hr class="gw-menu__divider">
+        <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete 3 runs</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The bulk action failed for some rows</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The bulk action failed for some rows" data-state="error">
+  <div class="gw-selection-basket" role="region" aria-label="Selected runs that were not archived">
+    <div class="gw-selection-basket__selection">
+      <p class="gw-selection-basket__count" role="status">2 runs selected</p>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear selection</button>
+    </div>
+    <div class="gw-selection-basket__actions">
+      <button type="button" class="gw-button gw-button--small">Archive 2 runs</button>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" popovertarget="selection-basket-error-menu" aria-haspopup="menu">
+        More
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-down"></use></svg>
+      </button>
+      <div class="gw-menu" id="selection-basket-error-menu" popover role="menu" aria-label="More actions for the 2 selected runs">
+        <button type="button" class="gw-menu__item" role="menuitem">Run 2 again</button>
+        <button type="button" class="gw-menu__item" role="menuitem">Copy 2 branch names</button>
+        <hr class="gw-menu__divider">
+        <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete 2 runs</button>
+      </div>
+    </div>
+    <p class="gw-selection-basket__error" role="alert">1 run was archived and 2 were not, because they are still running. They are still selected. Stop them first, then archive again.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Two primary bulk actions</h3>
+<p>Two primary buttons in the bar leave the reader to work out which one the selection is for, and a slip of the thumb acts on every selected row. Offer one action outright and put the rest behind More.</p>
+<p>Checker rule: <code>one-primary-action</code></p>
+</figcaption>
+<div data-example="two-primaries" data-title="Two primary bulk actions" data-dont="one-primary-action" data-reason="Two primary buttons in the bar leave the reader to work out which one the selection is for, and a slip of the thumb acts on every selected row. Offer one action outright and put the rest behind More.">
+  <div class="gw-selection-basket" role="region" aria-label="Selected runs">
+    <div class="gw-selection-basket__selection">
+      <p class="gw-selection-basket__count" role="status">3 runs selected</p>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear selection</button>
+    </div>
+    <div class="gw-selection-basket__actions">
+      <button type="button" class="gw-button gw-button--primary gw-button--small">Archive 3 runs</button>
+      <button type="button" class="gw-button gw-button--primary gw-button--small">Run 3 again</button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A bare number and unnamed actions</h3>
+<p>A lone 3 does not say three of what, and Archive does not say how much it will archive. Write the count with its thing, and repeat the number in the action.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="count-only" data-title="A bare number and unnamed actions" data-dont="review" data-reason="A lone 3 does not say three of what, and Archive does not say how much it will archive. Write the count with its thing, and repeat the number in the action.">
+  <div class="gw-selection-basket">
+    <div class="gw-selection-basket__selection">
+      <p class="gw-selection-basket__count">3</p>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">Clear</button>
+    </div>
+    <div class="gw-selection-basket__actions">
+      <button type="button" class="gw-button gw-button--small">Archive</button>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>When the reader ticks rows in a list or a table and then acts on all of them at once: archive, re-run, delete.</li>
+<li>Once per list, placed straight after the list it acts on, in the same container.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For the actions on one row. Put one quiet action in the row, or a menu.</li>
+<li>For actions that do not depend on a selection, such as New task. Put them in the page header.</li>
+<li>For filters on the list. Use the search field or a sheet of filters.</li>
+<li>To report what a bulk action did. Use a toast, or the undo toast when it can be taken back.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>secondary action</dt>
+<dd>The default. The bulk action is a gw-button gw-button--small, for a view that already has a primary action.</dd>
+<dt>primary action</dt>
+<dd>The bulk action is a gw-button gw-button--primary gw-button--small. Only when the view has no other primary action while rows are selected.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a div with gw-selection-basket, role=&quot;region&quot; and an aria-label that says what is selected, such as Selected runs. The region is then a landmark a screen reader can jump to from anywhere in the list.</li>
+<li>gw-selection-basket__selection holds the count and then Clear selection. The count is a p with gw-selection-basket__count and role=&quot;status&quot; that says the number and the thing in words: 3 runs selected. The app rewrites it whenever the selection changes, and a screen reader announces the new count.</li>
+<li>Keep the basket in the page from the start with the hidden attribute. On the first selection remove hidden and then set the count's text, so the count is announced. When the selection is cleared, set hidden again and move focus back to the list if it was inside the basket.</li>
+<li>Clear selection is a gw-button gw-button--quiet gw-button--small. It unticks every row and changes nothing else.</li>
+<li>gw-selection-basket__actions holds at most one bulk action as a button whose words name the action and the count, such as Archive 3 runs, and then, when there are more actions, one More button that opens a menu from the menu component. A bulk action that deletes sits last in the menu as a danger item and opens a confirm dialog.</li>
+<li>The buttons are drawn 32px tall and their pointer targets are 44px. The bulk action is never one of two primary buttons in the view.</li>
+<li>While the bulk action runs, set aria-busy=&quot;true&quot; on its button, change its words to say what is happening, and disable the other buttons. If it fails, add a p with gw-selection-basket__error and role=&quot;alert&quot; as the last child, saying how many were not done and what to do, and keep the selection.</li>
+<li>The basket sticks to the bottom of the screen while the list it follows is in view, above the home indicator on a phone, so give the list's container enough bottom padding that the last row can scroll clear of it.</li>
+<li>Tab reaches Clear selection, the bulk action and More, in that order, after the last row of the list. The menu's keys are those of the menu component.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-selection-basket</code></li>
+<li><code>gw-selection-basket__actions</code></li>
+<li><code>gw-selection-basket__count</code></li>
+<li><code>gw-selection-basket__error</code></li>
+<li><code>gw-selection-basket__selection</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

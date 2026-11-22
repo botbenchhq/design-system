@@ -1,0 +1,39 @@
+{
+  "name": "tooltip",
+  "title": "Tooltip",
+  "purpose": "A line of supplementary text for a control that already has a visible label or an accessible name.",
+  "status": "draft",
+  "whenToUse": [
+    "To add a detail to a labelled control: what exactly it will do, or its keyboard shortcut.",
+    "To show the name of an icon button to a sighted reader, when the button also carries that name for assistive technology."
+  ],
+  "whenNotToUse": [
+    "As the only label of a control. Give the control a visible label or gw-visually-hidden text.",
+    "For anything the reader needs in order to act, such as why a button is unavailable or what a field accepts. Write it in the view, for example in the field's description.",
+    "For content with a link, a button or more than a sentence. Use a popover.",
+    "For an error. Use the field's error or an alert."
+  ],
+  "variants": [
+    { "name": "above", "use": "The default, with no modifier class. The text sits above the control, from its leading edge." },
+    { "name": "below", "class": "gw-tooltip--below", "use": "A control at the top of the screen, such as an action in the app header." },
+    { "name": "end", "class": "gw-tooltip--end", "use": "A control at the trailing edge of the view. The text lines up with the control's trailing edge and grows towards the start. It combines with gw-tooltip--below." }
+  ],
+  "sizes": [],
+  "states": ["default", "open"],
+  "accessibility": [
+    "Wrap the control in a span with the class gw-tooltip, and put the text straight after the control in a span with gw-tooltip__content, role=\"tooltip\" and an id.",
+    "The control keeps its own name. Point its aria-describedby at the text, so a screen reader reads the text after the name.",
+    "The text holds words only: no link, no button, and nothing the reader cannot find elsewhere.",
+    "With that markup alone the tooltip opens on hover and on keyboard focus with no script, and stays open while the pointer is on the text. It closes when the pointer and the focus leave.",
+    "Add popover=\"hint\" to the text and interestfor with the text's id to the control. A browser with interest invokers then also opens it on a long press on a touch screen, closes it on Escape, and draws it in the top layer where no container clips it. Other browsers ignore both attributes.",
+    "On a touch screen without interest invokers, a tap shows the tooltip only where the browser moves focus to a tapped button. iOS Safari does not. To cover it, the app listens for a long press on the control and calls showPopover({ source: control }) on the text, then hidePopover() on the next press anywhere. The text needs the popover attribute for that.",
+    "Without the popover attribute the text is clipped by an ancestor that hides its overflow. Use gw-tooltip--below under the top edge of the screen and gw-tooltip--end at the trailing edge, so the text stays on the screen."
+  ],
+  "icons": ["git-branch", "search"],
+  "classes": [
+    "gw-tooltip",
+    "gw-tooltip--below",
+    "gw-tooltip--end",
+    "gw-tooltip__content"
+  ]
+}

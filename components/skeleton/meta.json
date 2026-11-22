@@ -1,0 +1,67 @@
+{
+  "name": "skeleton",
+  "title": "Skeleton",
+  "purpose": "Plain shapes that stand where content is about to appear, so the page keeps its layout while it loads.",
+  "status": "draft",
+  "whenToUse": [
+    "While a list, a description or a block of content is fetched, when its shape is known and it usually arrives within a few seconds.",
+    "On the first load of a view. The shapes match what will replace them: as many rows as usually show, lines the length of the text."
+  ],
+  "whenNotToUse": [
+    "When the shape of what is coming is not known, or the wait is an action the reader started. Use a spinner, with text that says what is happening.",
+    "When the wait has a measurable length, such as 7 of 12 checks. Use progress.",
+    "Together with a spinner for the same wait. Use one of the two.",
+    "After the fetch has failed, or after about ten seconds. Replace it with an error state that says what to do: a skeleton that never resolves is a broken promise.",
+    "While content already on screen is refreshed. Keep the content and set aria-busy on its container.",
+    "For text that is streaming in. Use streaming."
+  ],
+  "variants": [
+    {
+      "name": "line",
+      "class": "gw-skeleton__line",
+      "use": "A bar 12px tall in the space of one line of text, as wide as its container. For a paragraph or a set of facts, one above the other."
+    },
+    {
+      "name": "medium line",
+      "class": "gw-skeleton__line--medium",
+      "use": "With gw-skeleton__line: 60% of the width, for a title or the last line of a paragraph."
+    },
+    {
+      "name": "short line",
+      "class": "gw-skeleton__line--short",
+      "use": "With gw-skeleton__line: 35% of the width, for a label, a branch name or a time."
+    },
+    {
+      "name": "row",
+      "class": "gw-skeleton__row",
+      "use": "A list row at least 44px tall, holding one or two lines. Its container also takes gw-skeleton--rows, so the rows touch and are divided by a rule, as list rows are."
+    },
+    {
+      "name": "block",
+      "class": "gw-skeleton__block",
+      "use": "A rectangle 132px tall and as wide as its container, for a code block or a diff."
+    }
+  ],
+  "sizes": [],
+  "states": [
+    "loading"
+  ],
+  "accessibility": [
+    "The container is a div with the gw-skeleton class and aria-busy=\"true\". Its first child is a span with the gw-visually-hidden class that says what is loading, such as Loading tasks. The shapes are empty span elements and are not read out.",
+    "When the content arrives, the app replaces the whole container with it. Nothing of the skeleton stays, so aria-busy goes with it. When the skeleton stands inside a region that stays, such as a section with a heading, put aria-busy on that region and remove it when the content arrives.",
+    "When the fetch fails, or has taken about ten seconds, the app replaces the container with an error state that says what happened and offers Retry.",
+    "The shapes fade slowly between full and partial strength. Under prefers-reduced-motion: reduce the animation is off and the shapes hold still.",
+    "A skeleton has no controls and takes no focus. If the content it replaces had focus, move focus to the view's heading until the content is back.",
+    "The component needs no script beyond the app swapping it for the content."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-skeleton",
+    "gw-skeleton--rows",
+    "gw-skeleton__block",
+    "gw-skeleton__line",
+    "gw-skeleton__line--medium",
+    "gw-skeleton__line--short",
+    "gw-skeleton__row"
+  ]
+}

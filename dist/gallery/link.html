@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Link - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Link</h1>
+<p>A text link to another view or another site: in running text, standing alone, external or quiet.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Inline, in running text</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>A link in a sentence takes no class. It is underlined, so it can be found without telling colours apart, and its text says where it goes.</p>
+</figcaption>
+<div data-example="inline" data-title="Inline, in running text" data-state="default" data-reason="A link in a sentence takes no class. It is underlined, so it can be found without telling colours apart, and its text says where it goes.">
+  <p>The run stopped at step 4 because <a href="/branches/fix-login-timeout">fix/login-timeout</a> has a merge conflict with main. Read <a href="/runs/2291/log">the log for run 2291</a> for the command that failed.</p>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Standalone</h3>
+</figcaption>
+<div data-example="standalone" data-title="Standalone" class="gw-cluster gw-gap-xl">
+  <a class="gw-link" href="/runs">View all runs</a>
+  <a class="gw-link" href="/tasks/412">
+    Open task 412
+    <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-arrow-right"></use></svg>
+  </a>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Quiet</h3>
+</figcaption>
+<div data-example="quiet" data-title="Quiet" class="gw-cluster gw-gap-xl">
+  <a class="gw-link gw-link--quiet" href="/settings/approval-rules">Edit approval rules</a>
+  <a class="gw-link gw-link--quiet" href="/runs/2291/log">
+    View raw log
+    <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-arrow-right"></use></svg>
+  </a>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> External, standalone</h3>
+<p>The icon shows the link leaves the app, and the hidden text tells a screen reader that it opens in a new tab before the reader follows it.</p>
+</figcaption>
+<div data-example="external" data-title="External, standalone" data-reason="The icon shows the link leaves the app, and the hidden text tells a screen reader that it opens in a new tab before the reader follows it." class="gw-cluster gw-gap-xl">
+  <a class="gw-link" href="https://github.com/acme/api/pull/482" target="_blank" rel="noopener">
+    Pull request 482 on GitHub
+    <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg>
+    <span class="gw-link__hint">(opens in a new tab)</span>
+  </a>
+  <a class="gw-link gw-link--quiet" href="https://github.com/acme/api/actions" target="_blank" rel="noopener">
+    Checks for acme/api
+    <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg>
+    <span class="gw-link__hint">(opens in a new tab)</span>
+  </a>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>External, in running text</h3>
+</figcaption>
+<div data-example="external-inline" data-title="External, in running text">
+  <p>The agent pushed 3 commits to fix/login-timeout. Review them in <a href="https://github.com/acme/api/pull/482" target="_blank" rel="noopener">pull request 482 on GitHub <svg class="gw-link__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg><span class="gw-link__hint"> (opens in a new tab)</span></a> before you approve the merge.</p>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover" class="gw-cluster gw-gap-xl">
+  <a class="gw-link" href="/runs">View all runs</a>
+  <a class="gw-link gw-link--quiet" href="/settings/approval-rules">Edit approval rules</a>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible" class="gw-cluster gw-gap-xl">
+  <a class="gw-link" href="/runs">View all runs</a>
+  <a class="gw-link gw-link--quiet" href="/settings/approval-rules">Edit approval rules</a>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active" class="gw-cluster gw-gap-xl">
+  <a class="gw-link" href="/runs">View all runs</a>
+  <a class="gw-link gw-link--quiet" href="/settings/approval-rules">Edit approval rules</a>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> The underline removed</h3>
+<p>Without the underline the link is told from the text around it by colour or weight alone, which many readers cannot see. A link is always underlined.</p>
+<p>Checker rule: <code>visual-utility</code></p>
+</figcaption>
+<div data-example="no-underline" data-title="The underline removed" data-dont="visual-utility" data-reason="Without the underline the link is told from the text around it by colour or weight alone, which many readers cannot see. A link is always underlined." class="gw-cluster">
+  <a class="gw-link no-underline" href="/runs">View all runs</a>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Link text that does not say where it goes</h3>
+<p>A screen reader can list the links on a page out of context, where two links both called here are no use. Make the link the name of what it opens.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="vague-text" data-title="Link text that does not say where it goes" data-dont="review" data-reason="A screen reader can list the links on a page out of context, where two links both called here are no use. Make the link the name of what it opens.">
+  <p>The run stopped at step 4. To read the log, click <a href="/runs/2291/log">here</a>. The pull request is <a href="https://github.com/acme/api/pull/482">here</a>.</p>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A link that performs an action</h3>
+<p>A link goes somewhere. Deleting a branch changes something, so it is a button, which a screen reader announces as one and which Space presses.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="link-as-action" data-title="A link that performs an action" data-dont="review" data-reason="A link goes somewhere. Deleting a branch changes something, so it is a button, which a screen reader announces as one and which Space presses." class="gw-cluster">
+  <a class="gw-link" href="#">Delete branch</a>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>To go to another view, another place in this view or another site.</li>
+<li>In running text, as a plain a element with no class.</li>
+<li>Standing alone, such as View all runs under a list, with the gw-link class.</li>
+<li>With the external-link icon and the hidden hint when the link opens another site in a new tab.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For an action that changes something, such as Delete branch or Retry. Use a button.</li>
+<li>For the main action of a view, even when it goes to another view. Use a link with the primary button classes.</li>
+<li>For the app's main destinations. Use a tab bar, or the sidebar at 768px and wider.</li>
+<li>For something unavailable. A link cannot be disabled, so write plain text and say why it is unavailable.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>inline</dt>
+<dd>A link inside a sentence. It takes no class: the base styles underline it, and it has the colour of the text around it.</dd>
+<dt>standalone <code>gw-link</code></dt>
+<dd>A link outside a sentence. It is 44px tall and may end with an icon, such as arrow-right.</dd>
+<dt>quiet <code>gw-link--quiet</code></dt>
+<dd>With gw-link, for a minor link that should not draw the eye, such as Edit approval rules. Muted, and still underlined.</dd>
+<dt>external</dt>
+<dd>Not a class but a pattern, for a link with target=&quot;_blank&quot;: end it with a gw-link__icon showing external-link and a gw-link__hint holding (opens in a new tab). It works in an inline, a standalone and a quiet link.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>A standalone link takes the text size around it and is at least 44px tall and wide. An inline link is the size of its sentence.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use an a element with an href. Without an href it cannot be reached with the keyboard.</li>
+<li>The link text names where it goes and makes sense read alone: the log for run 2291, never here or read more.</li>
+<li>A link is underlined in every variant and state. Do not remove the underline, and do not mark a link by colour alone.</li>
+<li>A link that opens a new tab says so. Put (opens in a new tab) in a gw-link__hint inside the link, which a screen reader reads and the screen does not show, and set rel=&quot;noopener&quot;.</li>
+<li>An icon inside a link is decoration and carries aria-hidden=&quot;true&quot;. The external-link icon is the visible sign of what the hint says.</li>
+<li>Tab moves to the link and Enter follows it. Space does not, which is one reason an action is a button.</li>
+<li>A standalone link has a 44px pointer target. An inline link is exempt, so do not put two of them side by side in a sentence.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-link</code></li>
+<li><code>gw-link--quiet</code></li>
+<li><code>gw-link__hint</code></li>
+<li><code>gw-link__icon</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

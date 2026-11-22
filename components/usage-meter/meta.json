@@ -1,0 +1,42 @@
+{
+  "name": "usage-meter",
+  "title": "Usage meter",
+  "purpose": "How much of a limit is used, on a native meter, with the figures and the state written in words.",
+  "status": "draft",
+  "whenToUse": [
+    "For use against a known limit: tokens for a run, runs in a month, storage for worktrees.",
+    "With the row variant in a cell of a usage table or in a list row, where the row already names what is measured."
+  ],
+  "whenNotToUse": [
+    "For the progress of a task towards being done. Use a progress element, or a spinner when the length is not known.",
+    "When there is no limit. Write the number as text, or use a stat.",
+    "For a number with a comparison and no limit. Use the stat.",
+    "For a status. Use a badge."
+  ],
+  "variants": [
+    { "name": "default", "use": "The label and the state on one line, the bar under them, the figures under the bar." },
+    { "name": "row", "class": "gw-usage-meter--row", "use": "The bar, the figures and the state on one line, with no label of its own. The meter takes an aria-label that names what the row measures." }
+  ],
+  "sizes": [],
+  "states": ["default", "near-limit", "over-limit", "empty"],
+  "accessibility": [
+    "Use a meter element with the class gw-usage-meter__bar. Set min, max and value from the data, and put the figures as text inside it for a browser that cannot draw it.",
+    "Name the meter: aria-labelledby pointing at gw-usage-meter__label, or aria-label in the row variant.",
+    "Always write the figures with their unit in gw-usage-meter__figures, such as 18,420 of 50,000 tokens. The bar never stands alone.",
+    "The tone comes from the meter's own thresholds, so no class follows the value. Set optimum=\"0\", low to the value where the warning starts and high to the value where the limit is reached or nearly so. The bar is neutral up to low, takes the warning tone between low and high, and the danger tone above high.",
+    "Say the same state in words in gw-usage-meter__state, and choose the words by the same thresholds: Within the limit, Near the limit, Over the limit. Colour is never the only signal.",
+    "A value above max draws a full bar. Write the real figures, such as 214 of 200 runs, and say what happens next.",
+    "With nothing used, keep the meter at 0 and say so. While the figures load, show a spinner in place of the meter. If they cannot be read, show an error message in its place, never an empty bar.",
+    "When the state changes while the reader watches, announce it from a role=\"status\" element in the view. The meter is not focusable and needs no script beyond setting its attributes and text."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-usage-meter",
+    "gw-usage-meter--row",
+    "gw-usage-meter__bar",
+    "gw-usage-meter__figures",
+    "gw-usage-meter__header",
+    "gw-usage-meter__label",
+    "gw-usage-meter__state"
+  ]
+}

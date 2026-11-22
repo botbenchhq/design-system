@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spinner - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Spinner</h1>
+<p>A sign that something is in progress when how long it will take is not known.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Default, beside what is loading</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+<p>The text says what is in progress, so it reads the same to a screen reader, and to someone who has turned motion off and sees a still mark.</p>
+</figcaption>
+<div data-example="default" data-title="Default, beside what is loading" data-state="loading" data-reason="The text says what is in progress, so it reads the same to a screen reader, and to someone who has turned motion off and sees a still mark.">
+  <p class="gw-spinner" role="status">Loading runs</p>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Large, for a whole view</h3>
+</figcaption>
+<div data-example="large" data-title="Large, for a whole view">
+  <p class="gw-spinner gw-spinner--large" role="status">Cloning acme/api</p>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a way to stop</h3>
+</figcaption>
+<div data-example="with-cancel" data-title="With a way to stop" class="gw-split">
+  <p class="gw-spinner" role="status">Running 214 tests</p>
+  <button type="button" class="gw-button gw-button--quiet gw-button--small">Stop tests</button>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A spinner with no text</h3>
+<p>With motion turned off this is a still mark that says nothing, and a screen reader has nothing to announce. Write what is in progress inside the spinner.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="no-label" data-title="A spinner with no text" data-dont="review" data-reason="With motion turned off this is a still mark that says nothing, and a screen reader has nothing to announce. Write what is in progress inside the spinner.">
+  <p class="gw-spinner" role="status"></p>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>While a view or part of one loads and nothing can be shown yet.</li>
+<li>While a background step runs, such as cloning a repository or running tests, beside the name of the step.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>Inside a button that is working. Set aria-busy=&quot;true&quot; on the button, which draws its own.</li>
+<li>When the amount done is known. Use a progress element.</li>
+<li>When the shape of the content is known and it will arrive within a moment. Show the layout with its text missing, not a spinner.</li>
+<li>For anything that takes less than about a second. Show nothing.</li>
+</ul>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>A 16px mark with text at the interface size. Inside a list, a panel or a row.</dd>
+<dt>large <code>gw-spinner--large</code></dt>
+<dd>A 24px mark with 16px text. When a whole view is loading.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>The text inside the spinner is its label. Name what is in progress, such as Loading runs. There is no spinner without text.</li>
+<li>Set role=&quot;status&quot; on the spinner so a screen reader announces the text when the app adds it.</li>
+<li>When the text changes with each step, such as Cloning then Installing, keep one role=&quot;status&quot; element in the page and change its text. Each change is announced.</li>
+<li>Remove the spinner when the work ends. If it failed, put an error state or an alert in its place.</li>
+<li>The mark is drawn by the stylesheet and needs no markup. It stops turning under prefers-reduced-motion, and the text still says what is happening.</li>
+<li>A spinner is not focusable. An action that stops the work is a separate button beside it.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-spinner</code></li>
+<li><code>gw-spinner--large</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

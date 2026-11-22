@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dialog - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Dialog</h1>
+<p>A modal window for one short task that must be finished or cancelled before the reader goes on.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A short task, with its opener</h3>
+<p data-gallery="state">State: <code>open</code></p>
+<p>The dialog holds one task with one primary action. The primary button comes first, so Enter in the field renames the branch, and Cancel and Escape both close the dialog and return focus to the button that opened it.</p>
+</figcaption>
+<div data-example="default" data-title="A short task, with its opener" data-state="open" data-gallery-frame data-reason="The dialog holds one task with one primary action. The primary button comes first, so Enter in the field renames the branch, and Cancel and Escape both close the dialog and return focus to the button that opened it.">
+  <button type="button" class="gw-button" command="show-modal" commandfor="dialog-default">Rename branch</button>
+  <dialog class="gw-dialog" id="dialog-default" aria-labelledby="dialog-default-title" open>
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="dialog-default-title">Rename the branch</h2>
+      <div class="gw-dialog__body">
+        <div class="gw-field">
+          <label class="gw-field__label" for="dialog-default-name">Branch name</label>
+          <input class="gw-field__control" id="dialog-default-name" type="text" name="branch" required autocomplete="off" value="fix/login-timeout" aria-describedby="dialog-default-description">
+          <p class="gw-field__description" id="dialog-default-description">The open pull request follows the new name.</p>
+        </div>
+      </div>
+      <div class="gw-dialog__footer">
+        <button type="submit" class="gw-button gw-button--primary" value="rename">Rename branch</button>
+        <button type="submit" class="gw-button" value="cancel" formnovalidate>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Text only</h3>
+</figcaption>
+<div data-example="text" data-title="Text only" data-gallery-frame>
+  <dialog class="gw-dialog" id="dialog-text" aria-labelledby="dialog-text-title" aria-describedby="dialog-text-body" open>
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="dialog-text-title">Rebase fix/login-timeout onto main?</h2>
+      <div class="gw-dialog__body">
+        <p id="dialog-text-body">main has 14 new commits. The agent rebases the branch in the task's worktree and runs the tests again. If the rebase stops on a conflict, it asks you what to do.</p>
+      </div>
+      <div class="gw-dialog__footer">
+        <button type="submit" class="gw-button gw-button--primary" value="rebase">Rebase branch</button>
+        <button type="submit" class="gw-button" value="cancel">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A scrolling body</h3>
+</figcaption>
+<div data-example="scroll" data-title="A scrolling body" data-gallery-frame>
+  <dialog class="gw-dialog gw-dialog--scroll" id="dialog-scroll" aria-labelledby="dialog-scroll-title" open>
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="dialog-scroll-title">Commit 12 changed files?</h2>
+      <div class="gw-dialog__body" tabindex="0" role="group" aria-label="Changed files">
+        <p>These files go into one commit on fix/login-timeout.</p>
+        <ul class="gw-stack gw-gap-xs">
+          <li><code>src/auth/session.ts</code></li>
+          <li><code>src/auth/session.test.ts</code></li>
+          <li><code>src/auth/refresh.ts</code></li>
+          <li><code>src/auth/refresh.test.ts</code></li>
+          <li><code>src/auth/cookies.ts</code></li>
+          <li><code>src/auth/index.ts</code></li>
+          <li><code>src/routes/sign-in.ts</code></li>
+          <li><code>src/routes/sign-out.ts</code></li>
+          <li><code>src/middleware/require-session.ts</code></li>
+          <li><code>test/fixtures/expired-session.json</code></li>
+          <li><code>docs/sessions.md</code></li>
+          <li><code>package-lock.json</code></li>
+        </ul>
+      </div>
+      <div class="gw-dialog__footer">
+        <button type="submit" class="gw-button gw-button--primary" value="commit">Commit files</button>
+        <button type="submit" class="gw-button" value="cancel">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Saving</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="busy" data-title="Saving" data-state="busy" data-gallery-frame>
+  <dialog class="gw-dialog" id="dialog-busy" aria-labelledby="dialog-busy-title" open>
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="dialog-busy-title">Rename the branch</h2>
+      <div class="gw-dialog__body">
+        <div class="gw-field">
+          <label class="gw-field__label" for="dialog-busy-name">Branch name</label>
+          <input class="gw-field__control" id="dialog-busy-name" type="text" name="branch" autocomplete="off" value="fix/session-refresh" readonly>
+        </div>
+      </div>
+      <div class="gw-dialog__footer">
+        <button type="submit" class="gw-button gw-button--primary" value="rename" aria-busy="true">Renaming branch</button>
+        <button type="submit" class="gw-button" value="cancel" formnovalidate disabled>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The action failed</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The action failed" data-state="error" data-gallery-frame>
+  <dialog class="gw-dialog" id="dialog-error" aria-labelledby="dialog-error-title" open>
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="dialog-error-title">Rename the branch</h2>
+      <div class="gw-dialog__body">
+        <div class="gw-field">
+          <label class="gw-field__label" for="dialog-error-name">Branch name</label>
+          <input class="gw-field__control" id="dialog-error-name" type="text" name="branch" required autocomplete="off" value="fix/session-refresh" aria-invalid="true" aria-describedby="dialog-error-message">
+          <p class="gw-field__error" id="dialog-error-message" role="alert">The branch was not renamed: fix/session-refresh already exists on origin. Choose another name.</p>
+        </div>
+      </div>
+      <div class="gw-dialog__footer">
+        <button type="submit" class="gw-button gw-button--primary" value="rename">Rename branch</button>
+        <button type="submit" class="gw-button" value="cancel" formnovalidate>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Two primary actions</h3>
+<p>A dialog is a view of its own and has one main action. With two primary buttons the reader has to stop and work out which one the dialog is for. Keep one and give the other secondary emphasis.</p>
+<p>Checker rule: <code>one-primary-action</code></p>
+</figcaption>
+<div data-example="two-primaries" data-title="Two primary actions" data-dont="one-primary-action" data-gallery-frame data-reason="A dialog is a view of its own and has one main action. With two primary buttons the reader has to stop and work out which one the dialog is for. Keep one and give the other secondary emphasis.">
+  <dialog class="gw-dialog" id="dialog-two-primaries" aria-labelledby="dialog-two-primaries-title" open>
+    <form class="gw-dialog__panel" method="dialog">
+      <h2 class="gw-dialog__title" id="dialog-two-primaries-title">Rebase fix/login-timeout onto main?</h2>
+      <div class="gw-dialog__body">
+        <p>main has 14 new commits.</p>
+      </div>
+      <div class="gw-dialog__footer">
+        <button type="submit" class="gw-button gw-button--primary" value="rebase">Rebase branch</button>
+        <button type="submit" class="gw-button gw-button--primary" value="merge">Merge main into the branch</button>
+        <button type="submit" class="gw-button" value="cancel">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a short task the reader starts from the current view and finishes in one step, such as renaming a branch.</li>
+<li>To ask a question the view cannot go on without, with one primary action and Cancel.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>To confirm deleting or discarding something. Use the confirm dialog.</li>
+<li>For a longer form, filters or the details of an item. Use a sheet.</li>
+<li>For supplementary content beside a control that should not block the page. Use a popover.</li>
+<li>To report that something happened. Use a toast, or an alert for a result that stays.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>default</dt>
+<dd>No modifier class. The dialog grows with its content and scrolls as a whole once it reaches the height of the screen.</dd>
+<dt>scroll <code>gw-dialog--scroll</code></dt>
+<dd>A body that may be long, such as a list of files. The title and the footer stay in place and the body scrolls between two rules.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a dialog element with aria-labelledby pointing at gw-dialog__title, an h2. When the body is one short text, point aria-describedby at it.</li>
+<li>Open it with the one line document.getElementById(&quot;dialog-id&quot;).showModal(). That call traps focus, makes the page behind inert, closes on Escape and returns focus to the opener when the dialog closes. Do not write the open attribute yourself, which shows the dialog without any of that: the examples carry it only so they are drawn in the gallery.</li>
+<li>As progressive enhancement, the opener may carry command=&quot;show-modal&quot; and commandfor=&quot;dialog-id&quot;, and then needs no script where invoker commands are supported. Keep the showModal() call for browsers without them.</li>
+<li>Wrap the content in a form with method=&quot;dialog&quot; and the class gw-dialog__panel. Each footer button is a submit button with a value. Pressing one closes the dialog with no script, and the app reads dialog.returnValue in a close event listener. To validate or save before closing, handle the form's submit event and call preventDefault().</li>
+<li>The primary button comes first in the footer and Cancel second, so Enter in a field takes the primary action. Cancel carries formnovalidate so it closes a form with an empty required field.</li>
+<li>showModal() moves focus to the first focusable element, or to the one that has the autofocus attribute. Tab stays inside the dialog.</li>
+<li>A dialog has one primary button. It is a view of its own, so the page behind may have its own.</li>
+<li>With gw-dialog--scroll, if the body holds no control, give gw-dialog__body tabindex=&quot;0&quot;, role=&quot;group&quot; and an aria-label so the keyboard can scroll it.</li>
+<li>While saving, set aria-busy=&quot;true&quot; on the primary button, change its label to say what is happening and disable Cancel. If it fails, keep the dialog open and say what happened and what to do, in the field's error or in an alert inside the body.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-dialog</code></li>
+<li><code>gw-dialog--scroll</code></li>
+<li><code>gw-dialog__body</code></li>
+<li><code>gw-dialog__footer</code></li>
+<li><code>gw-dialog__panel</code></li>
+<li><code>gw-dialog__title</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

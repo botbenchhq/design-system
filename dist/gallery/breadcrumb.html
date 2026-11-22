@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breadcrumb - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Breadcrumb</h1>
+<p>Where the current page sits in the app, as a line of links to each page above it.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Three levels above the current page</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each page above is a link, and the current page is text with aria-current, so the reader can see where they are and go up to any level. The chevrons come from the stylesheet and are never read out.</p>
+</figcaption>
+<div data-example="default" data-title="Three levels above the current page" data-state="default" data-reason="Each page above is a link, and the current page is text with aria-current, so the reader can see where they are and go up to any level. The chevrons come from the stylesheet and are never read out.">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories">Repositories</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api">acme/api</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api/runs">Runs</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">Run 4182</span></li>
+    </ol>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>One level above</h3>
+</figcaption>
+<div data-example="two-levels" data-title="One level above">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb to the branch">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api/branches">Branches</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">fix/login-timeout</span></li>
+    </ol>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Long names: the middle items are cut below 768px</h3>
+</figcaption>
+<div data-example="truncated" data-title="Long names: the middle items are cut below 768px">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb to the file">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories">Repositories</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/payments-gateway">acme/payments-gateway</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/payments-gateway/branches/feat/webhook-rate-limit">feat/webhook-rate-limit</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/payments-gateway/tree/src/session">src/session</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">verify.mjs</span></li>
+    </ol>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A current page with a long name</h3>
+</figcaption>
+<div data-example="long-current" data-title="A current page with a long name">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb to the task">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/tasks">Tasks</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">Refuse a session token older than 30 minutes and tell the client to sign in again</span></li>
+    </ol>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb to run 4183">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api">acme/api</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api/runs">Runs</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">Run 4183</span></li>
+    </ol>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb to run 4184">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api">acme/api</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api/runs">Runs</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">Run 4184</span></li>
+    </ol>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb to run 4185">
+    <ol class="gw-breadcrumb__list">
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api">acme/api</a></li>
+      <li class="gw-breadcrumb__item"><a class="gw-breadcrumb__link" href="/repositories/acme/api/runs">Runs</a></li>
+      <li class="gw-breadcrumb__item"><span class="gw-breadcrumb__current" aria-current="page">Run 4185</span></li>
+    </ol>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Separators typed into the markup, and the current page as a link</h3>
+<p>A screen reader reads each typed slash aloud, and a link to the page the reader is already on goes nowhere. Leave the separators to the stylesheet and write the current page as text with aria-current.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="typed-separators" data-title="Separators typed into the markup, and the current page as a link" data-dont="review" data-reason="A screen reader reads each typed slash aloud, and a link to the page the reader is already on goes nowhere. Leave the separators to the stylesheet and write the current page as text with aria-current.">
+  <nav class="gw-breadcrumb" aria-label="Breadcrumb with slashes">
+    <ol class="gw-breadcrumb__list">
+      <li><a class="gw-breadcrumb__link" href="/repositories">Repositories</a> /</li>
+      <li><a class="gw-breadcrumb__link" href="/repositories/acme/api">acme/api</a> /</li>
+      <li><a class="gw-breadcrumb__link" href="/repositories/acme/api/runs/4182">Run 4182</a></li>
+    </ol>
+  </nav>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>On a page two or more levels below a destination, such as a run inside a repository, so the reader can go up to any level.</li>
+<li>At the regular width, above the page header. On a phone it may stand in the same place, or the back link in the app header may do the job alone.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>On a top-level destination. There is nothing above it to link to.</li>
+<li>For the steps of a task in progress. Those are steps, not places, so write them in the page.</li>
+<li>For going back one level only. Use the back link in the app header.</li>
+<li>For moving between sibling screens. Use the sidebar nav or the tab bar.</li>
+</ul>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>One line, 44px tall. Below 768px each item between the first and the last is at most 88px wide and is cut with an ellipsis. At 768px and up they show in full and shrink only when the line is full.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a nav element with aria-label=&quot;Breadcrumb&quot; holding an ol with the gw-breadcrumb__list class. Each li has the gw-breadcrumb__item class, in order from the top level down.</li>
+<li>Every page above the current one is a link with the gw-breadcrumb__link class. The current page is the last item, a span with the gw-breadcrumb__current class and aria-current=&quot;page&quot;. It is text, never a link.</li>
+<li>The chevrons between items are drawn by the stylesheet and are not read out. Type no separator into the markup.</li>
+<li>A link is underlined at rest and the current page is heavier, so the two never differ by colour alone.</li>
+<li>An item that is cut still has its full text in the markup, so a screen reader reads all of it. The page it links to shows the full name as its title.</li>
+<li>Tab moves through the links in order and Enter follows one. Both come from the link element. The current page is not a tab stop.</li>
+<li>The component needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-breadcrumb</code></li>
+<li><code>gw-breadcrumb__current</code></li>
+<li><code>gw-breadcrumb__item</code></li>
+<li><code>gw-breadcrumb__link</code></li>
+<li><code>gw-breadcrumb__list</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

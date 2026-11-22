@@ -1,0 +1,39 @@
+{
+  "name": "segmented-control",
+  "title": "Segmented control",
+  "purpose": "Two to five short options of which exactly one is chosen, shown side by side.",
+  "status": "draft",
+  "whenToUse": [
+    "To switch how the same content is shown, such as a unified or a split diff.",
+    "To filter a list by one of a few values, such as the status of a run.",
+    "When every option has a label of one or two words and all of them should stay visible."
+  ],
+  "whenNotToUse": [
+    "For more than five options, or labels longer than two words. Use a select or a radio group.",
+    "To move between views or pages. Use links, or the tab bar for an app's main destinations.",
+    "For a single on-or-off setting. Use a switch.",
+    "For actions, such as Rerun failed and Rerun all. Use an attached button group."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "selected", "hover", "focus-visible", "disabled"],
+  "accessibility": [
+    "Use a fieldset with gw-segmented-control and a legend with gw-segmented-control__legend that names the choice. Add gw-visually-hidden to the legend where a heading beside the control already names it. The legend stays in the markup.",
+    "Inside a div with gw-segmented-control__options, each option is a label with gw-segmented-control__option holding input type=\"radio\" with gw-segmented-control__input and then a span with gw-segmented-control__label. The label element names the radio, and the span must come straight after the input.",
+    "Every input has the same name attribute, different from every other group on the page, and one input has the checked attribute from the start.",
+    "It needs no script: the browser keeps exactly one option chosen. An app that reacts at once listens for the change event on the fieldset.",
+    "The chosen option is a raised segment with a border and heavier text, so it does not rest on colour.",
+    "Disable one option with the disabled attribute on its input, or the whole control with disabled on the fieldset.",
+    "Tab moves into the control, to the chosen option. The arrow keys move between options and choose as they go. All of it comes from the native radios.",
+    "Each segment is at least 44px wide and its pointer target is 44px tall. The segments share the row equally at every width, and a label too long for its segment wraps inside it, so the control never scrolls sideways."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-segmented-control",
+    "gw-segmented-control__input",
+    "gw-segmented-control__label",
+    "gw-segmented-control__legend",
+    "gw-segmented-control__option",
+    "gw-segmented-control__options"
+  ]
+}

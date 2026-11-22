@@ -1,0 +1,44 @@
+{
+  "name": "show-more",
+  "title": "Show more",
+  "purpose": "A control after the first part of long content that reveals the rest: a details element for text, code or a log, and a quiet button for a list cut short.",
+  "status": "draft",
+  "whenToUse": [
+    "For a log, an output or a description that is long, when its first lines are enough for most readers and the rest is already in the page.",
+    "With the Show all button, under a list that shows its first rows, when the full list is short enough to read in one view, about fifty rows at most."
+  ],
+  "whenNotToUse": [
+    "For detail under a title of its own, such as Environment. Use a disclosure, whose summary names what it holds.",
+    "For a list of hundreds of rows. Use pagination.",
+    "For anything the reader must see or do in order to go on. An action marked data-gw-critical in the hidden part fails the hidden-critical-action rule.",
+    "For content that fits in a few lines. Show all of it."
+  ],
+  "variants": [
+    { "name": "details", "use": "gw-show-more__rest is a details element after the part that is always shown. Its summary, gw-show-more__toggle, holds two spans: gw-show-more__more, such as Show 38 more lines, and gw-show-more__less, Show less. The stylesheet shows the one that applies. Needs no script." },
+    { "name": "list", "use": "A button with the classes gw-button, gw-button--quiet and gw-show-more__all after a gw-list, reading Show all 24 tasks. The app adds the rows when it is pressed." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "The control is 44px tall, as wide as its text, and starts at the content's leading edge." }
+  ],
+  "states": ["default", "open", "hover", "focus-visible", "active", "loading", "error"],
+  "accessibility": [
+    "Wrap the part that is always shown and the control in a div with the gw-show-more class. The shown part comes first.",
+    "Details variant: the app writes the count into gw-show-more__more when it renders, as the number of hidden units and the unit in words: Show 38 more lines, Show 2 more paragraphs. The count is the total minus what is shown. gw-show-more__less always reads Show less.",
+    "Only one of the two spans is rendered at a time, so the summary's name is Show 38 more lines while closed and Show less while open, and the browser announces collapsed or expanded with it. The summary always holds text.",
+    "Once open, the control is drawn under the revealed content, and stays before it in the markup. Focus stays on the control, and the next Tab or reading step goes into the revealed content.",
+    "List variant: the button's label gives the full count and the noun, Show all 24 tasks. When it is pressed the app appends the remaining rows to the same list, removes the button, and moves focus to the first new row. There is no Show less.",
+    "While the rows are fetched, set aria-busy=\"true\" on the button and change its label to Loading 21 more tasks. If the fetch fails, restore the label and add a p with the gw-show-more__error class and role=\"alert\" before the button, saying what to do.",
+    "Tab reaches the control. Enter and Space activate it. Both come from the summary or the button element.",
+    "The browser's find-in-page opens a closed details that holds a match."
+  ],
+  "icons": ["chevron-down", "chevron-up", "circle-alert"],
+  "classes": [
+    "gw-show-more",
+    "gw-show-more__all",
+    "gw-show-more__error",
+    "gw-show-more__less",
+    "gw-show-more__more",
+    "gw-show-more__rest",
+    "gw-show-more__toggle"
+  ]
+}

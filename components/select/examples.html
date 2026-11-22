@@ -1,0 +1,87 @@
+<div data-example="default" data-title="Label, select and description" data-state="default" data-reason="A native select opens the picker each platform already has, which works with a thumb, a keyboard and a screen reader with no script. The label and description come from the field.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="select-default-base">Base branch</label>
+    <div class="gw-select">
+      <select class="gw-field__control gw-select__control" id="select-default-base" name="base" aria-describedby="select-default-description">
+        <option value="main" selected>main</option>
+        <option value="develop">develop</option>
+        <option value="release/2026-11">release/2026-11</option>
+      </select>
+    </div>
+    <p class="gw-field__description" id="select-default-description">The task branch starts from the latest commit on this branch.</p>
+  </div>
+</div>
+
+<div data-example="unchosen" data-title="Required, with nothing chosen yet">
+  <div class="gw-field">
+    <label class="gw-field__label" for="select-unchosen-repository">Repository <span class="gw-field__required">required</span></label>
+    <div class="gw-select">
+      <select class="gw-field__control gw-select__control" id="select-unchosen-repository" name="repository" required>
+        <option value="" selected>Choose a repository</option>
+        <option value="acme/api">acme/api</option>
+        <option value="acme/web">acme/web</option>
+        <option value="acme/infrastructure-modules">acme/infrastructure-modules</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="select-focus-base">Base branch</label>
+    <div class="gw-select">
+      <select class="gw-field__control gw-select__control" id="select-focus-base" name="base">
+        <option value="main">main</option>
+        <option value="develop" selected>develop</option>
+        <option value="release/2026-11">release/2026-11</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <div class="gw-field">
+    <label class="gw-field__label" for="select-invalid-repository">Repository <span class="gw-field__required">required</span></label>
+    <div class="gw-select">
+      <select class="gw-field__control gw-select__control" id="select-invalid-repository" name="repository" required aria-invalid="true" aria-describedby="select-invalid-error">
+        <option value="" selected>Choose a repository</option>
+        <option value="acme/api">acme/api</option>
+        <option value="acme/web">acme/web</option>
+      </select>
+    </div>
+    <p class="gw-field__error" id="select-invalid-error">Choose the repository the task will change.</p>
+  </div>
+</div>
+
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="select-disabled-base">Base branch</label>
+    <div class="gw-select">
+      <select class="gw-field__control gw-select__control" id="select-disabled-base" name="base" disabled aria-describedby="select-disabled-description">
+        <option value="" selected>No repository chosen</option>
+      </select>
+    </div>
+    <p class="gw-field__description" id="select-disabled-description">Choose a repository first.</p>
+  </div>
+</div>
+
+<div data-example="loading" data-title="While its options load" data-state="loading">
+  <div class="gw-field">
+    <label class="gw-field__label" for="select-loading-base">Base branch</label>
+    <div class="gw-select">
+      <select class="gw-field__control gw-select__control" id="select-loading-base" name="base" disabled aria-describedby="select-loading-description">
+        <option value="" selected>Loading branches</option>
+      </select>
+    </div>
+    <p class="gw-field__description" id="select-loading-description">Fetching the branches of acme/api.</p>
+  </div>
+</div>
+
+<div data-example="custom-listbox" data-title="A listbox built from buttons" data-dont="review" data-reason="A hand-built list needs script for the arrow keys, type-ahead, focus and dismissal, and on a phone it replaces the system picker with something smaller and harder to reach. Use the select element.">
+  <div class="gw-stack gw-gap-xs">
+    <span id="select-custom-listbox-label">Base branch</span>
+    <button type="button" class="gw-button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="select-custom-listbox-label select-custom-listbox-value">
+      <span id="select-custom-listbox-value">main</span>
+    </button>
+  </div>
+</div>

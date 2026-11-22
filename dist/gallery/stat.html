@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stat - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Stat</h1>
+<p>One number in context: a label that says what it counts, the value in tabular figures, and a line that gives its comparison, its period or its scope.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A number with its label and its context</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The label says what is counted, the value carries its unit, and the line under it gives the comparison that makes the number mean something. The value is one size above body text, so it informs without posing as a headline.</p>
+</figcaption>
+<div data-example="default" data-title="A number with its label and its context" data-state="default" data-reason="The label says what is counted, the value carries its unit, and the line under it gives the comparison that makes the number mean something. The value is one size above body text, so it informs without posing as a headline.">
+  <div class="gw-stat">
+    <p class="gw-stat__label">Median run time</p>
+    <p class="gw-stat__value">6 min 12 s</p>
+    <p class="gw-stat__context">48 seconds faster than last week, across 38 runs</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A few stats above the table they summarise</h3>
+</figcaption>
+<div data-example="summary" data-title="A few stats above the table they summarise">
+  <div class="gw-grid gw-grid-3">
+    <div class="gw-stat">
+      <p class="gw-stat__label">Runs finished</p>
+      <p class="gw-stat__value">38</p>
+      <p class="gw-stat__context">In acme/api, 8 to 14 March</p>
+    </div>
+    <div class="gw-stat">
+      <p class="gw-stat__label">Tests failed</p>
+      <p class="gw-stat__value">3 of 214</p>
+      <p class="gw-stat__context">All 3 in src/auth/session.test.ts</p>
+    </div>
+    <div class="gw-stat">
+      <p class="gw-stat__label">Spent on runs</p>
+      <p class="gw-stat__value">$31.92</p>
+      <p class="gw-stat__context">$0.84 for each run on average</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Inline: the three parts on one line of text</h3>
+</figcaption>
+<div data-example="inline" data-title="Inline: the three parts on one line of text">
+  <div class="gw-stack gw-gap-xs">
+    <div class="gw-stat gw-stat--inline">
+      <p class="gw-stat__label">Tokens used</p>
+      <p class="gw-stat__value">18,420</p>
+      <p class="gw-stat__context">of 50,000 for this run</p>
+    </div>
+    <div class="gw-stat gw-stat--inline">
+      <p class="gw-stat__label">Files changed</p>
+      <p class="gw-stat__value">3</p>
+      <p class="gw-stat__context">12 lines added, 3 removed</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing to count yet</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="Nothing to count yet" data-state="empty">
+  <div class="gw-stat">
+    <p class="gw-stat__label">Runs finished</p>
+    <p class="gw-stat__value">0</p>
+    <p class="gw-stat__context">No task has been started in acme/web since it was connected on 12 March</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The number is being worked out</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="The number is being worked out" data-state="loading">
+  <div class="gw-stat" aria-busy="true">
+    <p class="gw-stat__label">Spent on runs</p>
+    <p class="gw-spinner" role="status">Adding up 38 runs</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The number could not be read</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The number could not be read" data-state="error">
+  <div class="gw-stat">
+    <p class="gw-stat__label">Spent on runs</p>
+    <p class="gw-stat__context" role="alert">The cost could not be read from the billing service. Reload the page to try again.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A row of bare numbers</h3>
+<p>Three numbers with no period, no comparison and no unit are decoration: the reader cannot tell whether 38 is good, or 38 of what. A stat always has its context line, and a view never opens with a row of giant standalone numbers.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="hero-numbers" data-title="A row of bare numbers" data-dont="review" data-reason="Three numbers with no period, no comparison and no unit are decoration: the reader cannot tell whether 38 is good, or 38 of what. A stat always has its context line, and a view never opens with a row of giant standalone numbers.">
+  <div class="gw-grid gw-grid-3">
+    <div class="gw-stat">
+      <p class="gw-stat__value">38</p>
+      <p class="gw-stat__label">Runs</p>
+    </div>
+    <div class="gw-stat">
+      <p class="gw-stat__value">98.6%</p>
+      <p class="gw-stat__label">Success</p>
+    </div>
+    <div class="gw-stat">
+      <p class="gw-stat__value">1.2M</p>
+      <p class="gw-stat__label">Tokens</p>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a number the reader came to the view for: the time a run took, what it cost, how many tests failed.</li>
+<li>For two to four numbers that summarise the table or list directly under them.</li>
+<li>With the inline variant where the number sits in a line of text: a toolbar, a summary row, the header of a section.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>As a row of large standalone numbers at the top of a view. A number with no context line is decoration.</li>
+<li>For a number measured against a limit. Use the usage meter.</li>
+<li>For several facts about one thing that are not all numbers. Use the key-value list.</li>
+<li>For the same number about many things. Use a numeric column in the data table.</li>
+<li>For a status. Use a badge.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>default</dt>
+<dd>Label, value and context one above the other. The value is 20px, one size above body text.</dd>
+<dt>inline <code>gw-stat--inline</code></dt>
+<dd>Label, value and context on one line at body size, wrapping when there is no room.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a div holding three p elements in this order: gw-stat__label, gw-stat__value, gw-stat__context. Read in order they make a sentence: Median run time, 6 min 12 s, 48 seconds faster than last week.</li>
+<li>The context line is required. It gives the comparison, the period or what is counted, in words: of 50,000 for this run, 8 to 14 March, 48 seconds faster than last week.</li>
+<li>The value carries its unit. A rise or a fall is said in words in the context line, never by colour or an arrow alone.</li>
+<li>Several stats sit in a gw-grid or a gw-cluster. Keep to four or fewer, directly above what they summarise.</li>
+<li>When there is nothing to count, show 0 and say why in the context line. While the number is worked out, set aria-busy=&quot;true&quot; on the stat and put a spinner with role=&quot;status&quot; in place of the value and context. If it cannot be read, put a context line with role=&quot;alert&quot; that says what to do in place of the value.</li>
+<li>When the value updates while the reader watches, announce the change from a role=&quot;status&quot; element in the view, not from the stat.</li>
+<li>The stat has no controls and needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-stat</code></li>
+<li><code>gw-stat--inline</code></li>
+<li><code>gw-stat__context</code></li>
+<li><code>gw-stat__label</code></li>
+<li><code>gw-stat__value</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

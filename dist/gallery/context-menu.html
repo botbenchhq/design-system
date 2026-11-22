@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Context menu - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Context menu</h1>
+<p>The actions on one row of a list or a table, in a menu opened from a More actions button at the end of the row.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A row and its open menu</h3>
+<p data-gallery="state">State: <code>open</code></p>
+<p>The menu opens from a button that every reader can see, reach with Tab and press with a thumb, and the button names the row it acts on. The button is drawn pressed while its menu is open. A right-click may open the same menu, and nothing in it is reachable only that way.</p>
+</figcaption>
+<div data-example="default" data-title="A row and its open menu" data-state="open" data-gallery-frame data-gallery-open data-reason="The menu opens from a button that every reader can see, reach with Tab and press with a thumb, and the button names the row it acts on. The button is drawn pressed while its menu is open. A right-click may open the same menu, and nothing in it is reachable only that way.">
+  <ul class="gw-list">
+    <li class="gw-list__row">
+        <a class="gw-list__link" href="/runs/4182">
+          <span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">Run 4182 · fix/login-timeout</span></span>
+          <span class="gw-list__meta">Finished</span>
+        </a>
+      <div class="gw-list__action">
+        <div class="gw-context-menu">
+          <button type="button" class="gw-button gw-button--quiet gw-icon-button gw-context-menu__button" popovertarget="context-menu-default-4182" aria-haspopup="menu" aria-label="More actions for run 4182"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg></button>
+          <div class="gw-menu gw-context-menu__menu" id="context-menu-default-4182" popover role="menu" aria-label="More actions for run 4182">
+            <button type="button" class="gw-menu__item" role="menuitem"><svg class="gw-menu__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>Run again from the same prompt</button>
+            <button type="button" class="gw-menu__item" role="menuitem"><svg class="gw-menu__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>Copy transcript</button>
+            <button type="button" class="gw-menu__item" role="menuitem"><svg class="gw-menu__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-git-branch"></use></svg>Create a branch from this run</button>
+            <button type="button" class="gw-menu__item" role="menuitem"><svg class="gw-menu__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg>Open the pull request on GitHub</button>
+            <hr class="gw-menu__divider">
+            <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete run 4182</button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Rows at rest, each with its button</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="closed" data-title="Rows at rest, each with its button" data-state="default">
+  <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/runs/4180">
+          <span class="gw-list__body"><span class="gw-list__primary">Remove the unused v1 billing routes</span><span class="gw-list__secondary">acme/billing · chore/drop-v1-routes</span></span>
+          <span class="gw-list__meta">Finished</span>
+        </a>
+        <div class="gw-list__action">
+          <div class="gw-context-menu">
+            <button type="button" class="gw-button gw-button--quiet gw-icon-button gw-context-menu__button" popovertarget="context-menu-closed-4180" aria-haspopup="menu" aria-label="More actions for run 4180"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg></button>
+            <div class="gw-menu gw-context-menu__menu" id="context-menu-closed-4180" popover role="menu" aria-label="More actions for run 4180">
+              <button type="button" class="gw-menu__item" role="menuitem">Run again</button>
+              <button type="button" class="gw-menu__item" role="menuitem">Copy transcript</button>
+              <hr class="gw-menu__divider">
+              <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete run 4180</button>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/runs/4179">
+          <span class="gw-list__body"><span class="gw-list__primary">Upgrade the Postgres client to 8.13</span><span class="gw-list__secondary">acme/billing · chore/pg-8-13</span></span>
+          <span class="gw-list__meta">Failed</span>
+        </a>
+        <div class="gw-list__action">
+          <div class="gw-context-menu">
+            <button type="button" class="gw-button gw-button--quiet gw-icon-button gw-context-menu__button" popovertarget="context-menu-closed-4179" aria-haspopup="menu" aria-label="More actions for run 4179"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg></button>
+            <div class="gw-menu gw-context-menu__menu" id="context-menu-closed-4179" popover role="menu" aria-label="More actions for run 4179">
+              <button type="button" class="gw-menu__item" role="menuitem">Run again</button>
+              <button type="button" class="gw-menu__item" role="menuitem">Copy transcript</button>
+              <hr class="gw-menu__divider">
+              <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete run 4179</button>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/runs/4178">
+          <span class="gw-list__body"><span class="gw-list__primary">Add an index on invoices.customer_id</span><span class="gw-list__secondary">acme/billing · perf/invoice-index</span></span>
+          <span class="gw-list__meta">Finished</span>
+        </a>
+        <div class="gw-list__action">
+          <div class="gw-context-menu">
+            <button type="button" class="gw-button gw-button--quiet gw-icon-button gw-context-menu__button" popovertarget="context-menu-closed-4178" aria-haspopup="menu" aria-label="More actions for run 4178"><svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg></button>
+            <div class="gw-menu gw-context-menu__menu" id="context-menu-closed-4178" popover role="menu" aria-label="More actions for run 4178">
+              <button type="button" class="gw-menu__item" role="menuitem">Run again</button>
+              <button type="button" class="gw-menu__item" role="menuitem">Copy transcript</button>
+              <hr class="gw-menu__divider">
+              <button type="button" class="gw-menu__item gw-menu__item--danger" role="menuitem">Delete run 4178</button>
+            </div>
+          </div>
+        </div>
+      </li>
+  </ul>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Actions behind a right-click alone</h3>
+<p>A phone has no right-click, a keyboard reader has no way to ask for it, and nothing on the row says a menu exists. Put a More actions button at the end of each row that opens the menu, and treat the right-click as a second way in.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="right-click-only" data-title="Actions behind a right-click alone" data-dont="review" data-reason="A phone has no right-click, a keyboard reader has no way to ask for it, and nothing on the row says a menu exists. Put a More actions button at the end of each row that opens the menu, and treat the right-click as a second way in.">
+  <div class="gw-stack">
+    <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/runs/4177">
+          <span class="gw-list__body"><span class="gw-list__primary">Rate limit the sign-in route</span><span class="gw-list__secondary">Run 4177 · feat/sign-in-rate-limit</span></span>
+          <span class="gw-list__meta">Finished</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/runs/4176">
+          <span class="gw-list__body"><span class="gw-list__primary">Fix the flaky cookie test</span><span class="gw-list__secondary">Run 4176 · fix/cookie-test</span></span>
+          <span class="gw-list__meta">Finished</span>
+        </a>
+      </li>
+    </ul>
+    <p>Right-click a run to run it again, copy its transcript or delete it.</p>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>When each row of a list or a table has three or more actions and no room to show them.</li>
+<li>Where the app also wants a right-click or a long press on the row to open the same menu.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For one action per row. Show it as a small quiet button in the row.</li>
+<li>For the actions of the whole view. Use a menu opened from a labelled button, or a toolbar.</li>
+<li>For a menu that opens only on a right-click or a long press. A phone has no right-click and neither can be found: always give the row its button.</li>
+<li>For an action the reader must not miss, such as answering an approval. Show it in the row.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Wrap the button and the menu in a div with the class gw-context-menu, the menu straight after the button. Add gw-context-menu__button to the button and gw-context-menu__menu to the menu, beside the classes of the icon button and the menu. In a list row the wrapper sits in gw-list__action, and in a table in the row's last cell.</li>
+<li>The button is an icon button with the ellipsis icon, popovertarget with the menu's id, aria-haspopup=&quot;menu&quot; and a name that includes the row, such as More actions for run 4182. In a list of rows that all end in this button, the name is what tells them apart.</li>
+<li>The browser opens and closes the menu from the button, sets aria-expanded, closes on Escape and on a press outside, and returns focus to the button. While the menu is open its button is drawn with a border and a fill, so the reader can tell which row it acts on.</li>
+<li>A right-click and a long press are the app's to add, and only as a second way in. On the row's contextmenu event, which a long press also fires on most touch screens, call preventDefault() and then showPopover({ source: button }) on the menu, so it opens in the same place with the same items.</li>
+<li>Every action in the menu is reachable from the button. Never add an item, or a whole menu, that only a right-click or a long press can reach.</li>
+<li>The keyboard inside the menu is the menu component's contract: Tab and Enter with no script, and arrow keys where the app adds them. Shift with F10 and the Menu key fire the contextmenu event on the focused row link in most browsers, and so open the menu too once the app handles that event.</li>
+<li>The item that deletes is last, below a divider, with gw-menu__item--danger, and names the row.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-context-menu</code></li>
+<li><code>gw-context-menu__button</code></li>
+<li><code>gw-context-menu__menu</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

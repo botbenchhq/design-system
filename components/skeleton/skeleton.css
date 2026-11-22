@@ -1,0 +1,74 @@
+/*
+ * Skeleton: plain shapes that stand where content is about to appear: lines of text, list rows, a block.
+ * The container carries aria-busy and a visually hidden sentence, so the wait is said in words too.
+ * The shapes fade slowly out and in. Under reduced motion they hold still.
+ */
+
+@layer gw.components {
+  .gw-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-sm);
+    min-width: 0;
+    cursor: progress;
+  }
+
+  /* A line of text: a bar the height of the letters, in a box the height of the line. */
+  .gw-skeleton__line {
+    display: block;
+    height: var(--gw-space-md);
+    margin-block: var(--gw-space-xs);
+    border-radius: var(--gw-radius-sm);
+    background-color: var(--gw-color-border);
+    animation: gw-skeleton-pulse calc(var(--gw-duration-slow) * 6) var(--gw-ease) infinite alternate;
+  }
+
+  .gw-skeleton__line--medium {
+    width: 60%;
+  }
+
+  .gw-skeleton__line--short {
+    width: 35%;
+  }
+
+  /* A list row: two lines with the padding of a row, and a rule between rows. */
+  .gw-skeleton__row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-sm);
+  }
+
+  .gw-skeleton__row + .gw-skeleton__row {
+    border-top-width: var(--gw-border-width);
+  }
+
+  /* Rows touch, as the rows of a list do. */
+  .gw-skeleton--rows {
+    gap: 0;
+  }
+
+  /* A block of content whose shape is not lines: a code block, a diff, a chart. */
+  .gw-skeleton__block {
+    display: block;
+    height: calc(var(--gw-size-touch) * 3);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-border);
+    animation: gw-skeleton-pulse calc(var(--gw-duration-slow) * 6) var(--gw-ease) infinite alternate;
+  }
+
+  @keyframes gw-skeleton-pulse {
+    to {
+      opacity: 0.4;
+    }
+  }
+
+  /* The reset stops transitions under reduced motion. An animation is stopped here. */
+  @media (prefers-reduced-motion: reduce) {
+    .gw-skeleton__line,
+    .gw-skeleton__block {
+      animation: none;
+    }
+  }
+}

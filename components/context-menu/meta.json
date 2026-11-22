@@ -1,0 +1,34 @@
+{
+  "name": "context-menu",
+  "title": "Context menu",
+  "purpose": "The actions on one row of a list or a table, in a menu opened from a More actions button at the end of the row.",
+  "status": "draft",
+  "whenToUse": [
+    "When each row of a list or a table has three or more actions and no room to show them.",
+    "Where the app also wants a right-click or a long press on the row to open the same menu."
+  ],
+  "whenNotToUse": [
+    "For one action per row. Show it as a small quiet button in the row.",
+    "For the actions of the whole view. Use a menu opened from a labelled button, or a toolbar.",
+    "For a menu that opens only on a right-click or a long press. A phone has no right-click and neither can be found: always give the row its button.",
+    "For an action the reader must not miss, such as answering an approval. Show it in the row."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "open"],
+  "accessibility": [
+    "Wrap the button and the menu in a div with the class gw-context-menu, the menu straight after the button. Add gw-context-menu__button to the button and gw-context-menu__menu to the menu, beside the classes of the icon button and the menu. In a list row the wrapper sits in gw-list__action, and in a table in the row's last cell.",
+    "The button is an icon button with the ellipsis icon, popovertarget with the menu's id, aria-haspopup=\"menu\" and a name that includes the row, such as More actions for run 4182. In a list of rows that all end in this button, the name is what tells them apart.",
+    "The browser opens and closes the menu from the button, sets aria-expanded, closes on Escape and on a press outside, and returns focus to the button. While the menu is open its button is drawn with a border and a fill, so the reader can tell which row it acts on.",
+    "A right-click and a long press are the app's to add, and only as a second way in. On the row's contextmenu event, which a long press also fires on most touch screens, call preventDefault() and then showPopover({ source: button }) on the menu, so it opens in the same place with the same items.",
+    "Every action in the menu is reachable from the button. Never add an item, or a whole menu, that only a right-click or a long press can reach.",
+    "The keyboard inside the menu is the menu component's contract: Tab and Enter with no script, and arrow keys where the app adds them. Shift with F10 and the Menu key fire the contextmenu event on the focused row link in most browsers, and so open the menu too once the app handles that event.",
+    "The item that deletes is last, below a divider, with gw-menu__item--danger, and names the row."
+  ],
+  "icons": ["copy", "ellipsis", "external-link", "git-branch", "terminal"],
+  "classes": [
+    "gw-context-menu",
+    "gw-context-menu__button",
+    "gw-context-menu__menu"
+  ]
+}

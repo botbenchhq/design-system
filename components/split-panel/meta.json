@@ -1,0 +1,41 @@
+{
+  "name": "split-panel",
+  "title": "Split panel",
+  "purpose": "Two labelled regions, a list and the detail of the row chosen in it, side by side at 768px and up and stacked below, each scrolling by itself.",
+  "status": "draft",
+  "whenToUse": [
+    "When the reader moves through a list and reads each item at length without losing their place: runs and their summaries, changed files and their diffs.",
+    "As the main content of a view, inside a shell that gives it a height, with the fill modifier.",
+    "With a list or a tree in the list region and any content in the detail region."
+  ],
+  "whenNotToUse": [
+    "For a few facts about the selected row beside a list that scrolls with the page. Use the inspector.",
+    "For navigation beside the page. Use the sidebar layout with the sidebar nav.",
+    "Where the detail is a task that needs the whole phone screen, such as a transcript. Make the row a link to a view of its own below 768px.",
+    "For regions the reader must resize. The split is fixed, and there is no drag handle.",
+    "For three or more regions. Open the third as a view of its own or in a sheet."
+  ],
+  "variants": [
+    { "name": "framed", "use": "The default, with no modifier class. 480px tall with a border, for a panel placed in the flow of a page." },
+    { "name": "fill", "class": "gw-split-panel--fill", "use": "As tall as its container and without a border, for the main area of an app shell. The container must have a height of its own." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "At 768px and up the list is a 288px column and the detail takes the rest. Below that the list takes two fifths of the height, above the detail." }
+  ],
+  "states": ["default", "empty", "loading", "error"],
+  "accessibility": [
+    "Use a div with the class gw-split-panel holding two section elements, the list first: gw-split-panel__list and gw-split-panel__detail. Give each an aria-label, which makes it a region a screen reader can jump to. Labels are unique on the page, and the detail's label names the chosen item, such as Run 4182.",
+    "Each region scrolls by itself. A region with no focusable content, as a detail of plain text often is, takes tabindex=\"0\" so the keyboard can scroll it. A region that holds links or buttons does not need it.",
+    "Mark the row whose detail is shown with aria-current=\"true\" on its link, as the list component draws it, so the reader is never left to infer it from position.",
+    "Choosing a row does not move focus. The detail follows the list in the markup, so Tab reaches it after the list. Where rows are links to their own URL, the app renders the same panel with that row current.",
+    "With nothing chosen, the detail holds one sentence that says what to choose. While it loads, set aria-busy=\"true\" on the detail and show a spinner with its text. If loading fails, say what happened and what to do in an element with role=\"alert\", with a button that loads again.",
+    "The split is fixed by the stylesheet. There is no separator to drag, so no role=\"separator\" and no script."
+  ],
+  "icons": [],
+  "classes": [
+    "gw-split-panel",
+    "gw-split-panel--fill",
+    "gw-split-panel__detail",
+    "gw-split-panel__list"
+  ]
+}

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Runs - Smelt</title>
+<link rel="stylesheet" href="vendor/groundwork/groundwork.css">
+</head>
+<body>
+<header class="gw-app-header">
+  <a class="gw-app-header__name" href="runs.html">Smelt</a>
+  <div class="gw-app-header__tray">
+    <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+      <a class="gw-pending-tray__link" href="approvals.html"><span class="gw-pending-tray__count">3</span> approvals waiting</a>
+    </div>
+  </div>
+</header>
+<div class="gw-sidebar-layout">
+  <nav class="gw-sidebar-nav" aria-label="Main">
+    <div class="gw-sidebar-nav__section">
+      <ul class="gw-sidebar-nav__items" aria-label="Screens">
+        <li><a class="gw-sidebar-nav__item" href="runs.html" aria-current="page"><svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-terminal"></use></svg><span class="gw-sidebar-nav__label">Runs</span></a></li><li><a class="gw-sidebar-nav__item" href="approvals.html"><svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-circle-check"></use></svg><span class="gw-sidebar-nav__label">Approvals</span></a></li><li><a class="gw-sidebar-nav__item" href="settings.html"><svg class="gw-sidebar-nav__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-folder"></use></svg><span class="gw-sidebar-nav__label">Settings</span></a></li>
+      </ul>
+    </div>
+    <div class="gw-sidebar-nav__footer">
+      <p class="gw-sidebar-nav__note">acme/api on runner build-03</p>
+    </div>
+  </nav>
+  <main class="gw-container gw-stack gw-gap-xl">
+    <header class="gw-page-header">
+      <div class="gw-page-header__text">
+        <h1 class="gw-page-header__title">Runs</h1>
+        <p class="gw-page-header__description">10 runs on acme/api today: 4 need you, 3 are in progress, 3 finished.</p>
+      </div>
+    </header>
+    <section class="gw-stack gw-gap-md" aria-labelledby="needs">
+      <h2 id="needs">Needs you</h2>
+      <p>3 wait for an answer and 1 is blocked. The longest wait is 41 minutes.</p>
+      <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="run-2292.html">
+          <span class="gw-run-status">
+            <span class="gw-run-status__title">Remove the legacy invoice exporter</span>
+            <span class="gw-run-status__station">
+              <span class="gw-badge gw-badge--warning"><svg class="gw-badge__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-circle-alert"></use></svg>Awaiting decision</span>
+            </span>
+            <span class="gw-run-status__facts">Waiting on you for a database query · <time class="gw-run-status__elapsed" datetime="PT9M">9 min</time></span>
+          </span>
+        </a>
+        <div class="gw-list__action">
+          <button type="button" class="gw-button gw-button--small" aria-label="Review Remove the legacy invoice exporter">Review</button>
+        </div>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="run-2293.html">
+          <span class="gw-run-status">
+            <span class="gw-run-status__title">Move session storage to Redis</span>
+            <span class="gw-run-status__station">
+              <span class="gw-badge gw-badge--warning"><svg class="gw-badge__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-circle-alert"></use></svg>Awaiting decision</span>
+            </span>
+            <span class="gw-run-status__facts">Waiting on you to delete a cache outside the worktree · <time class="gw-run-status__elapsed" datetime="PT6M">6 min</time></span>
+          </span>
+        </a>
+        <div class="gw-list__action">
+          <button type="button" class="gw-button gw-button--small" aria-label="Review Move session storage to Redis">Review</button>
+        </div>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="run-2295.html">
+          <span class="gw-run-status">
+            <span class="gw-run-status__title">Add rate limiting to the webhook endpoint</span>
+            <span class="gw-run-status__station">
+              <span class="gw-badge gw-badge--warning"><svg class="gw-badge__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-circle-alert"></use></svg>Awaiting decision</span>
+            </span>
+            <span class="gw-run-status__facts">Waiting on you to run the rate limiter tests · <time class="gw-run-status__elapsed" datetime="PT3M">3 min</time></span>
+          </span>
+        </a>
+        <div class="gw-list__action">
+          <button type="button" class="gw-button gw-button--small" aria-label="Review Add rate limiting to the webhook endpoint">Review</button>
+        </div>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="run-2289.html">
+          <span class="gw-run-status">
+            <span class="gw-run-status__title">Fix the flaky checkout snapshot test</span>
+            <span class="gw-run-status__station">
+              <span class="gw-badge gw-badge--danger"><svg class="gw-badge__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-triangle-alert"></use></svg>Blocked</span>
+            </span>
+            <span class="gw-run-status__facts">Blocked by a failed check: 3 of 12 tests failed · <time class="gw-run-status__elapsed" datetime="PT41M">41 min</time></span>
+          </span>
+        </a>
+        <div class="gw-list__action">
+          <button type="button" class="gw-button gw-button--small" aria-label="Open Fix the flaky checkout snapshot test">Open</button>
+        </div>
+      </li>
+      </ul>
+    </section>
+    <section class="gw-stack gw-gap-md" aria-labelledby="running">
+      <h2 id="running">Running</h2>
+      <p>Agents are working on these. No action is needed.</p>
+      <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="run-2296.html">
+          <span class="gw-run-status">
+            <span class="gw-run-status__title">Paginate the audit log</span>
+            <span class="gw-run-status__station">
+              <span class="gw-badge gw-badge--info"><svg class="gw-badge__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-loader"></use></svg>Building</span>
+            </span>
+            <span class="gw-run-status__facts">Claude Code, implementer · <time class="gw-run-status__elapsed" datetime="PT4M12S">4 min 12 s</time></span>
+          </span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="run-2294.html">
+          <span class="gw-run-status">
+            <span class="gw-run-status__title">Upgrade Postgres client to 8.13</span>
+            <span class="gw-run-status__station">
+              <span class="gw-badge gw-badge--info"><svg class="gw-badge__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-search"></use></svg>Verifying</span>
+            </span>
+            <span class="gw-run-status__facts">Test runner, 212 of 640 tests done · <time class="gw-run-status__elapsed" datetime="PT11M">11 min</time></span>
+          </span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="run-2297.html">
+          <span class="gw-run-status">
+            <span class="gw-run-status__title">Add dark theme to the settings screen</span>
+            <span class="gw-run-status__station">
+              <span class="gw-badge gw-badge--info"><svg class="gw-badge__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-file"></use></svg>Reviewing</span>
+            </span>
+            <span class="gw-run-status__facts">Claude Code, reviewer · <time class="gw-run-status__elapsed" datetime="PT26M">26 min</time></span>
+          </span>
+        </a>
+      </li>
+      </ul>
+    </section>
+    <section class="gw-stack gw-gap-md" aria-labelledby="finished">
+      <h2 id="finished">Finished today</h2>
+      <p>Decided since 09:00.</p>
+      <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="run-2291.html">
+          <span class="gw-run-status">
+            <span class="gw-run-status__title">Fix the off-by-one in the retry counter</span>
+            <span class="gw-run-status__station">
+              <span class="gw-badge gw-badge--success"><svg class="gw-badge__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-circle-check"></use></svg>Decided</span>
+            </span>
+            <span class="gw-run-status__facts">Accepted by you, pull request 884 opened · <time class="gw-run-status__elapsed" datetime="PT35M">35 min</time></span>
+          </span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="run-2290.html">
+          <span class="gw-run-status">
+            <span class="gw-run-status__title">Rename the billing_events table</span>
+            <span class="gw-run-status__station">
+              <span class="gw-badge gw-badge--success"><svg class="gw-badge__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-circle-check"></use></svg>Decided</span>
+            </span>
+            <span class="gw-run-status__facts">Accepted by you, pull request 883 opened · <time class="gw-run-status__elapsed" datetime="PT52M">52 min</time></span>
+          </span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="run-2288.html">
+          <span class="gw-run-status">
+            <span class="gw-run-status__title">Bump the Node base image to 24</span>
+            <span class="gw-run-status__station">
+              <span class="gw-badge gw-badge--danger"><svg class="gw-badge__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-ban"></use></svg>Decided</span>
+            </span>
+            <span class="gw-run-status__facts">Declined by you, the image breaks the build · <time class="gw-run-status__elapsed" datetime="PT18M">18 min</time></span>
+          </span>
+        </a>
+      </li>
+      </ul>
+    </section>
+  </main>
+</div>
+<nav class="gw-tab-bar" aria-label="Main">
+  <a class="gw-tab-bar__item" href="runs.html" aria-current="page"><svg class="gw-tab-bar__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-terminal"></use></svg><span class="gw-tab-bar__label">Runs</span></a><a class="gw-tab-bar__item" href="approvals.html"><svg class="gw-tab-bar__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-circle-check"></use></svg><span class="gw-tab-bar__label">Approvals</span></a><a class="gw-tab-bar__item" href="settings.html"><svg class="gw-tab-bar__icon" aria-hidden="true"><use href="vendor/groundwork/icons.svg#gw-icon-folder"></use></svg><span class="gw-tab-bar__label">Settings</span></a>
+</nav>
+</body>
+</html>

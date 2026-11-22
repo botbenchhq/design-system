@@ -1,0 +1,49 @@
+{
+  "name": "tool-call",
+  "title": "Tool call",
+  "purpose": "A summary of one tool call outside a transcript: the tool, its target, how it ended and how long it took, with the arguments and output behind disclosures.",
+  "status": "draft",
+  "whenToUse": [
+    "In an activity view or a run's detail view, to show one tool call on its own or a short list of them.",
+    "When the reader needs the outcome of a call first and its arguments and output only on request."
+  ],
+  "whenNotToUse": [
+    "For a tool call as a row of a transcript. Use a message of the tool-call kind, with a tool-result message after it.",
+    "For a call that still waits for the reader's answer. Use an approval, which carries Allow and Decline.",
+    "For a one-line record of what an agent did, among other events. Use an activity feed entry."
+  ],
+  "variants": [
+    { "name": "succeeded", "class": "gw-tool-call--succeeded", "use": "The call returned without an error. The status reads Succeeded beside a check icon." },
+    { "name": "failed", "class": "gw-tool-call--failed", "use": "The call ran and returned an error. The status reads Failed beside an alert icon, and gw-tool-call__note says what failed." },
+    { "name": "denied", "class": "gw-tool-call--denied", "use": "The call was refused by the reader or by a permission rule and did not run. The status reads Denied beside a ban icon, and gw-tool-call__note says what was not run and why." }
+  ],
+  "sizes": [],
+  "states": ["default", "open", "busy"],
+  "accessibility": [
+    "Use an article with aria-labelledby pointing at gw-tool-call__title, a heading at the level the view needs. The title holds the tool name and then the target, both as text.",
+    "Several calls are li elements of a ul or ol, one article in each.",
+    "gw-tool-call__status always holds the status as a word: Running, Succeeded, Failed or Denied. The stylesheet draws the icon from the variant class, so the status is never colour alone.",
+    "While the call runs, set aria-busy=\"true\" on the article and leave the variant class off. When it ends, remove aria-busy, add the variant class and change the word. Announce the change from a role=\"status\" element in the view when the reader is waiting on it.",
+    "Write the duration with its unit, such as 2.4 s or 48 s so far. A duration that ticks is not in a live region.",
+    "Arguments and output each go in a native details element whose summary says what is inside and how long it is, such as Output, 6 lines. They start closed. Enter and Space open and close a summary, and its pointer target is 44px tall.",
+    "Write arguments and output as text, never as markup, and write out characters that cannot be seen. gw-tool-call__code wraps and never scrolls sideways.",
+    "It holds no action. The component needs no script: the app sets aria-busy, the variant class and the text."
+  ],
+  "icons": ["ban", "chevron-down", "chevron-right", "circle-alert", "circle-check", "loader"],
+  "classes": [
+    "gw-tool-call",
+    "gw-tool-call--denied",
+    "gw-tool-call--failed",
+    "gw-tool-call--succeeded",
+    "gw-tool-call__code",
+    "gw-tool-call__details",
+    "gw-tool-call__duration",
+    "gw-tool-call__meta",
+    "gw-tool-call__name",
+    "gw-tool-call__note",
+    "gw-tool-call__status",
+    "gw-tool-call__summary",
+    "gw-tool-call__target",
+    "gw-tool-call__title"
+  ]
+}

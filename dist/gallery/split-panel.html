@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Split panel - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Split panel</h1>
+<p>Two labelled regions, a list and the detail of the row chosen in it, side by side at 768px and up and stacked below, each scrolling by itself.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A list and the detail of its current row</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each region has a label, so a screen reader can jump between the list and the detail, and each scrolls by itself, so a long transcript never carries the list out of view. The row whose detail is shown is marked with aria-current.</p>
+</figcaption>
+<div data-example="default" data-title="A list and the detail of its current row" data-state="default" data-reason="Each region has a label, so a screen reader can jump between the list and the detail, and each scrolls by itself, so a long transcript never carries the list out of view. The row whose detail is shown is marked with aria-current.">
+  <div class="gw-split-panel">
+    <section class="gw-split-panel__list" aria-label="Runs of acme/api">
+      <ul class="gw-list">
+        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4182" aria-current="true"><span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">Run 4182</span></span><span class="gw-list__meta">Finished</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4181"><span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">Run 4181</span></span><span class="gw-list__meta">Running</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4180"><span class="gw-list__body"><span class="gw-list__primary">Remove the unused v1 billing routes</span><span class="gw-list__secondary">Run 4180</span></span><span class="gw-list__meta">Finished</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4179"><span class="gw-list__body"><span class="gw-list__primary">Upgrade the Postgres client to 8.13</span><span class="gw-list__secondary">Run 4179</span></span><span class="gw-list__meta">Failed</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4178"><span class="gw-list__body"><span class="gw-list__primary">Add an index on invoices.customer_id</span><span class="gw-list__secondary">Run 4178</span></span><span class="gw-list__meta">Finished</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4177"><span class="gw-list__body"><span class="gw-list__primary">Rate limit the sign-in route</span><span class="gw-list__secondary">Run 4177</span></span><span class="gw-list__meta">Finished</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/runs/4176"><span class="gw-list__body"><span class="gw-list__primary">Fix the flaky cookie test</span><span class="gw-list__secondary">Run 4176</span></span><span class="gw-list__meta">Finished</span></a></li>
+      </ul>
+    </section>
+    <section class="gw-split-panel__detail" aria-label="Run 4182" tabindex="0">
+      <h3>Run 4182</h3>
+      <p>Refuse a session token older than 30 minutes</p>
+      <dl class="gw-key-value">
+        <div class="gw-key-value__item"><dt class="gw-key-value__label">Status</dt><dd class="gw-key-value__value">Finished, 213 of 213 tests passed</dd></div>
+        <div class="gw-key-value__item"><dt class="gw-key-value__label">Branch</dt><dd class="gw-key-value__value gw-key-value__value--mono">fix/login-timeout</dd></div>
+        <div class="gw-key-value__item"><dt class="gw-key-value__label">Started</dt><dd class="gw-key-value__value">14 March, 09:30</dd></div>
+        <div class="gw-key-value__item"><dt class="gw-key-value__label">Duration</dt><dd class="gw-key-value__value">6 minutes 12 seconds</dd></div>
+        <div class="gw-key-value__item"><dt class="gw-key-value__label">Cost</dt><dd class="gw-key-value__value">$0.84 for this run</dd></div>
+      </dl>
+      <p>The agent wrote a failing test for a 31-minute session, traced the dropped refresh cookie to the 401 handler in <code>src/auth/session.ts</code>, and changed the handler to keep the cookie and retry the request once.</p>
+      <p>It then ran the 213 tests in <code>src/auth</code>, all of which passed, and pushed 4 commits to fix/login-timeout. No pull request is open yet.</p>
+    </section>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing chosen yet</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="Nothing chosen yet" data-state="empty">
+  <div class="gw-split-panel">
+    <section class="gw-split-panel__list" aria-label="Runs of acme/billing">
+      <ul class="gw-list">
+        <li class="gw-list__row"><a class="gw-list__link" href="/billing/runs/4182"><span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">Run 4182</span></span><span class="gw-list__meta">Finished</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/billing/runs/4181"><span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">Run 4181</span></span><span class="gw-list__meta">Running</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/billing/runs/4180"><span class="gw-list__body"><span class="gw-list__primary">Remove the unused v1 billing routes</span><span class="gw-list__secondary">Run 4180</span></span><span class="gw-list__meta">Finished</span></a></li>
+      </ul>
+    </section>
+    <section class="gw-split-panel__detail" aria-label="Details of the chosen run, none chosen" tabindex="0">
+      <p>Choose a run from the list to see its summary, its branch and what it cost.</p>
+    </section>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Loading the detail</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="Loading the detail" data-state="loading">
+  <div class="gw-split-panel">
+    <section class="gw-split-panel__list" aria-label="Runs of acme/web">
+      <ul class="gw-list">
+        <li class="gw-list__row"><a class="gw-list__link" href="/web/runs/4182"><span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">Run 4182</span></span><span class="gw-list__meta">Finished</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/web/runs/4181" aria-current="true"><span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">Run 4181</span></span><span class="gw-list__meta">Running</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/web/runs/4180"><span class="gw-list__body"><span class="gw-list__primary">Remove the unused v1 billing routes</span><span class="gw-list__secondary">Run 4180</span></span><span class="gw-list__meta">Finished</span></a></li>
+      </ul>
+    </section>
+    <section class="gw-split-panel__detail" aria-label="Run 4181, loading" aria-busy="true" tabindex="0">
+      <h3>Run 4181</h3>
+      <p class="gw-spinner" role="status">Loading run 4181</p>
+    </section>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The detail could not be loaded</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The detail could not be loaded" data-state="error">
+  <div class="gw-split-panel">
+    <section class="gw-split-panel__list" aria-label="Runs of acme/mobile-app">
+      <ul class="gw-list">
+        <li class="gw-list__row"><a class="gw-list__link" href="/mobile-app/runs/4182"><span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">Run 4182</span></span><span class="gw-list__meta">Finished</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/mobile-app/runs/4181"><span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">Run 4181</span></span><span class="gw-list__meta">Running</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/mobile-app/runs/4180" aria-current="true"><span class="gw-list__body"><span class="gw-list__primary">Remove the unused v1 billing routes</span><span class="gw-list__secondary">Run 4180</span></span><span class="gw-list__meta">Finished</span></a></li>
+      </ul>
+    </section>
+    <section class="gw-split-panel__detail" aria-label="Run 4180, not loaded">
+      <h3>Run 4180</h3>
+      <p role="alert">Run 4180 could not be loaded: the server did not answer within 30 seconds. Check the connection, then load it again.</p>
+      <div class="gw-cluster">
+        <button type="button" class="gw-button">Load run 4180 again</button>
+      </div>
+    </section>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Filling its container, without a border</h3>
+</figcaption>
+<div data-example="fill" data-title="Filling its container, without a border">
+  <div class="gw-split-panel gw-split-panel--fill">
+    <section class="gw-split-panel__list" aria-label="Changed files of task 41">
+      <ul class="gw-list gw-list--dense">
+        <li class="gw-list__row"><a class="gw-list__link" href="/tasks/41/files/src/auth/session.ts" aria-current="true"><span class="gw-list__body"><span class="gw-list__primary">src/auth/session.ts</span></span><span class="gw-list__meta">38 added, 12 removed</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/tasks/41/files/src/auth/session.test.ts"><span class="gw-list__body"><span class="gw-list__primary">src/auth/session.test.ts</span></span><span class="gw-list__meta">64 added</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/tasks/41/files/src/auth/refresh.ts"><span class="gw-list__body"><span class="gw-list__primary">src/auth/refresh.ts</span></span><span class="gw-list__meta">9 added, 2 removed</span></a></li>
+      </ul>
+    </section>
+    <section class="gw-split-panel__detail" aria-label="Changes to src/auth/session.ts" tabindex="0">
+      <h3>src/auth/session.ts</h3>
+      <p>The 401 handler now keeps the refresh cookie and retries the request once. In an app shell the panel takes the height of the main area. Here its container has no height, so it is as tall as what it holds.</p>
+    </section>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Three regions, none of them labelled</h3>
+<p>Two regions already share a phone screen in fifths. A third leaves each a strip too short to read, and with no labels a screen reader announces three anonymous scrolling boxes. Keep to a list and a detail, label both, and open anything further as a view of its own.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="unlabelled" data-title="Three regions, none of them labelled" data-dont="review" data-reason="Two regions already share a phone screen in fifths. A third leaves each a strip too short to read, and with no labels a screen reader announces three anonymous scrolling boxes. Keep to a list and a detail, label both, and open anything further as a view of its own.">
+  <div class="gw-split-panel">
+    <div class="gw-split-panel__list">
+      <ul class="gw-list">
+        <li class="gw-list__row"><a class="gw-list__link" href="/dont/runs/4182"><span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">Run 4182</span></span><span class="gw-list__meta">Finished</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/dont/runs/4181"><span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">Run 4181</span></span><span class="gw-list__meta">Running</span></a></li>
+        <li class="gw-list__row"><a class="gw-list__link" href="/dont/runs/4180"><span class="gw-list__body"><span class="gw-list__primary">Remove the unused v1 billing routes</span><span class="gw-list__secondary">Run 4180</span></span><span class="gw-list__meta">Finished</span></a></li>
+      </ul>
+    </div>
+    <div class="gw-split-panel__detail">
+      <p>Run 4179 failed: 3 of 214 tests did not pass.</p>
+    </div>
+    <div class="gw-split-panel__detail">
+      <p>npm run test -- --run src/db/client.test.ts</p>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>When the reader moves through a list and reads each item at length without losing their place: runs and their summaries, changed files and their diffs.</li>
+<li>As the main content of a view, inside a shell that gives it a height, with the fill modifier.</li>
+<li>With a list or a tree in the list region and any content in the detail region.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a few facts about the selected row beside a list that scrolls with the page. Use the inspector.</li>
+<li>For navigation beside the page. Use the sidebar layout with the sidebar nav.</li>
+<li>Where the detail is a task that needs the whole phone screen, such as a transcript. Make the row a link to a view of its own below 768px.</li>
+<li>For regions the reader must resize. The split is fixed, and there is no drag handle.</li>
+<li>For three or more regions. Open the third as a view of its own or in a sheet.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>framed</dt>
+<dd>The default, with no modifier class. 480px tall with a border, for a panel placed in the flow of a page.</dd>
+<dt>fill <code>gw-split-panel--fill</code></dt>
+<dd>As tall as its container and without a border, for the main area of an app shell. The container must have a height of its own.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>At 768px and up the list is a 288px column and the detail takes the rest. Below that the list takes two fifths of the height, above the detail.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a div with the class gw-split-panel holding two section elements, the list first: gw-split-panel__list and gw-split-panel__detail. Give each an aria-label, which makes it a region a screen reader can jump to. Labels are unique on the page, and the detail's label names the chosen item, such as Run 4182.</li>
+<li>Each region scrolls by itself. A region with no focusable content, as a detail of plain text often is, takes tabindex=&quot;0&quot; so the keyboard can scroll it. A region that holds links or buttons does not need it.</li>
+<li>Mark the row whose detail is shown with aria-current=&quot;true&quot; on its link, as the list component draws it, so the reader is never left to infer it from position.</li>
+<li>Choosing a row does not move focus. The detail follows the list in the markup, so Tab reaches it after the list. Where rows are links to their own URL, the app renders the same panel with that row current.</li>
+<li>With nothing chosen, the detail holds one sentence that says what to choose. While it loads, set aria-busy=&quot;true&quot; on the detail and show a spinner with its text. If loading fails, say what happened and what to do in an element with role=&quot;alert&quot;, with a button that loads again.</li>
+<li>The split is fixed by the stylesheet. There is no separator to drag, so no role=&quot;separator&quot; and no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-split-panel</code></li>
+<li><code>gw-split-panel--fill</code></li>
+<li><code>gw-split-panel__detail</code></li>
+<li><code>gw-split-panel__list</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

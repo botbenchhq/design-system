@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notification list - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Notification list</h1>
+<p>What happened while the reader was away, grouped as unread and earlier: each entry says what happened, where and when, and offers at most one action.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Unread, then earlier</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>What still needs the reader is at the top under its own heading, and each unread entry says so in a word beside its dot. Every entry is one link to the thing it is about, and only the one the reader can settle from here carries a button.</p>
+</figcaption>
+<div data-example="default" data-title="Unread, then earlier" data-state="default" data-reason="What still needs the reader is at the top under its own heading, and each unread entry says so in a word beside its dot. Every entry is one link to the thing it is about, and only the one the reader can settle from here carries a button.">
+  <div class="gw-notification-list">
+    <div class="gw-notification-list__header">
+      <div class="gw-notification-list__heading">
+        <h2 class="gw-notification-list__title">Notifications</h2>
+        <p class="gw-notification-list__count" role="status">2 unread</p>
+      </div>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">Mark all as read</button>
+    </div>
+    <h3 class="gw-notification-list__group">Unread</h3>
+    <ul class="gw-list">
+      <li class="gw-list__row gw-notification-list__item">
+        <a class="gw-list__link" href="/runs/2292">
+          <span class="gw-list__body">
+            <span class="gw-list__primary">Run 2292 is waiting for your approval to run rm -rf ../shared-config/.cache</span>
+            <span class="gw-list__secondary"><span class="gw-notification-list__unread">Unread</span> · acme/api · fix/login-timeout</span>
+          </span>
+          <span class="gw-list__meta"><time datetime="2026-11-22T09:12">2 min ago</time></span>
+        </a>
+        <div class="gw-list__action gw-notification-list__action">
+          <button type="button" class="gw-button gw-button--small" aria-label="Review request for run 2292">Review request</button>
+        </div>
+      </li>
+      <li class="gw-list__row gw-notification-list__item">
+        <a class="gw-list__link" href="/runs/2290">
+          <span class="gw-list__body">
+            <span class="gw-list__primary">Run 2290 stopped: 3 of 214 unit tests failed</span>
+            <span class="gw-list__secondary"><span class="gw-notification-list__unread">Unread</span> · acme/api · feat/webhook-rate-limit</span>
+          </span>
+          <span class="gw-list__meta"><time datetime="2026-11-22T08:34">40 min ago</time></span>
+        </a>
+      </li>
+    </ul>
+    <h3 class="gw-notification-list__group">Earlier</h3>
+    <ul class="gw-list">
+      <li class="gw-list__row gw-notification-list__item">
+        <a class="gw-list__link" href="/runs/2287">
+          <span class="gw-list__body">
+            <span class="gw-list__primary">Pull request 482 was merged into main</span>
+            <span class="gw-list__secondary">acme/api · chore/pg-8-13</span>
+          </span>
+          <span class="gw-list__meta"><time datetime="2026-11-21T16:20">Yesterday, 16:20</time></span>
+        </a>
+      </li>
+      <li class="gw-list__row gw-notification-list__item">
+        <a class="gw-list__link" href="/runs/2285">
+          <span class="gw-list__body">
+            <span class="gw-list__primary">Run 2285 finished and opened pull request 481</span>
+            <span class="gw-list__secondary">acme/web · fix/nav-focus-order</span>
+          </span>
+          <span class="gw-list__meta"><time datetime="2026-11-21T11:05">Yesterday, 11:05</time></span>
+        </a>
+      </li>
+      <li class="gw-list__row gw-notification-list__item">
+        <a class="gw-list__link" href="/runs/2279">
+          <span class="gw-list__body">
+            <span class="gw-list__primary">Dana Okafor asked for changes on pull request 479</span>
+            <span class="gw-list__secondary">acme/billing · feat/invoice-export</span>
+          </span>
+          <span class="gw-list__meta"><time datetime="2026-11-19T14:48">19 November</time></span>
+        </a>
+        <div class="gw-list__action gw-notification-list__action">
+          <button type="button" class="gw-button gw-button--small" aria-label="Open review of pull request 479">Open review</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing unread</h3>
+<p data-gallery="state">State: <code>all-read</code></p>
+</figcaption>
+<div data-example="all-read" data-title="Nothing unread" data-state="all-read">
+  <div class="gw-notification-list">
+    <div class="gw-notification-list__header">
+      <div class="gw-notification-list__heading">
+        <h2 class="gw-notification-list__title">Notifications</h2>
+        <p class="gw-notification-list__count" role="status">All read</p>
+      </div>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" disabled>Mark all as read</button>
+    </div>
+    <h3 class="gw-notification-list__group">Earlier</h3>
+    <ul class="gw-list">
+      <li class="gw-list__row gw-notification-list__item">
+        <a class="gw-list__link" href="/runs/2292">
+          <span class="gw-list__body">
+            <span class="gw-list__primary">Run 2292 is waiting for your approval to run rm -rf ../shared-config/.cache</span>
+            <span class="gw-list__secondary">acme/api · fix/login-timeout</span>
+          </span>
+          <span class="gw-list__meta"><time datetime="2026-11-22T09:12">2 min ago</time></span>
+        </a>
+        <div class="gw-list__action gw-notification-list__action">
+          <button type="button" class="gw-button gw-button--small" aria-label="Review request for run 2292">Review request</button>
+        </div>
+      </li>
+      <li class="gw-list__row gw-notification-list__item">
+        <a class="gw-list__link" href="/runs/2290">
+          <span class="gw-list__body">
+            <span class="gw-list__primary">Run 2290 stopped: 3 of 214 unit tests failed</span>
+            <span class="gw-list__secondary">acme/api · feat/webhook-rate-limit</span>
+          </span>
+          <span class="gw-list__meta"><time datetime="2026-11-22T08:34">40 min ago</time></span>
+        </a>
+      </li>
+      <li class="gw-list__row gw-notification-list__item">
+        <a class="gw-list__link" href="/runs/2287">
+          <span class="gw-list__body">
+            <span class="gw-list__primary">Pull request 482 was merged into main</span>
+            <span class="gw-list__secondary">acme/api · chore/pg-8-13</span>
+          </span>
+          <span class="gw-list__meta"><time datetime="2026-11-21T16:20">Yesterday, 16:20</time></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>No notifications</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="No notifications" data-state="empty">
+  <div class="gw-notification-list">
+    <div class="gw-notification-list__header">
+      <div class="gw-notification-list__heading">
+        <h2 class="gw-notification-list__title">Notifications</h2>
+        <p class="gw-notification-list__count" role="status">None yet</p>
+      </div>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" disabled>Mark all as read</button>
+    </div>
+    <div class="gw-empty-state gw-empty-state--compact">
+      <h3 class="gw-empty-state__title">No notifications</h3>
+      <p class="gw-empty-state__body">A run that needs your approval, finishes or fails shows up here.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Reading the notifications</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="Reading the notifications" data-state="loading">
+  <div class="gw-notification-list">
+    <div class="gw-notification-list__header">
+      <div class="gw-notification-list__heading">
+        <h2 class="gw-notification-list__title">Notifications</h2>
+      </div>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" disabled>Mark all as read</button>
+    </div>
+    <p class="gw-spinner" role="status">Loading notifications</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The notifications could not be read</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The notifications could not be read" data-state="error">
+  <div class="gw-notification-list">
+    <div class="gw-notification-list__header">
+      <div class="gw-notification-list__heading">
+        <h2 class="gw-notification-list__title">Notifications</h2>
+      </div>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small" disabled>Mark all as read</button>
+    </div>
+    <div class="gw-error-state" role="alert">
+      <h3 class="gw-error-state__title">Your notifications could not be loaded</h3>
+      <p>The server did not answer in time. Check your connection, then retry.</p>
+      <div class="gw-error-state__action">
+        <button type="button" class="gw-button">Retry</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A primary button on every entry</h3>
+<p>Each entry is already a link to the thing it is about. A primary button on every one repeats that link as the heaviest thing on the screen, once for each notification.</p>
+<p>Checker rule: <code>repeated-item-primary</code></p>
+</figcaption>
+<div data-example="primary-on-rows" data-title="A primary button on every entry" data-dont="repeated-item-primary" data-reason="Each entry is already a link to the thing it is about. A primary button on every one repeats that link as the heaviest thing on the screen, once for each notification.">
+  <div class="gw-notification-list">
+    <div class="gw-notification-list__header">
+      <div class="gw-notification-list__heading">
+        <h2 class="gw-notification-list__title">Notifications</h2>
+        <p class="gw-notification-list__count">2 unread</p>
+      </div>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">Mark all as read</button>
+    </div>
+    <h3 class="gw-notification-list__group">Unread</h3>
+    <ul class="gw-list">
+      <li class="gw-list__row gw-notification-list__item">
+        <a class="gw-list__link" href="/runs/2290">
+          <span class="gw-list__body">
+            <span class="gw-list__primary">Run 2290 stopped: 3 of 214 unit tests failed</span>
+            <span class="gw-list__secondary"><span class="gw-notification-list__unread">Unread</span> · acme/api · feat/webhook-rate-limit</span>
+          </span>
+          <span class="gw-list__meta"><time datetime="2026-11-22T08:34">40 min ago</time></span>
+        </a>
+        <div class="gw-list__action gw-notification-list__action">
+          <button type="button" class="gw-button gw-button--primary gw-button--small" aria-label="Open Run 2290 stopped: 3 of 214 unit tests failed">Open run</button>
+        </div>
+      </li>
+      <li class="gw-list__row gw-notification-list__item">
+        <a class="gw-list__link" href="/runs/2285">
+          <span class="gw-list__body">
+            <span class="gw-list__primary">Run 2285 finished and opened pull request 481</span>
+            <span class="gw-list__secondary"><span class="gw-notification-list__unread">Unread</span> · acme/web · fix/nav-focus-order</span>
+          </span>
+          <span class="gw-list__meta"><time datetime="2026-11-21T11:05">Yesterday, 11:05</time></span>
+        </a>
+        <div class="gw-list__action gw-notification-list__action">
+          <button type="button" class="gw-button gw-button--primary gw-button--small" aria-label="Open Run 2285 finished and opened pull request 481">Open run</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Unread shown by a dot alone</h3>
+<p>A dot with no word is announced as nothing by a screen reader and is easy to miss for anyone who cannot make out its colour. Write Unread beside it.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="dot-only" data-title="Unread shown by a dot alone" data-dont="review" data-reason="A dot with no word is announced as nothing by a screen reader and is easy to miss for anyone who cannot make out its colour. Write Unread beside it.">
+  <div class="gw-notification-list">
+    <div class="gw-notification-list__header">
+      <div class="gw-notification-list__heading">
+        <h2 class="gw-notification-list__title">Notifications</h2>
+        <p class="gw-notification-list__count">2 unread</p>
+      </div>
+      <button type="button" class="gw-button gw-button--quiet gw-button--small">Mark all as read</button>
+    </div>
+    <h3 class="gw-notification-list__group">Unread</h3>
+    <ul class="gw-list">
+      <li class="gw-list__row gw-notification-list__item">
+        <a class="gw-list__link" href="/runs/2290">
+          <span class="gw-list__body">
+            <span class="gw-list__primary">Run 2290 stopped: 3 of 214 unit tests failed</span>
+            <span class="gw-list__secondary"><span class="gw-notification-list__unread"></span> acme/api · feat/webhook-rate-limit</span>
+          </span>
+          <span class="gw-list__meta"><time datetime="2026-11-22T08:34">40 min ago</time></span>
+        </a>
+      </li>
+      <li class="gw-list__row gw-notification-list__item">
+        <a class="gw-list__link" href="/runs/2287">
+          <span class="gw-list__body">
+            <span class="gw-list__primary">Pull request 482 was merged into main</span>
+            <span class="gw-list__secondary"><span class="gw-notification-list__unread"></span> acme/api · chore/pg-8-13</span>
+          </span>
+          <span class="gw-list__meta"><time datetime="2026-11-21T16:20">Yesterday, 16:20</time></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For the reader's notifications, in a view of their own or in a sheet or popover opened from the app header.</li>
+<li>When each entry points at something that changed, such as a run that needs approval, finished or failed, and opening it is the usual next step.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a message about something on the current view. Use an alert, or a toast for a passing confirmation.</li>
+<li>For everything that happened during one run. Use the activity feed or the timeline.</li>
+<li>For approvals the reader answers in place. Use the approval, or the pending tray for how many wait.</li>
+<li>For a list with no read or unread state. Use the list.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Wrap everything in a div with gw-notification-list. gw-notification-list__header holds gw-notification-list__heading, with the title as a heading at the level the view needs and a p with gw-notification-list__count that says how many are unread in words, then the Mark all as read button.</li>
+<li>Give the count role=&quot;status&quot;. After Mark all as read, or when a notification arrives, the app changes its text, such as All read or 3 unread, and a screen reader announces it.</li>
+<li>Mark all as read is a gw-button gw-button--quiet gw-button--small. Disable it when nothing is unread. It marks the notifications read and moves them under Earlier; it deletes nothing.</li>
+<li>Each group is a heading with gw-notification-list__group, Unread or Earlier, one level below the title, followed by a ul with the class gw-list. Leave a group out when it has no entries.</li>
+<li>Each entry is an li with gw-list__row and gw-notification-list__item holding one a with gw-list__link that opens the thing the notification is about. Inside it, gw-list__primary says what happened in a sentence that names the thing, gw-list__secondary says where, and gw-list__meta holds when, in a time element with a datetime attribute.</li>
+<li>An unread entry starts its gw-list__secondary with a span with gw-notification-list__unread holding the word Unread. The stylesheet draws the dot before it, so unread is never a dot or a colour alone. Following the link marks the entry read: the app removes that span.</li>
+<li>An entry has at most one action, and only when the reader can settle it from here: a gw-button gw-button--small inside a div with gw-list__action and gw-notification-list__action, after the link, never primary. Its aria-label starts with its visible words and names the thing, such as Review request for run 2292. Below 768px it sits under the entry's text.</li>
+<li>Tab moves through each entry's link and then its action. Enter follows the link. There are no arrow-key bindings, and the component needs no script.</li>
+<li>While the notifications load, show a spinner in place of the groups. If they cannot be read, an error state with Retry. When there are none at all, an empty state that says what will appear here.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-notification-list</code></li>
+<li><code>gw-notification-list__action</code></li>
+<li><code>gw-notification-list__count</code></li>
+<li><code>gw-notification-list__group</code></li>
+<li><code>gw-notification-list__header</code></li>
+<li><code>gw-notification-list__heading</code></li>
+<li><code>gw-notification-list__item</code></li>
+<li><code>gw-notification-list__title</code></li>
+<li><code>gw-notification-list__unread</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

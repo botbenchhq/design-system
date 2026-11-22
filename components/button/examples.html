@@ -1,0 +1,69 @@
+<div data-example="variants" data-title="Variants" data-state="default" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">Start task</button>
+  <button type="button" class="gw-button">Save draft</button>
+  <button type="button" class="gw-button gw-button--quiet">View log</button>
+  <button type="button" class="gw-button gw-button--danger">Delete workspace</button>
+</div>
+
+<div data-example="sizes" data-title="Default and small" class="gw-cluster">
+  <button type="button" class="gw-button">Open pull request</button>
+  <button type="button" class="gw-button gw-button--small">Copy path</button>
+  <button type="button" class="gw-button gw-button--quiet gw-button--small">Dismiss</button>
+</div>
+
+<div data-example="with-icon" data-title="With a leading icon" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">
+    <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-plus"></use></svg>
+    New task
+  </button>
+  <button type="button" class="gw-button">
+    <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-git-branch"></use></svg>
+    Create branch
+  </button>
+  <button type="button" class="gw-button gw-button--quiet gw-button--small">
+    <svg class="gw-button__icon" aria-hidden="true"><use href="icons.svg#gw-icon-copy"></use></svg>
+    Copy
+  </button>
+</div>
+
+<div data-example="hover" data-title="Hover" data-state="hover" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">Start task</button>
+  <button type="button" class="gw-button">Save draft</button>
+  <button type="button" class="gw-button gw-button--quiet">View log</button>
+  <button type="button" class="gw-button gw-button--danger">Delete workspace</button>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">Start task</button>
+  <button type="button" class="gw-button">Save draft</button>
+</div>
+
+<div data-example="active" data-title="Pressed" data-state="active" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">Start task</button>
+  <button type="button" class="gw-button">Save draft</button>
+  <button type="button" class="gw-button gw-button--quiet">View log</button>
+  <button type="button" class="gw-button gw-button--danger">Delete workspace</button>
+</div>
+
+<div data-example="disabled" data-title="Disabled" data-state="disabled" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary" disabled>Start task</button>
+  <button type="button" class="gw-button" disabled>Save draft</button>
+  <button type="button" class="gw-button gw-button--quiet" disabled>View log</button>
+  <button type="button" class="gw-button gw-button--danger" disabled>Delete workspace</button>
+</div>
+
+<div data-example="busy" data-title="Busy" data-state="busy" class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary" aria-busy="true">Starting task</button>
+  <button type="button" class="gw-button" aria-busy="true">Saving draft</button>
+</div>
+
+<div data-example="one-primary" data-title="One primary action" data-reason="The view has one main action, and the primary button marks it. Everything else is secondary or quiet." class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">Start task</button>
+  <button type="button" class="gw-button">Save as template</button>
+  <button type="button" class="gw-button gw-button--quiet">Cancel</button>
+</div>
+
+<div data-example="two-primaries" data-title="Two primary actions" data-dont="one-primary-action" data-reason="Two primary buttons compete, and the reader has to work out which one matters. Keep one and make the other secondary." class="gw-cluster">
+  <button type="button" class="gw-button gw-button--primary">Start task</button>
+  <button type="button" class="gw-button gw-button--primary">Save as template</button>
+</div>

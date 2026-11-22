@@ -1,0 +1,89 @@
+<div data-example="default" data-title="Labels on a task" data-state="default" data-reason="Each value is a tag with a remove button that names it, in a list a screen reader can count. The input is an ordinary text input with the field's label, and the description says which key adds what was typed.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-default-input">Labels</label>
+    <div class="gw-tag-input">
+      <ul class="gw-tag-input__tags" aria-label="Labels added">
+        <li class="gw-tag">backend <button type="button" class="gw-tag__remove" aria-label="Remove label: backend"></button></li>
+        <li class="gw-tag">auth <button type="button" class="gw-tag__remove" aria-label="Remove label: auth"></button></li>
+        <li class="gw-tag">needs migration <button type="button" class="gw-tag__remove" aria-label="Remove label: needs migration"></button></li>
+      </ul>
+      <input class="gw-tag-input__input" id="tag-input-default-input" type="text" name="label" autocomplete="off" autocapitalize="none" enterkeyhint="done" aria-describedby="tag-input-default-description">
+    </div>
+    <p class="gw-field__description" id="tag-input-default-description">Type a label, then press Enter or a comma to add it. Backspace in the empty box removes the last one.</p>
+  </div>
+</div>
+
+<div data-example="empty" data-title="Nothing added yet" data-state="empty">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-empty-input">Reviewers</label>
+    <div class="gw-tag-input">
+      <ul class="gw-tag-input__tags" aria-label="Reviewers added"></ul>
+      <input class="gw-tag-input__input" id="tag-input-empty-input" type="text" name="reviewer" autocomplete="off" autocapitalize="none" enterkeyhint="done" aria-describedby="tag-input-empty-description">
+    </div>
+    <p class="gw-field__description" id="tag-input-empty-description">No reviewers yet. Type a GitHub username, then press Enter or a comma to add it.</p>
+  </div>
+</div>
+
+<div data-example="wrapping" data-title="Many values wrap inside the box">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-wrapping-input">Paths the agent may change</label>
+    <div class="gw-tag-input">
+      <ul class="gw-tag-input__tags" aria-label="Paths added">
+        <li class="gw-tag">src/auth/** <button type="button" class="gw-tag__remove" aria-label="Remove path: src/auth/**"></button></li>
+        <li class="gw-tag">src/session/** <button type="button" class="gw-tag__remove" aria-label="Remove path: src/session/**"></button></li>
+        <li class="gw-tag">test/auth/** <button type="button" class="gw-tag__remove" aria-label="Remove path: test/auth/**"></button></li>
+        <li class="gw-tag">docs/sign-in.md <button type="button" class="gw-tag__remove" aria-label="Remove path: docs/sign-in.md"></button></li>
+        <li class="gw-tag">package.json <button type="button" class="gw-tag__remove" aria-label="Remove path: package.json"></button></li>
+      </ul>
+      <input class="gw-tag-input__input" id="tag-input-wrapping-input" type="text" name="path" autocomplete="off" autocapitalize="none" spellcheck="false" enterkeyhint="done" aria-describedby="tag-input-wrapping-description">
+    </div>
+    <p class="gw-field__description" id="tag-input-wrapping-description">Type a path or a glob, then press Enter to add it. A path may hold a comma, so only Enter adds one here.</p>
+  </div>
+</div>
+
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-focus-input">Labels</label>
+    <div class="gw-tag-input">
+      <ul class="gw-tag-input__tags" aria-label="Labels added, input focused">
+        <li class="gw-tag">backend <button type="button" class="gw-tag__remove" aria-label="Remove label: backend"></button></li>
+      </ul>
+      <input class="gw-tag-input__input" id="tag-input-focus-input" type="text" name="label" autocomplete="off" autocapitalize="none" enterkeyhint="done" value="flaky te">
+    </div>
+  </div>
+</div>
+
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-invalid-input">Reviewers</label>
+    <div class="gw-tag-input">
+      <ul class="gw-tag-input__tags" aria-label="Reviewers added, one not accepted">
+        <li class="gw-tag">maya-okafor <button type="button" class="gw-tag__remove" aria-label="Remove reviewer: maya-okafor"></button></li>
+      </ul>
+      <input class="gw-tag-input__input" id="tag-input-invalid-input" type="text" name="reviewer" autocomplete="off" autocapitalize="none" enterkeyhint="done" value="tomas.lind" aria-invalid="true" aria-describedby="tag-input-invalid-description tag-input-invalid-error">
+    </div>
+    <p class="gw-field__description" id="tag-input-invalid-description">Type a GitHub username, then press Enter or a comma to add it.</p>
+    <p class="gw-field__error" id="tag-input-invalid-error">tomas.lind was not added: nobody in acme has that username. Usernames have hyphens, not full stops. Try tomas-lind.</p>
+  </div>
+</div>
+
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-disabled-input">Labels</label>
+    <div class="gw-tag-input">
+      <ul class="gw-tag-input__tags" aria-label="Labels added, locked">
+        <li class="gw-tag">backend <button type="button" class="gw-tag__remove" aria-label="Remove label: backend" disabled></button></li>
+        <li class="gw-tag">auth <button type="button" class="gw-tag__remove" aria-label="Remove label: auth" disabled></button></li>
+      </ul>
+      <input class="gw-tag-input__input" id="tag-input-disabled-input" type="text" name="label" disabled aria-describedby="tag-input-disabled-description">
+    </div>
+    <p class="gw-field__description" id="tag-input-disabled-description">Labels are locked while the task runs.</p>
+  </div>
+</div>
+
+<div data-example="comma-list" data-title="Several values typed into one plain field" data-dont="review" data-reason="The reader cannot see where one value ends and the next begins, a stray space or a doubled comma makes a wrong value, and taking one out means editing text by hand. Add each value as a tag with its own remove button.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="tag-input-comma-list-input">Labels</label>
+    <input class="gw-field__control" id="tag-input-comma-list-input" type="text" name="labels" autocomplete="off" value="backend,auth, needs migration,,flaky">
+  </div>
+</div>

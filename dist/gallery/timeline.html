@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timeline - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Timeline</h1>
+<p>Events in the order they happened, each with its time, who acted and what happened, joined by a rail.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> What happened in a run, in order</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>It is an ordered list, so a screen reader announces how many events there are and where the reader is among them. Each event gives its time, who acted and what happened in words, and the rail and marks are drawn by the stylesheet as decoration.</p>
+</figcaption>
+<div data-example="default" data-title="What happened in a run, in order" data-state="default" data-reason="It is an ordered list, so a screen reader announces how many events there are and where the reader is among them. Each event gives its time, who acted and what happened in words, and the rail and marks are drawn by the stylesheet as decoration.">
+  <ol class="gw-timeline">
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:02">14:02</time> <span class="gw-timeline__actor">Maya Okafor</span></p>
+      <p class="gw-timeline__event">Started task 41, Fix the session refresh, on acme/api</p>
+    </li>
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:02">14:02</time> <span class="gw-timeline__actor">Claude Code, implementer</span></p>
+      <p class="gw-timeline__event">Created the worktree /srv/workspaces/acme-api from main at 9f2c1ab</p>
+    </li>
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:09">14:09</time> <span class="gw-timeline__actor">Claude Code, implementer</span></p>
+      <p class="gw-timeline__event">Ran <code>npm test</code>: 212 passed, 1 failed</p>
+    </li>
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:16">14:16</time> <span class="gw-timeline__actor">Claude Code, implementer</span></p>
+      <p class="gw-timeline__event">Committed 3 files to fix/session-refresh</p>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A run in progress, with the current step marked in words</h3>
+<p data-gallery="state">State: <code>current</code></p>
+</figcaption>
+<div data-example="current" data-title="A run in progress, with the current step marked in words" data-state="current">
+  <ol class="gw-timeline">
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:16">14:16</time> <span class="gw-timeline__actor">Claude Code, implementer</span></p>
+      <p class="gw-timeline__event">Committed 3 files to fix/session-refresh</p>
+    </li>
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:17">14:17</time> <span class="gw-timeline__actor">Claude Code, reviewer</span></p>
+      <p class="gw-timeline__event">Read the diff and asked for a test of the reload case</p>
+    </li>
+    <li class="gw-timeline__item" aria-current="step">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:21">14:21</time> <span class="gw-timeline__actor">Claude Code, implementer</span> <span class="gw-timeline__current">Current step</span></p>
+      <p class="gw-timeline__event">Asked to run <code>npm run test:integration</code> and is waiting for your answer</p>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Dense, for a long log of short events</h3>
+</figcaption>
+<div data-example="dense" data-title="Dense, for a long log of short events">
+  <ol class="gw-timeline gw-timeline--dense">
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:02">14:02</time> <span class="gw-timeline__actor">Maya Okafor</span></p>
+      <p class="gw-timeline__event">Started task 41</p>
+    </li>
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:02">14:02</time> <span class="gw-timeline__actor">Claude Code</span></p>
+      <p class="gw-timeline__event">Created the worktree</p>
+    </li>
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:04">14:04</time> <span class="gw-timeline__actor">Claude Code</span></p>
+      <p class="gw-timeline__event">Read 14 files in src/auth</p>
+    </li>
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:09">14:09</time> <span class="gw-timeline__actor">Claude Code</span></p>
+      <p class="gw-timeline__event">Ran npm test: 212 passed, 1 failed</p>
+    </li>
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:12">14:12</time> <span class="gw-timeline__actor">Claude Code</span></p>
+      <p class="gw-timeline__event">Edited src/auth/session.ts</p>
+    </li>
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:15">14:15</time> <span class="gw-timeline__actor">Claude Code</span></p>
+      <p class="gw-timeline__event">Ran npm test: 213 passed</p>
+    </li>
+    <li class="gw-timeline__item" aria-current="step">
+      <p class="gw-timeline__meta"><time class="gw-timeline__time" datetime="2026-03-14T14:16">14:16</time> <span class="gw-timeline__actor">Claude Code</span> <span class="gw-timeline__current">Current step</span></p>
+      <p class="gw-timeline__event">Waiting for approval to push fix/session-refresh</p>
+    </li>
+  </ol>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A rail of marks with the facts left out</h3>
+<p>With no time and no actor an event cannot be checked against a log or a colleague's memory, and the filled mark alone says which step is current only to someone who can see it. Give every event its time and actor, and write Current step in words.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="marks-only" data-title="A rail of marks with the facts left out" data-dont="review" data-reason="With no time and no actor an event cannot be checked against a log or a colleague's memory, and the filled mark alone says which step is current only to someone who can see it. Give every event its time and actor, and write Current step in words.">
+  <ol class="gw-timeline">
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__event">Worktree created</p>
+    </li>
+    <li class="gw-timeline__item">
+      <p class="gw-timeline__event">Tests run</p>
+    </li>
+    <li class="gw-timeline__item" aria-current="step">
+      <p class="gw-timeline__event">Waiting</p>
+    </li>
+  </ol>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For the history of one run, task or approval: who did what, and when.</li>
+<li>For a run in progress, with the step it is on now marked as the current one.</li>
+<li>With the dense variant for a long log of short events.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For the messages of a conversation with an agent. Use message rows in a transcript.</li>
+<li>For steps the reader has yet to take, such as a setup wizard. This component records what happened.</li>
+<li>For a set of things in no particular order. Use the list.</li>
+<li>For events compared across columns, or filtered and sorted. Use the data table.</li>
+<li>When there are no events, while the first fetch runs or after it fails. Put an empty state, a spinner or an error state in place of the list. Never render an ol with no items.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>default</dt>
+<dd>Time and actor on one line, what happened on the next, 16px between events.</dd>
+<dt>dense <code>gw-timeline--dense</code></dt>
+<dd>8px between events, with what happened on the same line as the time and actor where there is room.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use an ol with one li, gw-timeline__item, for each event, oldest first unless the view says otherwise. A screen reader announces the count and the position.</li>
+<li>Each item holds a p with the class gw-timeline__meta and then a p with the class gw-timeline__event. The meta line holds a time element, gw-timeline__time, with a datetime attribute, and the actor, gw-timeline__actor, in words. The event line says what happened as a sentence fragment that starts with a verb.</li>
+<li>Write the time so it cannot be misread: the clock time for events of one day, the date as well when the list spans days.</li>
+<li>Mark the current step with aria-current=&quot;step&quot; on its li and with words in a span of the class gw-timeline__current at the end of the meta line, such as Current step. The filled mark only supports the words.</li>
+<li>The rail and the marks are drawn by the stylesheet and are decoration. Nothing is said by them alone.</li>
+<li>A long timeline pairs with show-more: render the most recent events, twenty or so, and put one secondary button after the list whose label gives the count, such as Show 34 earlier events. On press the app adds the items to the same ol and moves focus to the first one added. The button is outside the ol.</li>
+<li>When an event is added while the reader watches, announce it from a role=&quot;status&quot; element in the view, not from the list.</li>
+<li>The timeline has no controls of its own and needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-timeline</code></li>
+<li><code>gw-timeline--dense</code></li>
+<li><code>gw-timeline__actor</code></li>
+<li><code>gw-timeline__current</code></li>
+<li><code>gw-timeline__event</code></li>
+<li><code>gw-timeline__item</code></li>
+<li><code>gw-timeline__meta</code></li>
+<li><code>gw-timeline__time</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

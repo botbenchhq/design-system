@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pending tray - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Pending tray</h1>
+<p>How many approvals are waiting for the reader, in words and a count, linking to the queue from every screen.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Approvals waiting</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The count and the words read as one sentence, and the whole of it is the link to the queue. Nothing depends on the colour of the count.</p>
+</figcaption>
+<div data-example="waiting" data-title="Approvals waiting" data-state="default" data-reason="The count and the words read as one sentence, and the whole of it is the link to the queue. Nothing depends on the colour of the count.">
+  <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+    <a class="gw-pending-tray__link" href="#approvals"><span class="gw-pending-tray__count">2</span> approvals waiting</a>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>One approval waiting</h3>
+</figcaption>
+<div data-example="one" data-title="One approval waiting">
+  <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+    <a class="gw-pending-tray__link" href="#approvals"><span class="gw-pending-tray__count">1</span> approval waiting</a>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A two-digit count</h3>
+</figcaption>
+<div data-example="many" data-title="A two-digit count">
+  <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+    <a class="gw-pending-tray__link" href="#approvals"><span class="gw-pending-tray__count">14</span> approvals waiting</a>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>At the end of a header row</h3>
+</figcaption>
+<div data-example="in-header" data-title="At the end of a header row">
+  <div class="gw-split">
+    <strong>Fix the session refresh</strong>
+    <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+      <a class="gw-pending-tray__link" href="#approvals"><span class="gw-pending-tray__count">3</span> approvals waiting</a>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+    <a class="gw-pending-tray__link" href="#approvals"><span class="gw-pending-tray__count">2</span> approvals waiting</a>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+    <a class="gw-pending-tray__link" href="#approvals"><span class="gw-pending-tray__count">2</span> approvals waiting</a>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active">
+  <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+    <a class="gw-pending-tray__link" href="#approvals"><span class="gw-pending-tray__count">2</span> approvals waiting</a>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing waiting</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="Nothing waiting" data-state="empty">
+  <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+    <span class="gw-pending-tray__text">No approvals waiting</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The count is not known yet</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="The count is not known yet" data-state="loading">
+  <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+    <span class="gw-pending-tray__text">Checking for approvals…</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The count could not be read</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The count could not be read" data-state="error">
+  <div class="gw-pending-tray" aria-live="polite" aria-atomic="true">
+    <span class="gw-pending-tray__text">Approvals could not be checked</span>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A coloured count with no words</h3>
+<p>A bare number in a filled box does not say what is counted or that the reader must act, and a screen reader announces only a link called 2.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="count-only" data-title="A coloured count with no words" data-dont="review" data-reason="A bare number in a filled box does not say what is counted or that the reader must act, and a screen reader announces only a link called 2.">
+  <div class="gw-pending-tray">
+    <a class="gw-pending-tray__link" href="#approvals"><span class="gw-pending-tray__count">2</span></a>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>In the trailing slot of the app header, on every signed-in screen, so a waiting approval is never out of sight.</li>
+<li>As the one way from any screen to the approval queue.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>To show the request itself or to answer it. Use an approval.</li>
+<li>For a count of anything the reader does not have to act on, such as open tasks. Write that as plain text.</li>
+<li>As a navigation item for the queue screen. Use the app's navigation, and keep the tray as well.</li>
+</ul>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>The link is drawn 32px tall to fit a header row. Its pointer target is still 44px.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>The block is a div with aria-live=&quot;polite&quot; and aria-atomic=&quot;true&quot;. Keep it in the page on every screen and change only what it holds, so a screen reader announces the new sentence when the count changes without moving focus.</li>
+<li>While approvals wait, it holds one link, gw-pending-tray__link, to the queue. The link text is the whole sentence: the count in gw-pending-tray__count, then approval waiting or approvals waiting. Never show the count alone.</li>
+<li>The filled box around the count is decoration. The sentence carries the meaning, so the count is never colour alone.</li>
+<li>When nothing waits, either leave the block empty, which hides the tray and keeps the live region, or show gw-pending-tray__text reading No approvals waiting. Use the same quiet text while the count is loading and when it could not be read, and say which in words.</li>
+<li>The link is reached with Tab and followed with Enter. The app sets the count, the wording and the link's href, and nothing else.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-pending-tray</code></li>
+<li><code>gw-pending-tray__count</code></li>
+<li><code>gw-pending-tray__link</code></li>
+<li><code>gw-pending-tray__text</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

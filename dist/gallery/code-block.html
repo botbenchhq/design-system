@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code block - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Code block</h1>
+<p>A block of mono text for a command, a log or a program's output.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A command</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="command" data-title="A command" data-state="default">
+  <figure class="gw-code-block">
+    <pre class="gw-code-block__body"><code>git push --set-upstream origin fix/login-timeout</code></pre>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Output with a caption, long lines wrapped</h3>
+<p>Wrapping is the default because a log is read top to bottom, and on a phone nothing is hidden off to the side. The caption says what ran.</p>
+</figcaption>
+<div data-example="wrapping" data-title="Output with a caption, long lines wrapped" data-reason="Wrapping is the default because a log is read top to bottom, and on a phone nothing is hidden off to the side. The caption says what ran.">
+  <figure class="gw-code-block">
+    <figcaption class="gw-code-block__caption">Output of npm test in /srv/workspaces/acme-api</figcaption>
+    <pre class="gw-code-block__body"><code>&gt; acme-api@2.14.0 test
+&gt; node --test test/
+
+✔ session: a token older than 30 minutes is refused (41.2ms)
+✖ session: the refresh endpoint extends an unexpired token (12.8ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: 401 !== 200 at TestContext.&lt;anonymous&gt; (file:///srv/workspaces/acme-api/test/session.test.mjs:58:12)
+
+tests 213, pass 212, fail 1</code></pre>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> No wrapping, scrolling inside the block</h3>
+<p>Where columns must line up, the block scrolls sideways and the page does not. The body takes tabindex, a role and a label, so a keyboard user can focus it and scroll with the arrow keys.</p>
+</figcaption>
+<div data-example="scroll" data-title="No wrapping, scrolling inside the block" data-reason="Where columns must line up, the block scrolls sideways and the page does not. The body takes tabindex, a role and a label, so a keyboard user can focus it and scroll with the arrow keys.">
+  <figure class="gw-code-block gw-code-block--scroll">
+    <figcaption class="gw-code-block__caption">Output of git log --oneline --decorate -4</figcaption>
+    <pre class="gw-code-block__body" tabindex="0" role="group" aria-label="Output of git log"><code>4be19c7 (HEAD -&gt; fix/login-timeout, origin/fix/login-timeout) Refuse a session token older than 30 minutes
+a1d03fe Read the session lifetime from SESSION_TTL_SECONDS
+9f2c1ab (origin/main, main) Merge pull request #212 from acme/feat/webhook-rate-limit
+77e5b02 Add rate limiting to the webhook endpoint</code></pre>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A file excerpt with line numbers</h3>
+</figcaption>
+<div data-example="line-numbers" data-title="A file excerpt with line numbers">
+  <figure class="gw-code-block">
+    <figcaption class="gw-code-block__caption">src/session/verify.mjs, lines 41 to 47</figcaption>
+    <pre class="gw-code-block__body"><code class="gw-code-block__lines">
+      <span class="gw-code-block__line"><span class="gw-code-block__number">41</span><span class="gw-code-block__text">export function verify(token, now = Date.now()) {</span></span>
+      <span class="gw-code-block__line"><span class="gw-code-block__number">42</span><span class="gw-code-block__text">  const session = decode(token);</span></span>
+      <span class="gw-code-block__line"><span class="gw-code-block__number">43</span><span class="gw-code-block__text">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS * 1000) {</span></span>
+      <span class="gw-code-block__line"><span class="gw-code-block__number">44</span><span class="gw-code-block__text">    throw new SessionExpired(`The session for ${session.user} ended after ${SESSION_TTL_SECONDS} seconds.`);</span></span>
+      <span class="gw-code-block__line"><span class="gw-code-block__number">45</span><span class="gw-code-block__text">  }</span></span>
+      <span class="gw-code-block__line"><span class="gw-code-block__number">46</span><span class="gw-code-block__text">  return session;</span></span>
+      <span class="gw-code-block__line"><span class="gw-code-block__number">47</span><span class="gw-code-block__text">}</span></span>
+    </code></pre>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus on a scrolling block</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus on a scrolling block" data-state="focus-visible">
+  <figure class="gw-code-block gw-code-block--scroll">
+    <pre class="gw-code-block__body" tabindex="0" role="group" aria-label="Command to start the database"><code>docker run --rm --name acme-api-db --env POSTGRES_PASSWORD=local --publish 5432:5432 --volume acme-api-db:/var/lib/postgresql/data postgres:16</code></pre>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Nothing to show yet</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="Nothing to show yet" data-state="empty">
+  <figure class="gw-code-block">
+    <figcaption class="gw-code-block__caption">Output of npm test in /srv/workspaces/acme-api</figcaption>
+    <p class="gw-code-block__note">No output yet. The log starts when the task leaves the queue.</p>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A scrolling block the keyboard cannot reach</h3>
+<p>Without tabindex the block cannot take focus, so someone using a keyboard cannot scroll it and never sees the end of the long lines. Without a role and a label, a screen reader does not say what the focused thing is.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="scroll-unfocusable" data-title="A scrolling block the keyboard cannot reach" data-dont="review" data-reason="Without tabindex the block cannot take focus, so someone using a keyboard cannot scroll it and never sees the end of the long lines. Without a role and a label, a screen reader does not say what the focused thing is.">
+  <figure class="gw-code-block gw-code-block--scroll">
+    <pre class="gw-code-block__body"><code>docker run --rm --name acme-api-db --env POSTGRES_PASSWORD=local --publish 5432:5432 --volume acme-api-db:/var/lib/postgresql/data postgres:16</code></pre>
+  </figure>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a command the reader may copy, the output of a command, a log, or an excerpt of a file.</li>
+<li>With the scroll variant when columns must stay aligned, such as a table printed by a tool.</li>
+<li>With line numbers when the text refers to lines of a file.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a change to a file. Use the diff.</li>
+<li>For a word or a path inside a sentence. Use a code element in the running text.</li>
+<li>For a value the reader edits. Use a field.</li>
+<li>For prose, or to make a message look technical. Mono text is for text a machine wrote or will read.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>wrapping</dt>
+<dd>The default, with no modifier class. Long lines wrap at any character, so nothing is hidden at phone width.</dd>
+<dt>scroll <code>gw-code-block--scroll</code></dt>
+<dd>Lines keep their length and the body scrolls sideways inside the block. Set tabindex=&quot;0&quot;, role=&quot;group&quot; and an aria-label on the body.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a figure holding a pre with a code element inside it. An optional figcaption with the class gw-code-block__caption names what ran or which file it is, and comes first.</li>
+<li>With the scroll variant, give the pre tabindex=&quot;0&quot;, role=&quot;group&quot; and an aria-label that says what it holds. It can then take focus, and the arrow keys scroll it. Leave all three off a wrapping block, which never scrolls.</li>
+<li>For line numbers, give the code element the class gw-code-block__lines and write each line as a gw-code-block__line span holding a gw-code-block__number span and a gw-code-block__text span. The numbers are real text, so a screen reader reads them, and they are left out of a copy.</li>
+<li>Write the text exactly as the tool printed it. Escape the characters &lt;, &gt; and &amp; in markup.</li>
+<li>When there is no output, keep the caption and replace the pre with a gw-code-block__note paragraph that says so in a sentence. Never show an empty box.</li>
+<li>Colour carries no meaning inside a block. A failure is said in the output's own words or in text beside the block.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-code-block</code></li>
+<li><code>gw-code-block--scroll</code></li>
+<li><code>gw-code-block__body</code></li>
+<li><code>gw-code-block__caption</code></li>
+<li><code>gw-code-block__line</code></li>
+<li><code>gw-code-block__lines</code></li>
+<li><code>gw-code-block__note</code></li>
+<li><code>gw-code-block__number</code></li>
+<li><code>gw-code-block__text</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diff - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Diff</h1>
+<p>One file's change as a unified diff, with its path and how many lines were added and removed.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> One file's change</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Every changed line has a plus or a minus in its own column as well as its shading, the counts in the header are read out as words, and the long line scrolls inside the body while the page stays still.</p>
+</figcaption>
+<div data-example="default" data-title="One file's change" data-state="default" data-reason="Every changed line has a plus or a minus in its own column as well as its shading, the counts in the header are read out as words, and the long line scrolls inside the body while the page stays still.">
+  <figure class="gw-diff">
+    <figcaption class="gw-diff__header">
+      <code class="gw-diff__path">src/session/verify.mjs</code>
+      <span class="gw-diff__counts">
+        <span class="gw-diff__added">+7<span class="gw-diff__label"> lines added</span></span>
+        <span class="gw-diff__removed">−3<span class="gw-diff__label"> lines removed</span></span>
+      </span>
+    </figcaption>
+    <pre class="gw-diff__body" tabindex="0" role="group" aria-label="Diff of src/session/verify.mjs"><code class="gw-diff__lines">
+      <span class="gw-diff__line gw-diff__line--hunk"><span class="gw-diff__sign"> </span><span class="gw-diff__text">@@ -38,9 +38,9 @@ import { decode } from "./token.mjs";</span></span>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text"></span></span>
+      <del class="gw-diff__line gw-diff__line--removed"><span class="gw-diff__sign">-</span><span class="gw-diff__text">const SESSION_TTL_SECONDS = 1800;</span></del>
+      <ins class="gw-diff__line gw-diff__line--added"><span class="gw-diff__sign">+</span><span class="gw-diff__text">const SESSION_TTL_SECONDS = Number(process.env.SESSION_TTL_SECONDS ?? 1800);</span></ins>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text"></span></span>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">export function verify(token, now = Date.now()) {</span></span>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">  const session = decode(token);</span></span>
+      <del class="gw-diff__line gw-diff__line--removed"><span class="gw-diff__sign">-</span><span class="gw-diff__text">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS) {</span></del>
+      <del class="gw-diff__line gw-diff__line--removed"><span class="gw-diff__sign">-</span><span class="gw-diff__text">    throw new SessionExpired();</span></del>
+      <ins class="gw-diff__line gw-diff__line--added"><span class="gw-diff__sign">+</span><span class="gw-diff__text">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS * 1000) {</span></ins>
+      <ins class="gw-diff__line gw-diff__line--added"><span class="gw-diff__sign">+</span><span class="gw-diff__text">    throw new SessionExpired(`The session for ${session.user} ended after ${SESSION_TTL_SECONDS} seconds.`);</span></ins>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">  }</span></span>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">  return session;</span></span>
+      <span class="gw-diff__line gw-diff__line--hunk"><span class="gw-diff__sign"> </span><span class="gw-diff__text">@@ -70,2 +70,6 @@ export function refresh(token, now = Date.now()) {</span></span>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">  return encode({ ...session, issuedAt: now });</span></span>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">}</span></span>
+      <ins class="gw-diff__line gw-diff__line--added"><span class="gw-diff__sign">+</span><span class="gw-diff__text"></span></ins>
+      <ins class="gw-diff__line gw-diff__line--added"><span class="gw-diff__sign">+</span><span class="gw-diff__text">export function remaining(token, now = Date.now()) {</span></ins>
+      <ins class="gw-diff__line gw-diff__line--added"><span class="gw-diff__sign">+</span><span class="gw-diff__text">  return SESSION_TTL_SECONDS * 1000 - (now - decode(token).issuedAt);</span></ins>
+      <ins class="gw-diff__line gw-diff__line--added"><span class="gw-diff__sign">+</span><span class="gw-diff__text">}</span></ins>
+    </code></pre>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus on the body</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus on the body" data-state="focus-visible">
+  <figure class="gw-diff">
+    <figcaption class="gw-diff__header">
+      <code class="gw-diff__path">.env.example</code>
+      <span class="gw-diff__counts">
+        <span class="gw-diff__added">+1<span class="gw-diff__label"> line added</span></span>
+        <span class="gw-diff__removed">−0<span class="gw-diff__label"> lines removed</span></span>
+      </span>
+    </figcaption>
+    <pre class="gw-diff__body" tabindex="0" role="group" aria-label="Diff of .env.example"><code class="gw-diff__lines">
+      <span class="gw-diff__line gw-diff__line--hunk"><span class="gw-diff__sign"> </span><span class="gw-diff__text">@@ -4,3 +4,4 @@</span></span>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">DATABASE_URL=postgres://acme:local@localhost:5432/acme_api</span></span>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">WEBHOOK_SECRET=</span></span>
+      <ins class="gw-diff__line gw-diff__line--added"><span class="gw-diff__sign">+</span><span class="gw-diff__text">SESSION_TTL_SECONDS=1800</span></ins>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">LOG_LEVEL=info</span></span>
+    </code></pre>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Cut short, with a note under the body</h3>
+</figcaption>
+<div data-example="truncated" data-title="Cut short, with a note under the body">
+  <figure class="gw-diff">
+    <figcaption class="gw-diff__header">
+      <code class="gw-diff__path">package-lock.json</code>
+      <span class="gw-diff__counts">
+        <span class="gw-diff__added">+412<span class="gw-diff__label"> lines added</span></span>
+        <span class="gw-diff__removed">−388<span class="gw-diff__label"> lines removed</span></span>
+      </span>
+    </figcaption>
+    <pre class="gw-diff__body" tabindex="0" role="group" aria-label="Diff of package-lock.json, first lines"><code class="gw-diff__lines">
+      <span class="gw-diff__line gw-diff__line--hunk"><span class="gw-diff__sign"> </span><span class="gw-diff__text">@@ -1204,9 +1204,9 @@</span></span>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">    "node_modules/pg": {</span></span>
+      <del class="gw-diff__line gw-diff__line--removed"><span class="gw-diff__sign">-</span><span class="gw-diff__text">      "version": "8.11.3",</span></del>
+      <del class="gw-diff__line gw-diff__line--removed"><span class="gw-diff__sign">-</span><span class="gw-diff__text">      "resolved": "https://registry.npmjs.org/pg/-/pg-8.11.3.tgz",</span></del>
+      <ins class="gw-diff__line gw-diff__line--added"><span class="gw-diff__sign">+</span><span class="gw-diff__text">      "version": "8.13.0",</span></ins>
+      <ins class="gw-diff__line gw-diff__line--added"><span class="gw-diff__sign">+</span><span class="gw-diff__text">      "resolved": "https://registry.npmjs.org/pg/-/pg-8.13.0.tgz",</span></ins>
+      <span class="gw-diff__line"><span class="gw-diff__sign"> </span><span class="gw-diff__text">      "license": "MIT",</span></span>
+    </code></pre>
+    <p class="gw-diff__note">The first 4 of 800 changed lines. The whole diff is on the branch chore/pg-8-13.</p>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Being read</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="Being read" data-state="loading">
+  <figure class="gw-diff" aria-busy="true">
+    <figcaption class="gw-diff__header">
+      <code class="gw-diff__path">src/session/verify.mjs</code>
+      <span class="gw-diff__counts">
+        <span class="gw-diff__added">+7<span class="gw-diff__label"> lines added</span></span>
+        <span class="gw-diff__removed">−3<span class="gw-diff__label"> lines removed</span></span>
+      </span>
+    </figcaption>
+    <p class="gw-diff__note" role="status">Reading the diff.</p>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Could not be read</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="Could not be read" data-state="error">
+  <figure class="gw-diff">
+    <figcaption class="gw-diff__header">
+      <code class="gw-diff__path">src/session/verify.mjs</code>
+      <span class="gw-diff__counts">
+        <span class="gw-diff__added">+7<span class="gw-diff__label"> lines added</span></span>
+        <span class="gw-diff__removed">−3<span class="gw-diff__label"> lines removed</span></span>
+      </span>
+    </figcaption>
+    <p class="gw-diff__note" role="alert">The diff could not be read. The worktree /srv/workspaces/acme-api is no longer on disk.</p>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>No lines to show</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="No lines to show" data-state="empty">
+  <figure class="gw-diff">
+    <figcaption class="gw-diff__header">
+      <code class="gw-diff__path">scripts/deploy.sh</code>
+      <span class="gw-diff__counts">
+        <span class="gw-diff__added">+0<span class="gw-diff__label"> lines added</span></span>
+        <span class="gw-diff__removed">−0<span class="gw-diff__label"> lines removed</span></span>
+      </span>
+    </figcaption>
+    <p class="gw-diff__note">No lines changed. The file became executable: its mode went from 644 to 755.</p>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Shading with no signs</h3>
+<p>With the sign column left out, only the green and red shading says which lines were added and which removed. Someone who cannot tell the two apart, or who reads in a high-contrast mode, sees one block of code.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="colour-only" data-title="Shading with no signs" data-dont="review" data-reason="With the sign column left out, only the green and red shading says which lines were added and which removed. Someone who cannot tell the two apart, or who reads in a high-contrast mode, sees one block of code.">
+  <figure class="gw-diff">
+    <pre class="gw-diff__body" tabindex="0" role="group" aria-label="Diff of src/session/verify.mjs"><code class="gw-diff__lines">
+      <span class="gw-diff__line gw-diff__line--removed"><span class="gw-diff__text">  const SESSION_TTL_SECONDS = 1800;</span></span>
+      <span class="gw-diff__line gw-diff__line--added"><span class="gw-diff__text">  const SESSION_TTL_SECONDS = Number(process.env.SESSION_TTL_SECONDS ?? 1800);</span></span>
+    </code></pre>
+  </figure>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>To show what a task changed in one file, before the reader decides on it.</li>
+<li>One diff per file. For several files, list them and put each diff in a row disclosure.</li>
+<li>The counts alone, gw-diff__counts, beside a file's name in a list row or a disclosure summary.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a file's contents with no change, or for a command's output. Use the code block.</li>
+<li>For two versions side by side. This component is unified only, which is what fits a phone.</li>
+<li>For a change to prose that the reader edits in place. Show the text itself.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a figure. Its figcaption, gw-diff__header, holds the path in a code element and the counts. Leave the header out when the diff sits under a summary that already shows both.</li>
+<li>Write each count as a sign and a number followed by a gw-diff__label span that finishes it in words, such as +7 and lines added. The label is hidden from sight and read by a screen reader.</li>
+<li>The body is a pre with tabindex=&quot;0&quot;, role=&quot;group&quot; and an aria-label naming the file, so it can take focus and the arrow keys scroll it sideways. The page itself never scrolls sideways.</li>
+<li>Each line is a gw-diff__line holding a gw-diff__sign cell and a gw-diff__text cell. Use an ins element for an added line and a del element for a removed one, with the plus or minus as the sign. A context line and a hunk header are spans, with a space as the sign.</li>
+<li>Never leave out the sign. The shading alone does not mark a line for someone who cannot tell the colours apart.</li>
+<li>While the diff is fetched, set aria-busy=&quot;true&quot; on the figure and put a gw-diff__note with role=&quot;status&quot; in place of the body. When it fails, use a note with role=&quot;alert&quot; that says why. The stylesheet adds the failure's icon.</li>
+<li>When a file changed with no line to show, or the diff is cut short, say so in a plain gw-diff__note.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-diff</code></li>
+<li><code>gw-diff__added</code></li>
+<li><code>gw-diff__body</code></li>
+<li><code>gw-diff__counts</code></li>
+<li><code>gw-diff__header</code></li>
+<li><code>gw-diff__label</code></li>
+<li><code>gw-diff__line</code></li>
+<li><code>gw-diff__line--added</code></li>
+<li><code>gw-diff__line--hunk</code></li>
+<li><code>gw-diff__line--removed</code></li>
+<li><code>gw-diff__lines</code></li>
+<li><code>gw-diff__note</code></li>
+<li><code>gw-diff__path</code></li>
+<li><code>gw-diff__removed</code></li>
+<li><code>gw-diff__sign</code></li>
+<li><code>gw-diff__text</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

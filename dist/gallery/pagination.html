@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pagination - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Pagination</h1>
+<p>Previous and next for a list split into pages, with the position written in words and optional numbered pages.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Previous, position and next</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The position is written in words with its total, so the reader knows how much is left, and Previous and Next are named in text. At phone width this is the whole component.</p>
+</figcaption>
+<div data-example="default" data-title="Previous, position and next" data-state="default" data-reason="The position is written in words with its total, so the reader knows how much is left, and Previous and Next are named in text. At phone width this is the whole component.">
+  <nav class="gw-pagination" aria-label="Pages of runs">
+    <p class="gw-pagination__status">Page 3 of 12</p>
+    <div class="gw-pagination__controls">
+      <a class="gw-button gw-pagination__previous" href="/runs?page=2" rel="prev">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+        Previous<span class="gw-visually-hidden"> page</span>
+      </a>
+      <a class="gw-button gw-pagination__next" href="/runs?page=4" rel="next">
+        Next<span class="gw-visually-hidden"> page</span>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </a>
+    </div>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With numbered pages, shown at 768px and up</h3>
+<p data-gallery="state">State: <code>current</code></p>
+</figcaption>
+<div data-example="numbered" data-title="With numbered pages, shown at 768px and up" data-state="current">
+  <nav class="gw-pagination" aria-label="Pages of tasks">
+    <p class="gw-pagination__status">Page 3 of 12</p>
+    <div class="gw-pagination__controls">
+      <a class="gw-button gw-pagination__previous" href="/tasks?page=2" rel="prev">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+        Previous<span class="gw-visually-hidden"> page</span>
+      </a>
+      <ol class="gw-pagination__pages">
+        <li><a class="gw-pagination__page" href="/tasks?page=1"><span class="gw-visually-hidden">Page </span>1</a></li>
+        <li><a class="gw-pagination__page" href="/tasks?page=2"><span class="gw-visually-hidden">Page </span>2</a></li>
+        <li><a class="gw-pagination__page" href="/tasks?page=3" aria-current="page"><span class="gw-visually-hidden">Page </span>3</a></li>
+        <li><a class="gw-pagination__page" href="/tasks?page=4"><span class="gw-visually-hidden">Page </span>4</a></li>
+        <li class="gw-pagination__gap" aria-hidden="true">…</li>
+        <li><a class="gw-pagination__page" href="/tasks?page=12"><span class="gw-visually-hidden">Page </span>12</a></li>
+      </ol>
+      <a class="gw-button gw-pagination__next" href="/tasks?page=4" rel="next">
+        Next<span class="gw-visually-hidden"> page</span>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </a>
+    </div>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>First page: Previous is unavailable</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="first-page" data-title="First page: Previous is unavailable" data-state="disabled">
+  <nav class="gw-pagination" aria-label="Pages of branches">
+    <p class="gw-pagination__status">Page 1 of 12</p>
+    <div class="gw-pagination__controls">
+      <a class="gw-button gw-pagination__previous" role="link" aria-disabled="true">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+        Previous<span class="gw-visually-hidden"> page</span>
+      </a>
+      <a class="gw-button gw-pagination__next" href="/branches?page=2" rel="next">
+        Next<span class="gw-visually-hidden"> page</span>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </a>
+    </div>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Last page: Next is unavailable</h3>
+</figcaption>
+<div data-example="last-page" data-title="Last page: Next is unavailable">
+  <nav class="gw-pagination" aria-label="Pages of approvals">
+    <p class="gw-pagination__status">Page 5 of 5</p>
+    <div class="gw-pagination__controls">
+      <a class="gw-button gw-pagination__previous" href="/approvals?page=4" rel="prev">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+        Previous<span class="gw-visually-hidden"> page</span>
+      </a>
+      <ol class="gw-pagination__pages">
+        <li><a class="gw-pagination__page" href="/approvals?page=1"><span class="gw-visually-hidden">Page </span>1</a></li>
+        <li><a class="gw-pagination__page" href="/approvals?page=2"><span class="gw-visually-hidden">Page </span>2</a></li>
+        <li><a class="gw-pagination__page" href="/approvals?page=3"><span class="gw-visually-hidden">Page </span>3</a></li>
+        <li><a class="gw-pagination__page" href="/approvals?page=4"><span class="gw-visually-hidden">Page </span>4</a></li>
+        <li><a class="gw-pagination__page" href="/approvals?page=5" aria-current="page"><span class="gw-visually-hidden">Page </span>5</a></li>
+      </ol>
+      <a class="gw-button gw-pagination__next" role="link" aria-disabled="true">
+        Next<span class="gw-visually-hidden"> page</span>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </a>
+    </div>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Under the list it pages</h3>
+</figcaption>
+<div data-example="with-list" data-title="Under the list it pages">
+  <div class="gw-stack">
+    <ul class="gw-list">
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/runs/4161">
+          <span class="gw-list__body"><span class="gw-list__primary">Refuse a session token older than 30 minutes</span><span class="gw-list__secondary">fix/login-timeout</span></span>
+          <span class="gw-list__meta">Run 4161</span>
+        </a>
+      </li>
+      <li class="gw-list__row">
+        <a class="gw-list__link" href="/runs/4160">
+          <span class="gw-list__body"><span class="gw-list__primary">Limit webhook deliveries to 20 a second</span><span class="gw-list__secondary">feat/webhook-rate-limit</span></span>
+          <span class="gw-list__meta">Run 4160</span>
+        </a>
+      </li>
+    </ul>
+    <nav class="gw-pagination" aria-label="Pages of finished runs">
+      <p class="gw-pagination__status">Page 2 of 9</p>
+      <div class="gw-pagination__controls">
+        <a class="gw-button gw-pagination__previous" href="/runs/finished?page=1" rel="prev">
+          <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+          Previous<span class="gw-visually-hidden"> page</span>
+        </a>
+        <a class="gw-button gw-pagination__next" href="/runs/finished?page=3" rel="next">
+          Next<span class="gw-visually-hidden"> page</span>
+          <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+        </a>
+      </div>
+    </nav>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <nav class="gw-pagination" aria-label="Pages of workspaces">
+    <p class="gw-pagination__status">Page 2 of 4</p>
+    <div class="gw-pagination__controls">
+      <a class="gw-button gw-pagination__previous" href="/workspaces?page=1" rel="prev">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+        Previous<span class="gw-visually-hidden"> page</span>
+      </a>
+      <ol class="gw-pagination__pages">
+        <li><a class="gw-pagination__page" href="/workspaces?page=1"><span class="gw-visually-hidden">Page </span>1</a></li>
+        <li><a class="gw-pagination__page" href="/workspaces?page=2" aria-current="page"><span class="gw-visually-hidden">Page </span>2</a></li>
+        <li><a class="gw-pagination__page" href="/workspaces?page=3"><span class="gw-visually-hidden">Page </span>3</a></li>
+        <li><a class="gw-pagination__page" href="/workspaces?page=4"><span class="gw-visually-hidden">Page </span>4</a></li>
+      </ol>
+      <a class="gw-button gw-pagination__next" href="/workspaces?page=3" rel="next">
+        Next<span class="gw-visually-hidden"> page</span>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </a>
+    </div>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <nav class="gw-pagination" aria-label="Pages of repositories">
+    <p class="gw-pagination__status">Page 2 of 4</p>
+    <div class="gw-pagination__controls">
+      <a class="gw-button gw-pagination__previous" href="/repositories?page=1" rel="prev">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+        Previous<span class="gw-visually-hidden"> page</span>
+      </a>
+      <ol class="gw-pagination__pages">
+        <li><a class="gw-pagination__page" href="/repositories?page=1"><span class="gw-visually-hidden">Page </span>1</a></li>
+        <li><a class="gw-pagination__page" href="/repositories?page=2" aria-current="page"><span class="gw-visually-hidden">Page </span>2</a></li>
+        <li><a class="gw-pagination__page" href="/repositories?page=3"><span class="gw-visually-hidden">Page </span>3</a></li>
+        <li><a class="gw-pagination__page" href="/repositories?page=4"><span class="gw-visually-hidden">Page </span>4</a></li>
+      </ol>
+      <a class="gw-button gw-pagination__next" href="/repositories?page=3" rel="next">
+        Next<span class="gw-visually-hidden"> page</span>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </a>
+    </div>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed" data-state="active">
+  <nav class="gw-pagination" aria-label="Pages of commits">
+    <p class="gw-pagination__status">Page 2 of 4</p>
+    <div class="gw-pagination__controls">
+      <a class="gw-button gw-pagination__previous" href="/commits?page=1" rel="prev">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+        Previous<span class="gw-visually-hidden"> page</span>
+      </a>
+      <ol class="gw-pagination__pages">
+        <li><a class="gw-pagination__page" href="/commits?page=1"><span class="gw-visually-hidden">Page </span>1</a></li>
+        <li><a class="gw-pagination__page" href="/commits?page=2" aria-current="page"><span class="gw-visually-hidden">Page </span>2</a></li>
+        <li><a class="gw-pagination__page" href="/commits?page=3"><span class="gw-visually-hidden">Page </span>3</a></li>
+        <li><a class="gw-pagination__page" href="/commits?page=4"><span class="gw-visually-hidden">Page </span>4</a></li>
+      </ol>
+      <a class="gw-button gw-pagination__next" href="/commits?page=3" rel="next">
+        Next<span class="gw-visually-hidden"> page</span>
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </a>
+    </div>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> Arrows with no words and a bare count</h3>
+<p>An arrow alone has no name for a screen reader, and 3 / 12 does not say of what. Write Previous and Next as text and the position as Page 3 of 12.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="arrows-and-numbers" data-title="Arrows with no words and a bare count" data-dont="review" data-reason="An arrow alone has no name for a screen reader, and 3 / 12 does not say of what. Write Previous and Next as text and the position as Page 3 of 12.">
+  <nav class="gw-pagination" aria-label="Pages of pull requests">
+    <p class="gw-pagination__status">3 / 12</p>
+    <div class="gw-pagination__controls">
+      <a class="gw-button gw-pagination__previous" href="/pulls?page=2">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-left"></use></svg>
+      </a>
+      <a class="gw-button gw-pagination__next" href="/pulls?page=4">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-chevron-right"></use></svg>
+      </a>
+    </div>
+  </nav>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>Under a list or table that is split into pages the reader may want to return to by number or by address, such as finished runs.</li>
+<li>With numbered pages when the reader jumps around, such as to the last page. They show at 768px and up only.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a list of one page. Show no pagination at all.</li>
+<li>To reveal the rest of a short list in place. Use show more, with its Show all button.</li>
+<li>For a transcript or a log that grows while the reader watches. Load older lines as the reader scrolls back.</li>
+<li>For the steps of a form. Use buttons named for each step.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>previous and next</dt>
+<dd>The default: the status and the two buttons. The whole component at phone width.</dd>
+<dt>numbered</dt>
+<dd>Adds a gw-pagination__pages list between Previous and Next. It is shown at 768px and up, so the status must still say the position. Show the first page, the last, the current one and its neighbours, with a gw-pagination__gap where pages are left out, seven items at most.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>Every control is 44px tall and at least 44px wide. Below 768px the row is Previous, the status, Next. At 768px and up the status leads and the controls sit together at the far end.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a nav element with an aria-label that says what is paged, such as Pages of runs. It holds the status and then gw-pagination__controls.</li>
+<li>The status is a p with the gw-pagination__status class that reads Page 3 of 12. The app writes both numbers. It comes first in the markup and is drawn between the buttons at phone width.</li>
+<li>Previous and Next are links with the gw-button class, plus gw-pagination__previous or gw-pagination__next, and rel=&quot;prev&quot; or rel=&quot;next&quot;. Each has its word as text, then page in a gw-visually-hidden span, so its name is Previous page or Next page. The chevron is decoration and carries aria-hidden=&quot;true&quot;.</li>
+<li>On the first page Previous has no href, and takes role=&quot;link&quot; and aria-disabled=&quot;true&quot;. On the last page Next does. It stays in place so the buttons do not move, is announced as unavailable, and is not a tab stop.</li>
+<li>When the app pages in place with script instead of addresses, use button elements with the same classes and the disabled attribute at the ends, then move focus to the heading of the list after each change.</li>
+<li>A numbered page is a link with the gw-pagination__page class inside an li, holding Page in a gw-visually-hidden span and then the number. Set aria-current=&quot;page&quot; on the current one, which draws its border and heavier number. A gap is an li with the gw-pagination__gap class and aria-hidden=&quot;true&quot;.</li>
+<li>Tab moves through the controls in order and Enter follows one. Both come from the link element.</li>
+<li>The component needs no script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-pagination</code></li>
+<li><code>gw-pagination__controls</code></li>
+<li><code>gw-pagination__gap</code></li>
+<li><code>gw-pagination__next</code></li>
+<li><code>gw-pagination__page</code></li>
+<li><code>gw-pagination__pages</code></li>
+<li><code>gw-pagination__previous</code></li>
+<li><code>gw-pagination__status</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

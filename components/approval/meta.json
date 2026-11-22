@@ -1,0 +1,49 @@
+{
+  "name": "approval",
+  "title": "Approval",
+  "purpose": "One request from an agent that waits for the reader's answer: what would run, where, for whom and why, with Allow and Decline.",
+  "status": "draft",
+  "whenToUse": [
+    "When an agent is blocked until the reader allows or declines a tool call or a command.",
+    "Alone in a view for one request, or as list items in a queue of several."
+  ],
+  "whenNotToUse": [
+    "For a request that was already answered or denied. Use a message row in the transcript.",
+    "To say how many requests wait. Use the pending tray.",
+    "To confirm an action the reader started themselves, such as deleting a workspace. Use a dialog."
+  ],
+  "variants": [
+    { "name": "normal", "use": "The default, with no modifier class. The risk line reads Normal risk and what keeps it so, beside an info icon." },
+    { "name": "elevated", "class": "gw-approval--elevated", "use": "A request that reaches outside the task's worktree, deletes, or cannot be undone. The risk line reads Elevated risk and why, beside a warning icon, on a tinted band." }
+  ],
+  "sizes": [],
+  "states": ["default", "open", "busy", "error"],
+  "accessibility": [
+    "Use an article with aria-labelledby pointing at gw-approval__title, a heading at the level the view needs. The title says who asks and for what.",
+    "Emphasis: when a view shows a single approval, Allow may be the view's primary action, gw-button gw-button--primary. When approvals are listed, each card sits in its own li of a ul and Allow is a plain gw-button, never primary, so a queue has no competing primary actions.",
+    "Allow comes first and Decline sits at the far end of gw-approval__actions. Both are always visible, carry data-gw-critical so the checker can see they are never hidden, and are never placed inside a details element.",
+    "The risk line always starts with the words Normal risk or Elevated risk and then says why. Its icon is drawn by the stylesheet, so the tone is never colour alone.",
+    "gw-approval__command holds exactly what would run, as text, with characters that cannot be seen written out. It wraps, and never scrolls sideways.",
+    "Supporting detail goes in a details element with a text summary, such as Show the full request. It holds no control the reader needs in order to answer.",
+    "A note on declining is optional. Under the actions, add a details element whose summary reads Decline with a note, holding a labelled field and its own button, Decline and send note. It starts closed, without the open attribute, and the plain Decline above it still declines with no note.",
+    "While the answer is sent, set aria-busy=\"true\" on the pressed button, change its label to Allowing or Declining, and disable the other. If sending fails, restore both and add gw-approval__error with role=\"alert\", saying that nothing was allowed.",
+    "Tab reaches the summary, then Allow, then Decline. Enter and Space activate each. The component needs no script: the app sets aria-busy and disabled, and removes the card once the request is answered. Move focus to the next card or the view's heading when it goes."
+  ],
+  "icons": ["chevron-down", "chevron-right", "circle-alert", "info", "triangle-alert"],
+  "classes": [
+    "gw-approval",
+    "gw-approval--elevated",
+    "gw-approval__actions",
+    "gw-approval__command",
+    "gw-approval__details",
+    "gw-approval__error",
+    "gw-approval__fact",
+    "gw-approval__facts",
+    "gw-approval__note",
+    "gw-approval__risk",
+    "gw-approval__summary",
+    "gw-approval__term",
+    "gw-approval__title",
+    "gw-approval__value"
+  ]
+}

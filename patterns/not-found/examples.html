@@ -1,0 +1,50 @@
+<div data-example="page" data-title="A page that does not exist" data-state="default" data-gallery-frame data-reason="The title says what was not found, with the address the reader asked for. The sentence gives the two likely reasons in plain words. One primary link goes to the screen most readers want next, and a quiet link offers the other way to find something. There is no picture, no code number as a headline and no joke.">
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__name" href="/">Smelt</a>
+    </header>
+    <div class="gw-not-found">
+      <div class="gw-empty-state">
+        <h1 class="gw-empty-state__title">There is no page at /repositories/acme/apii/runs</h1>
+        <p class="gw-empty-state__body">The address may be mistyped, or the page may have been moved or deleted since the link was made.</p>
+        <div class="gw-empty-state__action">
+          <a class="gw-button gw-button--primary" href="/repositories">View your repositories</a>
+        </div>
+      </div>
+      <a class="gw-link gw-link--quiet" href="/search">Search tasks and runs</a>
+    </div>
+  </div>
+</div>
+
+<div data-example="item" data-title="An item that is missing or out of reach" data-state="missing-item" data-gallery-frame>
+  <div class="gw-stack gw-gap-xl">
+    <header class="gw-app-header">
+      <a class="gw-app-header__back" href="/runs">
+        <svg class="gw-app-header__icon" aria-hidden="true"><use href="icons.svg#gw-icon-chevron-left"></use></svg>
+        Runs
+      </a>
+    </header>
+    <div class="gw-not-found">
+      <div class="gw-empty-state">
+        <h1 class="gw-empty-state__title">Run 4182 was not found</h1>
+        <p class="gw-empty-state__body">It may have been deleted with its workspace, or it may belong to a repository you cannot see. If someone sent you this link, ask them to check that you have access to the repository.</p>
+        <div class="gw-empty-state__action">
+          <a class="gw-button gw-button--primary" href="/runs">View all runs</a>
+        </div>
+      </div>
+      <a class="gw-link gw-link--quiet" href="/runs?q=4182">Search runs for 4182</a>
+    </div>
+  </div>
+</div>
+
+<div data-example="vague" data-title="A code, a joke and no way forward" data-dont="review" data-gallery-frame="short" data-reason="The headline is a status code, the sentence blames nothing and explains nothing, and Go back may lead to the broken link the reader came from. Say what was not found and why that might be, then offer a screen that exists.">
+  <div class="gw-not-found">
+    <div class="gw-empty-state">
+      <h1 class="gw-empty-state__title">404</h1>
+      <p class="gw-empty-state__body">Oops! Something went wrong. The page you are looking for has wandered off.</p>
+      <div class="gw-empty-state__action">
+        <button type="button" class="gw-button gw-button--primary">Go back</button>
+      </div>
+    </div>
+  </div>
+</div>

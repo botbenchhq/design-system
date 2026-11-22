@@ -1,0 +1,54 @@
+/*
+ * Stat: one number with the label that says what it counts and a line that puts it in context.
+ * The number is a size above the text around it, never a headline.
+ */
+
+@layer gw.components {
+  .gw-stat {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .gw-stat__label {
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  /* Tabular figures, so a value that updates in place does not shift the text around it. */
+  .gw-stat__value {
+    font-size: var(--gw-text-xl);
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--gw-weight-semibold);
+    line-height: var(--gw-leading-xl);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-stat__context {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  /* The three parts on one line of body text, for a toolbar, a list row or a sentence-sized summary. */
+  .gw-stat--inline {
+    flex-flow: row wrap;
+    align-items: baseline;
+    column-gap: var(--gw-space-sm);
+  }
+
+  .gw-stat--inline > .gw-stat__label {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-ui);
+    font-weight: var(--gw-weight-normal);
+    line-height: var(--gw-leading-ui);
+  }
+
+  .gw-stat--inline > .gw-stat__value {
+    font-size: var(--gw-text-ui);
+    line-height: var(--gw-leading-ui);
+  }
+}

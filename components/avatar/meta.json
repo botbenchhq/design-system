@@ -1,0 +1,44 @@
+{
+  "name": "avatar",
+  "title": "Avatar",
+  "purpose": "A small square mark for a person or an agent, holding initials, an icon or an image, with the name beside it.",
+  "status": "draft",
+  "whenToUse": [
+    "To say who did something or who something belongs to: the author of a message, the actor of an event, the owner of a task.",
+    "With an icon for an agent and initials or an image for a person, so the two are told apart by shape as well as by name.",
+    "With the small size in a dense row, a timeline entry or a line of text."
+  ],
+  "whenNotToUse": [
+    "As decoration, or in a stack of overlapping marks. Write the names, or a count such as 4 reviewers.",
+    "Without a name, unless the name is already written directly beside it. Then give the mark an accessible name.",
+    "For a repository, a branch or a file. Use text, with an icon in a list row where it helps.",
+    "For a status. Use a badge. The mark carries no tone and no status dot."
+  ],
+  "variants": [
+    { "name": "initials", "use": "The default. One or two capital letters in a span with the class gw-avatar__mark." },
+    { "name": "icon", "use": "An svg with the class gw-avatar__icon inside the mark, for an agent or a system actor." },
+    { "name": "image", "use": "An img with the class gw-avatar__mark in place of the span. It needs an alt attribute, width and height. The picture is cropped to the square." }
+  ],
+  "sizes": [
+    { "name": "default", "use": "A 32px mark with the name in medium weight." },
+    { "name": "small", "class": "gw-avatar--small", "use": "A 24px mark with the name at normal weight, for dense rows and lines of text." }
+  ],
+  "states": ["default"],
+  "accessibility": [
+    "Use a span with the class gw-avatar holding the mark and then the name in a span with the class gw-avatar__name. The name is visible by default and is what a screen reader reads.",
+    "Beside a visible name the mark is decoration: give a span mark aria-hidden=\"true\", and an image mark alt=\"\". The alt attribute is always present on an img.",
+    "With no visible name, the mark must carry the name: role=\"img\" and aria-label on a span mark, or the name as the alt text of an image mark.",
+    "Say what kind of actor it is in words when it matters, such as Claude Code, implementer. The icon alone does not say it.",
+    "If an image fails to load, replace the img with the initials span. The stylesheet cannot do this.",
+    "An avatar is not focusable and takes no press. To link to a profile, put the whole avatar inside a link.",
+    "The avatar needs no script."
+  ],
+  "icons": ["terminal"],
+  "classes": [
+    "gw-avatar",
+    "gw-avatar--small",
+    "gw-avatar__icon",
+    "gw-avatar__mark",
+    "gw-avatar__name"
+  ]
+}

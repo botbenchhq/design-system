@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Date field - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Date field</h1>
+<p>A native date input, or date and time input, as the control of a field, with a hint for what to enter and its earliest and latest values.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> A date, with the range in words</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The browser's own control writes the date in the reader's format and opens the calendar each platform already has, with no script. The description says which days can be chosen, and min and max hold the same range.</p>
+</figcaption>
+<div data-example="default" data-title="A date, with the range in words" data-state="default" data-reason="The browser's own control writes the date in the reader's format and opens the calendar each platform already has, with no script. The description says which days can be chosen, and min and max hold the same range.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-default-input">Show runs since</label>
+    <input class="gw-field__control gw-date-field" id="date-field-default-input" type="date" name="since" min="2026-08-24" max="2026-11-22" value="2026-11-15" autocomplete="off" aria-describedby="date-field-default-description">
+    <p class="gw-field__description" id="date-field-default-description">Any day from 24 August to 22 November 2026. Runs are kept for 90 days.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Required, with nothing entered yet</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="Required, with nothing entered yet" data-state="empty">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-empty-input">Token expires on <span class="gw-field__required">required</span></label>
+    <input class="gw-field__control gw-date-field" id="date-field-empty-input" type="date" name="expires" required min="2026-11-23" max="2027-11-22" autocomplete="off" aria-describedby="date-field-empty-description">
+    <p class="gw-field__description" id="date-field-empty-description">Any day from tomorrow, 23 November 2026, to 22 November 2027.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A date and a time</h3>
+</figcaption>
+<div data-example="date-and-time" data-title="A date and a time">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-date-and-time-input">Start the run at</label>
+    <input class="gw-field__control gw-date-field" id="date-field-date-and-time-input" type="datetime-local" name="start" min="2026-11-22T09:30" max="2026-12-22T09:30" step="900" value="2026-11-23T02:00" autocomplete="off" aria-describedby="date-field-date-and-time-description">
+    <p class="gw-field__description" id="date-field-date-and-time-description">A day and a time in the next 30 days, in your own time zone, Europe/Berlin. Times go in steps of 15 minutes.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Focus</h3>
+<p data-gallery="state">State: <code>focus</code></p>
+</figcaption>
+<div data-example="focus" data-title="Focus" data-state="focus">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-focus-input">Show runs since</label>
+    <input class="gw-field__control gw-date-field" id="date-field-focus-input" type="date" name="since" min="2026-08-24" max="2026-11-22" value="2026-11-01" autocomplete="off">
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Invalid</h3>
+<p data-gallery="state">State: <code>invalid</code></p>
+</figcaption>
+<div data-example="invalid" data-title="Invalid" data-state="invalid">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-invalid-input">Show runs since</label>
+    <input class="gw-field__control gw-date-field" id="date-field-invalid-input" type="date" name="since" min="2026-08-24" max="2026-11-22" value="2026-06-01" autocomplete="off" aria-invalid="true" aria-describedby="date-field-invalid-description date-field-invalid-error">
+    <p class="gw-field__description" id="date-field-invalid-description">Any day from 24 August to 22 November 2026.</p>
+    <p class="gw-field__error" id="date-field-invalid-error">Runs from before 24 August 2026 have been deleted. Choose that day or a later one.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-disabled-input">Start the run at</label>
+    <input class="gw-field__control gw-date-field" id="date-field-disabled-input" type="datetime-local" name="start" value="2026-11-23T02:00" disabled aria-describedby="date-field-disabled-description">
+    <p class="gw-field__description" id="date-field-disabled-description">Choose Start later to set a time.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Read-only</h3>
+<p data-gallery="state">State: <code>read-only</code></p>
+</figcaption>
+<div data-example="read-only" data-title="Read-only" data-state="read-only">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-read-only-input">Workspace created on</label>
+    <input class="gw-field__control gw-date-field" id="date-field-read-only-input" type="date" name="created" value="2026-03-14" readonly>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A text input with the format as its placeholder</h3>
+<p>The pattern vanishes with the first character, nothing stops 31/02/2026 or a month written first, and a phone shows a full keyboard where it could show a date picker. Use the date input, and give the range in the description.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="text-pattern" data-title="A text input with the format as its placeholder" data-dont="review" data-reason="The pattern vanishes with the first character, nothing stops 31/02/2026 or a month written first, and a phone shows a full keyboard where it could show a date picker. Use the date input, and give the range in the description.">
+  <div class="gw-field">
+    <label class="gw-field__label" for="date-field-text-pattern-input">Show runs since</label>
+    <input class="gw-field__control" id="date-field-text-pattern-input" type="text" name="since" placeholder="DD/MM/YYYY" autocomplete="off">
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For one calendar day the reader knows or picks: an expiry date, the start of a filter.</li>
+<li>With type=&quot;datetime-local&quot;, for a day and a time together, such as when a scheduled run starts.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a date the reader knows by heart and that is far in the past, such as a date of birth. Use three fields: day, month and year.</li>
+<li>For a rough span of time, such as the last 7 days. Use a select or a segmented control of ready-made ranges.</li>
+<li>For a length of time, such as 30 minutes. Use a number field with a unit.</li>
+<li>To show a date the reader cannot change and will not send with a form. Write it as plain text, such as 14 March 2026.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>date</dt>
+<dd>input type=&quot;date&quot;. At most 220px wide.</dd>
+<dt>date and time</dt>
+<dd>input type=&quot;datetime-local&quot;. At most 286px wide. Set step, in seconds, to limit the minutes it offers.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>44px tall. The calendar button inside it is the browser's own, with a widened pointer target.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use input type=&quot;date&quot; or type=&quot;datetime-local&quot; carrying gw-field__control and gw-date-field, inside gw-field. The label, description and error are the field's. There is no wrapper and no custom calendar.</li>
+<li>The value, min and max are always written as 2026-11-22, or 2026-11-22T09:30 with a time, whatever the reader sees. The browser shows and reads the date in the reader's own format.</li>
+<li>Because that format and the order of its parts differ from reader to reader, the hint never spells a pattern such as DD/MM/YYYY. The description gives the earliest and latest day with the month as a word, such as Any day from 24 August to 22 November 2026, which also shows the reader what a full date holds. For a time, it names the time zone.</li>
+<li>Set min and max to the same range the description gives, and check the value on the server as well: a browser may let the reader type a day outside the range.</li>
+<li>For a day out of range, set aria-invalid=&quot;true&quot; on the input and link a gw-field__error that names the limit and says what to choose.</li>
+<li>The keyboard is the browser's own: Tab moves between the day, month and year, the arrow keys change each, typing digits fills it, and in most browsers Space, or Alt and Down, opens the calendar.</li>
+<li>An empty input shows the browser's own outline of the format. Do not add a placeholder.</li>
+<li>A read-only date stays focusable and can be read. A disabled one leaves the tab order, and its description says how to make it available.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-date-field</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

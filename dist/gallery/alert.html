@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alert - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Alert</h1>
+<p>A message inside a view about the state of what the view shows.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The four tones</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="tones" data-title="The four tones" data-state="default" class="gw-stack">
+  <div class="gw-alert">
+    <div class="gw-alert__content">
+      <p class="gw-alert__label">Note</p>
+      <p class="gw-alert__body">This run used the setup commands saved for acme/api.</p>
+    </div>
+  </div>
+  <div class="gw-alert gw-alert--success">
+    <div class="gw-alert__content">
+      <p class="gw-alert__label">Done</p>
+      <p class="gw-alert__body">All 214 tests passed on fix/login-timeout.</p>
+    </div>
+  </div>
+  <div class="gw-alert gw-alert--warning">
+    <div class="gw-alert__content">
+      <p class="gw-alert__label">Warning</p>
+      <p class="gw-alert__body">The base branch has 14 new commits. Rebase before opening a pull request.</p>
+    </div>
+  </div>
+  <div class="gw-alert gw-alert--danger">
+    <div class="gw-alert__content">
+      <p class="gw-alert__label">Error</p>
+      <p class="gw-alert__body">The push was rejected because main is protected. Push to a task branch instead.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>With a title and a body</h3>
+</figcaption>
+<div data-example="with-title" data-title="With a title and a body">
+  <div class="gw-alert gw-alert--warning">
+    <div class="gw-alert__content">
+      <p class="gw-alert__label">Warning</p>
+      <p class="gw-alert__title">The workspace is almost out of disk space</p>
+      <p class="gw-alert__body">412 MB of 20 GB is free. A build needs about 2 GB, so the next run is likely to fail. Delete old workspaces to free space.</p>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> With one action</h3>
+<p>The message says what happened and what to do, and the one action does it. The role makes a screen reader announce the message when the app adds it.</p>
+</figcaption>
+<div data-example="with-action" data-title="With one action" data-reason="The message says what happened and what to do, and the one action does it. The role makes a screen reader announce the message when the app adds it.">
+  <div class="gw-alert gw-alert--danger" role="alert">
+    <div class="gw-alert__content">
+      <p class="gw-alert__label">Error</p>
+      <p class="gw-alert__title">The run stopped before it finished</p>
+      <p class="gw-alert__body">The runner lost its connection after 12 minutes. The work so far is saved on fix/login-timeout. Resume to carry on from the last commit.</p>
+      <div class="gw-alert__action">
+        <button type="button" class="gw-button gw-button--small">Resume run</button>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A result announced politely</h3>
+</figcaption>
+<div data-example="status-role" data-title="A result announced politely">
+  <div class="gw-alert gw-alert--success" role="status">
+    <div class="gw-alert__content">
+      <p class="gw-alert__label">Done</p>
+      <p class="gw-alert__body">Pull request 482 was opened against main.</p>
+      <div class="gw-alert__action">
+        <a class="gw-button gw-button--small" href="#pull-482">View pull request</a>
+      </div>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A message that does not say what to do</h3>
+<p>The reader learns that something failed but not what, or what to try. Name what failed and the next step, and offer that step as the action.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="vague" data-title="A message that does not say what to do" data-dont="review" data-reason="The reader learns that something failed but not what, or what to try. Name what failed and the next step, and offer that step as the action.">
+  <div class="gw-alert gw-alert--danger" role="alert">
+    <div class="gw-alert__content">
+      <p class="gw-alert__label">Error</p>
+      <p class="gw-alert__body">Something went wrong.</p>
+    </div>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>To tell the reader something about the run, task or repository on screen that changes what they should do next.</li>
+<li>To report the result of an action where it happened, when the result should stay visible.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For a mistake in one form control. Use the field's error message.</li>
+<li>When a whole view failed to load. Use an error state.</li>
+<li>When a view has nothing to show yet. Use an empty state.</li>
+<li>For a confirmation that should go away by itself. Use a toast.</li>
+<li>For a decision the reader must make before going on. Use a dialog.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>info</dt>
+<dd>The default, with no modifier class. Context the reader may want. Label it Note.</dd>
+<dt>success <code>gw-alert--success</code></dt>
+<dd>Something finished as intended. Label it Done.</dd>
+<dt>warning <code>gw-alert--warning</code></dt>
+<dd>Something will go wrong unless the reader acts. Label it Warning.</dd>
+<dt>danger <code>gw-alert--danger</code></dt>
+<dd>Something failed. Label it Error, and say what to do about it.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Every alert holds a gw-alert__label naming its tone in a word. The stylesheet draws the matching icon, so tone is carried by a word, an icon and a colour.</li>
+<li>An alert that is part of the view when it loads takes no role. It is read in order with the rest of the content.</li>
+<li>An alert the app adds in response to something takes role=&quot;status&quot; for info, success and warning, which is announced when the screen reader is next idle.</li>
+<li>Use role=&quot;alert&quot; only for a failure the reader must know about now. It interrupts whatever is being read.</li>
+<li>For the announcement to be reliable, add the element with its role first, or keep it in the page empty and hidden with the hidden attribute, then fill in the text.</li>
+<li>The title and body are paragraphs, not headings, so an alert does not change the outline of the view.</li>
+<li>At most one action: a gw-button gw-button--small inside gw-alert__action. Never primary. Use a link element when it goes to another view.</li>
+<li>Do not move focus to an alert. The role announces it.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-alert</code></li>
+<li><code>gw-alert--danger</code></li>
+<li><code>gw-alert--success</code></li>
+<li><code>gw-alert--warning</code></li>
+<li><code>gw-alert__action</code></li>
+<li><code>gw-alert__body</code></li>
+<li><code>gw-alert__content</code></li>
+<li><code>gw-alert__label</code></li>
+<li><code>gw-alert__title</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

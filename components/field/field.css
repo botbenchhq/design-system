@@ -1,0 +1,85 @@
+/*
+ * Field: one labelled text input with its description and its error message.
+ * The label, the control, the description and the error are siblings, in that order.
+ */
+
+@layer gw.components {
+  .gw-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gw-space-xs);
+  }
+
+  .gw-field__label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--gw-space-sm);
+    font-weight: var(--gw-weight-medium);
+  }
+
+  /* The word itself marks the field as required. Its colour only makes it quieter than the label. */
+  .gw-field__required {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    font-weight: var(--gw-weight-normal);
+  }
+
+  /* 16px at compact widths, because iOS zooms the page when a smaller input takes focus. */
+  .gw-field__control {
+    width: 100%;
+    min-height: var(--gw-size-touch);
+    padding: var(--gw-space-sm) var(--gw-space-md);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-md);
+    background-color: var(--gw-color-surface-raised);
+    font-size: var(--gw-text-lg);
+    line-height: var(--gw-leading-lg);
+    transition: border-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  @media (min-width: 768px) {
+    .gw-field__control {
+      font-size: var(--gw-text-ui);
+      line-height: var(--gw-leading-ui);
+    }
+  }
+
+  .gw-field__control[aria-invalid="true"] {
+    border-color: var(--gw-color-danger);
+  }
+
+  .gw-field__control[readonly] {
+    border-color: var(--gw-color-border);
+    background-color: var(--gw-color-surface-sunken);
+  }
+
+  .gw-field__control:disabled {
+    border-color: var(--gw-color-border);
+    background-color: transparent;
+    color: var(--gw-color-muted);
+  }
+
+  .gw-field__description {
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+  }
+
+  .gw-field__error {
+    display: flex;
+    gap: var(--gw-space-xs);
+    color: var(--gw-color-danger);
+  }
+
+  /* The icon is drawn here, so an error is never marked by colour alone, whatever the markup holds. */
+  .gw-field__error::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+}

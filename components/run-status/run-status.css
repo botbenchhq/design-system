@@ -1,0 +1,68 @@
+/*
+ * Run status: the content of one list row that summarises a run or a task.
+ * At compact widths the title has the first line to itself, and the station sits under it beside who is acting and for how long.
+ * It goes inside a list row's link or content, and the row's one action comes from the list.
+ */
+
+@layer gw.components {
+  .gw-run-status {
+    display: grid;
+    flex: 1;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "title title"
+      "station facts";
+    align-items: center;
+    column-gap: var(--gw-space-sm);
+    row-gap: var(--gw-space-xs);
+    min-width: 0;
+  }
+
+  .gw-run-status__title {
+    grid-area: title;
+    font-weight: var(--gw-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  /* Holds the badge that says the station in words. */
+  .gw-run-status__station {
+    display: flex;
+    grid-area: station;
+  }
+
+  /* Who or what is acting, then the elapsed time. */
+  .gw-run-status__facts {
+    grid-area: facts;
+    min-width: 0;
+    color: var(--gw-color-muted);
+    font-size: var(--gw-text-xs);
+    line-height: var(--gw-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .gw-run-status__elapsed {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* At the regular width the row is one line, with the station at its end. */
+  @media (min-width: 768px) {
+    .gw-run-status {
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      grid-template-areas: "title facts station";
+      column-gap: var(--gw-space-md);
+    }
+  }
+
+  /* The quiet text turns to the main text colour wherever the row's link is shaded, so it keeps its contrast. */
+  @media (hover: hover) {
+    a:hover > .gw-run-status > .gw-run-status__facts {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  a:active > .gw-run-status > .gw-run-status__facts,
+  a[aria-current]:not([aria-current="false"]) > .gw-run-status > .gw-run-status__facts {
+    color: var(--gw-color-on-surface);
+  }
+}

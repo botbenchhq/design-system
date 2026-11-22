@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tree - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Tree</h1>
+<p>A file tree or an outline whose folders open and close with no script, built on nested details elements.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Folders closed, at rest</h3>
+<p data-gallery="state">State: <code>default</code></p>
+</figcaption>
+<div data-example="default" data-title="Folders closed, at rest" data-state="default">
+  <nav class="gw-tree" aria-label="Files in acme/api">
+    <ul class="gw-tree__list">
+      <li>
+        <details class="gw-tree__branch">
+          <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">src</span><span class="gw-tree__meta">9 files</span></summary>
+          <ul class="gw-tree__list">
+            <li><a class="gw-tree__leaf" href="/acme/api/files/src/server.ts"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">server.ts</span></a></li>
+          </ul>
+        </details>
+      </li>
+      <li>
+        <details class="gw-tree__branch">
+          <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">test</span><span class="gw-tree__meta">4 files</span></summary>
+          <ul class="gw-tree__list">
+            <li><a class="gw-tree__leaf" href="/acme/api/files/test/setup.ts"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">setup.ts</span></a></li>
+          </ul>
+        </details>
+      </li>
+      <li><a class="gw-tree__leaf" href="/acme/api/files/package.json"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">package.json</span></a></li>
+      <li><a class="gw-tree__leaf" href="/acme/api/files/README.md"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">README.md</span></a></li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Two levels of folders, open, with the file in view marked</h3>
+<p data-gallery="state">State: <code>open</code></p>
+<p>Every folder is a details element, so it opens with a press, Enter or Space and needs no script. Folders nest two deep and no deeper: a longer path is written into one folder's name, as src/auth/providers is here. The file in view carries aria-current and is marked by a bar and a heavier name.</p>
+</figcaption>
+<div data-example="open" data-title="Two levels of folders, open, with the file in view marked" data-state="open" data-reason="Every folder is a details element, so it opens with a press, Enter or Space and needs no script. Folders nest two deep and no deeper: a longer path is written into one folder's name, as src/auth/providers is here. The file in view carries aria-current and is marked by a bar and a heavier name.">
+  <nav class="gw-tree" aria-label="Files changed on fix/login-timeout">
+    <ul class="gw-tree__list">
+      <li>
+        <details class="gw-tree__branch" open>
+          <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">src</span><span class="gw-tree__meta">5 changed files</span></summary>
+          <ul class="gw-tree__list">
+            <li>
+              <details class="gw-tree__branch" open>
+                <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">auth</span><span class="gw-tree__meta">3 changed files</span></summary>
+                <ul class="gw-tree__list">
+                  <li><a class="gw-tree__leaf" href="/tasks/41/files/src/auth/session.ts" aria-current="page"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">session.ts</span><span class="gw-tree__meta">38 added, 12 removed</span></a></li>
+                  <li><a class="gw-tree__leaf" href="/tasks/41/files/src/auth/session.test.ts"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">session.test.ts</span><span class="gw-tree__meta">64 added</span></a></li>
+                  <li><a class="gw-tree__leaf" href="/tasks/41/files/src/auth/refresh.ts"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">refresh.ts</span><span class="gw-tree__meta">9 added, 2 removed</span></a></li>
+                </ul>
+              </details>
+            </li>
+            <li>
+              <details class="gw-tree__branch" open>
+                <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">src/auth/providers</span><span class="gw-tree__meta">1 changed file</span></summary>
+                <ul class="gw-tree__list">
+                  <li><a class="gw-tree__leaf" href="/tasks/41/files/src/auth/providers/github.ts"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">github.ts</span><span class="gw-tree__meta">3 added, 3 removed</span></a></li>
+                </ul>
+              </details>
+            </li>
+            <li><a class="gw-tree__leaf" href="/tasks/41/files/src/server.ts"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">server.ts</span><span class="gw-tree__meta">1 added</span></a></li>
+          </ul>
+        </details>
+      </li>
+      <li><a class="gw-tree__leaf" href="/tasks/41/files/package-lock.json"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">package-lock.json</span><span class="gw-tree__meta">210 added, 180 removed</span></a></li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The current item</h3>
+<p data-gallery="state">State: <code>current</code></p>
+</figcaption>
+<div data-example="current" data-title="The current item" data-state="current">
+  <nav class="gw-tree" aria-label="Files in the task's worktree">
+    <ul class="gw-tree__list">
+      <li>
+        <details class="gw-tree__branch" open>
+          <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">docs</span><span class="gw-tree__meta">3 files</span></summary>
+          <ul class="gw-tree__list">
+            <li><a class="gw-tree__leaf" href="/tasks/41/files/docs/sessions.md"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">sessions.md</span></a></li>
+            <li><a class="gw-tree__leaf" href="/tasks/41/files/docs/deploy-keys.md" aria-current="page"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">deploy-keys.md</span></a></li>
+            <li><a class="gw-tree__leaf" href="/tasks/41/files/docs/webhooks.md"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">webhooks.md</span></a></li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>An outline, without icons</h3>
+</figcaption>
+<div data-example="outline" data-title="An outline, without icons">
+  <nav class="gw-tree" aria-label="Sections of the plan for task 41">
+    <ul class="gw-tree__list">
+      <li>
+        <details class="gw-tree__branch" open>
+          <summary class="gw-tree__summary"><span class="gw-tree__name">1. Reproduce the timeout</span></summary>
+          <ul class="gw-tree__list">
+            <li><a class="gw-tree__leaf" href="#plan-reproduce-test"><span class="gw-tree__name">Write a failing test for a 31-minute session</span></a></li>
+            <li><a class="gw-tree__leaf" href="#plan-reproduce-trace"><span class="gw-tree__name">Trace where the refresh token is dropped</span></a></li>
+          </ul>
+        </details>
+      </li>
+      <li>
+        <details class="gw-tree__branch" open>
+          <summary class="gw-tree__summary"><span class="gw-tree__name">2. Fix the refresh</span></summary>
+          <ul class="gw-tree__list">
+            <li><a class="gw-tree__leaf" href="#plan-fix-cookie" aria-current="location"><span class="gw-tree__name">Keep the refresh cookie on a 401</span></a></li>
+            <li><a class="gw-tree__leaf" href="#plan-fix-retry"><span class="gw-tree__name">Retry the request once after a refresh</span></a></li>
+          </ul>
+        </details>
+      </li>
+      <li><a class="gw-tree__leaf" href="#plan-open-pr"><span class="gw-tree__name">3. Open the pull request</span></a></li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <nav class="gw-tree" aria-label="Files in acme/billing">
+    <ul class="gw-tree__list">
+      <li>
+        <details class="gw-tree__branch" open>
+          <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">migrations</span><span class="gw-tree__meta">2 files</span></summary>
+          <ul class="gw-tree__list">
+            <li><a class="gw-tree__leaf" href="/acme/billing/files/migrations/0041_add_invoice_index.sql"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">0041_add_invoice_index.sql</span></a></li>
+            <li><a class="gw-tree__leaf" href="/acme/billing/files/migrations/0042_drop_v1_routes.sql"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">0042_drop_v1_routes.sql</span></a></li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <nav class="gw-tree" aria-label="Files in acme/web">
+    <ul class="gw-tree__list">
+      <li>
+        <details class="gw-tree__branch" open>
+          <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">public</span><span class="gw-tree__meta">2 files</span></summary>
+          <ul class="gw-tree__list">
+            <li><a class="gw-tree__leaf" href="/acme/web/files/public/robots.txt"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">robots.txt</span></a></li>
+            <li><a class="gw-tree__leaf" href="/acme/web/files/public/manifest.json"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">manifest.json</span></a></li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>An empty folder</h3>
+<p data-gallery="state">State: <code>empty</code></p>
+</figcaption>
+<div data-example="empty" data-title="An empty folder" data-state="empty">
+  <nav class="gw-tree" aria-label="Files in the new workspace">
+    <ul class="gw-tree__list">
+      <li>
+        <details class="gw-tree__branch" open>
+          <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">fixtures</span><span class="gw-tree__meta">No files</span></summary>
+          <ul class="gw-tree__list">
+            <li class="gw-tree__note">This folder is empty. The agent writes fixtures here when a test first records one.</li>
+          </ul>
+        </details>
+      </li>
+      <li><a class="gw-tree__leaf" href="/workspaces/new/files/.gitignore"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">.gitignore</span></a></li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A folder whose files are on their way</h3>
+<p data-gallery="state">State: <code>loading</code></p>
+</figcaption>
+<div data-example="loading" data-title="A folder whose files are on their way" data-state="loading">
+  <nav class="gw-tree" aria-label="Files in acme/mobile-app">
+    <ul class="gw-tree__list">
+      <li>
+        <details class="gw-tree__branch" open>
+          <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">node_modules</span><span class="gw-tree__meta">1,204 folders</span></summary>
+          <ul class="gw-tree__list">
+            <li class="gw-tree__note"><p class="gw-spinner" role="status">Loading 1,204 folders</p></li>
+          </ul>
+        </details>
+      </li>
+      <li><a class="gw-tree__leaf" href="/acme/mobile-app/files/app.json"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">app.json</span></a></li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A folder that could not be read</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="A folder that could not be read" data-state="error">
+  <nav class="gw-tree" aria-label="Files in acme/infrastructure">
+    <ul class="gw-tree__list">
+      <li>
+        <details class="gw-tree__branch" open>
+          <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">secrets</span><span class="gw-tree__meta">Not readable</span></summary>
+          <ul class="gw-tree__list">
+            <li class="gw-tree__note">
+              <p role="alert">This folder could not be read: the agent's user has no permission on secrets/. Grant read access in the workspace settings, then load it again.</p>
+              <button type="button" class="gw-button gw-button--small">Load the folder again</button>
+            </li>
+          </ul>
+        </details>
+      </li>
+      <li><a class="gw-tree__leaf" href="/acme/infrastructure/files/main.tf"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">main.tf</span></a></li>
+    </ul>
+  </nav>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> A folder inside a folder inside a folder</h3>
+<p>The third level is three presses away and, on a phone, set in so far that its file names wrap. Stop at two levels of folders: write the rest of the path into the folder's name, as src/auth/providers, or open the deep folder as a view of its own.</p>
+<p>Checker rule: <code>disclosure-depth</code></p>
+</figcaption>
+<div data-example="too-deep" data-title="A folder inside a folder inside a folder" data-dont="disclosure-depth" data-reason="The third level is three presses away and, on a phone, set in so far that its file names wrap. Stop at two levels of folders: write the rest of the path into the folder's name, as src/auth/providers, or open the deep folder as a view of its own.">
+  <nav class="gw-tree" aria-label="Files nested three folders deep">
+    <ul class="gw-tree__list">
+      <li>
+        <details class="gw-tree__branch" open>
+          <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">src</span><span class="gw-tree__meta">1 folder</span></summary>
+          <ul class="gw-tree__list">
+            <li>
+              <details class="gw-tree__branch" open>
+                <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">auth</span><span class="gw-tree__meta">1 folder</span></summary>
+                <ul class="gw-tree__list">
+                  <li>
+                    <details class="gw-tree__branch" open>
+                      <summary class="gw-tree__summary"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg><span class="gw-tree__name">providers</span><span class="gw-tree__meta">1 file</span></summary>
+                      <ul class="gw-tree__list">
+                        <li><a class="gw-tree__leaf" href="/tasks/41/files/src/auth/providers/github.ts"><svg class="gw-tree__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-file"></use></svg><span class="gw-tree__name">github.ts</span></a></li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </nav>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For the files of a repository, a worktree or a change set, where the reader opens a folder to find a file.</li>
+<li>For the outline of a long document or a plan, with sections that hold links to their parts.</li>
+<li>Beside the content it navigates, in a sidebar or the list region of a split panel.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For items with no hierarchy. Use a list.</li>
+<li>For the destinations of the app. Use the sidebar nav.</li>
+<li>For one piece of detail that opens in place. Use a disclosure.</li>
+<li>For a hierarchy deeper than two levels of folders. Write the rest of the path into the folder's name, such as src/auth/providers, or open the deep folder as a view of its own.</li>
+<li>Where items must be selected, dragged or renamed in place with the arrow keys. That is an ARIA tree, which this is not: build it as an app-local component.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>file tree</dt>
+<dd>The default. Each folder's summary holds a folder icon and each file a file icon, both with gw-tree__icon.</dd>
+<dt>outline</dt>
+<dd>The same markup without the icons, for the sections of a document or a plan.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>Every row is at least 44px tall. Each level is set in 20px behind a rule.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a nav with the class gw-tree and an aria-label that says what the tree holds, or a div where the tree does not navigate. Inside it, a ul with gw-tree__list and one li per row.</li>
+<li>A folder is a details element with gw-tree__branch. Its summary, with gw-tree__summary, holds an optional icon, the name in a span with gw-tree__name, and optionally a fact in words in a span with gw-tree__meta, such as 3 changed files. After the summary comes a nested ul with gw-tree__list.</li>
+<li>A file or an outline entry is an a element with gw-tree__leaf, or a button with type=&quot;button&quot; where it selects without navigating. It holds the same icon, name and optional fact.</li>
+<li>This is a disclosure tree, not role=&quot;tree&quot;. The ARIA tree role would oblige the app to script every key, one tab stop, aria-expanded, aria-level, aria-setsize and aria-posinset, and it reads poorly on touch screen readers. Nested details give a screen reader a list with its item count, a button that says collapsed or expanded, and links, with no script at all.</li>
+<li>Tab moves through the rows that are shown. Enter or Space on a folder opens or closes it, and Enter follows a file's link. There are no arrow-key bindings, and the browser's find-in-page opens a closed folder that holds a match.</li>
+<li>Folders nest at most two levels, the system's limit for disclosures. The checker reports a third as disclosure-depth. Fold a longer path into one folder's name.</li>
+<li>Mark the item in view with aria-current on its leaf: &quot;page&quot; for a file that has its own view, &quot;location&quot; for a place in the document, &quot;true&quot; otherwise. It is drawn with a bar and a heavier name as well as a shade. Open the folders that hold it with the open attribute.</li>
+<li>Icons are decoration and carry aria-hidden=&quot;true&quot;. A change is written in words, such as 38 added, 12 removed, never as a colour.</li>
+<li>For a folder that is empty, loading or unreadable, put one li with gw-tree__note in its list: a sentence, a spinner with its text, or a sentence with role=&quot;alert&quot; and a button that loads again.</li>
+<li>To load a folder's rows when it first opens, the app listens for the details element's toggle event. Nothing else needs script.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-tree</code></li>
+<li><code>gw-tree__branch</code></li>
+<li><code>gw-tree__icon</code></li>
+<li><code>gw-tree__leaf</code></li>
+<li><code>gw-tree__list</code></li>
+<li><code>gw-tree__meta</code></li>
+<li><code>gw-tree__name</code></li>
+<li><code>gw-tree__note</code></li>
+<li><code>gw-tree__summary</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

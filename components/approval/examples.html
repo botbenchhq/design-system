@@ -1,0 +1,254 @@
+<div data-example="single" data-title="A single approval" data-state="default" data-reason="This view shows one request, so Allow is its primary action. Decline sits at the far end of the row, where a thumb aiming for Allow cannot land on it.">
+  <article class="gw-approval" aria-labelledby="approval-single-title">
+    <p class="gw-approval__risk">Normal risk: stays inside the task's worktree</p>
+    <h4 class="gw-approval__title" id="approval-single-title">Claude Code asks to run a command</h4>
+    <pre class="gw-approval__command">npm run test -- --run src/auth/session.test.ts</pre>
+    <ul class="gw-approval__facts">
+      <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">web (inside the task's worktree)</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Implementer</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To confirm the reload case passes before I open the pull request.</span></li>
+    </ul>
+    <details class="gw-approval__details">
+      <summary class="gw-approval__summary">Show the full request</summary>
+      <pre class="gw-approval__command">{
+  "tool": "Bash",
+  "command": "npm run test -- --run src/auth/session.test.ts",
+  "description": "Run the session tests",
+  "timeout": 120000
+}</pre>
+    </details>
+    <div class="gw-approval__actions">
+      <button type="button" class="gw-button gw-button--primary" data-gw-critical>Allow</button>
+      <button type="button" class="gw-button" data-gw-critical>Decline</button>
+    </div>
+  </article>
+</div>
+
+<div data-example="elevated" data-title="Elevated risk">
+  <article class="gw-approval gw-approval--elevated" aria-labelledby="approval-elevated-title">
+    <p class="gw-approval__risk">Elevated risk: deletes files outside the task's worktree</p>
+    <h4 class="gw-approval__title" id="approval-elevated-title">Claude Code asks to run a command</h4>
+    <pre class="gw-approval__command">rm -rf ../shared-config/.cache</pre>
+    <ul class="gw-approval__facts">
+      <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">../shared-config (outside the task's worktree)</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Implementer</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">The old cache holds a stale session-store build that makes the tests fail.</span></li>
+    </ul>
+    <div class="gw-approval__actions">
+      <button type="button" class="gw-button gw-button--primary" data-gw-critical>Allow</button>
+      <button type="button" class="gw-button" data-gw-critical>Decline</button>
+    </div>
+  </article>
+</div>
+
+<div data-example="open" data-title="A long command, with the full request open" data-state="open">
+  <article class="gw-approval" aria-labelledby="approval-open-title">
+    <p class="gw-approval__risk">Normal risk: stays inside the task's worktree</p>
+    <h4 class="gw-approval__title" id="approval-open-title">Claude Code asks to run a command</h4>
+    <pre class="gw-approval__command">docker compose --file /srv/workspaces/acme-api/infra/docker-compose.test.yml run --rm --env DATABASE_URL=postgres://acme:acme@db:5432/acme_test_session_refresh api npm run test:integration -- --run src/auth/session.integration.test.ts</pre>
+    <ul class="gw-approval__facts">
+      <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">The top of the task's worktree</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Implementer</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">The unit tests pass, and the integration test covers the cookie that the mobile app reads.</span></li>
+    </ul>
+    <details class="gw-approval__details" open>
+      <summary class="gw-approval__summary">Show the full request</summary>
+      <pre class="gw-approval__command">{
+  "tool": "Bash",
+  "command": "docker compose --file /srv/workspaces/acme-api/infra/docker-compose.test.yml run --rm --env DATABASE_URL=postgres://acme:acme@db:5432/acme_test_session_refresh api npm run test:integration -- --run src/auth/session.integration.test.ts",
+  "description": "Run the session integration test in the test stack",
+  "timeout": 600000
+}</pre>
+    </details>
+    <div class="gw-approval__actions">
+      <button type="button" class="gw-button gw-button--primary" data-gw-critical>Allow</button>
+      <button type="button" class="gw-button" data-gw-critical>Decline</button>
+    </div>
+  </article>
+</div>
+
+<div data-example="decline-note" data-title="Declining with a note">
+  <article class="gw-approval gw-approval--elevated" aria-labelledby="approval-decline-note-title">
+    <p class="gw-approval__risk">Elevated risk: deletes files outside the task's worktree</p>
+    <h4 class="gw-approval__title" id="approval-decline-note-title">Claude Code asks to run a command</h4>
+    <pre class="gw-approval__command">rm -rf ../shared-config/.cache</pre>
+    <ul class="gw-approval__facts">
+      <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">../shared-config (outside the task's worktree)</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Implementer</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">The old cache holds a stale session-store build that makes the tests fail.</span></li>
+    </ul>
+    <div class="gw-approval__actions">
+      <button type="button" class="gw-button gw-button--primary" data-gw-critical>Allow</button>
+      <button type="button" class="gw-button" data-gw-critical>Decline</button>
+    </div>
+    <details class="gw-approval__details" open>
+      <summary class="gw-approval__summary">Decline with a note</summary>
+      <div class="gw-approval__note">
+        <div class="gw-field">
+          <label class="gw-field__label" for="approval-decline-note-note">Note to the agent</label>
+          <input class="gw-field__control" id="approval-decline-note-note" type="text" name="note" autocomplete="off" maxlength="2000" value="Clear web/.cache only.">
+        </div>
+        <div class="gw-cluster">
+          <button type="button" class="gw-button">Decline and send note</button>
+        </div>
+      </div>
+    </details>
+  </article>
+</div>
+
+<div data-example="queue" data-title="A queue of approvals" data-reason="Each card is a list item and its Allow has secondary emphasis, so three requests do not show three competing main actions. Every card still says what it would run and where.">
+  <ul class="gw-stack">
+    <li>
+      <article class="gw-approval" aria-labelledby="approval-queue-tests-title">
+        <p class="gw-approval__risk">Normal risk: stays inside the task's worktree</p>
+        <h4 class="gw-approval__title" id="approval-queue-tests-title">Claude Code asks to run a command</h4>
+        <pre class="gw-approval__command">npm run test -- --run src/auth/session.test.ts</pre>
+        <ul class="gw-approval__facts">
+          <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">web (inside the task's worktree)</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Implementer</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To confirm the reload case passes before I open the pull request.</span></li>
+        </ul>
+        <div class="gw-approval__actions">
+          <button type="button" class="gw-button" data-gw-critical>Allow</button>
+          <button type="button" class="gw-button" data-gw-critical>Decline</button>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="gw-approval gw-approval--elevated" aria-labelledby="approval-queue-cache-title">
+        <p class="gw-approval__risk">Elevated risk: deletes files outside the task's worktree</p>
+        <h4 class="gw-approval__title" id="approval-queue-cache-title">Claude Code asks to run a command</h4>
+        <pre class="gw-approval__command">rm -rf ../shared-config/.cache</pre>
+        <ul class="gw-approval__facts">
+          <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">../shared-config (outside the task's worktree)</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Implementer</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">The old cache holds a stale session-store build that makes the tests fail.</span></li>
+        </ul>
+        <div class="gw-approval__actions">
+          <button type="button" class="gw-button" data-gw-critical>Allow</button>
+          <button type="button" class="gw-button" data-gw-critical>Decline</button>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="gw-approval" aria-labelledby="approval-queue-fetch-title">
+        <p class="gw-approval__risk">Normal risk: reads from the remote and changes no files</p>
+        <h4 class="gw-approval__title" id="approval-queue-fetch-title">Claude Code asks to run a command</h4>
+        <pre class="gw-approval__command">git fetch origin main</pre>
+        <ul class="gw-approval__facts">
+          <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">The top of the task's worktree</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Reviewer</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 38 · Rate limit the sign-in route</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To compare this branch with main before I review it.</span></li>
+        </ul>
+        <div class="gw-approval__actions">
+          <button type="button" class="gw-button" data-gw-critical>Allow</button>
+          <button type="button" class="gw-button" data-gw-critical>Decline</button>
+        </div>
+      </article>
+    </li>
+  </ul>
+</div>
+
+<div data-example="busy" data-title="Sending the answer" data-state="busy">
+  <article class="gw-approval" aria-labelledby="approval-busy-title">
+    <p class="gw-approval__risk">Normal risk: stays inside the task's worktree</p>
+    <h4 class="gw-approval__title" id="approval-busy-title">Claude Code asks to run a command</h4>
+    <pre class="gw-approval__command">npm run test -- --run src/auth/session.test.ts</pre>
+    <ul class="gw-approval__facts">
+      <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">web (inside the task's worktree)</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Implementer</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To confirm the reload case passes before I open the pull request.</span></li>
+    </ul>
+    <div class="gw-approval__actions">
+      <button type="button" class="gw-button gw-button--primary" data-gw-critical aria-busy="true">Allowing</button>
+      <button type="button" class="gw-button" data-gw-critical disabled>Decline</button>
+    </div>
+  </article>
+</div>
+
+<div data-example="error" data-title="The answer was not sent" data-state="error">
+  <article class="gw-approval" aria-labelledby="approval-error-title">
+    <p class="gw-approval__risk">Normal risk: stays inside the task's worktree</p>
+    <h4 class="gw-approval__title" id="approval-error-title">Claude Code asks to run a command</h4>
+    <pre class="gw-approval__command">npm run test -- --run src/auth/session.test.ts</pre>
+    <ul class="gw-approval__facts">
+      <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">web (inside the task's worktree)</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Implementer</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
+      <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To confirm the reload case passes before I open the pull request.</span></li>
+    </ul>
+    <p class="gw-approval__error" role="alert">Your answer was not sent: the server could not be reached. Nothing was allowed, and the agent is still waiting.</p>
+    <div class="gw-approval__actions">
+      <button type="button" class="gw-button gw-button--primary" data-gw-critical>Allow</button>
+      <button type="button" class="gw-button" data-gw-critical>Decline</button>
+    </div>
+  </article>
+</div>
+
+<div data-example="queue-primary" data-title="A primary Allow on every card" data-dont="repeated-item-primary" data-reason="With a primary Allow on each card, the heaviest thing on the screen is repeated down the list and invites allowing them all without reading. In a list, Allow has secondary emphasis.">
+  <ul class="gw-stack">
+    <li>
+      <article class="gw-approval" aria-labelledby="approval-queue-primary-tests-title">
+        <p class="gw-approval__risk">Normal risk: stays inside the task's worktree</p>
+        <h4 class="gw-approval__title" id="approval-queue-primary-tests-title">Claude Code asks to run a command</h4>
+        <pre class="gw-approval__command">npm run test -- --run src/auth/session.test.ts</pre>
+        <ul class="gw-approval__facts">
+          <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">web (inside the task's worktree)</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Implementer</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To confirm the reload case passes before I open the pull request.</span></li>
+        </ul>
+        <div class="gw-approval__actions">
+          <button type="button" class="gw-button gw-button--primary" data-gw-critical>Allow</button>
+          <button type="button" class="gw-button" data-gw-critical>Decline</button>
+        </div>
+      </article>
+    </li>
+    <li>
+      <article class="gw-approval" aria-labelledby="approval-queue-primary-fetch-title">
+        <p class="gw-approval__risk">Normal risk: stays inside the task's worktree</p>
+        <h4 class="gw-approval__title" id="approval-queue-primary-fetch-title">Claude Code asks to run a command</h4>
+        <pre class="gw-approval__command">git fetch origin main</pre>
+        <ul class="gw-approval__facts">
+          <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">The top of the task's worktree</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Reviewer</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 38 · Rate limit the sign-in route</span></li>
+          <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To compare this branch with main before I review it.</span></li>
+        </ul>
+        <div class="gw-approval__actions">
+          <button type="button" class="gw-button gw-button--primary" data-gw-critical>Allow</button>
+          <button type="button" class="gw-button" data-gw-critical>Decline</button>
+        </div>
+      </article>
+    </li>
+  </ul>
+</div>
+
+<div data-example="hidden-actions" data-title="Allow and Decline inside the disclosure" data-dont="hidden-critical-action" data-reason="The agent is blocked until the reader answers, and here the answer is one press further away and invisible until then. Only supporting detail goes in the disclosure.">
+  <article class="gw-approval" aria-labelledby="approval-hidden-title">
+    <p class="gw-approval__risk">Normal risk: stays inside the task's worktree</p>
+    <h4 class="gw-approval__title" id="approval-hidden-title">Claude Code asks to run a command</h4>
+    <pre class="gw-approval__command">npm run test -- --run src/auth/session.test.ts</pre>
+    <details class="gw-approval__details">
+      <summary class="gw-approval__summary">Review and answer</summary>
+      <ul class="gw-approval__facts">
+        <li class="gw-approval__fact"><span class="gw-approval__term">Directory</span> <span class="gw-approval__value">web (inside the task's worktree)</span></li>
+        <li class="gw-approval__fact"><span class="gw-approval__term">Role</span> <span class="gw-approval__value">Implementer</span></li>
+        <li class="gw-approval__fact"><span class="gw-approval__term">Task</span> <span class="gw-approval__value">Task 41 · Fix the session refresh</span></li>
+        <li class="gw-approval__fact"><span class="gw-approval__term">Its reason</span> <span class="gw-approval__value">To confirm the reload case passes before I open the pull request.</span></li>
+      </ul>
+      <div class="gw-approval__actions">
+        <button type="button" class="gw-button" data-gw-critical>Allow</button>
+        <button type="button" class="gw-button" data-gw-critical>Decline</button>
+      </div>
+    </details>
+  </article>
+</div>

@@ -1,0 +1,38 @@
+{
+  "name": "settings-page",
+  "title": "Settings page",
+  "kind": "pattern",
+  "purpose": "A screen of settings shown defaults first: the few settings most people change, one advanced disclosure holding the rest, and a marked danger area for actions that destroy something.",
+  "status": "draft",
+  "whenToUse": [
+    "For the settings of one thing, such as a repository, a runner or an account, when a few of them are changed often and the rest rarely.",
+    "Save-on-change: every control saves the moment it changes. Use switches and selects, say so in the page description, and give the page no primary action.",
+    "Explicit save: the settings take effect together. Make the page a form with checkboxes in place of switches, and one primary button that names what it saves."
+  ],
+  "whenNotToUse": [
+    "For one or two settings that belong to a view. Put a switch or a select in that view.",
+    "For a task with an order to it, such as connecting a repository. Use the multi-step form.",
+    "For settings in several unrelated groups, each long enough to scroll. Give each group a screen of its own, linked from the sidebar nav, and use this pattern on each.",
+    "For facts the reader cannot change. Use a key-value list."
+  ],
+  "variants": [
+    { "name": "save on change", "use": "Each control saves as it changes. The page description says so, a failed save is reported on the control that failed, and there is no primary button." },
+    { "name": "explicit save", "use": "The page is one form. Its primary button, written last in a button group after a secondary Discard changes, is the only primary action, and a status line above it says what is not saved yet." }
+  ],
+  "sizes": [],
+  "states": ["default", "unsaved", "loading", "error"],
+  "accessibility": [
+    "In an app the element with gw-settings-page is the main element. The examples use a div because a gallery page holds several of them.",
+    "The page title is the h1, in a page header. Each group of settings starts with an h2, and the danger area is a card whose title is an h2 that says Danger area and what it belongs to.",
+    "Every setting keeps the markup of its own component: a switch for a setting saved at once, a checkbox inside a form, a select or a text input in a field. Each has a visible label, and a default is already chosen.",
+    "For a setting written as one row, with its label and description at the start and its control at the far end, use the settings row component.",
+    "There is exactly one details element with data-gw-advanced in the view. Its summary reads Advanced settings and counts what is inside in a gw-disclosure__meta span. It starts closed, and nothing the reader must set before the page works goes inside it.",
+    "Every action in the danger area carries data-gw-critical and gw-button--danger, is visible without opening anything, and sits beside a sentence that says what is lost. Ask before it runs with a confirm dialog.",
+    "Save-on-change: when a save fails, set the control back and add its component's error element with role=\"alert\", saying which state the setting is in and what to do.",
+    "Explicit save: the line that says what is unsaved has role=\"status\". While the form is sent, set aria-busy=\"true\" on the primary button and change its label to Saving settings. Report a failed save in an alert above the button group.",
+    "While the settings load, a skeleton stands in for the groups, with aria-busy=\"true\" and a gw-visually-hidden line that says what is loading. If they cannot be loaded, show an error state in its place.",
+    "Tab moves through the settings in reading order, then the advanced summary, then the danger area. The pattern needs no script of its own."
+  ],
+  "icons": [],
+  "classes": ["gw-settings-page", "gw-settings-page__danger"]
+}

@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Icon button - Groundwork gallery</title>
+<link rel="stylesheet" href="../groundwork.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/groundwork.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Groundwork gallery</a>
+<nav aria-label="Theme"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Icon button</h1>
+<p>A button that shows only an icon, for a familiar action where a text label has no room.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="gw-grid gw-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-check"></use></svg>Do</span> Bordered and quiet, each with a name</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>Each button says what it does to a screen reader and to voice control: one through aria-label, one through visually hidden text. The icon itself is hidden from both.</p>
+</figcaption>
+<div data-example="named" data-title="Bordered and quiet, each with a name" data-state="default" data-reason="Each button says what it does to a screen reader and to voice control: one through aria-label, one through visually hidden text. The icon itself is hidden from both.">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Copy branch name">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg>
+      <span class="gw-visually-hidden">More actions for run 2184</span>
+    </button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Quiet, at the end of a row</h3>
+</figcaption>
+<div data-example="in-a-row" data-title="Quiet, at the end of a row">
+  <div class="gw-split">
+    <code>fix/session-refresh</code>
+    <div class="gw-cluster gw-gap-xs">
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Copy branch name">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+      </button>
+      <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Open the branch on GitHub">
+        <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-external-link"></use></svg>
+      </button>
+    </div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A toggle, on and off</h3>
+<p data-gallery="state">State: <code>pressed</code></p>
+</figcaption>
+<div data-example="pressed" data-title="A toggle, on and off" data-state="pressed">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Show the terminal" aria-pressed="true">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-icon-button" aria-label="Show the file tree" aria-pressed="false">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Show the terminal" aria-pressed="true">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="Show the file tree" aria-pressed="false">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-folder"></use></svg>
+    </button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Hover</h3>
+<p data-gallery="state">State: <code>hover</code></p>
+</figcaption>
+<div data-example="hover" data-title="Hover" data-state="hover">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Copy branch name">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="More actions for run 2184">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg>
+    </button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Keyboard focus</h3>
+<p data-gallery="state">State: <code>focus-visible</code></p>
+</figcaption>
+<div data-example="focus-visible" data-title="Keyboard focus" data-state="focus-visible">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Copy branch name">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="More actions for run 2184">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg>
+    </button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Pressed down</h3>
+<p data-gallery="state">State: <code>active</code></p>
+</figcaption>
+<div data-example="active" data-title="Pressed down" data-state="active">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Copy branch name">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="More actions for run 2184">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg>
+    </button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Disabled</h3>
+<p data-gallery="state">State: <code>disabled</code></p>
+</figcaption>
+<div data-example="disabled" data-title="Disabled" data-state="disabled">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Copy branch name" disabled>
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button" aria-label="More actions for run 2184" disabled>
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-icon-button" aria-label="Show the terminal" aria-pressed="true" disabled>
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-terminal"></use></svg>
+    </button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Busy</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="busy" data-title="Busy" data-state="busy">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button" aria-label="Copying branch name" aria-busy="true">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+    </button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#gw-icon-x"></use></svg>Don't</span> An icon with no name</h3>
+<p>A screen reader announces only &quot;button&quot;, and voice control has nothing to call it. Give every icon button an aria-label or visually hidden text that says what it does.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="unnamed" data-title="An icon with no name" data-dont="review" data-reason="A screen reader announces only &quot;button&quot;, and voice control has nothing to call it. Give every icon button an aria-label or visually hidden text that says what it does.">
+  <div class="gw-cluster">
+    <button type="button" class="gw-button gw-icon-button">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-copy"></use></svg>
+    </button>
+    <button type="button" class="gw-button gw-button--quiet gw-icon-button">
+      <svg class="gw-button__icon" aria-hidden="true"><use href="../icons.svg#gw-icon-ellipsis"></use></svg>
+    </button>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="gw-grid gw-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>For a familiar action in a dense row or a toolbar, such as copying a branch name or opening a menu of more actions.</li>
+<li>For a toggle that shows or hides part of the view, such as the terminal, with aria-pressed.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>When the icon would not be understood without words. Use a button with a text label, with or without a leading icon.</li>
+<li>For the main action of a view. Use a primary button with a text label.</li>
+<li>To go to another view or another site. Use a link.</li>
+<li>For a setting that is saved. Use a switch or a checkbox.</li>
+</ul>
+</section>
+<section>
+<h2>Variants</h2>
+<dl>
+<dt>bordered</dt>
+<dd>The default: gw-button gw-icon-button on one element. A standalone action that should read as a control.</dd>
+<dt>quiet <code>gw-button--quiet</code></dt>
+<dd>gw-button gw-button--quiet gw-icon-button. No border until it is hovered or pressed, for a row or a toolbar that holds several.</dd>
+</dl>
+</section>
+<section>
+<h2>Sizes</h2>
+<dl>
+<dt>default</dt>
+<dd>44px square, with a 16px icon. There is no smaller size: do not add gw-button--small, whose target would be narrower than 44px.</dd>
+</dl>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a button element with type=&quot;button&quot;, carrying gw-button and gw-icon-button. The icon is an svg with class gw-button__icon and aria-hidden=&quot;true&quot;.</li>
+<li>The button must have an accessible name: an aria-label on the button, or text in a span with gw-visually-hidden inside it. The name is a verb and what it acts on, such as Copy branch name, and it names the item when the action repeats in a list, such as More actions for run 2184.</li>
+<li>For a toggle, set aria-pressed=&quot;true&quot; or &quot;false&quot; and switch it on each press. Keep the same name in both states: the state is announced from aria-pressed. The stylesheet adds a border, a sunken fill and a bar under the icon while it is on.</li>
+<li>Disabled, aria-disabled and aria-busy behave as on the button. While busy, the spinner takes the place of the icon and the name says what is happening, such as Copying branch name.</li>
+<li>Enter and Space activate it. Both come from the button element.</li>
+<li>A tooltip may repeat the name for sighted readers, and is never the only place the name lives.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>gw-icon-button</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>
