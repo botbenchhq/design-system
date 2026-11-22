@@ -16,7 +16,7 @@
     padding: var(--ds-space-xs) var(--ds-space-lg);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-md);
-    background-color: var(--ds-color-surface-sunken);
+    background-color: var(--ds-color-fill);
     color: var(--ds-color-on-surface);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-ui);
@@ -37,8 +37,10 @@
     background-color: transparent;
   }
 
+  /* The danger colour has no pair on the fill, and the danger border already draws the button, so it rests on the raised surface. */
   .ds-button--danger {
     border-color: var(--ds-color-danger);
+    background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-danger);
   }
 
@@ -69,8 +71,9 @@
 
   /* A touch screen has no hover, and would otherwise keep this look after a tap. */
   /*
-   * The secondary button already has the sunken fill, so hover draws the strong border on it and pressed lifts it
-   * to the raised fill. A quiet button takes the sunken fill on hover and when pressed, with no border on hover.
+   * The secondary button rests on the fill token, so hover draws the strong border on it and pressed sinks it
+   * to the sunken surface. A quiet button takes the fill on hover and when pressed, with no border on hover.
+   * Muted text has no pair on the fill: text on a button is the main text colour.
    */
   @media (hover: hover) {
     .ds-button:hover {
@@ -79,7 +82,7 @@
 
     .ds-button--quiet:hover {
       border-color: transparent;
-      background-color: var(--ds-color-surface-sunken);
+      background-color: var(--ds-color-fill);
     }
 
     .ds-button--primary:hover {
@@ -95,11 +98,11 @@
 
   .ds-button:active {
     border-color: var(--ds-color-border-strong);
-    background-color: var(--ds-color-surface-raised);
+    background-color: var(--ds-color-surface-sunken);
   }
 
   .ds-button--quiet:active {
-    background-color: var(--ds-color-surface-sunken);
+    background-color: var(--ds-color-fill);
   }
 
   .ds-button--primary:active {

@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.9.0
+
+One new colour token, `fill` (`--ds-color-fill`, `bg-fill` in the Tailwind preset): the resting fill of a secondary control. In dark mode it is lighter than a raised card, so a secondary button on a card reads as a quiet tone and no longer as a dark hole; in light mode it is a little darker than the page. Secondary buttons rest on it, quiet buttons take it on hover, and a pressed secondary button sinks to the sunken surface. A toggle that is on keeps the sunken fill, so on and off differ by fill again. Two contrast pairs were added for it. No class or rule was renamed or removed. A consumer only needs to sync; an app component that drew its own secondary control on `surface-sunken` may want `fill` instead.
+
 ## 0.8.3
 
 Three small changes from a design review of the first consumer. The one-block composer draws one focus ring, on the block; the textarea inside it draws none. The context list has no outer frame, only the lines between its rows, so it is not a box inside the sheet, and its row corners are the plain medium radius. The app header's name is set in the interface font, not mono. A consumer only needs to sync.

@@ -19,6 +19,8 @@
     --ds-color-surface: #FAFAF9;
     --ds-color-surface-raised: #FFFFFF;
     --ds-color-surface-sunken: #F3F2EF;
+    /* The resting fill of a secondary control: a quiet tone that shows on the page and on a raised card. */
+    --ds-color-fill: #ECEBE7;
     --ds-color-on-surface: #171717;
     --ds-color-muted: #737373;
     --ds-color-border: #E5E5E5;
@@ -110,6 +112,7 @@
     --ds-color-surface: #141413;
     --ds-color-surface-raised: #1C1C1A;
     --ds-color-surface-sunken: #0E0E0D;
+    --ds-color-fill: #2A2A27;
     --ds-color-on-surface: #EDEDEB;
     --ds-color-muted: #A3A3A0;
     --ds-color-border: #2E2E2B;
@@ -142,6 +145,7 @@
       --ds-color-surface: #141413;
       --ds-color-surface-raised: #1C1C1A;
       --ds-color-surface-sunken: #0E0E0D;
+      --ds-color-fill: #2A2A27;
       --ds-color-on-surface: #EDEDEB;
       --ds-color-muted: #A3A3A0;
       --ds-color-border: #2E2E2B;

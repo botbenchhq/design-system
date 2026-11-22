@@ -150,6 +150,31 @@
         }
       }
     },
+    "fill": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9137,
+          0.9137,
+          0.9333
+        ],
+        "hex": "#e9e9ee"
+      },
+      "$extensions": {
+        "design-system": {
+          "dark": {
+            "colorSpace": "srgb",
+            "components": [
+              0.1725,
+              0.1725,
+              0.1882
+            ],
+            "hex": "#2c2c30"
+          }
+        }
+      }
+    },
     "on-surface": {
       "$type": "color",
       "$value": {

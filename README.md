@@ -2,7 +2,7 @@
 
 A design system for apps whose interfaces are largely written by AI coding agents. It gives the agent a closed vocabulary of design tokens and components, and a checker that fails a frontend which steps outside that vocabulary. Screens come out consistent with each other and without the generic AI-generated look, and the look of every app that uses it can be changed in one place.
 
-It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.8.3. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
+It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.9.0. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
 
 The run timeline component under the Botbench theme, dark and light:
 
@@ -195,10 +195,10 @@ A theme is one hand-written file, [`themes/<name>.css`](themes/botbench.css), th
 
 The build stops, naming the theme, when it:
 
-- sets a name that is not one of the 68 tokens;
+- sets a name that is not one of the 69 tokens;
 - lacks light or dark values, or its dark and `auto` blocks differ;
 - uses a colour that is not six-digit hex;
-- fails any of the 53 foreground and background pairs in [`tokens/pairs.json`](tokens/pairs.json) in either mode: 4.5:1 for text, 3:1 for borders and focus rings.
+- fails any of the 55 foreground and background pairs in [`tokens/pairs.json`](tokens/pairs.json) in either mode: 4.5:1 for text, 3:1 for borders and focus rings.
 
 A theme may declare a default mode. Botbench, the worked example and the one theme shipped, is dark by default. It sets the platform's own typeface, neutral grey surfaces a clear step apart, a near-white primary action in dark and near-black in light, a blue focus ring, a 22px medium radius that makes a normal button a pill, and its own colours for each status. The header of [`themes/botbench.css`](themes/botbench.css) explains each choice.
 
@@ -240,7 +240,7 @@ Add a folder under `components/` with its three files and run the build; nothing
 
 ## Status and limits
 
-- **Version 0.8.3.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
+- **Version 0.9.0.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
 - **Everything is `draft`.** All 100 components and 8 patterns. An app may use a draft, but it may still change.
 - **One consumer.** Botbench is the only app that uses it so far.
 - **Chrome only.** The browser tests run in Google Chrome. Nothing has been tested in Firefox, Safari or WebKit, or with a screen reader. The components rely on recent platform features: the Popover API, anchor positioning, invoker commands, `:has()` and `field-sizing`.
