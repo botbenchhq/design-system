@@ -2,7 +2,7 @@
 
 A shared design system for a small set of apps. It holds one closed vocabulary of design tokens, a default theme, a base layer of styles, fonts and icons, and the files generated from them. An app copies `dist/` into its own repo.
 
-This repo currently contains the tokens, the base layer, the checker with its static scan and structural rules, the contract every component follows, 93 components built to it, seven page patterns composed from them, three optional behaviour modules, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
+This repo currently contains the tokens, the base layer, the checker with its static scan and structural rules, the contract every component follows, 98 components built to it, eight page patterns composed from them, five optional behaviour modules, the gallery, the rules agents read, the sync script that puts a copy into an app, and the derived files. The version is in `dist/VERSION`, and `CHANGELOG.md` says what each version holds.
 
 To use the system in an app, follow `docs/consumer-guide.md`. In short:
 
@@ -36,7 +36,7 @@ Each finding is `{ rule, message, fix, snippet }`, where `snippet` is the start 
 | `components.json` | Every component, in `components`: its purpose, when to use it and when not to, its variants, sizes, states, accessibility notes, classes, and the markup of each example. Read it before writing markup. Every page pattern, in `patterns`: the same fields and `"kind": "pattern"`, with a whole screen as each example. |
 | `components-index.json` | One short entry per component and pattern: name, kind, title, purpose, status and classes. Read it to choose, then open the one entry in `components.json`. |
 | `gallery/` | A static page per component and per page pattern showing every variant and state, with a do and a don't. Serve `dist/` and open `/gallery/`. |
-| `behaviors/` | Three optional ES modules with no dependencies, for an app without a framework. `groundwork.js` defines `<gw-tabs>`, `combobox.js` defines `<gw-combobox>` and `command-palette.js` defines `<gw-command-palette>`. Each does what its component needs from script. |
+| `behaviors/` | Five optional ES modules with no dependencies, for an app without a framework. `groundwork.js` defines `<gw-tabs>`, `combobox.js` defines `<gw-combobox>`, `command-palette.js` defines `<gw-command-palette>`, `elapsed.js` defines `<gw-elapsed>` and `transcript.js` defines `<gw-transcript>`. Each does what its component needs from script. |
 | `fonts/` | IBM Plex Sans and IBM Plex Mono, with their licence. `groundwork.css` loads them by relative URL, so keep the folder beside it. |
 | `icons.svg` | The icon sprite. Each icon is a `<symbol>` with the id `gw-icon-` and its name. |
 | `icons/` | The same icons as single files, for CSS that needs one as a mask or background, with their licence. |
@@ -123,21 +123,25 @@ The gallery switches theme with `?theme=dark`. Its pages carry no inline style a
 
 `dist/components.json` also lists the page patterns, in `patterns`. A pattern is a whole screen composed from the components, such as a settings page or a sign-in screen, with a little layout of its own. Start a new screen from one.
 
-Almost every component needs no script. Three do: something has to move the ARIA attributes when the reader picks a tab, types into a combobox or searches the command palette. `dist/behaviors/` holds three optional modules, one for each. Load only the ones the app uses, and wrap the component's markup from `components.json` in the module's element.
+Almost every component needs no script. A few do: something has to move the ARIA attributes when the reader picks a tab, types into a combobox or searches the command palette, a time that counts up has to be written again each second, and a transcript that grows has to follow its newest row only while the reader is at the bottom. `dist/behaviors/` holds five optional modules, one for each. Load only the ones the app uses, and wrap the component's markup from `components.json` in the module's element.
 
 | Module | Element | What it does |
 |---|---|---|
 | `behaviors/groundwork.js` | `<gw-tabs>` | For the tabs component: sets `aria-selected`, `tabindex` and `hidden`, and handles click, Left, Right, Home and End. |
 | `behaviors/combobox.js` | `<gw-combobox>` | For the combobox component: as the reader types it sets `hidden` on the options that do not match, `aria-expanded` and `aria-activedescendant` on the input and `aria-selected` on the active option, and writes the count into the `role="status"` line. It handles Down, Up, Home, End, Enter, Escape and a press on an option. |
 | `behaviors/command-palette.js` | `<gw-command-palette>` | For the command palette component: filters the commands as the reader types, hides a group left with no match, sets `aria-selected` and `aria-activedescendant` as Down and Up move the selection, presses the selected command on Enter and closes the dialog. With `shortcut="k"` it opens the dialog on Ctrl+K and Cmd+K. |
+| `behaviors/elapsed.js` | `<gw-elapsed>` | A time that counts up, for a tool call, a step group, the now-doing line and the run timeline: it shows the time since its `datetime` attribute and writes it again once a second, stops when its `data-state` is anything but `running`, and shows a fixed length when it has a `duration` attribute. It carries `aria-live="off"`, so no tick is announced. |
+| `behaviors/transcript.js` | `<gw-transcript>` | For a transcript that grows: it keeps the newest row in view while the reader is within 60px of the bottom, stops when they scroll up, counts the rows added since and shows the jump-to-latest control, and follows again when they press it or reach the bottom. It sets `hidden` and the count, and never moves focus. |
 
 ```html
 <script type="module" src="/vendor/groundwork/behaviors/groundwork.js"></script>
 <script type="module" src="/vendor/groundwork/behaviors/combobox.js"></script>
 <script type="module" src="/vendor/groundwork/behaviors/command-palette.js"></script>
+<script type="module" src="/vendor/groundwork/behaviors/elapsed.js"></script>
+<script type="module" src="/vendor/groundwork/behaviors/transcript.js"></script>
 ```
 
-Each module sets attributes only, never a class or an inline style. They are for an app without a framework. An app that renders with a framework leaves the modules out and sets the same ARIA attributes itself: the stylesheet reads those attributes and nothing else.
+Each module sets attributes only, never a class or an inline style; the two for agent activity also write the time and the count as text, and the transcript module sets the scroll position. None opens or closes a step group: that is the app's job, and the step group's metadata gives the rule. They are for an app without a framework. An app that renders with a framework leaves the modules out and sets the same ARIA attributes itself: the stylesheet reads those attributes and nothing else.
 
 To add a component or a page pattern, follow `docs/authoring.md`.
 

@@ -2,6 +2,8 @@
  * Message: one row of an agent transcript. It is a list item in the transcript's ol or ul.
  * The plain class is the agent's text. A modifier sets any other kind of row, and the
  * label inside the row says the kind in words.
+ * While the agent's text arrives the row carries data-state, set by the app: streaming, stopped,
+ * interrupted, reconnecting or done.
  */
 
 @layer gw.components {
@@ -205,5 +207,83 @@
     padding-top: var(--gw-space-md);
     border-top-width: var(--gw-border-width);
     border-radius: 0;
+  }
+
+  /*
+   * Where the text is arriving. In the markup only while the row streams, at the end of the body, and hidden from
+   * assistive technology there. It is not drawn in any other state, so a row that has ended never shows it.
+   */
+  .gw-message__caret {
+    display: none;
+    width: calc(var(--gw-border-width) * 2);
+    height: var(--gw-text-ui);
+    margin-inline-start: calc(var(--gw-border-width) * 2);
+    background-color: currentColor;
+    vertical-align: text-bottom;
+  }
+
+  .gw-message[data-state="streaming"] .gw-message__caret {
+    display: inline-block;
+    animation: gw-message-caret calc(var(--gw-duration-slow) * 4) step-end infinite;
+  }
+
+  /* How a row that did not finish stands, in words, on a line under the text that was kept. */
+  .gw-message__state {
+    display: flex;
+    flex: 1 1 100%;
+    gap: var(--gw-space-xs);
+    min-width: 0;
+    color: var(--gw-color-muted);
+    overflow-wrap: anywhere;
+  }
+
+  /* Each of the three has an icon of its own, drawn here, beside the words. */
+  .gw-message[data-state="stopped"] > .gw-message__state::before,
+  .gw-message[data-state="interrupted"] > .gw-message__state::before,
+  .gw-message[data-state="reconnecting"] > .gw-message__state::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: calc(var(--gw-text-ui) * var(--gw-leading-ui));
+    background-color: currentColor;
+    mask: url("icons/circle-slash.svg") center / contain no-repeat;
+  }
+
+  .gw-message[data-state="interrupted"] > .gw-message__state {
+    color: var(--gw-color-danger);
+  }
+
+  .gw-message[data-state="interrupted"] > .gw-message__state::before {
+    mask-image: url("icons/triangle-alert.svg");
+  }
+
+  .gw-message[data-state="reconnecting"] > .gw-message__state {
+    color: var(--gw-color-info);
+  }
+
+  /* Still working, so the same stepped loader as every other running mark. */
+  .gw-message[data-state="reconnecting"] > .gw-message__state::before {
+    mask-image: url("icons/loader.svg");
+    animation: gw-message-turn calc(var(--gw-duration-slow) * 4) steps(8) infinite;
+  }
+
+  @keyframes gw-message-caret {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes gw-message-turn {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  /* The caret and the mark stay, still, and the words carry the meaning. */
+  @media (prefers-reduced-motion: reduce) {
+    .gw-message[data-state="streaming"] .gw-message__caret,
+    .gw-message[data-state="reconnecting"] > .gw-message__state::before {
+      animation: none;
+    }
   }
 }

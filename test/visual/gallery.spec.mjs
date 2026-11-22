@@ -43,7 +43,11 @@ test.beforeAll(async () => {
 
 test.afterAll(() => server.close());
 
+// The clock of every gallery page stands still, so a time that counts up reads the same in every screenshot.
+const NOW = new Date("2026-11-22T12:00:00Z");
+
 async function open(page, name, { width = 1280, theme = "light" } = {}) {
+  await page.clock.setFixedTime(NOW);
   await page.setViewportSize({ width, height: 900 });
   await page.goto(`${origin}/gallery/${name}.html?theme=${theme}`);
   await page.evaluate(() => document.fonts.ready);
@@ -590,4 +594,369 @@ test("the app shell shows the sidebar nav at 1280px and the tab bar at 390px, wi
       expect(edges[2]).toBe(0);
     }
   }
+});
+
+const TOOL_CALL_STATES = {
+  requested: ["Preparing", "circle-dashed"],
+  "awaiting-approval": ["Awaiting approval", "circle-pause"],
+  running: ["Running", "loader"],
+  succeeded: ["Succeeded", "circle-check"],
+  failed: ["Failed", "circle-alert"],
+  declined: ["Declined", "ban"],
+  "timed-out": ["Timed out", "clock"],
+  cancelled: ["Cancelled", "circle-slash"],
+};
+
+// The status of the tool call in the example named after each state: its word, the icon drawn before it and whether that icon moves.
+const toolCallStatuses = (page) =>
+  page.evaluate((states) => {
+    const read = {};
+    for (const state of states) {
+      const status = document.querySelector(`[data-example="${state}"] .gw-tool-call[data-state="${state}"] .gw-tool-call__status`);
+      const icon = getComputedStyle(status, "::before");
+      read[state] = { word: status.textContent, mask: icon.maskImage, width: icon.width, animation: icon.animationName };
+    }
+    return read;
+  }, Object.keys(TOOL_CALL_STATES));
+
+test("a tool call in each data-state shows its status word and its own icon, and only running moves, until motion is reduced", async ({ page }) => {
+  await open(page, "tool-call");
+  const meta = index.components.find((component) => component.name === "tool-call");
+  expect(meta.states).toEqual(expect.arrayContaining(Object.keys(TOOL_CALL_STATES)));
+
+  const statuses = await toolCallStatuses(page);
+  const icons = new Set();
+  for (const [state, [word, icon]] of Object.entries(TOOL_CALL_STATES)) {
+    expect(statuses[state].word, state).toBe(word);
+    expect(statuses[state].mask, state).toContain(`icons/${icon}.svg`);
+    expect(statuses[state].width, state).toBe("16px");
+    expect(statuses[state].animation, state).toBe(state === "running" ? "gw-tool-call-turn" : "none");
+    icons.add(icon);
+  }
+  // No two states share an icon, so the shape alone tells them apart as well.
+  expect(icons.size).toBe(Object.keys(TOOL_CALL_STATES).length);
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const still = await toolCallStatuses(page);
+  for (const state of Object.keys(TOOL_CALL_STATES)) expect(still[state].animation, state).toBe("none");
+  expect(still.running.word).toBe("Running");
+  expect(still.running.mask).toContain("icons/loader.svg");
+});
+
+test("a tool call that awaits approval shows Allow and Decline while its details are closed, at secondary emphasis", async ({ page }) => {
+  await open(page, "tool-call", { width: 390 });
+  await page.addScriptTag({ path: join(dist, "check-dom.js") });
+  for (const id of ["approval-closed", "awaiting-approval"]) {
+    const example = page.locator(`[data-example="${id}"]`);
+    const details = example.locator("details.gw-tool-call__details");
+    // The reader closes the row that the app showed open.
+    if (await details.evaluate((element) => element.open)) await example.locator("summary").click();
+    await expect(details).not.toHaveAttribute("open");
+    await expect(example.locator(".gw-tool-call__body")).toBeHidden();
+    for (const name of ["Allow", "Decline"]) {
+      const button = example.getByRole("button", { name, exact: true });
+      await expect(button, `${id} ${name}`).toBeVisible();
+      await expect(button).toHaveAttribute("data-gw-critical", "");
+      await expect(button).toHaveClass("gw-button gw-button--small");
+      expect(await button.evaluate((element) => Boolean(element.closest("details")))).toBe(false);
+    }
+    expect(await example.evaluate((element) => gwCheckDom(element).map((finding) => finding.rule)), id).toEqual([]);
+  }
+  // The same two buttons inside the closed details are what the checker reports.
+  const hidden = page.locator('[data-example="approval-in-details"]');
+  expect(await hidden.evaluate((element) => [...new Set(gwCheckDom(element).map((finding) => finding.rule))])).toEqual(["hidden-critical-action"]);
+});
+
+test("each do example of the agent run has one primary action, secondary approval controls and at most two levels of disclosure", async ({ page }) => {
+  await open(page, "agent-run");
+  await page.addScriptTag({ path: join(dist, "check-dom.js") });
+  const examples = await page.evaluate((selector) =>
+    [...document.querySelectorAll(selector)].map((example) => {
+      const depth = (node) => {
+        let levels = 0;
+        for (let parent = node.parentElement; parent; parent = parent.parentElement) if (parent.tagName === "DETAILS") levels += 1;
+        return levels;
+      };
+      const messages = [...example.querySelectorAll('.gw-message:not([class*="gw-message--"])')];
+      return {
+        id: example.dataset.example,
+        primaries: example.querySelectorAll(".gw-button--primary").length,
+        approvals: [...example.querySelectorAll(".gw-tool-call__actions button")].map((button) => `${button.textContent} ${button.className} ${button.hasAttribute("data-gw-critical")}`),
+        deepest: Math.max(0, ...[...example.querySelectorAll("details")].map((details) => depth(details) + 1)),
+        headings: example.querySelectorAll("h1").length,
+        log: [...example.querySelectorAll('[role="log"]')].map((log) => `${log.getAttribute("aria-live")} ${Boolean(log.getAttribute("aria-label"))}`),
+        announcers: example.querySelectorAll('.gw-activity-announcer[role="status"]').length,
+        liveText: example.querySelectorAll('.gw-message [aria-live]:not([aria-live="off"])').length,
+        answersInAFold: messages.filter((message) => message.closest("details")).length,
+        lastMessage: messages.at(-1)?.dataset.state ?? null,
+        openGroups: [...example.querySelectorAll("details.gw-step-group")].map((group) => group.open),
+        findings: gwCheckDom(example).map((finding) => finding.rule),
+      };
+    }), DO);
+  const byId = Object.fromEntries(examples.map((example) => [example.id, example]));
+  expect(Object.keys(byId)).toEqual(["running", "loading", "empty", "finished"]);
+  for (const example of examples) {
+    expect(example.primaries, example.id).toBe(1);
+    expect(example.deepest, example.id).toBeLessThanOrEqual(2);
+    expect(example.headings, example.id).toBe(1);
+    expect(example.announcers, example.id).toBe(1);
+    expect(example.liveText, example.id).toBe(0);
+    expect(example.answersInAFold, example.id).toBe(0);
+    expect(example.findings, example.id).toEqual([]);
+  }
+  expect(byId.running.approvals).toEqual(["Allow gw-button gw-button--small true", "Decline gw-button gw-button--small true"]);
+  expect(byId.running.deepest).toBe(2);
+  expect(byId.running.log).toEqual(["off true"]);
+  expect(byId.running.lastMessage).toBe("streaming");
+  // One finished group is closed, and the group with a running step and the one that awaits approval are open.
+  expect(byId.running.openGroups).toEqual([false, true, true]);
+  expect(byId.finished.openGroups).toEqual([false, false, false]);
+  expect(byId.finished.lastMessage).toBe("done");
+  await expect(page.locator('[data-example="running"] .gw-now-doing')).toHaveAttribute("data-state", "waiting");
+  await expect(page.locator('[data-example="running"] .gw-now-doing')).not.toHaveAttribute("role");
+  await expect(page.locator('[data-example="running"] .gw-jump-to-latest__button')).toHaveText("3 new steps Jump to latest");
+  await expect(page.locator('[data-example="finished"] .gw-agent-run__dock')).toHaveCount(0);
+});
+
+test("the run timeline runs across the page at 1280px and down it at 390px, with one current station said in words", async ({ page }) => {
+  for (const [width, direction] of [[1280, "row"], [390, "column"]]) {
+    await open(page, "run-timeline", { width });
+    const timeline = page.locator('[data-example="running"] .gw-run-timeline');
+    expect(await timeline.evaluate((element) => getComputedStyle(element).flexDirection)).toBe(direction);
+    await expect(timeline.locator('[aria-current="step"]')).toHaveCount(1);
+    await expect(timeline.locator('[aria-current="step"] .gw-run-timeline__status')).toHaveText(/^Running · 4 min 12 s$/);
+    await expect(timeline.locator(".gw-run-timeline__status")).toHaveText([/^Done/, /^Running/, "Not started", "Not started", "Not started"]);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBe(0);
+  }
+  await expect(page.locator('[data-example="not-started"] [aria-current]')).toHaveCount(0);
+});
+
+test("the activity announcer is in the page and not drawn, and the transcript beside it is a named log that does not speak", async ({ page }) => {
+  await open(page, "activity-announcer");
+  for (const example of await page.locator(DO).all()) {
+    const region = example.locator(".gw-activity-announcer");
+    await expect(region).toHaveCount(1);
+    await expect(region).toHaveAttribute("role", "status");
+    expect(await region.evaluate((element) => element.checkVisibility() && !element.hidden)).toBe(true);
+    const box = await region.boundingBox();
+    expect([box.width, box.height]).toEqual([1, 1]);
+    const log = example.locator('[role="log"]');
+    await expect(log).toHaveAttribute("aria-live", "off");
+    expect(await log.getAttribute("aria-label")).toMatch(/^Transcript of run \d+$/);
+    expect(await example.locator("[aria-live]:not([role='log'])").count()).toBe(0);
+  }
+  await expect(page.locator('[data-example="rest"] .gw-activity-announcer')).toHaveText("");
+  await expect(page.locator('[data-example="needs-approval"] .gw-activity-announcer')).toHaveText(/^Approval needed: /);
+});
+
+test("a streaming message draws its caret hidden from assistive technology, and the row is not a live region", async ({ page }) => {
+  await open(page, "message");
+  const row = page.locator('[data-example="streaming"] .gw-message');
+  const caret = row.locator(".gw-message__caret");
+  await expect(caret).toHaveAttribute("aria-hidden", "true");
+  await expect(caret).toBeVisible();
+  expect(await row.evaluate((element) => [element, ...element.querySelectorAll("*")].filter((node) => node.hasAttribute("aria-live") || node.hasAttribute("role")).length)).toBe(0);
+  const words = { stopped: /^Stopped\./, interrupted: /^Interrupted\./, reconnecting: /^Reconnecting/ };
+  for (const [state, start] of Object.entries(words)) {
+    const ended = page.locator(`[data-example="${state}"] .gw-message[data-state="${state}"]`);
+    await expect(ended.locator(".gw-message__state")).toHaveText(start);
+    await expect(ended.locator(".gw-message__body")).toHaveText(/I will start it whenever a valid$/);
+    expect(await ended.locator(".gw-message__state").evaluate((element) => getComputedStyle(element, "::before").maskImage)).toContain("icons/");
+  }
+  await expect(page.locator('[data-example="interrupted"]').getByRole("button", { name: "Retry" })).toBeVisible();
+  await expect(page.locator('[data-example="done"] .gw-message > *')).toHaveCount(2);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  expect(await caret.evaluate((element) => getComputedStyle(element).animationName)).toBe("none");
+});
+
+const TRANSCRIPT_PAGE = `
+<gw-transcript>
+  <div data-gw-scroller>
+    <div role="log" aria-live="off" aria-label="Transcript of run 4182"><ol></ol></div>
+  </div>
+  <div class="gw-jump-to-latest" data-gw-jump hidden>
+    <button type="button" class="gw-jump-to-latest__button"><span class="gw-jump-to-latest__count" data-gw-count="{count} new steps" data-gw-count-one="1 new step"></span> Jump to latest</button>
+  </div>
+  <textarea aria-label="Message Claude Code"></textarea>
+</gw-transcript>`;
+
+// A page of its own with a transcript 300px tall. The height is the test's: a real screen takes it from its layout.
+async function openTranscript(page) {
+  await page.setViewportSize({ width: 390, height: 900 });
+  await page.goto(`${origin}/gallery/jump-to-latest.html`);
+  await page.evaluate((markup) => {
+    document.body.innerHTML = markup;
+    const scroller = document.querySelector("[data-gw-scroller]");
+    scroller.style.height = "300px";
+    scroller.style.overflow = "auto";
+    window.addRows = (count) => {
+      const list = document.querySelector('[role="log"] ol');
+      for (let added = 0; added < count; added++) {
+        const row = document.createElement("li");
+        row.className = "gw-message";
+        row.textContent = `Row ${list.children.length + 1}. `.repeat(6);
+        list.append(row);
+      }
+    };
+    window.addRows(30);
+  }, TRANSCRIPT_PAGE);
+  await page.locator("textarea").focus();
+}
+
+const transcriptState = (page) =>
+  page.evaluate(() => {
+    const scroller = document.querySelector("[data-gw-scroller]");
+    const jump = document.querySelector("[data-gw-jump]");
+    return {
+      fromBottom: Math.round(scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight),
+      jumpHidden: jump.hidden,
+      count: jump.querySelector("[data-gw-count]").textContent,
+      focus: document.activeElement.tagName,
+    };
+  });
+
+const scrollTranscript = (page, to) =>
+  page.evaluate((position) => {
+    const scroller = document.querySelector("[data-gw-scroller]");
+    scroller.scrollTop = position === "bottom" ? scroller.scrollHeight : position;
+  }, to);
+
+test("gw-transcript follows the bottom as rows are added, and never moves focus", async ({ page }) => {
+  await openTranscript(page);
+  expect(await page.evaluate(() => customElements.get("gw-transcript")?.name)).toBe("GwTranscript");
+  // It starts empty, which is at the bottom, so the first rows are followed as they arrive.
+  await expect.poll(() => transcriptState(page)).toEqual({ fromBottom: 0, jumpHidden: true, count: "", focus: "TEXTAREA" });
+  expect(await page.evaluate(() => document.querySelector("[data-gw-scroller]").scrollTop)).toBeGreaterThan(300);
+  for (const count of [1, 3, 10]) {
+    await page.evaluate((rows) => window.addRows(rows), count);
+    await expect.poll(async () => (await transcriptState(page)).fromBottom, `after ${count} more`).toBe(0);
+    expect(await transcriptState(page)).toMatchObject({ jumpHidden: true, focus: "TEXTAREA" });
+  }
+  // A row that grows, as a streamed reply does, is followed too.
+  await page.evaluate(() => document.querySelector('[role="log"] li:last-child').append("More text. ".repeat(40)));
+  await expect.poll(async () => (await transcriptState(page)).fromBottom).toBe(0);
+  // Within 60px of the bottom still counts as at the bottom.
+  await page.evaluate(() => { const scroller = document.querySelector("[data-gw-scroller]"); scroller.scrollTop -= 40; });
+  await page.evaluate(() => window.addRows(2));
+  await expect.poll(async () => (await transcriptState(page)).fromBottom).toBe(0);
+  expect((await transcriptState(page)).jumpHidden).toBe(true);
+  expect(await page.evaluate(() => [...document.querySelectorAll("gw-transcript, gw-transcript *")].filter((node) => node.hasAttribute("style") && !node.matches("[data-gw-scroller]")).length)).toBe(0);
+});
+
+test("gw-transcript stops following when the reader scrolls up, counts the rows added since, and jumping resumes it", async ({ page }) => {
+  await openTranscript(page);
+  await scrollTranscript(page, "bottom");
+  await expect.poll(async () => (await transcriptState(page)).fromBottom).toBe(0);
+
+  await scrollTranscript(page, 200);
+  await page.waitForFunction(() => document.querySelector("[data-gw-scroller]").scrollTop === 200);
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  await page.evaluate(() => window.addRows(3));
+  await expect.poll(() => transcriptState(page)).toMatchObject({ jumpHidden: false, count: "3 new steps", focus: "TEXTAREA" });
+  // The reader stays where they scrolled to.
+  expect(await page.evaluate(() => document.querySelector("[data-gw-scroller]").scrollTop)).toBe(200);
+  await page.evaluate(() => window.addRows(2));
+  await expect.poll(async () => (await transcriptState(page)).count).toBe("5 new steps");
+  expect(await page.evaluate(() => document.querySelector("[data-gw-scroller]").scrollTop)).toBe(200);
+  await expect(page.getByRole("button", { name: "5 new steps Jump to latest" })).toBeVisible();
+
+  // A press with the pointer jumps, hides the control and leaves focus in the composer.
+  await page.locator("[data-gw-jump] button").click();
+  await expect.poll(() => transcriptState(page)).toMatchObject({ fromBottom: 0, jumpHidden: true, focus: "TEXTAREA" });
+  await page.evaluate(() => window.addRows(4));
+  await expect.poll(async () => (await transcriptState(page)).fromBottom).toBe(0);
+  expect((await transcriptState(page)).jumpHidden).toBe(true);
+
+  // Scrolling back to the bottom by hand resumes it as well, and the count starts again.
+  await scrollTranscript(page, 0);
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  await page.evaluate(() => window.addRows(1));
+  await expect.poll(() => transcriptState(page)).toMatchObject({ jumpHidden: false, count: "1 new step" });
+  await scrollTranscript(page, "bottom");
+  await expect.poll(async () => (await transcriptState(page)).jumpHidden).toBe(true);
+
+  // From the keyboard the button holds focus, so it stays until focus leaves it.
+  await scrollTranscript(page, 0);
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  await page.evaluate(() => window.addRows(2));
+  await expect.poll(async () => (await transcriptState(page)).count).toBe("2 new steps");
+  await page.locator("[data-gw-jump] button").focus();
+  await page.keyboard.press("Enter");
+  await expect.poll(async () => (await transcriptState(page)).fromBottom).toBe(0);
+  expect(await transcriptState(page)).toMatchObject({ jumpHidden: false, focus: "BUTTON" });
+  await page.locator("textarea").focus();
+  await expect.poll(async () => (await transcriptState(page)).jumpHidden).toBe(true);
+});
+
+test("loading the transcript and elapsed modules a second time is harmless", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await openTranscript(page);
+  for (const name of ["transcript", "elapsed"]) {
+    await page.addScriptTag({ url: `${origin}/behaviors/${name}.js?again`, type: "module" });
+    await page.evaluate((module) => import(`/behaviors/${module}.js?once-more`), name);
+  }
+  expect(errors).toEqual([]);
+  expect(await page.evaluate(() => [customElements.get("gw-transcript").name, customElements.get("gw-elapsed").name])).toEqual(["GwTranscript", "GwElapsed"]);
+  await scrollTranscript(page, "bottom");
+  await page.evaluate(() => window.addRows(3));
+  await expect.poll(async () => (await transcriptState(page)).fromBottom).toBe(0);
+});
+
+test("gw-elapsed counts up once a second, stops on a final state, and is never announced", async ({ page }) => {
+  const start = new Date("2026-11-22T10:00:00Z");
+  await page.clock.install({ time: start });
+  await page.goto(`${origin}/gallery/now-doing.html`);
+  await page.clock.pauseAt(new Date(start.getTime() + 60_000));
+  await page.evaluate(() => {
+    document.body.innerHTML = `
+      <p><gw-elapsed id="counting" datetime="2026-11-22T10:00:18Z">a moment</gw-elapsed></p>
+      <p><gw-elapsed id="fixed" datetime="2026-11-22T10:00:18Z" duration="PT2.4S">a moment</gw-elapsed></p>
+      <p><gw-elapsed id="long" duration="PT1H4M">a moment</gw-elapsed> <gw-elapsed id="short" duration="PT0.38S">a moment</gw-elapsed> <gw-elapsed id="whole" duration="PT4M12S">a moment</gw-elapsed></p>`;
+  });
+  const counting = page.locator("#counting");
+  await expect(counting).toHaveText("42 s");
+  await expect(counting).toHaveAttribute("aria-live", "off");
+  await expect(counting).toHaveAttribute("role", "timer");
+  await page.clock.runFor(1000);
+  await expect(counting).toHaveText("43 s");
+  await page.clock.runFor(2000);
+  await expect(counting).toHaveText("45 s");
+  await page.clock.runFor(20_000);
+  await expect(counting).toHaveText("1 min 5 s");
+
+  // A final state keeps the time it showed and stops the count.
+  await counting.evaluate((element) => element.setAttribute("data-state", "succeeded"));
+  await page.clock.runFor(30_000);
+  await expect(counting).toHaveText("1 min 5 s");
+  await expect(counting).toHaveAttribute("aria-live", "off");
+  await expect(counting).not.toHaveAttribute("role");
+  // Running again, it counts from its start, not from where it stopped.
+  await counting.evaluate((element) => element.setAttribute("data-state", "running"));
+  await expect(counting).toHaveText("1 min 35 s");
+  await page.clock.runFor(1000);
+  await expect(counting).toHaveText("1 min 36 s");
+  // A duration fixes it for good.
+  await counting.evaluate((element) => element.setAttribute("duration", "PT1M37.2S"));
+  await page.clock.runFor(10_000);
+  await expect(counting).toHaveText("1 min 37 s");
+
+  await expect(page.locator("#fixed")).toHaveText("2.4 s");
+  await expect(page.locator("#fixed")).toHaveAttribute("aria-live", "off");
+  await expect(page.locator("#fixed")).not.toHaveAttribute("role");
+  await expect(page.locator("#long")).toHaveText("1 h 4 min");
+  await expect(page.locator("#short")).toHaveText("380 ms");
+  await expect(page.locator("#whole")).toHaveText("4 min 12 s");
+  expect(await page.evaluate(() => [...document.querySelectorAll("gw-elapsed")].filter((element) => element.hasAttribute("style") || element.hasAttribute("class") || element.shadowRoot).length)).toBe(0);
+});
+
+test("in the gallery a time that counts up reads as its example was written, and carries aria-live off", async ({ page }) => {
+  await open(page, "now-doing");
+  const elapsed = page.locator('[data-example="running"] gw-elapsed');
+  await expect(elapsed).toHaveText("42 s");
+  await expect(elapsed).toHaveAttribute("aria-live", "off");
+  await expect(elapsed).toHaveAttribute("role", "timer");
+  await expect(page.locator('[data-example="running"] .gw-now-doing')).not.toHaveAttribute("aria-live");
+  await expect(page.locator('[data-example="running"]').getByRole("button", { name: "Stop" })).toHaveAttribute("data-gw-critical", "");
+  await expect(page.locator('[data-example="waiting"] .gw-now-doing__link')).toHaveAttribute("href", "#now-doing-waiting-request");
 });

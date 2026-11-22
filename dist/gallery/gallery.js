@@ -1,5 +1,7 @@
 // Applies ?theme=dark before the page paints, and carries the chosen theme along the gallery's own links.
 // Once the page is parsed it also puts examples into states that markup alone cannot hold.
+// The instant the examples were written at. A time that counts up shows the length its example was written with.
+const WRITTEN_AT = Date.parse("2026-11-22T10:00:00Z");
 const theme = new URLSearchParams(location.search).get("theme") === "dark" ? "dark" : "light";
 if (theme === "dark") document.documentElement.dataset.theme = "dark";
 
@@ -12,6 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // A checkbox can only be made indeterminate from script.
   for (const box of document.querySelectorAll('[data-example][data-state="indeterminate"] input[type="checkbox"]')) {
     box.indeterminate = true;
+  }
+
+  // An example of a running time gives a start a little before the instant above. Its start is moved by the
+  // time that has passed since, so it reads 42 s when the page opens, whenever that is, and counts up from there.
+  for (const elapsed of document.querySelectorAll("[data-example] gw-elapsed[datetime]")) {
+    const start = Date.parse(elapsed.getAttribute("datetime"));
+    if (!Number.isNaN(start)) elapsed.setAttribute("datetime", new Date(start + Date.now() - WRITTEN_AT).toISOString());
   }
 
   // Opens every popover inside an example marked data-gallery-open, beside the control that opens it,

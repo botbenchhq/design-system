@@ -1,0 +1,254 @@
+<div data-example="rest" data-title="At rest: the region is in the page, empty, before anything happens" data-state="default" data-reason="The status region is in the page from the first render, empty and not drawn, so a sentence written into it later is announced. The transcript is a log with a name and aria-live off, so it can be found and read at any time and never speaks by itself.">
+  <p class="gw-activity-announcer" role="status"></p>
+  <div role="log" aria-live="off" aria-label="Transcript of run 4181">
+    <ol class="gw-stack gw-gap-xs">
+      <li class="gw-message gw-message--user">
+        <span class="gw-message__label">You</span>
+        <p class="gw-message__body">Find out why the session cookie expires after 15 minutes, fix it, and run the auth tests.</p>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div data-example="started" data-title="Started: the region reads &quot;Claude Code started working.&quot;" data-state="started">
+  <p class="gw-activity-announcer" role="status">Claude Code started working.</p>
+  <div role="log" aria-live="off" aria-label="Transcript of run 4182">
+    <ol class="gw-stack gw-gap-xs">
+      <li class="gw-message gw-message--user">
+        <span class="gw-message__label">You</span>
+        <p class="gw-message__body">Find out why the session cookie expires after 15 minutes, fix it, and run the auth tests.</p>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+          <details class="gw-tool-call__details">
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Explored 5 files in <code class="gw-tool-call__target">src/auth</code></span>
+              <span class="gw-tool-call__duration">0.4 s</span>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Arguments</p>
+              <pre class="gw-tool-call__code">{ "path": "src/auth" }</pre>
+            </div>
+          </details>
+        </div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div data-example="needs-approval" data-title="Needs approval: the region reads &quot;Approval needed: run npm install --save-dev @acme/session-fixtures.&quot;" data-state="needs-approval">
+  <p class="gw-activity-announcer" role="status">Approval needed: run npm install --save-dev @acme/session-fixtures.</p>
+  <div role="log" aria-live="off" aria-label="Transcript of run 4183">
+    <ol class="gw-stack gw-gap-xs">
+      <li class="gw-message gw-message--user">
+        <span class="gw-message__label">You</span>
+        <p class="gw-message__body">Find out why the session cookie expires after 15 minutes, fix it, and run the auth tests.</p>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+          <details class="gw-tool-call__details">
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Explored 5 files in <code class="gw-tool-call__target">src/auth</code></span>
+              <span class="gw-tool-call__duration">0.4 s</span>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Arguments</p>
+              <pre class="gw-tool-call__code">{ "path": "src/auth" }</pre>
+            </div>
+          </details>
+        </div>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="awaiting-approval">
+          <details class="gw-tool-call__details" open>
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title" id="activity-announcer-needs-approval-title"><span class="gw-tool-call__status">Awaiting approval</span> Run <code class="gw-tool-call__target">npm install --save-dev @acme/session-fixtures</code></span>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Arguments</p>
+              <pre class="gw-tool-call__code">{ "command": "npm install --save-dev @acme/session-fixtures" }</pre>
+            </div>
+          </details>
+          <div class="gw-tool-call__actions">
+            <button type="button" class="gw-button gw-button--small" data-gw-critical aria-describedby="activity-announcer-needs-approval-title">Allow</button>
+            <button type="button" class="gw-button gw-button--small" data-gw-critical aria-describedby="activity-announcer-needs-approval-title">Decline</button>
+          </div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div data-example="finished" data-title="Finished: the region reads &quot;Claude Code finished: explored 5 files, edited 1 file, ran 1 command.&quot;" data-state="finished">
+  <p class="gw-activity-announcer" role="status">Claude Code finished: explored 5 files, edited 1 file, ran 1 command.</p>
+  <div role="log" aria-live="off" aria-label="Transcript of run 4184">
+    <ol class="gw-stack gw-gap-xs">
+      <li class="gw-message gw-message--user">
+        <span class="gw-message__label">You</span>
+        <p class="gw-message__body">Find out why the session cookie expires after 15 minutes, fix it, and run the auth tests.</p>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+          <details class="gw-tool-call__details">
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Explored 5 files in <code class="gw-tool-call__target">src/auth</code></span>
+              <span class="gw-tool-call__duration">0.4 s</span>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Arguments</p>
+              <pre class="gw-tool-call__code">{ "path": "src/auth" }</pre>
+            </div>
+          </details>
+        </div>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+          <details class="gw-tool-call__details">
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
+              <span class="gw-tool-call__duration">38 ms</span>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Arguments</p>
+              <pre class="gw-tool-call__code">{ "file_path": "src/auth/session.ts" }</pre>
+            </div>
+          </details>
+        </div>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+          <details class="gw-tool-call__details">
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
+              <span class="gw-tool-call__duration">3.1 s</span>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Arguments</p>
+              <pre class="gw-tool-call__code">{ "command": "npm test -- --run src/auth" }</pre>
+            </div>
+          </details>
+        </div>
+      </li>
+      <li class="gw-message" data-state="done">
+        <span class="gw-message__label">Claude Code</span>
+        <p class="gw-message__body">The refresh timer was only started on sign-in. It now starts whenever a valid session is loaded, and the 31 auth tests pass.</p>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div data-example="stopped" data-title="Stopped: the region reads &quot;Stopped. The work so far is kept.&quot;" data-state="stopped">
+  <p class="gw-activity-announcer" role="status">Stopped. The work so far is kept.</p>
+  <div role="log" aria-live="off" aria-label="Transcript of run 4185">
+    <ol class="gw-stack gw-gap-xs">
+      <li class="gw-message gw-message--user">
+        <span class="gw-message__label">You</span>
+        <p class="gw-message__body">Find out why the session cookie expires after 15 minutes, fix it, and run the auth tests.</p>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+          <details class="gw-tool-call__details">
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Explored 5 files in <code class="gw-tool-call__target">src/auth</code></span>
+              <span class="gw-tool-call__duration">0.4 s</span>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Arguments</p>
+              <pre class="gw-tool-call__code">{ "path": "src/auth" }</pre>
+            </div>
+          </details>
+        </div>
+      </li>
+      <li class="gw-message" data-state="stopped">
+        <span class="gw-message__label">Claude Code</span>
+        <p class="gw-message__body">The refresh timer in src/auth/session.ts is only started on sign-in, so a page</p>
+        <p class="gw-message__state">Stopped. You stopped this reply before it was finished.</p>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div data-example="failed" data-title="Failed: the region reads &quot;A step failed: npm test exited with code 1.&quot;" data-state="failed">
+  <p class="gw-activity-announcer" role="status">A step failed: npm test exited with code 1.</p>
+  <div role="log" aria-live="off" aria-label="Transcript of run 4186">
+    <ol class="gw-stack gw-gap-xs">
+      <li class="gw-message gw-message--user">
+        <span class="gw-message__label">You</span>
+        <p class="gw-message__body">Find out why the session cookie expires after 15 minutes, fix it, and run the auth tests.</p>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+          <details class="gw-tool-call__details">
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Edited <code class="gw-tool-call__target">src/auth/session.ts</code> +12&nbsp;−1</span>
+              <span class="gw-tool-call__duration">38 ms</span>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Arguments</p>
+              <pre class="gw-tool-call__code">{ "file_path": "src/auth/session.ts" }</pre>
+            </div>
+          </details>
+        </div>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="failed">
+          <details class="gw-tool-call__details" open>
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Failed</span> Ran <code class="gw-tool-call__target">npm test -- --run src/auth</code></span>
+              <span class="gw-tool-call__duration">3.1 s</span>
+              <span class="gw-tool-call__note">The command exited with code 1. 1 of 31 tests failed.</span>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Arguments</p>
+              <pre class="gw-tool-call__code">{ "command": "npm test -- --run src/auth" }</pre>
+              <p class="gw-tool-call__label">Output, 2 lines</p>
+              <pre class="gw-tool-call__code"> ✗ src/auth/session.test.ts > keeps the session after a reload
+ Test Files  1 failed | 2 passed (3)</pre>
+            </div>
+          </details>
+        </div>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div data-example="live-text" data-title="A live region on the text that is arriving" data-dont="review" data-reason="The log speaks every row, and the growing reply is read again from its start each time a few words land. A screen reader user hears a stream they cannot stop, and cannot hear anything else. Turn the log's own announcements off and say only the milestones, from the one status region.">
+  <div role="log" aria-label="Transcript of run 4187">
+    <ol class="gw-stack gw-gap-xs">
+      <li class="gw-message gw-message--user">
+        <span class="gw-message__label">You</span>
+        <p class="gw-message__body">Find out why the session cookie expires after 15 minutes, fix it, and run the auth tests.</p>
+      </li>
+      <li class="gw-message" data-state="streaming" aria-busy="true">
+        <span class="gw-message__label">Claude Code</span>
+        <p class="gw-message__body" aria-live="polite" aria-atomic="true">The refresh timer in src/auth/session.ts is only started on sign-in, so a page<span class="gw-message__caret" aria-hidden="true"></span></p>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div data-example="every-step" data-title="Every step and every second announced" data-dont="review" data-reason="A run of twenty auto-approved steps would be twenty interruptions, and a time that is announced speaks every second. Say that the run started, that it needs the reader, and how it ended, with the counts in that last sentence.">
+  <p class="gw-activity-announcer" role="status">Read src/auth/session.ts. Read src/auth/refresh.ts. Edited src/auth/session.ts. Running npm test, 42 seconds.</p>
+  <div role="log" aria-live="off" aria-label="Transcript of run 4188">
+    <ol class="gw-stack gw-gap-xs">
+      <li class="gw-message gw-message--user">
+        <span class="gw-message__label">You</span>
+        <p class="gw-message__body">Find out why the session cookie expires after 15 minutes, fix it, and run the auth tests.</p>
+      </li>
+      <li class="gw-message gw-message--tool-call">
+        <div class="gw-tool-call gw-tool-call--row" data-state="succeeded">
+          <details class="gw-tool-call__details">
+            <summary class="gw-tool-call__summary">
+              <span class="gw-tool-call__title"><span class="gw-tool-call__status">Succeeded</span> Explored 5 files in <code class="gw-tool-call__target">src/auth</code></span>
+              <span class="gw-tool-call__duration">0.4 s</span>
+            </summary>
+            <div class="gw-tool-call__body">
+              <p class="gw-tool-call__label">Arguments</p>
+              <pre class="gw-tool-call__code">{ "path": "src/auth" }</pre>
+            </div>
+          </details>
+        </div>
+      </li>
+    </ol>
+  </div>
+</div>

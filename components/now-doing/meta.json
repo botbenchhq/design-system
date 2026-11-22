@@ -1,0 +1,41 @@
+{
+  "name": "now-doing",
+  "title": "Now doing",
+  "purpose": "One line under a transcript that says in words what the agent is doing right now and for how long, with Stop beside it, or what the run is waiting on the reader for, with a link to it.",
+  "status": "draft",
+  "whenToUse": [
+    "Under the transcript of a run that is going on, above the composer, for as long as anything is running or waiting.",
+    "So the reader can tell at any moment that the run is alive, what it is busy with, and how to stop it, however far up they have scrolled."
+  ],
+  "whenNotToUse": [
+    "When nothing is running and nothing waits. Set hidden on it: an idle line is noise.",
+    "For a note that work is going on somewhere else in a view, with no Stop. Use streaming.",
+    "For the status of a run in a list of runs. Use run status.",
+    "As the only sign of activity. The steps themselves stay in the transcript, as tool-call rows and step groups."
+  ],
+  "variants": [
+    { "name": "default", "use": "In the flow of the page, inside a bar that is already fixed to the bottom, such as the dock of the agent run pattern." },
+    { "name": "sticky", "class": "gw-now-doing--sticky", "use": "Fixed to the bottom of the scrolling area by itself, over the rows, when nothing around it does that." }
+  ],
+  "sizes": [],
+  "states": ["running", "waiting"],
+  "accessibility": [
+    "The app sets data-state on the root: running while the agent works, waiting while the run waits on the reader. When nothing is running and nothing waits it sets the hidden attribute, and removes it when work starts again. Keep the element in the page.",
+    "gw-now-doing__text is one sentence the app writes, starting with what is happening as a present participle, then the command or target in a code element with gw-now-doing__target, then the time: Running npm test · 42 s, Editing src/auth/session.ts · 3 s, Writing a reply · 8 s. Write a no-break space on each side of the dot, so the time never starts a line by itself. The stylesheet draws the mark before the first word from data-state, so the line is never a mark alone.",
+    "The waiting sentence names what the run waits for: Waiting for your approval to run npm install, Waiting for your answer about the fixture user. After it comes a link with gw-now-doing__link whose href is the id of that request or question in the transcript: Go to the request. A closed group that holds the target opens when the browser goes to it.",
+    "The time is in gw-now-doing__elapsed. It counts up and is not announced: use the gw-elapsed element from behaviors/elapsed.js, or a span with aria-live=\"off\".",
+    "The line is not a live region and has no role=\"status\": it changes with every step. The view's one status region announces the start, a request for approval, a failure and the end, as the activity announcer describes.",
+    "Stop is a button with gw-button gw-button--small, secondary emphasis, marked data-gw-critical. It is always in view while the run is alive, in both states. When it is pressed, set aria-busy=\"true\" on it and change its label to Stopping until the run has stopped, then hide the line and move focus to the composer.",
+    "A view has one Stop. With this line in the view, the composer keeps Send and does not swap it for Stop.",
+    "Only the running mark moves, and under prefers-reduced-motion it is still. Tab reaches the link and then Stop."
+  ],
+  "icons": ["circle-pause", "loader"],
+  "classes": [
+    "gw-now-doing",
+    "gw-now-doing--sticky",
+    "gw-now-doing__elapsed",
+    "gw-now-doing__link",
+    "gw-now-doing__target",
+    "gw-now-doing__text"
+  ]
+}

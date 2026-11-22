@@ -1,0 +1,88 @@
+/*
+ * Jump to latest: a small button that shows while the reader has scrolled up in a transcript and new rows
+ * have arrived below. It says how many, in words, and takes the reader to the newest one.
+ * The block is a line of no height directly above the composer or the now-doing line. The button hangs
+ * above that line, over the last rows, so showing and hiding it moves nothing. The app sets hidden on the block.
+ */
+
+@layer gw.components {
+  .gw-jump-to-latest {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 0;
+  }
+
+  /* Drawn 32px tall, as a small button is, and it floats over rows, so it has a firm edge and no shadow. */
+  .gw-jump-to-latest__button {
+    position: absolute;
+    bottom: var(--gw-space-xs);
+    z-index: var(--gw-z-sticky);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gw-space-sm);
+    max-width: 100%;
+    min-width: var(--gw-size-touch);
+    min-height: var(--gw-space-2xl);
+    padding-inline: var(--gw-space-md) var(--gw-space-lg);
+    border-width: var(--gw-border-width);
+    border-color: var(--gw-color-border-strong);
+    border-radius: var(--gw-radius-full);
+    background-color: var(--gw-color-surface-raised);
+    color: var(--gw-color-on-surface);
+    font-weight: var(--gw-weight-medium);
+    line-height: var(--gw-leading-ui);
+    white-space: nowrap;
+    transition: background-color var(--gw-duration-fast) var(--gw-ease);
+  }
+
+  /* An arrow that points where the press goes. */
+  .gw-jump-to-latest__button::before {
+    content: "";
+    flex: none;
+    width: var(--gw-space-lg);
+    height: var(--gw-space-lg);
+    background-color: currentColor;
+    mask: url("icons/arrow-down.svg") center / contain no-repeat;
+  }
+
+  /* The pointer target: an invisible box a touch target tall, centred on the button. */
+  .gw-jump-to-latest__button::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: var(--gw-size-touch);
+    translate: 0 -50%;
+  }
+
+  /* With nothing to count, the span takes no room and the label stands alone. */
+  .gw-jump-to-latest__count:empty {
+    display: none;
+  }
+
+  /* How many rows arrived, in words. A dot parts it from the label, and is drawn only when there is a count. */
+  .gw-jump-to-latest__count:not(:empty)::after {
+    content: "·" / "";
+    margin-inline-start: var(--gw-space-sm);
+    color: var(--gw-color-muted);
+  }
+
+  @media (hover: hover) {
+    .gw-jump-to-latest__button:hover {
+      background-color: var(--gw-color-surface-sunken);
+    }
+
+    .gw-jump-to-latest__button:hover > .gw-jump-to-latest__count::after {
+      color: var(--gw-color-on-surface);
+    }
+  }
+
+  .gw-jump-to-latest__button:active {
+    background-color: var(--gw-color-border);
+  }
+
+  .gw-jump-to-latest__button:active > .gw-jump-to-latest__count::after {
+    color: var(--gw-color-on-surface);
+  }
+}
