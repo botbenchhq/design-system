@@ -5,7 +5,7 @@ Files copied from other projects are listed here with their source and
 licence notice.
 
 The default theme's values for accent, surface, on-surface, border, muted,
-spacing and radius come from the DESIGN.md of Smelt, a project by the same
+spacing and radius come from the DESIGN.md of Botbench, a project by the same
 author under the Apache License 2.0.
 
 Copied files (stored in this repository and shipped in dist/)

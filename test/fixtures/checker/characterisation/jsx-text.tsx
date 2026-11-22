@@ -2,7 +2,7 @@
 export function Empty() {
   return (
     <main className="flex flex-col gap-md">
-      <p>Nothing has run in Smelt's data directory, so "empty" is all there is.</p>
+      <p>Nothing has run in Botbench's data directory, so "empty" is all there is.</p>
       <p>{`There is no screen at ${window.location.hash}.`}</p>
     </main>
   );
