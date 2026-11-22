@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.7.6
+
+The `hidden` attribute now hides every component. A component that sets its own `display`, such as jump to latest, used to stay visible with `hidden` set. An app that worked around this by not rendering the element can go back to the attribute. A consumer only needs to sync.
+
 ## 0.7.5
 
 New React source in `react/`, for a React 19 app: `busy-button.tsx`, a typed button with a busy state that needs the words to show while busy, and `use-transcript.ts`, a hook that follows a transcript by the same rule as `<ds-transcript>`. "React source" in the consumer guide shows both. A consumer only needs to sync. Nothing changes unless the app imports the files.
