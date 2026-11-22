@@ -2,7 +2,9 @@
 
 A shared design system for a small set of apps. It holds one closed vocabulary of design tokens, a default theme, a base layer of styles, fonts and icons, and the files generated from them. An app copies `dist/` into its own repo.
 
-This repo currently contains the tokens, the base layer and their derived files. Components, the checker and the sync script are not built yet.
+This repo currently contains the tokens, the base layer, the checker's static scan and their derived files. Components, the structural rules and the sync script are not built yet.
+
+To check a frontend against the vocabulary, run `node dist/checker/check.mjs <paths>`. It exits 0 when clean, 1 on findings and 2 when it could not run.
 
 ## What is in `dist/`
 

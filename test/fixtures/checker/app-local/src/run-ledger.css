@@ -1,0 +1,5 @@
+.sm-run-ledger {
+  padding: var(--gw-space-md);
+  color: var(--gw-color-muted);
+  border-radius: var(--gw-radius-sm);
+}

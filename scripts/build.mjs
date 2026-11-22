@@ -385,6 +385,11 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   };
   for (const [name, svg] of Object.entries(icons)) files[`icons/${name}.svg`] = svg;
   for (const name of Object.keys(FONT_SOURCES)) files[`fonts/${name}`] = readFileSync(join(base, "fonts", name));
+  // The checker ships as source: it has no dependencies and reads the manifest one directory up.
+  const checker = join(root, "checker");
+  for (const name of readdirSync(checker).filter((file) => file.endsWith(".mjs")).sort()) {
+    files[`checker/${name}`] = readFileSync(join(checker, name));
+  }
 
   rmSync(outDir, { recursive: true, force: true });
   for (const [name, content] of Object.entries(files)) {

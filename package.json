@@ -11,7 +11,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "vendor": "node scripts/build.mjs vendor",
-    "test": "node --test 'test/*.test.mjs'",
+    "test": "node --test 'test/*.test.mjs' 'test/checker/*.test.mjs'",
     "test:visual": "playwright test"
   },
   "devDependencies": {

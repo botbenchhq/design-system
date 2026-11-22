@@ -1,0 +1,10 @@
+{
+  "gaps": [
+    {
+      "name": "Run ledger",
+      "reason": "No catalogue component shows a run's cost lines.",
+      "classes": ["sm-run-ledger"],
+      "files": ["src/run-ledger.tsx"]
+    }
+  ]
+}

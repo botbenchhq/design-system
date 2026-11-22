@@ -1,0 +1,28 @@
+/* Font faces, Tailwind directives, data URLs, escaped names and comments holding braces are all valid CSS. */
+@font-face {
+  font-family: "Geist";
+  font-weight: 100 900;
+  src: url("../fonts/geist.woff2") format("woff2-variations");
+}
+
+@tailwind base;
+@tailwind utilities;
+
+@layer base {
+  /* A brace in a comment } does not close anything. */
+  html {
+    @apply gap-sm p-lg;
+    color-scheme: only light;
+    -webkit-text-size-adjust: 100%;
+  }
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+  .mark {
+    --editor\.foreground: var(--gw-color-on-surface);
+    background-image: url(data:image/svg+xml;base64,PHN2Zy8+);
+    content: "a; b { c }";
+  }
+}
