@@ -1,0 +1,17 @@
+@tailwind base;
+
+@layer gw.components {
+  .gw-button {
+    background-color: var(--gw-color-surface-raised);
+  }
+}
+
+/* What the consumer guide warns against: Tailwind emits this unlayered. */
+@layer base {
+  button {
+    background-color: var(--gw-color-surface-sunken);
+  }
+}
+
+@tailwind components;
+@tailwind utilities;

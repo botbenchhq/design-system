@@ -1,0 +1,17 @@
+Groundwork
+Copyright 2026 Jon Lange
+
+Nothing in this repository has been copied from other projects yet.
+When a file is copied, it is listed here with its source and licence notice.
+
+The default theme's values for accent, surface, on-surface, border, muted,
+spacing and radius come from the DESIGN.md of Smelt, a project by the same
+author under the Apache License 2.0.
+
+Development tools (not stored in this repository, not shipped in dist/)
+----------------------------------------------------------------------
+
+- Tailwind CSS 3.4.19. Copyright (c) Tailwind Labs, Inc. MIT License.
+  Used by the test suite to build a fixture against the generated preset.
+- TypeScript. Copyright (c) Microsoft Corporation. Apache License 2.0.
+  Used by the test suite to typecheck a fixture that imports the preset.
