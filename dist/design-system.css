@@ -2902,7 +2902,9 @@
     padding-inline: var(--ds-space-sm);
   }
 
+  /* Positioned, so a visually hidden span inside it is clipped with it and cannot widen the page. */
   .ds-composer__value {
+    position: relative;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2928,6 +2930,7 @@
 
   /* Why the composer cannot send. Plain text, so it is read as easily as the label. */
   .ds-composer__reason {
+    color: var(--ds-color-muted);
     overflow-wrap: anywhere;
   }
 
