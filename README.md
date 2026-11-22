@@ -4,6 +4,13 @@ A design system for apps whose interfaces are largely written by AI coding agent
 
 It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.7.7. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
 
+The run timeline component under the Botbench theme, dark and light:
+
+<p>
+  <img src="test/visual/screenshots/run-timeline-1280-dark-botbench.png" alt="Gallery page of the run timeline component under the Botbench theme in dark mode" width="49%">
+  <img src="test/visual/screenshots/run-timeline-1280-light-botbench.png" alt="Gallery page of the run timeline component under the Botbench theme in light mode" width="49%">
+</p>
+
 ## Why use it
 
 - **Change the brand once.** A theme sets the values of the system's tokens: colours, radii, fonts and any other token. An app links the theme's stylesheet, and when the theme changes here, the app picks it up with its next sync, with no change to its own markup. Fonts and icons also live here and arrive the same way.
@@ -13,7 +20,80 @@ It is for a developer, or a coding agent, building web frontends: plain HTML, Re
 - **Made for agent-built interfaces.** Agents read one short rules file ([`rules/core.md`](rules/core.md), under 2,400 characters), choose from a machine-readable index of every component, and copy the example markup. The catalogue has components for transcripts, tool calls, approvals, step groups, run timelines and long runs, and a page pattern for the screen of one agent run.
 - **Evidence.** In a [blind-build trial](docs/trial-report.md) two agents that had never seen this repository each built three screens from a synced copy of version 0.3.0 alone; all six passed the static scan, the rendered rules and axe with no findings, waivers or declared gaps. An [independent audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 approved it with conditions, scoring it between 3 and 7 out of 10 on ten dimensions; what it criticised is summarised under [Status and limits](#status-and-limits).
 
-## A quick look
+### When it is not a fit
+
+- **You need Safari or Firefox support you can rely on.** Only Chrome is tested, and the components use recent platform features (listed under [Status and limits](#status-and-limits)).
+- **You want a typed React component library.** Components are CSS classes; the app writes the markup. Two React source files ship, nothing more.
+- **You want an npm package.** An app copies `dist/` into its own repository with the sync script.
+- **You use Tailwind 4.** The preset is for Tailwind 3. The stylesheet works without Tailwind.
+- **You want to add your own tokens or restyle one component freely.** The token set is closed and a theme changes values only. That constraint is the point of the system.
+- **You need a stable API today.** Every component is still `draft`.
+
+## Quickstart
+
+This takes about two minutes and ends with the checker passing a page you wrote, then failing it when you break a rule. You need Git, Node 24 or later, Python 3 (or any static file server) and a current Chrome. `dist/` is committed, so there is nothing to install or build.
+
+1. **Clone and serve the repository.**
+
+   ```sh
+   git clone https://github.com/jon-lange/design-system.git
+   cd design-system
+   python3 -m http.server
+   ```
+
+2. **Write a page.** Save this as `try.html` in the repository root:
+
+   ```html
+   <!doctype html>
+   <html lang="en">
+   <head>
+     <meta charset="utf-8">
+     <title>Try the design system</title>
+     <link rel="stylesheet" href="dist/design-system.css">
+   </head>
+   <body>
+     <main class="ds-container ds-stack">
+       <h1>Invite a teammate</h1>
+       <div class="ds-cluster">
+         <button type="button" class="ds-button ds-button--primary">Send invite</button>
+       </div>
+     </main>
+   </body>
+   </html>
+   ```
+
+   Open `http://localhost:8000/try.html`. You should see a heading in IBM Plex Sans and one filled button under it, in a centred column on an off-white page.
+
+3. **Check it.** In a second terminal, from the repository root:
+
+   ```sh
+   node dist/checker/check.mjs try.html
+   ```
+
+   ```
+   0 findings, 0 waivers, 0 declared gaps, 1 file scanned, 41 rules
+   ```
+
+4. **Break a rule.** Change the button to the kind of thing the system exists to stop, and run the same command:
+
+   ```html
+   <button type="button" class="ds-button ds-button--primary" style="background: linear-gradient(#6366f1, #a855f7)">Send invite ✨</button>
+   ```
+
+   ```
+   try.html:12  inline-style  This element has an inline style attribute. Use a catalogue component or a class. Only a --ds- custom property may be set, and only from script.
+   try.html:12  emoji-as-icon  This interface text contains an emoji. Use an icon from the icon set, or remove it.
+
+   2 findings, 0 waivers, 0 declared gaps, 1 file scanned, 41 rules
+   ```
+
+   The command exits 1, so the same line fails an app's test run.
+
+5. **Browse the catalogue.** Open `http://localhost:8000/dist/gallery/` for every component and pattern in every variant and state, with its guidance. Add `?theme=dark` for dark mode and `?brand=botbench` for the Botbench theme; the gallery bar links to both.
+
+Delete `try.html` when you are done. To use the system in a real app, go to [Use it in an app](#use-it-in-an-app).
+
+## How a component is built
 
 The catalogue holds 100 components and 8 page patterns (agent run, app shell, filter and results, master and detail, multi-step form, not found, settings page, sign in). Each lives in its own folder of three hand-written files:
 
@@ -37,22 +117,7 @@ This is the composer's default example, from [`components/composer/examples.html
 
 State comes from the element itself (`disabled`, `aria-busy="true"`, `aria-invalid="true"`, or a `data-state` attribute for agent activity), never from a class a script toggles, so the same markup works from any framework.
 
-The gallery shows every component and pattern in every variant and state, with its guidance. `dist/` is committed, so no build is needed to see it:
-
-```sh
-git clone https://github.com/jon-lange/design-system.git
-cd design-system
-python3 -m http.server --directory dist
-```
-
-Open `http://localhost:8000/gallery/`. Add `?theme=dark` for dark mode and `?brand=botbench` for the Botbench theme; the gallery bar links to both. Icons do not load from a `file:` URL, so serve the folder.
-
-The run timeline under the Botbench theme, dark and light:
-
-<p>
-  <img src="test/visual/screenshots/run-timeline-1280-dark-botbench.png" alt="Gallery page of the run timeline component under the Botbench theme in dark mode" width="49%">
-  <img src="test/visual/screenshots/run-timeline-1280-light-botbench.png" alt="Gallery page of the run timeline component under the Botbench theme in light mode" width="49%">
-</p>
+The browser tests write a screenshot of every gallery page to [`test/visual/screenshots/`](test/visual/screenshots/), one per page, width and mode. Icons do not load from a `file:` URL, so serve the folder as the quickstart does.
 
 <details>
 <summary>The agent-run page pattern under the Botbench theme, dark (a tall full-page screenshot)</summary>
@@ -61,11 +126,9 @@ The run timeline under the Botbench theme, dark and light:
 
 </details>
 
-The browser tests write these screenshots to [`test/visual/screenshots/`](test/visual/screenshots/), one per page, width and mode.
-
 ## Use it in an app
 
-The app takes a copy of `dist/` into its own repository. Nothing loads from another host and the app gains no dependency. The package is not published to npm. [`docs/consumer-guide.md`](docs/consumer-guide.md) has every step in full; this is the short form.
+You need Node 24 or later, and this repository checked out beside the app. The app takes a copy of `dist/` into its own repository. Nothing loads from another host and the app gains no dependency. The package is not published to npm. [`docs/consumer-guide.md`](docs/consumer-guide.md) has every step in full; this is the short form.
 
 1. **Sync a copy.** With this repository checked out beside the app, run from the app's root:
 
@@ -191,6 +254,14 @@ The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five def
 - The diff has no line numbers, and there is no review-decision component, log viewer or presence component.
 - Sizes are built with `calc()` on tokens in places, which the checker does not limit, and type sizes are in pixels.
 - The stylesheet is one 327 KB file (about 60 KB compressed) with no way to load part of it.
+
+## Help and contributing
+
+- **Questions and bugs:** open an [issue](https://github.com/jon-lange/design-system/issues). For a bug, give the version from `dist/VERSION`, the markup, and the checker's output if it is involved.
+- **A component that is missing:** an app declares it in its gaps file ([consumer guide, step 3](docs/consumer-guide.md#3-add-the-config-file-and-the-gaps-file)); an issue that quotes that entry is the best request.
+- **Changes:** [`docs/authoring.md`](docs/authoring.md) is the contract for a component and [`AGENTS.md`](AGENTS.md) the rules for this repository. Run `npm run build` and `npm test` before opening a pull request, and `npm run test:visual` after changing a component.
+
+The system is maintained by [Jon Lange](https://github.com/jon-lange) alongside Botbench, its first consumer.
 
 ## Licence
 
