@@ -41,7 +41,7 @@
     <span class="ds-badge ds-badge--info">Running</span>
     <span class="ds-badge ds-badge--success">Merged</span>
     <span class="ds-badge ds-badge--warning">Out of date</span>
-    <span class="ds-badge ds-badge--danger">Failed</span>
+    <span class="ds-badge ds-badge--danger">Reverted</span>
   </div>
 </div>
 </figure>
@@ -189,6 +189,50 @@
         <span class="ds-badge ds-badge--danger">
           <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-alert"></use></svg>
           Check failed
+        </span>
+      </div>
+    </li>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Ended with an error and did not finish its work.</span>
+        </span>
+        <span class="ds-badge ds-badge--danger">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-x"></use></svg>
+          Failed
+        </span>
+      </div>
+    </li>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">Finished, with nothing left for the reader to decide.</span>
+        </span>
+        <span class="ds-badge ds-badge--success">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>
+          Done
+        </span>
+      </div>
+    </li>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">The reader reviewed the result and accepted it.</span>
+        </span>
+        <span class="ds-badge ds-badge--success">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-thumbs-up"></use></svg>
+          Accepted
+        </span>
+      </div>
+    </li>
+    <li class="ds-list__row">
+      <div class="ds-list__content">
+        <span class="ds-list__body">
+          <span class="ds-list__primary">The reader reviewed the result and rejected it.</span>
+        </span>
+        <span class="ds-badge">
+          <svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>
+          Rejected
         </span>
       </div>
     </li>

@@ -27,6 +27,10 @@ The states of a run each have one icon and one tone, listed in the `statusSet` o
 | Cancelled | circle-slash | neutral |
 | Check passed | circle-check | success |
 | Check failed | circle-alert | danger |
+| Failed | circle-x | danger |
+| Done | check | success |
+| Accepted | thumbs-up | success |
+| Rejected | x | neutral |
 
 - **One state, one icon.** Never show a state with another icon or another tone, and never give two states the same pair.
 - **Pick the state, then the words.** Waiting on the reader's answer is Needs input, whether the answer is an approval, a reply or a decision. Ended early and able to resume is Stopped. Will not go on is Cancelled.
