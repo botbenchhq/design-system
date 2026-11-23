@@ -1,6 +1,6 @@
 {
   "name": "design-system",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "A shared design system: one closed vocabulary of tokens and components, and the checks that hold apps to it",
   "private": true,
   "type": "module",
