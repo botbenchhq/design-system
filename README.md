@@ -2,7 +2,7 @@
 
 A design system for apps whose interfaces are largely written by AI coding agents. It gives the agent a closed vocabulary of design tokens and components, and a checker that fails a frontend which steps outside that vocabulary. Screens come out consistent with each other and without the generic AI-generated look, and the look of every app that uses it can be changed in one place.
 
-It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.11.1. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
+It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.11.2. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
 
 The run timeline component under the Botbench theme, dark and light:
 
@@ -242,7 +242,7 @@ Add a folder under `components/` with its three files and run the build; nothing
 
 ## Status and limits
 
-- **Version 0.11.1.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
+- **Version 0.11.2.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
 - **Everything is `draft`.** All 103 components and 8 patterns. An app may use a draft, but it may still change.
 - **One consumer.** Botbench is the only app that uses it so far.
 - **Tested in Chrome, WebKit and Firefox, not on an iPhone.** The whole browser suite runs in Google Chrome. The tests of the components Botbench uses, at 390px and 1280px, and the keyboard, theme and reflow tests also run, and pass, in Playwright's WebKit 27.2 and Firefox 159. Neither has interest invokers, so a tooltip or hover card shows on hover and focus only. Nothing has been tried in iOS Safari or with a screen reader. The components rely on recent platform features: the Popover API, anchor positioning, invoker commands, interest invokers, `:has()` and `field-sizing`. [`docs/browser-support.md`](docs/browser-support.md) has the results per feature and component, and what still needs a real iPhone.
@@ -259,7 +259,8 @@ The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five def
 
 - **Questions and bugs:** open an [issue](https://github.com/jon-lange/design-system/issues). For a bug, give the version from `dist/VERSION`, the markup, and the checker's output if it is involved.
 - **A component that is missing:** an app declares it in its gaps file ([consumer guide, step 3](docs/consumer-guide.md#3-add-the-config-file-and-the-gaps-file)); an issue that quotes that entry is the best request.
-- **Changes:** [`docs/authoring.md`](docs/authoring.md) is the contract for a component and [`AGENTS.md`](AGENTS.md) the rules for this repository. Run `npm run build` and `npm test` before opening a pull request, and `npm run test:visual` after changing a component.
+- **Changes:** [`CONTRIBUTING.md`](CONTRIBUTING.md) says how to run the checks and what a pull request needs. [`docs/authoring.md`](docs/authoring.md) is the contract for a component and [`AGENTS.md`](AGENTS.md) the rules for this repository. Run `npm run build` and `npm test` before opening a pull request, and `npm run test:visual` after changing a component.
+- **A security problem:** report it privately, as [`SECURITY.md`](SECURITY.md) says, not in an issue.
 
 The system is maintained by [Jon Lange](https://github.com/jon-lange) alongside Botbench, its first consumer.
 

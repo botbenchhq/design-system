@@ -1,0 +1,97 @@
+name: Release
+
+# A tag and a GitHub Release for each version, made when a push to main changes the version in package.json.
+# The version is package.json's "version", and its notes are the hand-written section of CHANGELOG.md with the same
+# heading ("## X.Y.Z"), the words an app reads when it syncs that version. A release (AGENTS.md) raises the version and
+# adds that section in the same change, so this workflow only publishes them: tag vX.Y.Z on the pushed commit and a
+# Release with the section as its notes. It never writes to the branch.
+#
+# It stops, and makes nothing, when the version did not change in the push, when the tag already exists, or when the
+# version is not X.Y.Z. It fails when CHANGELOG.md has no section for the version.
+# Run by hand (workflow_dispatch) on main, it releases package.json's version if that tag does not exist yet, for a
+# release whose push did not make one.
+# Versions before this workflow have no tag and get none from it.
+
+on:
+  push:
+    branches: [main]
+    paths: [package.json]
+  workflow_dispatch:
+
+# Nothing by default: the one job asks for what it needs.
+permissions: {}
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Tag and GitHub Release
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write  # the tag and the Release; this job only
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0  # the version before the push, and the existing tags
+          persist-credentials: false
+
+      - name: Decide
+        id: plan
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          version=$(jq -r .version package.json)
+          [[ "$version" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] || { echo "package.json's version $version is not X.Y.Z: no release"; exit 1; }
+          tag="v$version"
+          if [ "$EVENT" = push ]; then
+            before=$(git show "$BEFORE:package.json" 2>/dev/null | jq -r .version || true)
+            if [ -z "$before" ]; then
+              echo "No version before this push to compare with: nothing released (run this workflow by hand)." >> "$GITHUB_STEP_SUMMARY"
+              echo "release=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            if [ "$before" = "$version" ]; then
+              echo "The version is still $version: nothing to release." >> "$GITHUB_STEP_SUMMARY"
+              echo "release=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+          if git rev-parse -q --verify "refs/tags/$tag" > /dev/null; then
+            echo "$tag exists already: nothing to release." >> "$GITHUB_STEP_SUMMARY"
+            echo "release=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          { echo "release=true"; echo "version=$version"; echo "tag=$tag"; } >> "$GITHUB_OUTPUT"
+
+      # The lines after "## X.Y.Z" up to the next "## " heading, without the blank lines around them.
+      - name: The version's CHANGELOG section
+        if: steps.plan.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.plan.outputs.version }}
+        run: |
+          set -euo pipefail
+          awk -v h="## $VERSION" '
+            $0 == h { on = 1; next }
+            on && /^## / { exit }
+            on { line[++n] = $0 }
+            END { s = 1; while (s <= n && line[s] == "") s++; e = n; while (e >= s && line[e] == "") e--; for (i = s; i <= e; i++) print line[i] }
+          ' CHANGELOG.md > /tmp/notes.md
+          [ -s /tmp/notes.md ] || { echo "CHANGELOG.md has no section \"## $VERSION\": no release"; exit 1; }
+          cat /tmp/notes.md
+
+      - name: Tag and Release
+        if: steps.plan.outputs.release == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ steps.plan.outputs.tag }}
+        run: |
+          set -euo pipefail
+          gh release create "$TAG" --target "$GITHUB_SHA" --title "$TAG" --notes-file /tmp/notes.md
+          echo "Released [$TAG](https://github.com/$GITHUB_REPOSITORY/releases/tag/$TAG) on $GITHUB_SHA." >> "$GITHUB_STEP_SUMMARY"

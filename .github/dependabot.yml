@@ -1,0 +1,40 @@
+# Dependabot version updates, as in jon-lange/botbench and jon-lange/settleview (security updates are separate and are
+# not held back by the cooldown or the groups).
+# - cooldown: a release must be 14 days old before Dependabot proposes it.
+# - groups: one weekly pull request per ecosystem for minor and patch updates, not one per package.
+# - major versions are ignored: those are deliberate, tested upgrades, not routine updates.
+# Every npm package here is a development tool (the system has no runtime dependencies). A Playwright update can
+# change the Chrome screenshots: AGENTS.md says to rewrite them in a commit of their own, on the owner's Mac.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 14
+    groups:
+      npm:
+        patterns: ["*"]
+        update-types: [minor, patch]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    commit-message:
+      prefix: "build(deps)"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 14
+    groups:
+      github-actions:
+        patterns: ["*"]
+        update-types: [minor, patch]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    commit-message:
+      prefix: "ci(deps)"

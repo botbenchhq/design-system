@@ -1,0 +1,27 @@
+# gitleaks (https://github.com/gitleaks/gitleaks): what must never reach GitHub. Run by the gitleaks job of
+# .github/workflows/ci.yml over every commit, and by hand with `gitleaks git .` from the repository's folder.
+# Modelled on jon-lange/botbench's .gitleaks.toml.
+#
+# gitleaks' own rules (private keys, cloud, GitHub, AI-provider, Slack, Stripe, ... tokens), and one rule of this
+# repository's below. The examples, the gallery and the test fixtures use placeholder data only (acme.example,
+# mira@acme.dev, /Users/mira); none of it trips gitleaks' rules. A placeholder that does one day carries gitleaks'
+# standard `gitleaks:allow` comment on its line instead of an entry here.
+
+title = "Design system"
+
+[extend]
+useDefault = true
+
+# A macOS home folder path names the account it belongs to. The placeholder accounts used in examples and tests are
+# allowed; any other name fails the scan.
+[[rules]]
+id = "mac-home-path"
+description = "A macOS home folder path (it names the local account): use a placeholder such as /Users/mira"
+regex = '''/Users/([A-Za-z0-9._-]+)/'''
+secretGroup = 1
+keywords = ["/users/"]
+tags = ["personal-data"]
+
+[[rules.allowlists]]
+description = "placeholder account names in examples, tests and docs"
+regexes = ['''^(?:mira|owner|me|you|someone|name|username)$''']
