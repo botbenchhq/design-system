@@ -13,7 +13,8 @@ export function parseWaivers(text) {
   text.split("\n").forEach((content, at) => {
     const match = content.match(WAIVER);
     if (!match) return;
-    const reason = (match[2] ?? "").replace(/(\*\/\}?|-->)\s*$/, "").trim();
+    // The comment's closing delimiter is not part of the reason: */, */} or an HTML comment's --> or --!>.
+    const reason = (match[2] ?? "").replace(/(\*\/\}?|--!?>)\s*$/, "").trim();
     waivers.push({ line: at + 1, rule: match[1] ?? "", reason });
   });
   return waivers;

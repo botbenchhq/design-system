@@ -267,3 +267,10 @@ test("a waiver comment yields its rule, reason and line in each comment style", 
     { line: 3, rule: "visual-utility", reason: "" },
   ]);
 });
+
+test("an HTML comment closed with --!> leaves no delimiter in the reason, so an empty reason stays empty", () => {
+  assert.deepEqual(parseWaivers(["<!-- ds-waive raw-color: fixed by contract --!>", "<!-- ds-waive inline-style: --!>"].join("\n")), [
+    { line: 1, rule: "raw-color", reason: "fixed by contract" },
+    { line: 2, rule: "inline-style", reason: "" },
+  ]);
+});

@@ -7349,6 +7349,13 @@
     gap: var(--ds-space-sm);
     padding-top: var(--ds-space-md);
     border-top-width: var(--ds-border-width);
+    overflow-wrap: anywhere;
+  }
+
+  /* A long branch name or command in the result wraps inside the column instead of widening the page. */
+  .ds-review-decision__result > * {
+    max-width: 100%;
+    min-width: 0;
   }
 }
 

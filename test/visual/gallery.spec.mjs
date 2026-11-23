@@ -1124,6 +1124,22 @@ test("log-viewer: while running it follows new lines only while the reader is at
   expect(await example.locator(".ds-log-viewer__body").evaluate((body) => body.scrollTop)).toBe(100);
 });
 
+test("review-decision: a long unbroken branch name in the result wraps and does not widen the page at 390px", async ({ page }) => {
+  await open(page, "review-decision", { width: 390 });
+  await page.locator('[data-example="accepted"] .ds-review-decision__result p').first().evaluate((p) => {
+    p.outerHTML = `<div class="ds-stack ds-gap-sm">
+      <dl class="ds-key-value"><div class="ds-key-value__item"><dt class="ds-key-value__label">Branch</dt><dd class="ds-key-value__value ds-key-value__value--mono">botbench/run-1842/task-7-fix-the-session-refresh-after-a-reload-and-add-a-regression-test</dd></div></dl>
+      <div class="ds-copy-field"><input class="ds-copy-field__value" type="text" readonly aria-label="Merge command" size="80" value="git merge botbench/run-1842/task-7-fix-the-session-refresh-after-a-reload"><button type="button" class="ds-button">Copy</button><p class="ds-copy-field__status" role="status"></p></div>
+    </div>`;
+  });
+  // The gallery frame may clip, so measure against the decision itself: nothing in it ends past its right edge.
+  const overhang = await page.locator('[data-example="accepted"] .ds-review-decision').first().evaluate((section) => {
+    const edge = section.getBoundingClientRect().right;
+    return Math.max(...[...section.querySelectorAll("*")].map((node) => node.getBoundingClientRect().right - edge));
+  });
+  expect(overhang).toBeLessThanOrEqual(0);
+});
+
 test("review-decision: each do example has at most one primary action, and the review carries no badge", async ({ page }) => {
   await open(page, "review-decision", { width: 390 });
   for (const example of await page.locator(DO).all()) {
