@@ -2,7 +2,7 @@
 
 A design system for apps whose interfaces are largely written by AI coding agents. It gives the agent a closed vocabulary of design tokens and components, and a checker that fails a frontend which steps outside that vocabulary. Screens come out consistent with each other and without the generic AI-generated look, and the look of every app that uses it can be changed in one place.
 
-It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.11.2. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
+It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.11.3. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
 
 The run timeline component under the Botbench theme, dark and light:
 
@@ -242,7 +242,7 @@ Add a folder under `components/` with its three files and run the build; nothing
 
 ## Status and limits
 
-- **Version 0.11.2.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
+- **Version 0.11.3.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
 - **Everything is `draft`.** All 103 components and 8 patterns. An app may use a draft, but it may still change.
 - **One consumer.** Botbench is the only app that uses it so far.
 - **Tested in Chrome, WebKit and Firefox, not on an iPhone.** The whole browser suite runs in Google Chrome. The tests of the components Botbench uses, at 390px and 1280px, and the keyboard, theme and reflow tests also run, and pass, in Playwright's WebKit 27.2 and Firefox 159. Neither has interest invokers, so a tooltip or hover card shows on hover and focus only. Nothing has been tried in iOS Safari or with a screen reader. The components rely on recent platform features: the Popover API, anchor positioning, invoker commands, interest invokers, `:has()` and `field-sizing`. [`docs/browser-support.md`](docs/browser-support.md) has the results per feature and component, and what still needs a real iPhone.
