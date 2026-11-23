@@ -24,3 +24,33 @@ export function Misuse({ busy }: { busy: boolean }) {
     </>
   );
 }
+
+import { Dialog, Sheet } from "../../../dist/react/dialog.tsx";
+import { Approval } from "../../../dist/react/approval.tsx";
+
+export function LayerMisuse({ busy }: { busy: boolean }) {
+  return (
+    <>
+      {/* @ts-expect-error an icon-only toggle keeps its name, so it takes no busyLabel */}
+      <BusyButton icon="mic" aria-label="Dictate" aria-pressed={false} busy={busy} busyLabel="Transcribing" />
+      {/* @ts-expect-error an icon-only button that can be busy, without the name it has while busy */}
+      <BusyButton icon="copy" aria-label="Copy branch name" busy={busy} />
+      {/* @ts-expect-error an icon-only button without a name */}
+      <BusyButton icon="copy" />
+      {/* @ts-expect-error a dialog without its title */}
+      <Dialog open onClose={() => {}} footer={null}>Body</Dialog>
+      {/* @ts-expect-error open and closed from a prop, so the open state is required */}
+      <Dialog onClose={() => {}} title="Rename" footer={null}>Body</Dialog>
+      {/* @ts-expect-error a body label is for the scrolling dialog */}
+      <Dialog variant="confirm" bodyLabel="Files" open onClose={() => {}} title="Delete?" footer={null}>Body</Dialog>
+      {/* @ts-expect-error a sheet's Close button needs a name */}
+      <Sheet open onClose={() => {}} title="Filters">Body</Sheet>
+      {/* @ts-expect-error an elevated risk line starts with Elevated risk */}
+      <Approval title="Asks" command="rm" risk={{ level: "elevated", line: "Normal risk: fine" }} onAllow={() => {}} onDecline={() => {}} />
+      {/* @ts-expect-error an answer is Allow or Decline */}
+      <Approval title="Asks" command="rm" sending="grant" onAllow={() => {}} onDecline={() => {}} />
+      {/* @ts-expect-error a card needs Decline */}
+      <Approval title="Asks" command="rm" onAllow={() => {}} />
+    </>
+  );
+}

@@ -23,7 +23,7 @@ The run timeline component under the Botbench theme, dark and light:
 ### When it is not a fit
 
 - **You need Safari or Firefox support you can rely on.** Only Chrome is tested, and the components use recent platform features (listed under [Status and limits](#status-and-limits)).
-- **You want a typed React component library.** Components are CSS classes; the app writes the markup. Two React source files ship, nothing more.
+- **You want a typed React component library.** Components are CSS classes; the app writes the markup. Five React source files ship for the interactive pieces an app most often wires by hand, nothing more.
 - **You want an npm package.** An app copies `dist/` into its own repository with the sync script.
 - **You use Tailwind 4.** The preset is for Tailwind 3. The stylesheet works without Tailwind.
 - **You want to add your own tokens or restyle one component freely.** The token set is closed and a theme changes values only. That constraint is the point of the system.
@@ -214,7 +214,7 @@ To change the look of every app: edit the theme here, run `npm run build`, and e
 | `components/` | 100 components, one folder each. |
 | `patterns/` | 8 page patterns, built to the same contract. |
 | `behaviors/` | Seven optional ES modules for an app without a framework (tabs, combobox, command palette, menu, listbox, elapsed time, transcript). |
-| `react/` | Two TypeScript source files for a React 19 app: a busy button and a transcript-following hook. |
+| `react/` | TypeScript source for a React 19 app: a busy button, the dialog and the sheet, the approval card, a menu keyboard hook and a transcript-following hook. |
 | `checker/` | The static scan and the structural rules. No dependencies. |
 | `rules/` | Eight files agents read: `core.md` first, then principles, disclosure, the never list, content, choosing a component, checker rules and the review rubric. |
 | `gallery/`, `hooks/`, `scripts/` | The gallery's own CSS and script, the optional Claude Code hook, and the build, sync and codemod scripts. |
@@ -245,11 +245,11 @@ Add a folder under `components/` with its three files and run the build; nothing
 - **One consumer.** Botbench is the only app that uses it so far.
 - **Chrome only.** The browser tests run in Google Chrome. Nothing has been tested in Firefox, Safari or WebKit, or with a screen reader. The components rely on recent platform features: the Popover API, anchor positioning, invoker commands, `:has()` and `field-sizing`.
 
-The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five defects that 0.7.2 fixed (menu and listbox keyboard, colour scheme under a theme's default mode, reflow at 320px, wide tables, the command palette's no-match announcement), and 0.7.5 added the two React source files. These of its findings are still open:
+The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five defects that 0.7.2 fixed (menu and listbox keyboard, colour scheme under a theme's default mode, reflow at 320px, wide tables, the command palette's no-match announcement), and 0.7.5 began the React source in `react/`. These of its findings are still open:
 
 - The screenshot tests do not compare against a baseline; a visual regression is caught only by a person looking.
 - The checker does not check `data-state` values, accessible names, `alt` text or whether a badge's tone matches its word.
-- There is no typed React component layer beyond the two source files.
+- The typed React layer covers the busy button, the dialog, confirm dialog and sheet, the approval card, the menu's keyboard and the transcript. Tabs, the combobox, the listbox and the command palette have no React piece: an app uses the behaviour modules or wires them by hand.
 - The audit judged the Botbench theme's identity generic (brand distinctiveness 4 out of 10). 0.8.0 replaced that theme's look and gave it a focus ring distinct from the accent; the new look has not been audited.
 - The diff has no line numbers, and there is no review-decision component, log viewer or presence component.
 - Sizes are built with `calc()` on tokens in places, which the checker does not limit, and type sizes are in pixels.

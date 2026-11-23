@@ -15,5 +15,5 @@
     "jsx": "react-jsx",
     "types": []
   },
-  "files": ["usage.tsx", "misuse.tsx", "app.tsx"]
+  "files": ["usage.tsx", "misuse.tsx", "app.tsx", "layer.tsx"]
 }

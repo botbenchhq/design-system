@@ -96,9 +96,23 @@ What the two modules do, a framework app does in its own components:
 
 ### React source
 
-`react/` holds two files of TypeScript source for a React 19 app, so it does not write them again on every screen. They come with the sync like the rest of the copy, and need nothing but React. Import them from the vendored folder, or copy them into the app's own components and change them there. Nothing changes for an app that does not import them.
+`react/` holds TypeScript source for a React 19 app: the interactive components whose ARIA and keyboard an app would otherwise wire by hand on every screen. They come with the sync like the rest of the copy, and need nothing but React and each other. Import them from the vendored folder, or copy them into the app's own components and change them there. Each renders the classes and attributes of its component's examples, so the checker and the rendered rules treat it as the markup they already know. Nothing changes for an app that does not import them.
 
-`react/busy-button.tsx` is `BusyButton`, a button with the system's classes and a busy state. It takes `variant` (`primary`, `secondary`, `quiet` or `danger`), `size` (`default` or `small`), an optional `icon` name with `spriteHref` for where the app serves `icons.svg`, and every attribute of a native button. It is `type="button"` unless given another type, and takes a `ref`. While `busy` is true it sets `aria-busy="true"`, shows `busyLabel` in place of its label and ignores presses from the pointer and the keyboard. It stays enabled, so focus stays on it. The types do not allow a button that can be busy without `busyLabel`.
+| File | Holds |
+|---|---|
+| `busy-button.tsx` | `BusyButton`, a button with a busy state. |
+| `dialog.tsx` | `Dialog`, the dialog and the confirm dialog, and `Sheet`, opened and closed from a prop. |
+| `use-menu.ts` | `useMenu`, the keyboard of a menu, as `behaviors/menu.js` gives it. |
+| `approval.tsx` | `Approval`, the approval card, with Allow and Decline as busy buttons. |
+| `use-transcript.ts` | `useTranscript`, which follows a transcript as `behaviors/transcript.js` does. |
+
+`react/busy-button.tsx` is `BusyButton`, a button with the system's classes and a busy state. It takes `variant` (`primary`, `secondary`, `quiet` or `danger`), `size` (`default` or `small`), an optional `icon` name with `spriteHref` for where the app serves `icons.svg`, and every attribute of a native button. It is `type="button"` unless given another type, and takes a `ref`. While `busy` is true it sets `aria-busy="true"` and ignores presses from the pointer and the keyboard. It stays enabled, so focus stays on it. What it says while busy depends on its label:
+
+- With words as children, it shows `busyLabel` in place of them.
+- With an `icon` and an `aria-label` and no children, it is an icon button: it carries `ds-icon-button`, and while busy `busyLabel` becomes its name and no words are shown.
+- An icon button with `aria-pressed` is a toggle, whose name never changes. It takes no `busyLabel` and keeps its `aria-label` while busy; the app says what is happening in a status line of its own.
+
+The types do not allow a button that can be busy without `busyLabel`, a toggle with one, or an icon button without a name. Set `busy`, never `aria-busy`, which the button writes itself.
 
 ```tsx
 import { BusyButton } from "../vendor/design-system/react/busy-button.tsx";
@@ -106,6 +120,61 @@ import { BusyButton } from "../vendor/design-system/react/busy-button.tsx";
 <BusyButton type="submit" variant="primary" busy={signingIn} busyLabel="Signing in">
   Sign in
 </BusyButton>
+<BusyButton icon="mic" variant="quiet" aria-label="Dictate" aria-pressed={listening} busy={transcribing} onClick={toggleDictation} />
+```
+
+`react/dialog.tsx` is `Dialog` and `Sheet`. `open` decides: when it turns true the dialog element opens with `showModal()`, which traps focus, makes the page behind inert and moves focus to the first control in it; when it turns false, or the dialog leaves the page while open, it closes and focus goes back to the element that had it. The reader closes it with Escape, the sheet's Close button or a footer button of type `submit` with a `value`: then `onClose` is called with that value, or `""` for Escape, and the app sets `open` to false. `onClose` is not called when the app closed it. `title` is the heading that names it, `children` the body and `footer` the buttons. `onSubmit` is the submit event of the form that holds the footer, for an app that validates or saves before closing: call `preventDefault()` and close it when the work is done. `variant="scroll"` keeps the title and the footer in place, with `bodyLabel` for a body with no control in it. `variant="confirm"` is the confirm dialog: an alert dialog described by its body, with Cancel first in the footer so focus starts there. `Sheet` takes `closeLabel`, the name of its Close button, and an optional `footer`; with a footer the body and the footer are one form.
+
+```tsx
+import { Dialog } from "../vendor/design-system/react/dialog.tsx";
+
+<button type="button" className="ds-button" aria-haspopup="dialog" onClick={() => setRenaming(true)}>Rename branch</button>
+<Dialog
+  open={renaming}
+  onClose={(value) => {
+    setRenaming(false);
+    if (value === "rename") rename();
+  }}
+  title="Rename the branch"
+  footer={
+    <>
+      <button type="submit" className="ds-button ds-button--primary" value="rename">Rename branch</button>
+      <button type="submit" className="ds-button" value="cancel" formNoValidate>Cancel</button>
+    </>
+  }
+>
+  <p>The open pull request follows the new name.</p>
+</Dialog>
+```
+
+`react/use-menu.ts` is `useMenu`, the hook that does for a React menu what `<ds-menu>` does without a framework. The button still opens and closes the menu through `popovertarget`, and the browser closes it on Escape and on a press outside and gives focus back to the button. The hook moves focus to the first item when the menu opens, keeps one item in the tab order, moves with Up, Down, Home, End and letters, closes on Tab, and does nothing on Enter or Space on an item with `aria-disabled="true"`. Spread `buttonProps` on the button, `menuProps` on the menu and `itemProps` on each item, and give the menu its `aria-label`. Call `close()` after an item's action, and `open()` to open the menu from the row it acts on, as on a right-click.
+
+```tsx
+import { useMenu } from "../vendor/design-system/react/use-menu.ts";
+
+const menu = useMenu();
+
+<button type="button" className="ds-button" {...menu.buttonProps}>Task actions</button>
+<div className="ds-menu" {...menu.menuProps} aria-label="Task actions">
+  <button className="ds-menu__item" {...menu.itemProps} onClick={() => (copyBranch(), menu.close())}>Copy branch name</button>
+</div>
+```
+
+`react/approval.tsx` is `Approval`, the approval card. It takes `title`, `command` (written out with any character that cannot be seen shown by code point), `folder`, `reason` and further `facts`, an optional `risk` whose line must start with the words of its level, optional `details`, an optional `note` that the one Decline sends, `error`, and `onAllow` and `onDecline`. `sending` is `"allow"`, `"decline"` or `null`: the pressed button is then a busy button that says Allowing or Declining and keeps focus, and the other is disabled. `primary={false}` gives Allow secondary emphasis, for a card in a list or a queue. `heading` sets the title's level, `h2` unless given. `labels` takes the app's own words for the four labels.
+
+```tsx
+import { Approval } from "../vendor/design-system/react/approval.tsx";
+
+<Approval
+  title="Claude Code asks to run a command"
+  command={request.command}
+  folder={request.folder}
+  reason={request.reason}
+  sending={sending}
+  error={problem}
+  onAllow={() => answer("allow")}
+  onDecline={(note) => answer("decline", note)}
+/>
 ```
 
 `react/use-transcript.ts` is `useTranscript`, the hook that does for a React transcript what `<ds-transcript>` does without a framework: it follows the newest row while the reader is within 60px of the bottom, stops when they scroll up, counts the rows added since, and follows again when they press the jump-to-latest button or reach the bottom. It never moves focus. Pass the number of rows shown, put `scrollerRef` on the element that scrolls and `logRef` on the log inside it, and spread `jumpButtonProps` on the jump-to-latest button. The app writes the count in its own words and sets `hidden` while `newCount` is 0. Call `jumpToLatest()` to go to the bottom from the app's own code, such as after sending a prompt.
