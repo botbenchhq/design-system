@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.11.2
+
+Every pull request and every push to `main` now runs CI (`.github/workflows/ci.yml`): the build and a check that the committed `dist/` matches it, `npm audit`, `npm test`, a check that `CHANGELOG.md` has a section for the version, the WebKit and Firefox Playwright projects, a gitleaks scan of the whole history and CodeQL. Every action is pinned to a commit hash. The Chrome screenshot suite still runs on the maintainer's Mac only, because its baselines come from that Chrome and its fonts. When a change to `main` raises the version, `.github/workflows/release.yml` tags `vX.Y.Z` and publishes a GitHub Release whose notes are that version's section here; 0.11.2 is the first version tagged. Dependabot proposes weekly grouped minor and patch updates for npm and GitHub Actions after a 14-day cooldown. The repository gains `CONTRIBUTING.md`, `SECURITY.md` (private vulnerability reporting), `CODE_OF_CONDUCT.md`, issue and pull request templates, `.gitleaks.toml` and `rulesets/main.json`. Nothing in `dist/` changed except `VERSION`; apps need do nothing.
+
 ## 0.11.1
 
 The browser tests now compare every gallery page with its committed screenshot in `test/visual/screenshots/` and fail on a difference of more than 20 pixels. `npm run test:visual:update` rewrites the screenshots that differ, for a change you mean to make. `npm run test:visual` runs in Chrome only, as before. New `webkit` and `firefox` Playwright projects (`npm run test:visual:webkit`, `npm run test:visual:firefox`, after `npx playwright install webkit firefox`) run axe and the structural rules at 390px and 1280px, the pointer-target check at 390px for the components Botbench uses, and the composer, option-picker, menu, theme and reflow tests. All pass in WebKit 27.2 and Firefox 159 with no change to a stylesheet or behaviour module. Neither engine has interest invokers, so a tooltip or hover card there shows on hover and focus only. `docs/browser-support.md` has the results and what still needs checking on a real iPhone. No class, token or rule changed; apps need do nothing.
