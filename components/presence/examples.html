@@ -1,0 +1,39 @@
+<div data-example="default" data-title="On a task: whose agent it is" data-state="default" data-reason="The marks say at a glance that someone is here, and the sentence says whose work it is, which is what the reader needs before touching the task. Each mark carries its name for a screen reader, a person by initials and an agent by its icon.">
+  <div class="ds-presence">
+    <ul class="ds-presence__marks" aria-label="On this task now">
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Alex Chen">AC</span></span></li>
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Alex Chen's Claude Code"><svg class="ds-avatar__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg></span></span></li>
+    </ul>
+    <p class="ds-presence__label">Alex Chen's Claude Code is on this task.</p>
+  </div>
+</div>
+
+<div data-example="many" data-title="On a repository: three shown, and a count for the rest">
+  <div class="ds-presence">
+    <ul class="ds-presence__marks" aria-label="In acme/api now">
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Alex Chen">AC</span></span></li>
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Alex Chen's Claude Code"><svg class="ds-avatar__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg></span></span></li>
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Maya Okafor">MO</span></span></li>
+      <li class="ds-presence__more">+2<span class="ds-visually-hidden"> more: Maya Okafor's Claude Code and Codex, reviewer</span></li>
+    </ul>
+    <p class="ds-presence__label">5 in acme/api now</p>
+  </div>
+</div>
+
+<div data-example="marks-only" data-title="The marks alone, where the row already says what they are on">
+  <div class="ds-presence">
+    <ul class="ds-presence__marks" aria-label="On task 41 now">
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Maya Okafor">MO</span></span></li>
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Maya Okafor's Claude Code"><svg class="ds-avatar__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg></span></span></li>
+    </ul>
+  </div>
+</div>
+
+<div data-example="nameless" data-title="Marks with no names" data-dont="review" data-reason="With the marks hidden and nothing written, a screen reader hears nothing, and a sighted reader sees two letters and an icon with no way to tell whose agent it is. Give each mark its name, and say whose work it is in the label.">
+  <div class="ds-presence">
+    <ul class="ds-presence__marks">
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" aria-hidden="true">AC</span></span></li>
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" aria-hidden="true"><svg class="ds-avatar__icon" aria-hidden="true"><use href="icons.svg#ds-icon-terminal"></use></svg></span></span></li>
+    </ul>
+  </div>
+</div>

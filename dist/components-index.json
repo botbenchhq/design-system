@@ -486,7 +486,7 @@
     "name": "diff",
     "kind": "component",
     "title": "Diff",
-    "purpose": "One file's change as a unified diff, with its path and how many lines were added and removed.",
+    "purpose": "One file's change as a unified diff, with its path, how many lines were added and removed, and optional line numbers.",
     "status": "draft",
     "classes": [
       "ds-diff",
@@ -501,6 +501,9 @@
       "ds-diff__line--removed",
       "ds-diff__lines",
       "ds-diff__note",
+      "ds-diff__number",
+      "ds-diff__number--new",
+      "ds-diff__number--old",
       "ds-diff__path",
       "ds-diff__removed",
       "ds-diff__sign",
@@ -759,6 +762,26 @@
     ]
   },
   {
+    "name": "log-viewer",
+    "kind": "component",
+    "title": "Log viewer",
+    "purpose": "A command's output, however long, in a box of capped height that scrolls by itself, with long lines wrapped and error lines marked.",
+    "status": "draft",
+    "classes": [
+      "ds-log-viewer",
+      "ds-log-viewer__body",
+      "ds-log-viewer__command",
+      "ds-log-viewer__footer",
+      "ds-log-viewer__header",
+      "ds-log-viewer__line",
+      "ds-log-viewer__line--error",
+      "ds-log-viewer__lines",
+      "ds-log-viewer__meta",
+      "ds-log-viewer__note",
+      "ds-log-viewer__toggle"
+    ]
+  },
+  {
     "name": "menu",
     "kind": "component",
     "title": "Menu",
@@ -960,6 +983,19 @@
     ]
   },
   {
+    "name": "presence",
+    "kind": "component",
+    "title": "Presence",
+    "purpose": "Who is on a task or a repository right now, people and agents, as a few small avatar marks with a count for the rest and a sentence saying whose work it is.",
+    "status": "draft",
+    "classes": [
+      "ds-presence",
+      "ds-presence__label",
+      "ds-presence__marks",
+      "ds-presence__more"
+    ]
+  },
+  {
     "name": "progress",
     "kind": "component",
     "title": "Progress",
@@ -998,6 +1034,24 @@
       "ds-reasoning",
       "ds-reasoning__body",
       "ds-reasoning__summary"
+    ]
+  },
+  {
+    "name": "review-decision",
+    "kind": "component",
+    "title": "Review decision",
+    "purpose": "The end of a task: what the checks found and what the review said, one line each, then Accept and Reject, and the result once decided.",
+    "status": "draft",
+    "classes": [
+      "ds-review-decision",
+      "ds-review-decision__actions",
+      "ds-review-decision__caveat",
+      "ds-review-decision__evidence",
+      "ds-review-decision__finding",
+      "ds-review-decision__line",
+      "ds-review-decision__result",
+      "ds-review-decision__source",
+      "ds-review-decision__title"
     ]
   },
   {

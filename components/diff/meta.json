@@ -1,7 +1,7 @@
 {
   "name": "diff",
   "title": "Diff",
-  "purpose": "One file's change as a unified diff, with its path and how many lines were added and removed.",
+  "purpose": "One file's change as a unified diff, with its path, how many lines were added and removed, and optional line numbers.",
   "status": "draft",
   "whenToUse": [
     "To show what a task changed in one file, before the reader decides on it.",
@@ -21,6 +21,7 @@
     "Write each count as a sign and a number followed by a ds-diff__label span that finishes it in words, such as +7 and lines added. The label is hidden from sight and read by a screen reader.",
     "The body is a pre with tabindex=\"0\", role=\"group\" and an aria-label naming the file, so it can take focus and the arrow keys scroll it sideways. The page itself never scrolls sideways.",
     "Each line is a ds-diff__line holding a ds-diff__sign cell and a ds-diff__text cell. Use an ins element for an added line and a del element for a removed one, with the plus or minus as the sign. A context line and a hunk header are spans, with a space as the sign.",
+    "Line numbers are optional. Put two ds-diff__number cells before the sign of every line, ds-diff__number--old and then ds-diff__number--new, each with aria-hidden=\"true\". Leave a cell empty where the line has no number in that file: the old number of an added line, the new number of a removed line and both on a hunk header. Give every line both cells or no line any. Below 768px only the new number is shown, so the code keeps its width. The stylesheet makes the numbers unselectable, so copying the code leaves them behind.",
     "Never leave out the sign. The shading alone does not mark a line for someone who cannot tell the colours apart.",
     "While the diff is fetched, set aria-busy=\"true\" on the figure and put a ds-diff__note with role=\"status\" in place of the body. When it fails, use a note with role=\"alert\" that says why. The stylesheet adds the failure's icon.",
     "When a file changed with no line to show, or the diff is cut short, say so in a plain ds-diff__note."
@@ -39,6 +40,9 @@
     "ds-diff__line--removed",
     "ds-diff__lines",
     "ds-diff__note",
+    "ds-diff__number",
+    "ds-diff__number--new",
+    "ds-diff__number--old",
     "ds-diff__path",
     "ds-diff__removed",
     "ds-diff__sign",

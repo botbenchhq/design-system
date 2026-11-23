@@ -1,0 +1,75 @@
+/*
+ * Review decision: the end of a task. What the checks found and what the review said, one line each,
+ * then Accept and Reject. Once decided, the same block holds the result in their place.
+ * The review is a model's opinion: it is written as words, with no tone and no icon, so it never reads as a check.
+ */
+
+@layer ds.components {
+  .ds-review-decision {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-space-md);
+    min-width: 0;
+    padding: var(--ds-space-lg);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
+  }
+
+  .ds-review-decision__title {
+    font-weight: var(--ds-weight-semibold);
+  }
+
+  /* What each source says: a term column and a value column, one line each where it fits. */
+  .ds-review-decision__evidence {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--ds-space-md);
+    row-gap: var(--ds-space-sm);
+  }
+
+  .ds-review-decision__line {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: baseline;
+  }
+
+  .ds-review-decision__source {
+    color: var(--ds-color-muted);
+  }
+
+  .ds-review-decision__finding {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* After the review's words: whose opinion it is, so it is never taken for proof. */
+  .ds-review-decision__caveat {
+    display: block;
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
+  }
+
+  /* Accept at the start and Reject at the far end, so a thumb aiming for one cannot land on the other. */
+  .ds-review-decision__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-space-md);
+    padding-top: var(--ds-space-md);
+    border-top-width: var(--ds-border-width);
+  }
+
+  /* The decision, once made, in place of the actions: its badge, then what became of the work. */
+  .ds-review-decision__result {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--ds-space-sm);
+    padding-top: var(--ds-space-md);
+    border-top-width: var(--ds-border-width);
+  }
+}

@@ -1,0 +1,46 @@
+/*
+ * Presence: who is on a task or a repository right now, people and agents, as a short row of small avatar
+ * marks with a count for the rest, and an optional sentence that says whose work it is.
+ * The marks sit apart, never stacked over each other, and carry no status dot: being there is the whole message.
+ */
+
+@layer ds.components {
+  .ds-presence {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ds-space-xs) var(--ds-space-sm);
+    min-width: 0;
+  }
+
+  .ds-presence__marks {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--ds-space-xs);
+  }
+
+  /* The ones not drawn, as +N, the size of a small mark. Its hidden words name them. */
+  .ds-presence__more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--ds-space-xl);
+    height: var(--ds-space-xl);
+    padding-inline: var(--ds-space-xs);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-sm);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-xs);
+    white-space: nowrap;
+  }
+
+  /* Whose work it is, in words: Alex Chen's Claude Code is on this task. */
+  .ds-presence__label {
+    min-width: 0;
+    color: var(--ds-color-muted);
+    overflow-wrap: anywhere;
+  }
+}

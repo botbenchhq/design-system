@@ -1,0 +1,34 @@
+{
+  "name": "presence",
+  "title": "Presence",
+  "purpose": "Who is on a task or a repository right now, people and agents, as a few small avatar marks with a count for the rest and a sentence saying whose work it is.",
+  "status": "draft",
+  "whenToUse": [
+    "When someone other than the reader, or another person's agent, is working on the task or the repository the reader is looking at.",
+    "Beside a task's title or in a repository's row, so the reader sees whose work it is before starting on it.",
+    "Only while someone is there. With nobody else on it, show nothing."
+  ],
+  "whenNotToUse": [
+    "To say who did something in the past. Use an avatar with the name beside it, in an activity feed or a timeline.",
+    "For the status of the work, such as Working or Needs input. Use a badge.",
+    "For a list of everyone with access. Use a list of avatars with their names."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default"],
+  "accessibility": [
+    "Use a div with the class ds-presence. Inside it, a ul, ds-presence__marks, with an aria-label saying where, such as On this task now. Each li holds a small avatar, ds-avatar ds-avatar--small, with its mark only.",
+    "Each mark carries the name: role=\"img\" and aria-label on the span, such as Alex Chen or Alex Chen's Claude Code. A person's mark holds initials and an agent's the terminal icon, so the two are told apart by shape.",
+    "Show at most three marks. The rest go in one last li, ds-presence__more, reading +2 and then a ds-visually-hidden span naming them, such as more: Maya Okafor's Claude Code and Codex, reviewer.",
+    "Say whose work it is in ds-presence__label, a p after the list, such as Alex Chen's Claude Code is on this task. Leave it out only where the row already says it.",
+    "The marks sit apart in a row and never overlap. There is no status dot: a mark is shown while that person or agent is on it and removed when they leave.",
+    "Presence is not focusable and takes no press. When it changes while the reader watches, say nothing: it is not worth an announcement."
+  ],
+  "icons": ["terminal"],
+  "classes": [
+    "ds-presence",
+    "ds-presence__label",
+    "ds-presence__marks",
+    "ds-presence__more"
+  ]
+}

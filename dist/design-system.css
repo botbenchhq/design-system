@@ -3894,6 +3894,39 @@
     text-decoration-line: none;
   }
 
+  /*
+   * Line numbers, in the file before and after the change, are optional cells before the sign.
+   * Not selectable, so copying lines leaves them behind, and the markup hides them from a screen reader.
+   * A phone shows only the new number, so the code keeps its width. A removed line has none there.
+   */
+  .ds-diff__number {
+    display: table-cell;
+    padding-inline: var(--ds-space-md) 0;
+    color: var(--ds-color-muted);
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .ds-diff__number--old {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .ds-diff__number--old {
+      display: table-cell;
+    }
+
+    .ds-diff__number--old + .ds-diff__number--new {
+      padding-inline-start: var(--ds-space-sm);
+    }
+  }
+
+  .ds-diff__number + .ds-diff__sign {
+    padding-inline-start: var(--ds-space-sm);
+  }
+
   /* Not selectable, so copying lines out of a diff leaves the signs behind. */
   .ds-diff__sign {
     display: table-cell;
@@ -3915,6 +3948,8 @@
     background-color: var(--ds-color-success-subtle);
   }
 
+  /* A number on a changed line takes the line's tone, which holds its contrast on the shading where muted would not. */
+  .ds-diff__line--added > .ds-diff__number,
   .ds-diff__line--added > .ds-diff__sign {
     color: var(--ds-color-success);
   }
@@ -3923,6 +3958,7 @@
     background-color: var(--ds-color-danger-subtle);
   }
 
+  .ds-diff__line--removed > .ds-diff__number,
   .ds-diff__line--removed > .ds-diff__sign {
     color: var(--ds-color-danger);
   }
@@ -3932,6 +3968,7 @@
   }
 
   .ds-diff__line--hunk:not(:first-child) > .ds-diff__text,
+  .ds-diff__line--hunk:not(:first-child) > .ds-diff__number,
   .ds-diff__line--hunk:not(:first-child) > .ds-diff__sign {
     padding-top: var(--ds-space-sm);
   }
@@ -5407,6 +5444,139 @@
 }
 
 /*
+ * Log viewer: a command's output, however long, in a box of capped height that scrolls by itself.
+ * Long lines wrap, so the page never scrolls sideways. An error line is tinted and carries an icon drawn here,
+ * so it is never marked by colour alone. A phone caps the box lower than a wide screen does.
+ */
+
+@layer ds.components {
+  .ds-log-viewer {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
+  }
+
+  .ds-log-viewer__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--ds-space-xs) var(--ds-space-md);
+    padding: var(--ds-space-sm) var(--ds-space-md);
+    border-bottom-width: var(--ds-border-width);
+  }
+
+  .ds-log-viewer__command {
+    min-width: 0;
+    font-weight: var(--ds-weight-medium);
+    overflow-wrap: anywhere;
+  }
+
+  /* How long, how many lines, how it ended: facts, in the small muted size. */
+  .ds-log-viewer__meta {
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
+    overflow-wrap: anywhere;
+  }
+
+  /*
+   * The body takes tabindex="0", so it is a pointer target and is at least as tall as one, and the keyboard scrolls it.
+   * It holds the output as text in a pre, or a list of lines in a div. Half the viewport at most on a phone.
+   */
+  .ds-log-viewer__body {
+    min-height: var(--ds-size-touch);
+    max-height: min(var(--ds-size-column), 50dvh);
+    padding-block: var(--ds-space-sm);
+    padding-inline: var(--ds-space-md);
+    border-radius: var(--ds-radius-md);
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-text-mono);
+    line-height: var(--ds-leading-mono);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    tab-size: 2;
+  }
+
+  /* Holding a list, the body drops the white space of the markup around it. */
+  .ds-log-viewer__body:has(> .ds-log-viewer__lines) {
+    white-space: normal;
+  }
+
+  @media (min-width: 768px) {
+    .ds-log-viewer__body {
+      max-height: min(var(--ds-size-transcript), 70dvh);
+    }
+  }
+
+  /* Show all: the reader asked for every line in the page. The toggle's aria-expanded says so. */
+  .ds-log-viewer:has(.ds-log-viewer__toggle[aria-expanded="true"]) .ds-log-viewer__body {
+    max-height: none;
+  }
+
+  /* White space between the line elements is markup indentation and is dropped. Each line keeps its own. */
+  .ds-log-viewer__lines {
+    margin-inline: calc(var(--ds-space-md) * -1);
+    white-space: normal;
+  }
+
+  /* A line that wraps hangs its rest under the first, so where one line ends and the next starts stays plain. An empty line keeps its height. */
+  .ds-log-viewer__line {
+    min-height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
+    padding-inline: calc(var(--ds-space-md) + var(--ds-space-lg)) var(--ds-space-md);
+    text-indent: calc(var(--ds-space-lg) * -1);
+    white-space: pre-wrap;
+  }
+
+  /* When any line is an error, every line makes room for the icon, so the text keeps one left edge. */
+  .ds-log-viewer__lines:has(> .ds-log-viewer__line--error) > .ds-log-viewer__line {
+    padding-inline-start: calc(var(--ds-space-2xl) + var(--ds-space-lg));
+  }
+
+  .ds-log-viewer__line--error {
+    position: relative;
+    background-color: var(--ds-color-danger-subtle);
+    color: var(--ds-color-on-surface);
+  }
+
+  .ds-log-viewer__line--error::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    inset-inline-start: var(--ds-space-sm);
+    width: var(--ds-space-lg);
+    height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
+    background-color: var(--ds-color-danger);
+    mask: url("icons/circle-alert.svg") center / contain no-repeat;
+  }
+
+  /* Under the body: the Show all toggle, or a sentence on what was not kept. */
+  .ds-log-viewer__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-space-xs) var(--ds-space-md);
+    padding: var(--ds-space-xs) var(--ds-space-sm);
+    border-top-width: var(--ds-border-width);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
+  }
+
+  .ds-log-viewer__note {
+    min-width: 0;
+    padding-inline: var(--ds-space-sm);
+    overflow-wrap: anywhere;
+  }
+}
+
+/*
  * Menu: a list of actions opened from a button, built on the Popover API.
  * The button's popovertarget attribute opens and closes it, and a press outside or
  * Escape closes it, with no script. The keys between the items are script: behaviors/menu.js, or the app.
@@ -6785,6 +6955,53 @@
 }
 
 /*
+ * Presence: who is on a task or a repository right now, people and agents, as a short row of small avatar
+ * marks with a count for the rest, and an optional sentence that says whose work it is.
+ * The marks sit apart, never stacked over each other, and carry no status dot: being there is the whole message.
+ */
+
+@layer ds.components {
+  .ds-presence {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ds-space-xs) var(--ds-space-sm);
+    min-width: 0;
+  }
+
+  .ds-presence__marks {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--ds-space-xs);
+  }
+
+  /* The ones not drawn, as +N, the size of a small mark. Its hidden words name them. */
+  .ds-presence__more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--ds-space-xl);
+    height: var(--ds-space-xl);
+    padding-inline: var(--ds-space-xs);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-sm);
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-xs);
+    white-space: nowrap;
+  }
+
+  /* Whose work it is, in words: Alex Chen's Claude Code is on this task. */
+  .ds-presence__label {
+    min-width: 0;
+    color: var(--ds-color-muted);
+    overflow-wrap: anywhere;
+  }
+}
+
+/*
  * Progress: how far a job with a known length has got, on a native progress element.
  * A label says what is measured and a sentence gives the value in words, so the bar is never the only sign.
  * A progress element with no value attribute is the indeterminate form: a full bar that fades slowly out and in.
@@ -7056,6 +7273,82 @@
     border-inline-start-width: var(--ds-border-width);
     white-space: pre-wrap;
     overflow-wrap: anywhere;
+  }
+}
+
+/*
+ * Review decision: the end of a task. What the checks found and what the review said, one line each,
+ * then Accept and Reject. Once decided, the same block holds the result in their place.
+ * The review is a model's opinion: it is written as words, with no tone and no icon, so it never reads as a check.
+ */
+
+@layer ds.components {
+  .ds-review-decision {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-space-md);
+    min-width: 0;
+    padding: var(--ds-space-lg);
+    border-width: var(--ds-border-width);
+    border-radius: var(--ds-radius-md);
+    background-color: var(--ds-color-surface-raised);
+  }
+
+  .ds-review-decision__title {
+    font-weight: var(--ds-weight-semibold);
+  }
+
+  /* What each source says: a term column and a value column, one line each where it fits. */
+  .ds-review-decision__evidence {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--ds-space-md);
+    row-gap: var(--ds-space-sm);
+  }
+
+  .ds-review-decision__line {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: baseline;
+  }
+
+  .ds-review-decision__source {
+    color: var(--ds-color-muted);
+  }
+
+  .ds-review-decision__finding {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* After the review's words: whose opinion it is, so it is never taken for proof. */
+  .ds-review-decision__caveat {
+    display: block;
+    color: var(--ds-color-muted);
+    font-size: var(--ds-text-xs);
+    line-height: var(--ds-leading-xs);
+  }
+
+  /* Accept at the start and Reject at the far end, so a thumb aiming for one cannot land on the other. */
+  .ds-review-decision__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-space-md);
+    padding-top: var(--ds-space-md);
+    border-top-width: var(--ds-border-width);
+  }
+
+  /* The decision, once made, in place of the actions: its badge, then what became of the work. */
+  .ds-review-decision__result {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--ds-space-sm);
+    padding-top: var(--ds-space-md);
+    border-top-width: var(--ds-border-width);
   }
 }
 

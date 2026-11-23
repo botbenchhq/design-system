@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presence - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/elapsed.js"></script>
+<script type="module" src="../behaviors/listbox.js"></script>
+<script type="module" src="../behaviors/menu.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
+<script type="module" src="../behaviors/transcript.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Design system gallery</a>
+<div data-gallery="switches">
+<nav aria-label="Mode"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<nav aria-label="Theme"><a href="?brand=default" data-gallery-default="light">Default</a><a href="?brand=botbench" data-gallery-default="dark">Botbench</a></nav>
+</div>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Presence</h1>
+<p>Who is on a task or a repository right now, people and agents, as a few small avatar marks with a count for the rest and a sentence saying whose work it is.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="ds-grid ds-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> On a task: whose agent it is</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The marks say at a glance that someone is here, and the sentence says whose work it is, which is what the reader needs before touching the task. Each mark carries its name for a screen reader, a person by initials and an agent by its icon.</p>
+</figcaption>
+<div data-example="default" data-title="On a task: whose agent it is" data-state="default" data-reason="The marks say at a glance that someone is here, and the sentence says whose work it is, which is what the reader needs before touching the task. Each mark carries its name for a screen reader, a person by initials and an agent by its icon.">
+  <div class="ds-presence">
+    <ul class="ds-presence__marks" aria-label="On this task now">
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Alex Chen">AC</span></span></li>
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Alex Chen's Claude Code"><svg class="ds-avatar__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-terminal"></use></svg></span></span></li>
+    </ul>
+    <p class="ds-presence__label">Alex Chen's Claude Code is on this task.</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>On a repository: three shown, and a count for the rest</h3>
+</figcaption>
+<div data-example="many" data-title="On a repository: three shown, and a count for the rest">
+  <div class="ds-presence">
+    <ul class="ds-presence__marks" aria-label="In acme/api now">
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Alex Chen">AC</span></span></li>
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Alex Chen's Claude Code"><svg class="ds-avatar__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-terminal"></use></svg></span></span></li>
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Maya Okafor">MO</span></span></li>
+      <li class="ds-presence__more">+2<span class="ds-visually-hidden"> more: Maya Okafor's Claude Code and Codex, reviewer</span></li>
+    </ul>
+    <p class="ds-presence__label">5 in acme/api now</p>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The marks alone, where the row already says what they are on</h3>
+</figcaption>
+<div data-example="marks-only" data-title="The marks alone, where the row already says what they are on">
+  <div class="ds-presence">
+    <ul class="ds-presence__marks" aria-label="On task 41 now">
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Maya Okafor">MO</span></span></li>
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" role="img" aria-label="Maya Okafor's Claude Code"><svg class="ds-avatar__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-terminal"></use></svg></span></span></li>
+    </ul>
+  </div>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Marks with no names</h3>
+<p>With the marks hidden and nothing written, a screen reader hears nothing, and a sighted reader sees two letters and an icon with no way to tell whose agent it is. Give each mark its name, and say whose work it is in the label.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="nameless" data-title="Marks with no names" data-dont="review" data-reason="With the marks hidden and nothing written, a screen reader hears nothing, and a sighted reader sees two letters and an icon with no way to tell whose agent it is. Give each mark its name, and say whose work it is in the label.">
+  <div class="ds-presence">
+    <ul class="ds-presence__marks">
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" aria-hidden="true">AC</span></span></li>
+      <li><span class="ds-avatar ds-avatar--small"><span class="ds-avatar__mark" aria-hidden="true"><svg class="ds-avatar__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-terminal"></use></svg></span></span></li>
+    </ul>
+  </div>
+</div>
+</figure>
+</div>
+</section>
+<div class="ds-grid ds-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>When someone other than the reader, or another person's agent, is working on the task or the repository the reader is looking at.</li>
+<li>Beside a task's title or in a repository's row, so the reader sees whose work it is before starting on it.</li>
+<li>Only while someone is there. With nobody else on it, show nothing.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>To say who did something in the past. Use an avatar with the name beside it, in an activity feed or a timeline.</li>
+<li>For the status of the work, such as Working or Needs input. Use a badge.</li>
+<li>For a list of everyone with access. Use a list of avatars with their names.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a div with the class ds-presence. Inside it, a ul, ds-presence__marks, with an aria-label saying where, such as On this task now. Each li holds a small avatar, ds-avatar ds-avatar--small, with its mark only.</li>
+<li>Each mark carries the name: role=&quot;img&quot; and aria-label on the span, such as Alex Chen or Alex Chen's Claude Code. A person's mark holds initials and an agent's the terminal icon, so the two are told apart by shape.</li>
+<li>Show at most three marks. The rest go in one last li, ds-presence__more, reading +2 and then a ds-visually-hidden span naming them, such as more: Maya Okafor's Claude Code and Codex, reviewer.</li>
+<li>Say whose work it is in ds-presence__label, a p after the list, such as Alex Chen's Claude Code is on this task. Leave it out only where the row already says it.</li>
+<li>The marks sit apart in a row and never overlap. There is no status dot: a mark is shown while that person or agent is on it and removed when they leave.</li>
+<li>Presence is not focusable and takes no press. When it changes while the reader watches, say nothing: it is not worth an announcement.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>ds-presence</code></li>
+<li><code>ds-presence__label</code></li>
+<li><code>ds-presence__marks</code></li>
+<li><code>ds-presence__more</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>
