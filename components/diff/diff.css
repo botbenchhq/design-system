@@ -86,6 +86,39 @@
     text-decoration-line: none;
   }
 
+  /*
+   * Line numbers, in the file before and after the change, are optional cells before the sign.
+   * Not selectable, so copying lines leaves them behind, and the markup hides them from a screen reader.
+   * A phone shows only the new number, so the code keeps its width. A removed line has none there.
+   */
+  .ds-diff__number {
+    display: table-cell;
+    padding-inline: var(--ds-space-md) 0;
+    color: var(--ds-color-muted);
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .ds-diff__number--old {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .ds-diff__number--old {
+      display: table-cell;
+    }
+
+    .ds-diff__number--old + .ds-diff__number--new {
+      padding-inline-start: var(--ds-space-sm);
+    }
+  }
+
+  .ds-diff__number + .ds-diff__sign {
+    padding-inline-start: var(--ds-space-sm);
+  }
+
   /* Not selectable, so copying lines out of a diff leaves the signs behind. */
   .ds-diff__sign {
     display: table-cell;
@@ -107,6 +140,8 @@
     background-color: var(--ds-color-success-subtle);
   }
 
+  /* A number on a changed line takes the line's tone, which holds its contrast on the shading where muted would not. */
+  .ds-diff__line--added > .ds-diff__number,
   .ds-diff__line--added > .ds-diff__sign {
     color: var(--ds-color-success);
   }
@@ -115,6 +150,7 @@
     background-color: var(--ds-color-danger-subtle);
   }
 
+  .ds-diff__line--removed > .ds-diff__number,
   .ds-diff__line--removed > .ds-diff__sign {
     color: var(--ds-color-danger);
   }
@@ -124,6 +160,7 @@
   }
 
   .ds-diff__line--hunk:not(:first-child) > .ds-diff__text,
+  .ds-diff__line--hunk:not(:first-child) > .ds-diff__number,
   .ds-diff__line--hunk:not(:first-child) > .ds-diff__sign {
     padding-top: var(--ds-space-sm);
   }

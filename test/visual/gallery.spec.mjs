@@ -146,7 +146,7 @@ for (const name of components) {
 
 // The pages shown again under the Botbench theme, in both modes at both widths. The rest of the matrix is the default theme's.
 const BRAND = "botbench";
-const BRANDED = ["agent-run", "app-shell", "approval", "badge", "button", "tool-call", "run-timeline", "data-table", "dialog", "alert"];
+const BRANDED = ["agent-run", "app-shell", "approval", "badge", "button", "tool-call", "run-timeline", "data-table", "dialog", "alert", "diff", "review-decision", "log-viewer", "presence"];
 const brandSummary = JSON.parse(readFileSync(join(dist, "themes", `${BRAND}.json`), "utf8"));
 
 for (const name of ["index", ...BRANDED]) {
@@ -1044,4 +1044,91 @@ test("in the gallery a time that counts up reads as its example was written, and
   await expect(page.locator('[data-example="running"] .ds-now-doing')).not.toHaveAttribute("aria-live");
   await expect(page.locator('[data-example="running"]').getByRole("button", { name: "Stop" })).toHaveAttribute("data-ds-critical", "");
   await expect(page.locator('[data-example="waiting"] .ds-now-doing__link')).toHaveAttribute("href", "#now-doing-waiting-request");
+});
+
+test("diff line numbers: the old column shows only at 768px and wider, every number is hidden from a screen reader, and a copy leaves them out", async ({ page }) => {
+  for (const [width, oldShown] of [[390, false], [1280, true]]) {
+    await open(page, "diff", { width });
+    const example = page.locator('[data-example="line-numbers"]');
+    const shown = await example.locator(".ds-diff__number--old").evaluateAll((cells) => cells.map((cell) => getComputedStyle(cell).display !== "none"));
+    expect(new Set(shown)).toEqual(new Set([oldShown]));
+    expect(await example.locator(".ds-diff__number--new").first().evaluate((cell) => getComputedStyle(cell).display)).toBe("table-cell");
+  }
+  const example = page.locator('[data-example="line-numbers"]');
+  expect(await example.locator('.ds-diff__number:not([aria-hidden="true"])').count()).toBe(0);
+  const copied = await example.locator(".ds-diff__lines").evaluate((lines) => {
+    const range = document.createRange();
+    range.selectNodeContents(lines);
+    getSelection().removeAllRanges();
+    getSelection().addRange(range);
+    return getSelection().toString();
+  });
+  expect(copied).toContain("const SESSION_TTL_SECONDS = 1800;");
+  expect(copied.split("\n").filter((line) => /^\s*\d/.test(line))).toEqual([]);
+});
+
+test("log-viewer: 500 lines stay within its cap at 390px, scrolls by itself, and Show all lifts the cap", async ({ page }) => {
+  await open(page, "log-viewer", { width: 390 });
+  const body = page.locator('[data-example="default"] .ds-log-viewer__body');
+  await body.evaluate((element) => {
+    const list = element.querySelector("ol");
+    for (let line = 0; line < 500; line++) {
+      const row = document.createElement("li");
+      row.className = "ds-log-viewer__line";
+      row.textContent = `  at Object.<anonymous> (/srv/workspaces/acme-api/node_modules/vitest/dist/chunks/runtime.${line}.js:${line}:17)`;
+      list.append(row);
+    }
+  });
+  const capped = await body.evaluate((element) => ({ height: element.getBoundingClientRect().height, scrollHeight: element.scrollHeight }));
+  expect(capped.height).toBeLessThanOrEqual(450);
+  expect(capped.scrollHeight).toBeGreaterThan(capped.height * 10);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+  // An error line says so in words and an icon, not only in its tint.
+  const error = page.locator('[data-example="default"] .ds-log-viewer__line--error').first();
+  await expect(error.locator(".ds-visually-hidden")).toHaveText("Error: ");
+  expect(await error.evaluate((element) => getComputedStyle(element, "::before").maskImage)).toContain("icons/circle-alert.svg");
+
+  await page.locator('[data-example="default"] .ds-log-viewer__toggle').evaluate((button) => button.setAttribute("aria-expanded", "true"));
+  const open_ = await body.evaluate((element) => ({ height: element.getBoundingClientRect().height, scrollHeight: element.scrollHeight }));
+  expect(Math.ceil(open_.height)).toBeGreaterThanOrEqual(open_.scrollHeight);
+});
+
+test("log-viewer: while running it follows new lines only while the reader is at its end", async ({ page }) => {
+  await open(page, "log-viewer", { width: 390 });
+  const example = page.locator('[data-example="running"]');
+  const addLines = (count) =>
+    example.locator("ol").evaluate((list, total) => {
+      for (let line = 0; line < total; line++) {
+        const row = document.createElement("li");
+        row.className = "ds-log-viewer__line";
+        row.textContent = `Step ${list.children.length + 1}: npm notice copying files into the image layer`;
+        list.append(row);
+      }
+    }, count);
+  const state = () =>
+    example.evaluate((element) => {
+      const body = element.querySelector(".ds-log-viewer__body");
+      return { fromBottom: Math.round(body.scrollHeight - body.scrollTop - body.clientHeight), jumpHidden: element.querySelector("[data-ds-jump]").hidden, count: element.querySelector("[data-ds-count]").textContent };
+    });
+  await addLines(500);
+  await example.locator(".ds-log-viewer__body").evaluate((body) => { body.scrollTop = body.scrollHeight; });
+  await expect.poll(async () => (await state()).fromBottom).toBe(0);
+  await addLines(20);
+  await expect.poll(async () => (await state()).fromBottom).toBe(0);
+  expect((await state()).jumpHidden).toBe(true);
+
+  await example.locator(".ds-log-viewer__body").evaluate((body) => { body.scrollTop = 100; });
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  await addLines(3);
+  await expect.poll(() => state()).toMatchObject({ jumpHidden: false, count: "3 new lines" });
+  expect(await example.locator(".ds-log-viewer__body").evaluate((body) => body.scrollTop)).toBe(100);
+});
+
+test("review-decision: each do example has at most one primary action, and the review carries no badge", async ({ page }) => {
+  await open(page, "review-decision", { width: 390 });
+  for (const example of await page.locator(DO).all()) {
+    expect(await example.locator(".ds-button--primary").count()).toBeLessThanOrEqual(1);
+    const review = example.locator(".ds-review-decision__line").filter({ hasText: "Review" }).locator(".ds-review-decision__finding");
+    expect(await review.locator(".ds-badge").count()).toBe(0);
+  }
 });

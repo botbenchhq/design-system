@@ -1,0 +1,44 @@
+{
+  "name": "log-viewer",
+  "title": "Log viewer",
+  "purpose": "A command's output, however long, in a box of capped height that scrolls by itself, with long lines wrapped and error lines marked.",
+  "status": "draft",
+  "whenToUse": [
+    "For the output of a check, a setup command or a build, finished or still running, where it may run to hundreds of lines.",
+    "Behind a disclosure under a check list's row, or by itself on a run's screen.",
+    "With the error lines marked, when the app can tell them: the lines a test runner reports as failures, or the output of stderr."
+  ],
+  "whenNotToUse": [
+    "For a command, a short excerpt or a file's contents. Use the code block.",
+    "For a change to a file. Use the diff.",
+    "For an agent's transcript of messages and tool calls. Use the message and the tool call in a transcript."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "focus-visible", "running", "expanded"],
+  "accessibility": [
+    "Use a figure. Its figcaption, ds-log-viewer__header, holds the command in a code element, ds-log-viewer__command, and ds-log-viewer__meta saying how it ended and how long it took.",
+    "The body, ds-log-viewer__body, takes tabindex=\"0\" and an aria-label naming the command, so it can take focus and the arrow keys scroll it. A finished output takes role=\"group\". It is a pre holding the output as text, or a div holding an ol, ds-log-viewer__lines, with one li, ds-log-viewer__line, per line.",
+    "The body caps its height at half the viewport on a phone and more on a wide screen, and scrolls by itself. Long lines wrap, so the page never scrolls sideways.",
+    "Mark an error line with ds-log-viewer__line--error and start it with a ds-visually-hidden span reading Error and a colon. The stylesheet tints it and draws its icon, so it is never colour alone.",
+    "For a failed command, open the body scrolled to its end, where the failure usually is. The app sets the scroll position.",
+    "Show all: when the output is longer than the box, put a quiet small button, ds-log-viewer__toggle, in ds-log-viewer__footer, with aria-expanded=\"false\", aria-controls naming the body and a label such as Show all 46 lines. Pressing it sets aria-expanded=\"true\" and the label Show less, and the stylesheet lifts the cap. Leave the footer out for a short output.",
+    "When only part of the output was kept, say so in ds-log-viewer__note inside the footer.",
+    "While the command runs, wrap the body and a jump-to-latest control in ds-transcript, and give the body role=\"log\", aria-live=\"off\" and data-ds-scroller. The body then follows new lines while the reader is at its end, and the control offers Jump to latest once they scroll up. A framework app follows by the same rule with use-transcript. Every line added is an li.",
+    "The component needs no script beyond that. The app sets aria-expanded and the toggle's label."
+  ],
+  "icons": ["circle-alert"],
+  "classes": [
+    "ds-log-viewer",
+    "ds-log-viewer__body",
+    "ds-log-viewer__command",
+    "ds-log-viewer__footer",
+    "ds-log-viewer__header",
+    "ds-log-viewer__line",
+    "ds-log-viewer__line--error",
+    "ds-log-viewer__lines",
+    "ds-log-viewer__meta",
+    "ds-log-viewer__note",
+    "ds-log-viewer__toggle"
+  ]
+}

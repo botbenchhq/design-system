@@ -2,7 +2,7 @@
 
 A design system for apps whose interfaces are largely written by AI coding agents. It gives the agent a closed vocabulary of design tokens and components, and a checker that fails a frontend which steps outside that vocabulary. Screens come out consistent with each other and without the generic AI-generated look, and the look of every app that uses it can be changed in one place.
 
-It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.9.0. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
+It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.11.1. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
 
 The run timeline component under the Botbench theme, dark and light:
 
@@ -23,7 +23,7 @@ The run timeline component under the Botbench theme, dark and light:
 ### When it is not a fit
 
 - **You need Safari support proven on a real iPhone, or support for older browsers.** The tests of the components Botbench uses pass in Playwright's WebKit and Firefox at phone and desktop widths, but nothing has been tried in iOS Safari itself, and the components use recent platform features. See [browser support](docs/browser-support.md).
-- **You want a typed React component library.** Components are CSS classes; the app writes the markup. Two React source files ship, nothing more.
+- **You want a typed React component library.** Components are CSS classes; the app writes the markup. Five React source files ship for the interactive pieces an app most often wires by hand, nothing more.
 - **You want an npm package.** An app copies `dist/` into its own repository with the sync script.
 - **You use Tailwind 4.** The preset is for Tailwind 3. The stylesheet works without Tailwind.
 - **You want to add your own tokens or restyle one component freely.** The token set is closed and a theme changes values only. That constraint is the point of the system.
@@ -95,7 +95,7 @@ Delete `try.html` when you are done. To use the system in a real app, go to [Use
 
 ## How a component is built
 
-The catalogue holds 100 components and 8 page patterns (agent run, app shell, filter and results, master and detail, multi-step form, not found, settings page, sign in). Each lives in its own folder of three hand-written files:
+The catalogue holds 103 components and 8 page patterns (agent run, app shell, filter and results, master and detail, multi-step form, not found, settings page, sign in). Each lives in its own folder of three hand-written files:
 
 | File | Holds |
 |---|---|
@@ -211,10 +211,10 @@ To change the look of every app: edit the theme here, run `npm run build`, and e
 | `tokens/` | `tokens.css`, the single source of every token, and `pairs.json`, the contrast pairs. |
 | `themes/` | Themes: token values only. |
 | `base/` | Reset, typography, layout classes, focus ring, fonts and icons. |
-| `components/` | 100 components, one folder each. |
+| `components/` | 103 components, one folder each. |
 | `patterns/` | 8 page patterns, built to the same contract. |
 | `behaviors/` | Seven optional ES modules for an app without a framework (tabs, combobox, command palette, menu, listbox, elapsed time, transcript). |
-| `react/` | Two TypeScript source files for a React 19 app: a busy button and a transcript-following hook. |
+| `react/` | TypeScript source for a React 19 app: a busy button, the dialog and the sheet, the approval card, a menu keyboard hook and a transcript-following hook. |
 | `checker/` | The static scan and the structural rules. No dependencies. |
 | `rules/` | Eight files agents read: `core.md` first, then principles, disclosure, the never list, content, choosing a component, checker rules and the review rubric. |
 | `gallery/`, `hooks/`, `scripts/` | The gallery's own CSS and script, the optional Claude Code hook, and the build, sync and codemod scripts. |
@@ -242,19 +242,18 @@ Add a folder under `components/` with its three files and run the build; nothing
 
 ## Status and limits
 
-- **Version 0.9.0.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
-- **Everything is `draft`.** All 100 components and 8 patterns. An app may use a draft, but it may still change.
+- **Version 0.11.1.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
+- **Everything is `draft`.** All 103 components and 8 patterns. An app may use a draft, but it may still change.
 - **One consumer.** Botbench is the only app that uses it so far.
 - **Tested in Chrome, WebKit and Firefox, not on an iPhone.** The whole browser suite runs in Google Chrome. The tests of the components Botbench uses, at 390px and 1280px, and the keyboard, theme and reflow tests also run, and pass, in Playwright's WebKit 27.2 and Firefox 159. Neither has interest invokers, so a tooltip or hover card shows on hover and focus only. Nothing has been tried in iOS Safari or with a screen reader. The components rely on recent platform features: the Popover API, anchor positioning, invoker commands, interest invokers, `:has()` and `field-sizing`. [`docs/browser-support.md`](docs/browser-support.md) has the results per feature and component, and what still needs a real iPhone.
 
-The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five defects that 0.7.2 fixed (menu and listbox keyboard, colour scheme under a theme's default mode, reflow at 320px, wide tables, the command palette's no-match announcement), and 0.7.5 added the two React source files. These of its findings are still open:
+The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five defects that 0.7.2 fixed (menu and listbox keyboard, colour scheme under a theme's default mode, reflow at 320px, wide tables, the command palette's no-match announcement), and 0.7.5 began the React source in `react/`. These of its findings are still open:
 
 - The checker does not check `data-state` values, accessible names, `alt` text or whether a badge's tone matches its word.
-- There is no typed React component layer beyond the two source files.
+- The typed React layer covers the busy button, the dialog, confirm dialog and sheet, the approval card, the menu's keyboard and the transcript. Tabs, the combobox, the listbox and the command palette have no React piece: an app uses the behaviour modules or wires them by hand.
 - The audit judged the Botbench theme's identity generic (brand distinctiveness 4 out of 10). 0.8.0 replaced that theme's look and gave it a focus ring distinct from the accent; the new look has not been audited.
-- The diff has no line numbers, and there is no review-decision component, log viewer or presence component.
 - Sizes are built with `calc()` on tokens in places, which the checker does not limit, and type sizes are in pixels.
-- The stylesheet is one 327 KB file (about 60 KB compressed) with no way to load part of it.
+- The stylesheet is one 338 KB file (about 63 KB compressed) with no way to load part of it.
 
 ## Help and contributing
 
