@@ -9,13 +9,13 @@
     display: none;
   }
 
-  /* The column is five pointer targets wide. There is no width token for a sidebar. */
+  /* The column is as wide as the sidebar token says. */
   @media (min-width: 768px) {
     .ds-sidebar-nav {
       display: flex;
       flex-direction: column;
       gap: var(--ds-space-lg);
-      width: calc(var(--ds-size-touch) * 5);
+      width: var(--ds-size-sidebar);
       min-width: 0;
       padding: var(--ds-space-md) var(--ds-space-sm);
       border-inline-end-width: var(--ds-border-width);
@@ -48,7 +48,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-md);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);

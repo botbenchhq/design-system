@@ -43,7 +43,7 @@
    * It holds the output as text in a pre, or a list of lines in a div. Half the viewport at most on a phone.
    */
   .ds-log-viewer__body {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     max-height: min(var(--ds-size-column), 50dvh);
     padding-block: var(--ds-space-sm);
     padding-inline: var(--ds-space-md);

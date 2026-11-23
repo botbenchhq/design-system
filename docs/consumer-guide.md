@@ -106,7 +106,7 @@ What the two modules do, a framework app does in its own components:
 | `approval.tsx` | `Approval`, the approval card, with Allow and Decline as busy buttons. |
 | `use-transcript.ts` | `useTranscript`, which follows a transcript as `behaviors/transcript.js` does. |
 
-`react/busy-button.tsx` is `BusyButton`, a button with the system's classes and a busy state. It takes `variant` (`primary`, `secondary`, `quiet` or `danger`), `size` (`default` or `small`), an optional `icon` name with `spriteHref` for where the app serves `icons.svg`, and every attribute of a native button. It is `type="button"` unless given another type, and takes a `ref`. While `busy` is true it sets `aria-busy="true"` and ignores presses from the pointer and the keyboard. It stays enabled, so focus stays on it. What it says while busy depends on its label:
+`react/busy-button.tsx` is `BusyButton`, a button with the system's classes and a busy state. It takes `variant` (`primary`, `secondary`, `quiet` or `danger`), `size` (`default`, `small` or `large`, and `default`, `small` or `xsmall` for an icon-only button), an optional `icon` name with `spriteHref` for where the app serves `icons.svg`, and every attribute of a native button. It is `type="button"` unless given another type, and takes a `ref`. While `busy` is true it sets `aria-busy="true"` and ignores presses from the pointer and the keyboard. It stays enabled, so focus stays on it. What it says while busy depends on its label:
 
 - With words as children, it shows `busyLabel` in place of them.
 - With an `icon` and an `aria-label` and no children, it is an icon button: it carries `ds-icon-button`, and while busy `busyLabel` becomes its name and no words are shown.
@@ -551,9 +551,32 @@ A theme is written in the design system's repo, never in an app. Add `themes/<na
 The build stops, naming the theme, when:
 
 - it sets a name that is not a token;
+- it sets `--ds-size-control` or `--ds-size-row`, or holds a density block: the density is the same under every theme;
 - it has no light values or no dark values, or its dark and auto blocks differ;
 - it sets a colour for light alone that the default theme sets for both modes, since that value would then apply in dark as well;
 - a colour is not six-digit hex, or the default mode is not light or dark;
 - a pair in `tokens/pairs.json` falls below its minimum in either mode, with the theme's values where it sets them and the default values where it does not. The message names the theme, the pair, the mode and the ratio.
 
 The build then writes the four files above for the theme into `dist/themes/`. Sync copies them into the app and records their hashes in `hashes.json`, like every other file.
+
+## 13. Density
+
+A control of default size and a row take their height from two tokens, `--ds-size-control` and `--ds-size-row`, and the app chooses the density of any part of a screen with `data-ds-density` on a container:
+
+| `data-ds-density` | Control | Row | For |
+|---|---|---|---|
+| `compact` | 28px | 32px | A board, a table or a toolbar with many controls |
+| `comfortable`, the default | 36px | 36px | Everything else on a screen with a mouse or a trackpad |
+| `touch` | 44px | 44px | A kiosk or another screen pressed with a finger that reports a fine pointer |
+
+```html
+<section data-ds-density="compact">
+  <button type="button" class="ds-button">Rerun checks</button>
+</section>
+```
+
+On a coarse pointer, such as a phone, every control and row is the touch size, whatever the attribute says, so an app sets nothing for a phone. A pointer target is never smaller than 44px each way there, and never smaller than 24px on a fine pointer. Do not set a height on a system control to undo either.
+
+A size variant is a fixed height at every density: `ds-button--small` is 28px and `ds-button--large` 40px, `ds-icon-button--small` 28px square and `ds-icon-button--xsmall` 24px square. On a coarse pointer each is drawn the same and takes a press on a 44px area around it, so leave 16px or more between two small icon buttons.
+
+`manifest.json` lists the values under `density`, `tokens.json` under the two size tokens, and `design-tokens.md` under `density`. With the Tailwind preset, `h-control`, `min-h-row` and `w-sidebar` read the same tokens.

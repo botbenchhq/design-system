@@ -12,7 +12,7 @@
   .ds-popover {
     inset: auto var(--ds-space-lg) var(--ds-space-lg);
     width: fit-content;
-    min-width: calc(var(--ds-size-touch) * 5);
+    min-width: calc(var(--ds-size-column) / 2);
     max-width: min(calc(var(--ds-size-column) * 0.75), calc(100vw - var(--ds-space-lg) * 2));
     margin: 0 auto;
     padding: var(--ds-space-lg);

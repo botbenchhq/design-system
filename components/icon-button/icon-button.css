@@ -1,13 +1,13 @@
 /*
  * Icon button: a button that shows only an icon. It sits on the same element as the button class,
  * which draws the border, the fill, hover, pressed-down, busy and disabled, so this stylesheet must load after the button's.
- * It makes the button a square one target wide and adds the look of a toggle that is on.
+ * It makes the button a square as wide as a control is tall, gives it two smaller sizes and adds the look of a toggle that is on.
  */
 
 @layer ds.components {
   .ds-icon-button {
     flex: none;
-    width: var(--ds-size-touch);
+    width: var(--ds-size-control);
     padding: 0;
   }
 
@@ -17,13 +17,77 @@
     background-color: var(--ds-color-surface-sunken);
   }
 
+  /* The bar is as wide as the icon, whatever the size of the button. */
   .ds-icon-button[aria-pressed="true"]::after {
     content: "";
     position: absolute;
-    bottom: var(--ds-space-sm);
-    inset-inline: var(--ds-space-md);
+    bottom: var(--ds-space-xs);
+    inset-inline: calc((var(--ds-size-control) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
     height: calc(var(--ds-border-width) * 2);
     background-color: currentColor;
+  }
+
+  /*
+   * The sizes are fixed squares: 28px for a toolbar, 24px for an action inside a dense row. They do not follow
+   * the density. The bar of a toggle that is on sits on the lower edge, clear of the icon.
+   */
+  .ds-icon-button--small {
+    width: var(--ds-size-control-sm);
+    min-width: var(--ds-size-control-sm);
+    min-height: var(--ds-size-control-sm);
+    border-radius: var(--ds-radius-sm);
+  }
+
+  .ds-icon-button--xsmall {
+    width: var(--ds-size-control-xs);
+    min-width: var(--ds-size-control-xs);
+    min-height: var(--ds-size-control-xs);
+    border-radius: var(--ds-radius-sm);
+  }
+
+  .ds-icon-button--small[aria-pressed="true"]::after {
+    bottom: 0;
+    inset-inline: calc((var(--ds-size-control-sm) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
+  }
+
+  .ds-icon-button--xsmall[aria-pressed="true"]::after {
+    bottom: 0;
+    inset-inline: calc((var(--ds-size-control-xs) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
+  }
+
+  /*
+   * A finger needs more than a small square. On a coarse pointer this invisible box, centred on the button,
+   * keeps its pointer target at the touch size both ways without making a dense row taller.
+   */
+  @media (pointer: coarse) {
+    .ds-icon-button--small::after,
+    .ds-icon-button--xsmall::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--ds-size-touch);
+      height: var(--ds-size-touch);
+      translate: -50% -50%;
+    }
+
+    /*
+     * A toggle that is on draws its bar with the same box: the padding leaves only the bar's own area as the
+     * content box, at the middle of the button's lower edge, and the fill is clipped to it.
+     */
+    .ds-icon-button--small[aria-pressed="true"]::after {
+      inset: 50% auto auto 50%;
+      height: var(--ds-size-touch);
+      padding: calc((var(--ds-size-touch) + var(--ds-size-control-sm)) / 2 - var(--ds-border-width) * 3) calc((var(--ds-size-touch) - var(--ds-space-lg)) / 2) calc((var(--ds-size-touch) - var(--ds-size-control-sm)) / 2 + var(--ds-border-width));
+      background-clip: content-box;
+    }
+
+    .ds-icon-button--xsmall[aria-pressed="true"]::after {
+      inset: 50% auto auto 50%;
+      height: var(--ds-size-touch);
+      padding: calc((var(--ds-size-touch) + var(--ds-size-control-xs)) / 2 - var(--ds-border-width) * 3) calc((var(--ds-size-touch) - var(--ds-space-lg)) / 2) calc((var(--ds-size-touch) - var(--ds-size-control-xs)) / 2 + var(--ds-border-width));
+      background-clip: content-box;
+    }
   }
 
   /* After the pressed rules, so an unavailable toggle keeps its bar and loses the fill. */

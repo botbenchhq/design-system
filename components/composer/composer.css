@@ -39,16 +39,16 @@
 
   /*
    * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
-   * Without field-sizing the height is fixed at two targets and the text scrolls inside.
-   * The block padding is what centres a single line in a box one target tall.
+   * Without field-sizing the height is fixed at two controls and the text scrolls inside.
+   * The block padding is what centres a single line in a box as tall as one control.
    */
   .ds-composer__input {
     flex: 1;
     min-width: 0;
-    height: calc(var(--ds-size-touch) * 2);
-    min-height: var(--ds-size-touch);
-    max-height: calc(var(--ds-size-touch) * 4);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-lg) * var(--ds-leading-lg)) / 2 - var(--ds-border-width));
+    height: calc(var(--ds-size-control) * 2);
+    min-height: var(--ds-size-control);
+    max-height: calc(var(--ds-size-control) * 4);
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-lg) * var(--ds-leading-lg)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -60,7 +60,7 @@
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
 
-  /* One line tall when empty, growing with the text up to four targets, so Send is never pushed off a phone screen. */
+  /* One line tall when empty, growing with the text up to four controls tall, so Send is never pushed off a phone screen. */
   @supports (field-sizing: content) {
     .ds-composer__input {
       height: auto;
@@ -70,7 +70,7 @@
 
   @media (min-width: 768px) {
     .ds-composer__input {
-      padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+      padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
       font-size: var(--ds-text-ui);
       line-height: var(--ds-leading-ui);
     }
@@ -147,7 +147,7 @@
     border-radius: var(--ds-radius-full);
   }
 
-  /* Two lines of chips keep 12px apart, so their 44px pointer targets do not overlap. */
+  /* Two lines of chips keep 12px apart, so on a coarse pointer their 44px pointer targets do not overlap. */
   .ds-composer__bar > .ds-composer__controls {
     flex: 1 1 auto;
     min-width: 0;
@@ -161,7 +161,7 @@
   .ds-composer__chip {
     flex-shrink: 0;
     max-width: 100%;
-    min-width: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
     padding-inline: var(--ds-space-sm);
   }
 

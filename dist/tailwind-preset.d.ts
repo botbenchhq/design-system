@@ -18,12 +18,12 @@ declare const preset: {
     outlineWidth: { "0": string };
     textUnderlineOffset: { "auto": string; "xs": string; "sm": string; "md": string; "lg": string; "xl": string; "2xl": string };
     textDecorationThickness: { "auto": string };
-    width: { "0": string; "auto": string; "xs": string; "sm": string; "md": string; "lg": string; "xl": string; "2xl": string; "touch": string; "full": string };
-    height: { "0": string; "auto": string; "xs": string; "sm": string; "md": string; "lg": string; "xl": string; "2xl": string; "touch": string; "full": string; "screen": string };
-    size: { "0": string; "auto": string; "xs": string; "sm": string; "md": string; "lg": string; "xl": string; "2xl": string; "touch": string; "full": string };
-    minWidth: { "0": string; "touch": string; "full": string };
-    minHeight: { "0": string; "touch": string; "full": string; "screen": string };
-    maxWidth: { "none": string; "column": string; "transcript": string; "wide": string; "full": string };
+    width: { "0": string; "auto": string; "xs": string; "sm": string; "md": string; "lg": string; "xl": string; "2xl": string; "control-xs": string; "control-sm": string; "control-md": string; "control-lg": string; "control": string; "row": string; "touch": string; "sidebar": string; "inspector": string; "full": string };
+    height: { "0": string; "auto": string; "xs": string; "sm": string; "md": string; "lg": string; "xl": string; "2xl": string; "control-xs": string; "control-sm": string; "control-md": string; "control-lg": string; "control": string; "row": string; "touch": string; "full": string; "screen": string };
+    size: { "0": string; "auto": string; "xs": string; "sm": string; "md": string; "lg": string; "xl": string; "2xl": string; "control-xs": string; "control-sm": string; "control-md": string; "control-lg": string; "control": string; "row": string; "touch": string; "full": string };
+    minWidth: { "0": string; "control-xs": string; "control-sm": string; "control-md": string; "control-lg": string; "control": string; "row": string; "touch": string; "full": string };
+    minHeight: { "0": string; "control-xs": string; "control-sm": string; "control-md": string; "control-lg": string; "control": string; "row": string; "touch": string; "full": string; "screen": string };
+    maxWidth: { "none": string; "sidebar": string; "inspector": string; "column": string; "transcript": string; "wide": string; "full": string };
     maxHeight: { "none": string; "full": string; "screen": string };
     letterSpacing: {  };
     boxShadowColor: {  };

@@ -20,7 +20,7 @@
     { "name": "with steppers", "use": "Two icon buttons with ds-number-field__step at the end of the row: decrease first, then increase." }
   ],
   "sizes": [
-    { "name": "default", "use": "44px tall and at most 264px wide. Each stepper is 44px square." }
+    { "name": "default", "use": "As tall as a control, 36px by default and 44px on a coarse pointer, and at most 240px wide. Each stepper is a square of that height." }
   ],
   "states": ["default", "focus", "invalid", "disabled"],
   "accessibility": [

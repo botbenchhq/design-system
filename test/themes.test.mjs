@@ -259,3 +259,13 @@ test("a status set that gives two states one icon, or names a tone that is not a
   writeFileSync(file, JSON.stringify({ ...meta, statusSet: [{ ...meta.statusSet[0], tone: "amber" }] }));
   assert.throws(() => build({ root, outDir: tempDir() }), /the statusSet state "Queued" has the tone "amber", which is not a variant/);
 });
+
+test("a theme that sets a density token, or holds a density block, fails and is named", () => {
+  const sized = theme("--ds-color-accent: #222222;\n    --ds-size-control: 40px;", "--ds-color-accent: #EEEEEE;");
+  assert.throws(() => parseTheme("tall", sized, defaults), /themes\/tall\.css: a theme cannot set the density, and --ds-size-control is one of its two tokens/);
+  const block = theme("--ds-color-accent: #222222;", "--ds-color-accent: #EEEEEE;").replace(/\}\s*$/, '  [data-ds-density="compact"] {\n    --ds-size-row: 24px;\n  }\n}\n');
+  assert.throws(() => parseTheme("dense", block, defaults), /themes\/dense\.css: a theme cannot set the density/);
+  // The Botbench theme leaves the density alone, and its controls are the default theme's.
+  assert.deepEqual(botbench.tokens.density, defaults.density);
+  assert.equal(botbench.tokens.light["--ds-size-control"], "36px");
+});

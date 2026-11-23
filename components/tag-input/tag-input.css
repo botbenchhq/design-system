@@ -7,7 +7,7 @@
 @layer ds.components {
   /*
    * The box. The padding leaves room for the input's focus ring inside the border.
-   * The gap between rows keeps the 44px pointer targets of two rows of remove buttons apart.
+   * The gap between rows keeps two rows of tags apart.
    */
   .ds-tag-input {
     display: flex;
@@ -34,9 +34,9 @@
    * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
    */
   .ds-tag-input__input {
-    flex: 1 1 calc(var(--ds-size-touch) * 2);
-    min-width: calc(var(--ds-size-touch) * 2);
-    min-height: var(--ds-size-touch);
+    flex: 1 1 calc(var(--ds-size-control) * 2);
+    min-width: calc(var(--ds-size-control) * 2);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-xs);
     border-radius: var(--ds-radius-sm);
     background-color: transparent;

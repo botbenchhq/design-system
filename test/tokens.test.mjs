@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { join } from "node:path";
 import { test } from "node:test";
@@ -202,4 +202,160 @@ test("the wide size reaches the tokens, the Tailwind preset and its types, the t
   assert.ok(manifest.utilities.sizeKeys.includes("wide"));
   assert.ok(manifest.classes.includes("ds-container--wide"));
   assert.match(read("design-system.css"), /\.ds-container--wide \{\n\s+max-width: var\(--ds-size-wide\);/);
+});
+
+const tokensSource = () => readFileSync(join(repoRoot, "tokens", "tokens.css"), "utf8");
+const buildTokens = (css) => {
+  const root = copySources();
+  writeFileSync(join(root, "tokens", "tokens.css"), css);
+  return () => build({ root, outDir: tempDir() });
+};
+
+test("the density tokens are 28px, 36px and 44px for a control and 32px, 36px and 44px for a row, and comfortable is the default", () => {
+  const { light, density } = parseTokens(read("tokens.css"));
+  assert.deepEqual(density, {
+    compact: { control: "28px", row: "32px" },
+    comfortable: { control: "36px", row: "36px" },
+    touch: { control: "44px", row: "44px" },
+  });
+  assert.equal(light["--ds-size-control"], density.comfortable.control);
+  assert.equal(light["--ds-size-row"], density.comfortable.row);
+  assert.equal(light["--ds-size-touch"], "44px");
+  const steps = ["xs", "sm", "md", "lg"].map((step) => light[`--ds-size-control-${step}`]);
+  assert.deepEqual(steps, ["24px", "28px", "32px", "40px"]);
+  assert.equal(light["--ds-size-sidebar"], "260px");
+  assert.equal(light["--ds-size-inspector"], "360px");
+});
+
+test("a coarse pointer gets the touch density on every element, after the blocks an attribute selects", () => {
+  const css = read("tokens.css").replace(/\/\*[\s\S]*?\*\//g, "");
+  const coarse = css.match(/@media \(pointer: coarse\) \{\s*:root,\s*\[data-ds-density\] \{([^}]*)\}/);
+  assert.ok(coarse, "tokens.css has no block for a coarse pointer");
+  assert.deepEqual([...coarse[1].matchAll(/(--[\w-]+):\s*([^;]+);/g)].map(([, name, value]) => [name, value]), [
+    ["--ds-size-control", "44px"],
+    ["--ds-size-row", "44px"],
+  ]);
+  // The same specificity as one density block, so it wins by coming last.
+  for (const density of ["compact", "comfortable", "touch"]) {
+    assert.ok(css.indexOf(`[data-ds-density="${density}"]`) < coarse.index, `${density} comes after the block for a coarse pointer`);
+  }
+});
+
+test("the density reaches the manifest, the token data and the token block, for the default theme and for a theme", () => {
+  const values = { compact: { control: "28px", row: "32px" }, comfortable: { control: "36px", row: "36px" }, touch: { control: "44px", row: "44px" } };
+  const manifest = JSON.parse(read("manifest.json"));
+  assert.deepEqual(manifest.density, {
+    attribute: "data-ds-density",
+    default: "comfortable",
+    coarsePointer: "touch",
+    tokens: { control: "--ds-size-control", row: "--ds-size-row" },
+    values,
+  });
+  for (const value of ["24px", "28px", "32px", "36px", "40px", "44px", "260px", "360px"]) assert.ok(manifest.values.size.includes(value), value);
+  for (const key of ["control", "row", "control-xs", "control-sm", "control-md", "control-lg", "touch", "sidebar", "inspector"]) {
+    assert.ok(manifest.utilities.sizeKeys.includes(key), key);
+  }
+  const px = (value) => ({ value, unit: "px" });
+  for (const file of ["tokens.json", "themes/botbench.tokens.json"]) {
+    const { size } = JSON.parse(read(file));
+    assert.deepEqual(size.control, { $type: "dimension", $value: px(36), $extensions: { "design-system": { density: { compact: px(28), comfortable: px(36), touch: px(44) } } } }, file);
+    assert.deepEqual(size.row.$extensions["design-system"].density, { compact: px(32), comfortable: px(36), touch: px(44) }, file);
+    assert.deepEqual(size["control-sm"], { $type: "dimension", $value: px(28) }, file);
+  }
+  for (const file of ["design-tokens.md", "themes/botbench.design-tokens.md"]) {
+    const [, block] = read(file).match(/^---\n([\s\S]*?)\n---\n/);
+    const parsed = parseYamlBlock(block);
+    assert.deepEqual(parsed.density, { ...values, default: "comfortable", "coarse-pointer": "touch" }, file);
+    assert.equal(parsed.sizes.control, "36px", file);
+    assert.equal(parsed.sizes.sidebar, "260px", file);
+  }
+});
+
+test("the Tailwind preset has a height for a control and a row, and a width for a sidebar and an inspector", () => {
+  const { theme } = JSON.parse(read("tailwind-preset.js").replace(/^export default /, "").replace(/;\s*$/, ""));
+  for (const scale of ["width", "height", "size", "minWidth", "minHeight"]) {
+    for (const key of ["control", "row", "control-xs", "control-sm", "control-md", "control-lg", "touch"]) {
+      assert.equal(theme[scale][key], `var(--ds-size-${key})`, `${scale}.${key}`);
+    }
+  }
+  assert.equal(theme.width.sidebar, "var(--ds-size-sidebar)");
+  assert.equal(theme.maxWidth.inspector, "var(--ds-size-inspector)");
+  assert.equal(theme.maxWidth.column, "var(--ds-size-column)");
+});
+
+test("a density block that sets another token, a comfortable density that is not the default, and a touch density that is not the touch size each fail the build", () => {
+  const source = tokensSource();
+  const compact = '[data-ds-density="compact"] {\n    --ds-size-control: 28px;';
+  assert.ok(source.includes(compact));
+  assert.throws(buildTokens(source.replace(compact, `${compact}\n    --ds-space-md: 8px;`)), /\[data-ds-density="compact"\] sets .*--ds-space-md.* A density block sets --ds-size-control and --ds-size-row and nothing else/);
+  assert.throws(buildTokens(source.replace(/(\[data-ds-density="comfortable"\] \{\s*--ds-size-control: )36px/, "$140px")), /the comfortable density is the default, so its block must hold the values of :root/);
+  assert.throws(buildTokens(source.replace(/(\[data-ds-density="touch"\] \{\s*--ds-size-control: )44px/, "$148px")), /the block for a coarse pointer must hold the values of the touch density/);
+  assert.throws(buildTokens(source.replace(/--ds-size-touch: 44px/, "--ds-size-touch: 48px")), /the touch density must hold the value of --ds-size-touch/);
+  assert.throws(buildTokens(source.replace(/\n {2}\[data-ds-density="touch"\] \{[^}]*\}\n/, "\n")), /the density block \[data-ds-density="touch"\] is missing/);
+});
+
+// Where each use of the touch size sits in a component or pattern stylesheet: the property, the selector of its
+// rule and whether the rule is inside @media (pointer: coarse).
+function touchUses(css) {
+  const uses = [];
+  const open = [];
+  for (const [index, line] of css.replace(/\/\*[\s\S]*?\*\//g, (comment) => comment.replace(/[^\n]/g, " ")).split("\n").entries()) {
+    const text = line.trim();
+    if (text.endsWith("{")) open.push(text.slice(0, -1).trim());
+    else if (text === "}") open.pop();
+    else if (text.includes("--ds-size-touch")) {
+      uses.push({ line: index + 1, property: text.split(":")[0], selector: open.at(-1), coarse: open.includes("@media (pointer: coarse)") });
+    }
+  }
+  return uses;
+}
+
+test("a component uses the touch size only for the hit area of a pseudo-element, inside a coarse-pointer media query", () => {
+  const folders = ["components", "patterns"].flatMap((dir) => readdirSync(join(repoRoot, dir)).map((name) => join(dir, name, `${name}.css`)));
+  assert.ok(folders.length > 100);
+  const sized = /^(?:width|height|min-width|min-height|inset|inset-block|inset-inline|top|padding)$/;
+  let hitAreas = 0;
+  for (const file of folders) {
+    for (const use of touchUses(readFileSync(join(repoRoot, file), "utf8"))) {
+      const where = `${file}:${use.line}`;
+      assert.ok(use.coarse, `${where} uses --ds-size-touch outside @media (pointer: coarse). The height of a control is --ds-size-control and of a row --ds-size-row`);
+      assert.match(use.selector, /::(?:after|before)$/, `${where} uses --ds-size-touch on ${use.selector}, which is not the pseudo-element of a hit area`);
+      assert.match(use.property, sized, `${where} uses --ds-size-touch for ${use.property}`);
+      hitAreas += 1;
+    }
+  }
+  assert.ok(hitAreas >= 10, `only ${hitAreas} hit areas were found`);
+  for (const file of ["base/layout.css", "base/typography.css", "base/focus.css", "base/reset.css", "gallery/gallery.css"]) {
+    assert.doesNotMatch(readFileSync(join(repoRoot, file), "utf8"), /--ds-size-touch/, file);
+  }
+  // The check itself: a height outside the media query, and one on the control itself, are both caught.
+  assert.deepEqual(touchUses(".ds-x {\n  min-height: var(--ds-size-touch);\n}\n"), [{ line: 2, property: "min-height", selector: ".ds-x", coarse: false }]);
+  assert.equal(touchUses("@media (pointer: coarse) {\n  .ds-x::after {\n    height: var(--ds-size-touch);\n  }\n}\n")[0].coarse, true);
+});
+
+test("the new size variants are in the manifest and the component index, each with an example, and the old 44px sizes are gone from the metadata", () => {
+  const manifest = JSON.parse(read("manifest.json"));
+  const { components } = JSON.parse(read("components.json"));
+  const sizes = (name) => Object.fromEntries(components.find((component) => component.name === name).sizes.map((size) => [size.name, size.class]));
+  assert.deepEqual(sizes("button"), { default: undefined, small: "ds-button--small", large: "ds-button--large" });
+  assert.deepEqual(sizes("icon-button"), { default: undefined, small: "ds-icon-button--small", xsmall: "ds-icon-button--xsmall" });
+  for (const [name, className] of [["button", "ds-button--large"], ["icon-button", "ds-icon-button--small"], ["icon-button", "ds-icon-button--xsmall"]]) {
+    assert.ok(manifest.classes.includes(className), className);
+    const component = components.find((item) => item.name === name);
+    assert.ok(component.classes.includes(className), className);
+    assert.ok(component.examples.some((example) => example.markup.includes(className)), `${className} has no do example`);
+  }
+  const css = read("design-system.css");
+  assert.match(css, /\.ds-button--small \{\n\s+min-height: var\(--ds-size-control-sm\);/);
+  assert.match(css, /\.ds-button--large \{\n\s+min-height: max\(var\(--ds-size-control-lg\), var\(--ds-size-control\)\);/);
+  assert.match(css, /\.ds-icon-button--xsmall \{\n\s+width: var\(--ds-size-control-xs\);/);
+  assert.match(read("react/busy-button.tsx"), /export type ButtonSize = "default" \| "small" \| "large";/);
+  assert.match(read("react/busy-button.tsx"), /export type IconButtonSize = "default" \| "small" \| "xsmall";/);
+});
+
+test("the sidebar nav and the split panel's list column are as wide as the sidebar size, and the inspector as wide as the inspector size", () => {
+  const css = read("design-system.css");
+  assert.match(css, /\.ds-sidebar-nav \{[^}]*\n\s+width: var\(--ds-size-sidebar\);/);
+  assert.match(css, /grid-template-columns: var\(--ds-size-sidebar\) minmax\(0, 1fr\);/);
+  assert.match(css, /\.ds-inspector \{\n\s+width: var\(--ds-size-inspector\);/);
 });

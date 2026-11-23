@@ -101,7 +101,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     cursor: pointer;

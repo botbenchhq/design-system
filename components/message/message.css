@@ -75,13 +75,13 @@
     min-width: 0;
   }
 
-  /* The summary is as tall as a pointer target, and its text sits in the middle of that height. */
+  /* The summary is as tall as a row, and its padding puts its text in the middle of that height. */
   .ds-message__summary {
     display: flex;
     align-items: baseline;
     column-gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
-    padding-block: var(--ds-space-md);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     cursor: pointer;

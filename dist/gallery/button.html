@@ -56,6 +56,29 @@
 </figure>
 <figure data-gallery="specimen">
 <figcaption>
+<h3>Large, for the one action of a sparse screen</h3>
+</figcaption>
+<div data-example="large" data-title="Large, for the one action of a sparse screen">
+  <div class="ds-cluster">
+    <button type="button" class="ds-button ds-button--primary ds-button--large">Sign in with GitHub</button>
+    <button type="button" class="ds-button ds-button--large">Use a device code</button>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The default size at each density</h3>
+</figcaption>
+<div data-example="density" data-title="The default size at each density">
+  <div class="ds-cluster">
+    <div data-ds-density="compact"><button type="button" class="ds-button">Compact</button></div>
+    <div data-ds-density="comfortable"><button type="button" class="ds-button">Comfortable</button></div>
+    <div data-ds-density="touch"><button type="button" class="ds-button">Touch</button></div>
+  </div>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
 <h3>With a leading icon</h3>
 </figcaption>
 <div data-example="with-icon" data-title="With a leading icon" class="ds-cluster">
@@ -186,9 +209,11 @@
 <h2>Sizes</h2>
 <dl>
 <dt>default</dt>
-<dd>44px tall. Use it unless the button sits in a dense row.</dd>
+<dd>As tall as the density of its container: 36px by default, 28px where data-ds-density is compact, and 44px where it is touch and on every coarse pointer. Use it unless the button sits in a dense row or is the one action of a sparse screen.</dd>
 <dt>small <code>ds-button--small</code></dt>
-<dd>Drawn 32px tall for dense rows and toolbars. Its pointer target is still 44px.</dd>
+<dd>28px tall at every density, for dense rows and toolbars. On a coarse pointer it is drawn the same and its pointer target is 44px tall.</dd>
+<dt>large <code>ds-button--large</code></dt>
+<dd>40px tall at every density, and never shorter than the default size, for the one action of a sparse screen such as sign-in.</dd>
 </dl>
 </section>
 <section>
@@ -207,6 +232,7 @@
 <ul>
 <li><code>ds-button</code></li>
 <li><code>ds-button--danger</code></li>
+<li><code>ds-button--large</code></li>
 <li><code>ds-button--primary</code></li>
 <li><code>ds-button--quiet</code></li>
 <li><code>ds-button--small</code></li>

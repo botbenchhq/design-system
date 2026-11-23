@@ -18,7 +18,7 @@
     align-items: center;
     justify-content: space-between;
     column-gap: var(--ds-space-md);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
   }
 
   .ds-notification-list__heading {

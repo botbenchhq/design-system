@@ -95,7 +95,21 @@
     --ds-z-dialog: 300;
     --ds-z-toast: 400;
 
+    /* The fixed heights a size variant names, such as a small button. They do not change with the density. */
+    --ds-size-control-xs: 24px;
+    --ds-size-control-sm: 28px;
+    --ds-size-control-md: 32px;
+    --ds-size-control-lg: 40px;
+    /* The height of a control of default size, at the density of its container. The density blocks below set it. */
+    --ds-size-control: 36px;
+    /* The least height of a row in a list, a menu, a tree or a table, at the density of its container. */
+    --ds-size-row: 36px;
+    /* The smallest target on a coarse pointer, such as a finger. On a fine pointer the floor is control-xs. */
     --ds-size-touch: 44px;
+    /* A navigation or list column. */
+    --ds-size-sidebar: 260px;
+    /* A detail column beside the main one. */
+    --ds-size-inspector: 360px;
     --ds-size-column: 480px;
     --ds-size-transcript: 720px;
     /* A view of dense data, such as a table or a board, that uses the width of a desktop screen. */
@@ -168,6 +182,34 @@
       --ds-color-tainted: #E39C77;
       --ds-color-tainted-subtle: #311E14;
       --ds-shadow-overlay: 0 8px 24px 0 rgb(0 0 0 / 0.5);
+    }
+  }
+
+  /*
+   * Density: how tall a control and a row are. data-ds-density on any element sets it for what is inside.
+   * Comfortable is the default. Each block sets the two density tokens and nothing else, and a theme cannot set them.
+   */
+  [data-ds-density="compact"] {
+    --ds-size-control: 28px;
+    --ds-size-row: 32px;
+  }
+
+  [data-ds-density="comfortable"] {
+    --ds-size-control: 36px;
+    --ds-size-row: 36px;
+  }
+
+  [data-ds-density="touch"] {
+    --ds-size-control: 44px;
+    --ds-size-row: 44px;
+  }
+
+  /* A finger needs the touch size, so on a coarse pointer the touch density applies everywhere, whatever the attribute says. */
+  @media (pointer: coarse) {
+    :root,
+    [data-ds-density] {
+      --ds-size-control: 44px;
+      --ds-size-row: 44px;
     }
   }
 }
@@ -646,7 +688,7 @@
   .ds-activity-feed__more {
     display: flex;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     margin-inline-start: calc(var(--ds-space-md) * -1);
   }
 
@@ -848,8 +890,8 @@
     flex: none;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-sm);
     border-radius: var(--ds-radius-md);
     transition-property: background-color, color;
@@ -1034,7 +1076,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     cursor: pointer;
@@ -1107,7 +1149,7 @@
  */
 
 @layer ds.components {
-  /* No wider than seven pointer targets, because there is no token for a chip's width. */
+  /* No wider than half the reading column, so a long name gives way and a row holds two chips. */
   .ds-attachment-chip {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto auto;
@@ -1115,7 +1157,7 @@
     column-gap: var(--ds-space-sm);
     row-gap: var(--ds-space-xs);
     min-width: 0;
-    max-width: min(100%, calc(var(--ds-size-touch) * 7));
+    max-width: min(100%, calc(var(--ds-size-column) / 2));
     padding-block: var(--ds-space-xs);
     padding-inline: var(--ds-space-sm) var(--ds-space-xs);
     border-width: var(--ds-border-width);
@@ -1166,8 +1208,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--ds-space-xl);
-    height: var(--ds-space-xl);
+    width: var(--ds-size-control-xs);
+    height: var(--ds-size-control-xs);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     transition-property: background-color, color;
@@ -1176,17 +1218,19 @@
   }
 
   /*
-   * The button is drawn 24px square. This invisible box, centred on it, keeps its
-   * pointer target at the touch size both ways without making the chip larger.
+   * The button is drawn 24px square, the least a fine pointer needs. On a coarse pointer this invisible box,
+   * centred on it, keeps its pointer target at the touch size both ways without making the chip larger.
    */
-  .ds-attachment-chip__remove::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
-    translate: -50% -50%;
+  @media (pointer: coarse) {
+    .ds-attachment-chip__remove::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--ds-size-touch);
+      height: var(--ds-size-touch);
+      translate: -50% -50%;
+    }
   }
 
   .ds-attachment-chip__remove-icon {
@@ -1420,7 +1464,7 @@
     align-items: center;
     justify-content: flex-end;
     gap: var(--ds-space-xs) var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-lg);
     border-bottom-width: var(--ds-border-width);
     background-color: var(--ds-color-info-subtle);
@@ -1475,25 +1519,27 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    width: var(--ds-space-2xl);
-    height: var(--ds-space-2xl);
+    width: var(--ds-size-control-md);
+    height: var(--ds-size-control-md);
     margin-inline-end: calc(var(--ds-space-sm) * -1);
     border-radius: var(--ds-radius-sm);
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }
 
   /*
-   * The dismiss button is drawn 32px square. This invisible box, centred on it,
+   * The dismiss button is drawn 32px square. On a coarse pointer this invisible box, centred on it,
    * keeps its pointer target at the touch size without making the banner taller.
    */
-  .ds-banner__dismiss::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
-    translate: -50% -50%;
+  @media (pointer: coarse) {
+    .ds-banner__dismiss::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--ds-size-touch);
+      height: var(--ds-size-touch);
+      translate: -50% -50%;
+    }
   }
 
   .ds-banner__icon {
@@ -1551,7 +1597,7 @@
 
   /* An item that holds a link never gets narrower than its chevron and a pointer target. */
   .ds-breadcrumb__item:not(:first-child, :last-child) {
-    min-width: calc(var(--ds-space-lg) + var(--ds-size-touch));
+    min-width: calc(var(--ds-space-lg) + var(--ds-size-control));
   }
 
   .ds-breadcrumb__item + .ds-breadcrumb__item::before {
@@ -1573,13 +1619,13 @@
     min-width: 0;
     padding-inline: var(--ds-space-xs);
     overflow: hidden;
-    line-height: var(--ds-size-touch);
+    line-height: var(--ds-size-control);
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .ds-breadcrumb__link {
-    min-width: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     text-align: center;
@@ -1595,7 +1641,7 @@
 
   /* Two pointer targets wide at most, on a phone. The first item and the current page keep their text. */
   .ds-breadcrumb__item:not(:first-child, :last-child) > .ds-breadcrumb__link {
-    max-width: calc(var(--ds-size-touch) * 2);
+    max-width: calc(var(--ds-size-control) * 2);
   }
 
   @media (min-width: 768px) {
@@ -1631,9 +1677,11 @@
     align-items: center;
     justify-content: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
-    padding: var(--ds-space-xs) var(--ds-space-lg);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
+    /* The block padding is what one line of the label leaves of the height, so a label of two lines keeps the same space above and below. */
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+    padding-inline: var(--ds-space-lg);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-fill);
@@ -1664,23 +1712,32 @@
     color: var(--ds-color-danger);
   }
 
+  /* The sizes are fixed heights: they do not follow the density, so a small button is 28px in every container. */
   .ds-button--small {
-    min-height: var(--ds-space-2xl);
+    min-height: var(--ds-size-control-sm);
+    padding-block: calc((var(--ds-size-control-sm) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
   }
 
+  /* Never shorter than a button of default size, which on a coarse pointer is the taller of the two. */
+  .ds-button--large {
+    min-height: max(var(--ds-size-control-lg), var(--ds-size-control));
+  }
+
   /*
-   * The small button is drawn 32px tall. This invisible box, centred on it,
-   * keeps its pointer target at the touch size without making a dense row taller.
+   * A finger needs more than the 28px the small button is drawn with. On a coarse pointer this invisible box,
+   * centred on it, keeps its pointer target at the touch size without making a dense row taller.
    */
-  .ds-button--small::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  @media (pointer: coarse) {
+    .ds-button--small::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   .ds-button__icon {
@@ -1857,16 +1914,16 @@
 
 @layer ds.components {
   /*
-   * Seven columns of one pointer target each where there is room. It fills a phone's width and stops growing after that.
-   * On a narrower screen, such as a phone zoomed in, the columns narrow to fit and each day stays 44px tall.
+   * Seven columns, each as wide as a control is tall, where there is room. It fills a phone's width and stops growing
+   * after that. On a narrower screen, such as a phone zoomed in, the columns narrow to fit and each day keeps its height.
    */
   .ds-calendar {
     display: flex;
     flex-direction: column;
     gap: var(--ds-space-sm);
     width: 100%;
-    min-width: min(calc(var(--ds-size-touch) * 7), 100%);
-    max-width: calc(var(--ds-size-touch) * 8);
+    min-width: min(calc(var(--ds-size-control) * 7), 100%);
+    max-width: calc(var(--ds-size-control) * 8);
   }
 
   .ds-calendar__header {
@@ -1908,7 +1965,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     border-radius: var(--ds-radius-sm);
     font-variant-numeric: tabular-nums;
     transition-property: background-color, color;
@@ -2000,7 +2057,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--ds-space-md);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding-inline: var(--ds-space-lg);
     border-bottom-width: var(--ds-border-width);
   }
@@ -2177,7 +2234,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     list-style: none;
@@ -2245,8 +2302,8 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     row-gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
   /* The margin centres the 20px box on the first line of the label. */
@@ -2267,11 +2324,11 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The box is drawn 20px square. This invisible box, centred on it, keeps its pointer target at the touch size. */
+  /* The box is drawn 20px square. This invisible box, centred on it, makes its pointer target as tall and as wide as the row is tall. */
   .ds-checkbox__input::after {
     content: "";
     position: absolute;
-    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-touch)) / 2 - var(--ds-border-width));
+    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-row)) / 2 - var(--ds-border-width));
   }
 
   .ds-checkbox__input:checked,
@@ -2410,7 +2467,7 @@
 
   /* The body is given tabindex="0" in this variant, so it is a pointer target and is at least as tall as one. */
   .ds-code-block--scroll .ds-code-block__body {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     overflow-x: auto;
     white-space: pre;
     overflow-wrap: normal;
@@ -2521,7 +2578,7 @@
     inset-inline: 0;
     z-index: var(--ds-z-overlay);
     display: none;
-    max-height: calc(var(--ds-size-touch) * 5.5 + var(--ds-space-xs));
+    max-height: calc(var(--ds-size-row) * 5.5 + var(--ds-space-xs));
     margin-top: var(--ds-space-xs);
     padding: var(--ds-space-xs);
     border-width: var(--ds-border-width);
@@ -2547,7 +2604,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     overflow-wrap: anywhere;
@@ -2625,7 +2682,7 @@
   .ds-command-palette__list {
     display: flex;
     flex-direction: column;
-    max-height: min(calc(var(--ds-size-touch) * 8), 50dvh);
+    max-height: min(calc(var(--ds-size-row) * 8), 50dvh);
     padding: var(--ds-space-xs);
     overflow-y: auto;
   }
@@ -2650,7 +2707,7 @@
     align-items: center;
     gap: var(--ds-space-sm);
     width: 100%;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     text-align: start;
@@ -2788,16 +2845,16 @@
 
   /*
    * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
-   * Without field-sizing the height is fixed at two targets and the text scrolls inside.
-   * The block padding is what centres a single line in a box one target tall.
+   * Without field-sizing the height is fixed at two controls and the text scrolls inside.
+   * The block padding is what centres a single line in a box as tall as one control.
    */
   .ds-composer__input {
     flex: 1;
     min-width: 0;
-    height: calc(var(--ds-size-touch) * 2);
-    min-height: var(--ds-size-touch);
-    max-height: calc(var(--ds-size-touch) * 4);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-lg) * var(--ds-leading-lg)) / 2 - var(--ds-border-width));
+    height: calc(var(--ds-size-control) * 2);
+    min-height: var(--ds-size-control);
+    max-height: calc(var(--ds-size-control) * 4);
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-lg) * var(--ds-leading-lg)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -2809,7 +2866,7 @@
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
 
-  /* One line tall when empty, growing with the text up to four targets, so Send is never pushed off a phone screen. */
+  /* One line tall when empty, growing with the text up to four controls tall, so Send is never pushed off a phone screen. */
   @supports (field-sizing: content) {
     .ds-composer__input {
       height: auto;
@@ -2819,7 +2876,7 @@
 
   @media (min-width: 768px) {
     .ds-composer__input {
-      padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+      padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
       font-size: var(--ds-text-ui);
       line-height: var(--ds-leading-ui);
     }
@@ -2896,7 +2953,7 @@
     border-radius: var(--ds-radius-full);
   }
 
-  /* Two lines of chips keep 12px apart, so their 44px pointer targets do not overlap. */
+  /* Two lines of chips keep 12px apart, so on a coarse pointer their 44px pointer targets do not overlap. */
   .ds-composer__bar > .ds-composer__controls {
     flex: 1 1 auto;
     min-width: 0;
@@ -2910,7 +2967,7 @@
   .ds-composer__chip {
     flex-shrink: 0;
     max-width: 100%;
-    min-width: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
     padding-inline: var(--ds-space-sm);
   }
 
@@ -3031,7 +3088,7 @@
     gap: var(--ds-space-md);
     width: 100%;
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-sm) var(--ds-space-md);
     text-align: start;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
@@ -3213,8 +3270,8 @@
   .ds-copy-field__value {
     flex: 1;
     min-width: 0;
-    min-height: var(--ds-size-touch);
-    padding: var(--ds-space-sm) var(--ds-space-md);
+    min-height: var(--ds-size-control);
+    padding: 0 var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-surface-sunken);
@@ -3266,13 +3323,13 @@
   }
 
   /*
-   * 12px above and below one line of text makes a row 44px tall.
-   * Text wraps between words only, so a column is never narrower than its longest word, nor than two pointer
-   * targets. Where the columns do not fit, ds-data-table__scroll around the table scrolls them sideways.
+   * The block padding is what one line of text leaves of a row's height, so a one-line row is exactly that tall.
+   * Text wraps between words only, so a column is never narrower than its longest word, nor than two controls
+   * are tall. Where the columns do not fit, ds-data-table__scroll around the table scrolls them sideways.
    */
   .ds-data-table :is(th, td) {
-    min-width: calc(var(--ds-size-touch) * 2);
-    padding: var(--ds-space-md) var(--ds-space-sm);
+    min-width: calc(var(--ds-size-control) * 2);
+    padding: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2) var(--ds-space-sm);
     font-weight: var(--ds-weight-normal);
     text-align: start;
     vertical-align: top;
@@ -3307,14 +3364,14 @@
   }
 
   /*
-   * The cell for a row's one action. Its padding is what a small button leaves of a pointer target,
-   * so the button's words sit on the row's first line, its padded hit area fits the row,
+   * The cell for a row's one action. Its padding is what a small button leaves of a row's height,
+   * so the button's words sit on the row's first line, its padded hit area fits the row on a coarse pointer,
    * and a one-line row is no taller for having it.
    */
   .ds-data-table .ds-data-table__action {
     width: 0;
     min-width: 0;
-    padding-block: calc((var(--ds-size-touch) - var(--ds-space-2xl)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-size-control-sm)) / 2);
     text-align: end;
     white-space: nowrap;
   }
@@ -3329,8 +3386,8 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-row);
     margin-inline: calc(var(--ds-space-sm) * -1);
     padding-inline: var(--ds-space-sm);
     border-radius: var(--ds-radius-sm);
@@ -3374,10 +3431,10 @@
     display: inline-flex;
     align-items: flex-start;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-row);
     margin-inline-start: calc(var(--ds-space-xs) * -1);
-    padding: var(--ds-space-md) var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
+    padding: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2) var(--ds-space-sm) calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2) var(--ds-space-xs);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     text-align: start;
@@ -3547,7 +3604,7 @@
     /* Pulled to the start, so the words of a quiet button line up with the labels above them. */
     .ds-data-table:not(.ds-data-table--scroll) tbody tr > .ds-data-table__action {
       margin-inline-start: calc(var(--ds-space-xs) * -1);
-      padding-block: calc((var(--ds-size-touch) - var(--ds-space-2xl)) / 2);
+      padding-block: calc((var(--ds-size-row) - var(--ds-size-control-sm)) / 2);
       padding-inline: 0;
     }
 
@@ -3577,17 +3634,17 @@
 
 @layer ds.components {
   /*
-   * A date is short, so the control is no wider than five pointer targets, because there is no token
-   * for a control's width. Without the native appearance, iOS keeps the field's height and border.
+   * A date is short, so the control is no wider than half the reading column, and a date with a time
+   * no wider than a sidebar column. Without the native appearance, iOS keeps the field's height and border.
    */
   .ds-date-field {
     appearance: none;
-    max-width: calc(var(--ds-size-touch) * 5);
+    max-width: calc(var(--ds-size-column) / 2);
     font-variant-numeric: tabular-nums;
   }
 
   .ds-date-field[type="datetime-local"] {
-    max-width: calc(var(--ds-size-touch) * 6.5);
+    max-width: var(--ds-size-sidebar);
   }
 
   /* iOS centres the value. It starts where every other field's text starts. */
@@ -3870,7 +3927,7 @@
 
   /* The body is given tabindex="0", so it is a pointer target and is at least as tall as one. */
   .ds-diff__body {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     padding-block: var(--ds-space-sm);
     border-radius: var(--ds-radius-md);
     overflow-x: auto;
@@ -4015,7 +4072,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-sm);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
@@ -4122,7 +4179,7 @@
     align-items: flex-start;
     gap: var(--ds-space-sm);
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     counter-increment: ds-editable-list;
   }
 
@@ -4135,7 +4192,7 @@
     content: counter(ds-editable-list) ".";
     flex: none;
     min-width: var(--ds-space-xl);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     color: var(--ds-color-muted);
     font-variant-numeric: tabular-nums;
   }
@@ -4143,7 +4200,7 @@
   .ds-editable-list__text {
     flex: 1;
     min-width: 0;
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     overflow-wrap: anywhere;
   }
 
@@ -4152,7 +4209,7 @@
     display: flex;
     flex: none;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
   }
 
   /* The form a row holds while it is edited: the field, then Save and Cancel under it. */
@@ -4281,7 +4338,7 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     color: var(--ds-color-muted);
     list-style: none;
     cursor: pointer;
@@ -4347,7 +4404,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
   }
 
   /* The chosen button gains an outline, a shade and a heavier label, so the choice is not a colour alone. */
@@ -4420,11 +4477,16 @@
     font-weight: var(--ds-weight-normal);
   }
 
-  /* 16px at compact widths, because iOS zooms the page when a smaller input takes focus. */
+  /*
+   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   * The block padding is what one line of text leaves of the control's height, so the control is exactly that
+   * tall at every density, and the first line of a textarea sits where an input's text does.
+   */
   .ds-field__control {
     width: 100%;
-    min-height: var(--ds-size-touch);
-    padding: var(--ds-space-sm) var(--ds-space-md);
+    min-height: var(--ds-size-control);
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-lg) * var(--ds-leading-lg)) / 2 - var(--ds-border-width));
+    padding-inline: var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
     border-radius: var(--ds-radius-md);
@@ -4436,6 +4498,7 @@
 
   @media (min-width: 768px) {
     .ds-field__control {
+      padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
       font-size: var(--ds-text-ui);
       line-height: var(--ds-leading-ui);
     }
@@ -4495,7 +4558,7 @@
     position: relative;
     display: flex;
     min-width: 0;
-    min-height: calc(var(--ds-size-touch) * 2);
+    min-height: calc(var(--ds-size-control) * 2);
   }
 
   /*
@@ -4606,7 +4669,6 @@
     font-weight: var(--ds-weight-medium);
   }
 
-  /* 12px between rows: chips are drawn 32px tall, so the 44px targets of two rows meet and never overlap. */
   .ds-filter-chips__list {
     display: flex;
     flex-wrap: wrap;
@@ -4615,14 +4677,21 @@
     row-gap: var(--ds-space-md);
   }
 
+  /* 16px between rows on a coarse pointer, so the 44px targets of two rows never overlap, even where a row holds a small button. */
+  @media (pointer: coarse) {
+    .ds-filter-chips__list {
+      row-gap: var(--ds-space-lg);
+    }
+  }
+
   .ds-filter-chips__chip {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
     max-width: 100%;
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-space-2xl);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-sm) var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -4655,14 +4724,18 @@
     cursor: pointer;
   }
 
-  /* An invisible box centred on the chip, which takes the press without making the row any taller. */
-  .ds-filter-chips__input::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  /*
+   * On a coarse pointer, an invisible box centred on the chip, which takes the press without making the row any taller.
+   */
+  @media (pointer: coarse) {
+    .ds-filter-chips__input::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   /* On: a fill and a check, so the state is a shape as well as a colour. */
@@ -4784,13 +4857,13 @@
 /*
  * Icon button: a button that shows only an icon. It sits on the same element as the button class,
  * which draws the border, the fill, hover, pressed-down, busy and disabled, so this stylesheet must load after the button's.
- * It makes the button a square one target wide and adds the look of a toggle that is on.
+ * It makes the button a square as wide as a control is tall, gives it two smaller sizes and adds the look of a toggle that is on.
  */
 
 @layer ds.components {
   .ds-icon-button {
     flex: none;
-    width: var(--ds-size-touch);
+    width: var(--ds-size-control);
     padding: 0;
   }
 
@@ -4800,13 +4873,77 @@
     background-color: var(--ds-color-surface-sunken);
   }
 
+  /* The bar is as wide as the icon, whatever the size of the button. */
   .ds-icon-button[aria-pressed="true"]::after {
     content: "";
     position: absolute;
-    bottom: var(--ds-space-sm);
-    inset-inline: var(--ds-space-md);
+    bottom: var(--ds-space-xs);
+    inset-inline: calc((var(--ds-size-control) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
     height: calc(var(--ds-border-width) * 2);
     background-color: currentColor;
+  }
+
+  /*
+   * The sizes are fixed squares: 28px for a toolbar, 24px for an action inside a dense row. They do not follow
+   * the density. The bar of a toggle that is on sits on the lower edge, clear of the icon.
+   */
+  .ds-icon-button--small {
+    width: var(--ds-size-control-sm);
+    min-width: var(--ds-size-control-sm);
+    min-height: var(--ds-size-control-sm);
+    border-radius: var(--ds-radius-sm);
+  }
+
+  .ds-icon-button--xsmall {
+    width: var(--ds-size-control-xs);
+    min-width: var(--ds-size-control-xs);
+    min-height: var(--ds-size-control-xs);
+    border-radius: var(--ds-radius-sm);
+  }
+
+  .ds-icon-button--small[aria-pressed="true"]::after {
+    bottom: 0;
+    inset-inline: calc((var(--ds-size-control-sm) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
+  }
+
+  .ds-icon-button--xsmall[aria-pressed="true"]::after {
+    bottom: 0;
+    inset-inline: calc((var(--ds-size-control-xs) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
+  }
+
+  /*
+   * A finger needs more than a small square. On a coarse pointer this invisible box, centred on the button,
+   * keeps its pointer target at the touch size both ways without making a dense row taller.
+   */
+  @media (pointer: coarse) {
+    .ds-icon-button--small::after,
+    .ds-icon-button--xsmall::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--ds-size-touch);
+      height: var(--ds-size-touch);
+      translate: -50% -50%;
+    }
+
+    /*
+     * A toggle that is on draws its bar with the same box: the padding leaves only the bar's own area as the
+     * content box, at the middle of the button's lower edge, and the fill is clipped to it.
+     */
+    .ds-icon-button--small[aria-pressed="true"]::after {
+      inset: 50% auto auto 50%;
+      height: var(--ds-size-touch);
+      padding: calc((var(--ds-size-touch) + var(--ds-size-control-sm)) / 2 - var(--ds-border-width) * 3) calc((var(--ds-size-touch) - var(--ds-space-lg)) / 2) calc((var(--ds-size-touch) - var(--ds-size-control-sm)) / 2 + var(--ds-border-width));
+      background-clip: content-box;
+    }
+
+    .ds-icon-button--xsmall[aria-pressed="true"]::after {
+      inset: 50% auto auto 50%;
+      height: var(--ds-size-touch);
+      padding: calc((var(--ds-size-touch) + var(--ds-size-control-xs)) / 2 - var(--ds-border-width) * 3) calc((var(--ds-size-touch) - var(--ds-space-lg)) / 2) calc((var(--ds-size-touch) - var(--ds-size-control-xs)) / 2 + var(--ds-border-width));
+      background-clip: content-box;
+    }
   }
 
   /* After the pressed rules, so an unavailable toggle keeps its bar and loses the fill. */
@@ -4840,14 +4977,14 @@
     border-top-width: var(--ds-border-width);
   }
 
-  /* Beside: the rule moves to the panel's leading edge. There is no width token for a panel. */
+  /* Beside: the rule moves to the panel's leading edge, and the panel is as wide as the inspector token says. */
   @media (min-width: 768px) {
     .ds-inspector__layout {
       grid-template-columns: minmax(0, 1fr) auto;
     }
 
     .ds-inspector {
-      width: calc(var(--ds-size-column) * 0.6);
+      width: var(--ds-size-inspector);
       padding-top: 0;
       padding-inline-start: var(--ds-space-xl);
       border-top-width: 0;
@@ -4863,10 +5000,10 @@
     gap: var(--ds-space-sm);
   }
 
-  /* Centred on the first line of the title beside a 44px button. */
+  /* Centred on the first line of the title beside the close button. */
   .ds-inspector__title {
     min-width: 0;
-    padding-block: var(--ds-space-md);
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-lg) * var(--ds-leading-lg)) / 2);
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
@@ -4938,7 +5075,7 @@
     height: 0;
   }
 
-  /* Drawn 32px tall, as a small button is, and it floats over rows, so it has a firm edge and no shadow. */
+  /* Drawn 32px tall, whatever the density, and it floats over rows, so it has a firm edge and no shadow. */
   .ds-jump-to-latest__button {
     position: absolute;
     bottom: var(--ds-space-xs);
@@ -4947,8 +5084,8 @@
     align-items: center;
     gap: var(--ds-space-sm);
     max-width: 100%;
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-space-2xl);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-md) var(--ds-space-lg);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -4971,14 +5108,18 @@
     mask: url("icons/arrow-down.svg") center / contain no-repeat;
   }
 
-  /* The pointer target: an invisible box a touch target tall, centred on the button. */
-  .ds-jump-to-latest__button::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  /*
+   * On a coarse pointer, the pointer target: an invisible box a touch target tall, centred on the button.
+   */
+  @media (pointer: coarse) {
+    .ds-jump-to-latest__button::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   /* With nothing to count, the span takes no room and the label stands alone. */
@@ -5124,8 +5265,8 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     font-weight: var(--ds-weight-medium);
     text-decoration-line: underline;
     text-decoration-thickness: var(--ds-border-width);
@@ -5209,11 +5350,11 @@
     align-items: center;
     gap: var(--ds-space-md);
     min-width: 0;
-    padding: var(--ds-space-md) var(--ds-space-sm);
+    padding: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2) var(--ds-space-sm);
   }
 
   .ds-list__link {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }
 
@@ -5254,16 +5395,16 @@
     white-space: nowrap;
   }
 
-  /* As tall as a pointer target, so a small button's padded hit area never reaches into the next row. */
+  /* As tall as a row, so on a coarse pointer a small button's padded hit area never reaches into the next row. */
   .ds-list__action {
     display: flex;
     flex: none;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
   }
 
   /*
-   * A dense row is drawn with 4px above and below its text. A link in it is still 44px tall,
+   * A dense row is drawn with 4px above and below its text. A link in it is still as tall as a row,
    * so a dense row that navigates never has a smaller pointer target than a default one.
    */
   .ds-list--dense .ds-list__content,
@@ -5366,7 +5507,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     cursor: pointer;
@@ -5488,7 +5629,7 @@
    * It holds the output as text in a pre, or a list of lines in a div. Half the viewport at most on a phone.
    */
   .ds-log-viewer__body {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     max-height: min(var(--ds-size-column), 50dvh);
     padding-block: var(--ds-space-sm);
     padding-inline: var(--ds-space-md);
@@ -5590,7 +5731,7 @@
   .ds-menu {
     inset: auto var(--ds-space-lg) var(--ds-space-lg);
     width: fit-content;
-    min-width: calc(var(--ds-size-touch) * 5);
+    min-width: calc(var(--ds-size-column) / 2);
     max-width: min(calc(var(--ds-size-column) * 0.75), calc(100vw - var(--ds-space-lg) * 2));
     margin: 0 auto;
     padding: var(--ds-space-xs);
@@ -5628,7 +5769,7 @@
      */
     @media not all and (min-width: 768px) {
       .ds-menu {
-        min-width: min(calc(var(--ds-size-touch) * 5), 100%);
+        min-width: min(calc(var(--ds-size-column) / 2), 100%);
         position-try-order: most-width;
       }
     }
@@ -5654,7 +5795,7 @@
     align-items: center;
     gap: var(--ds-space-sm);
     width: 100%;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     text-align: start;
@@ -5782,13 +5923,13 @@
     min-width: 0;
   }
 
-  /* The summary is as tall as a pointer target, and its text sits in the middle of that height. */
+  /* The summary is as tall as a row, and its padding puts its text in the middle of that height. */
   .ds-message__summary {
     display: flex;
     align-items: baseline;
     column-gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
-    padding-block: var(--ds-space-md);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     cursor: pointer;
@@ -6015,7 +6156,7 @@
     align-items: center;
     justify-content: space-between;
     column-gap: var(--ds-space-md);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
   }
 
   .ds-notification-list__heading {
@@ -6095,7 +6236,7 @@
     align-items: center;
     column-gap: var(--ds-space-md);
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding-inline: var(--ds-space-md);
   }
 
@@ -6115,7 +6256,7 @@
    * The mark is drawn before the first word, from the state, so it wraps with the text and never stands alone.
    */
   .ds-now-doing__text {
-    flex: 1 1 calc(var(--ds-size-touch) * 5);
+    flex: 1 1 calc(var(--ds-size-column) / 2);
     min-width: 0;
     padding-block: var(--ds-space-sm);
     overflow-wrap: anywhere;
@@ -6158,7 +6299,7 @@
   .ds-now-doing__link {
     display: inline-flex;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     text-decoration-line: underline;
@@ -6195,13 +6336,13 @@
 
 @layer ds.components {
   /*
-   * One joined row. A number is short, so the row is no wider than six pointer targets,
-   * because there is no token for a control's width. It is its own stacking context for the focused part below.
+   * One joined row. A number is short, so the row is no wider than half the reading column.
+   * It is its own stacking context for the focused part below.
    */
   .ds-number-field {
     display: flex;
     min-width: 0;
-    max-width: calc(var(--ds-size-touch) * 6);
+    max-width: calc(var(--ds-size-column) / 2);
     isolation: isolate;
   }
 
@@ -6304,8 +6445,8 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     min-width: 0;
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-md);
@@ -6334,11 +6475,11 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The mark is drawn 20px across. This invisible box, centred on it, gives the input itself a 44px target inside the row. */
+  /* The mark is drawn 20px across. This invisible box, centred on it, gives the input itself a target as tall as the row. */
   .ds-option-picker__input::after {
     content: "";
     position: absolute;
-    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-touch)) / 2 - var(--ds-border-width));
+    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-row)) / 2 - var(--ds-border-width));
   }
 
   .ds-option-picker__input:checked {
@@ -6536,10 +6677,10 @@
   /*
    * Mono digits a size up, spaced widely so each one can be checked against the message.
    * The start padding is half the spacing wider, which centres the gap around each digit.
-   * It is no wider than five and a half pointer targets, because there is no token for a control's width.
+   * It is no wider than half the reading column.
    */
   .ds-otp-input {
-    max-width: calc(var(--ds-size-touch) * 5.5);
+    max-width: calc(var(--ds-size-column) / 2);
     padding-inline: calc(var(--ds-space-md) + var(--ds-space-md) / 2) var(--ds-space-md);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-xl);
@@ -6658,8 +6799,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     color: var(--ds-color-muted);
   }
 
@@ -6732,11 +6873,11 @@
 
   /* The end padding keeps a long password clear of the button. */
   .ds-password-field__input {
-    padding-inline-end: calc(var(--ds-size-touch) + var(--ds-space-lg) + var(--ds-space-sm));
+    padding-inline-end: calc(var(--ds-space-2xl) * 2 + var(--ds-space-sm));
   }
 
   /*
-   * One target tall and wide enough for either word. A line at its start sets it apart from the value.
+   * As tall as the input and wide enough for either word. A line at its start sets it apart from the value.
    * It has no fill of its own, so the input's border shows through it.
    */
   .ds-password-field__toggle {
@@ -6746,8 +6887,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(var(--ds-size-touch) + var(--ds-space-lg));
-    min-height: var(--ds-size-touch);
+    width: calc(var(--ds-space-2xl) * 2);
+    min-height: var(--ds-size-control);
     border-inline-start-width: var(--ds-border-width);
     border-start-end-radius: var(--ds-radius-md);
     border-end-end-radius: var(--ds-radius-md);
@@ -6809,17 +6950,14 @@
     min-width: 0;
   }
 
-  /*
-   * Drawn 32px tall so it fits a header row. The invisible box centred on it
-   * keeps its pointer target at the touch size.
-   */
+  /* Drawn 32px tall, whatever the density, so it fits a header row. */
   .ds-pending-tray__link {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-space-2xl);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-xs) var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -6832,13 +6970,19 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  .ds-pending-tray__link::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  /*
+   * A finger needs more than 32px. On a coarse pointer this invisible box, centred on the link,
+   * keeps its pointer target at the touch size.
+   */
+  @media (pointer: coarse) {
+    .ds-pending-tray__link::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   /* The count is the first word of the sentence. The filled box only makes it easy to find. */
@@ -6888,7 +7032,7 @@
   .ds-popover {
     inset: auto var(--ds-space-lg) var(--ds-space-lg);
     width: fit-content;
-    min-width: calc(var(--ds-size-touch) * 5);
+    min-width: calc(var(--ds-size-column) / 2);
     max-width: min(calc(var(--ds-size-column) * 0.75), calc(100vw - var(--ds-space-lg) * 2));
     margin: 0 auto;
     padding: var(--ds-space-lg);
@@ -7108,8 +7252,8 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     row-gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
   /*
@@ -7132,11 +7276,11 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The circle is drawn 20px across. This invisible box, centred on it, keeps its pointer target at the touch size. */
+  /* The circle is drawn 20px across. This invisible box, centred on it, makes its pointer target as tall and as wide as the row is tall. */
   .ds-radio__input::after {
     content: "";
     position: absolute;
-    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-touch)) / 2 - var(--ds-border-width));
+    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-row)) / 2 - var(--ds-border-width));
   }
 
   .ds-radio__input:checked {
@@ -7231,7 +7375,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     cursor: pointer;
   }
@@ -7642,7 +7786,7 @@
   }
 
   .ds-search-field__box:has(.ds-search-field__clear) > .ds-search-field__input {
-    padding-inline-end: var(--ds-size-touch);
+    padding-inline-end: var(--ds-size-control);
   }
 
   /* One target square at the end of the input. The cross is drawn here, and the button's name is text in the markup. */
@@ -7653,8 +7797,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     border-radius: var(--ds-radius-md);
     color: var(--ds-color-muted);
     transition-property: color;
@@ -7735,15 +7879,15 @@
     }
   }
 
-  /* With the track's padding and border, the row is one target tall. The padding is narrow on a phone so five short labels fit, and a longer label wraps inside its segment. */
+  /* With the track's padding and border, the row is as tall as a control. The padding is narrow on a phone so five short labels fit, and a longer label wraps inside its segment. */
   .ds-segmented-control__option {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--ds-size-touch);
-    min-height: calc(var(--ds-size-touch) - var(--ds-space-xs) * 2 - var(--ds-border-width) * 2);
-    padding: var(--ds-space-xs);
+    min-width: var(--ds-size-control);
+    min-height: calc(var(--ds-size-control) - var(--ds-space-xs) * 2 - var(--ds-border-width) * 2);
+    padding: calc(var(--ds-space-xs) / 2) var(--ds-space-xs);
     text-align: center;
   }
 
@@ -7768,7 +7912,7 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The segment is drawn shorter than a target. This invisible box reaches the track's outer edge, above and below. */
+  /* The segment is drawn shorter than a control. This invisible box reaches the track's outer edge, above and below. */
   .ds-segmented-control__input::after {
     content: "";
     position: absolute;
@@ -7889,6 +8033,13 @@
     background-color: var(--ds-color-surface-raised);
   }
 
+  /* 16px between its two lines on a coarse pointer, so the 44px targets of the small buttons in them never overlap. */
+  @media (pointer: coarse) {
+    .ds-selection-basket {
+      row-gap: var(--ds-space-lg);
+    }
+  }
+
   /* The count, then "Clear selection". At compact widths this is the bar's first line. */
   .ds-selection-basket__selection {
     display: flex;
@@ -7984,7 +8135,7 @@
     flex-direction: column;
     gap: var(--ds-space-xs);
     min-width: 0;
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
   .ds-settings-row__label {
@@ -8066,7 +8217,7 @@
       align-items: flex-end;
       justify-content: center;
       min-width: calc(var(--ds-size-column) / 2);
-      min-height: var(--ds-size-touch);
+      min-height: var(--ds-size-row);
       padding-bottom: 0;
     }
 
@@ -8230,8 +8381,8 @@
     width: fit-content;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-sm) var(--ds-space-md);
     border-radius: var(--ds-radius-md);
     font-weight: var(--ds-weight-medium);
@@ -8308,13 +8459,13 @@
     display: none;
   }
 
-  /* The column is five pointer targets wide. There is no width token for a sidebar. */
+  /* The column is as wide as the sidebar token says. */
   @media (min-width: 768px) {
     .ds-sidebar-nav {
       display: flex;
       flex-direction: column;
       gap: var(--ds-space-lg);
-      width: calc(var(--ds-size-touch) * 5);
+      width: var(--ds-size-sidebar);
       min-width: 0;
       padding: var(--ds-space-md) var(--ds-space-sm);
       border-inline-end-width: var(--ds-border-width);
@@ -8347,7 +8498,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-md);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
@@ -8456,7 +8607,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-sm);
   }
 
@@ -8472,7 +8623,7 @@
   /* A block of content whose shape is not lines: a code block, a diff, a chart. */
   .ds-skeleton__block {
     display: block;
-    height: calc(var(--ds-size-touch) * 3);
+    height: calc(var(--ds-size-row) * 3);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-border);
     animation: ds-skeleton-pulse calc(var(--ds-duration-slow) * 6) var(--ds-ease) infinite alternate;
@@ -8497,7 +8648,7 @@
  * Slider: a native range input for a rough amount, with its label, its value in words
  * and a label at each end of the track.
  *
- * The thumb is a box one pointer target square. Only its middle is painted: the rest is a
+ * The thumb is a box as wide and as tall as a control. Only its middle is painted: the rest is a
  * transparent border, so the thumb takes a press anywhere in the square. The track is drawn
  * on the wrapper, set in from each end by that border, so the painted thumb stops exactly at its ends.
  */
@@ -8531,14 +8682,14 @@
   .ds-slider__track {
     position: relative;
     grid-column: 1 / -1;
-    margin-inline: calc((var(--ds-space-xl) - var(--ds-size-touch)) / 2);
+    margin-inline: calc((var(--ds-space-xl) - var(--ds-size-control)) / 2);
   }
 
   .ds-slider__track::before {
     content: "";
     position: absolute;
     top: 50%;
-    inset-inline: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2);
+    inset-inline: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2);
     height: var(--ds-space-xs);
     border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-border-strong);
@@ -8551,29 +8702,29 @@
     display: block;
     appearance: none;
     width: 100%;
-    height: var(--ds-size-touch);
+    height: var(--ds-size-control);
     border-radius: var(--ds-radius-md);
     background-color: transparent;
     cursor: pointer;
   }
 
   .ds-slider__input::-webkit-slider-runnable-track {
-    height: var(--ds-size-touch);
+    height: var(--ds-size-control);
     background-color: transparent;
   }
 
   .ds-slider__input::-moz-range-track {
-    height: var(--ds-size-touch);
+    height: var(--ds-size-control);
     background-color: transparent;
   }
 
   .ds-slider__input::-webkit-slider-thumb {
     appearance: none;
     box-sizing: border-box;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
-    border: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2) solid transparent;
-    border-radius: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2 + var(--ds-radius-sm));
+    width: var(--ds-size-control);
+    height: var(--ds-size-control);
+    border: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2) solid transparent;
+    border-radius: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2 + var(--ds-radius-sm));
     background-color: var(--ds-color-accent);
     background-clip: padding-box;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
@@ -8581,10 +8732,10 @@
 
   .ds-slider__input::-moz-range-thumb {
     box-sizing: border-box;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
-    border: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2) solid transparent;
-    border-radius: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2 + var(--ds-radius-sm));
+    width: var(--ds-size-control);
+    height: var(--ds-size-control);
+    border: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2) solid transparent;
+    border-radius: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2 + var(--ds-radius-sm));
     background-color: var(--ds-color-accent);
     background-clip: padding-box;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
@@ -8650,9 +8801,9 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
     max-width: 100%;
-    min-height: var(--ds-space-2xl);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-sm);
@@ -8666,16 +8817,18 @@
   }
 
   /*
-   * The chip is drawn 32px tall. This invisible box, centred on it, keeps its
-   * pointer target at the touch size without making a row of chips taller.
+   * The chip is drawn 32px tall, whatever the density. On a coarse pointer this invisible box, centred on it,
+   * keeps its pointer target at the touch size without making a row of chips taller.
    */
-  .ds-source-chip::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  @media (pointer: coarse) {
+    .ds-source-chip::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   .ds-source-chip__icon {
@@ -8872,12 +9025,12 @@
   }
 
   /*
-   * The menu button is one pointer target wide. It gives up its leading border,
+   * The menu button is as wide as a control is tall. It gives up its leading border,
    * so the main action's border is the one line between the two.
    */
   .ds-split-button__toggle {
     flex: none;
-    width: var(--ds-size-touch);
+    width: var(--ds-size-control);
     padding: 0;
     border-inline-start-width: 0;
     border-start-start-radius: 0;
@@ -8940,11 +9093,11 @@
     overflow-wrap: anywhere;
   }
 
-  /* Side by side. There is no width token for a list column, so it is a fraction of the reading column. */
+  /* Side by side. The list column is as wide as a sidebar. */
   @media (min-width: 768px) {
     .ds-split-panel {
       grid-template-rows: minmax(0, 1fr);
-      grid-template-columns: calc(var(--ds-size-column) * 0.6) minmax(0, 1fr);
+      grid-template-columns: var(--ds-size-sidebar) minmax(0, 1fr);
     }
 
     .ds-split-panel__list {
@@ -9029,8 +9182,8 @@
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: start;
     column-gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     padding-inline: var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     list-style: none;
@@ -9182,7 +9335,7 @@
     justify-content: center;
     width: var(--ds-space-xl);
     height: var(--ds-space-xl);
-    margin-block: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2);
+    margin-block: calc((var(--ds-size-row) - var(--ds-space-xl)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
     border-radius: var(--ds-radius-full);
@@ -9195,7 +9348,7 @@
   .ds-stepper__step:not(:last-child)::after {
     content: "";
     position: absolute;
-    inset-block: calc((var(--ds-size-touch) + var(--ds-space-xl)) / 2 + var(--ds-space-xs)) calc(var(--ds-space-xs) - (var(--ds-size-touch) - var(--ds-space-xl)) / 2);
+    inset-block: calc((var(--ds-size-row) + var(--ds-space-xl)) / 2 + var(--ds-space-xs)) calc(var(--ds-space-xs) - (var(--ds-size-row) - var(--ds-space-xl)) / 2);
     inset-inline-start: calc((var(--ds-space-xl) - var(--ds-border-width)) / 2);
     width: var(--ds-border-width);
     background-color: var(--ds-color-border-strong);
@@ -9208,8 +9361,8 @@
   .ds-stepper__label {
     position: relative;
     grid-column: 2;
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     overflow-wrap: anywhere;
   }
 
@@ -9291,7 +9444,7 @@
       grid-column: 3;
       width: auto;
       height: var(--ds-border-width);
-      margin-block-start: calc((var(--ds-size-touch) - var(--ds-border-width)) / 2);
+      margin-block-start: calc((var(--ds-size-row) - var(--ds-border-width)) / 2);
       margin-inline-start: var(--ds-space-xs);
     }
   }
@@ -9387,8 +9540,8 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     row-gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
   .ds-switch__label {
@@ -9417,13 +9570,13 @@
     display: none;
   }
 
-  /* The track: one target wide and 24px tall. The margin centres it on the first line of the label. */
+  /* The track: 24px tall, and as wide as two thumbs with a gap before, between and after them. The margin centres it on the first line of the label. */
   .ds-switch__input {
     position: relative;
     grid-row: 1;
     grid-column: 3;
     appearance: none;
-    width: var(--ds-size-touch);
+    width: calc(var(--ds-space-lg) * 2 + var(--ds-border-width) * 12);
     height: var(--ds-space-xl);
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-xl)) / 2);
     border-width: var(--ds-border-width);
@@ -9451,13 +9604,13 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The track is drawn 24px tall. This invisible box, centred on it, keeps its pointer target at the touch size. */
+  /* The track is drawn 24px tall. This invisible box, centred on it, makes its pointer target as tall as the row. */
   .ds-switch__input::after {
     content: "";
     position: absolute;
     top: 50%;
     inset-inline: calc(var(--ds-border-width) * -1);
-    height: var(--ds-size-touch);
+    height: var(--ds-size-row);
     translate: 0 -50%;
   }
 
@@ -9467,9 +9620,9 @@
     color: var(--ds-color-on-accent);
   }
 
-  /* The track's inner width, less the thumb and the same gap at the far end. */
+  /* Past the first thumb's place and the gap after it. */
   .ds-switch__input:checked::before {
-    inset-inline-start: calc(var(--ds-size-touch) - var(--ds-space-lg) - var(--ds-border-width) * 6);
+    inset-inline-start: calc(var(--ds-space-lg) + var(--ds-border-width) * 6);
   }
 
   .ds-switch__description {
@@ -9560,8 +9713,8 @@
     align-items: center;
     justify-content: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: calc(var(--ds-size-touch) + var(--ds-space-md));
+    min-width: var(--ds-size-control);
+    min-height: calc(var(--ds-size-control) + var(--ds-space-md));
     padding: var(--ds-space-sm) var(--ds-space-xs);
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
@@ -9658,8 +9811,8 @@
     align-items: center;
     justify-content: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
@@ -9673,7 +9826,7 @@
 
   .ds-tabs__panel {
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     border-radius: var(--ds-radius-sm);
   }
 
@@ -9731,11 +9884,13 @@
   }
 
   /*
-   * A tag with a remove button keeps 8px clear above and below, so that when tags wrap
+   * On a coarse pointer a tag with a remove button keeps 8px clear above and below, so that when tags wrap
    * the 44px pointer targets of two rows of buttons never overlap.
    */
-  .ds-tag:has(> .ds-tag__remove) {
-    margin-block: var(--ds-space-sm);
+  @media (pointer: coarse) {
+    .ds-tag:has(> .ds-tag__remove) {
+      margin-block: var(--ds-space-sm);
+    }
   }
 
   /* Drawn as tall as the tag's inside, flush with its end. The cross is drawn here, so the markup holds only the button's name. */
@@ -9763,15 +9918,25 @@
     mask: url("icons/x.svg") center / contain no-repeat;
   }
 
-  /* An invisible box centred on the button, which takes the press without making the tag any larger. */
+  /*
+   * An invisible box centred on the button, which takes the press without making the tag any larger:
+   * 24px square, the least a fine pointer needs, and the touch size on a coarse pointer.
+   */
   .ds-tag__remove::after {
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
+    width: var(--ds-size-control-xs);
+    height: var(--ds-size-control-xs);
     translate: -50% -50%;
+  }
+
+  @media (pointer: coarse) {
+    .ds-tag__remove::after {
+      width: var(--ds-size-touch);
+      height: var(--ds-size-touch);
+    }
   }
 
   @media (hover: hover) {
@@ -9801,7 +9966,7 @@
 @layer ds.components {
   /*
    * The box. The padding leaves room for the input's focus ring inside the border.
-   * The gap between rows keeps the 44px pointer targets of two rows of remove buttons apart.
+   * The gap between rows keeps two rows of tags apart.
    */
   .ds-tag-input {
     display: flex;
@@ -9828,9 +9993,9 @@
    * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
    */
   .ds-tag-input__input {
-    flex: 1 1 calc(var(--ds-size-touch) * 2);
-    min-width: calc(var(--ds-size-touch) * 2);
-    min-height: var(--ds-size-touch);
+    flex: 1 1 calc(var(--ds-size-control) * 2);
+    min-width: calc(var(--ds-size-control) * 2);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-xs);
     border-radius: var(--ds-radius-sm);
     background-color: transparent;
@@ -9865,13 +10030,13 @@
 @layer ds.components {
   /*
    * The fallback, for a browser without field-sizing: a fixed height the reader can drag taller.
-   * The height limits are multiples of the touch size because there is no token for a control's height.
+   * The height limits count in controls: three tall at rest, two at least and six at most.
    */
   .ds-textarea {
     display: block;
-    height: calc(var(--ds-size-touch) * 3);
-    min-height: calc(var(--ds-size-touch) * 2);
-    max-height: calc(var(--ds-size-touch) * 6);
+    height: calc(var(--ds-size-control) * 3);
+    min-height: calc(var(--ds-size-control) * 2);
+    max-height: calc(var(--ds-size-control) * 6);
     overflow-y: auto;
   }
 
@@ -10275,7 +10440,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     cursor: pointer;
@@ -10359,16 +10524,18 @@
   }
 
   /*
-   * The line is drawn 36px tall, so a long run of calls stays dense. This invisible box, centred on it,
-   * keeps its pointer target at the touch size, as the small button does.
+   * The line is drawn 36px tall, so a long run of calls stays dense. On a coarse pointer this invisible box,
+   * centred on it, keeps its pointer target at the touch size, as the small button does.
    */
-  .ds-tool-call[data-state] .ds-tool-call__summary::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: max(100%, var(--ds-size-touch));
-    translate: 0 -50%;
+  @media (pointer: coarse) {
+    .ds-tool-call[data-state] .ds-tool-call__summary::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: max(100%, var(--ds-size-touch));
+      translate: 0 -50%;
+    }
   }
 
   .ds-tool-call[data-state] .ds-tool-call__summary::before {
@@ -10526,7 +10693,7 @@
     display: flex;
     flex-direction: column-reverse;
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     max-height: calc(var(--ds-size-column) / 2);
     border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-sunken);
@@ -10775,7 +10942,7 @@
     align-items: center;
     gap: var(--ds-space-sm);
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-sm);
     border-radius: var(--ds-radius-sm);
     transition: background-color var(--ds-duration-fast) var(--ds-ease);

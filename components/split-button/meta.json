@@ -18,7 +18,7 @@
     { "name": "primary", "use": "The main action also carries ds-button--primary when it is the one main action of the view. The menu button stays a plain button, so the pair never shows two accent fills." }
   ],
   "sizes": [
-    { "name": "default", "use": "44px tall. The menu button is 44px wide." }
+    { "name": "default", "use": "As tall as a control, 36px by default and 44px on a coarse pointer. The menu button is a square of that height." }
   ],
   "states": ["default", "hover", "focus-visible", "active", "open", "disabled", "busy"],
   "accessibility": [

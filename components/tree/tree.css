@@ -32,7 +32,7 @@
     align-items: center;
     gap: var(--ds-space-sm);
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-sm);
     border-radius: var(--ds-radius-sm);
     transition: background-color var(--ds-duration-fast) var(--ds-ease);

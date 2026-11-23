@@ -11,9 +11,11 @@
     align-items: center;
     justify-content: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
-    padding: var(--ds-space-xs) var(--ds-space-lg);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
+    /* The block padding is what one line of the label leaves of the height, so a label of two lines keeps the same space above and below. */
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+    padding-inline: var(--ds-space-lg);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-fill);
@@ -44,23 +46,32 @@
     color: var(--ds-color-danger);
   }
 
+  /* The sizes are fixed heights: they do not follow the density, so a small button is 28px in every container. */
   .ds-button--small {
-    min-height: var(--ds-space-2xl);
+    min-height: var(--ds-size-control-sm);
+    padding-block: calc((var(--ds-size-control-sm) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
   }
 
+  /* Never shorter than a button of default size, which on a coarse pointer is the taller of the two. */
+  .ds-button--large {
+    min-height: max(var(--ds-size-control-lg), var(--ds-size-control));
+  }
+
   /*
-   * The small button is drawn 32px tall. This invisible box, centred on it,
-   * keeps its pointer target at the touch size without making a dense row taller.
+   * A finger needs more than the 28px the small button is drawn with. On a coarse pointer this invisible box,
+   * centred on it, keeps its pointer target at the touch size without making a dense row taller.
    */
-  .ds-button--small::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  @media (pointer: coarse) {
+    .ds-button--small::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   .ds-button__icon {

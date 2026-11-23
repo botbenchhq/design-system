@@ -12,8 +12,8 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     row-gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
   /* The margin centres the 20px box on the first line of the label. */
@@ -34,11 +34,11 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The box is drawn 20px square. This invisible box, centred on it, keeps its pointer target at the touch size. */
+  /* The box is drawn 20px square. This invisible box, centred on it, makes its pointer target as tall and as wide as the row is tall. */
   .ds-checkbox__input::after {
     content: "";
     position: absolute;
-    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-touch)) / 2 - var(--ds-border-width));
+    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-row)) / 2 - var(--ds-border-width));
   }
 
   .ds-checkbox__input:checked,

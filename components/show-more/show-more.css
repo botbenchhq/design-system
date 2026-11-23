@@ -35,8 +35,8 @@
     width: fit-content;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-sm) var(--ds-space-md);
     border-radius: var(--ds-radius-md);
     font-weight: var(--ds-weight-medium);

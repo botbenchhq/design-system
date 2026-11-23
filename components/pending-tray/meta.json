@@ -14,7 +14,7 @@
   ],
   "variants": [],
   "sizes": [
-    { "name": "default", "use": "The link is drawn 32px tall to fit a header row. Its pointer target is still 44px." }
+    { "name": "default", "use": "The link is drawn 32px tall to fit a header row. On a coarse pointer its pointer target is 44px." }
   ],
   "states": ["default", "hover", "focus-visible", "active", "empty", "loading", "error"],
   "accessibility": [

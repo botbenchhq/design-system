@@ -34,12 +34,12 @@
     {
       "name": "row",
       "class": "ds-skeleton__row",
-      "use": "A list row at least 44px tall, holding one or two lines. Its container also takes ds-skeleton--rows, so the rows touch and are divided by a rule, as list rows are."
+      "use": "A list row at least as tall as a row of a list, holding one or two lines. Its container also takes ds-skeleton--rows, so the rows touch and are divided by a rule, as list rows are."
     },
     {
       "name": "block",
       "class": "ds-skeleton__block",
-      "use": "A rectangle 132px tall and as wide as its container, for a code block or a diff."
+      "use": "A rectangle three rows tall and as wide as its container, for a code block or a diff."
     }
   ],
   "sizes": [],

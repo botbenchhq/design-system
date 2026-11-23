@@ -28,8 +28,8 @@
     align-items: center;
     justify-content: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: calc(var(--ds-size-touch) + var(--ds-space-md));
+    min-width: var(--ds-size-control);
+    min-height: calc(var(--ds-size-control) + var(--ds-space-md));
     padding: var(--ds-space-sm) var(--ds-space-xs);
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);

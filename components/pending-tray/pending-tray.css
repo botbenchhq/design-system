@@ -11,17 +11,14 @@
     min-width: 0;
   }
 
-  /*
-   * Drawn 32px tall so it fits a header row. The invisible box centred on it
-   * keeps its pointer target at the touch size.
-   */
+  /* Drawn 32px tall, whatever the density, so it fits a header row. */
   .ds-pending-tray__link {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-space-2xl);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-xs) var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -34,13 +31,19 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  .ds-pending-tray__link::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  /*
+   * A finger needs more than 32px. On a coarse pointer this invisible box, centred on the link,
+   * keeps its pointer target at the touch size.
+   */
+  @media (pointer: coarse) {
+    .ds-pending-tray__link::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   /* The count is the first word of the sentence. The filled box only makes it easy to find. */

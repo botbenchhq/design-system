@@ -66,26 +66,49 @@ No component relies on a `style` attribute. The apps' content security policies 
 
 ### Pointer targets
 
-Every control is at least 44px in both directions, which is `var(--ds-size-touch)`. Set it as `min-height` and `min-width`.
+A pointer target is at least 44px in both directions on a coarse pointer, such as a finger, and at least 24px on a fine one, such as a mouse (WCAG 2.2, 2.5.8). Three tokens carry this, and a component never writes the numbers:
 
-A control drawn smaller, for a dense row or a toolbar, reaches 44px through a padded hit area: an invisible box centred on the control that takes the press without adding height to the row. `ds-button--small` is the pattern.
+| Token | Use it for | Value |
+|---|---|---|
+| `--ds-size-control` | The height of a control of default size, and the side of a square one. Set it as `min-height` and `min-width`. | 36px by default, 28px in a compact container, 44px in a touch one and on every coarse pointer |
+| `--ds-size-row` | The least height of a row in a list, a menu, a tree or a table. | 36px by default, 32px in a compact container, 44px in a touch one and on every coarse pointer |
+| `--ds-size-touch` | The hit area of a control drawn smaller, on a coarse pointer only. | 44px |
+
+The first two follow the density, which `data-ds-density` sets on any container: `compact`, `comfortable` (the default) or `touch`. Under `@media (pointer: coarse)` both are the touch size everywhere, whatever the attribute says. The blocks that do this are in `tokens/tokens.css`; a component only reads the tokens, and a theme cannot set them.
+
+One line of text is centred in a control or a row by block padding worked out from the same token, never by a fixed padding that only fits one density:
+
+```css
+.ds-field__control {
+  min-height: var(--ds-size-control);
+  padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+}
+```
+
+A size variant is a fixed height that does not follow the density: `--ds-size-control-xs` (24px), `-sm` (28px), `-md` (32px) and `-lg` (40px). Nothing interactive is smaller than 24px in either direction. A control drawn smaller than the touch size reaches 44px on a coarse pointer through a padded hit area: an invisible box centred on the control that takes the press without adding height to the row. It is written inside `@media (pointer: coarse)`, which is the only place a component uses `--ds-size-touch`, and a test checks that. `ds-button--small` is the pattern.
 
 ```css
 .ds-button { position: relative; }
 
-.ds-button--small::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  inset-inline: 0;
-  height: var(--ds-size-touch);
-  translate: 0 -50%;
+.ds-button--small { min-height: var(--ds-size-control-sm); }
+
+@media (pointer: coarse) {
+  .ds-button--small::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: var(--ds-size-touch);
+    translate: 0 -50%;
+  }
 }
 ```
 
+A width is a size token too: `--ds-size-sidebar` for a navigation or list column, `--ds-size-inspector` for a detail column beside the main one, `--ds-size-column`, `--ds-size-transcript` and `--ds-size-wide`. Do not multiply a control's height to make a width.
+
 A link inside running text is exempt. In markup that is a link with no class.
 
-The browser test measures the target, not the drawn box. It checks that the four edges of a 44px square centred on each control land on that control.
+The browser test measures the target, not the drawn box: how far the pointer can move from the centre of each control, along each axis, and still land on it. It asks for 44px with a coarse pointer at 390px and for 24px with a fine pointer at 1280px.
 
 ### Status is never colour alone
 
@@ -225,7 +248,7 @@ npm run test:visual  # the gallery in Chrome, compared with the committed screen
 
 `npm test` runs the shipped checker over each example as a page of its own and over each component and pattern stylesheet. Do examples and stylesheets must produce no finding and no waiver. Each don't example with a rule id must produce that rule and nothing else. It also fails when the committed `dist/` does not match the sources, so commit the regenerated `dist/` with the folder.
 
-`npm run test:visual` opens the gallery page of each component and each pattern at 390px and 1280px, in light and dark. On the do examples it runs axe, runs the structural rules on the rendered page and, at 390px, measures every pointer target. It compares each page, width and theme with its screenshot in `test/visual/screenshots/` and fails when they differ. After a change you mean to make, run `npm run test:visual:update`, look at the screenshots it rewrote, then commit them: they are what the owner reviews.
+`npm run test:visual` opens the gallery page of each component and each pattern at 390px and 1280px, in light and dark. The 390px pages are opened with a coarse pointer, as a phone has, and the 1280px pages with a fine one. On the do examples it runs axe, runs the structural rules on the rendered page and measures every pointer target: 44px at 390px and 24px at 1280px. It compares each page, width and theme with its screenshot in `test/visual/screenshots/` and fails when they differ. After a change you mean to make, run `npm run test:visual:update`, look at the screenshots it rewrote, then commit them: they are what the owner reviews.
 
 A component with behaviour worth proving, such as keyboard operation, adds its own test to `test/visual/gallery.spec.mjs`, as the button and the field do.
 

@@ -98,7 +98,15 @@
       "--ds-z-toast"
     ],
     "size": [
+      "--ds-size-control-xs",
+      "--ds-size-control-sm",
+      "--ds-size-control-md",
+      "--ds-size-control-lg",
+      "--ds-size-control",
+      "--ds-size-row",
       "--ds-size-touch",
+      "--ds-size-sidebar",
+      "--ds-size-inspector",
       "--ds-size-column",
       "--ds-size-transcript",
       "--ds-size-wide"
@@ -219,7 +227,14 @@
       "400"
     ],
     "size": [
+      "24px",
+      "28px",
+      "32px",
+      "40px",
+      "36px",
       "44px",
+      "260px",
+      "360px",
       "480px",
       "720px",
       "1200px"
@@ -227,6 +242,29 @@
     "breakpoint": [
       "768px"
     ]
+  },
+  "density": {
+    "attribute": "data-ds-density",
+    "default": "comfortable",
+    "coarsePointer": "touch",
+    "tokens": {
+      "control": "--ds-size-control",
+      "row": "--ds-size-row"
+    },
+    "values": {
+      "compact": {
+        "control": "28px",
+        "row": "32px"
+      },
+      "comfortable": {
+        "control": "36px",
+        "row": "36px"
+      },
+      "touch": {
+        "control": "44px",
+        "row": "44px"
+      }
+    }
   },
   "utilities": {
     "layout": {
@@ -320,7 +358,15 @@
       "2xl"
     ],
     "sizeKeys": [
+      "control-xs",
+      "control-sm",
+      "control-md",
+      "control-lg",
+      "control",
+      "row",
       "touch",
+      "sidebar",
+      "inspector",
       "column",
       "transcript",
       "wide",
@@ -425,6 +471,7 @@
     "ds-breadcrumb__list",
     "ds-button",
     "ds-button--danger",
+    "ds-button--large",
     "ds-button--primary",
     "ds-button--quiet",
     "ds-button--small",
@@ -643,6 +690,8 @@
     "ds-hover-card__card",
     "ds-hover-card__meta",
     "ds-icon-button",
+    "ds-icon-button--small",
+    "ds-icon-button--xsmall",
     "ds-inspector",
     "ds-inspector__close",
     "ds-inspector__fact",

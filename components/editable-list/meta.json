@@ -19,7 +19,7 @@
   "states": ["default", "editing", "adding", "invalid", "busy", "error", "deleted", "empty", "disabled"],
   "accessibility": [
     "Use an ol with the class ds-editable-list__items and an aria-label that names the list, inside a div with ds-editable-list. Each item is an li with ds-editable-list__item. The stylesheet draws each item's number from its place in the list, and a screen reader announces the position from the ol.",
-    "A row at rest holds a span with ds-editable-list__text and a span with ds-editable-list__actions holding two buttons, Edit then Delete, each ds-button ds-button--quiet ds-button--small. They are drawn 32px tall and their pointer targets are 44px. Row actions are never primary.",
+    "A row at rest holds a span with ds-editable-list__text and a span with ds-editable-list__actions holding two buttons, Edit then Delete, each ds-button ds-button--quiet ds-button--small. They are drawn 28px tall, and on a coarse pointer their pointer targets are 44px. Row actions are never primary.",
     "Each button's aria-label starts with its visible word and names the row: Edit task 2: Raise the session timeout to 30 minutes.",
     "Editing: the app replaces the row's text and buttons with a form with ds-editable-list__editor. It holds a ds-field whose visible label names the item, such as Task 2, with the item's text as the input's value, then ds-editable-list__editor-actions with a submit button, Save task, and a quiet Cancel. Move focus to the input. Only one row is edited at a time.",
     "Enter in the input saves, because it submits the form. The app also cancels on Escape. After Save or Cancel the row goes back to rest and focus returns to its Edit button.",

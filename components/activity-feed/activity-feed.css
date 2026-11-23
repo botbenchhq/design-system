@@ -18,7 +18,7 @@
   .ds-activity-feed__more {
     display: flex;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     margin-inline-start: calc(var(--ds-space-md) * -1);
   }
 

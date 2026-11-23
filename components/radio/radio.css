@@ -22,8 +22,8 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     row-gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
   /*
@@ -46,11 +46,11 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The circle is drawn 20px across. This invisible box, centred on it, keeps its pointer target at the touch size. */
+  /* The circle is drawn 20px across. This invisible box, centred on it, makes its pointer target as tall and as wide as the row is tall. */
   .ds-radio__input::after {
     content: "";
     position: absolute;
-    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-touch)) / 2 - var(--ds-border-width));
+    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-row)) / 2 - var(--ds-border-width));
   }
 
   .ds-radio__input:checked {

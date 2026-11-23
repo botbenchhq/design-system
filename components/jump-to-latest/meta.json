@@ -14,7 +14,7 @@
   ],
   "variants": [],
   "sizes": [
-    { "name": "default", "use": "Drawn 32px tall and as wide as its words, centred. Its pointer target is 44px tall." }
+    { "name": "default", "use": "Drawn 32px tall and as wide as its words, centred. On a coarse pointer its pointer target is 44px tall." }
   ],
   "states": ["default", "hover", "focus-visible", "active"],
   "accessibility": [

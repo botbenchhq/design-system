@@ -1000,10 +1000,102 @@
     }
   },
   "size": {
+    "control-xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      }
+    },
+    "control-sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 28,
+        "unit": "px"
+      }
+    },
+    "control-md": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      }
+    },
+    "control-lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      }
+    },
+    "control": {
+      "$type": "dimension",
+      "$value": {
+        "value": 36,
+        "unit": "px"
+      },
+      "$extensions": {
+        "design-system": {
+          "density": {
+            "compact": {
+              "value": 28,
+              "unit": "px"
+            },
+            "comfortable": {
+              "value": 36,
+              "unit": "px"
+            },
+            "touch": {
+              "value": 44,
+              "unit": "px"
+            }
+          }
+        }
+      }
+    },
+    "row": {
+      "$type": "dimension",
+      "$value": {
+        "value": 36,
+        "unit": "px"
+      },
+      "$extensions": {
+        "design-system": {
+          "density": {
+            "compact": {
+              "value": 32,
+              "unit": "px"
+            },
+            "comfortable": {
+              "value": 36,
+              "unit": "px"
+            },
+            "touch": {
+              "value": 44,
+              "unit": "px"
+            }
+          }
+        }
+      }
+    },
     "touch": {
       "$type": "dimension",
       "$value": {
         "value": 44,
+        "unit": "px"
+      }
+    },
+    "sidebar": {
+      "$type": "dimension",
+      "$value": {
+        "value": 260,
+        "unit": "px"
+      }
+    },
+    "inspector": {
+      "$type": "dimension",
+      "$value": {
+        "value": 360,
         "unit": "px"
       }
     },

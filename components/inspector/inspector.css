@@ -21,14 +21,14 @@
     border-top-width: var(--ds-border-width);
   }
 
-  /* Beside: the rule moves to the panel's leading edge. There is no width token for a panel. */
+  /* Beside: the rule moves to the panel's leading edge, and the panel is as wide as the inspector token says. */
   @media (min-width: 768px) {
     .ds-inspector__layout {
       grid-template-columns: minmax(0, 1fr) auto;
     }
 
     .ds-inspector {
-      width: calc(var(--ds-size-column) * 0.6);
+      width: var(--ds-size-inspector);
       padding-top: 0;
       padding-inline-start: var(--ds-space-xl);
       border-top-width: 0;
@@ -44,10 +44,10 @@
     gap: var(--ds-space-sm);
   }
 
-  /* Centred on the first line of the title beside a 44px button. */
+  /* Centred on the first line of the title beside the close button. */
   .ds-inspector__title {
     min-width: 0;
-    padding-block: var(--ds-space-md);
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-lg) * var(--ds-leading-lg)) / 2);
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);

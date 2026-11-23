@@ -88,7 +88,7 @@
     "When the reader stops the reply, keep the text that arrived, set data-state=\"stopped\" and add a p with ds-message__state after the body that starts with the word Stopped. When the connection or the process is lost, set data-state=\"interrupted\", say so in ds-message__state starting with the word Interrupted, and put a Retry button with ds-button ds-button--small after it. While the app tries to resume, set data-state=\"reconnecting\" and say Reconnecting in ds-message__state: the text stays, and nothing is added twice. The stylesheet draws an icon beside each of the three from data-state.",
     "Only the caret and the reconnecting mark move, and under prefers-reduced-motion both are still.",
     "Write transcript text as text, never as markup, and write out characters that cannot be seen.",
-    "Collapsed arguments and long output use a native details element, with no script. Its summary holds text that says what is inside. Enter and Space open and close it, and its pointer target is 44px tall.",
+    "Collapsed arguments and long output use a native details element, with no script. Its summary holds text that says what is inside. Enter and Space open and close it, and its pointer target is as tall as a row: 36px by default and 44px on a coarse pointer.",
     "When output is cut short, the lines after the preview go in the details element, so opened text continues where the preview stopped.",
     "A transcript that is loading is a skeleton with aria-busy and a sentence for screen readers. An empty one is a compact empty state, with suggestion chips when there are prompts to offer.",
     "The component needs no script. The app sets data-state and aria-busy on a row that streams, and the browser manages the open attribute."

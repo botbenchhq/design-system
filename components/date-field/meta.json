@@ -18,7 +18,7 @@
     { "name": "date and time", "use": "input type=\"datetime-local\". At most 286px wide. Set step, in seconds, to limit the minutes it offers." }
   ],
   "sizes": [
-    { "name": "default", "use": "44px tall. The calendar button inside it is the browser's own, with a widened pointer target." }
+    { "name": "default", "use": "As tall as a control, 36px by default and 44px on a coarse pointer, and at most 240px wide, or 260px with a time. The calendar button inside it is the browser's own, with a widened pointer target." }
   ],
   "states": ["default", "focus", "empty", "invalid", "disabled", "read-only"],
   "accessibility": [

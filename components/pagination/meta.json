@@ -18,7 +18,7 @@
     { "name": "numbered", "use": "Adds a ds-pagination__pages list between Previous and Next. It is shown at 768px and up, so the status must still say the position. Show the first page, the last, the current one and its neighbours, with a ds-pagination__gap where pages are left out, seven items at most." }
   ],
   "sizes": [
-    { "name": "default", "use": "Every control is 44px tall and at least 44px wide. Below 768px the row is Previous, the status, Next. At 768px and up the status leads and the controls sit together at the far end." }
+    { "name": "default", "use": "Every control is as tall as a control of default size and at least as wide: 36px by default and 44px on a coarse pointer. Below 768px the row is Previous, the status, Next. At 768px and up the status leads and the controls sit together at the far end." }
   ],
   "states": ["default", "current", "disabled", "hover", "focus-visible", "active"],
   "accessibility": [

@@ -140,7 +140,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     cursor: pointer;
@@ -224,16 +224,18 @@
   }
 
   /*
-   * The line is drawn 36px tall, so a long run of calls stays dense. This invisible box, centred on it,
-   * keeps its pointer target at the touch size, as the small button does.
+   * The line is drawn 36px tall, so a long run of calls stays dense. On a coarse pointer this invisible box,
+   * centred on it, keeps its pointer target at the touch size, as the small button does.
    */
-  .ds-tool-call[data-state] .ds-tool-call__summary::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: max(100%, var(--ds-size-touch));
-    translate: 0 -50%;
+  @media (pointer: coarse) {
+    .ds-tool-call[data-state] .ds-tool-call__summary::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: max(100%, var(--ds-size-touch));
+      translate: 0 -50%;
+    }
   }
 
   .ds-tool-call[data-state] .ds-tool-call__summary::before {
@@ -391,7 +393,7 @@
     display: flex;
     flex-direction: column-reverse;
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     max-height: calc(var(--ds-size-column) / 2);
     border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-sunken);

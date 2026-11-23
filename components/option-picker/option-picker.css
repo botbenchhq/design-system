@@ -30,8 +30,8 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     min-width: 0;
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-md);
@@ -60,11 +60,11 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The mark is drawn 20px across. This invisible box, centred on it, gives the input itself a 44px target inside the row. */
+  /* The mark is drawn 20px across. This invisible box, centred on it, gives the input itself a target as tall as the row. */
   .ds-option-picker__input::after {
     content: "";
     position: absolute;
-    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-touch)) / 2 - var(--ds-border-width));
+    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-row)) / 2 - var(--ds-border-width));
   }
 
   .ds-option-picker__input:checked {

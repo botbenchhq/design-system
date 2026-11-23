@@ -30,8 +30,8 @@
     flex: none;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-sm);
     border-radius: var(--ds-radius-md);
     transition-property: background-color, color;

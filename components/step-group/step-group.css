@@ -18,8 +18,8 @@
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: start;
     column-gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     padding-inline: var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     list-style: none;

@@ -50,7 +50,7 @@
   }
 
   .ds-search-field__box:has(.ds-search-field__clear) > .ds-search-field__input {
-    padding-inline-end: var(--ds-size-touch);
+    padding-inline-end: var(--ds-size-control);
   }
 
   /* One target square at the end of the input. The cross is drawn here, and the button's name is text in the markup. */
@@ -61,8 +61,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     border-radius: var(--ds-radius-md);
     color: var(--ds-color-muted);
     transition-property: color;

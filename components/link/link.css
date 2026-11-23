@@ -10,8 +10,8 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     font-weight: var(--ds-weight-medium);
     text-decoration-line: underline;
     text-decoration-thickness: var(--ds-border-width);

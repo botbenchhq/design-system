@@ -19,7 +19,7 @@
     { "name": "with a leading icon", "use": "An svg with ds-combobox__icon before the input, to say what kind of thing is chosen. No modifier class is needed." }
   ],
   "sizes": [
-    { "name": "default", "use": "The input is 44px tall and as wide as the field. Each option is at least 44px tall, and the panel scrolls after five and a half options." }
+    { "name": "default", "use": "The input is as tall as a control and as wide as the field. Each option is at least as tall as a row, and the panel scrolls after five and a half options. Both are 36px by default and 44px on a coarse pointer." }
   ],
   "states": ["default", "focus", "open", "selected", "empty", "loading", "invalid", "disabled"],
   "accessibility": [

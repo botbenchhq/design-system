@@ -22,7 +22,7 @@
     gap: var(--ds-space-md);
     width: 100%;
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-sm) var(--ds-space-md);
     text-align: start;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);

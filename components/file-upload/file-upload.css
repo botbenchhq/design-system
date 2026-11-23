@@ -12,7 +12,7 @@
     position: relative;
     display: flex;
     min-width: 0;
-    min-height: calc(var(--ds-size-touch) * 2);
+    min-height: calc(var(--ds-size-control) * 2);
   }
 
   /*

@@ -35,7 +35,7 @@
 
   /* The body is given tabindex="0" in this variant, so it is a pointer target and is at least as tall as one. */
   .ds-code-block--scroll .ds-code-block__body {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     overflow-x: auto;
     white-space: pre;
     overflow-wrap: normal;

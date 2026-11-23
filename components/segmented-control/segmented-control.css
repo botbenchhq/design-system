@@ -33,15 +33,15 @@
     }
   }
 
-  /* With the track's padding and border, the row is one target tall. The padding is narrow on a phone so five short labels fit, and a longer label wraps inside its segment. */
+  /* With the track's padding and border, the row is as tall as a control. The padding is narrow on a phone so five short labels fit, and a longer label wraps inside its segment. */
   .ds-segmented-control__option {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--ds-size-touch);
-    min-height: calc(var(--ds-size-touch) - var(--ds-space-xs) * 2 - var(--ds-border-width) * 2);
-    padding: var(--ds-space-xs);
+    min-width: var(--ds-size-control);
+    min-height: calc(var(--ds-size-control) - var(--ds-space-xs) * 2 - var(--ds-border-width) * 2);
+    padding: calc(var(--ds-space-xs) / 2) var(--ds-space-xs);
     text-align: center;
   }
 
@@ -66,7 +66,7 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The segment is drawn shorter than a target. This invisible box reaches the track's outer edge, above and below. */
+  /* The segment is drawn shorter than a control. This invisible box reaches the track's outer edge, above and below. */
   .ds-segmented-control__input::after {
     content: "";
     position: absolute;

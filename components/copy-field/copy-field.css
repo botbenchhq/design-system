@@ -19,8 +19,8 @@
   .ds-copy-field__value {
     flex: 1;
     min-width: 0;
-    min-height: var(--ds-size-touch);
-    padding: var(--ds-space-sm) var(--ds-space-md);
+    min-height: var(--ds-size-control);
+    padding: 0 var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-surface-sunken);

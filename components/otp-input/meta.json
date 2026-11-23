@@ -14,7 +14,7 @@
   ],
   "variants": [],
   "sizes": [
-    { "name": "default", "use": "44px tall and at most 242px wide, with 20px mono digits. It fits eight digits." }
+    { "name": "default", "use": "As tall as a control and at most 240px wide, with 20px mono digits. It fits eight digits." }
   ],
   "states": ["default", "focus", "filled", "invalid", "disabled"],
   "accessibility": [

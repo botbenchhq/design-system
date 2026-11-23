@@ -60,9 +60,9 @@ test("metadata missing a field fails the build and names the field", () => {
 
 test("a class in the metadata that the stylesheet does not define fails the build, and so does the reverse", () => {
   const listed = buildWith((folder) =>
-    edit(join(folder, "meta.json"), (json) => JSON.stringify({ ...JSON.parse(json), classes: [...JSON.parse(json).classes, "ds-button--large"] })),
+    edit(join(folder, "meta.json"), (json) => JSON.stringify({ ...JSON.parse(json), classes: [...JSON.parse(json).classes, "ds-button--huge"] })),
   );
-  assert.throws(listed, /components\/button: .*ds-button--large/);
+  assert.throws(listed, /components\/button: .*ds-button--huge/);
   const defined = buildWith((folder) =>
     edit(join(folder, "button.css"), (css) => css.replace(".ds-button--quiet", ".ds-button--ghost")),
   );

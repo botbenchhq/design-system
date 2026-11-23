@@ -44,7 +44,7 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     color: var(--ds-color-muted);
     list-style: none;
     cursor: pointer;

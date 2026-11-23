@@ -2,7 +2,7 @@
  * Slider: a native range input for a rough amount, with its label, its value in words
  * and a label at each end of the track.
  *
- * The thumb is a box one pointer target square. Only its middle is painted: the rest is a
+ * The thumb is a box as wide and as tall as a control. Only its middle is painted: the rest is a
  * transparent border, so the thumb takes a press anywhere in the square. The track is drawn
  * on the wrapper, set in from each end by that border, so the painted thumb stops exactly at its ends.
  */
@@ -36,14 +36,14 @@
   .ds-slider__track {
     position: relative;
     grid-column: 1 / -1;
-    margin-inline: calc((var(--ds-space-xl) - var(--ds-size-touch)) / 2);
+    margin-inline: calc((var(--ds-space-xl) - var(--ds-size-control)) / 2);
   }
 
   .ds-slider__track::before {
     content: "";
     position: absolute;
     top: 50%;
-    inset-inline: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2);
+    inset-inline: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2);
     height: var(--ds-space-xs);
     border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-border-strong);
@@ -56,29 +56,29 @@
     display: block;
     appearance: none;
     width: 100%;
-    height: var(--ds-size-touch);
+    height: var(--ds-size-control);
     border-radius: var(--ds-radius-md);
     background-color: transparent;
     cursor: pointer;
   }
 
   .ds-slider__input::-webkit-slider-runnable-track {
-    height: var(--ds-size-touch);
+    height: var(--ds-size-control);
     background-color: transparent;
   }
 
   .ds-slider__input::-moz-range-track {
-    height: var(--ds-size-touch);
+    height: var(--ds-size-control);
     background-color: transparent;
   }
 
   .ds-slider__input::-webkit-slider-thumb {
     appearance: none;
     box-sizing: border-box;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
-    border: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2) solid transparent;
-    border-radius: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2 + var(--ds-radius-sm));
+    width: var(--ds-size-control);
+    height: var(--ds-size-control);
+    border: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2) solid transparent;
+    border-radius: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2 + var(--ds-radius-sm));
     background-color: var(--ds-color-accent);
     background-clip: padding-box;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
@@ -86,10 +86,10 @@
 
   .ds-slider__input::-moz-range-thumb {
     box-sizing: border-box;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
-    border: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2) solid transparent;
-    border-radius: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2 + var(--ds-radius-sm));
+    width: var(--ds-size-control);
+    height: var(--ds-size-control);
+    border: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2) solid transparent;
+    border-radius: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2 + var(--ds-radius-sm));
     background-color: var(--ds-color-accent);
     background-clip: padding-box;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);

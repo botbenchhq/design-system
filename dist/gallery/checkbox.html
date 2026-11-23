@@ -207,7 +207,7 @@
 <li>Indeterminate cannot be written in markup. The app sets the property with script, input.indeterminate = true, and clears it when the box is next changed. A screen reader then announces it as mixed. Do not set aria-checked on a native checkbox.</li>
 <li>For an error, set aria-invalid=&quot;true&quot; on the input and link a p with ds-checkbox__error through aria-describedby. The message says what to do, and its icon is drawn by the stylesheet.</li>
 <li>Set the disabled attribute when the choice is unavailable, and say why in the description. A disabled checkbox leaves the tab order.</li>
-<li>Tab reaches each checkbox and Space toggles it. The box is drawn 20px square and its pointer target is 44px; a press on the label toggles it too.</li>
+<li>Tab reaches each checkbox and Space toggles it. The box is drawn 20px square and its pointer target is as tall and as wide as the row is tall, 36px by default and 44px on a coarse pointer; a press on the label toggles it too.</li>
 </ul>
 </section>
 <section>

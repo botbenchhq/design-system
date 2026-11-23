@@ -122,9 +122,29 @@ layers:
   dialog: 300
   toast: 400
 sizes:
+  control-xs: 24px
+  control-sm: 28px
+  control-md: 32px
+  control-lg: 40px
+  control: 36px
+  row: 36px
   touch: 44px
+  sidebar: 260px
+  inspector: 360px
   column: 480px
   transcript: 720px
   wide: 1200px
+density:
+  compact:
+    control: 28px
+    row: 32px
+  comfortable:
+    control: 36px
+    row: 36px
+  touch:
+    control: 44px
+    row: 44px
+  default: comfortable
+  coarse-pointer: touch
 breakpoint: 768px
 ---

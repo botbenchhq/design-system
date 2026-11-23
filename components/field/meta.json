@@ -17,7 +17,7 @@
   ],
   "variants": [],
   "sizes": [
-    { "name": "default", "use": "The control is 44px tall and as wide as the field. Limit the width on the field's container." }
+    { "name": "default", "use": "The control is as tall as the density of its container, 36px by default and 44px on a coarse pointer, and as wide as the field. Limit the width on the field's container." }
   ],
   "states": ["default", "focus", "invalid", "disabled", "read-only"],
   "accessibility": [

@@ -20,7 +20,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "Each summary is at least 44px tall and as wide as the set, with a rule between sections and above and below the set."
+          "use": "Each summary is at least as tall as a row, 36px by default and 44px on a coarse pointer, and as wide as the set, with a rule between sections and above and below the set."
         }
       ],
       "states": [
@@ -392,7 +392,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "One row, 52px tall, with 44px controls, at every width. The tray adds a row below it only while it holds something."
+          "use": "One row with controls of default size, 44px tall by default and 52px on a coarse pointer, at every width. The tray adds a row below it only while it holds something."
         }
       ],
       "states": [
@@ -654,10 +654,10 @@
         "disabled"
       ],
       "accessibility": [
-        "Each chip is an li with the class ds-attachment-chip, in a ul with an aria-label such as Attachments. Lay the ul out with ds-cluster ds-gap-md: the 12px gap keeps the remove buttons' 44px pointer targets on two rows from overlapping.",
+        "Each chip is an li with the class ds-attachment-chip, in a ul with an aria-label such as Attachments. Lay the ul out with ds-cluster ds-gap-md: on a coarse pointer the 12px gap keeps the remove buttons' 44px pointer targets on two rows from overlapping.",
         "Write the whole file name as text, split into ds-attachment-chip__start and ds-attachment-chip__end with no white space between the spans. The end part is the last few characters with the extension. The stylesheet cuts the middle from view only, so a screen reader still reads the whole name.",
         "Write the size with its unit, such as 48 KB or 2.1 MB.",
-        "The remove control is a button element with type=\"button\" and the class ds-attachment-chip__remove, holding the x icon with aria-hidden=\"true\" and a ds-visually-hidden span that names the file: Remove session-trace.log. It is drawn 24px square and its pointer target is 44px each way.",
+        "The remove control is a button element with type=\"button\" and the class ds-attachment-chip__remove, holding the x icon with aria-hidden=\"true\" and a ds-visually-hidden span that names the file: Remove session-trace.log. It is drawn 24px square, the smallest target a fine pointer allows, and on a coarse pointer its pointer target is 44px each way.",
         "While the file uploads, set aria-busy=\"true\" on the li and add a native progress element with the class ds-attachment-chip__progress as its last child, with value and max set from the upload and an aria-label such as Uploading session-trace.log. Leave value off until the first figure arrives. Put the percentage and the size in ds-attachment-chip__size, and name the button Cancel the upload of and the file.",
         "When the upload fails, remove aria-busy and the progress element and add a p with the class ds-attachment-chip__error and role=\"alert\" as the last child. It says what happened and what to do, such as Not attached: files can be up to 10 MB. Remove it and attach a smaller file. Its icon and the chip's outline are drawn by the stylesheet.",
         "While the prompt is being sent, set the disabled attribute on each remove button.",
@@ -1076,7 +1076,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "At least 44px tall and as wide as its container. The text wraps, and on a narrow screen the action and the dismiss button move below it."
+          "use": "At least as tall as a row, 36px by default and 44px on a coarse pointer, and as wide as its container. The text wraps, and on a narrow screen the action and the dismiss button move below it."
         }
       ],
       "states": [
@@ -1189,7 +1189,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "One line, 44px tall. Below 768px each item between the first and the last is at most 88px wide and is cut with an ellipsis. At 768px and up they show in full and shrink only when the line is full."
+          "use": "One line, as tall as a control: 36px by default and 44px on a coarse pointer. Below 768px each item between the first and the last is at most two controls wide and is cut with an ellipsis. At 768px and up they show in full and shrink only when the line is full."
         }
       ],
       "states": [
@@ -1298,12 +1298,17 @@
       "sizes": [
         {
           "name": "default",
-          "use": "44px tall. Use it unless the button sits in a dense row."
+          "use": "As tall as the density of its container: 36px by default, 28px where data-ds-density is compact, and 44px where it is touch and on every coarse pointer. Use it unless the button sits in a dense row or is the one action of a sparse screen."
         },
         {
           "name": "small",
           "class": "ds-button--small",
-          "use": "Drawn 32px tall for dense rows and toolbars. Its pointer target is still 44px."
+          "use": "28px tall at every density, for dense rows and toolbars. On a coarse pointer it is drawn the same and its pointer target is 44px tall."
+        },
+        {
+          "name": "large",
+          "class": "ds-button--large",
+          "use": "40px tall at every density, and never shorter than the default size, for the one action of a sparse screen such as sign-in."
         }
       ],
       "states": [
@@ -1331,6 +1336,7 @@
       "classes": [
         "ds-button",
         "ds-button--danger",
+        "ds-button--large",
         "ds-button--primary",
         "ds-button--quiet",
         "ds-button--small",
@@ -1347,6 +1353,16 @@
           "id": "sizes",
           "title": "Default and small",
           "markup": "<button type=\"button\" class=\"ds-button\">Open pull request</button>\n<button type=\"button\" class=\"ds-button ds-button--small\">Copy path</button>\n<button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small\">Dismiss</button>"
+        },
+        {
+          "id": "large",
+          "title": "Large, for the one action of a sparse screen",
+          "markup": "<div class=\"ds-cluster\">\n  <button type=\"button\" class=\"ds-button ds-button--primary ds-button--large\">Sign in with GitHub</button>\n  <button type=\"button\" class=\"ds-button ds-button--large\">Use a device code</button>\n</div>"
+        },
+        {
+          "id": "density",
+          "title": "The default size at each density",
+          "markup": "<div class=\"ds-cluster\">\n  <div data-ds-density=\"compact\"><button type=\"button\" class=\"ds-button\">Compact</button></div>\n  <div data-ds-density=\"comfortable\"><button type=\"button\" class=\"ds-button\">Comfortable</button></div>\n  <div data-ds-density=\"touch\"><button type=\"button\" class=\"ds-button\">Touch</button></div>\n</div>"
         },
         {
           "id": "with-icon",
@@ -1498,7 +1514,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "Each day is 44px tall and at least 44px wide. The month is 308px to 352px wide, which fits a 390px phone with its margins."
+          "use": "Each day is as tall as a control, 36px by default and 44px on a coarse pointer, and as wide where there is room. The month is seven to eight of them wide: 308px to 352px on a coarse pointer, which fits a 390px phone with its margins."
         }
       ],
       "states": [
@@ -1615,7 +1631,7 @@
         "Use a section with aria-labelledby pointing at ds-card__title when the card has a title, so it is a named region. Give each card on a view a different title. Use a div for a card with no title.",
         "ds-card__title is a heading. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2. In a queue or a list every title takes the same level. The class sets the size, so the level changes nothing on screen. It is drawn at the size of body text whatever its level.",
         "The header holds at most one action, in ds-card__action: a small quiet button or a link with the same classes. It is never primary. When several cards carry the same words, add an aria-label that starts with those words and names the card.",
-        "The header is 44px tall, so the small button's padded pointer target stays inside it.",
+        "The header is as tall as a row, 44px on a coarse pointer, so the small button's padded pointer target stays inside it there.",
         "A card is not focusable and takes no press. To make something pressable, put a link or a button inside it.",
         "The card needs no script."
       ],
@@ -1840,7 +1856,7 @@
         "Indeterminate cannot be written in markup. The app sets the property with script, input.indeterminate = true, and clears it when the box is next changed. A screen reader then announces it as mixed. Do not set aria-checked on a native checkbox.",
         "For an error, set aria-invalid=\"true\" on the input and link a p with ds-checkbox__error through aria-describedby. The message says what to do, and its icon is drawn by the stylesheet.",
         "Set the disabled attribute when the choice is unavailable, and say why in the description. A disabled checkbox leaves the tab order.",
-        "Tab reaches each checkbox and Space toggles it. The box is drawn 20px square and its pointer target is 44px; a press on the label toggles it too."
+        "Tab reaches each checkbox and Space toggles it. The box is drawn 20px square and its pointer target is as tall and as wide as the row is tall, 36px by default and 44px on a coarse pointer; a press on the label toggles it too."
       ],
       "icons": [
         "check",
@@ -2027,7 +2043,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "The input is 44px tall and as wide as the field. Each option is at least 44px tall, and the panel scrolls after five and a half options."
+          "use": "The input is as tall as a control and as wide as the field. Each option is at least as tall as a row, and the panel scrolls after five and a half options. Both are 36px by default and 44px on a coarse pointer."
         }
       ],
       "states": [
@@ -2260,7 +2276,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "The textarea is one line and 44px tall when empty and grows with its content to 176px, then scrolls. Where field-sizing is not supported it is a fixed 88px. Send stays beside the last line."
+          "use": "The textarea is one line and as tall as a control when empty, 36px by default and 44px on a coarse pointer, and grows with its content to four times that, then scrolls. Where field-sizing is not supported it is fixed at twice that. Send stays beside the last line."
         }
       ],
       "states": [
@@ -2539,7 +2555,7 @@
         "A long value is written in full, split between ds-context-list__start and ds-context-list__end. The stylesheet cuts the middle from view only. A browser reads a space between the two parts, so give that row's button an aria-label with the setting and the whole value: Repository northwind-logistics-shipment-tracking-api.",
         "A warning is said in words in the value. ds-context-list__value--warning adds the icon, so the tone is never the only signal.",
         "A press opens the setting's view in the same sheet. The app shows that view, moves focus to the chosen option in it and, on Back, shows the rows again and moves focus to the row that was pressed. The composer's metadata describes the whole sheet.",
-        "Tab moves between the rows, and Enter and Space press one. Each row is at least 44px tall and as wide as the group. The component needs no script of its own."
+        "Tab moves between the rows, and Enter and Space press one. Each row is at least as tall as a row of a list, 36px by default and 44px on a coarse pointer, and as wide as the group. The component needs no script of its own."
       ],
       "icons": [
         "chevron-right",
@@ -2679,13 +2695,13 @@
         },
         {
           "name": "icon only",
-          "use": "ds-button ds-button--quiet ds-icon-button with the copy icon and an aria-label, for a dense row or a table cell. It is 44px square."
+          "use": "ds-button ds-button--quiet ds-icon-button with the copy icon and an aria-label, for a dense row or a table cell. It is a square of default size, or ds-icon-button--small or ds-icon-button--xsmall where the row is dense."
         }
       ],
       "sizes": [
         {
           "name": "default",
-          "use": "The labelled button is drawn 32px tall with a 44px pointer target. The icon-only button is 44px square."
+          "use": "The labelled button is the small button: 28px tall, with a 44px pointer target on a coarse pointer. The icon-only button is as tall as a control: 36px by default and 44px on a coarse pointer."
         }
       ],
       "states": [
@@ -2783,7 +2799,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "44px tall and as wide as its container, with the button at its natural width. Limit the width on the container."
+          "use": "As tall as a control, 36px by default and 44px on a coarse pointer, and as wide as its container, with the button at its natural width. Limit the width on the container."
         }
       ],
       "states": [
@@ -2901,7 +2917,7 @@
         "A cell holds one run of text or one element. In the stacked layout a second element would start a new line under the label.",
         "A column of numbers carries ds-data-table__numeric on its th and on every td: right-aligned, in tabular figures, each number with its unit.",
         "A sortable header is a button with the class ds-data-table__sort inside the th, holding the header's words. Set aria-sort=\"ascending\" or aria-sort=\"descending\" on the th of the one column the rows are ordered by, and leave it off the others. The stylesheet draws the direction from that attribute. The app reorders the rows and moves the attribute, and the caption or a role=\"status\" line says the new order.",
-        "A row has at most one action: a small quiet button in a td with the class ds-data-table__action, the last cell of the row, under a th whose text is in a ds-visually-hidden span. When every row's button has the same words, add an aria-label that starts with those words and names the row. The cell pads the 32px button out to 44px, so its pointer target fits the row and a one-line row is no taller.",
+        "A row has at most one action: a small quiet button in a td with the class ds-data-table__action, the last cell of the row, under a th whose text is in a ds-visually-hidden span. When every row's button has the same words, add an aria-label that starts with those words and names the row. The cell pads the 28px button out to the height of a row, so on a coarse pointer its 44px pointer target fits the row, and a one-line row is no taller.",
         "A row that expands has a button with the class ds-data-table__expand in its th, holding the words that name the row, with aria-expanded and with aria-controls pointing at the next row. That next row is a tr with the class ds-data-table__detail holding one td that spans every column. The app sets aria-expanded to true or false and nothing else: the stylesheet does not draw the detail row while the button says false. Do not use the hidden attribute on the detail row.",
         "Mark the selected row with aria-selected=\"true\" on its tr. It is drawn with a bar at its start as well as a shade.",
         "With no rows, while loading and after a failure, keep the caption and the header and put one row in the tbody whose single td has the class ds-data-table__state and spans every column. Empty: a ds-data-table__message sentence saying why, and at most one small button. Loading: a spinner with role=\"status\", and aria-busy=\"true\" on the table. Error: a ds-data-table__message with role=\"alert\" that says what to do, and a small Retry button. The stylesheet draws the failure's icon.",
@@ -2955,7 +2971,7 @@
         {
           "id": "row-action",
           "title": "One quiet action for each row",
-          "reason": "The action repeats on every row, so it is small and quiet, and its label names the row for a screen reader. Its cell pads the 32px button out to 44px, so the pointer target fits inside the row and a one-line row stays 44px tall.",
+          "reason": "The action repeats on every row, so it is small and quiet, and its label names the row for a screen reader. Its cell pads the 28px button out to the height of a row, so on a coarse pointer its 44px pointer target fits inside the row, and a one-line row is no taller for it.",
           "markup": "<table class=\"ds-data-table\">\n  <caption class=\"ds-data-table__caption\">Running now in acme/api</caption>\n  <thead>\n    <tr>\n      <th scope=\"col\">Task</th>\n        <th scope=\"col\">Branch</th>\n      <th scope=\"col\">Status</th>\n      <th scope=\"col\" class=\"ds-data-table__numeric\">Duration</th>\n      <th scope=\"col\"><span class=\"ds-visually-hidden\">Actions</span></th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th scope=\"row\">Fix the login timeout</th>\n        <td data-label=\"Branch\">fix/login-timeout</td>\n      <td data-label=\"Status\">Building</td>\n      <td class=\"ds-data-table__numeric\" data-label=\"Duration\">6 min 12 s</td>\n      <td class=\"ds-data-table__action\"><button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small\" aria-label=\"Stop run for Fix the login timeout\">Stop run</button></td>\n    </tr>\n    <tr>\n      <th scope=\"row\">Add rate limiting to the webhook endpoint</th>\n        <td data-label=\"Branch\">feat/webhook-rate-limit</td>\n      <td data-label=\"Status\">Awaiting decision</td>\n      <td class=\"ds-data-table__numeric\" data-label=\"Duration\">21 min 40 s</td>\n      <td class=\"ds-data-table__action\"><button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small\" aria-label=\"Stop run for Add rate limiting to the webhook endpoint\">Stop run</button></td>\n    </tr>\n  </tbody>\n</table>"
         },
         {
@@ -3049,7 +3065,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "44px tall. The calendar button inside it is the browser's own, with a widened pointer target."
+          "use": "As tall as a control, 36px by default and 44px on a coarse pointer, and at most 240px wide, or 260px with a time. The calendar button inside it is the browser's own, with a widened pointer target."
         }
       ],
       "states": [
@@ -3440,7 +3456,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "The summary is at least 44px tall and as wide as the disclosure. It grows when its text wraps."
+          "use": "The summary is at least as tall as a row, 36px by default and 44px on a coarse pointer, and as wide as the disclosure. It grows when its text wraps."
         }
       ],
       "states": [
@@ -3550,7 +3566,7 @@
       ],
       "accessibility": [
         "Use an ol with the class ds-editable-list__items and an aria-label that names the list, inside a div with ds-editable-list. Each item is an li with ds-editable-list__item. The stylesheet draws each item's number from its place in the list, and a screen reader announces the position from the ol.",
-        "A row at rest holds a span with ds-editable-list__text and a span with ds-editable-list__actions holding two buttons, Edit then Delete, each ds-button ds-button--quiet ds-button--small. They are drawn 32px tall and their pointer targets are 44px. Row actions are never primary.",
+        "A row at rest holds a span with ds-editable-list__text and a span with ds-editable-list__actions holding two buttons, Edit then Delete, each ds-button ds-button--quiet ds-button--small. They are drawn 28px tall, and on a coarse pointer their pointer targets are 44px. Row actions are never primary.",
         "Each button's aria-label starts with its visible word and names the row: Edit task 2: Raise the session timeout to 30 minutes.",
         "Editing: the app replaces the row's text and buttons with a form with ds-editable-list__editor. It holds a ds-field whose visible label names the item, such as Task 2, with the item's text as the input's value, then ds-editable-list__editor-actions with a submit button, Save task, and a quiet Cancel. Move focus to the input. Only one row is edited at a time.",
         "Enter in the input saves, because it submits the form. The app also cancels on Escape. After Save or Cancel the row goes back to rest and focus returns to its Edit button.",
@@ -3818,7 +3834,7 @@
         "The follow-up note is an app-set pattern, not a state of the component. After a choice, the app inserts ds-feedback__note between the row and the confirmation, or removes its hidden attribute: a ds-field whose control is a ds-textarea, with a visible label, and a secondary button, Send note. The rating is saved by the first press, and the note is optional. Do not move focus into the field: the reader reaches it with Tab.",
         "After the note is sent, set the disabled attribute on both choices, leave aria-pressed as it is, remove the note field and say so in the confirmation.",
         "If saving fails, set both buttons back to aria-pressed=\"false\" and add a p with the class ds-feedback__error and role=\"alert\" that says the rating was not saved and what to do. Its icon is drawn by the stylesheet.",
-        "Tab reaches Helpful, then Not helpful, then the note field and Send note when shown. Enter and Space press a button. The buttons are drawn 32px tall with a 44px pointer target."
+        "Tab reaches Helpful, then Not helpful, then the note field and Send note when shown. Enter and Space press a button. The buttons are drawn 28px tall, with a 44px pointer target on a coarse pointer."
       ],
       "icons": [
         "circle-alert",
@@ -3906,7 +3922,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "The control is 44px tall and as wide as the field. Limit the width on the field's container."
+          "use": "The control is as tall as the density of its container, 36px by default and 44px on a coarse pointer, and as wide as the field. Limit the width on the field's container."
         }
       ],
       "states": [
@@ -4002,7 +4018,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "As wide as the field and at least 88px tall. The whole area is the pointer target."
+          "use": "As wide as the field and at least two controls tall: 72px by default and 88px on a coarse pointer. The whole area is the pointer target."
         }
       ],
       "states": [
@@ -4124,7 +4140,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "Drawn 32px tall with a 44px pointer target. Rows sit 12px apart, so the targets of two rows never overlap."
+          "use": "Drawn 32px tall at every density. On a coarse pointer the pointer target is 44px tall and rows sit 16px apart, so the targets of two rows never overlap."
         }
       ],
       "states": [
@@ -4177,7 +4193,7 @@
         {
           "id": "groups",
           "title": "Two groups and one button that clears both",
-          "markup": "<form class=\"ds-stack\">\n  <fieldset class=\"ds-filter-chips\">\n    <legend class=\"ds-filter-chips__legend\">Repository</legend>\n    <div class=\"ds-filter-chips__list\">\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-repository\" value=\"acme/api\"> acme/api</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-repository\" value=\"acme/billing\"> acme/billing</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-repository\" value=\"acme/web\"> acme/web</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-repository\" value=\"acme/mobile-app\"> acme/mobile-app</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-repository\" value=\"acme/infrastructure\"> acme/infrastructure</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-repository\" value=\"acme/design-tokens\"> acme/design-tokens</label>\n    </div>\n  </fieldset>\n  <fieldset class=\"ds-filter-chips\">\n    <legend class=\"ds-filter-chips__legend\">Started by</legend>\n    <div class=\"ds-filter-chips__list\">\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-author\" value=\"me\"> Me</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-author\" value=\"maya\"> Maya Okafor</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-author\" value=\"schedule\"> A schedule</label>\n    </div>\n  </fieldset>\n  <div class=\"ds-cluster\">\n    <button type=\"reset\" class=\"ds-button ds-button--quiet ds-button--small\">Clear filters</button>\n  </div>\n</form>"
+          "markup": "<form class=\"ds-stack ds-gap-lg\">\n  <fieldset class=\"ds-filter-chips\">\n    <legend class=\"ds-filter-chips__legend\">Repository</legend>\n    <div class=\"ds-filter-chips__list\">\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-repository\" value=\"acme/api\"> acme/api</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-repository\" value=\"acme/billing\"> acme/billing</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-repository\" value=\"acme/web\"> acme/web</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-repository\" value=\"acme/mobile-app\"> acme/mobile-app</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-repository\" value=\"acme/infrastructure\"> acme/infrastructure</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-repository\" value=\"acme/design-tokens\"> acme/design-tokens</label>\n    </div>\n  </fieldset>\n  <fieldset class=\"ds-filter-chips\">\n    <legend class=\"ds-filter-chips__legend\">Started by</legend>\n    <div class=\"ds-filter-chips__list\">\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-author\" value=\"me\"> Me</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-author\" value=\"maya\"> Maya Okafor</label>\n      <label class=\"ds-filter-chips__chip\"><input class=\"ds-filter-chips__input\" type=\"checkbox\" name=\"filter-chips-groups-author\" value=\"schedule\"> A schedule</label>\n    </div>\n  </fieldset>\n  <div class=\"ds-cluster\">\n    <button type=\"reset\" class=\"ds-button ds-button--quiet ds-button--small\">Clear filters</button>\n  </div>\n</form>"
         },
         {
           "id": "hover",
@@ -4323,7 +4339,17 @@
       "sizes": [
         {
           "name": "default",
-          "use": "44px square, with a 16px icon. There is no smaller size: do not add ds-button--small, whose target would be narrower than 44px."
+          "use": "A square as tall as a control at the density of its container: 36px by default, 28px where data-ds-density is compact, and 44px where it is touch and on every coarse pointer. The icon is 16px at every size."
+        },
+        {
+          "name": "small",
+          "class": "ds-icon-button--small",
+          "use": "28px square at every density, for a toolbar. On a coarse pointer it is drawn the same and its pointer target is 44px square, so keep 16px or more between two of them. Do not add ds-button--small to an icon button."
+        },
+        {
+          "name": "xsmall",
+          "class": "ds-icon-button--xsmall",
+          "use": "24px square at every density, the smallest target a fine pointer allows, for the one action inside a dense row. On a coarse pointer its pointer target is 44px square, so a row holds one."
         }
       ],
       "states": [
@@ -4348,10 +4374,13 @@
         "ellipsis",
         "external-link",
         "folder",
-        "terminal"
+        "terminal",
+        "x"
       ],
       "classes": [
-        "ds-icon-button"
+        "ds-icon-button",
+        "ds-icon-button--small",
+        "ds-icon-button--xsmall"
       ],
       "examples": [
         {
@@ -4365,6 +4394,16 @@
           "id": "in-a-row",
           "title": "Quiet, at the end of a row",
           "markup": "<div class=\"ds-split\">\n  <code>fix/session-refresh</code>\n  <div class=\"ds-cluster ds-gap-xs\">\n    <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Copy branch name\">\n      <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-copy\"></use></svg>\n    </button>\n    <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button\" aria-label=\"Open the branch on GitHub\">\n      <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-external-link\"></use></svg>\n    </button>\n  </div>\n</div>"
+        },
+        {
+          "id": "small",
+          "title": "Small, in a toolbar",
+          "markup": "<div class=\"ds-cluster ds-gap-lg\" role=\"toolbar\" aria-label=\"Panels\">\n  <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button ds-icon-button--small\" aria-label=\"Show the terminal\" aria-pressed=\"true\">\n    <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-terminal\"></use></svg>\n  </button>\n  <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button ds-icon-button--small\" aria-label=\"Show the file tree\" aria-pressed=\"false\">\n    <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-folder\"></use></svg>\n  </button>\n  <button type=\"button\" class=\"ds-button ds-icon-button ds-icon-button--small\" aria-label=\"Copy branch name\">\n    <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-copy\"></use></svg>\n  </button>\n</div>"
+        },
+        {
+          "id": "xsmall",
+          "title": "Extra small, the one action in a dense row",
+          "markup": "<div class=\"ds-split\">\n  <code>src/session/refresh.ts</code>\n  <button type=\"button\" class=\"ds-button ds-button--quiet ds-icon-button ds-icon-button--xsmall\" aria-label=\"Remove src/session/refresh.ts from the context\">\n    <svg class=\"ds-button__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-x\"></use></svg>\n  </button>\n</div>"
         },
         {
           "id": "pressed",
@@ -4511,7 +4550,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "Drawn 32px tall and as wide as its words, centred. Its pointer target is 44px tall."
+          "use": "Drawn 32px tall and as wide as its words, centred. On a coarse pointer its pointer target is 44px tall."
         }
       ],
       "states": [
@@ -4759,7 +4798,7 @@
         {
           "name": "standalone",
           "class": "ds-link",
-          "use": "A link outside a sentence. It is 44px tall and may end with an icon, such as arrow-right."
+          "use": "A link outside a sentence. It is as tall as a control and may end with an icon, such as arrow-right."
         },
         {
           "name": "quiet",
@@ -4774,7 +4813,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "A standalone link takes the text size around it and is at least 44px tall and wide. An inline link is the size of its sentence."
+          "use": "A standalone link takes the text size around it and is at least as tall and as wide as a control: 36px by default and 44px on a coarse pointer. An inline link is the size of its sentence."
         }
       ],
       "states": [
@@ -4790,7 +4829,7 @@
         "A link that opens a new tab says so. Put (opens in a new tab) in a ds-link__hint inside the link, which a screen reader reads and the screen does not show, and set rel=\"noopener\".",
         "An icon inside a link is decoration and carries aria-hidden=\"true\". The external-link icon is the visible sign of what the hint says.",
         "Tab moves to the link and Enter follows it. Space does not, which is one reason an action is a button.",
-        "A standalone link has a 44px pointer target. An inline link is exempt, so do not put two of them side by side in a sentence."
+        "A standalone link has a pointer target as tall as a control, 44px on a coarse pointer. An inline link is exempt, so do not put two of them side by side in a sentence."
       ],
       "icons": [
         "arrow-right",
@@ -4871,12 +4910,12 @@
       "variants": [
         {
           "name": "default",
-          "use": "12px above and below each row's text. A one-line row is 44px tall."
+          "use": "A one-line row is as tall as the density of its container: 36px by default and 44px on a coarse pointer."
         },
         {
           "name": "dense",
           "class": "ds-list--dense",
-          "use": "4px above and below each row's text, for long lists and file lists. A row with a link or an action is still at least 44px tall, and a row that only shows text is 28px."
+          "use": "4px above and below each row's text, for long lists and file lists. A row with a link or an action is still at least as tall as a default row, and a row that only shows text is 28px."
         }
       ],
       "sizes": [],
@@ -4890,7 +4929,7 @@
       ],
       "accessibility": [
         "Use a ul, or an ol when the order means something, with one li per row. A screen reader then announces how many rows there are.",
-        "A row that navigates wraps its icon, lines and trailing text in one a element with the class ds-list__link. The link is the whole row: one tab stop, one focus ring, and a pointer target at least 44px tall.",
+        "A row that navigates wraps its icon, lines and trailing text in one a element with the class ds-list__link. The link is the whole row: one tab stop, one focus ring, and a pointer target as tall as the row: at least 36px by default and 44px on a coarse pointer.",
         "A row that does not navigate uses a div with the class ds-list__content. It is not focusable.",
         "A row has at most one action: a small quiet button inside ds-list__action, after the content. When every row's button has the same words, add an aria-label that starts with those words and names the row, such as Remove /srv/workspaces/acme-api.",
         "Mark the row for the view the reader is on with aria-current=\"page\" on its link. It is drawn with a bar and a heavier title as well as a shade.",
@@ -5021,7 +5060,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "Each option is at least 44px tall and as wide as the listbox."
+          "use": "Each option is at least as tall as a row, 36px by default and 44px on a coarse pointer, and as wide as the listbox."
         }
       ],
       "states": [
@@ -5061,7 +5100,7 @@
           "id": "default",
           "title": "One option selected, in two groups",
           "state": "default",
-          "reason": "The selected branch carries aria-selected and a check, and every row keeps the slot for the check, so the names line up and the choice is never colour alone. Each group has a label, and each row is 44px tall.",
+          "reason": "The selected branch carries aria-selected and a check, and every row keeps the slot for the check, so the names line up and the choice is never colour alone. Each group has a label, and each row is as tall as a row of a list.",
           "markup": "<ds-listbox>\n  <div class=\"ds-stack ds-gap-xs\">\n    <span class=\"ds-field__label\" id=\"listbox-default-label\">Base branch</span>\n    <div class=\"ds-listbox\" role=\"listbox\" aria-labelledby=\"listbox-default-label\">\n      <div class=\"ds-listbox__group\" role=\"group\" aria-labelledby=\"listbox-default-protected\">\n        <div class=\"ds-listbox__label\" id=\"listbox-default-protected\" role=\"presentation\">Protected branches</div>\n        <div class=\"ds-listbox__option\" role=\"option\" id=\"listbox-default-main\" aria-selected=\"true\" tabindex=\"0\">main <span class=\"ds-listbox__meta\">Default branch</span></div>\n        <div class=\"ds-listbox__option\" role=\"option\" id=\"listbox-default-release\" aria-selected=\"false\" tabindex=\"-1\">release/2026.03 <span class=\"ds-listbox__meta\">14 commits behind main</span></div>\n      </div>\n      <div class=\"ds-listbox__group\" role=\"group\" aria-labelledby=\"listbox-default-recent\">\n        <div class=\"ds-listbox__label\" id=\"listbox-default-recent\" role=\"presentation\">Branches you pushed to this week</div>\n        <div class=\"ds-listbox__option\" role=\"option\" id=\"listbox-default-login\" aria-selected=\"false\" tabindex=\"-1\">fix/login-timeout <span class=\"ds-listbox__meta\">4 commits ahead</span></div>\n        <div class=\"ds-listbox__option\" role=\"option\" id=\"listbox-default-webhook\" aria-selected=\"false\" tabindex=\"-1\">feat/webhook-rate-limit <span class=\"ds-listbox__meta\">5 commits ahead</span></div>\n        <div class=\"ds-listbox__option\" role=\"option\" id=\"listbox-default-pg\" aria-selected=\"false\" tabindex=\"-1\">chore/pg-8-13 <span class=\"ds-listbox__meta\">1 commit ahead</span></div>\n      </div>\n    </div>\n  </div>\n</ds-listbox>"
         },
         {
@@ -5392,7 +5431,7 @@
         "When the reader stops the reply, keep the text that arrived, set data-state=\"stopped\" and add a p with ds-message__state after the body that starts with the word Stopped. When the connection or the process is lost, set data-state=\"interrupted\", say so in ds-message__state starting with the word Interrupted, and put a Retry button with ds-button ds-button--small after it. While the app tries to resume, set data-state=\"reconnecting\" and say Reconnecting in ds-message__state: the text stays, and nothing is added twice. The stylesheet draws an icon beside each of the three from data-state.",
         "Only the caret and the reconnecting mark move, and under prefers-reduced-motion both are still.",
         "Write transcript text as text, never as markup, and write out characters that cannot be seen.",
-        "Collapsed arguments and long output use a native details element, with no script. Its summary holds text that says what is inside. Enter and Space open and close it, and its pointer target is 44px tall.",
+        "Collapsed arguments and long output use a native details element, with no script. Its summary holds text that says what is inside. Enter and Space open and close it, and its pointer target is as tall as a row: 36px by default and 44px on a coarse pointer.",
         "When output is cut short, the lines after the preview go in the details element, so opened text continues where the preview stopped.",
         "A transcript that is loading is a skeleton with aria-busy and a sentence for screen readers. An empty one is a compact empty state, with suggestion chips when there are prompts to offer.",
         "The component needs no script. The app sets data-state and aria-busy on a row that streams, and the browser manages the open attribute."
@@ -5767,7 +5806,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "44px tall and at most 264px wide. Each stepper is 44px square."
+          "use": "As tall as a control, 36px by default and 44px on a coarse pointer, and at most 240px wide. Each stepper is a square of that height."
         }
       ],
       "states": [
@@ -5900,7 +5939,7 @@
         "A ds-option-picker__reveal is shown by the stylesheet while the option before it is checked, with no script, and is out of the tab order while hidden. Do not put required on a control inside it; check it when the form is sent.",
         "For an error, the fieldset takes role=\"radiogroup\", aria-labelledby pointing at the legend, aria-required=\"true\", aria-invalid=\"true\" and aria-describedby pointing at a p with ds-option-picker__error after the last option, and at the hint too when there is one. The message says what to do, and its icon is drawn by the stylesheet.",
         "Tab moves into the group, to the chosen option or the first one. The arrow keys move between options, skip a disabled one and choose as they go, and Space chooses the focused option. All of it comes from the native inputs.",
-        "Each row is at least 44px tall and as wide as the group, and the mark has a 44px target of its own inside it."
+        "Each row is at least as tall as a row of a list, 36px by default and 44px on a coarse pointer, and as wide as the group, and the mark has a target of that size of its own inside it."
       ],
       "icons": [
         "circle-alert",
@@ -5988,7 +6027,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "44px tall and at most 242px wide, with 20px mono digits. It fits eight digits."
+          "use": "As tall as a control and at most 240px wide, with 20px mono digits. It fits eight digits."
         }
       ],
       "states": [
@@ -6081,7 +6120,7 @@
         "Head the sections under it with h2, which the base layer draws a step smaller than the title, or with the titles of the components they hold.",
         "The description is a p directly after the title, one sentence long.",
         "The action is one button, or one link styled as a button when it goes to another view. It may be the view's primary button, and then no other button in the view is primary.",
-        "In the compact variant use ds-button--small, which keeps a 44px pointer target.",
+        "In the compact variant use ds-button--small, which keeps a 44px pointer target on a coarse pointer.",
         "On a narrow screen the action moves below the text instead of squeezing it. A long title wraps and is never cut.",
         "The header adds no keyboard behaviour. Tab reaches the action in document order, after the title and description."
       ],
@@ -6159,7 +6198,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "Every control is 44px tall and at least 44px wide. Below 768px the row is Previous, the status, Next. At 768px and up the status leads and the controls sit together at the far end."
+          "use": "Every control is as tall as a control of default size and at least as wide: 36px by default and 44px on a coarse pointer. Below 768px the row is Previous, the status, Next. At 768px and up the status leads and the controls sit together at the far end."
         }
       ],
       "states": [
@@ -6271,7 +6310,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "44px tall and as wide as the field. The button is 60px wide and 44px tall."
+          "use": "As tall as a control and as wide as the field. The button is 64px wide and as tall as the input."
         }
       ],
       "states": [
@@ -6364,7 +6403,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "The link is drawn 32px tall to fit a header row. Its pointer target is still 44px."
+          "use": "The link is drawn 32px tall to fit a header row. On a coarse pointer its pointer target is 44px."
         }
       ],
       "states": [
@@ -6701,7 +6740,7 @@
         "Disable one option with the disabled attribute on its input, or the whole group with disabled on the fieldset. Say why in a description.",
         "For an error, the fieldset takes role=\"radiogroup\", aria-labelledby pointing at the legend, aria-invalid=\"true\" and aria-describedby pointing at a p with ds-radio__error after the last option. The message says what to do, and its icon is drawn by the stylesheet.",
         "Tab moves into the group, to the chosen option or the first one. The arrow keys move between options and choose as they go, and Space chooses the focused option. All of it comes from the native inputs.",
-        "The circle is drawn 20px across and its pointer target is 44px; a press on the label chooses the option too."
+        "The circle is drawn 20px across and its pointer target is as tall and as wide as the row is tall, 36px by default and 44px on a coarse pointer; a press on the label chooses the option too."
       ],
       "icons": [
         "circle-alert"
@@ -6784,7 +6823,7 @@
         "ds-reasoning__body holds text only: paragraphs, or the steps of a plan as a list with the numbers written in the text. Never put a button, a link the reader must follow or a form control inside.",
         "Line breaks in the text are kept. Write the reasoning as text, never as markup.",
         "The text is muted on the page surface. Do not place the component on a sunken or tinted surface, where muted text is too faint.",
-        "Enter and Space open and close the summary, and its pointer target is 44px tall. The component needs no script."
+        "Enter and Space open and close the summary, and its pointer target is as tall as a row: 36px by default and 44px on a coarse pointer. The component needs no script."
       ],
       "icons": [
         "chevron-down",
@@ -7160,7 +7199,7 @@
         "Use input type=\"search\" carrying ds-field__control and ds-search-field__input, inside a div with ds-search-field__box. The search icon is drawn by the stylesheet and needs no markup.",
         "Every search field has a label element with ds-search-field__label tied to the input by for and id. Add ds-visually-hidden to hide it from sight. A placeholder is a hint, never the label.",
         "The outer element with ds-search-field is a form with role=\"search\" and an aria-label when it is the search for the page, and a plain div when it filters one list in place. Give each search landmark on a page a different label.",
-        "The clear button is a button with ds-search-field__clear, placed after the input, holding its name in a span with ds-visually-hidden, such as Clear the search. Its cross is drawn by the stylesheet and its target is 44px square.",
+        "The clear button is a button with ds-search-field__clear, placed after the input, holding its name in a span with ds-visually-hidden, such as Clear the search. Its cross is drawn by the stylesheet and its target is a square as tall as the input.",
         "With type=\"reset\" inside a form the clear button needs no script, as long as the form is served with an empty value. Otherwise use type=\"button\", and the app empties the input and moves focus back to it.",
         "The clear button is hidden while the input is empty. That relies on the input having a placeholder attribute: give it hint text, or a single space where no hint is wanted.",
         "The count line is a p with ds-search-field__count and aria-live=\"polite\". Keep it in the page from the start, and change only its text when the results change, after the reader pauses typing, so a screen reader announces the new count without losing focus. It gives a number and its unit, such as 3 of 128 runs match \"session\".",
@@ -7258,7 +7297,7 @@
         "The chosen option is a raised segment with a border and heavier text, so it does not rest on colour.",
         "Disable one option with the disabled attribute on its input, or the whole control with disabled on the fieldset.",
         "Tab moves into the control, to the chosen option. The arrow keys move between options and choose as they go. All of it comes from the native radios.",
-        "Each segment is at least 44px wide and its pointer target is 44px tall. The segments share the row equally at every width, and a label too long for its segment wraps inside it, so the control never scrolls sideways."
+        "Each segment is at least as wide as a control is tall, and its pointer target is that tall: 36px by default and 44px on a coarse pointer. The segments share the row equally at every width, and a label too long for its segment wraps inside it, so the control never scrolls sideways."
       ],
       "icons": [],
       "classes": [
@@ -7327,7 +7366,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "44px tall and as wide as the field. Limit the width on the field's container."
+          "use": "As tall as a control, 36px by default and 44px on a coarse pointer, and as wide as the field. Limit the width on the field's container."
         }
       ],
       "states": [
@@ -7429,7 +7468,7 @@
         "Keep the basket in the page from the start with the hidden attribute. On the first selection remove hidden and then set the count's text, so the count is announced. When the selection is cleared, set hidden again and move focus back to the list if it was inside the basket.",
         "Clear selection is a ds-button ds-button--quiet ds-button--small. It unticks every row and changes nothing else.",
         "ds-selection-basket__actions holds at most one bulk action as a button whose words name the action and the count, such as Archive 3 runs, and then, when there are more actions, one More button that opens a menu from the menu component. A bulk action that deletes sits last in the menu as a danger item and opens a confirm dialog.",
-        "The buttons are drawn 32px tall and their pointer targets are 44px. The bulk action is never one of two primary buttons in the view.",
+        "The buttons are drawn 28px tall, and on a coarse pointer their pointer targets are 44px. The bulk action is never one of two primary buttons in the view.",
         "While the bulk action runs, set aria-busy=\"true\" on its button, change its words to say what is happening, and disable the other buttons. If it fails, add a p with ds-selection-basket__error and role=\"alert\" as the last child, saying how many were not done and what to do, and keep the selection.",
         "The basket sticks to the bottom of the screen while the list it follows is in view, above the home indicator on a phone, so give the list's container enough bottom padding that the last row can scroll clear of it.",
         "Tab reaches Clear selection, the bulk action and More, in that order, after the last row of the list. The menu's keys are those of the menu component."
@@ -7706,7 +7745,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "The control is 44px tall, as wide as its text, and starts at the content's leading edge."
+          "use": "The control is as tall as a control of default size, 36px by default and 44px on a coarse pointer, as wide as its text, and starts at the content's leading edge."
         }
       ],
       "states": [
@@ -7829,7 +7868,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "220px wide, with each item 44px tall. Shown only at 768px and up."
+          "use": "260px wide, the sidebar size, with each item as tall as a row: 36px by default and 44px on a coarse pointer. Shown only at 768px and up."
         }
       ],
       "states": [
@@ -7960,12 +7999,12 @@
         {
           "name": "row",
           "class": "ds-skeleton__row",
-          "use": "A list row at least 44px tall, holding one or two lines. Its container also takes ds-skeleton--rows, so the rows touch and are divided by a rule, as list rows are."
+          "use": "A list row at least as tall as a row of a list, holding one or two lines. Its container also takes ds-skeleton--rows, so the rows touch and are divided by a rule, as list rows are."
         },
         {
           "name": "block",
           "class": "ds-skeleton__block",
-          "use": "A rectangle 132px tall and as wide as its container, for a code block or a diff."
+          "use": "A rectangle three rows tall and as wide as its container, for a code block or a diff."
         }
       ],
       "sizes": [],
@@ -8039,7 +8078,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "As wide as its container and 44px tall. The thumb is drawn 24px square inside a 44px pointer target."
+          "use": "As wide as its container and as tall as a control: 36px by default and 44px on a coarse pointer. The thumb is drawn 24px square inside a pointer target of that size."
         }
       ],
       "states": [
@@ -8056,7 +8095,7 @@
         "When a step has a name, or the bare number would mislead, also set aria-valuetext on the input to the same words, so the slider itself is read as High and not as 3.",
         "The two spans say what the lowest and highest values are, in words. They are plain text, and the range itself comes from min and max.",
         "The keyboard is the browser's own: Left and Down lower the value by one step, Right and Up raise it, Page Up and Page Down move further, Home and End go to the ends.",
-        "The track wrapper reaches 10px past the slider on each side, which is the unpainted part of the thumb's pointer target. Keep at least that much padding between a slider and the edge of the screen.",
+        "The track wrapper reaches 6px past the slider on each side, and 10px on a coarse pointer, which is the unpainted part of the thumb's pointer target. Keep at least that much padding between a slider and the edge of the screen.",
         "Set the disabled attribute when the value cannot change, and say why in the output or beside it.",
         "The thumb's position is styled for WebKit, Blink and Gecko with no inline style. The part of the track below the value is not filled: the value in words carries it."
       ],
@@ -8146,7 +8185,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "Drawn 32px tall. Its pointer target is 44px tall through a padded hit area."
+          "use": "Drawn 32px tall at every density. On a coarse pointer its pointer target is 44px tall through a padded hit area."
         }
       ],
       "states": [
@@ -8161,7 +8200,7 @@
         "Split a path at its last slash, with no white space between the two spans: the start part ends in an ellipsis when room runs out, and the end part, the file name, stays whole until the chip is narrower than the name.",
         "Write a line range in words, such as line 118 or lines 42–58, in ds-source-chip__detail.",
         "The icon alone does not say the kind to a screen reader. A path and a host say it themselves. For a commit, start the text with a ds-visually-hidden span reading Commit.",
-        "Several chips are li elements of a ul with the class ds-source-chip__list, so a screen reader announces how many there are. Its 12px gap keeps the 44px pointer targets of two rows apart. Outside that list, leave at least 12px above and below a chip.",
+        "Several chips are li elements of a ul with the class ds-source-chip__list, so a screen reader announces how many there are. On a coarse pointer its 12px gap keeps the 44px pointer targets of two rows apart. Outside that list, leave at least 12px above and below a chip.",
         "Tab reaches each chip and Enter follows it. The component needs no script."
       ],
       "icons": [
@@ -8394,7 +8433,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "44px tall. The menu button is 44px wide."
+          "use": "As tall as a control, 36px by default and 44px on a coarse pointer. The menu button is a square of that height."
         }
       ],
       "states": [
@@ -8679,7 +8718,7 @@
         "failed"
       ],
       "accessibility": [
-        "Use a native details element with the class on it, in an li of the transcript. Its first child is a summary with ds-step-group__summary, and after it comes an ol with ds-step-group__steps. Enter and Space open and close the summary, and it is 44px tall.",
+        "Use a native details element with the class on it, in an li of the transcript. Its first child is a summary with ds-step-group__summary, and after it comes an ol with ds-step-group__steps. Enter and Space open and close the summary, and it is as tall as a row: 36px by default and 44px on a coarse pointer.",
         "ds-step-group__title is a sentence the app writes from the steps inside, as counts by kind in plain words: Ran 4 commands, edited 2 files. Past tense for what was done, the same verbs as the rows. While steps are still arriving, end it with so far. rules/content.md has the wording.",
         "A step that failed, a step that is running and a step that waits for approval are each said in words inside the title, in a span with ds-step-group__callout and data-state=\"failed\", data-state=\"running\" or data-state=\"awaiting-approval\": 1 command failed, Running, Awaiting your approval. The stylesheet draws the icon from data-state. Never leave a failure or a pending approval to be found in a count.",
         "ds-step-group__duration is how long the steps took together, with its unit. While the group is still running use a time that counts up and is not announced: the ds-elapsed element from behaviors/elapsed.js, or a span with aria-live=\"off\".",
@@ -8772,7 +8811,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "Below 768px the steps run down the page, each row at least 44px tall. At 768px and up they run across it, joined by lines."
+          "use": "Below 768px the steps run down the page, each row at least as tall as a row of a list. At 768px and up they run across it, joined by lines."
         }
       ],
       "states": [
@@ -8942,7 +8981,7 @@
         "The chip's text is the whole prompt it sends or places in the composer, specific to this conversation: Run the failing test again, not Tell me more. Do the same thing on every press, sending or filling, across the app.",
         "A long prompt wraps inside its chip. Do not cut it short, because the text is what the reader agrees to send.",
         "While a turn runs and a prompt cannot be sent, set the disabled attribute on every chip or remove the group.",
-        "Chips are 44px tall, and wrap onto further lines at phone width.",
+        "Chips are as tall as a control, 36px by default and 44px on a coarse pointer, and wrap onto further lines at phone width.",
         "Tab moves through the chips in order. Enter and Space activate one. After a press, move focus to the composer or leave it on the transcript's new row. The component needs no script of its own."
       ],
       "icons": [],
@@ -9027,7 +9066,7 @@
         "A description is a p with ds-switch__description, linked from the input with aria-describedby.",
         "The component needs no script to move. The app listens for the change event and saves the setting. If saving fails, it sets the checked property back and adds a p with ds-switch__error and role=\"alert\", linked through aria-describedby, saying which state the setting is in and what to do.",
         "Set the disabled attribute when the setting cannot be changed, and say why in the description.",
-        "Tab reaches the switch and Space toggles it. The track is drawn 44px by 24px and its pointer target is 44px each way; a press on the label toggles it too."
+        "Tab reaches the switch and Space toggles it. The track is drawn 44px by 24px and its pointer target is as tall as the row, 36px by default and 44px on a coarse pointer; a press on the label toggles it too."
       ],
       "icons": [
         "circle-alert"
@@ -9216,7 +9255,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "Each tab is 44px tall and as wide as its label, at least 44px. A row wider than its container scrolls sideways inside itself, at any width."
+          "use": "Each tab is as tall as a control, 36px by default and 44px on a coarse pointer, and as wide as its label, at least as wide as it is tall. A row wider than its container scrolls sideways inside itself, at any width."
         }
       ],
       "states": [
@@ -9340,7 +9379,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "24px tall with 12px text. A removable tag keeps 8px clear above and below it, so its button's pointer target has room when tags wrap."
+          "use": "24px tall with 12px text. On a coarse pointer a removable tag keeps 8px clear above and below it, so its button's pointer target has room when tags wrap."
         }
       ],
       "states": [
@@ -9354,7 +9393,7 @@
         "Use a span. When the tags are a set, such as the filters in force, use a ul with an aria-label that says what they are and an li with the class ds-tag for each.",
         "Write a filter as its name and its value, such as Branch: main, so the tag makes sense out of context.",
         "The remove button is a button element with the class ds-tag__remove and no content. The stylesheet draws its cross. Its aria-label says what it removes and repeats the tag's text: Remove filter: Branch: main.",
-        "The button is drawn 22px square, inside the tag's border, and its pointer target is 44px square. Lay removable tags out with ds-cluster so the targets of neighbouring buttons do not overlap.",
+        "The button is drawn 22px square, inside the tag's border, and its pointer target is 24px square on a fine pointer and 44px square on a coarse one. Lay removable tags out with ds-cluster so the targets of neighbouring buttons do not overlap.",
         "Tab reaches each remove button in order, and Enter and Space activate it. After a tag is removed, the app moves focus to the next tag's button, or to the control that adds filters when none is left, and says what changed in a role=\"status\" element.",
         "Set the disabled attribute on the button while its filter cannot be removed. A tag with no button at all cannot be removed.",
         "A tag has one tone and never carries meaning by colour."
@@ -9377,7 +9416,7 @@
         {
           "id": "removable",
           "title": "Filter values, each with a remove button",
-          "reason": "Each button is named for the filter it removes, so a screen reader hears Remove filter: main and not a row of identical buttons. The button is drawn small, with a 44px pointer target around it.",
+          "reason": "Each button is named for the filter it removes, so a screen reader hears Remove filter: main and not a row of identical buttons. The button is drawn small, with a pointer target around it: 24px on a fine pointer and 44px on a coarse one.",
           "markup": "<ul class=\"ds-cluster\" aria-label=\"Filters applied to the runs\">\n  <li class=\"ds-tag\">Branch: main <button type=\"button\" class=\"ds-tag__remove\" aria-label=\"Remove filter: Branch: main\"></button></li>\n  <li class=\"ds-tag\">Status: failed <button type=\"button\" class=\"ds-tag__remove\" aria-label=\"Remove filter: Status: failed\"></button></li>\n  <li class=\"ds-tag\">Repository: acme/api <button type=\"button\" class=\"ds-tag__remove\" aria-label=\"Remove filter: Repository: acme/api\"></button></li>\n  <li class=\"ds-tag\">Started by: Maya Okafor <button type=\"button\" class=\"ds-tag__remove\" aria-label=\"Remove filter: Started by: Maya Okafor\"></button></li>\n</ul>"
         },
         {
@@ -9523,7 +9562,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "As wide as the field, 88px tall when empty, growing with its content to 264px and scrolling after that. Where the browser cannot grow it, it is 132px tall and the reader can drag it taller."
+          "use": "As wide as the field, two controls tall when empty, growing with its content to six and scrolling after that. Where the browser cannot grow it, it is three controls tall and the reader can drag it taller. A control is 36px by default and 44px on a coarse pointer."
         }
       ],
       "states": [
@@ -9782,12 +9821,12 @@
       "sizes": [
         {
           "name": "default",
-          "use": "44px tall."
+          "use": "As tall as a control: 36px by default and 44px on a coarse pointer."
         },
         {
           "name": "small",
           "class": "ds-button--small",
-          "use": "The button component's small size: drawn 32px tall for a toolbar, with a 44px pointer target. Lay small toggles out with ds-cluster ds-gap-md, so the targets of two wrapped rows do not overlap."
+          "use": "The button component's small size: drawn 28px tall for a toolbar, with a 44px pointer target on a coarse pointer. Lay small toggles out with ds-cluster ds-gap-lg, so the targets of two wrapped rows do not overlap."
         }
       ],
       "states": [
@@ -9831,7 +9870,7 @@
         {
           "id": "small",
           "title": "Small, in a toolbar above a diff",
-          "markup": "<div class=\"ds-cluster ds-gap-md\" role=\"group\" aria-label=\"Diff view options\">\n  <button type=\"button\" class=\"ds-button ds-button--small ds-toggle-button\" aria-pressed=\"true\">Wrap lines</button>\n  <button type=\"button\" class=\"ds-button ds-button--small ds-toggle-button\" aria-pressed=\"false\">Show whitespace</button>\n  <button type=\"button\" class=\"ds-button ds-button--small ds-toggle-button\" aria-pressed=\"false\">Hide unchanged files</button>\n</div>"
+          "markup": "<div class=\"ds-cluster ds-gap-lg\" role=\"group\" aria-label=\"Diff view options\">\n  <button type=\"button\" class=\"ds-button ds-button--small ds-toggle-button\" aria-pressed=\"true\">Wrap lines</button>\n  <button type=\"button\" class=\"ds-button ds-button--small ds-toggle-button\" aria-pressed=\"false\">Show whitespace</button>\n  <button type=\"button\" class=\"ds-button ds-button--small ds-toggle-button\" aria-pressed=\"false\">Hide unchanged files</button>\n</div>"
         },
         {
           "id": "with-icon",
@@ -9922,7 +9961,7 @@
         "The app sets data-state on the root and changes it as the call moves on: requested while the arguments are still arriving, awaiting-approval, running, then one final state: succeeded, failed, declined when a person or a rule refused it, timed-out, or cancelled when it was superseded or stopped before it ran. A final state never changes again. The stylesheet draws the icon from data-state and nothing else, so no class is toggled.",
         "A retry is a new row after the failed one. Never set a failed row back to running: the reader would lose the failure and its output.",
         "The root is an article with aria-labelledby pointing at ds-tool-call__title when it stands alone, and a div with the row modifier inside the li of a transcript or a step group.",
-        "The line is the summary of one native details element, ds-tool-call__details. It holds ds-tool-call__title, which starts with ds-tool-call__status and goes on with the summary, then ds-tool-call__duration. Enter and Space open and close it. It is drawn 36px tall, to keep a long run dense, and its pointer target is 44px tall.",
+        "The line is the summary of one native details element, ds-tool-call__details. It holds ds-tool-call__title, which starts with ds-tool-call__status and goes on with the summary, then ds-tool-call__duration. Enter and Space open and close it. It is drawn 36px tall, to keep a long run dense, and on a coarse pointer its pointer target is 44px tall.",
         "ds-tool-call__status always holds a word, written by the app: Preparing, Awaiting approval, Running, Succeeded, Failed, Declined (or Denied when a permission rule refused it), Timed out, Cancelled. The icon is never the only sign. The one exception is drawn by the stylesheet, not the markup: in the list of an open step group, the word Succeeded is cut from view and only its check shows, because the group's summary says the steps went well. It stays in the text, so a screen reader still reads it; write it as in every other row. Only the running icon moves, and under prefers-reduced-motion it is still. The states the badge's status set names look as it gives them: awaiting-approval is Needs input, running is Working, failed is Check failed and cancelled is Cancelled. Timed-out takes a clock and the warning tone, as a timed-out check does, because it is not a failure of the call.",
         "The summary is app text in plain words with the command or the target in a code element with ds-tool-call__target: Ran npm test, Edited auth.ts +12 −1, Explored 5 files. Use the past tense once the call has run and the plain verb before it runs or when it never ran: Run npm install. After the word Running, write the command alone. rules/content.md has the wording.",
         "ds-tool-call__duration is the time elapsed while the call waits or runs, and the total once it has ended, with its unit: 42 s, 2.4 s. It is set in the interface font with figures of one width, not in mono, because a time is not code. A time that counts up is not announced: use the ds-elapsed element from behaviors/elapsed.js, or a span with aria-live=\"off\" that the app updates.",
@@ -10083,7 +10122,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "Each control is 44px tall, and an icon button 44px square. The toolbar is as wide as its controls and never wider than its container."
+          "use": "Each control is as tall as a control of default size, 36px by default and 44px on a coarse pointer, and an icon button a square of that height. The toolbar is as wide as its controls and never wider than its container."
         }
       ],
       "states": [
@@ -10280,7 +10319,7 @@
       "sizes": [
         {
           "name": "default",
-          "use": "Every row is at least 44px tall. Each level is set in 20px behind a rule."
+          "use": "Every row is at least as tall as a row of a list: 36px by default and 44px on a coarse pointer. Each level is set in 20px behind a rule."
         }
       ],
       "states": [

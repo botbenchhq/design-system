@@ -25,7 +25,7 @@
     "Keep the basket in the page from the start with the hidden attribute. On the first selection remove hidden and then set the count's text, so the count is announced. When the selection is cleared, set hidden again and move focus back to the list if it was inside the basket.",
     "Clear selection is a ds-button ds-button--quiet ds-button--small. It unticks every row and changes nothing else.",
     "ds-selection-basket__actions holds at most one bulk action as a button whose words name the action and the count, such as Archive 3 runs, and then, when there are more actions, one More button that opens a menu from the menu component. A bulk action that deletes sits last in the menu as a danger item and opens a confirm dialog.",
-    "The buttons are drawn 32px tall and their pointer targets are 44px. The bulk action is never one of two primary buttons in the view.",
+    "The buttons are drawn 28px tall, and on a coarse pointer their pointer targets are 44px. The bulk action is never one of two primary buttons in the view.",
     "While the bulk action runs, set aria-busy=\"true\" on its button, change its words to say what is happening, and disable the other buttons. If it fails, add a p with ds-selection-basket__error and role=\"alert\" as the last child, saying how many were not done and what to do, and keep the selection.",
     "The basket sticks to the bottom of the screen while the list it follows is in view, above the home indicator on a phone, so give the list's container enough bottom padding that the last row can scroll clear of it.",
     "Tab reaches Clear selection, the bulk action and More, in that order, after the last row of the list. The menu's keys are those of the menu component."

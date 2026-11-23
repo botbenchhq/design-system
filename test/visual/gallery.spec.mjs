@@ -18,7 +18,12 @@ const THEMES = ["light", "dark"];
 const DO = "[data-example]:not([data-dont])";
 // A link with no class is a link inside running text, which the target size rule exempts.
 const INTERACTIVE = 'button, a[class], input, select, textarea, summary, [role="button"], [tabindex]';
-const TOUCH = 44;
+// A screen 390px wide is a phone, which has a coarse pointer, so every test in the matrix at that width runs with
+// one emulated: Playwright's hasTouch makes (pointer: coarse) match in Chrome, WebKit and Firefox, and the target
+// tests check that it does. The touch density then applies, whatever data-ds-density says. 1280px has a fine pointer.
+const COARSE = { 390: true, 1280: false };
+// The smallest pointer target each way: the touch size on a coarse pointer, and 24px on a fine one (WCAG 2.2, 2.5.8).
+const TARGET = { 390: 44, 1280: 24 };
 // The components a Botbench user meets, on a phone or a desktop. Their axe and structural-rule tests at both widths and
 // their pointer-target test carry the @engines tag, which is what the WebKit and Firefox projects run from this file.
 const ENGINES = new Set(["composer", "context-list", "sheet", "option-picker", "approval", "step-group", "tool-call", "button", "dialog", "menu", "app-shell", "agent-run"]);
@@ -70,10 +75,10 @@ async function forceStates(page) {
 
 // The target is what the pointer hits, which a padded hit area makes larger than the control is drawn. So from the
 // centre of each control the pointer is moved out along each axis, in half pixels, for as long as it still lands on the
-// control, and the target is what it covers: 42px or more each way passes, a pixel's slack on each side of 44px.
+// control, and the target is what it covers: a pixel's slack on each side, so 42px or more each way passes for 44px.
 // Measuring the run of hits, not four fixed points, keeps the test true in WebKit, which hit-tests an anchored popover
 // a pixel or two off the box it reports.
-async function smallTargets(page) {
+async function smallTargets(page, size) {
   return page.evaluate(
     ({ examples, interactive, reach }) => {
       const run = (control, x, y, dx, dy) => {
@@ -91,56 +96,65 @@ async function smallTargets(page) {
         const box = control.getBoundingClientRect();
         const x = box.left + box.width / 2;
         const y = box.top + box.height / 2;
+        // Nor has a control that lies under an open sheet, dialog or popover it is not part of: in an app the
+        // overlay is closed before the control can be pressed.
+        const overlay = document.elementFromPoint(x, y)?.closest("dialog[open], [popover]");
+        if (overlay && !overlay.contains(control)) continue;
         const across = run(control, x, y, -1, 0) + run(control, x, y, 1, 0);
         const down = run(control, x, y, 0, -1) + run(control, x, y, 0, 1);
         if (!control.contains(document.elementFromPoint(x, y)) || across < reach * 2 || down < reach * 2) failures.push(control.outerHTML.slice(0, 120));
       }
       return failures;
     },
-    { examples: DO, interactive: INTERACTIVE, reach: TOUCH / 2 - 1 },
+    { examples: DO, interactive: INTERACTIVE, reach: size / 2 - 1 },
   );
 }
 
-for (const name of ["index", ...components]) {
-  for (const width of WIDTHS) {
-    for (const theme of THEMES) {
-      test(`${name} at ${width}px in ${theme}: the page matches its committed screenshot`, async ({ page }) => {
-        await open(page, name, { width, theme });
-        expect(await page.locator("html").getAttribute("data-theme")).toBe(theme === "dark" ? "dark" : null);
-        await forceStates(page);
-        await expect(page).toHaveScreenshot(`${name}-${width}-${theme}.png`, { fullPage: true });
+const coarsePointer = (page) => page.evaluate(() => matchMedia("(pointer: coarse)").matches);
+
+for (const width of WIDTHS) {
+  test.describe(() => {
+    test.use({ hasTouch: COARSE[width] });
+
+    for (const name of ["index", ...components]) {
+      for (const theme of THEMES) {
+        test(`${name} at ${width}px in ${theme}: the page matches its committed screenshot`, async ({ page }) => {
+          await open(page, name, { width, theme });
+          expect(await page.locator("html").getAttribute("data-theme")).toBe(theme === "dark" ? "dark" : null);
+          await forceStates(page);
+          await expect(page).toHaveScreenshot(`${name}-${width}-${theme}.png`, { fullPage: true });
+        });
+      }
+    }
+
+    for (const name of components) {
+      for (const theme of THEMES) {
+        test(`${name} at ${width}px in ${theme}: axe finds no violation in the do examples`, engines(name), async ({ page }) => {
+          await open(page, name, { width, theme });
+          const { violations } = await new AxeBuilder({ page }).include(DO).analyze();
+          expect(violations.map((violation) => ({ id: violation.id, nodes: violation.nodes.map((node) => node.target.join(" ")) }))).toEqual([]);
+        });
+
+        test(`${name} at ${width}px in ${theme}: each do example passes the structural rules`, engines(name), async ({ page }) => {
+          await open(page, name, { width, theme });
+          await page.addScriptTag({ path: join(dist, "check-dom.js") });
+          const findings = await page.evaluate(
+            (selector) =>
+              [...document.querySelectorAll(selector)].flatMap((example) =>
+                dsCheckDom(example).map((finding) => ({ example: example.dataset.example, ...finding })),
+              ),
+            DO,
+          );
+          expect(findings).toEqual([]);
+        });
+      }
+
+      test(`${name} at ${width}px with a ${COARSE[width] ? "coarse" : "fine"} pointer: every control in a do example has a pointer target of at least ${TARGET[width]}px each way`, engines(name), async ({ page }) => {
+        await open(page, name, { width });
+        expect(await coarsePointer(page)).toBe(COARSE[width]);
+        expect(await smallTargets(page, TARGET[width])).toEqual([]);
       });
     }
-  }
-}
-
-for (const name of components) {
-  for (const width of WIDTHS) {
-    for (const theme of THEMES) {
-      test(`${name} at ${width}px in ${theme}: axe finds no violation in the do examples`, engines(name), async ({ page }) => {
-        await open(page, name, { width, theme });
-        const { violations } = await new AxeBuilder({ page }).include(DO).analyze();
-        expect(violations.map((violation) => ({ id: violation.id, nodes: violation.nodes.map((node) => node.target.join(" ")) }))).toEqual([]);
-      });
-
-      test(`${name} at ${width}px in ${theme}: each do example passes the structural rules`, engines(name), async ({ page }) => {
-        await open(page, name, { width, theme });
-        await page.addScriptTag({ path: join(dist, "check-dom.js") });
-        const findings = await page.evaluate(
-          (selector) =>
-            [...document.querySelectorAll(selector)].flatMap((example) =>
-              dsCheckDom(example).map((finding) => ({ example: example.dataset.example, ...finding })),
-            ),
-          DO,
-        );
-        expect(findings).toEqual([]);
-      });
-    }
-  }
-
-  test(`${name} at 390px: every control in a do example has a pointer target of at least 44px each way`, engines(name), async ({ page }) => {
-    await open(page, name, { width: 390 });
-    expect(await smallTargets(page)).toEqual([]);
   });
 }
 
@@ -149,47 +163,52 @@ const BRAND = "botbench";
 const BRANDED = ["agent-run", "app-shell", "approval", "badge", "button", "tool-call", "run-timeline", "data-table", "dialog", "alert", "diff", "review-decision", "log-viewer", "presence"];
 const brandSummary = JSON.parse(readFileSync(join(dist, "themes", `${BRAND}.json`), "utf8"));
 
-for (const name of ["index", ...BRANDED]) {
-  for (const width of WIDTHS) {
-    for (const theme of THEMES) {
-      test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: the page matches its committed screenshot`, async ({ page }) => {
-        await open(page, name, { width, theme, brand: BRAND });
-        expect(await page.locator("html").getAttribute("data-theme")).toBe(theme);
-        const background = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ds-color-surface").trim());
-        expect(background).toBe(brandSummary.themeColor[theme]);
-        await expect(page.locator('[data-gallery="bar"] nav[aria-label="Theme"] a[aria-current="true"]')).toHaveText("Botbench");
-        await forceStates(page);
-        await expect(page).toHaveScreenshot(`${name}-${width}-${theme}-${BRAND}.png`, { fullPage: true });
-      });
+for (const width of WIDTHS) {
+  test.describe(() => {
+    test.use({ hasTouch: COARSE[width] });
+
+    for (const name of ["index", ...BRANDED]) {
+      for (const theme of THEMES) {
+        test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: the page matches its committed screenshot`, async ({ page }) => {
+          await open(page, name, { width, theme, brand: BRAND });
+          expect(await page.locator("html").getAttribute("data-theme")).toBe(theme);
+          const background = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ds-color-surface").trim());
+          expect(background).toBe(brandSummary.themeColor[theme]);
+          await expect(page.locator('[data-gallery="bar"] nav[aria-label="Theme"] a[aria-current="true"]')).toHaveText("Botbench");
+          await forceStates(page);
+          await expect(page).toHaveScreenshot(`${name}-${width}-${theme}-${BRAND}.png`, { fullPage: true });
+        });
+
+        if (name === "index") continue;
+
+        test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: axe finds no violation in the do examples`, async ({ page }) => {
+          await open(page, name, { width, theme, brand: BRAND });
+          const { violations } = await new AxeBuilder({ page }).include(DO).analyze();
+          expect(violations.map((violation) => ({ id: violation.id, nodes: violation.nodes.map((node) => node.target.join(" ")) }))).toEqual([]);
+        });
+
+        test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: each do example passes the structural rules`, async ({ page }) => {
+          await open(page, name, { width, theme, brand: BRAND });
+          await page.addScriptTag({ path: join(dist, "check-dom.js") });
+          const findings = await page.evaluate(
+            (selector) =>
+              [...document.querySelectorAll(selector)].flatMap((example) =>
+                dsCheckDom(example).map((finding) => ({ example: example.dataset.example, ...finding })),
+              ),
+            DO,
+          );
+          expect(findings).toEqual([]);
+        });
+      }
 
       if (name === "index") continue;
 
-      test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: axe finds no violation in the do examples`, async ({ page }) => {
-        await open(page, name, { width, theme, brand: BRAND });
-        const { violations } = await new AxeBuilder({ page }).include(DO).analyze();
-        expect(violations.map((violation) => ({ id: violation.id, nodes: violation.nodes.map((node) => node.target.join(" ")) }))).toEqual([]);
-      });
-
-      test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: each do example passes the structural rules`, async ({ page }) => {
-        await open(page, name, { width, theme, brand: BRAND });
-        await page.addScriptTag({ path: join(dist, "check-dom.js") });
-        const findings = await page.evaluate(
-          (selector) =>
-            [...document.querySelectorAll(selector)].flatMap((example) =>
-              dsCheckDom(example).map((finding) => ({ example: example.dataset.example, ...finding })),
-            ),
-          DO,
-        );
-        expect(findings).toEqual([]);
+      test(`${name} at ${width}px with a ${COARSE[width] ? "coarse" : "fine"} pointer under the ${BRAND} theme: every control in a do example has a pointer target of at least ${TARGET[width]}px each way`, async ({ page }) => {
+        await open(page, name, { width, theme: brandSummary.defaultMode, brand: BRAND });
+        expect(await coarsePointer(page)).toBe(COARSE[width]);
+        expect(await smallTargets(page, TARGET[width])).toEqual([]);
       });
     }
-  }
-
-  if (name === "index") continue;
-
-  test(`${name} at 390px under the ${BRAND} theme: every control in a do example has a pointer target of at least 44px each way`, async ({ page }) => {
-    await open(page, name, { width: 390, theme: brandSummary.defaultMode, brand: BRAND });
-    expect(await smallTargets(page)).toEqual([]);
   });
 }
 
@@ -215,15 +234,65 @@ test("the gallery bar carries the mode and the theme along every link, and a the
   ]);
 });
 
-test("the small button is drawn 32px tall and still takes a press 20px above its centre", async ({ page }) => {
-  await open(page, "button", { width: 390 });
-  const button = page.locator('[data-example="sizes"] .ds-button--small').first();
+// The heights of the buttons in one example, by their text.
+const buttonHeights = (page, example) =>
+  page.locator(`[data-example="${example}"] .ds-button`).evaluateAll((buttons) => Object.fromEntries(buttons.map((button) => [button.textContent.trim() || button.getAttribute("aria-label"), button.getBoundingClientRect().height])));
+
+async function pressAbove(page, button, distance) {
   await button.scrollIntoViewIfNeeded();
   const box = await button.boundingBox();
-  expect(box.height).toBe(32);
   await button.evaluate((element) => element.addEventListener("click", () => element.setAttribute("data-pressed", "")));
-  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2 - 20);
-  await expect(button).toHaveAttribute("data-pressed", "");
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2 - distance);
+  return button.getAttribute("data-pressed");
+}
+
+test("on a fine pointer a control is 28px, 36px or 44px tall by the density of its container, the small button 28px and the large 40px, and the small button takes no press 20px above its centre", async ({ page }) => {
+  await open(page, "button");
+  expect(await coarsePointer(page)).toBe(false);
+  expect(await buttonHeights(page, "density")).toEqual({ Compact: 28, Comfortable: 36, Touch: 44 });
+  expect(await buttonHeights(page, "sizes")).toEqual({ "Open pull request": 36, "Copy path": 28, Dismiss: 28 });
+  expect(await buttonHeights(page, "large")).toEqual({ "Sign in with GitHub": 40, "Use a device code": 40 });
+  expect(await pressAbove(page, page.locator('[data-example="sizes"] .ds-button--small').first(), 20)).toBe(null);
+  await open(page, "icon-button");
+  expect(await page.locator('[data-example="named"] .ds-icon-button').first().evaluate((button) => [button.offsetWidth, button.offsetHeight])).toEqual([36, 36]);
+  expect(await page.locator('[data-example="small"] .ds-icon-button').first().evaluate((button) => [button.offsetWidth, button.offsetHeight])).toEqual([28, 28]);
+  expect(await page.locator('[data-example="xsmall"] .ds-icon-button').evaluate((button) => [button.offsetWidth, button.offsetHeight])).toEqual([24, 24]);
+});
+
+test.describe(() => {
+  test.use({ hasTouch: true });
+
+  test("on a coarse pointer a control is 44px tall at every density, the small button is still drawn 28px and takes a press 20px above its centre, and the large one is no shorter than the default", async ({ page }) => {
+    await open(page, "button", { width: 390 });
+    expect(await coarsePointer(page)).toBe(true);
+    expect(await buttonHeights(page, "density")).toEqual({ Compact: 44, Comfortable: 44, Touch: 44 });
+    expect(await buttonHeights(page, "sizes")).toEqual({ "Open pull request": 44, "Copy path": 28, Dismiss: 28 });
+    expect(await buttonHeights(page, "large")).toEqual({ "Sign in with GitHub": 44, "Use a device code": 44 });
+    expect(await pressAbove(page, page.locator('[data-example="sizes"] .ds-button--small').first(), 20)).toBe("");
+    await open(page, "icon-button", { width: 390 });
+    const xsmall = page.locator('[data-example="xsmall"] .ds-icon-button');
+    expect(await xsmall.evaluate((button) => [button.offsetWidth, button.offsetHeight])).toEqual([24, 24]);
+    expect(await pressAbove(page, xsmall, 20)).toBe("");
+  });
+
+  test("on a coarse pointer the bar of a small toggle that is on is drawn inside the button, under its icon", async ({ page }) => {
+    await open(page, "icon-button", { width: 390 });
+    const bar = await page.locator('[data-example="small"] .ds-icon-button[aria-pressed="true"]').evaluate((button) => {
+      const style = getComputedStyle(button, "::after");
+      const box = button.getBoundingClientRect();
+      // The pseudo-element is the 44px target. Its content box, which is all that is painted, is the bar.
+      const outer = { width: parseFloat(style.width), height: parseFloat(style.height) };
+      const padding = { top: parseFloat(style.paddingTop), bottom: parseFloat(style.paddingBottom), left: parseFloat(style.paddingLeft) };
+      return {
+        target: [outer.width, outer.height],
+        clip: style.backgroundClip,
+        width: outer.width - padding.left * 2,
+        height: outer.height - padding.top - padding.bottom,
+        belowButtonBottom: (outer.height - box.height) / 2 - padding.bottom,
+      };
+    });
+    expect(bar).toEqual({ target: [44, 44], clip: "content-box", width: 16, height: 2, belowButtonBottom: -1 });
+  });
 });
 
 test("a button is reached with Tab and activated with Enter and with Space", async ({ page }) => {

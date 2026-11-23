@@ -12,7 +12,7 @@
   .ds-menu {
     inset: auto var(--ds-space-lg) var(--ds-space-lg);
     width: fit-content;
-    min-width: calc(var(--ds-size-touch) * 5);
+    min-width: calc(var(--ds-size-column) / 2);
     max-width: min(calc(var(--ds-size-column) * 0.75), calc(100vw - var(--ds-space-lg) * 2));
     margin: 0 auto;
     padding: var(--ds-space-xs);
@@ -50,7 +50,7 @@
      */
     @media not all and (min-width: 768px) {
       .ds-menu {
-        min-width: min(calc(var(--ds-size-touch) * 5), 100%);
+        min-width: min(calc(var(--ds-size-column) / 2), 100%);
         position-try-order: most-width;
       }
     }
@@ -76,7 +76,7 @@
     align-items: center;
     gap: var(--ds-space-sm);
     width: 100%;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     text-align: start;

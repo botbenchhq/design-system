@@ -18,7 +18,7 @@
     { "name": "grid", "use": "The same markup with role=\"grid\" on the table, aria-selected on the selected day's cell and one day in the tab order. Use it when the app provides the arrow keys." }
   ],
   "sizes": [
-    { "name": "default", "use": "Each day is 44px tall and at least 44px wide. The month is 308px to 352px wide, which fits a 390px phone with its margins." }
+    { "name": "default", "use": "Each day is as tall as a control, 36px by default and 44px on a coarse pointer, and as wide where there is room. The month is seven to eight of them wide: 308px to 352px on a coarse pointer, which fits a 390px phone with its margins." }
   ],
   "states": ["default", "hover", "focus-visible", "selected", "disabled"],
   "accessibility": [

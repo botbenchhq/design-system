@@ -13,7 +13,7 @@
     height: 0;
   }
 
-  /* Drawn 32px tall, as a small button is, and it floats over rows, so it has a firm edge and no shadow. */
+  /* Drawn 32px tall, whatever the density, and it floats over rows, so it has a firm edge and no shadow. */
   .ds-jump-to-latest__button {
     position: absolute;
     bottom: var(--ds-space-xs);
@@ -22,8 +22,8 @@
     align-items: center;
     gap: var(--ds-space-sm);
     max-width: 100%;
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-space-2xl);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-md) var(--ds-space-lg);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -46,14 +46,18 @@
     mask: url("icons/arrow-down.svg") center / contain no-repeat;
   }
 
-  /* The pointer target: an invisible box a touch target tall, centred on the button. */
-  .ds-jump-to-latest__button::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  /*
+   * On a coarse pointer, the pointer target: an invisible box a touch target tall, centred on the button.
+   */
+  @media (pointer: coarse) {
+    .ds-jump-to-latest__button::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   /* With nothing to count, the span takes no room and the label stands alone. */

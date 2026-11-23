@@ -29,6 +29,13 @@
     background-color: var(--ds-color-surface-raised);
   }
 
+  /* 16px between its two lines on a coarse pointer, so the 44px targets of the small buttons in them never overlap. */
+  @media (pointer: coarse) {
+    .ds-selection-basket {
+      row-gap: var(--ds-space-lg);
+    }
+  }
+
   /* The count, then "Clear selection". At compact widths this is the bar's first line. */
   .ds-selection-basket__selection {
     display: flex;

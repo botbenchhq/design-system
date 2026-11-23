@@ -9,9 +9,9 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
     max-width: 100%;
-    min-height: var(--ds-space-2xl);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-sm);
@@ -25,16 +25,18 @@
   }
 
   /*
-   * The chip is drawn 32px tall. This invisible box, centred on it, keeps its
-   * pointer target at the touch size without making a row of chips taller.
+   * The chip is drawn 32px tall, whatever the density. On a coarse pointer this invisible box, centred on it,
+   * keeps its pointer target at the touch size without making a row of chips taller.
    */
-  .ds-source-chip::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  @media (pointer: coarse) {
+    .ds-source-chip::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   .ds-source-chip__icon {

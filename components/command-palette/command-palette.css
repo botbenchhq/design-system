@@ -30,7 +30,7 @@
   .ds-command-palette__list {
     display: flex;
     flex-direction: column;
-    max-height: min(calc(var(--ds-size-touch) * 8), 50dvh);
+    max-height: min(calc(var(--ds-size-row) * 8), 50dvh);
     padding: var(--ds-space-xs);
     overflow-y: auto;
   }
@@ -55,7 +55,7 @@
     align-items: center;
     gap: var(--ds-space-sm);
     width: 100%;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     text-align: start;

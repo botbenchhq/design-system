@@ -292,7 +292,7 @@
 <li>The follow-up note is an app-set pattern, not a state of the component. After a choice, the app inserts ds-feedback__note between the row and the confirmation, or removes its hidden attribute: a ds-field whose control is a ds-textarea, with a visible label, and a secondary button, Send note. The rating is saved by the first press, and the note is optional. Do not move focus into the field: the reader reaches it with Tab.</li>
 <li>After the note is sent, set the disabled attribute on both choices, leave aria-pressed as it is, remove the note field and say so in the confirmation.</li>
 <li>If saving fails, set both buttons back to aria-pressed=&quot;false&quot; and add a p with the class ds-feedback__error and role=&quot;alert&quot; that says the rating was not saved and what to do. Its icon is drawn by the stylesheet.</li>
-<li>Tab reaches Helpful, then Not helpful, then the note field and Send note when shown. Enter and Space press a button. The buttons are drawn 32px tall with a 44px pointer target.</li>
+<li>Tab reaches Helpful, then Not helpful, then the note field and Send note when shown. Enter and Space press a button. The buttons are drawn 28px tall, with a 44px pointer target on a coarse pointer.</li>
 </ul>
 </section>
 <section>

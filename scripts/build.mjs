@@ -113,14 +113,32 @@ function categoryOf(name) {
 
 const SELECTORS = { light: ":root", dark: '[data-theme="dark"]', auto: '[data-theme="auto"]' };
 
-// The light, dark and auto blocks of a token file, each as { name: value } or null when the file has none.
-// The dark and auto blocks must hold the same values, and every colour is six-digit hex.
+// Density: data-ds-density on a container sets how tall a control and a row inside it are, through these two tokens.
+// tokens.css holds one block for each density, and one inside @media (pointer: coarse) that gives every
+// element the touch density, whatever the attribute says. A theme cannot set either token.
+export const DENSITY = {
+  attribute: "data-ds-density",
+  default: "comfortable",
+  coarsePointer: "touch",
+  tokens: { control: "--ds-size-control", row: "--ds-size-row" },
+};
+const DENSITIES = ["compact", "comfortable", "touch"];
+const DENSITY_SELECTORS = {
+  ...Object.fromEntries(DENSITIES.map((density) => [density, `[${DENSITY.attribute}="${density}"]`])),
+  coarse: `:root, [${DENSITY.attribute}]`,
+};
+
+// The light, dark and auto blocks of a token file, each as { name: value } or null when the file has none, and
+// its density blocks by name. The dark and auto blocks must hold the same values, and every colour is six-digit hex.
 function parseBlocks(css, file) {
-  const blocks = { light: null, dark: null, auto: null };
+  const blocks = { light: null, dark: null, auto: null, density: {} };
   for (const [, selector, body] of withoutComments(css).matchAll(/([^{}@;]+)\{([^{}]*)\}/g)) {
-    const mode = Object.keys(SELECTORS).find((key) => SELECTORS[key] === selector.trim());
-    if (!mode) throw new Error(`Unexpected selector in ${file}: ${selector.trim()}`);
-    blocks[mode] = Object.fromEntries(declarations(body));
+    const written = selector.trim().replace(/\s+/g, " ");
+    const mode = Object.keys(SELECTORS).find((key) => SELECTORS[key] === written);
+    const density = Object.keys(DENSITY_SELECTORS).find((key) => DENSITY_SELECTORS[key] === written);
+    if (!mode && !density) throw new Error(`Unexpected selector in ${file}: ${written}`);
+    if (mode) blocks[mode] = Object.fromEntries(declarations(body));
+    else blocks.density[density] = Object.fromEntries(declarations(body));
   }
   if (JSON.stringify(blocks.dark) !== JSON.stringify(blocks.auto)) {
     throw new Error(`${file}: the [data-theme="dark"] and [data-theme="auto"] blocks must declare the same values`);
@@ -133,10 +151,31 @@ function parseBlocks(css, file) {
   return blocks;
 }
 
+// The density blocks of tokens.css as { compact: { control, row }, comfortable: …, touch: … }. Each block sets the
+// two density tokens and nothing else, comfortable is what :root holds, touch is the touch size, and the block for
+// a coarse pointer repeats touch.
+function parseDensity(blocks, light) {
+  const names = Object.values(DENSITY.tokens);
+  for (const key of Object.keys(DENSITY_SELECTORS)) {
+    const block = blocks[key];
+    if (!block) throw new Error(`tokens.css: the density block ${DENSITY_SELECTORS[key]} is missing`);
+    if (!same(Object.keys(block), names)) {
+      throw new Error(`tokens.css: ${DENSITY_SELECTORS[key]} sets ${Object.keys(block).join(", ")}. A density block sets ${names.join(" and ")} and nothing else`);
+    }
+  }
+  const equal = (a, b) => names.every((name) => a[name] === b[name]);
+  if (!equal(blocks[DENSITY.default], light)) throw new Error(`tokens.css: the ${DENSITY.default} density is the default, so its block must hold the values of :root`);
+  if (!equal(blocks.coarse, blocks[DENSITY.coarsePointer])) throw new Error(`tokens.css: the block for a coarse pointer must hold the values of the ${DENSITY.coarsePointer} density`);
+  if (names.some((name) => blocks.touch[name] !== light["--ds-size-touch"])) throw new Error("tokens.css: the touch density must hold the value of --ds-size-touch");
+  return Object.fromEntries(
+    DENSITIES.map((density) => [density, Object.fromEntries(Object.entries(DENSITY.tokens).map(([key, name]) => [key, blocks[density][name]]))]),
+  );
+}
+
 export function parseTokens(css) {
-  const { light, dark } = parseBlocks(css, "tokens.css");
+  const { light, dark, density } = parseBlocks(css, "tokens.css");
   validateTheme(css, Object.keys(light));
-  return { light, dark };
+  return { light, dark, density: parseDensity(density, light) };
 }
 
 // A theme is themes/<name>.css: values for existing token names in light and dark, in the selector shape of
@@ -156,6 +195,10 @@ export function parseTheme(name, css, defaults) {
     throw new Error(`${file}: ${error.message}`);
   }
   const blocks = parseBlocks(css, file);
+  const density = Object.values(DENSITY.tokens).find((token) => [blocks.light, blocks.dark].some((block) => block && token in block));
+  if (density || Object.keys(blocks.density).length > 0) {
+    throw new Error(`${file}: a theme cannot set the density${density ? `, and ${density} is one of its two tokens` : ""}. The density is the same under every theme`);
+  }
   for (const mode of MODES) {
     if (!blocks[mode] || Object.keys(blocks[mode]).length === 0) {
       throw new Error(`${file}: the theme sets no ${mode} values. A theme sets both modes: a :root block for light, and a [data-theme="dark"] block repeated as [data-theme="auto"] inside @media (prefers-color-scheme: dark)`);
@@ -177,7 +220,7 @@ export function parseTheme(name, css, defaults) {
       blocks.dark[token] ?? blocks.light[token] ?? defaults.dark[token],
     ]),
   );
-  return { name, defaultMode: declared, own: { light: blocks.light, dark: blocks.dark }, tokens: { light, dark }, comment: css.match(/^\s*(\/\*[\s\S]*?\*\/)/)?.[1] ?? null };
+  return { name, defaultMode: declared, own: { light: blocks.light, dark: blocks.dark }, tokens: { light, dark, density: defaults.density }, comment: css.match(/^\s*(\/\*[\s\S]*?\*\/)/)?.[1] ?? null };
 }
 
 function luminance(hex) {
@@ -232,6 +275,10 @@ function tailwindPreset(groups, breakpoint) {
     Object.fromEntries(Object.entries(groups[category]).map(([key, name]) => [key, `var(${name})`]));
   const spacing = { 0: "0", ...refs("space") };
   const size = refs("size");
+  const pick = (keys) => Object.fromEntries(keys.map((key) => [key, size[key]]));
+  // The heights of a control and a row, and the widths of a column: each kind of utility takes the sizes that fit it.
+  const targets = pick(Object.keys(size).filter((key) => /^(?:control|row|touch)/.test(key)));
+  const columns = pick(["sidebar", "inspector", "column", "transcript", "wide"]);
   const theme = {
     screens: { md: breakpoint },
     colors: { ...refs("color"), transparent: "transparent", current: "currentColor" },
@@ -253,12 +300,12 @@ function tailwindPreset(groups, breakpoint) {
     outlineWidth: { 0: "0" },
     textUnderlineOffset: { auto: "auto", ...refs("space") },
     textDecorationThickness: { auto: "auto" },
-    width: { auto: "auto", ...spacing, touch: size.touch, full: "100%" },
-    height: { auto: "auto", ...spacing, touch: size.touch, full: "100%", screen: "100dvh" },
-    size: { auto: "auto", ...spacing, touch: size.touch, full: "100%" },
-    minWidth: { 0: "0", touch: size.touch, full: "100%" },
-    minHeight: { 0: "0", touch: size.touch, full: "100%", screen: "100dvh" },
-    maxWidth: { none: "none", column: size.column, transcript: size.transcript, wide: size.wide, full: "100%" },
+    width: { auto: "auto", ...spacing, ...targets, sidebar: size.sidebar, inspector: size.inspector, full: "100%" },
+    height: { auto: "auto", ...spacing, ...targets, full: "100%", screen: "100dvh" },
+    size: { auto: "auto", ...spacing, ...targets, full: "100%" },
+    minWidth: { 0: "0", ...targets, full: "100%" },
+    minHeight: { 0: "0", ...targets, full: "100%", screen: "100dvh" },
+    maxWidth: { none: "none", ...columns, full: "100%" },
     maxHeight: { none: "none", full: "100%", screen: "100dvh" },
   };
   const emptied = [
@@ -327,6 +374,11 @@ function tokenData(groups, tokens) {
     for (const [key, name] of Object.entries(names)) {
       const token = { $type, $value: convert(name, tokens.light[name]) };
       if (name in tokens.dark) token.$extensions = { "design-system": { dark: convert(name, tokens.dark[name]) } };
+      // A density token's value under each density travels the same way.
+      const density = Object.keys(DENSITY.tokens).find((part) => DENSITY.tokens[part] === name);
+      if (density) {
+        token.$extensions = { "design-system": { density: Object.fromEntries(Object.entries(tokens.density).map(([level, parts]) => [level, convert(name, parts[density])])) } };
+      }
       data[category][key] = token;
     }
   }
@@ -375,6 +427,8 @@ function designTokens(groups, tokens, name = "Design system") {
     motion: { duration: values("duration"), easing: quote(tokens.light[groups.ease.DEFAULT]) },
     layers: values("z"),
     sizes: values("size"),
+    // What sizes.control and sizes.row are under each data-ds-density. A coarse pointer always gets one of them.
+    density: { ...tokens.density, default: DENSITY.default, "coarse-pointer": DENSITY.coarsePointer },
     breakpoint: tokens.light[groups.breakpoint.DEFAULT],
   };
   return `---\n${yaml(block)}---\n`;
@@ -448,12 +502,16 @@ function manifest(groups, tokens, classes, rules) {
     values[category] = [...new Set(names[category].flatMap((name) => [tokens.light[name], tokens.dark[name]]))]
       .filter((value) => value !== undefined);
   }
+  // A density token also holds its value under each density.
+  values.size = [...new Set([...values.size, ...Object.values(tokens.density).flatMap((parts) => Object.values(parts))])];
   return {
     prefix: "ds",
     layers: LAYERS,
     breakpoint: tokens.light[groups.breakpoint.DEFAULT],
     tokens: names,
     values,
+    // The attribute that sets the density of a container, and what its two tokens hold under each value.
+    density: { ...DENSITY, values: tokens.density },
     utilities: {
       ...UTILITIES,
       spacingKeys: ["0", ...Object.keys(groups.space)],

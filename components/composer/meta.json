@@ -19,7 +19,7 @@
     { "name": "sticky", "class": "ds-composer--sticky", "use": "Held to the bottom of the scrolling view, with a top border, its own padding and room for the home indicator. Make the view's scroller end at the visible viewport, with a height in dvh or interactive-widget=resizes-content in the viewport meta tag, so it stays above an on-screen keyboard." }
   ],
   "sizes": [
-    { "name": "default", "use": "The textarea is one line and 44px tall when empty and grows with its content to 176px, then scrolls. Where field-sizing is not supported it is a fixed 88px. Send stays beside the last line." }
+    { "name": "default", "use": "The textarea is one line and as tall as a control when empty, 36px by default and 44px on a coarse pointer, and grows with its content to four times that, then scrolls. Where field-sizing is not supported it is fixed at twice that. Send stays beside the last line." }
   ],
   "states": ["default", "focus", "busy", "disabled", "error", "required", "open"],
   "accessibility": [

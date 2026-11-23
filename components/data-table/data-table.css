@@ -20,13 +20,13 @@
   }
 
   /*
-   * 12px above and below one line of text makes a row 44px tall.
-   * Text wraps between words only, so a column is never narrower than its longest word, nor than two pointer
-   * targets. Where the columns do not fit, ds-data-table__scroll around the table scrolls them sideways.
+   * The block padding is what one line of text leaves of a row's height, so a one-line row is exactly that tall.
+   * Text wraps between words only, so a column is never narrower than its longest word, nor than two controls
+   * are tall. Where the columns do not fit, ds-data-table__scroll around the table scrolls them sideways.
    */
   .ds-data-table :is(th, td) {
-    min-width: calc(var(--ds-size-touch) * 2);
-    padding: var(--ds-space-md) var(--ds-space-sm);
+    min-width: calc(var(--ds-size-control) * 2);
+    padding: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2) var(--ds-space-sm);
     font-weight: var(--ds-weight-normal);
     text-align: start;
     vertical-align: top;
@@ -61,14 +61,14 @@
   }
 
   /*
-   * The cell for a row's one action. Its padding is what a small button leaves of a pointer target,
-   * so the button's words sit on the row's first line, its padded hit area fits the row,
+   * The cell for a row's one action. Its padding is what a small button leaves of a row's height,
+   * so the button's words sit on the row's first line, its padded hit area fits the row on a coarse pointer,
    * and a one-line row is no taller for having it.
    */
   .ds-data-table .ds-data-table__action {
     width: 0;
     min-width: 0;
-    padding-block: calc((var(--ds-size-touch) - var(--ds-space-2xl)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-size-control-sm)) / 2);
     text-align: end;
     white-space: nowrap;
   }
@@ -83,8 +83,8 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-row);
     margin-inline: calc(var(--ds-space-sm) * -1);
     padding-inline: var(--ds-space-sm);
     border-radius: var(--ds-radius-sm);
@@ -128,10 +128,10 @@
     display: inline-flex;
     align-items: flex-start;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-row);
     margin-inline-start: calc(var(--ds-space-xs) * -1);
-    padding: var(--ds-space-md) var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
+    padding: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2) var(--ds-space-sm) calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2) var(--ds-space-xs);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     text-align: start;
@@ -301,7 +301,7 @@
     /* Pulled to the start, so the words of a quiet button line up with the labels above them. */
     .ds-data-table:not(.ds-data-table--scroll) tbody tr > .ds-data-table__action {
       margin-inline-start: calc(var(--ds-space-xs) * -1);
-      padding-block: calc((var(--ds-size-touch) - var(--ds-space-2xl)) / 2);
+      padding-block: calc((var(--ds-size-row) - var(--ds-size-control-sm)) / 2);
       padding-inline: 0;
     }
 

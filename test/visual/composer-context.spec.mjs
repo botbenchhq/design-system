@@ -45,9 +45,13 @@ function expectOneLine({ bar, controls }) {
   expect(Math.abs(send.right - bar.right)).toBeLessThanOrEqual(1);
 }
 
-test("at 320px and 390px Add context, the model chip, dictation and Send keep one line with 44px targets", async ({ page }) => {
+// A screen this narrow is a phone, so the tests of the row run with a coarse pointer, which is where a target is 44px.
+const phone = test.extend({ hasTouch: true });
+
+phone("at 320px and 390px with a coarse pointer, Add context, the model chip, dictation and Send keep one line with 44px targets", async ({ page }) => {
   for (const width of [320, 390]) {
     await openGallery(page, server.origin, "composer", { width });
+    expect(await page.evaluate(() => matchMedia("(pointer: coarse)").matches)).toBe(true);
     const empty = await row(page, "context-empty");
     expect(empty.controls.map((control) => control.name)).toEqual(["Add context", "Model: Sonnet, Medium effort", "Dictate", "Send"]);
     expectOneLine(empty);
@@ -103,7 +107,7 @@ test("a setting's view has a Back control that Tab reaches and that names where 
   await expect(page.locator(":focus")).toHaveAccessibleName("Close Add context");
 });
 
-test("dictation says its state in attributes and words, and the row holds at 320px with and without it", async ({ page }) => {
+phone("dictation says its state in attributes and words, and the row holds at 320px with and without it", async ({ page }) => {
   await openGallery(page, server.origin, "composer", { width: 320 });
   const states = [
     ["context-empty", { pressed: "false", busy: null, said: null }],

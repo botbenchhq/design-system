@@ -44,8 +44,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     color: var(--ds-color-muted);
   }
 

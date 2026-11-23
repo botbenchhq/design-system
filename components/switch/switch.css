@@ -12,8 +12,8 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     row-gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
   .ds-switch__label {
@@ -42,13 +42,13 @@
     display: none;
   }
 
-  /* The track: one target wide and 24px tall. The margin centres it on the first line of the label. */
+  /* The track: 24px tall, and as wide as two thumbs with a gap before, between and after them. The margin centres it on the first line of the label. */
   .ds-switch__input {
     position: relative;
     grid-row: 1;
     grid-column: 3;
     appearance: none;
-    width: var(--ds-size-touch);
+    width: calc(var(--ds-space-lg) * 2 + var(--ds-border-width) * 12);
     height: var(--ds-space-xl);
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-xl)) / 2);
     border-width: var(--ds-border-width);
@@ -76,13 +76,13 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The track is drawn 24px tall. This invisible box, centred on it, keeps its pointer target at the touch size. */
+  /* The track is drawn 24px tall. This invisible box, centred on it, makes its pointer target as tall as the row. */
   .ds-switch__input::after {
     content: "";
     position: absolute;
     top: 50%;
     inset-inline: calc(var(--ds-border-width) * -1);
-    height: var(--ds-size-touch);
+    height: var(--ds-size-row);
     translate: 0 -50%;
   }
 
@@ -92,9 +92,9 @@
     color: var(--ds-color-on-accent);
   }
 
-  /* The track's inner width, less the thumb and the same gap at the far end. */
+  /* Past the first thumb's place and the gap after it. */
   .ds-switch__input:checked::before {
-    inset-inline-start: calc(var(--ds-size-touch) - var(--ds-space-lg) - var(--ds-border-width) * 6);
+    inset-inline-start: calc(var(--ds-space-lg) + var(--ds-border-width) * 6);
   }
 
   .ds-switch__description {

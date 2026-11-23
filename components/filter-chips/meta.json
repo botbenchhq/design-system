@@ -20,7 +20,7 @@
     { "name": "single-select", "use": "Each chip holds an input of type radio with one shared name, and exactly one is on. The first chip is the one that filters nothing, such as At any time, because a radio cannot be switched off." }
   ],
   "sizes": [
-    { "name": "default", "use": "Drawn 32px tall with a 44px pointer target. Rows sit 12px apart, so the targets of two rows never overlap." }
+    { "name": "default", "use": "Drawn 32px tall at every density. On a coarse pointer the pointer target is 44px tall and rows sit 16px apart, so the targets of two rows never overlap." }
   ],
   "states": ["default", "selected", "hover", "focus-visible", "disabled"],
   "accessibility": [

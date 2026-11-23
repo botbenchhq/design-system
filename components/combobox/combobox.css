@@ -62,7 +62,7 @@
     inset-inline: 0;
     z-index: var(--ds-z-overlay);
     display: none;
-    max-height: calc(var(--ds-size-touch) * 5.5 + var(--ds-space-xs));
+    max-height: calc(var(--ds-size-row) * 5.5 + var(--ds-space-xs));
     margin-top: var(--ds-space-xs);
     padding: var(--ds-space-xs);
     border-width: var(--ds-border-width);
@@ -88,7 +88,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     overflow-wrap: anywhere;
