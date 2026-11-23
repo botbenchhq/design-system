@@ -8,7 +8,7 @@ What works in which browser engine, from the browser tests and from probes run o
 | Playwright's WebKit | 27.2 (Playwright build 2388) | `webkit` | The tests below, at phone and desktop widths |
 | Playwright's Firefox | 159.0 (Playwright build 1572) | `firefox` | The same tests as WebKit |
 
-The tests are the gallery tests tagged `@engines` for the components a Botbench user meets, `composer`, `context-list`, `sheet`, `option-picker`, `approval`, `step-group`, `tool-call`, `button`, `dialog`, `menu`, `app-shell` and `agent-run`, and the whole of `composer-context.spec.mjs`, `option-picker.spec.mjs`, `menu.spec.mjs`, `themes.spec.mjs` and `reflow.spec.mjs`. The gallery tests are axe and the structural rules in light and dark at 390px and at 1280px, and the 44px pointer-target check at 390px. That is 246 tests in each engine:
+The tests are the gallery tests tagged `@engines` for the components a Botbench user meets, `composer`, `context-list`, `sheet`, `option-picker`, `approval`, `step-group`, `tool-call`, `button`, `dialog`, `menu`, `app-shell` and `agent-run`, and the whole of `composer-context.spec.mjs`, `option-picker.spec.mjs`, `menu.spec.mjs`, `themes.spec.mjs` and `reflow.spec.mjs`. The gallery tests are axe and the structural rules in light and dark at 390px and at 1280px, and the 44px pointer-target check at 390px. That is 249 tests in each engine:
 
 | Width | Tests | WebKit 27.2 | Firefox 159 |
 |---|---|---|---|
