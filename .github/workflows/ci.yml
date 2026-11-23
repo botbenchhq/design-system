@@ -1,6 +1,6 @@
 name: CI
 
-# The checks on every pull request and on every push to main. Modelled on jon-lange/botbench's ci.yml, which follows
+# The checks on every pull request and on every push to main. Modelled on botbenchhq/botbench's ci.yml, which follows
 # jon-lange/settleview's.
 # - Build and unit tests: install, the build, the committed dist/ matches it, npm audit, and npm test.
 # - WebKit and Firefox: the browser tests of the webkit and firefox Playwright projects (axe, the structural rules,

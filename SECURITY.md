@@ -4,7 +4,7 @@
 
 Please report a security problem privately, through GitHub's private vulnerability reporting: open the repository's
 **Security** tab and choose **Report a vulnerability**, or go to
-<https://github.com/jon-lange/design-system/security/advisories/new>. Do not open a public issue, pull request or
+<https://github.com/botbenchhq/design-system/security/advisories/new>. Do not open a public issue, pull request or
 discussion for it.
 
 Say what you found, how to reproduce it, and what someone could do with it. The design system is maintained by one

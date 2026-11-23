@@ -1,5 +1,5 @@
 blank_issues_enabled: true
 contact_links:
   - name: A security problem
-    url: https://github.com/jon-lange/design-system/security/advisories/new
+    url: https://github.com/botbenchhq/design-system/security/advisories/new
     about: Report it privately through GitHub's private vulnerability reporting (SECURITY.md). Do not open an issue for it.
