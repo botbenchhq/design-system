@@ -2,7 +2,7 @@
 
 A design system for apps whose interfaces are largely written by AI coding agents. It gives the agent a closed vocabulary of design tokens and components, and a checker that fails a frontend which steps outside that vocabulary. Screens come out consistent with each other and without the generic AI-generated look, and the look of every app that uses it can be changed in one place.
 
-It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.9.0. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
+It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.10.0. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
 
 The run timeline component under the Botbench theme, dark and light:
 
@@ -95,7 +95,7 @@ Delete `try.html` when you are done. To use the system in a real app, go to [Use
 
 ## How a component is built
 
-The catalogue holds 100 components and 8 page patterns (agent run, app shell, filter and results, master and detail, multi-step form, not found, settings page, sign in). Each lives in its own folder of three hand-written files:
+The catalogue holds 103 components and 8 page patterns (agent run, app shell, filter and results, master and detail, multi-step form, not found, settings page, sign in). Each lives in its own folder of three hand-written files:
 
 | File | Holds |
 |---|---|
@@ -211,7 +211,7 @@ To change the look of every app: edit the theme here, run `npm run build`, and e
 | `tokens/` | `tokens.css`, the single source of every token, and `pairs.json`, the contrast pairs. |
 | `themes/` | Themes: token values only. |
 | `base/` | Reset, typography, layout classes, focus ring, fonts and icons. |
-| `components/` | 100 components, one folder each. |
+| `components/` | 103 components, one folder each. |
 | `patterns/` | 8 page patterns, built to the same contract. |
 | `behaviors/` | Seven optional ES modules for an app without a framework (tabs, combobox, command palette, menu, listbox, elapsed time, transcript). |
 | `react/` | Two TypeScript source files for a React 19 app: a busy button and a transcript-following hook. |
@@ -240,8 +240,8 @@ Add a folder under `components/` with its three files and run the build; nothing
 
 ## Status and limits
 
-- **Version 0.9.0.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
-- **Everything is `draft`.** All 100 components and 8 patterns. An app may use a draft, but it may still change.
+- **Version 0.10.0.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
+- **Everything is `draft`.** All 103 components and 8 patterns. An app may use a draft, but it may still change.
 - **One consumer.** Botbench is the only app that uses it so far.
 - **Chrome only.** The browser tests run in Google Chrome. Nothing has been tested in Firefox, Safari or WebKit, or with a screen reader. The components rely on recent platform features: the Popover API, anchor positioning, invoker commands, `:has()` and `field-sizing`.
 
@@ -251,9 +251,8 @@ The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five def
 - The checker does not check `data-state` values, accessible names, `alt` text or whether a badge's tone matches its word.
 - There is no typed React component layer beyond the two source files.
 - The audit judged the Botbench theme's identity generic (brand distinctiveness 4 out of 10). 0.8.0 replaced that theme's look and gave it a focus ring distinct from the accent; the new look has not been audited.
-- The diff has no line numbers, and there is no review-decision component, log viewer or presence component.
 - Sizes are built with `calc()` on tokens in places, which the checker does not limit, and type sizes are in pixels.
-- The stylesheet is one 327 KB file (about 60 KB compressed) with no way to load part of it.
+- The stylesheet is one 338 KB file (about 63 KB compressed) with no way to load part of it.
 
 ## Help and contributing
 

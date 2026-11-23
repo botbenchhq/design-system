@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review decision - Design system gallery</title>
+<link rel="stylesheet" href="../design-system.css">
+<link rel="stylesheet" href="gallery.css">
+<script src="gallery.js"></script>
+<script type="module" src="../behaviors/combobox.js"></script>
+<script type="module" src="../behaviors/command-palette.js"></script>
+<script type="module" src="../behaviors/elapsed.js"></script>
+<script type="module" src="../behaviors/listbox.js"></script>
+<script type="module" src="../behaviors/menu.js"></script>
+<script type="module" src="../behaviors/tabs.js"></script>
+<script type="module" src="../behaviors/transcript.js"></script>
+</head>
+<body>
+<header data-gallery="bar">
+<a href="index.html">Design system gallery</a>
+<div data-gallery="switches">
+<nav aria-label="Mode"><a href="?theme=light">Light</a><a href="?theme=dark">Dark</a></nav>
+<nav aria-label="Theme"><a href="?brand=default" data-gallery-default="light">Default</a><a href="?brand=botbench" data-gallery-default="dark">Botbench</a></nav>
+</div>
+</header>
+<main data-gallery="page">
+<header>
+<h1>Review decision</h1>
+<p>The end of a task: what the checks found and what the review said, one line each, then Accept and Reject, and the result once decided.</p>
+<p data-gallery="status">Status: draft</p>
+</header>
+<section>
+<h2>Examples</h2>
+<div class="ds-grid ds-grid-2">
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Ready to decide</h3>
+<p data-gallery="state">State: <code>default</code></p>
+<p>The checks and the review each get one line, so the reader sees both before the buttons. The checks carry a badge because they ran and passed. The review is the reviewer's words with no tone and no icon, and it says it is an opinion. Accept is the view's one primary action, and Reject sits at the far end of the row.</p>
+</figcaption>
+<div data-example="default" data-title="Ready to decide" data-state="default" data-reason="The checks and the review each get one line, so the reader sees both before the buttons. The checks carry a badge because they ran and passed. The review is the reviewer's words with no tone and no icon, and it says it is an opinion. Accept is the view's one primary action, and Reject sits at the far end of the row.">
+  <section class="ds-review-decision" aria-labelledby="review-decision-default-title">
+    <h4 class="ds-review-decision__title" id="review-decision-default-title">Your decision on task 42</h4>
+    <dl class="ds-review-decision__evidence">
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Checks</dt>
+        <dd class="ds-review-decision__finding">
+          <span class="ds-badge ds-badge--success"><svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>Checks passed</span>
+          All 6 in 2 min 14 s.
+        </dd>
+      </div>
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Review</dt>
+        <dd class="ds-review-decision__finding">
+          Codex, gpt-6-luna: looks right.
+          <span class="ds-review-decision__caveat">A model's opinion, not a check.</span>
+        </dd>
+      </div>
+    </dl>
+    <div class="ds-review-decision__actions">
+      <button type="button" class="ds-button ds-button--primary" data-ds-critical>Accept</button>
+      <button type="button" class="ds-button" data-ds-critical>Reject</button>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>A failed check and a review with concerns</h3>
+</figcaption>
+<div data-example="concerns" data-title="A failed check and a review with concerns">
+  <section class="ds-review-decision" aria-labelledby="review-decision-concerns-title">
+    <h4 class="ds-review-decision__title" id="review-decision-concerns-title">Your decision on task 43</h4>
+    <dl class="ds-review-decision__evidence">
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Checks</dt>
+        <dd class="ds-review-decision__finding">
+          <span class="ds-badge ds-badge--danger"><svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-alert"></use></svg>Checks failed</span>
+          npm run lint did not pass. The other 5 did.
+        </dd>
+      </div>
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Review</dt>
+        <dd class="ds-review-decision__finding">
+          Codex, gpt-6-luna: concerns. The refresh path no longer checks the expiry.
+          <span class="ds-review-decision__caveat">A model's opinion, not a check.</span>
+        </dd>
+      </div>
+    </dl>
+    <div class="ds-review-decision__actions">
+      <button type="button" class="ds-button ds-button--primary" data-ds-critical>Accept</button>
+      <button type="button" class="ds-button" data-ds-critical>Reject</button>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>No checks set up, and a note</h3>
+</figcaption>
+<div data-example="no-checks" data-title="No checks set up, and a note">
+  <section class="ds-review-decision" aria-labelledby="review-decision-no-checks-title">
+    <h4 class="ds-review-decision__title" id="review-decision-no-checks-title">Your decision on task 44</h4>
+    <dl class="ds-review-decision__evidence">
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Checks</dt>
+        <dd class="ds-review-decision__finding">None are set up for this repository.</dd>
+      </div>
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Review</dt>
+        <dd class="ds-review-decision__finding">Not reviewed: no reviewer is signed in.</dd>
+      </div>
+    </dl>
+    <div class="ds-field">
+      <label class="ds-field__label" for="review-decision-no-checks-note">Note (optional)</label>
+      <input class="ds-field__control" id="review-decision-no-checks-note" type="text" maxlength="500" aria-describedby="review-decision-no-checks-note-about">
+      <p class="ds-field__description" id="review-decision-no-checks-note-about">Kept with your Accept or Reject and shown in Activity.</p>
+    </div>
+    <div class="ds-review-decision__actions">
+      <button type="button" class="ds-button ds-button--primary" data-ds-critical>Accept</button>
+      <button type="button" class="ds-button" data-ds-critical>Reject</button>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Sending the decision</h3>
+<p data-gallery="state">State: <code>busy</code></p>
+</figcaption>
+<div data-example="busy" data-title="Sending the decision" data-state="busy">
+  <section class="ds-review-decision" aria-labelledby="review-decision-busy-title">
+    <h4 class="ds-review-decision__title" id="review-decision-busy-title">Your decision on task 45</h4>
+    <dl class="ds-review-decision__evidence">
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Checks</dt>
+        <dd class="ds-review-decision__finding">
+          <span class="ds-badge ds-badge--success"><svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>Checks passed</span>
+          All 6 in 2 min 14 s.
+        </dd>
+      </div>
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Review</dt>
+        <dd class="ds-review-decision__finding">
+          Codex, gpt-6-luna: looks right.
+          <span class="ds-review-decision__caveat">A model's opinion, not a check.</span>
+        </dd>
+      </div>
+    </dl>
+    <div class="ds-review-decision__actions">
+      <button type="button" class="ds-button ds-button--primary" aria-busy="true" data-ds-critical>Accepting</button>
+      <button type="button" class="ds-button" disabled data-ds-critical>Reject</button>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>The decision was not sent</h3>
+<p data-gallery="state">State: <code>error</code></p>
+</figcaption>
+<div data-example="error" data-title="The decision was not sent" data-state="error">
+  <section class="ds-review-decision" aria-labelledby="review-decision-error-title">
+    <h4 class="ds-review-decision__title" id="review-decision-error-title">Your decision on task 46</h4>
+    <dl class="ds-review-decision__evidence">
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Checks</dt>
+        <dd class="ds-review-decision__finding">
+          <span class="ds-badge ds-badge--success"><svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>Checks passed</span>
+          All 6 in 2 min 14 s.
+        </dd>
+      </div>
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Review</dt>
+        <dd class="ds-review-decision__finding">
+          Codex, gpt-6-luna: looks right.
+          <span class="ds-review-decision__caveat">A model's opinion, not a check.</span>
+        </dd>
+      </div>
+    </dl>
+    <div class="ds-alert ds-alert--danger" role="alert">
+      <div class="ds-alert__content">
+        <p class="ds-alert__label">Error</p>
+        <p class="ds-alert__body">The task was not accepted. Botbench could not be reached. Nothing was merged or removed.</p>
+      </div>
+    </div>
+    <div class="ds-review-decision__actions">
+      <button type="button" class="ds-button ds-button--primary" data-ds-critical>Accept</button>
+      <button type="button" class="ds-button" data-ds-critical>Reject</button>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Accepted</h3>
+<p data-gallery="state">State: <code>decided</code></p>
+<p>Once decided, the result takes the place of the buttons, with the state's badge and a sentence on what became of the work. The lines above stay, so the reader can still see what the decision stood on.</p>
+</figcaption>
+<div data-example="accepted" data-title="Accepted" data-state="decided" data-reason="Once decided, the result takes the place of the buttons, with the state's badge and a sentence on what became of the work. The lines above stay, so the reader can still see what the decision stood on.">
+  <section class="ds-review-decision" aria-labelledby="review-decision-accepted-title">
+    <h4 class="ds-review-decision__title" id="review-decision-accepted-title">Your decision on task 47</h4>
+    <dl class="ds-review-decision__evidence">
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Checks</dt>
+        <dd class="ds-review-decision__finding">
+          <span class="ds-badge ds-badge--success"><svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>Checks passed</span>
+          All 6 in 2 min 14 s.
+        </dd>
+      </div>
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Review</dt>
+        <dd class="ds-review-decision__finding">
+          Codex, gpt-6-luna: looks right.
+          <span class="ds-review-decision__caveat">A model's opinion, not a check.</span>
+        </dd>
+      </div>
+    </dl>
+    <div class="ds-review-decision__result">
+      <span class="ds-badge ds-badge--success"><svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-thumbs-up"></use></svg>Accepted</span>
+      <p>Nothing has been merged or pushed. The branch fix/session-ttl stays in the repository until you merge or delete it.</p>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Rejected, with the branch deleted</h3>
+<p data-gallery="state">State: <code>decided</code></p>
+</figcaption>
+<div data-example="rejected" data-title="Rejected, with the branch deleted" data-state="decided">
+  <section class="ds-review-decision" aria-labelledby="review-decision-rejected-title">
+    <h4 class="ds-review-decision__title" id="review-decision-rejected-title">Your decision on task 48</h4>
+    <dl class="ds-review-decision__evidence">
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Checks</dt>
+        <dd class="ds-review-decision__finding">
+          <span class="ds-badge ds-badge--danger"><svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-alert"></use></svg>Checks failed</span>
+          npm run lint did not pass. The other 5 did.
+        </dd>
+      </div>
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Review</dt>
+        <dd class="ds-review-decision__finding">
+          Codex, gpt-6-luna: concerns. The refresh path no longer checks the expiry.
+          <span class="ds-review-decision__caveat">A model's opinion, not a check.</span>
+        </dd>
+      </div>
+    </dl>
+    <div class="ds-review-decision__result">
+      <span class="ds-badge"><svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Rejected</span>
+      <p>Nothing has been merged or pushed. The branch and the task's copy of the project are gone.</p>
+    </div>
+  </section>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> The review drawn as a passed check</h3>
+<p>A green badge on the review makes a model's opinion look like a check that ran and passed. The reader accepts on the strength of two passes when only one thing was tested.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="review-as-proof" data-title="The review drawn as a passed check" data-dont="review" data-reason="A green badge on the review makes a model's opinion look like a check that ran and passed. The reader accepts on the strength of two passes when only one thing was tested.">
+  <section class="ds-review-decision" aria-labelledby="review-decision-proof-title">
+    <h4 class="ds-review-decision__title" id="review-decision-proof-title">Your decision on task 49</h4>
+    <dl class="ds-review-decision__evidence">
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Checks</dt>
+        <dd class="ds-review-decision__finding">
+          <span class="ds-badge ds-badge--success"><svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>Checks passed</span>
+          All 6 in 2 min 14 s.
+        </dd>
+      </div>
+      <div class="ds-review-decision__line">
+        <dt class="ds-review-decision__source">Review</dt>
+        <dd class="ds-review-decision__finding">
+          <span class="ds-badge ds-badge--success"><svg class="ds-badge__icon" aria-hidden="true"><use href="../icons.svg#ds-icon-circle-check"></use></svg>Review passed</span>
+        </dd>
+      </div>
+    </dl>
+    <div class="ds-review-decision__actions">
+      <button type="button" class="ds-button ds-button--primary" data-ds-critical>Accept</button>
+      <button type="button" class="ds-button" data-ds-critical>Reject</button>
+    </div>
+  </section>
+</div>
+</figure>
+</div>
+</section>
+<div class="ds-grid ds-grid-2">
+<section>
+<h2>When to use it</h2>
+<ul>
+<li>Once, at the end of a task's screen, when the work waits for the reader to accept or reject it.</li>
+<li>With the checks' line and the review's line even when one has nothing to report: say that no checks are set up, or why there is no review.</li>
+<li>Kept in place after the decision, with the result in place of the buttons.</li>
+</ul>
+</section>
+<section>
+<h2>When not to use it</h2>
+<ul>
+<li>For an agent's request to run a tool or a command. Use the approval.</li>
+<li>For the full results of the checks or the full review. Show them above it with the check list and a disclosure, and keep this to one line each.</li>
+<li>On a row of a list of tasks. Put plain Accept and Reject buttons in the row, never primary, and the decision on the task's own screen.</li>
+<li>To ask before something is lost. Reject opens a confirm dialog that asks what becomes of the branch.</li>
+</ul>
+</section>
+<section>
+<h2>Accessibility</h2>
+<ul>
+<li>Use a section with aria-labelledby pointing at ds-review-decision__title, a heading such as Your decision. Its level is the one under the heading it sits beneath. The examples use h4 only because of where they sit on the gallery page.</li>
+<li>ds-review-decision__evidence is a dl. Each ds-review-decision__line holds a dt, ds-review-decision__source, naming where the finding comes from (Checks, Review), and a dd, ds-review-decision__finding, saying it in one sentence.</li>
+<li>The checks' finding opens with a badge from the status set, with its icon: Checks passed or Checks failed in the tone and icon of Check passed and Check failed. With no checks set up, write that, with no badge, so nothing reads as a pass.</li>
+<li>The review's finding is the reviewer and its verdict in words, with no badge, tone or icon, followed by ds-review-decision__caveat saying it is a model's opinion, not a check. A review is never drawn as a check, and never counted with them.</li>
+<li>ds-review-decision__actions holds Accept first, as the view's one primary action, and Reject, a plain button, at the far end. Both carry data-ds-critical and are never inside a details element. When the task's checks left files that accepting removes, Accept opens a confirm dialog naming them. Reject always opens a confirm dialog that asks whether to keep or delete the branch and says that nothing is merged or pushed.</li>
+<li>An optional note is a field before the actions, labelled Note (optional), sent with whichever button is pressed. It is always in view, so pressing Reject moves no focus to it.</li>
+<li>While the decision is sent, set aria-busy=&quot;true&quot; on the pressed button, change its label to Accepting or Rejecting, and disable the other. If sending fails, restore both and put an alert with role=&quot;alert&quot; before the actions, saying what was not done.</li>
+<li>Once decided, replace ds-review-decision__actions and the note with ds-review-decision__result: a badge, Accepted or Rejected with the status set's icon and tone, then a sentence saying what became of the branch and whether anything was merged or pushed. A copy field for the merge command may follow. The pressed button goes with the actions, so move focus to the section's heading, given tabindex=&quot;-1&quot;, and never let it drop to the page.</li>
+<li>The component needs no script. The app sets aria-busy and disabled and swaps the actions for the result.</li>
+</ul>
+</section>
+<section>
+<h2>Classes</h2>
+<ul>
+<li><code>ds-review-decision</code></li>
+<li><code>ds-review-decision__actions</code></li>
+<li><code>ds-review-decision__caveat</code></li>
+<li><code>ds-review-decision__evidence</code></li>
+<li><code>ds-review-decision__finding</code></li>
+<li><code>ds-review-decision__line</code></li>
+<li><code>ds-review-decision__result</code></li>
+<li><code>ds-review-decision__source</code></li>
+<li><code>ds-review-decision__title</code></li>
+</ul>
+</section>
+</div>
+</main>
+</body>
+</html>

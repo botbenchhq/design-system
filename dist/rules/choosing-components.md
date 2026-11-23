@@ -112,13 +112,15 @@ For a whole screen, start from a page pattern. They are listed under "Page patte
 |---|---|
 | A set of like things to scan and open: tasks, repositories, changed files | `list` |
 | A command, a log, a program's output or an excerpt of a file | `code-block` |
-| What changed in one file | `diff` |
+| What changed in one file, with line numbers when the reader needs to point at a line | `diff` |
+| A command's output that may run long, finished or still running, with its error lines marked | `log-viewer` |
 | Detail most readers can do without | `disclosure`. See `disclosure.md`. |
 | Things compared across columns | `data-table` |
 | The facts of one thing, as labels and values | `key-value` |
 | One number with its comparison, period or scope | `stat` |
 | Events in the order they happened | `timeline` |
 | A person or an agent, named, with a small mark | `avatar` |
+| Who is on a task or a repository right now, and whose work it is | `presence` |
 | How a number moved over the last few runs or days, beside the number | `sparkline` |
 
 ## Agent surfaces
@@ -133,6 +135,7 @@ For a whole screen, start from a page pattern. They are listed under "Page patte
 | The stations of a run and the state of each: done, running, waiting, failed, not started | `run-timeline`, at the top of the run's screen |
 | Telling a screen reader that a run started, needs approval, finished, stopped or failed | `activity-announcer`, once in the view |
 | A note that work is going on, where there is no transcript and no Stop | `streaming` |
+| The end of a task: the checks and the review in one line each, then Accept and Reject, and the result once decided | `review-decision` |
 | A request that waits for the reader to allow or decline it, with its risk, where it runs and room for a note | `approval`. A request the reader can judge from one line is a `tool-call` row that awaits approval. |
 | How many approvals are waiting, visible from every screen | `pending-tray`, in the trailing slot of `app-header` |
 | The reader's next prompt | `composer` |

@@ -1,0 +1,43 @@
+{
+  "name": "review-decision",
+  "title": "Review decision",
+  "purpose": "The end of a task: what the checks found and what the review said, one line each, then Accept and Reject, and the result once decided.",
+  "status": "draft",
+  "whenToUse": [
+    "Once, at the end of a task's screen, when the work waits for the reader to accept or reject it.",
+    "With the checks' line and the review's line even when one has nothing to report: say that no checks are set up, or why there is no review.",
+    "Kept in place after the decision, with the result in place of the buttons."
+  ],
+  "whenNotToUse": [
+    "For an agent's request to run a tool or a command. Use the approval.",
+    "For the full results of the checks or the full review. Show them above it with the check list and a disclosure, and keep this to one line each.",
+    "On a row of a list of tasks. Put plain Accept and Reject buttons in the row, never primary, and the decision on the task's own screen.",
+    "To ask before something is lost. Reject opens a confirm dialog that asks what becomes of the branch."
+  ],
+  "variants": [],
+  "sizes": [],
+  "states": ["default", "busy", "error", "decided"],
+  "accessibility": [
+    "Use a section with aria-labelledby pointing at ds-review-decision__title, a heading such as Your decision. Its level is the one under the heading it sits beneath. The examples use h4 only because of where they sit on the gallery page.",
+    "ds-review-decision__evidence is a dl. Each ds-review-decision__line holds a dt, ds-review-decision__source, naming where the finding comes from (Checks, Review), and a dd, ds-review-decision__finding, saying it in one sentence.",
+    "The checks' finding opens with a badge from the status set, with its icon: Checks passed or Checks failed in the tone and icon of Check passed and Check failed. With no checks set up, write that, with no badge, so nothing reads as a pass.",
+    "The review's finding is the reviewer and its verdict in words, with no badge, tone or icon, followed by ds-review-decision__caveat saying it is a model's opinion, not a check. A review is never drawn as a check, and never counted with them.",
+    "ds-review-decision__actions holds Accept first, as the view's one primary action, and Reject, a plain button, at the far end. Both carry data-ds-critical and are never inside a details element. When the task's checks left files that accepting removes, Accept opens a confirm dialog naming them. Reject always opens a confirm dialog that asks whether to keep or delete the branch and says that nothing is merged or pushed.",
+    "An optional note is a field before the actions, labelled Note (optional), sent with whichever button is pressed. It is always in view, so pressing Reject moves no focus to it.",
+    "While the decision is sent, set aria-busy=\"true\" on the pressed button, change its label to Accepting or Rejecting, and disable the other. If sending fails, restore both and put an alert with role=\"alert\" before the actions, saying what was not done.",
+    "Once decided, replace ds-review-decision__actions and the note with ds-review-decision__result: a badge, Accepted or Rejected with the status set's icon and tone, then a sentence saying what became of the branch and whether anything was merged or pushed. A copy field for the merge command may follow. The pressed button goes with the actions, so move focus to the section's heading, given tabindex=\"-1\", and never let it drop to the page.",
+    "The component needs no script. The app sets aria-busy and disabled and swaps the actions for the result."
+  ],
+  "icons": ["circle-alert", "circle-check", "thumbs-up", "x"],
+  "classes": [
+    "ds-review-decision",
+    "ds-review-decision__actions",
+    "ds-review-decision__caveat",
+    "ds-review-decision__evidence",
+    "ds-review-decision__finding",
+    "ds-review-decision__line",
+    "ds-review-decision__result",
+    "ds-review-decision__source",
+    "ds-review-decision__title"
+  ]
+}
