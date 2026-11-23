@@ -36,7 +36,7 @@ This takes about two minutes and ends with the checker passing a page you wrote,
 1. **Clone and serve the repository.**
 
    ```sh
-   git clone https://github.com/jon-lange/design-system.git
+   git clone https://github.com/botbenchhq/design-system.git
    cd design-system
    python3 -m http.server
    ```
@@ -257,7 +257,7 @@ The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five def
 
 ## Help and contributing
 
-- **Questions and bugs:** open an [issue](https://github.com/jon-lange/design-system/issues). For a bug, give the version from `dist/VERSION`, the markup, and the checker's output if it is involved.
+- **Questions and bugs:** open an [issue](https://github.com/botbenchhq/design-system/issues). For a bug, give the version from `dist/VERSION`, the markup, and the checker's output if it is involved.
 - **A component that is missing:** an app declares it in its gaps file ([consumer guide, step 3](docs/consumer-guide.md#3-add-the-config-file-and-the-gaps-file)); an issue that quotes that entry is the best request.
 - **Changes:** [`CONTRIBUTING.md`](CONTRIBUTING.md) says how to run the checks and what a pull request needs. [`docs/authoring.md`](docs/authoring.md) is the contract for a component and [`AGENTS.md`](AGENTS.md) the rules for this repository. Run `npm run build` and `npm test` before opening a pull request, and `npm run test:visual` after changing a component.
 - **A security problem:** report it privately, as [`SECURITY.md`](SECURITY.md) says, not in an issue.

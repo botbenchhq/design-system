@@ -1,6 +1,6 @@
 # gitleaks (https://github.com/gitleaks/gitleaks): what must never reach GitHub. Run by the gitleaks job of
 # .github/workflows/ci.yml over every commit, and by hand with `gitleaks git .` from the repository's folder.
-# Modelled on jon-lange/botbench's .gitleaks.toml.
+# Modelled on botbenchhq/botbench's .gitleaks.toml.
 #
 # gitleaks' own rules (private keys, cloud, GitHub, AI-provider, Slack, Stripe, ... tokens), and one rule of this
 # repository's below. The examples, the gallery and the test fixtures use placeholder data only (acme.example,

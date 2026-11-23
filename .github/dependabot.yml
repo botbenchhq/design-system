@@ -1,4 +1,4 @@
-# Dependabot version updates, as in jon-lange/botbench and jon-lange/settleview (security updates are separate and are
+# Dependabot version updates, as in botbenchhq/botbench and jon-lange/settleview (security updates are separate and are
 # not held back by the cooldown or the groups).
 # - cooldown: a release must be 14 days old before Dependabot proposes it.
 # - groups: one weekly pull request per ecosystem for minor and patch updates, not one per package.
