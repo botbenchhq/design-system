@@ -1,6 +1,6 @@
 # Design system
 
-A design system for apps whose interfaces are largely written by AI coding agents. It gives the agent a closed vocabulary of design tokens and components, and a checker that fails a frontend which steps outside that vocabulary. Screens come out consistent with each other and without the generic AI-generated look, and the look of every app that uses it can be changed in one place.
+A design system for apps whose interfaces are largely written by AI coding agents. It gives the agent a closed vocabulary of design tokens and components, and a checker that fails a frontend which steps outside that vocabulary. Screens come out consistent with each other and without the generic AI-generated look, and you can change the look of every app that uses it in one place.
 
 It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.11.4. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
 
@@ -13,10 +13,10 @@ The run timeline component under the Botbench theme, dark and light:
 
 ## Why use it
 
-- **Change the brand once.** A theme sets the values of the system's tokens: colours, radii, fonts and any other token. An app links the theme's stylesheet, and when the theme changes here, the app picks it up with its next sync, with no change to its own markup. Fonts and icons also live here and arrive the same way.
-- **Enforcement, not advice.** The checker scans an app's CSS, HTML, JSX, TSX and class names in script, and a second copy of the structural rules runs on rendered pages from the app's end-to-end tests. It holds 41 rules: raw colours, off-scale sizes, unknown classes, gradients and blur, more than one primary action in a view, nested cards, badge clutter, emoji as icons, stock phrases and more. It exits 1 on findings, so it runs in the app's own test command.
+- **Change the brand once.** A theme can set the value of any of the system's tokens, colours, radii and fonts among them. An app links the theme's stylesheet, and when the theme changes here, the app picks it up with its next sync, with no change to its own markup. Fonts and icons also live here and arrive the same way.
+- **A checker that fails the test run.** The checker scans an app's CSS, HTML, JSX, TSX and class names in script, and a second copy of the structural rules runs on rendered pages from the app's end-to-end tests. Its 41 rules cover, among others, raw colours, off-scale sizes, unknown classes, gradients and blur, more than one primary action in a view, nested cards, badge clutter, emoji as icons and stock phrases. It exits 1 on findings, so it runs in the app's own test command.
 - **Plain CSS classes on ordinary HTML.** A component is class names such as `ds-button ds-button--primary` on native elements. It works from React, another framework or none. There is no runtime dependency; seven optional script modules cover the few components that need behaviour.
-- **Accessibility built in.** The build fails when a text pair is below 4.5:1 or a border or focus pair below 3:1, in light and dark, for every theme. Controls are at least 44px in both directions. Tabs, combobox, command palette, menu and listbox have keyboard behaviour, and every transition stops when the reader asks for reduced motion. The gallery is tested with axe.
+- **The build checks accessibility.** The build fails when a text pair is below 4.5:1 or a border or focus pair below 3:1, in light and dark, for every theme. Controls are at least 44px in both directions. Tabs, combobox, command palette, menu and listbox have keyboard behaviour, and every transition stops when the reader asks for reduced motion. The browser tests run axe on every gallery page.
 - **Made for agent-built interfaces.** Agents read one short rules file ([`rules/core.md`](rules/core.md), under 2,400 characters), choose from a machine-readable index of every component, and copy the example markup. The catalogue has components for transcripts, tool calls, approvals, step groups, run timelines and long runs, and a page pattern for the screen of one agent run.
 - **Evidence.** In a [blind-build trial](docs/trial-report.md) two agents that had never seen this repository each built three screens from a synced copy of version 0.3.0 alone; all six passed the static scan, the rendered rules and axe with no findings, waivers or declared gaps. An [independent audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 approved it with conditions, scoring it between 3 and 7 out of 10 on ten dimensions; what it criticised is summarised under [Status and limits](#status-and-limits).
 
@@ -26,7 +26,7 @@ The run timeline component under the Botbench theme, dark and light:
 - **You want a typed React component library.** Components are CSS classes; the app writes the markup. Five React source files ship for the interactive pieces an app most often wires by hand, nothing more.
 - **You want an npm package.** An app copies `dist/` into its own repository with the sync script.
 - **You use Tailwind 4.** The preset is for Tailwind 3. The stylesheet works without Tailwind.
-- **You want to add your own tokens or restyle one component freely.** The token set is closed and a theme changes values only. That constraint is the point of the system.
+- **You want to add your own tokens or restyle one component freely.** The token set is closed and a theme changes values only, which is the point of the system.
 - **You need a stable API today.** Every component is still `draft`.
 
 ## Quickstart
@@ -128,7 +128,7 @@ State comes from the element itself (`disabled`, `aria-busy="true"`, `aria-inval
 
 ## Use it in an app
 
-You need Node 24 or later, and this repository checked out beside the app. The app takes a copy of `dist/` into its own repository. Nothing loads from another host and the app gains no dependency. The package is not published to npm. [`docs/consumer-guide.md`](docs/consumer-guide.md) has every step in full; this is the short form.
+You need Node 24 or later, and this repository checked out beside the app. The app takes a copy of `dist/` into its own repository, so nothing loads from another host and the app gains no dependency; the package is not published to npm. [`docs/consumer-guide.md`](docs/consumer-guide.md) has every step in full; this is the short form.
 
 1. **Sync a copy.** With this repository checked out beside the app, run from the app's root:
 
@@ -156,7 +156,7 @@ You need Node 24 or later, and this repository checked out beside the app. The a
    };
    ```
 
-   Write no rules in Tailwind's base layer. Tailwind emits preflight and base rules unlayered, and they would override the system's layered styles. The preset replaces every Tailwind scale with token names, so `bg-surface` works and `bg-indigo-500` produces nothing.
+   Write no rules in Tailwind's base layer, because Tailwind emits preflight and base rules unlayered and they would override the system's layered styles. The preset replaces every Tailwind scale with token names, so `bg-surface` works and `bg-indigo-500` produces nothing.
 
 3. **Optionally load a theme and choose a mode.** Link the theme after the system's stylesheet, and set `data-theme` on the root element to `light`, `dark` or `auto` (follow the system setting). With no `data-theme`, the page shows light, or the theme's default mode.
 
@@ -247,7 +247,7 @@ Add a folder under `components/` with its three files and run the build; nothing
 - **One consumer.** Botbench is the only app that uses it so far.
 - **Tested in Chrome, WebKit and Firefox, not on an iPhone.** The whole browser suite runs in Google Chrome. The tests of the components Botbench uses, at 390px and 1280px, and the keyboard, theme and reflow tests also run, and pass, in Playwright's WebKit 27.2 and Firefox 159. Neither has interest invokers, so a tooltip or hover card shows on hover and focus only. Nothing has been tried in iOS Safari or with a screen reader. The components rely on recent platform features: the Popover API, anchor positioning, invoker commands, interest invokers, `:has()` and `field-sizing`. [`docs/browser-support.md`](docs/browser-support.md) has the results per feature and component, and what still needs a real iPhone.
 
-The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five defects that 0.7.2 fixed (menu and listbox keyboard, colour scheme under a theme's default mode, reflow at 320px, wide tables, the command palette's no-match announcement), and 0.7.5 began the React source in `react/`. These of its findings are still open:
+The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five defects that 0.7.2 fixed (menu and listbox keyboard, colour scheme under a theme's default mode, reflow at 320px, wide tables, the command palette's no-match announcement), and 0.7.5 began the React source in `react/`. These findings of the audit are still open:
 
 - The checker does not check `data-state` values, accessible names, `alt` text or whether a badge's tone matches its word.
 - The typed React layer covers the busy button, the dialog, confirm dialog and sheet, the approval card, the menu's keyboard and the transcript. Tabs, the combobox, the listbox and the command palette have no React piece: an app uses the behaviour modules or wires them by hand.
