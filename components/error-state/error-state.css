@@ -19,6 +19,8 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   /* The icon is drawn here, as tall as the title's first line, so the failure is never marked by its wording alone. */

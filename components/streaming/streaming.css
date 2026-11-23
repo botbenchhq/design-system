@@ -34,6 +34,7 @@
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
   }
 
   @keyframes ds-streaming-turn {

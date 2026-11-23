@@ -114,8 +114,10 @@
     outline: var(--ds-border-width) solid var(--ds-color-focus);
   }
 
+  /* Inside the block, a corner is the block's radius less the padding between them. */
   .ds-composer__box > .ds-composer__input {
     border-color: transparent;
+    border-radius: var(--ds-radius-sm);
     background-color: transparent;
   }
 
@@ -139,11 +141,19 @@
   }
 
   /*
-   * Add context, the first control of the bar: a round tonal button with no border at rest, inside the block's
+   * Add context, the first control of the bar: a tonal button with no border at rest, inside the block's
    * own edge. The selector is kept weak, so the button's hover, pressed and unavailable borders still show.
    */
   .ds-composer__bar > :where(:first-child) {
     border-color: transparent;
+  }
+
+  /*
+   * Send, and Stop in its place: the last button of the row or the bar, and the one pill among the system's
+   * buttons, so the action that sends is found by its shape.
+   */
+  .ds-composer__row > :where(button:last-child),
+  .ds-composer__bar > :where(button:last-child) {
     border-radius: var(--ds-radius-full);
   }
 

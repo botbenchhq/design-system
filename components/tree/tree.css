@@ -7,6 +7,8 @@
 @layer ds.components {
   .ds-tree {
     min-width: 0;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-tree__list {
@@ -86,6 +88,7 @@
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-normal);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 

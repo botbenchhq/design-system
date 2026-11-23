@@ -1,7 +1,7 @@
 {
   "name": "avatar",
   "title": "Avatar",
-  "purpose": "A small square mark for a person or an agent, holding initials, an icon or an image, with the name beside it.",
+  "purpose": "A small round mark for a person or an agent, holding initials, an icon or an image, with the name beside it.",
   "status": "draft",
   "whenToUse": [
     "To say who did something or who something belongs to: the author of a message, the actor of an event, the owner of a task.",
@@ -18,7 +18,7 @@
   "variants": [
     { "name": "initials", "use": "The default. One or two capital letters in a span with the class ds-avatar__mark." },
     { "name": "icon", "use": "An svg with the class ds-avatar__icon inside the mark, for an agent or a system actor." },
-    { "name": "image", "use": "An img with the class ds-avatar__mark in place of the span. It needs an alt attribute, width and height. The picture is cropped to the square." }
+    { "name": "image", "use": "An img with the class ds-avatar__mark in place of the span. It needs an alt attribute, width and height. The picture is cropped to the circle." }
   ],
   "sizes": [
     { "name": "default", "use": "A 32px mark with the name in medium weight." },

@@ -19,7 +19,7 @@
     padding: var(--ds-space-xs) var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
@@ -38,7 +38,7 @@
     min-width: calc(var(--ds-size-control) * 2);
     min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: transparent;
     font-size: var(--ds-text-lg);
     line-height: var(--ds-leading-lg);

@@ -53,13 +53,13 @@
   }
 
   .ds-number-field > :first-child {
-    border-start-start-radius: var(--ds-radius-md);
-    border-end-start-radius: var(--ds-radius-md);
+    border-start-start-radius: var(--ds-radius-sm);
+    border-end-start-radius: var(--ds-radius-sm);
   }
 
   .ds-number-field > :last-child {
-    border-start-end-radius: var(--ds-radius-md);
-    border-end-end-radius: var(--ds-radius-md);
+    border-start-end-radius: var(--ds-radius-sm);
+    border-end-end-radius: var(--ds-radius-sm);
   }
 
   .ds-number-field > :not(:first-child) {

@@ -485,7 +485,7 @@ node vendor/design-system/migrate-prefix.mjs .
 
 ## 12. Themes
 
-A theme changes the values of the system's tokens and nothing else: colours, radii, any token. It cannot add a token name, so every component, utility and check works the same under it. The copy holds each theme in `themes/`. The system ships one, `botbench`.
+A theme changes the values of the system's tokens and nothing else: its colours, its two font stacks and its shadow. It cannot add a token name, and it cannot set a type size, a line height, a tracking, a radius or the density, so every component, utility and check works the same under it and a button has the same shape in every app. The copy holds each theme in `themes/`. The system ships one, `botbench`.
 
 | File | Holds |
 |---|---|
@@ -551,7 +551,8 @@ A theme is written in the design system's repo, never in an app. Add `themes/<na
 The build stops, naming the theme, when:
 
 - it sets a name that is not a token;
-- it sets `--ds-size-control` or `--ds-size-row`, or holds a density block: the density is the same under every theme;
+- it sets `--ds-size-control`, `--ds-size-row`, `--ds-text-ui` or `--ds-leading-ui`, or holds a density block: the density is the same under every theme;
+- it sets a type size, a line height, a tracking or a radius: those scales are the same under every theme;
 - it has no light values or no dark values, or its dark and auto blocks differ;
 - it sets a colour for light alone that the default theme sets for both modes, since that value would then apply in dark as well;
 - a colour is not six-digit hex, or the default mode is not light or dark;
@@ -561,13 +562,13 @@ The build then writes the four files above for the theme into `dist/themes/`. Sy
 
 ## 13. Density
 
-A control of default size and a row take their height from two tokens, `--ds-size-control` and `--ds-size-row`, and the app chooses the density of any part of a screen with `data-ds-density` on a container:
+A control of default size and a row take their height from two tokens, `--ds-size-control` and `--ds-size-row`, body text takes its size and line height from `--ds-text-ui` and `--ds-leading-ui`, and the app chooses the density of any part of a screen with `data-ds-density` on a container:
 
-| `data-ds-density` | Control | Row | For |
-|---|---|---|---|
-| `compact` | 28px | 32px | A board, a table or a toolbar with many controls |
-| `comfortable`, the default | 36px | 36px | Everything else on a screen with a mouse or a trackpad |
-| `touch` | 44px | 44px | A kiosk or another screen pressed with a finger that reports a fine pointer |
+| `data-ds-density` | Control | Row | Body text | For |
+|---|---|---|---|---|
+| `compact` | 28px | 32px | 13px on an 18px line | A board, a table or a toolbar with many controls |
+| `comfortable`, the default | 36px | 36px | 14px on a 21px line | Everything else on a screen with a mouse or a trackpad |
+| `touch` | 44px | 44px | 14px on a 21px line | A kiosk or another screen pressed with a finger that reports a fine pointer |
 
 ```html
 <section data-ds-density="compact">
@@ -575,8 +576,8 @@ A control of default size and a row take their height from two tokens, `--ds-siz
 </section>
 ```
 
-On a coarse pointer, such as a phone, every control and row is the touch size, whatever the attribute says, so an app sets nothing for a phone. A pointer target is never smaller than 44px each way there, and never smaller than 24px on a fine pointer. Do not set a height on a system control to undo either.
+On a coarse pointer, such as a phone, every control and row is the touch size and every type size is one pixel larger (body text 15px), whatever the attribute says, so an app sets nothing for a phone. The type sizes are in rem: a reader who set a larger font size in the browser gets every size larger in proportion, and an app that sets a font size on the root element changes every size with it. A pointer target is never smaller than 44px each way there, and never smaller than 24px on a fine pointer. Do not set a height on a system control to undo either.
 
 A size variant is a fixed height at every density: `ds-button--small` is 28px and `ds-button--large` 40px, `ds-icon-button--small` 28px square and `ds-icon-button--xsmall` 24px square. On a coarse pointer each is drawn the same and takes a press on a 44px area around it, so leave 16px or more between two small icon buttons.
 
-`manifest.json` lists the values under `density`, `tokens.json` under the two size tokens, and `design-tokens.md` under `density`. With the Tailwind preset, `h-control`, `min-h-row` and `w-sidebar` read the same tokens.
+`manifest.json` lists the values under `density` and the coarse-pointer type sizes under `coarsePointer`, `tokens.json` under the four density tokens and each type size, and `design-tokens.md` under `density` and `typography-coarse-pointer`. With the Tailwind preset, `h-control`, `min-h-row` and `w-sidebar` read the same tokens.

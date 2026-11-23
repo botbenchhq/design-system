@@ -37,17 +37,24 @@ export default {
     },
     "spacing": {
       "0": "0",
+      "2xs": "var(--ds-space-2xs)",
       "xs": "var(--ds-space-xs)",
+      "xs-sm": "var(--ds-space-xs-sm)",
       "sm": "var(--ds-space-sm)",
       "md": "var(--ds-space-md)",
       "lg": "var(--ds-space-lg)",
+      "lg-xl": "var(--ds-space-lg-xl)",
       "xl": "var(--ds-space-xl)",
-      "2xl": "var(--ds-space-2xl)"
+      "2xl": "var(--ds-space-2xl)",
+      "3xl": "var(--ds-space-3xl)",
+      "4xl": "var(--ds-space-4xl)"
     },
     "borderRadius": {
       "none": "0",
+      "xs": "var(--ds-radius-xs)",
       "sm": "var(--ds-radius-sm)",
       "md": "var(--ds-radius-md)",
+      "lg": "var(--ds-radius-lg)",
       "full": "var(--ds-radius-full)"
     },
     "borderWidth": {
@@ -59,29 +66,57 @@ export default {
       "mono": "var(--ds-font-mono)"
     },
     "fontSize": {
+      "2xs": [
+        "var(--ds-text-2xs)",
+        {
+          "lineHeight": "var(--ds-leading-2xs)",
+          "letterSpacing": "var(--ds-tracking-2xs)"
+        }
+      ],
       "xs": [
         "var(--ds-text-xs)",
-        "var(--ds-leading-xs)"
+        {
+          "lineHeight": "var(--ds-leading-xs)"
+        }
+      ],
+      "sm": [
+        "var(--ds-text-sm)",
+        {
+          "lineHeight": "var(--ds-leading-sm)"
+        }
       ],
       "mono": [
         "var(--ds-text-mono)",
-        "var(--ds-leading-mono)"
+        {
+          "lineHeight": "var(--ds-leading-mono)"
+        }
       ],
       "ui": [
         "var(--ds-text-ui)",
-        "var(--ds-leading-ui)"
+        {
+          "lineHeight": "var(--ds-leading-ui)"
+        }
       ],
       "lg": [
         "var(--ds-text-lg)",
-        "var(--ds-leading-lg)"
+        {
+          "lineHeight": "var(--ds-leading-lg)",
+          "letterSpacing": "var(--ds-tracking-lg)"
+        }
       ],
       "xl": [
         "var(--ds-text-xl)",
-        "var(--ds-leading-xl)"
+        {
+          "lineHeight": "var(--ds-leading-xl)",
+          "letterSpacing": "var(--ds-tracking-xl)"
+        }
       ],
       "2xl": [
         "var(--ds-text-2xl)",
-        "var(--ds-leading-2xl)"
+        {
+          "lineHeight": "var(--ds-leading-2xl)",
+          "letterSpacing": "var(--ds-tracking-2xl)"
+        }
       ]
     },
     "fontWeight": {
@@ -90,7 +125,9 @@ export default {
       "semibold": "var(--ds-weight-semibold)"
     },
     "lineHeight": {
+      "2xs": "var(--ds-leading-2xs)",
       "xs": "var(--ds-leading-xs)",
+      "sm": "var(--ds-leading-sm)",
       "mono": "var(--ds-leading-mono)",
       "ui": "var(--ds-leading-ui)",
       "lg": "var(--ds-leading-lg)",
@@ -122,24 +159,34 @@ export default {
     },
     "outlineOffset": {
       "0": "0",
+      "2xs": "var(--ds-space-2xs)",
       "xs": "var(--ds-space-xs)",
+      "xs-sm": "var(--ds-space-xs-sm)",
       "sm": "var(--ds-space-sm)",
       "md": "var(--ds-space-md)",
       "lg": "var(--ds-space-lg)",
+      "lg-xl": "var(--ds-space-lg-xl)",
       "xl": "var(--ds-space-xl)",
-      "2xl": "var(--ds-space-2xl)"
+      "2xl": "var(--ds-space-2xl)",
+      "3xl": "var(--ds-space-3xl)",
+      "4xl": "var(--ds-space-4xl)"
     },
     "outlineWidth": {
       "0": "0"
     },
     "textUnderlineOffset": {
       "auto": "auto",
+      "2xs": "var(--ds-space-2xs)",
       "xs": "var(--ds-space-xs)",
+      "xs-sm": "var(--ds-space-xs-sm)",
       "sm": "var(--ds-space-sm)",
       "md": "var(--ds-space-md)",
       "lg": "var(--ds-space-lg)",
+      "lg-xl": "var(--ds-space-lg-xl)",
       "xl": "var(--ds-space-xl)",
-      "2xl": "var(--ds-space-2xl)"
+      "2xl": "var(--ds-space-2xl)",
+      "3xl": "var(--ds-space-3xl)",
+      "4xl": "var(--ds-space-4xl)"
     },
     "textDecorationThickness": {
       "auto": "auto"
@@ -147,12 +194,17 @@ export default {
     "width": {
       "0": "0",
       "auto": "auto",
+      "2xs": "var(--ds-space-2xs)",
       "xs": "var(--ds-space-xs)",
+      "xs-sm": "var(--ds-space-xs-sm)",
       "sm": "var(--ds-space-sm)",
       "md": "var(--ds-space-md)",
       "lg": "var(--ds-space-lg)",
+      "lg-xl": "var(--ds-space-lg-xl)",
       "xl": "var(--ds-space-xl)",
       "2xl": "var(--ds-space-2xl)",
+      "3xl": "var(--ds-space-3xl)",
+      "4xl": "var(--ds-space-4xl)",
       "control-xs": "var(--ds-size-control-xs)",
       "control-sm": "var(--ds-size-control-sm)",
       "control-md": "var(--ds-size-control-md)",
@@ -167,12 +219,17 @@ export default {
     "height": {
       "0": "0",
       "auto": "auto",
+      "2xs": "var(--ds-space-2xs)",
       "xs": "var(--ds-space-xs)",
+      "xs-sm": "var(--ds-space-xs-sm)",
       "sm": "var(--ds-space-sm)",
       "md": "var(--ds-space-md)",
       "lg": "var(--ds-space-lg)",
+      "lg-xl": "var(--ds-space-lg-xl)",
       "xl": "var(--ds-space-xl)",
       "2xl": "var(--ds-space-2xl)",
+      "3xl": "var(--ds-space-3xl)",
+      "4xl": "var(--ds-space-4xl)",
       "control-xs": "var(--ds-size-control-xs)",
       "control-sm": "var(--ds-size-control-sm)",
       "control-md": "var(--ds-size-control-md)",
@@ -186,12 +243,17 @@ export default {
     "size": {
       "0": "0",
       "auto": "auto",
+      "2xs": "var(--ds-space-2xs)",
       "xs": "var(--ds-space-xs)",
+      "xs-sm": "var(--ds-space-xs-sm)",
       "sm": "var(--ds-space-sm)",
       "md": "var(--ds-space-md)",
       "lg": "var(--ds-space-lg)",
+      "lg-xl": "var(--ds-space-lg-xl)",
       "xl": "var(--ds-space-xl)",
       "2xl": "var(--ds-space-2xl)",
+      "3xl": "var(--ds-space-3xl)",
+      "4xl": "var(--ds-space-4xl)",
       "control-xs": "var(--ds-size-control-xs)",
       "control-sm": "var(--ds-size-control-sm)",
       "control-md": "var(--ds-size-control-md)",

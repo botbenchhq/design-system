@@ -38,14 +38,14 @@ test.beforeAll(async () => {
 test.afterAll(() => server.close());
 
 // A bare page that links the system and, when asked, the theme, in the order given.
-async function openPage(page, { mode = null, stylesheets = ["design-system.css", "themes/botbench.css"], from = "dist", colorScheme = "light", extra = "" } = {}) {
+async function openPage(page, { mode = null, stylesheets = ["design-system.css", "themes/botbench.css"], from = "dist", colorScheme = "light", extra = "", body = "" } = {}) {
   await page.emulateMedia({ colorScheme });
   const links = stylesheets.map((name) => `<link rel="stylesheet" href="/${from}/${name}">`).join("\n");
   const html = `<!doctype html>
 <html lang="en"${mode ? ` data-theme="${mode}"` : ""}>
 <head><meta charset="utf-8"><title>Theme</title>
 ${links}${extra}</head>
-<body><p>Fix the login timeout</p><button type="button" class="ds-button ds-button--primary">Start task</button></body>
+<body><p>Fix the login timeout</p><button type="button" class="ds-button ds-button--primary">Start task</button>${body}</body>
 </html>`;
   await page.route(`${origin}/page.html`, (route) => route.fulfill({ contentType: "text/html", body: html }));
   await page.goto(`${origin}/page.html`);
@@ -72,7 +72,7 @@ test("loaded after design-system.css, the theme's values win over the default to
   await openPage(page, { mode: "light", stylesheets: ["design-system.css"] });
   const before = await read(page);
   expect(hex(before.body)).toBe("#FAFAF9");
-  expect(before.radius).toBe("8px");
+  expect(before.radius).toBe("6px");
 
   await openPage(page, { mode: "light" });
   const after = await read(page);
@@ -80,8 +80,116 @@ test("loaded after design-system.css, the theme's values win over the default to
   expect(hex(after.body)).toBe("#F2F2F7");
   expect(hex(after.button)).toBe("#1C1C1E");
   expect(hex(after.buttonText)).toBe("#FFFFFF");
-  expect(after.radius).toBe("22px");
+  // The radius scale is the system's under every theme: a button is a control, 6px.
+  expect(after.radius).toBe("6px");
 });
+
+// One element for each type role, and the places a density reaches.
+const TYPE_BODY = `
+<h1 id="display">Session refresh</h1>
+<h2 id="heading">Checks</h2>
+<h3 id="title">Danger area</h3>
+<p id="body">Run <code id="code">npm test</code> before the review.</p>
+<pre id="block"><code id="block-code">npm test</code></pre>
+<p class="ds-field__description" id="helper">Put a slash between the owner and the name.</p>
+<small id="caption">2 minutes ago</small>
+<ul class="ds-list"><li class="ds-list__row"><span class="ds-list__content" id="row">fix/session-refresh</span></li></ul>
+<table class="ds-data-table"><thead><tr><th id="micro">Duration</th></tr></thead><tbody><tr><td id="cell">42 s</td></tr></tbody></table>
+<div data-ds-density="compact"><p id="compact">Compact text</p><button type="button" class="ds-button" id="compact-button">Retry</button>
+  <div data-ds-density="comfortable"><p id="nested">Comfortable again</p></div>
+</div>`;
+
+// Each role's size and line in px at a 16px root, and its tracking in em, as the owner approved them.
+const ROLES = {
+  micro: { size: 11, line: 14, tracking: 0.02, weight: "500" },
+  caption: { size: 12, line: 16, tracking: 0 },
+  helper: { size: 13, line: 18, tracking: 0 },
+  row: { size: 13, line: 18, tracking: 0 },
+  cell: { size: 13, line: 18, tracking: 0 },
+  body: { size: 14, line: 21, tracking: 0 },
+  title: { size: 16, line: 22, tracking: -0.01, weight: "600" },
+  heading: { size: 20, line: 26, tracking: -0.015, weight: "600" },
+  display: { size: 26, line: 30, tracking: -0.02, weight: "600" },
+  block: { size: 13, line: 19.5, tracking: 0 },
+};
+
+const measureType = (page) =>
+  page.evaluate(() =>
+    Object.fromEntries(
+      [...document.querySelectorAll("[id]")].map((element) => {
+        const style = getComputedStyle(element);
+        return [element.id, { size: parseFloat(style.fontSize), line: parseFloat(style.lineHeight), tracking: style.letterSpacing === "normal" ? 0 : parseFloat(style.letterSpacing), weight: style.fontWeight, wrap: style.textWrapStyle ?? style.textWrap }];
+      }),
+    ),
+  );
+
+// What a role measures when every size is `larger` px above the table and the root is `scale` times 16px.
+function expectRoles(measured, { larger = 0, scale = 1 } = {}) {
+  for (const [id, role] of Object.entries(ROLES)) {
+    const size = (role.size + larger) * scale;
+    expect(measured[id].size, `${id} size`).toBeCloseTo(size, 2);
+    expect(Math.abs(measured[id].line - (size * role.line) / role.size), `${id} line height is ${measured[id].line}px`).toBeLessThan(0.1 * scale);
+    expect(measured[id].tracking, `${id} tracking`).toBeCloseTo(size * role.tracking, 2);
+    if (role.weight) expect(measured[id].weight, `${id} weight`).toBe(role.weight);
+  }
+}
+
+for (const stylesheets of [["design-system.css"], ["design-system.css", "themes/botbench.css"]]) {
+  const theme = stylesheets.length > 1 ? "the botbench theme" : "the default theme";
+
+  test.describe(`type under ${theme}, with a fine pointer`, () => {
+    test.use({ hasTouch: false });
+
+    test("each role is the size, line height, weight and tracking of the scale at a 16px root, and inline code is 0.93 of the text around it", async ({ page }) => {
+      await openPage(page, { mode: "light", stylesheets, body: TYPE_BODY });
+      expect(await page.evaluate(() => matchMedia("(pointer: coarse)").matches)).toBe(false);
+      const measured = await measureType(page);
+      expectRoles(measured);
+      expect(measured.code.size).toBeCloseTo(14 * 0.93, 1);
+      // Inside a block of code the code is the block's size, not a share of it.
+      expect(measured["block-code"].size).toBe(13);
+      for (const id of ["display", "heading", "title"]) expect(measured[id].wrap, id).toBe("balance");
+    });
+
+    test("with a 20px root, as a reader who asked for larger text has, every size, line and tracking is 1.25 times larger", async ({ page }) => {
+      await openPage(page, { mode: "light", stylesheets, body: TYPE_BODY, extra: "\n<style>html { font-size: 20px; }</style>" });
+      const measured = await measureType(page);
+      expectRoles(measured, { scale: 1.25 });
+      expect(measured.body.size).toBe(17.5);
+      expect(measured.display.size).toBe(32.5);
+      expect(measured.code.size).toBeCloseTo(17.5 * 0.93, 1);
+    });
+
+    test("a compact container sets body text to the dense 13px on an 18px line, a control inside it too, and a comfortable one inside it sets it back", async ({ page }) => {
+      await openPage(page, { mode: "light", stylesheets, body: TYPE_BODY });
+      const measured = await measureType(page);
+      expect(measured.compact.size).toBe(13);
+      expect(Math.abs(measured.compact.line - 18)).toBeLessThan(0.1);
+      expect(measured["compact-button"].size).toBe(13);
+      expect(await page.locator("#compact-button").evaluate((element) => element.getBoundingClientRect().height)).toBe(28);
+      expect(measured.nested.size).toBe(14);
+      expect(measured.nested.line).toBe(21);
+      // Outside the container nothing changed.
+      expect(measured.body.size).toBe(14);
+    });
+  });
+
+  test.describe(`type under ${theme}, with a coarse pointer`, () => {
+    test.use({ hasTouch: true });
+
+    test("every size is one pixel larger, with the line height and tracking in the same proportion, and a compact container is not dense", async ({ page }) => {
+      await openPage(page, { mode: "light", stylesheets, body: TYPE_BODY });
+      expect(await page.evaluate(() => matchMedia("(pointer: coarse)").matches)).toBe(true);
+      const measured = await measureType(page);
+      expectRoles(measured, { larger: 1 });
+      expect(measured.code.size).toBeCloseTo(15 * 0.93, 1);
+      expect(measured.compact.size).toBe(15);
+      expect(measured.compact.line).toBe(22.5);
+      expect(measured["compact-button"].size).toBe(15);
+      expect(measured.nested.size).toBe(15);
+    });
+  });
+}
 
 test("the theme's layer comes after ds.tokens whatever order the files load in, and unlayered app CSS still wins over both", async ({ page }) => {
   await openPage(page, { mode: "dark", stylesheets: ["themes/botbench.css", "design-system.css"] });

@@ -68,7 +68,7 @@
 
   /* A group of the code's characters, spaced so each can be read off one at a time. */
   .ds-device-code__group {
-    letter-spacing: calc(var(--ds-space-xs) / 2);
+    letter-spacing: var(--ds-space-2xs);
     white-space: nowrap;
   }
 
@@ -80,8 +80,8 @@
 
   .ds-device-code__note {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* The waiting line and when the code runs out. */

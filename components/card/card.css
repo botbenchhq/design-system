@@ -39,10 +39,12 @@
     min-width: 0;
     margin: 0;
     padding-block: var(--ds-space-sm);
-    font-size: var(--ds-text-ui);
+    font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
-    line-height: var(--ds-leading-ui);
+    line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   /* Pulled towards the edge, so the words of a quiet button line up with the body's text. */

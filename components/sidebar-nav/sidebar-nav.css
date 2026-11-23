@@ -7,6 +7,8 @@
 @layer ds.components {
   .ds-sidebar-nav {
     display: none;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* The column is as wide as the sidebar token says. */
@@ -33,9 +35,10 @@
   .ds-sidebar-nav__heading {
     padding-inline: var(--ds-space-md);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
   }
 
   .ds-sidebar-nav__items {

@@ -50,34 +50,72 @@
     --ds-font-ui: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
     --ds-font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
-    --ds-text-xs: 12px;
-    --ds-text-mono: 13px;
-    --ds-text-ui: 14px;
-    --ds-text-lg: 16px;
-    --ds-text-xl: 20px;
-    --ds-text-2xl: 24px;
+    /*
+     * Seven roles and mono, in rem, so they follow the reader's font-size setting (1rem is 16px unless the reader changed it).
+     * Each has a line height, and the four with tracking a tracking token. On a coarse pointer each is one pixel larger:
+     * the last block of this file.
+     */
+    /* Micro: a meta label, a table head. Weight medium, with its tracking. 11px, line 14px. */
+    --ds-text-2xs: 0.6875rem;
+    /* Caption: a badge, a timestamp. 12px, line 16px. */
+    --ds-text-xs: 0.75rem;
+    /* Dense: a row of a list, a menu, a tree, a sidebar or a table, and helper and description text. 13px, line 18px. */
+    --ds-text-sm: 0.8125rem;
+    /* A block of code. Inline code in prose is 0.93em of the text around it, set in the base layer. 13px. */
+    --ds-text-mono: 0.8125rem;
+    /* Body: transcript prose, a control's label. 14px, line 21px. A compact container sets it to the dense size. */
+    --ds-text-ui: 0.875rem;
+    /* Title: of a card, a dialog or a section. Weight semibold, with its tracking. 16px, line 22px. */
+    --ds-text-lg: 1rem;
+    /* Heading: a section of a page. Weight semibold, with its tracking. 20px, line 26px. */
+    --ds-text-xl: 1.25rem;
+    /* Display: the one title of a page. Weight semibold, with its tracking. 26px, line 30px. */
+    --ds-text-2xl: 1.625rem;
 
-    --ds-leading-xs: 1.4;
+    --ds-leading-2xs: 1.273;
+    --ds-leading-xs: 1.333;
+    --ds-leading-sm: 1.385;
     --ds-leading-mono: 1.5;
-    --ds-leading-ui: 1.4;
-    --ds-leading-lg: 1.4;
-    --ds-leading-xl: 1.25;
-    --ds-leading-2xl: 1.2;
+    --ds-leading-ui: 1.5;
+    --ds-leading-lg: 1.375;
+    --ds-leading-xl: 1.3;
+    --ds-leading-2xl: 1.154;
+
+    /* Letter spacing, for the four roles that have it. Set it wherever the size of the same name is a role's text. */
+    --ds-tracking-2xs: 0.02em;
+    --ds-tracking-lg: -0.01em;
+    --ds-tracking-xl: -0.015em;
+    --ds-tracking-2xl: -0.02em;
 
     --ds-weight-normal: 400;
     --ds-weight-medium: 500;
     --ds-weight-semibold: 600;
 
+    --ds-space-2xs: 2px;
     --ds-space-xs: 4px;
+    --ds-space-xs-sm: 6px;
     --ds-space-sm: 8px;
     --ds-space-md: 12px;
     --ds-space-lg: 16px;
+    --ds-space-lg-xl: 20px;
     --ds-space-xl: 24px;
     --ds-space-2xl: 32px;
+    --ds-space-3xl: 40px;
+    --ds-space-4xl: 64px;
 
-    --ds-radius-sm: 4px;
-    --ds-radius-md: 8px;
-    /* A circle or a pill. */
+    /*
+     * An inner radius is the outer one minus the padding between them, and never below xs: an item 4px inside
+     * a menu takes sm, a block inside a dialog takes md.
+     */
+    /* A badge, a tag, a key, the box of a checkbox. */
+    --ds-radius-xs: 4px;
+    /* A control: a button, a field, a select, a toggle, a tab. */
+    --ds-radius-sm: 6px;
+    /* A container: a card, a code block, a message, an alert, the composer box, a menu, a popover, a tooltip, a toast. */
+    --ds-radius-md: 10px;
+    /* A dialog or a sheet. */
+    --ds-radius-lg: 14px;
+    /* A circle or a pill: a chip, the segmented control, the track of a switch, an avatar, a count, the composer's Send button. */
     --ds-radius-full: 9999px;
 
     --ds-border-width: 1px;
@@ -186,30 +224,49 @@
   }
 
   /*
-   * Density: how tall a control and a row are. data-ds-density on any element sets it for what is inside.
-   * Comfortable is the default. Each block sets the two density tokens and nothing else, and a theme cannot set them.
+   * Density: how tall a control and a row are, and how large body text is. data-ds-density on any element sets it
+   * for what is inside. Comfortable is the default. Each block sets the four density tokens and nothing else, and
+   * a theme cannot set them. Compact gives body text the dense size and line height.
    */
   [data-ds-density="compact"] {
     --ds-size-control: 28px;
     --ds-size-row: 32px;
+    --ds-text-ui: 0.8125rem;
+    --ds-leading-ui: 1.385;
   }
 
   [data-ds-density="comfortable"] {
     --ds-size-control: 36px;
     --ds-size-row: 36px;
+    --ds-text-ui: 0.875rem;
+    --ds-leading-ui: 1.5;
   }
 
   [data-ds-density="touch"] {
     --ds-size-control: 44px;
     --ds-size-row: 44px;
+    --ds-text-ui: 0.875rem;
+    --ds-leading-ui: 1.5;
   }
 
-  /* A finger needs the touch size, so on a coarse pointer the touch density applies everywhere, whatever the attribute says. */
+  /*
+   * A finger needs the touch size, so on a coarse pointer the touch density applies everywhere, whatever the
+   * attribute says, and a screen held in the hand needs larger type, so every type size is one pixel (0.0625rem) larger.
+   */
   @media (pointer: coarse) {
     :root,
     [data-ds-density] {
       --ds-size-control: 44px;
       --ds-size-row: 44px;
+      --ds-text-2xs: 0.75rem;
+      --ds-text-xs: 0.8125rem;
+      --ds-text-sm: 0.875rem;
+      --ds-text-mono: 0.875rem;
+      --ds-text-ui: 0.9375rem;
+      --ds-text-lg: 1.0625rem;
+      --ds-text-xl: 1.3125rem;
+      --ds-text-2xl: 1.6875rem;
+      --ds-leading-ui: 1.5;
     }
   }
 }

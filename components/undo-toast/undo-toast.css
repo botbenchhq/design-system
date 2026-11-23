@@ -16,6 +16,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
   }
 
   /* A native progress element. Its value is the time left, which the app lowers as the time runs out. */
@@ -23,7 +24,7 @@
     flex: none;
     width: 100%;
     height: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border);
     color: var(--ds-color-accent);
     overflow: hidden;

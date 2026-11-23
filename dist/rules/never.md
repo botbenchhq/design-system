@@ -37,7 +37,7 @@ Why: they are the defaults every generated interface reaches for. The typeface c
 Why: each line starts in a different place, so long centred text is hard to read. Align body text to the start and centre only a short line. Caught by `centred-body-text`.
 
 **Off-scale sizes.**
-Why: a size outside the scales makes screens drift apart by a pixel at a time. Use the spacing, type and radius tokens. Caught by `off-scale-spacing`, `off-scale-font-size`, `off-scale-radius`, `off-scale-utility` and `arbitrary-value`.
+Why: a size outside the scales makes screens drift apart by a pixel at a time, and a type size written in px ignores the font size the reader chose. Use the spacing, type and radius tokens, and write no length by hand, even one equal to a step. Caught by `off-scale-spacing`, `off-scale-font-size`, `off-scale-radius`, `off-scale-utility` and `arbitrary-value`.
 
 ## Layout and emphasis
 

@@ -22,6 +22,8 @@
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     box-shadow: var(--ds-shadow-overlay);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* Set only while open, so a closed menu stays hidden. */
@@ -65,9 +67,10 @@
   .ds-menu__label {
     padding: var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
     overflow-wrap: anywhere;
   }
 

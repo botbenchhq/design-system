@@ -20,7 +20,7 @@
   "accessibility": [
     "The block is a div with aria-live=\"polite\" and aria-atomic=\"true\". Keep it in the page on every screen and change only what it holds, so a screen reader announces the new sentence when the count changes without moving focus.",
     "While approvals wait, it holds one link, ds-pending-tray__link, to the queue. The link text is the whole sentence: the count in ds-pending-tray__count, then approval waiting or approvals waiting. Never show the count alone.",
-    "The filled box around the count is decoration. The sentence carries the meaning, so the count is never colour alone.",
+    "The filled pill around the count is decoration. The sentence carries the meaning, so the count is never colour alone.",
     "When nothing waits, either leave the block empty, which hides the tray and keeps the live region, or show ds-pending-tray__text reading No approvals waiting. Use the same quiet text while the count is loading and when it could not be read, and say which in words.",
     "The link is reached with Tab and followed with Enter. The app sets the count, the wording and the link's href, and nothing else."
   ],

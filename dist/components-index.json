@@ -122,7 +122,7 @@
     "name": "avatar",
     "kind": "component",
     "title": "Avatar",
-    "purpose": "A small square mark for a person or an agent, holding initials, an icon or an image, with the name beside it.",
+    "purpose": "A small round mark for a person or an agent, holding initials, an icon or an image, with the name beside it.",
     "status": "draft",
     "classes": [
       "ds-avatar",

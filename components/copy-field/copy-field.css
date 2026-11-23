@@ -22,7 +22,7 @@
     min-height: var(--ds-size-control);
     padding: 0 var(--ds-space-md);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-sunken);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-lg);

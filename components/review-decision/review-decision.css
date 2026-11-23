@@ -18,6 +18,10 @@
 
   .ds-review-decision__title {
     font-weight: var(--ds-weight-semibold);
+    font-size: var(--ds-text-lg);
+    line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   /* What each source says: a term column and a value column, one line each where it fits. */
@@ -48,8 +52,8 @@
   .ds-review-decision__caveat {
     display: block;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* Accept at the start and Reject at the far end, so a thumb aiming for one cannot land on the other. */

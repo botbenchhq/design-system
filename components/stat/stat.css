@@ -11,9 +11,10 @@
   }
 
   .ds-stat__label {
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
     overflow-wrap: anywhere;
   }
 
@@ -23,6 +24,7 @@
     font-variant-numeric: tabular-nums;
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-xl);
+    letter-spacing: var(--ds-tracking-xl);
     overflow-wrap: anywhere;
   }
 
@@ -45,10 +47,12 @@
     font-size: var(--ds-text-ui);
     font-weight: var(--ds-weight-normal);
     line-height: var(--ds-leading-ui);
+    letter-spacing: normal;
   }
 
   .ds-stat--inline > .ds-stat__value {
     font-size: var(--ds-text-ui);
     line-height: var(--ds-leading-ui);
+    letter-spacing: normal;
   }
 }

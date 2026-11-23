@@ -32,8 +32,8 @@
   .ds-radio__input {
     position: relative;
     appearance: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-lg) - var(--ds-space-xs)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -75,8 +75,8 @@
   .ds-radio__description {
     grid-column: 2;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* The error belongs to the group, after the last option. */

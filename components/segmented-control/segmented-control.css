@@ -21,7 +21,7 @@
     grid-auto-flow: column;
     padding: var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-sunken);
   }
 
@@ -41,7 +41,7 @@
     justify-content: center;
     min-width: var(--ds-size-control);
     min-height: calc(var(--ds-size-control) - var(--ds-space-xs) * 2 - var(--ds-border-width) * 2);
-    padding: calc(var(--ds-space-xs) / 2) var(--ds-space-xs);
+    padding: var(--ds-space-2xs) var(--ds-space-xs);
     text-align: center;
   }
 
@@ -59,7 +59,7 @@
     height: 100%;
     border-width: var(--ds-border-width);
     border-color: transparent;
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     cursor: pointer;
     transition-property: background-color, border-color;
     transition-duration: var(--ds-duration-fast);
@@ -74,10 +74,12 @@
     inset-inline: calc(var(--ds-border-width) * -1);
   }
 
-  /* Over the radio, and never in the way of a press on it. */
+  /* Over the radio, and never in the way of a press on it. The dense size, so five short labels fit a phone on one line each. */
   .ds-segmented-control__label {
     position: relative;
     min-width: 0;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
     pointer-events: none;
   }

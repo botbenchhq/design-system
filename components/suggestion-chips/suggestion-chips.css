@@ -16,6 +16,7 @@
   /* On the same element as ds-button: lighter, see-through and set from the start, so it reads as a prompt and not as the view's action. */
   .ds-suggestion-chips__chip {
     justify-content: flex-start;
+    border-radius: var(--ds-radius-full);
     background-color: transparent;
     font-weight: var(--ds-weight-normal);
     text-align: start;

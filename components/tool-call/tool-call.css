@@ -62,6 +62,7 @@
     align-items: center;
     column-gap: var(--ds-space-md);
     min-width: 0;
+    font-variant-numeric: tabular-nums;
   }
 
   /* How the call ended, in words. With no status modifier it is plain text. */
@@ -379,9 +380,10 @@
 
   .ds-tool-call__label {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
   }
 
   /*

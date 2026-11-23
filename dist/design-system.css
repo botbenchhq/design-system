@@ -50,34 +50,72 @@
     --ds-font-ui: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
     --ds-font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
-    --ds-text-xs: 12px;
-    --ds-text-mono: 13px;
-    --ds-text-ui: 14px;
-    --ds-text-lg: 16px;
-    --ds-text-xl: 20px;
-    --ds-text-2xl: 24px;
+    /*
+     * Seven roles and mono, in rem, so they follow the reader's font-size setting (1rem is 16px unless the reader changed it).
+     * Each has a line height, and the four with tracking a tracking token. On a coarse pointer each is one pixel larger:
+     * the last block of this file.
+     */
+    /* Micro: a meta label, a table head. Weight medium, with its tracking. 11px, line 14px. */
+    --ds-text-2xs: 0.6875rem;
+    /* Caption: a badge, a timestamp. 12px, line 16px. */
+    --ds-text-xs: 0.75rem;
+    /* Dense: a row of a list, a menu, a tree, a sidebar or a table, and helper and description text. 13px, line 18px. */
+    --ds-text-sm: 0.8125rem;
+    /* A block of code. Inline code in prose is 0.93em of the text around it, set in the base layer. 13px. */
+    --ds-text-mono: 0.8125rem;
+    /* Body: transcript prose, a control's label. 14px, line 21px. A compact container sets it to the dense size. */
+    --ds-text-ui: 0.875rem;
+    /* Title: of a card, a dialog or a section. Weight semibold, with its tracking. 16px, line 22px. */
+    --ds-text-lg: 1rem;
+    /* Heading: a section of a page. Weight semibold, with its tracking. 20px, line 26px. */
+    --ds-text-xl: 1.25rem;
+    /* Display: the one title of a page. Weight semibold, with its tracking. 26px, line 30px. */
+    --ds-text-2xl: 1.625rem;
 
-    --ds-leading-xs: 1.4;
+    --ds-leading-2xs: 1.273;
+    --ds-leading-xs: 1.333;
+    --ds-leading-sm: 1.385;
     --ds-leading-mono: 1.5;
-    --ds-leading-ui: 1.4;
-    --ds-leading-lg: 1.4;
-    --ds-leading-xl: 1.25;
-    --ds-leading-2xl: 1.2;
+    --ds-leading-ui: 1.5;
+    --ds-leading-lg: 1.375;
+    --ds-leading-xl: 1.3;
+    --ds-leading-2xl: 1.154;
+
+    /* Letter spacing, for the four roles that have it. Set it wherever the size of the same name is a role's text. */
+    --ds-tracking-2xs: 0.02em;
+    --ds-tracking-lg: -0.01em;
+    --ds-tracking-xl: -0.015em;
+    --ds-tracking-2xl: -0.02em;
 
     --ds-weight-normal: 400;
     --ds-weight-medium: 500;
     --ds-weight-semibold: 600;
 
+    --ds-space-2xs: 2px;
     --ds-space-xs: 4px;
+    --ds-space-xs-sm: 6px;
     --ds-space-sm: 8px;
     --ds-space-md: 12px;
     --ds-space-lg: 16px;
+    --ds-space-lg-xl: 20px;
     --ds-space-xl: 24px;
     --ds-space-2xl: 32px;
+    --ds-space-3xl: 40px;
+    --ds-space-4xl: 64px;
 
-    --ds-radius-sm: 4px;
-    --ds-radius-md: 8px;
-    /* A circle or a pill. */
+    /*
+     * An inner radius is the outer one minus the padding between them, and never below xs: an item 4px inside
+     * a menu takes sm, a block inside a dialog takes md.
+     */
+    /* A badge, a tag, a key, the box of a checkbox. */
+    --ds-radius-xs: 4px;
+    /* A control: a button, a field, a select, a toggle, a tab. */
+    --ds-radius-sm: 6px;
+    /* A container: a card, a code block, a message, an alert, the composer box, a menu, a popover, a tooltip, a toast. */
+    --ds-radius-md: 10px;
+    /* A dialog or a sheet. */
+    --ds-radius-lg: 14px;
+    /* A circle or a pill: a chip, the segmented control, the track of a switch, an avatar, a count, the composer's Send button. */
     --ds-radius-full: 9999px;
 
     --ds-border-width: 1px;
@@ -186,30 +224,49 @@
   }
 
   /*
-   * Density: how tall a control and a row are. data-ds-density on any element sets it for what is inside.
-   * Comfortable is the default. Each block sets the two density tokens and nothing else, and a theme cannot set them.
+   * Density: how tall a control and a row are, and how large body text is. data-ds-density on any element sets it
+   * for what is inside. Comfortable is the default. Each block sets the four density tokens and nothing else, and
+   * a theme cannot set them. Compact gives body text the dense size and line height.
    */
   [data-ds-density="compact"] {
     --ds-size-control: 28px;
     --ds-size-row: 32px;
+    --ds-text-ui: 0.8125rem;
+    --ds-leading-ui: 1.385;
   }
 
   [data-ds-density="comfortable"] {
     --ds-size-control: 36px;
     --ds-size-row: 36px;
+    --ds-text-ui: 0.875rem;
+    --ds-leading-ui: 1.5;
   }
 
   [data-ds-density="touch"] {
     --ds-size-control: 44px;
     --ds-size-row: 44px;
+    --ds-text-ui: 0.875rem;
+    --ds-leading-ui: 1.5;
   }
 
-  /* A finger needs the touch size, so on a coarse pointer the touch density applies everywhere, whatever the attribute says. */
+  /*
+   * A finger needs the touch size, so on a coarse pointer the touch density applies everywhere, whatever the
+   * attribute says, and a screen held in the hand needs larger type, so every type size is one pixel (0.0625rem) larger.
+   */
   @media (pointer: coarse) {
     :root,
     [data-ds-density] {
       --ds-size-control: 44px;
       --ds-size-row: 44px;
+      --ds-text-2xs: 0.75rem;
+      --ds-text-xs: 0.8125rem;
+      --ds-text-sm: 0.875rem;
+      --ds-text-mono: 0.875rem;
+      --ds-text-ui: 0.9375rem;
+      --ds-text-lg: 1.0625rem;
+      --ds-text-xl: 1.3125rem;
+      --ds-text-2xl: 1.6875rem;
+      --ds-leading-ui: 1.5;
     }
   }
 }
@@ -389,7 +446,8 @@
 
 /*
  * Type for plain elements. Sizes are set on body, not on the root element, so
- * the root font size and every rem in an app stay as the browser has them.
+ * the root font size and every rem in an app stay as the browser has them. The
+ * type sizes are in rem, so they follow the size the reader chose in the browser.
  */
 
 @layer ds.base {
@@ -404,6 +462,15 @@
     overflow-wrap: break-word;
   }
 
+  /*
+   * A density sets the size of body text through its two tokens. A size is inherited as a length, not as the
+   * token, so the container takes the body size again from the tokens as they are inside it.
+   */
+  [data-ds-density] {
+    font-size: var(--ds-text-ui);
+    line-height: var(--ds-leading-ui);
+  }
+
   h1,
   h2,
   h3,
@@ -415,20 +482,34 @@
     font-weight: var(--ds-weight-semibold);
   }
 
+  /* A heading or a title of two lines breaks into lines of like length, not one long line and a word. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  /* Display: the one title of a page. */
   h1 {
     font-size: var(--ds-text-2xl);
     line-height: var(--ds-leading-2xl);
+    letter-spacing: var(--ds-tracking-2xl);
   }
 
-  /* The three largest sizes, each heading a step under the one before. A component that draws its own h1 keeps it above the h2 size. */
+  /* Heading, then title: each a step under the one before. A component that draws its own h1 keeps it above the h2 size. */
   h2 {
     font-size: var(--ds-text-xl);
     line-height: var(--ds-leading-xl);
+    letter-spacing: var(--ds-tracking-xl);
   }
 
   h3 {
     font-size: var(--ds-text-lg);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
   }
 
   small {
@@ -441,8 +522,26 @@
   samp,
   pre {
     font-family: var(--ds-font-mono);
+  }
+
+  /* A block of code has the mono size. */
+  pre {
     font-size: var(--ds-text-mono);
     line-height: var(--ds-leading-mono);
+  }
+
+  /*
+   * Code inside a sentence is a little under the size of the words around it, whatever that size is, because
+   * mono type reads large beside proportional type. A component that sets a size on its own code element wins.
+   */
+  code,
+  kbd,
+  samp {
+    font-size: 0.93em;
+  }
+
+  pre :where(code, kbd, samp) {
+    font-size: inherit;
   }
 
   /* A link with a class is a component and draws itself. */
@@ -531,8 +630,16 @@
   }
 
   /* After the primitives, so a gap class wins over a primitive's default. */
+  .ds-gap-2xs {
+    gap: var(--ds-space-2xs);
+  }
+
   .ds-gap-xs {
     gap: var(--ds-space-xs);
+  }
+
+  .ds-gap-xs-sm {
+    gap: var(--ds-space-xs-sm);
   }
 
   .ds-gap-sm {
@@ -547,12 +654,24 @@
     gap: var(--ds-space-lg);
   }
 
+  .ds-gap-lg-xl {
+    gap: var(--ds-space-lg-xl);
+  }
+
   .ds-gap-xl {
     gap: var(--ds-space-xl);
   }
 
   .ds-gap-2xl {
     gap: var(--ds-space-2xl);
+  }
+
+  .ds-gap-3xl {
+    gap: var(--ds-space-3xl);
+  }
+
+  .ds-gap-4xl {
+    gap: var(--ds-space-4xl);
   }
 }
 
@@ -703,9 +822,10 @@
     padding-bottom: var(--ds-space-xs);
     border-bottom-width: var(--ds-border-width);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
   }
 
   .ds-activity-feed__entries {
@@ -729,6 +849,7 @@
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-xs);
     line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -893,7 +1014,7 @@
     min-width: var(--ds-size-control);
     min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-sm);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     transition-property: background-color, color;
     transition-duration: var(--ds-duration-fast);
     transition-timing-function: var(--ds-ease);
@@ -918,6 +1039,7 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -935,8 +1057,8 @@
 
   .ds-app-header__icon {
     flex: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
   }
 
   /* A row of its own under the bar. With nothing in it, it takes no space. */
@@ -1028,6 +1150,10 @@
 
   .ds-approval__title {
     font-weight: var(--ds-weight-semibold);
+    font-size: var(--ds-text-lg);
+    line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   /* What would run, exactly. It wraps anywhere, so a long command never widens the page. */
@@ -1161,7 +1287,7 @@
     padding-block: var(--ds-space-xs);
     padding-inline: var(--ds-space-sm) var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-raised);
   }
 
@@ -1200,6 +1326,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -1210,7 +1337,7 @@
     justify-content: center;
     width: var(--ds-size-control-xs);
     height: var(--ds-size-control-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     color: var(--ds-color-muted);
     transition-property: background-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -1263,7 +1390,7 @@
     width: calc(100% - var(--ds-space-xs));
     height: var(--ds-space-xs);
     margin-bottom: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     overflow: hidden;
     background-color: var(--ds-color-border);
     color: var(--ds-color-accent);
@@ -1310,7 +1437,7 @@
 }
 
 /*
- * Avatar: a small square mark for a person or an agent, with the name beside it.
+ * Avatar: a small round mark for a person or an agent, with the name beside it.
  * The mark holds initials, an icon or an image. It is decoration next to the name, which carries the identity.
  */
 
@@ -1324,7 +1451,7 @@
     vertical-align: middle;
   }
 
-  /* A square with the small radius, on a flat surface. On an img it crops the picture to the square. */
+  /* A circle on a flat surface. On an img it crops the picture to the circle. */
   .ds-avatar__mark {
     display: inline-flex;
     flex: none;
@@ -1333,7 +1460,7 @@
     width: var(--ds-space-2xl);
     height: var(--ds-space-2xl);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-sunken);
     color: var(--ds-color-on-surface);
     font-size: var(--ds-text-xs);
@@ -1387,12 +1514,13 @@
     min-height: var(--ds-space-xl);
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-surface-sunken);
     color: var(--ds-color-on-surface);
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -1683,7 +1811,7 @@
     padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-lg);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-fill);
     color: var(--ds-color-on-surface);
     font-weight: var(--ds-weight-medium);
@@ -1712,12 +1840,17 @@
     color: var(--ds-color-danger);
   }
 
-  /* The sizes are fixed heights: they do not follow the density, so a small button is 28px in every container. */
+  /*
+   * The sizes are fixed heights: they do not follow the density, so a small button is 28px in every container.
+   * At that height the label is the dense size, and the icon sits 6px from it.
+   */
   .ds-button--small {
     min-height: var(--ds-size-control-sm);
-    padding-block: calc((var(--ds-size-control-sm) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+    gap: var(--ds-space-xs-sm);
+    padding-block: calc((var(--ds-size-control-sm) - var(--ds-text-sm) * var(--ds-leading-sm)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
-    border-radius: var(--ds-radius-sm);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* Never shorter than a button of default size, which on a coarse pointer is the taller of the two. */
@@ -1886,13 +2019,13 @@
   }
 
   .ds-button-group--attached > :first-child {
-    border-start-start-radius: var(--ds-radius-md);
-    border-end-start-radius: var(--ds-radius-md);
+    border-start-start-radius: var(--ds-radius-sm);
+    border-end-start-radius: var(--ds-radius-sm);
   }
 
   .ds-button-group--attached > :last-child {
-    border-start-end-radius: var(--ds-radius-md);
-    border-end-end-radius: var(--ds-radius-md);
+    border-start-end-radius: var(--ds-radius-sm);
+    border-end-end-radius: var(--ds-radius-sm);
   }
 
   /* Each button after the first gives up its leading border, so two borders never sit side by side. */
@@ -1952,9 +2085,10 @@
   .ds-calendar__weekday {
     height: var(--ds-space-2xl);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
     text-align: center;
   }
 
@@ -1984,7 +2118,7 @@
     inset: var(--ds-space-xs);
     border-width: var(--ds-border-width);
     border-color: currentColor;
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
   }
 
   @media (hover: hover) {
@@ -2071,10 +2205,12 @@
     min-width: 0;
     margin: 0;
     padding-block: var(--ds-space-sm);
-    font-size: var(--ds-text-ui);
+    font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
-    line-height: var(--ds-leading-ui);
+    line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   /* Pulled towards the edge, so the words of a quiet button line up with the body's text. */
@@ -2310,12 +2446,12 @@
   .ds-checkbox__input {
     position: relative;
     appearance: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-lg) - var(--ds-space-xs)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-accent);
     cursor: pointer;
@@ -2361,8 +2497,8 @@
   .ds-checkbox__description {
     grid-column: 2;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-checkbox__error {
@@ -2495,6 +2631,7 @@
     text-align: end;
     white-space: nowrap;
     user-select: none;
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-code-block__text {
@@ -2587,6 +2724,8 @@
     overflow-y: auto;
     background-color: var(--ds-color-surface-raised);
     box-shadow: var(--ds-shadow-overlay);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* Open while the input says its list is expanded, or while the message is shown in place of the list. */
@@ -2685,6 +2824,8 @@
     max-height: min(calc(var(--ds-size-row) * 8), 50dvh);
     padding: var(--ds-space-xs);
     overflow-y: auto;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-command-palette__group {
@@ -2695,9 +2836,10 @@
   .ds-command-palette__label {
     padding: var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
     overflow-wrap: anywhere;
   }
 
@@ -2781,7 +2923,7 @@
     inset-block: 0;
     inset-inline-start: 0;
     width: calc(var(--ds-border-width) * 2);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-accent);
   }
 
@@ -2920,8 +3062,10 @@
     outline: var(--ds-border-width) solid var(--ds-color-focus);
   }
 
+  /* Inside the block, a corner is the block's radius less the padding between them. */
   .ds-composer__box > .ds-composer__input {
     border-color: transparent;
+    border-radius: var(--ds-radius-sm);
     background-color: transparent;
   }
 
@@ -2945,11 +3089,19 @@
   }
 
   /*
-   * Add context, the first control of the bar: a round tonal button with no border at rest, inside the block's
+   * Add context, the first control of the bar: a tonal button with no border at rest, inside the block's
    * own edge. The selector is kept weak, so the button's hover, pressed and unavailable borders still show.
    */
   .ds-composer__bar > :where(:first-child) {
     border-color: transparent;
+  }
+
+  /*
+   * Send, and Stop in its place: the last button of the row or the bar, and the one pill among the system's
+   * buttons, so the action that sends is found by its shape.
+   */
+  .ds-composer__row > :where(button:last-child),
+  .ds-composer__bar > :where(button:last-child) {
     border-radius: var(--ds-radius-full);
   }
 
@@ -3075,6 +3227,8 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-context-list > li + li {
@@ -3273,7 +3427,7 @@
     min-height: var(--ds-size-control);
     padding: 0 var(--ds-space-md);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-sunken);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-lg);
@@ -3313,6 +3467,8 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-data-table__caption {
@@ -3329,7 +3485,7 @@
    */
   .ds-data-table :is(th, td) {
     min-width: calc(var(--ds-size-control) * 2);
-    padding: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2) var(--ds-space-sm);
+    padding: calc((var(--ds-size-row) - var(--ds-text-sm) * var(--ds-leading-sm)) / 2) var(--ds-space-sm);
     font-weight: var(--ds-weight-normal);
     text-align: start;
     vertical-align: top;
@@ -3340,9 +3496,10 @@
     border-bottom-width: var(--ds-border-width);
     border-bottom-color: var(--ds-color-border-strong);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
     vertical-align: bottom;
     white-space: nowrap;
   }
@@ -3434,7 +3591,7 @@
     min-width: var(--ds-size-control);
     min-height: var(--ds-size-row);
     margin-inline-start: calc(var(--ds-space-xs) * -1);
-    padding: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2) var(--ds-space-sm) calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2) var(--ds-space-xs);
+    padding: calc((var(--ds-size-row) - var(--ds-text-sm) * var(--ds-leading-sm)) / 2) var(--ds-space-sm) calc((var(--ds-size-row) - var(--ds-text-sm) * var(--ds-leading-sm)) / 2) var(--ds-space-xs);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     text-align: start;
@@ -3446,7 +3603,7 @@
     content: "";
     flex: none;
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    height: calc(var(--ds-text-sm) * var(--ds-leading-sm));
     background-color: currentColor;
     mask: url("icons/chevron-right.svg") center / contain no-repeat;
   }
@@ -3515,7 +3672,7 @@
     content: "";
     flex: none;
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    height: calc(var(--ds-text-sm) * var(--ds-leading-sm));
     background-color: var(--ds-color-danger);
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }
@@ -3660,7 +3817,7 @@
     margin-block: calc(var(--ds-space-md) * -1);
     margin-inline: 0 calc(var(--ds-space-md) * -1);
     padding: var(--ds-space-md);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     cursor: pointer;
   }
 
@@ -3739,7 +3896,7 @@
 
   /* A group of the code's characters, spaced so each can be read off one at a time. */
   .ds-device-code__group {
-    letter-spacing: calc(var(--ds-space-xs) / 2);
+    letter-spacing: var(--ds-space-2xs);
     white-space: nowrap;
   }
 
@@ -3751,8 +3908,8 @@
 
   .ds-device-code__note {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* The waiting line and when the code runs out. */
@@ -3783,7 +3940,7 @@
     margin: auto;
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-lg);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     box-shadow: var(--ds-shadow-overlay);
@@ -3809,7 +3966,9 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   .ds-dialog__body {
@@ -3904,6 +4063,7 @@
     font-size: var(--ds-text-mono);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-mono);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -4111,6 +4271,7 @@
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-normal);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -4262,8 +4423,10 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     /* As wide as its text, so a long word must be allowed to break for it to fit. */
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   .ds-empty-state__body {
@@ -4285,6 +4448,7 @@
     font-size: var(--ds-text-ui);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-ui);
+    letter-spacing: normal;
   }
 
   .ds-empty-state--compact .ds-empty-state__action {
@@ -4313,6 +4477,8 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   /* The icon is drawn here, as tall as the title's first line, so the failure is never marked by its wording alone. */
@@ -4489,7 +4655,7 @@
     padding-inline: var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
     font-size: var(--ds-text-lg);
     line-height: var(--ds-leading-lg);
@@ -4521,8 +4687,8 @@
 
   .ds-field__description {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-field__error {
@@ -4573,7 +4739,7 @@
     border-width: var(--ds-border-width);
     border-style: dashed;
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     color: transparent;
     cursor: pointer;
   }
@@ -4851,6 +5017,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
   }
 }
 
@@ -4891,14 +5058,12 @@
     width: var(--ds-size-control-sm);
     min-width: var(--ds-size-control-sm);
     min-height: var(--ds-size-control-sm);
-    border-radius: var(--ds-radius-sm);
   }
 
   .ds-icon-button--xsmall {
     width: var(--ds-size-control-xs);
     min-width: var(--ds-size-control-xs);
     min-height: var(--ds-size-control-xs);
-    border-radius: var(--ds-radius-sm);
   }
 
   .ds-icon-button--small[aria-pressed="true"]::after {
@@ -5007,7 +5172,9 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   .ds-inspector__close {
@@ -5023,9 +5190,10 @@
 
   .ds-inspector__heading {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
   }
 
   /* A label column and a value column, shared by every row of the section. */
@@ -5089,11 +5257,12 @@
     padding-inline: var(--ds-space-md) var(--ds-space-lg);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-full);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-ui);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }
@@ -5165,7 +5334,7 @@
     min-width: var(--ds-space-xl);
     padding-inline: var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-surface-sunken);
     color: var(--ds-color-on-surface);
     font-family: var(--ds-font-mono);
@@ -5206,9 +5375,10 @@
 
   .ds-key-value__label {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-normal);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-2xs);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
     overflow-wrap: anywhere;
   }
 
@@ -5246,9 +5416,12 @@
       align-items: baseline;
     }
 
+    /* Beside its value the label is body text, not a micro label over it. */
     .ds-key-value__label {
       font-size: var(--ds-text-ui);
+      font-weight: var(--ds-weight-normal);
       line-height: var(--ds-leading-ui);
+      letter-spacing: normal;
     }
   }
 }
@@ -5328,6 +5501,8 @@
   .ds-list {
     display: flex;
     flex-direction: column;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-list__row {
@@ -5350,7 +5525,7 @@
     align-items: center;
     gap: var(--ds-space-md);
     min-width: 0;
-    padding: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2) var(--ds-space-sm);
+    padding: calc((var(--ds-size-row) - var(--ds-text-sm) * var(--ds-leading-sm)) / 2) var(--ds-space-sm);
   }
 
   .ds-list__link {
@@ -5392,6 +5567,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -5480,6 +5656,8 @@
     border-color: var(--ds-color-border-strong);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-surface-raised);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* A group of options under a label. A rule sets each group off from the one before. */
@@ -5497,9 +5675,10 @@
   .ds-listbox__label {
     padding: var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
     overflow-wrap: anywhere;
   }
 
@@ -5540,6 +5719,7 @@
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-normal);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -5621,6 +5801,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
 
@@ -5708,6 +5889,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-log-viewer__note {
@@ -5741,6 +5923,8 @@
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     box-shadow: var(--ds-shadow-overlay);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* Set only while open, so a closed menu stays hidden. */
@@ -5784,9 +5968,10 @@
   .ds-menu__label {
     padding: var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
     overflow-wrap: anywhere;
   }
 
@@ -5870,9 +6055,10 @@
   .ds-message__label {
     flex: none;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
     line-height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
+    letter-spacing: var(--ds-tracking-2xs);
   }
 
   .ds-message__tool {
@@ -6042,6 +6228,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-message--session-start > .ds-message__body,
@@ -6171,10 +6358,13 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   .ds-notification-list__count {
     color: var(--ds-color-muted);
+    font-variant-numeric: tabular-nums;
   }
 
   /* "Unread" and "Earlier", each above its own list. */
@@ -6182,9 +6372,10 @@
     padding: var(--ds-space-md) var(--ds-space-sm) var(--ds-space-xs);
     border-bottom-width: var(--ds-border-width);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
   }
 
   /* At compact widths a row's action sits under its text, so the text keeps the width of the row. */
@@ -6382,13 +6573,13 @@
   }
 
   .ds-number-field > :first-child {
-    border-start-start-radius: var(--ds-radius-md);
-    border-end-start-radius: var(--ds-radius-md);
+    border-start-start-radius: var(--ds-radius-sm);
+    border-end-start-radius: var(--ds-radius-sm);
   }
 
   .ds-number-field > :last-child {
-    border-start-end-radius: var(--ds-radius-md);
-    border-end-end-radius: var(--ds-radius-md);
+    border-start-end-radius: var(--ds-radius-sm);
+    border-end-end-radius: var(--ds-radius-sm);
   }
 
   .ds-number-field > :not(:first-child) {
@@ -6434,8 +6625,8 @@
 
   .ds-option-picker__hint {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* One row per option. Its padding centres one line of text in a row one target tall. */
@@ -6461,8 +6652,8 @@
   .ds-option-picker__input {
     position: relative;
     appearance: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-lg) - var(--ds-space-xs)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -6534,8 +6725,8 @@
 
   .ds-option-picker__description {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -6718,7 +6909,9 @@
     font-size: var(--ds-text-2xl);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-2xl);
+    letter-spacing: var(--ds-tracking-2xl);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   .ds-page-header__description {
@@ -6745,11 +6938,12 @@
   .ds-page-header--compact .ds-page-header__title {
     font-size: var(--ds-text-lg);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
   }
 
   .ds-page-header--compact .ds-page-header__description {
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 }
 
@@ -6779,6 +6973,7 @@
     color: var(--ds-color-muted);
     text-align: center;
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-pagination__previous {
@@ -6808,7 +7003,7 @@
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-color: transparent;
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     font-variant-numeric: tabular-nums;
     transition-property: background-color, border-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -6890,8 +7085,8 @@
     width: calc(var(--ds-space-2xl) * 2);
     min-height: var(--ds-size-control);
     border-inline-start-width: var(--ds-border-width);
-    border-start-end-radius: var(--ds-radius-md);
-    border-end-end-radius: var(--ds-radius-md);
+    border-start-end-radius: var(--ds-radius-sm);
+    border-end-end-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     font-weight: var(--ds-weight-medium);
     transition-property: color;
@@ -6961,7 +7156,7 @@
     padding-inline: var(--ds-space-xs) var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-ui);
@@ -6985,7 +7180,7 @@
     }
   }
 
-  /* The count is the first word of the sentence. The filled box only makes it easy to find. */
+  /* The count is the first word of the sentence. The filled pill only makes it easy to find. */
   .ds-pending-tray__count {
     display: inline-flex;
     flex: none;
@@ -6994,12 +7189,13 @@
     min-width: var(--ds-space-xl);
     height: var(--ds-space-xl);
     padding-inline: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-accent);
     color: var(--ds-color-on-accent);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-mono);
     line-height: var(--ds-leading-mono);
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-pending-tray__text {
@@ -7129,7 +7325,7 @@
     height: var(--ds-space-xl);
     padding-inline: var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-semibold);
@@ -7180,7 +7376,7 @@
     order: 1;
     width: 100%;
     height: var(--ds-space-sm);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border);
     overflow: hidden;
     appearance: none;
@@ -7262,8 +7458,8 @@
   .ds-radio__input {
     position: relative;
     appearance: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-lg) - var(--ds-space-xs)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -7305,8 +7501,8 @@
   .ds-radio__description {
     grid-column: 2;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* The error belongs to the group, after the last option. */
@@ -7440,6 +7636,10 @@
 
   .ds-review-decision__title {
     font-weight: var(--ds-weight-semibold);
+    font-size: var(--ds-text-lg);
+    line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   /* What each source says: a term column and a value column, one line each where it fits. */
@@ -7470,8 +7670,8 @@
   .ds-review-decision__caveat {
     display: block;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* Accept at the start and Reject at the far end, so a thumb aiming for one cannot land on the other. */
@@ -7543,6 +7743,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
 
@@ -7635,6 +7836,7 @@
   /* The time, kept on one line: where the room runs out the status wraps before it, never inside it. */
   .ds-run-timeline__time {
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-run-timeline__station[data-state="done"] > .ds-run-timeline__name,
@@ -7799,7 +8001,7 @@
     justify-content: center;
     width: var(--ds-size-control);
     min-height: var(--ds-size-control);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     transition-property: color;
     transition-duration: var(--ds-duration-fast);
@@ -7840,6 +8042,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
 }
@@ -7867,7 +8070,7 @@
     grid-auto-flow: column;
     padding: var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-sunken);
   }
 
@@ -7887,7 +8090,7 @@
     justify-content: center;
     min-width: var(--ds-size-control);
     min-height: calc(var(--ds-size-control) - var(--ds-space-xs) * 2 - var(--ds-border-width) * 2);
-    padding: calc(var(--ds-space-xs) / 2) var(--ds-space-xs);
+    padding: var(--ds-space-2xs) var(--ds-space-xs);
     text-align: center;
   }
 
@@ -7905,7 +8108,7 @@
     height: 100%;
     border-width: var(--ds-border-width);
     border-color: transparent;
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     cursor: pointer;
     transition-property: background-color, border-color;
     transition-duration: var(--ds-duration-fast);
@@ -7920,10 +8123,12 @@
     inset-inline: calc(var(--ds-border-width) * -1);
   }
 
-  /* Over the radio, and never in the way of a press on it. */
+  /* Over the radio, and never in the way of a press on it. The dense size, so five short labels fit a phone on one line each. */
   .ds-segmented-control__label {
     position: relative;
     min-width: 0;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
     pointer-events: none;
   }
@@ -8116,6 +8321,8 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   /* At compact widths the control sits under the text and is as wide as the row. */
@@ -8145,8 +8352,8 @@
 
   .ds-settings-row__description {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -8246,7 +8453,7 @@
     padding-bottom: env(safe-area-inset-bottom);
     border-top-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md) var(--ds-radius-md) 0 0;
+    border-radius: var(--ds-radius-lg) var(--ds-radius-lg) 0 0;
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     box-shadow: var(--ds-shadow-overlay);
@@ -8290,7 +8497,9 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   /* An optional form around the body and the footer, when the footer's button submits the body's fields. */
@@ -8384,7 +8593,7 @@
     min-width: var(--ds-size-control);
     min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-sm) var(--ds-space-md);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     list-style: none;
     cursor: pointer;
@@ -8457,6 +8666,8 @@
 @layer ds.components {
   .ds-sidebar-nav {
     display: none;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* The column is as wide as the sidebar token says. */
@@ -8483,9 +8694,10 @@
   .ds-sidebar-nav__heading {
     padding-inline: var(--ds-space-md);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
   }
 
   .ds-sidebar-nav__items {
@@ -8589,7 +8801,7 @@
     display: block;
     height: var(--ds-space-md);
     margin-block: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border);
     animation: ds-skeleton-pulse calc(var(--ds-duration-slow) * 6) var(--ds-ease) infinite alternate;
   }
@@ -8691,7 +8903,7 @@
     top: 50%;
     inset-inline: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2);
     height: var(--ds-space-xs);
-    border-radius: var(--ds-radius-full);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border-strong);
     translate: 0 -50%;
   }
@@ -8703,7 +8915,7 @@
     appearance: none;
     width: 100%;
     height: var(--ds-size-control);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: transparent;
     cursor: pointer;
   }
@@ -8806,7 +9018,7 @@
     min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-raised);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-mono);
@@ -8868,6 +9080,7 @@
     font-family: var(--ds-font-ui);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -8951,6 +9164,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
 }
@@ -9120,9 +9334,10 @@
   }
 
   .ds-stat__label {
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
     overflow-wrap: anywhere;
   }
 
@@ -9132,6 +9347,7 @@
     font-variant-numeric: tabular-nums;
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-xl);
+    letter-spacing: var(--ds-tracking-xl);
     overflow-wrap: anywhere;
   }
 
@@ -9154,11 +9370,13 @@
     font-size: var(--ds-text-ui);
     font-weight: var(--ds-weight-normal);
     line-height: var(--ds-leading-ui);
+    letter-spacing: normal;
   }
 
   .ds-stat--inline > .ds-stat__value {
     font-size: var(--ds-text-ui);
     line-height: var(--ds-leading-ui);
+    letter-spacing: normal;
   }
 }
 
@@ -9342,6 +9560,7 @@
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
   }
 
   /* The line to the next step, from under this mark to above the next one. */
@@ -9380,8 +9599,8 @@
     margin-top: calc(var(--ds-space-sm) * -1);
     padding-bottom: var(--ds-space-sm);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -9486,6 +9705,7 @@
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
   }
 
   @keyframes ds-streaming-turn {
@@ -9520,6 +9740,7 @@
   /* On the same element as ds-button: lighter, see-through and set from the start, so it reads as a prompt and not as the view's action. */
   .ds-suggestion-chips__chip {
     justify-content: flex-start;
+    border-radius: var(--ds-radius-full);
     background-color: transparent;
     font-weight: var(--ds-weight-normal);
     text-align: start;
@@ -9581,7 +9802,7 @@
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-xl)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-border-strong);
     cursor: pointer;
@@ -9597,7 +9818,7 @@
     inset-block: calc(var(--ds-border-width) * 2);
     inset-inline-start: calc(var(--ds-border-width) * 2);
     width: calc(var(--ds-space-lg) + var(--ds-border-width) * 2);
-    border-radius: calc(var(--ds-radius-sm) / 2);
+    border-radius: var(--ds-radius-full);
     background-color: currentColor;
     transition-property: inset-inline-start;
     transition-duration: var(--ds-duration-fast);
@@ -9628,8 +9849,8 @@
   .ds-switch__description {
     grid-column: 1;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-switch__error {
@@ -9726,8 +9947,8 @@
 
   .ds-tab-bar__icon {
     flex: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
   }
 
   /* One line. A label too long for its column is cut with an ellipsis. */
@@ -9875,7 +10096,7 @@
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     font-size: var(--ds-text-xs);
@@ -9903,7 +10124,7 @@
     width: calc(var(--ds-space-xl) - var(--ds-border-width) * 2);
     height: calc(var(--ds-space-xl) - var(--ds-border-width) * 2);
     margin-inline: var(--ds-space-xs) calc(var(--ds-space-sm) * -1);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     color: var(--ds-color-muted);
     transition-property: background-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -9978,7 +10199,7 @@
     padding: var(--ds-space-xs) var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
@@ -9997,7 +10218,7 @@
     min-width: calc(var(--ds-size-control) * 2);
     min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: transparent;
     font-size: var(--ds-text-lg);
     line-height: var(--ds-leading-lg);
@@ -10113,7 +10334,7 @@
     height: calc(var(--ds-space-sm) + var(--ds-border-width));
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: calc(var(--ds-radius-sm) / 2);
+    border-radius: calc(var(--ds-radius-xs) / 2);
     background-color: var(--ds-color-surface);
   }
 
@@ -10131,6 +10352,7 @@
     column-gap: var(--ds-space-sm);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-timeline__time {
@@ -10241,7 +10463,7 @@
   /* The one action: a small button. The negative margin keeps a one-line toast as short as it is without one. */
   .ds-toast__action {
     flex: none;
-    margin-block: calc(var(--ds-space-xs) * -1.5);
+    margin-block: calc(var(--ds-space-xs-sm) * -1);
   }
 
   .ds-toast--success::before {
@@ -10362,6 +10584,7 @@
     align-items: center;
     column-gap: var(--ds-space-md);
     min-width: 0;
+    font-variant-numeric: tabular-nums;
   }
 
   /* How the call ended, in words. With no status modifier it is plain text. */
@@ -10679,9 +10902,10 @@
 
   .ds-tool-call__label {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
   }
 
   /*
@@ -10917,6 +11141,8 @@
 @layer ds.components {
   .ds-tree {
     min-width: 0;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-tree__list {
@@ -10996,6 +11222,7 @@
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-normal);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -11066,6 +11293,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
   }
 
   /* A native progress element. Its value is the time left, which the app lowers as the time runs out. */
@@ -11073,7 +11301,7 @@
     flex: none;
     width: 100%;
     height: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border);
     color: var(--ds-color-accent);
     overflow: hidden;
@@ -11141,7 +11369,7 @@
     height: var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background: var(--ds-color-surface-sunken);
     overflow: hidden;
     appearance: none;
@@ -11331,6 +11559,7 @@
   /* The count in words, directly above the results it counts. */
   .ds-filter-results__count {
     font-weight: var(--ds-weight-medium);
+    font-variant-numeric: tabular-nums;
   }
 }
 
@@ -11425,6 +11654,7 @@
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
   }
 }
 
@@ -11453,7 +11683,7 @@
   .ds-settings-page {
     display: flex;
     flex-direction: column;
-    gap: var(--ds-space-2xl);
+    gap: var(--ds-space-3xl);
     max-width: var(--ds-size-transcript);
   }
 

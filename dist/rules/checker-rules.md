@@ -15,9 +15,9 @@ No setting switches a rule off. The one exception to a rule is an inline waiver:
 | `raw-shadow` | A shadow is written by hand. | Use the overlay shadow token on an overlay, and no shadow elsewhere. |
 | `raw-z-index` | A layer number is not on the layering scale. | Use a layering token. |
 | `raw-duration` | A transition or animation time is not a duration token. | Use a duration token. |
-| `off-scale-spacing` | A margin, padding, gap or inset is not on the spacing scale. | Use a spacing token. The finding names the nearest one. |
-| `off-scale-font-size` | A font size is not on the type scale. | Use a type size token. |
-| `off-scale-radius` | A corner radius is not on the radius scale. | Use a radius token. |
+| `off-scale-spacing` | A margin, padding, gap or inset is a length written by hand, not a spacing token. | Use a spacing token: 2, 4, 6, 8, 12, 16, 20, 24, 32, 40 or 64px. The finding names the nearest one. |
+| `off-scale-font-size` | A font size is a length written by hand, in px, rem or em. A size equal to a step, such as `14px` or `0.875rem`, is reported too, because only the token follows the reader's font size, a coarse pointer and the density. | Use a type size token. The finding names the nearest one, with a rem compared at 16px. |
+| `off-scale-radius` | A corner radius is a length written by hand, not a radius token. | Use a radius token: 4px for a badge, 6px for a control, 10px for a container, 14px for a dialog or a sheet. |
 | `off-breakpoint` | A media query uses a width other than the one breakpoint. | Write the query at 768px. Style the compact layout first. |
 | `banned-gradient` | A gradient is used. | Use a flat colour token. |
 | `banned-backdrop-filter` | A backdrop filter is used. | Use an opaque surface colour token. |

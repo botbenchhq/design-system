@@ -123,7 +123,7 @@ test("a bare page renders IBM Plex Sans and IBM Plex Mono from the shipped files
   expect(await computed(page, "body", "font-size")).toBe("14px");
   expect(await computed(page, "body", "color")).toBe("rgb(23, 23, 23)");
   expect(await computed(page, "body", "background-color")).toBe("rgb(250, 250, 249)");
-  expect(await computed(page, "h1", "font-size")).toBe("24px");
+  expect(await computed(page, "h1", "font-size")).toBe("26px");
   expect(await computed(page, "h1", "font-weight")).toBe("600");
 });
 
@@ -224,7 +224,7 @@ for (const width of [390, 1280]) {
     await page.goto(`${origin}/long-words`);
     const size = async (selector) => parseFloat(await computed(page, selector, "font-size"));
     const [h1, h2, h3, body] = [await size("#plain-h1"), await size("#plain-h2"), await size("#plain-h3"), await size("body")];
-    expect([h1, h2, h3]).toEqual([24, 20, 16]);
+    expect([h1, h2, h3]).toEqual([26, 20, 16]);
     expect(h3).toBeGreaterThan(body);
     expect(await size(".ds-page-header__title")).toBeGreaterThan(h2);
     expect(await size(".ds-page-header__title")).toBe(h1);

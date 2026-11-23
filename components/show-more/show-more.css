@@ -38,7 +38,7 @@
     min-width: var(--ds-size-control);
     min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-sm) var(--ds-space-md);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     list-style: none;
     cursor: pointer;

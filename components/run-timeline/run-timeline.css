@@ -60,6 +60,7 @@
   /* The time, kept on one line: where the room runs out the status wraps before it, never inside it. */
   .ds-run-timeline__time {
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-run-timeline__station[data-state="done"] > .ds-run-timeline__name,

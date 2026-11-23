@@ -7,6 +7,8 @@
   .ds-list {
     display: flex;
     flex-direction: column;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-list__row {
@@ -29,7 +31,7 @@
     align-items: center;
     gap: var(--ds-space-md);
     min-width: 0;
-    padding: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2) var(--ds-space-sm);
+    padding: calc((var(--ds-size-row) - var(--ds-text-sm) * var(--ds-leading-sm)) / 2) var(--ds-space-sm);
   }
 
   .ds-list__link {
@@ -71,6 +73,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 

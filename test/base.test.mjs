@@ -68,6 +68,8 @@ test("every class in base/ starts with ds-", () => {
   for (const name of classes) assert.match(name, /^\.ds-/);
 });
 
+const INLINE_CODE_SIZE = "0.93em";
+
 test("base styles take colours, sizes and durations from tokens, and the only media-query width is 768px", () => {
   const widths = [];
   for (const name of baseStylesheets()) {
@@ -75,6 +77,8 @@ test("base styles take colours, sizes and durations from tokens, and the only me
     root.walkDecls((decl) => {
       const where = `${name}: ${decl.prop}: ${decl.value}`;
       assert.doesNotMatch(decl.value, /#[0-9A-Fa-f]{3,8}\b|\b(rgba?|hsla?|oklch|oklab|color-mix)\(/, where);
+      // The one length written out: code inside a sentence is a share of the text around it, which no token can say.
+      if (name === "typography.css" && decl.prop === "font-size" && decl.value === INLINE_CODE_SIZE) return;
       assert.doesNotMatch(decl.value, /\d(px|rem|em|pt|ms)\b/, where);
       // Zero is the one duration written out, for reduced motion.
       for (const duration of decl.value.match(/\b[\d.]+s\b/g) ?? []) assert.equal(duration, "0s", where);

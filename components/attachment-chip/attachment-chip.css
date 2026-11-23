@@ -18,7 +18,7 @@
     padding-block: var(--ds-space-xs);
     padding-inline: var(--ds-space-sm) var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-raised);
   }
 
@@ -57,6 +57,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -67,7 +68,7 @@
     justify-content: center;
     width: var(--ds-size-control-xs);
     height: var(--ds-size-control-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     color: var(--ds-color-muted);
     transition-property: background-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -120,7 +121,7 @@
     width: calc(100% - var(--ds-space-xs));
     height: var(--ds-space-xs);
     margin-bottom: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     overflow: hidden;
     background-color: var(--ds-color-border);
     color: var(--ds-color-accent);

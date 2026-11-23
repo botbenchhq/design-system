@@ -13,7 +13,7 @@
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     font-size: var(--ds-text-xs);
@@ -41,7 +41,7 @@
     width: calc(var(--ds-space-xl) - var(--ds-border-width) * 2);
     height: calc(var(--ds-space-xl) - var(--ds-border-width) * 2);
     margin-inline: var(--ds-space-xs) calc(var(--ds-space-sm) * -1);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     color: var(--ds-color-muted);
     transition-property: background-color, color;
     transition-duration: var(--ds-duration-fast);

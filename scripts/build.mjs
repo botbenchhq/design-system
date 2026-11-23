@@ -16,7 +16,7 @@ const MODES = ["light", "dark"];
 // Longer prefixes first, so --ds-border-width is not read as a colour named "border".
 const CATEGORIES = [
   "border-width", "breakpoint", "color", "duration", "ease", "font", "leading",
-  "radius", "shadow", "size", "space", "text", "weight", "z",
+  "radius", "shadow", "size", "space", "text", "tracking", "weight", "z",
 ];
 
 // The bundled stylesheet is tokens.css followed by these, in this order.
@@ -113,15 +113,24 @@ function categoryOf(name) {
 
 const SELECTORS = { light: ":root", dark: '[data-theme="dark"]', auto: '[data-theme="auto"]' };
 
-// Density: data-ds-density on a container sets how tall a control and a row inside it are, through these two tokens.
-// tokens.css holds one block for each density, and one inside @media (pointer: coarse) that gives every
-// element the touch density, whatever the attribute says. A theme cannot set either token.
+// Density: data-ds-density on a container sets how tall a control and a row inside it are and how large body text
+// is, through these four tokens. tokens.css holds one block for each density, and one inside @media (pointer: coarse)
+// that gives every element the touch density, whatever the attribute says, and makes every type size one pixel
+// larger. A theme cannot set any of them.
 export const DENSITY = {
   attribute: "data-ds-density",
   default: "comfortable",
   coarsePointer: "touch",
-  tokens: { control: "--ds-size-control", row: "--ds-size-row" },
+  tokens: { control: "--ds-size-control", row: "--ds-size-row", text: "--ds-text-ui", leading: "--ds-leading-ui" },
 };
+// The two of them a coarse pointer takes from the touch density. It sets the type sizes itself.
+const DENSITY_SIZES = ["--ds-size-control", "--ds-size-row"];
+// How much larger every type size is on a coarse pointer: one pixel at a 16px root.
+const COARSE_TEXT_STEP = 0.0625;
+// The weight a type role is set in, where it is not normal: the micro label, the title, the heading and the display.
+const ROLE_WEIGHTS = { "2xs": "medium", lg: "semibold", xl: "semibold", "2xl": "semibold" };
+// What a theme cannot set, by category: the type scale and the radius scale are the same under every theme.
+const THEME_FIXED = { text: "a type size", leading: "a line height", tracking: "a tracking", radius: "a radius" };
 const DENSITIES = ["compact", "comfortable", "touch"];
 const DENSITY_SELECTORS = {
   ...Object.fromEntries(DENSITIES.map((density) => [density, `[${DENSITY.attribute}="${density}"]`])),
@@ -151,31 +160,54 @@ function parseBlocks(css, file) {
   return blocks;
 }
 
-// The density blocks of tokens.css as { compact: { control, row }, comfortable: …, touch: … }. Each block sets the
-// two density tokens and nothing else, comfortable is what :root holds, touch is the touch size, and the block for
-// a coarse pointer repeats touch.
+// A type size in rem, as a number. Every type size is written in rem, so it follows the reader's font-size setting.
+function rem(name, value) {
+  const [, amount] = value.match(/^([\d.]+)rem$/) ?? [];
+  if (amount === undefined) throw new Error(`tokens.css: ${name} is ${value}. A type size is written in rem, so it follows the reader's font-size setting`);
+  return Number(amount);
+}
+
+// The density blocks of tokens.css as { compact: { control, row, text, leading }, comfortable: …, touch: … }, and the
+// type sizes of a coarse pointer as { name: value }. Each density block sets the four density tokens and nothing else,
+// comfortable is what :root holds and touch is the touch size. The block for a coarse pointer repeats the two sizes
+// of touch, makes every type size one pixel larger than :root has it, and puts the body line height back.
 function parseDensity(blocks, light) {
   const names = Object.values(DENSITY.tokens);
+  const textNames = Object.keys(light).filter((name) => categoryOf(name).category === "text");
+  for (const name of textNames) rem(name, light[name]);
+  const expected = { ...Object.fromEntries(DENSITIES.map((density) => [density, names])), coarse: [...DENSITY_SIZES, ...textNames, DENSITY.tokens.leading] };
   for (const key of Object.keys(DENSITY_SELECTORS)) {
     const block = blocks[key];
     if (!block) throw new Error(`tokens.css: the density block ${DENSITY_SELECTORS[key]} is missing`);
-    if (!same(Object.keys(block), names)) {
-      throw new Error(`tokens.css: ${DENSITY_SELECTORS[key]} sets ${Object.keys(block).join(", ")}. A density block sets ${names.join(" and ")} and nothing else`);
+    if (!same(Object.keys(block), expected[key])) {
+      throw new Error(
+        key === "coarse"
+          ? `tokens.css: the block for a coarse pointer sets ${Object.keys(block).join(", ")}. It sets ${DENSITY_SIZES.join(" and ")}, every type size and ${DENSITY.tokens.leading}, and nothing else`
+          : `tokens.css: ${DENSITY_SELECTORS[key]} sets ${Object.keys(block).join(", ")}. A density block sets ${names.join(", ")} and nothing else`,
+      );
     }
   }
-  const equal = (a, b) => names.every((name) => a[name] === b[name]);
+  const equal = (a, b, among = names) => among.every((name) => a[name] === b[name]);
   if (!equal(blocks[DENSITY.default], light)) throw new Error(`tokens.css: the ${DENSITY.default} density is the default, so its block must hold the values of :root`);
-  if (!equal(blocks.coarse, blocks[DENSITY.coarsePointer])) throw new Error(`tokens.css: the block for a coarse pointer must hold the values of the ${DENSITY.coarsePointer} density`);
-  if (names.some((name) => blocks.touch[name] !== light["--ds-size-touch"])) throw new Error("tokens.css: the touch density must hold the value of --ds-size-touch");
-  return Object.fromEntries(
-    DENSITIES.map((density) => [density, Object.fromEntries(Object.entries(DENSITY.tokens).map(([key, name]) => [key, blocks[density][name]]))]),
-  );
+  if (!equal(blocks.coarse, blocks[DENSITY.coarsePointer], DENSITY_SIZES)) throw new Error(`tokens.css: the block for a coarse pointer must hold the values of the ${DENSITY.coarsePointer} density`);
+  if (DENSITY_SIZES.some((name) => blocks.touch[name] !== light["--ds-size-touch"])) throw new Error("tokens.css: the touch density must hold the value of --ds-size-touch");
+  for (const name of textNames) {
+    const larger = `${rem(name, light[name]) + COARSE_TEXT_STEP}rem`;
+    if (blocks.coarse[name] !== larger) throw new Error(`tokens.css: on a coarse pointer ${name} is ${blocks.coarse[name]}. Every type size is one pixel larger there, so it must be ${larger}`);
+  }
+  if (blocks.coarse[DENSITY.tokens.leading] !== light[DENSITY.tokens.leading]) throw new Error(`tokens.css: the block for a coarse pointer must hold the ${DENSITY.tokens.leading} of :root`);
+  return {
+    density: Object.fromEntries(
+      DENSITIES.map((density) => [density, Object.fromEntries(Object.entries(DENSITY.tokens).map(([key, name]) => [key, blocks[density][name]]))]),
+    ),
+    coarse: Object.fromEntries(textNames.map((name) => [name, blocks.coarse[name]])),
+  };
 }
 
 export function parseTokens(css) {
   const { light, dark, density } = parseBlocks(css, "tokens.css");
   validateTheme(css, Object.keys(light));
-  return { light, dark, density: parseDensity(density, light) };
+  return { light, dark, ...parseDensity(density, light) };
 }
 
 // A theme is themes/<name>.css: values for existing token names in light and dark, in the selector shape of
@@ -197,7 +229,11 @@ export function parseTheme(name, css, defaults) {
   const blocks = parseBlocks(css, file);
   const density = Object.values(DENSITY.tokens).find((token) => [blocks.light, blocks.dark].some((block) => block && token in block));
   if (density || Object.keys(blocks.density).length > 0) {
-    throw new Error(`${file}: a theme cannot set the density${density ? `, and ${density} is one of its two tokens` : ""}. The density is the same under every theme`);
+    throw new Error(`${file}: a theme cannot set the density${density ? `, and ${density} is one of its tokens` : ""}. The density is the same under every theme`);
+  }
+  for (const token of [...Object.keys(blocks.light ?? {}), ...Object.keys(blocks.dark ?? {})]) {
+    const fixed = THEME_FIXED[categoryOf(token).category];
+    if (fixed) throw new Error(`${file}: a theme cannot set ${fixed}, and ${token} is one. The type scale and the radius scale are the same under every theme: a theme sets colours, the two font stacks and the shadow`);
   }
   for (const mode of MODES) {
     if (!blocks[mode] || Object.keys(blocks[mode]).length === 0) {
@@ -220,7 +256,7 @@ export function parseTheme(name, css, defaults) {
       blocks.dark[token] ?? blocks.light[token] ?? defaults.dark[token],
     ]),
   );
-  return { name, defaultMode: declared, own: { light: blocks.light, dark: blocks.dark }, tokens: { light, dark, density: defaults.density }, comment: css.match(/^\s*(\/\*[\s\S]*?\*\/)/)?.[1] ?? null };
+  return { name, defaultMode: declared, own: { light: blocks.light, dark: blocks.dark }, tokens: { light, dark, density: defaults.density, coarse: defaults.coarse }, comment: css.match(/^\s*(\/\*[\s\S]*?\*\/)/)?.[1] ?? null };
 }
 
 function luminance(hex) {
@@ -286,8 +322,12 @@ function tailwindPreset(groups, breakpoint) {
     borderRadius: { none: "0", ...refs("radius") },
     borderWidth: { DEFAULT: refs("border-width").DEFAULT, 0: "0" },
     fontFamily: refs("font"),
+    // A size comes with its line height, and with its tracking where the role has one.
     fontSize: Object.fromEntries(
-      Object.keys(groups.text).map((key) => [key, [refs("text")[key], refs("leading")[key]]]),
+      Object.keys(groups.text).map((key) => [
+        key,
+        [refs("text")[key], { lineHeight: refs("leading")[key], ...(key in groups.tracking ? { letterSpacing: refs("tracking")[key] } : {}) }],
+      ]),
     ),
     fontWeight: refs("weight"),
     lineHeight: refs("leading"),
@@ -323,7 +363,7 @@ function tailwindPreset(groups, breakpoint) {
 const presetTypes = (preset) => {
   const shape = (value) =>
     Array.isArray(value)
-      ? `[${value.map(() => "string").join(", ")}]`
+      ? `[${value.map(shape).join(", ")}]`
       : typeof value === "string"
         ? "string"
         : `{ ${Object.entries(value).map(([key, inner]) => `${JSON.stringify(key)}: ${shape(inner)}`).join("; ")} }`;
@@ -331,7 +371,8 @@ const presetTypes = (preset) => {
   return `declare const preset: {\n  theme: {\n${keys.join("\n")}\n  };\n};\n\nexport default preset;\n`;
 };
 
-const px = (value) => ({ value: parseFloat(value), unit: "px" });
+// A length as the token data holds it. A type size is in rem and a tracking in em; every other length is in px.
+const px = (value) => ({ value: parseFloat(value), unit: value.match(/(rem|em)$/)?.[1] ?? "px" });
 
 function srgb(hex) {
   const components = [1, 3, 5].map((at) => Math.round((parseInt(hex.slice(at, at + 2), 16) / 255) * 10000) / 10000);
@@ -352,6 +393,8 @@ const DTCG = {
   color: ["color", (_, value) => srgb(value)],
   font: ["fontFamily", (_, value) => fontStack(value)],
   text: ["dimension", (_, value) => px(value)],
+  // The format's dimension has no em, so a tracking travels as the number of ems.
+  tracking: ["number", (_, value) => parseFloat(value)],
   leading: ["number", (_, value) => Number(value)],
   weight: ["fontWeight", (_, value) => Number(value)],
   space: ["dimension", (_, value) => px(value)],
@@ -378,6 +421,10 @@ function tokenData(groups, tokens) {
       const density = Object.keys(DENSITY.tokens).find((part) => DENSITY.tokens[part] === name);
       if (density) {
         token.$extensions = { "design-system": { density: Object.fromEntries(Object.entries(tokens.density).map(([level, parts]) => [level, convert(name, parts[density])])) } };
+      }
+      // And a type size's value on a coarse pointer.
+      if (name in tokens.coarse) {
+        token.$extensions = { "design-system": { ...token.$extensions?.["design-system"], "coarse-pointer": convert(name, tokens.coarse[name]) } };
       }
       data[category][key] = token;
     }
@@ -408,8 +455,9 @@ function designTokens(groups, tokens, name = "Design system") {
     typography[key] = {
       fontFamily: quote(fontStack(tokens.light[family])[0]),
       fontSize: tokens.light[name],
-      fontWeight: tokens.light[groups.weight.normal],
+      fontWeight: tokens.light[groups.weight[ROLE_WEIGHTS[key] ?? "normal"]],
       lineHeight: tokens.light[groups.leading[key]],
+      ...(key in groups.tracking ? { letterSpacing: tokens.light[groups.tracking[key]] } : {}),
     };
   }
   const block = {
@@ -429,6 +477,8 @@ function designTokens(groups, tokens, name = "Design system") {
     sizes: values("size"),
     // What sizes.control and sizes.row are under each data-ds-density. A coarse pointer always gets one of them.
     density: { ...tokens.density, default: DENSITY.default, "coarse-pointer": DENSITY.coarsePointer },
+    // Every type size on a coarse pointer: one pixel larger.
+    "typography-coarse-pointer": Object.fromEntries(Object.entries(groups.text).map(([key, name]) => [key, tokens.coarse[name]])),
     breakpoint: tokens.light[groups.breakpoint.DEFAULT],
   };
   return `---\n${yaml(block)}---\n`;
@@ -503,7 +553,12 @@ function manifest(groups, tokens, classes, rules) {
       .filter((value) => value !== undefined);
   }
   // A density token also holds its value under each density.
-  values.size = [...new Set([...values.size, ...Object.values(tokens.density).flatMap((parts) => Object.values(parts))])];
+  for (const [part, name] of Object.entries(DENSITY.tokens)) {
+    const { category } = categoryOf(name);
+    values[category] = [...new Set([...values[category], ...Object.values(tokens.density).map((parts) => parts[part])])];
+  }
+  // And a type size its value on a coarse pointer.
+  values.text = [...new Set([...values.text, ...Object.values(tokens.coarse)])];
   return {
     prefix: "ds",
     layers: LAYERS,
@@ -512,6 +567,8 @@ function manifest(groups, tokens, classes, rules) {
     values,
     // The attribute that sets the density of a container, and what its two tokens hold under each value.
     density: { ...DENSITY, values: tokens.density },
+    // Every type size on a coarse pointer, where each is one pixel larger.
+    coarsePointer: { text: tokens.coarse },
     utilities: {
       ...UTILITIES,
       spacingKeys: ["0", ...Object.keys(groups.space)],

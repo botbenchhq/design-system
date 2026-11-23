@@ -22,7 +22,7 @@
     padding-inline: var(--ds-space-xs) var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-ui);
@@ -46,7 +46,7 @@
     }
   }
 
-  /* The count is the first word of the sentence. The filled box only makes it easy to find. */
+  /* The count is the first word of the sentence. The filled pill only makes it easy to find. */
   .ds-pending-tray__count {
     display: inline-flex;
     flex: none;
@@ -55,12 +55,13 @@
     min-width: var(--ds-space-xl);
     height: var(--ds-space-xl);
     padding-inline: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-accent);
     color: var(--ds-color-on-accent);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-mono);
     line-height: var(--ds-leading-mono);
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-pending-tray__text {

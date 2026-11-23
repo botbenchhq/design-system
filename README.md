@@ -195,12 +195,12 @@ A theme is one hand-written file, [`themes/<name>.css`](themes/botbench.css), th
 
 The build stops, naming the theme, when it:
 
-- sets a name that is not one of the 69 tokens;
+- sets a name that is not one of the 92 tokens, or sets a type size, a line height, a tracking, a radius or a density token;
 - lacks light or dark values, or its dark and `auto` blocks differ;
 - uses a colour that is not six-digit hex;
 - fails any of the 55 foreground and background pairs in [`tokens/pairs.json`](tokens/pairs.json) in either mode: 4.5:1 for text, 3:1 for borders and focus rings.
 
-A theme may declare a default mode. Botbench, the worked example and the one theme shipped, is dark by default. It sets the platform's own typeface, neutral grey surfaces a clear step apart, a near-white primary action in dark and near-black in light, a blue focus ring, a 22px medium radius that makes a normal button a pill, and its own colours for each status. The header of [`themes/botbench.css`](themes/botbench.css) explains each choice.
+A theme may declare a default mode. Botbench, the worked example and the one theme shipped, is dark by default. It sets the platform's own typeface, neutral grey surfaces a clear step apart, a near-white primary action in dark and near-black in light, a blue focus ring, and its own colours for each status. The type scale and the radius scale are the system's under every theme. The header of [`themes/botbench.css`](themes/botbench.css) explains each choice.
 
 To change the look of every app: edit the theme here, run `npm run build`, and each app runs its sync. The build writes four files per theme to `dist/themes/`: the stylesheet, the theme's name and default mode with the `theme-color` of each mode, a token block for an app's `DESIGN.md`, and the tokens as data. "[Themes](docs/consumer-guide.md#12-themes)" in the consumer guide has the details.
 
@@ -252,7 +252,7 @@ The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five def
 - The checker does not check `data-state` values, accessible names, `alt` text or whether a badge's tone matches its word.
 - The typed React layer covers the busy button, the dialog, confirm dialog and sheet, the approval card, the menu's keyboard and the transcript. Tabs, the combobox, the listbox and the command palette have no React piece: an app uses the behaviour modules or wires them by hand.
 - The audit judged the Botbench theme's identity generic (brand distinctiveness 4 out of 10). 0.8.0 replaced that theme's look and gave it a focus ring distinct from the accent; the new look has not been audited.
-- Sizes are built with `calc()` on tokens in places, which the checker does not limit, and type sizes are in pixels.
+- Sizes are built with `calc()` on tokens in places, which the checker does not limit.
 - The stylesheet is one 338 KB file (about 63 KB compressed) with no way to load part of it.
 
 ## Help and contributing

@@ -14,12 +14,13 @@
     min-height: var(--ds-space-xl);
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-surface-sunken);
     color: var(--ds-color-on-surface);
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 

@@ -63,6 +63,7 @@
     text-align: end;
     white-space: nowrap;
     user-select: none;
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-code-block__text {

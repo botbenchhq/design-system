@@ -34,7 +34,7 @@ Nothing else needs editing. `npm run build` reads every folder and adds the comp
 - Every rule is inside `@layer ds.components`.
 - Class names are `ds-<name>` for the block, `ds-<name>__part` for an element inside it and `ds-<name>--variant` for a variant or size. A stylesheet defines no class outside its own name.
 - One element may carry the classes of two components when one composes the other. A textarea and a select are the control of a field, so each sits on the same element as `ds-field__control` and adds to it. The build bundles component stylesheets in alphabetical order of folder name, and such a pair relies on that order: the component that adds must sort after the one it builds on.
-- Values are tokens: `var(--ds-…)` for every colour, font, type size, spacing, radius, shadow, duration and layer. Do not write a raw colour or length where a token exists, and do not declare a custom property. A calculation on a token is allowed, such as `calc(var(--ds-border-width) * 2)`.
+- Values are tokens: `var(--ds-…)` for every colour, font, type size, line height, tracking, spacing, radius, shadow, duration and layer. Do not write a raw colour or length where a token exists, and do not declare a custom property. A calculation on a token is allowed, such as `calc(var(--ds-border-width) * 2)`, but not to reach a value the scale already has: write `var(--ds-space-lg-xl)`, not `calc(var(--ds-space-lg) + var(--ds-space-xs))`.
 - No gradient, blur, backdrop filter, blend mode or text clipped to a background.
 - The only width in a media query is 768px, written as the number: `@media (min-width: 768px)`. Style the compact layout first.
 - Do not restyle the focus ring. The base layer draws one ring for every focusable element.
@@ -42,6 +42,49 @@ Nothing else needs editing. `npm run build` reads every folder and adds the comp
 - A transition names its properties and takes its duration and easing from tokens. Anything that animates on its own stops under `@media (prefers-reduced-motion: reduce)`.
 - Text inherits `overflow-wrap: break-word` from the base layer, so a long unbroken word breaks inside a block. That is not enough for an element that is only as wide as its text, or for text that is a flex item beside an icon: give those `overflow-wrap: anywhere` as well, as `ds-alert__body` and `ds-field__error` do. A browser test puts a 90-character path in the places a message lands and fails when the page scrolls sideways at 390px.
 - An icon the stylesheet draws itself is a mask over `currentColor`, from a single icon file: `mask: url("icons/loader.svg") center / contain no-repeat`. The path is relative to `dist/design-system.css`.
+
+### Type
+
+Text takes one of seven roles. A role is a size token with the line height of the same name, and four roles have a tracking token and a weight as well. The sizes are in rem, so they follow the font size the reader chose in the browser: the pixels below are at the usual 16px root. On a coarse pointer every size is one pixel larger, which the tokens do by themselves.
+
+| Role | Tokens | Size, line | Weight, tracking | Use it for |
+|---|---|---|---|---|
+| Micro | `--ds-text-2xs`, `--ds-leading-2xs`, `--ds-tracking-2xs` | 11px, 14px | medium, +0.02em | A table head, and a meta label: the heading of a group in a menu, a listbox, a sidebar or an inspector, the term of a key and value, the label of a stat. |
+| Caption | `--ds-text-xs`, `--ds-leading-xs` | 12px, 16px | normal | A badge, a tag, a key, a timestamp, a duration, a count beside a row, a tooltip. |
+| Dense | `--ds-text-sm`, `--ds-leading-sm` | 13px, 18px | normal | A row of a list, a menu, a tree, a sidebar or a table. Helper text: the description of a field, a settings row, a checkbox, a radio, a switch or an option, a hint, a caveat. A small button, and an option of the segmented control. |
+| Body | `--ds-text-ui`, `--ds-leading-ui` | 14px, 21px | normal | Prose in a transcript, a paragraph, the label of a control. It is what `body` sets, so most text sets no size. |
+| Title | `--ds-text-lg`, `--ds-leading-lg`, `--ds-tracking-lg` | 16px, 22px | semibold, -0.01em | The title of a card, a dialog, a sheet, an approval, an empty state or a section of settings. |
+| Heading | `--ds-text-xl`, `--ds-leading-xl`, `--ds-tracking-xl` | 20px, 26px | semibold, -0.015em | The heading of a section of a page, and the value of a stat. |
+| Display | `--ds-text-2xl`, `--ds-leading-2xl`, `--ds-tracking-2xl` | 26px, 30px | semibold, -0.02em | The one title of a page. One on a screen. |
+
+- Set the size, the line height and, where the role has one, the tracking together. A test fails when a rule sets `--ds-text-2xs`, `-lg`, `-xl` or `-2xl` without the tracking of the same name, or a micro label in a weight other than medium.
+- Helper text is the dense role, never the caption: on a settings screen it carries most of the words. A test fails when a class ending in `__description`, `__hint` or `__caveat` takes `--ds-text-xs`.
+- A form control is 16px below 768px, so iOS does not zoom when it takes focus. It uses `--ds-text-lg` for that size alone and takes no tracking. `ds-field__control` is the pattern.
+- `--ds-text-mono` is the size of a block of code. Code inside a sentence is `0.93em` of the text around it, which the base layer sets on `code`, `kbd` and `samp`: a component sets a size on a code element only when it is a block or a line of its own.
+- A compact container (`data-ds-density="compact"`) sets `--ds-text-ui` and `--ds-leading-ui` to the dense size and line height, so body text and the label of a control inside it are 13px on an 18px line. Work a height out from those two tokens, never from 14 and 21.
+- Every number a reader compares or that changes in place is set in tabular figures, `font-variant-numeric: tabular-nums`: a duration, an elapsed time, a count, a line total, a numeric table cell, a page number.
+- A title or a heading that may wrap takes `text-wrap: balance`. Do not use `pretty`, which Firefox does not have.
+
+### Spacing
+
+The steps are `--ds-space-2xs` (2px), `-xs` (4), `-xs-sm` (6), `-sm` (8), `-md` (12), `-lg` (16), `-lg-xl` (20), `-xl` (24), `-2xl` (32), `-3xl` (40) and `-4xl` (64). The two with a double name sit between their neighbours. 6px is the gap inside a 28px control, 20px the side of a small box such as a checkbox, and 40px and 64px part the sections of a page. Each step is also a `ds-gap-` class and a key of the Tailwind preset (`gap-xs-sm`, `p-3xl`).
+
+### Radius
+
+The radius says what kind of thing a box is, so take it from this list, not from what looks right beside its neighbour:
+
+| Token | Value | For |
+|---|---|---|
+| `--ds-radius-xs` | 4px | A badge, a tag, a key, the box of a checkbox, the bar of a meter or of a progress. |
+| `--ds-radius-sm` | 6px | A control: a button of any size, a field, a select, a textarea, an icon button, a toggle, a tab, a page number, a row that takes a press. |
+| `--ds-radius-md` | 10px | A container: a card, a code block, a diff, a message, an alert, the composer box, a menu, a listbox, a popover, a tooltip, a toast, a tool call, an approval. |
+| `--ds-radius-lg` | 14px | A dialog and a sheet. |
+| `--ds-radius-full` | a pill | A chip (filter, suggestion, source, attachment), the segmented control and its options, the track and thumb of a switch, an avatar, a count, and Send in the composer. |
+
+- An inner radius is the outer one minus the padding between them, and never below `xs`. An item 4px inside a menu is `sm` (10 less 4), a block inside a card or a message is `sm`, the mark 4px inside a calendar day is `xs`. The scale is built so the answer is a token.
+- The pill is for the shapes in the last row only. A circle is the other use of the same token, for a mark that is round because of what it is: a radio and its dot, an unread dot, the number of a step. A test lists both and fails on any other use.
+- A box that runs edge to edge has no radius: a banner, a row between two rules, the sheet at its lower edge.
+- A textarea is a field, 6px, which leaves the resize grip clear of the corner.
 
 ### State
 
@@ -74,7 +117,7 @@ A pointer target is at least 44px in both directions on a coarse pointer, such a
 | `--ds-size-row` | The least height of a row in a list, a menu, a tree or a table. | 36px by default, 32px in a compact container, 44px in a touch one and on every coarse pointer |
 | `--ds-size-touch` | The hit area of a control drawn smaller, on a coarse pointer only. | 44px |
 
-The first two follow the density, which `data-ds-density` sets on any container: `compact`, `comfortable` (the default) or `touch`. Under `@media (pointer: coarse)` both are the touch size everywhere, whatever the attribute says. The blocks that do this are in `tokens/tokens.css`; a component only reads the tokens, and a theme cannot set them.
+The first two follow the density, which `data-ds-density` sets on any container: `compact`, `comfortable` (the default) or `touch`. Compact also sets body text to the dense size, through `--ds-text-ui` and `--ds-leading-ui`. Under `@media (pointer: coarse)` both sizes are the touch size everywhere, whatever the attribute says, and every type size is one pixel larger. The blocks that do this are in `tokens/tokens.css`; a component only reads the tokens, and a theme cannot set them.
 
 One line of text is centred in a control or a row by block padding worked out from the same token, never by a fixed padding that only fits one density:
 
@@ -85,7 +128,7 @@ One line of text is centred in a control or a row by block padding worked out fr
 }
 ```
 
-A size variant is a fixed height that does not follow the density: `--ds-size-control-xs` (24px), `-sm` (28px), `-md` (32px) and `-lg` (40px). Nothing interactive is smaller than 24px in either direction. A control drawn smaller than the touch size reaches 44px on a coarse pointer through a padded hit area: an invisible box centred on the control that takes the press without adding height to the row. It is written inside `@media (pointer: coarse)`, which is the only place a component uses `--ds-size-touch`, and a test checks that. `ds-button--small` is the pattern.
+A size variant is a fixed height that does not follow the density: `--ds-size-control-xs` (24px), `-sm` (28px), `-md` (32px) and `-lg` (40px). A small button sets its label in the dense role, with the padding worked out from `--ds-text-sm` and `--ds-leading-sm`. Nothing interactive is smaller than 24px in either direction. A control drawn smaller than the touch size reaches 44px on a coarse pointer through a padded hit area: an invisible box centred on the control that takes the press without adding height to the row. It is written inside `@media (pointer: coarse)`, which is the only place a component uses `--ds-size-touch`, and a test checks that. `ds-button--small` is the pattern.
 
 ```css
 .ds-button { position: relative; }
@@ -186,9 +229,9 @@ In the gallery a pattern has a page of its own, listed after the components on t
 
 ## Themes
 
-A component never knows which theme is loaded. It takes every value from a token, so a theme in `themes/` restyles it by changing token values, and the component needs nothing for it. Do not test for a theme in a stylesheet, and do not add a token for one component.
+A component never knows which theme is loaded. It takes every value from a token, so a theme in `themes/` restyles it by changing token values, and the component needs nothing for it. A theme sets colours, the two font stacks and the shadow. It cannot set a type size, a line height, a tracking, a radius or a density token: those scales are the same under every theme, and the build fails, naming the token, when a theme sets one. Do not test for a theme in a stylesheet, and do not add a token for one component.
 
-A theme is `themes/<name>.css`: values for existing token names in light and dark, in the selector shape of `tokens/tokens.css`, inside `@layer ds.theme`. "Default mode: dark" in its first comment makes a page with no `data-theme` dark. The build checks that it adds no name, sets both modes and passes every pair in `tokens/pairs.json` in both modes, then writes its stylesheet, its token block, its token data and its summary to `dist/themes/`. `docs/consumer-guide.md` has the full list of checks.
+A theme is `themes/<name>.css`: values for existing token names in light and dark, in the selector shape of `tokens/tokens.css`, inside `@layer ds.theme`. "Default mode: dark" in its first comment makes a page with no `data-theme` dark. The build checks that it adds no name, sets no size or radius, sets both modes and passes every pair in `tokens/pairs.json` in both modes, then writes its stylesheet, its token block, its token data and its summary to `dist/themes/`. `docs/consumer-guide.md` has the full list of checks.
 
 A new status colour is a token, added to `tokens/tokens.css` with its pairs in `tokens/pairs.json`, and then given a value in every theme, since the build checks each theme against every pair.
 

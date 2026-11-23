@@ -53,7 +53,7 @@
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-xl)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-border-strong);
     cursor: pointer;
@@ -69,7 +69,7 @@
     inset-block: calc(var(--ds-border-width) * 2);
     inset-inline-start: calc(var(--ds-border-width) * 2);
     width: calc(var(--ds-space-lg) + var(--ds-border-width) * 2);
-    border-radius: calc(var(--ds-radius-sm) / 2);
+    border-radius: var(--ds-radius-full);
     background-color: currentColor;
     transition-property: inset-inline-start;
     transition-duration: var(--ds-duration-fast);
@@ -100,8 +100,8 @@
   .ds-switch__description {
     grid-column: 1;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-switch__error {

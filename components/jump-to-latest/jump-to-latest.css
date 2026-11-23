@@ -27,11 +27,12 @@
     padding-inline: var(--ds-space-md) var(--ds-space-lg);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-full);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-ui);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }

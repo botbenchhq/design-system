@@ -10,7 +10,7 @@
     min-width: var(--ds-space-xl);
     padding-inline: var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-surface-sunken);
     color: var(--ds-color-on-surface);
     font-family: var(--ds-font-mono);

@@ -19,9 +19,10 @@
 
   .ds-key-value__label {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-normal);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-2xs);
+    font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
     overflow-wrap: anywhere;
   }
 
@@ -59,9 +60,12 @@
       align-items: baseline;
     }
 
+    /* Beside its value the label is body text, not a micro label over it. */
     .ds-key-value__label {
       font-size: var(--ds-text-ui);
+      font-weight: var(--ds-weight-normal);
       line-height: var(--ds-leading-ui);
+      letter-spacing: normal;
     }
   }
 }

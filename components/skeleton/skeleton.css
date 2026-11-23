@@ -18,7 +18,7 @@
     display: block;
     height: var(--ds-space-md);
     margin-block: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border);
     animation: ds-skeleton-pulse calc(var(--ds-duration-slow) * 6) var(--ds-ease) infinite alternate;
   }

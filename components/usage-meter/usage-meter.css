@@ -46,7 +46,7 @@
     height: var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background: var(--ds-color-surface-sunken);
     overflow: hidden;
     appearance: none;

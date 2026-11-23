@@ -9,6 +9,8 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-context-list > li + li {

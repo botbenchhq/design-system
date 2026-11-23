@@ -12,7 +12,7 @@ Read the guidelines there. This file records only what this system adds to them 
 - **Use the behaviour the platform already has.** A native button, input, select, details element, dialog and popover come with keyboard handling, focus and accessibility. Use them before inventing a control. Do not build a custom scroll, a custom select or a custom focus ring.
 - **Consistency comes from the catalogue.** The same need gets the same component on every screen of every app. A screen that needs something new declares it as a gap. It does not restyle an existing component.
 - **Elevation is a background shift or a 1px border.** Only an overlay, such as a menu, a popover, a dialog or a toast, takes the shadow token.
-- **Density suits the task.** Boards, transcripts and diffs are dense. Forms and decisions have room around them. `data-ds-density` on a container sets how tall the controls and rows inside it are: compact is 28px controls and 32px rows, comfortable, the default, 36px for both, and touch 44px for both. On a coarse pointer everything is the touch density, whatever the attribute says, so never set a height to undo it.
+- **Density suits the task.** Boards, transcripts and diffs are dense. Forms and decisions have room around them. `data-ds-density` on a container sets how tall the controls and rows inside it are: compact is 28px controls, 32px rows and 13px body text, comfortable, the default, 36px for both with 14px text, and touch 44px for both. On a coarse pointer everything is the touch density and every type size one pixel larger, whatever the attribute says, so never set a height or a size to undo it.
 
 ## Structure, not Apple's look
 

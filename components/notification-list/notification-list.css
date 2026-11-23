@@ -33,10 +33,13 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   .ds-notification-list__count {
     color: var(--ds-color-muted);
+    font-variant-numeric: tabular-nums;
   }
 
   /* "Unread" and "Earlier", each above its own list. */
@@ -44,9 +47,10 @@
     padding: var(--ds-space-md) var(--ds-space-sm) var(--ds-space-xs);
     border-bottom-width: var(--ds-border-width);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-2xs);
+    letter-spacing: var(--ds-tracking-2xs);
   }
 
   /* At compact widths a row's action sits under its text, so the text keeps the width of the row. */

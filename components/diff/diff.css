@@ -39,6 +39,7 @@
     font-size: var(--ds-text-mono);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-mono);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 

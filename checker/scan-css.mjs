@@ -2,7 +2,7 @@
 
 import { OLD_PREFIX, classFindings, oldNames } from "./classes.mjs";
 import { parseCss } from "./parse-css.mjs";
-import { nearestColorToken, nearestNumericToken } from "./vocabulary.mjs";
+import { isTokenAmount, nearestColorToken, nearestNumericToken } from "./vocabulary.mjs";
 
 const NEUTRAL = new Set(["inherit", "initial", "unset", "revert", "revert-layer"]);
 const MATH = new Set(["calc", "min", "max", "clamp", "+", "-", "*", "/"]);
@@ -185,7 +185,8 @@ export function scanCss(text, { file, vocabulary, appPrefix, gapClasses, lineOff
     return null;
   }
 
-  // A property whose lengths must come from one token scale.
+  // A property whose lengths must come from one token scale. A length written by hand is reported even when it
+  // equals a step, in px or in rem: only the token follows the reader's font size, a coarse pointer and the density.
   function scaleCategory(rule, tokenCategory, scaleName, allowPercent, keywords = []) {
     const fix = `Use a token from ${scaleName}.`;
     return { rule, fix, check: (property, rest, line) => {
@@ -197,7 +198,11 @@ export function scanCss(text, { file, vocabulary, appPrefix, gapClasses, lineOff
         if (allowPercent && /^-?[\d.]+%$/.test(word)) continue;
         const size = pixels(word);
         const nearest = size === null ? null : nearestNumericToken(vocabulary, tokenCategory, size);
-        add(line, rule, `${property} uses ${word}, which is not on ${scaleName}.`, nearest ? `${fix} Nearest: ${nearest}` : fix);
+        if (size !== null && isTokenAmount(vocabulary, tokenCategory, size)) {
+          add(line, rule, `${property} uses ${word}, a step of ${scaleName} written by hand.`, `Write the token: ${nearest}`);
+        } else {
+          add(line, rule, `${property} uses ${word}, which is not on ${scaleName}.`, nearest ? `${fix} Nearest: ${nearest}` : fix);
+        }
       }
     } };
   }

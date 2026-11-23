@@ -1,6 +1,6 @@
 /*
- * Botbench: a calm, native-feeling theme. The platform's own typeface, tonal filled surfaces, pill-shaped
- * controls and a monochrome primary action.
+ * Botbench: a calm, native-feeling theme. The platform's own typeface, tonal filled surfaces and a
+ * monochrome primary action.
  * Default mode: dark.
  *
  * With no data-theme attribute the page is dark. data-theme="light", "dark" and "auto" work as they do
@@ -8,16 +8,17 @@
  * the layer order puts after ds.tokens.
  *
  *   type      system-ui, so an Apple device sets the app in SF Pro and SF Mono as its own apps are, Windows
- *             in Segoe UI and Android in Roboto. ui 15px, lg 17, xl 22, 2xl 28. This theme is the one
- *             exception to the rule against system-ui in rules/never.md; an app does not set a font itself.
+ *             in Segoe UI and Android in Roboto. The sizes, line heights and tracking are the system's: a
+ *             theme sets the two font stacks and no size. This theme is the one exception to the rule against
+ *             system-ui in rules/never.md; an app does not set a font itself.
  *   accent    near-white in dark and near-black in light, as a chat app's Send button. The primary action
  *             is told apart by its fill, the one solid shape on the screen. The accent is never a status.
  *   focus     a system blue, so the ring is never mistaken for the accent or a status.
  *   surfaces  neutral greys with no warm or cool cast. surface-raised is a clear step above surface, so a
  *             block reads by its fill.
  *   border    almost the colour of surface-raised, so outlines all but vanish; border-strong stays at 3:1.
- *   radius    radius-md 22px, half the 44px control height, so a button of normal size is a pill and a card
- *             or the composer is generously round. radius-sm 10px. radius-full is unchanged.
+ *   radius    the system's scale, which a theme does not set: 4px for a badge, 6px for a control, 10px for a
+ *             card, 14px for a dialog, and a pill only for a chip, the segmented control, a switch and Send.
  *   status    success, warning, danger, info, approval, blocked, peer and tainted keep the values of the
  *             amber theme before 0.8.0. Approval is amber with the paused circle, warning lemon in dark and
  *             olive in light, tainted input orange. A status always carries its icon and its word.
@@ -55,16 +56,6 @@
     --ds-color-peer-subtle: #DCF5FE;
     --ds-color-tainted: #BC4100;
     --ds-color-tainted-subtle: #FFEBE5;
-    --ds-radius-sm: 10px;
-    --ds-radius-md: 22px;
-    --ds-text-xs: 12px;
-    --ds-text-mono: 13px;
-    --ds-text-ui: 15px;
-    --ds-text-lg: 17px;
-    --ds-text-xl: 22px;
-    --ds-text-2xl: 28px;
-    --ds-leading-ui: 1.45;
-    --ds-leading-lg: 1.4;
   }
 
   [data-theme="dark"] {

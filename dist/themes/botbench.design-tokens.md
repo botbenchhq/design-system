@@ -60,51 +60,72 @@ colors-dark:
   tainted: "#FB7C2E"
   tainted-subtle: "#341C0F"
 typography:
+  2xs:
+    fontFamily: "system-ui"
+    fontSize: 0.6875rem
+    fontWeight: 500
+    lineHeight: 1.273
+    letterSpacing: 0.02em
   xs:
     fontFamily: "system-ui"
-    fontSize: 12px
+    fontSize: 0.75rem
     fontWeight: 400
-    lineHeight: 1.4
+    lineHeight: 1.333
+  sm:
+    fontFamily: "system-ui"
+    fontSize: 0.8125rem
+    fontWeight: 400
+    lineHeight: 1.385
   mono:
     fontFamily: "ui-monospace"
-    fontSize: 13px
+    fontSize: 0.8125rem
     fontWeight: 400
     lineHeight: 1.5
   ui:
     fontFamily: "system-ui"
-    fontSize: 15px
+    fontSize: 0.875rem
     fontWeight: 400
-    lineHeight: 1.45
+    lineHeight: 1.5
   lg:
     fontFamily: "system-ui"
-    fontSize: 17px
-    fontWeight: 400
-    lineHeight: 1.4
+    fontSize: 1rem
+    fontWeight: 600
+    lineHeight: 1.375
+    letterSpacing: -0.01em
   xl:
     fontFamily: "system-ui"
-    fontSize: 22px
-    fontWeight: 400
-    lineHeight: 1.25
+    fontSize: 1.25rem
+    fontWeight: 600
+    lineHeight: 1.3
+    letterSpacing: -0.015em
   2xl:
     fontFamily: "system-ui"
-    fontSize: 28px
-    fontWeight: 400
-    lineHeight: 1.2
+    fontSize: 1.625rem
+    fontWeight: 600
+    lineHeight: 1.154
+    letterSpacing: -0.02em
 fontWeights:
   normal: 400
   medium: 500
   semibold: 600
 rounded:
-  sm: 10px
-  md: 22px
+  xs: 4px
+  sm: 6px
+  md: 10px
+  lg: 14px
   full: 9999px
 spacing:
+  2xs: 2px
   xs: 4px
+  xs-sm: 6px
   sm: 8px
   md: 12px
   lg: 16px
+  lg-xl: 20px
   xl: 24px
   2xl: 32px
+  3xl: 40px
+  4xl: 64px
 borderWidth: 1px
 elevation:
   overlay: "0 8px 24px 0 rgb(0 0 0 / 0.16)"
@@ -138,13 +159,28 @@ density:
   compact:
     control: 28px
     row: 32px
+    text: 0.8125rem
+    leading: 1.385
   comfortable:
     control: 36px
     row: 36px
+    text: 0.875rem
+    leading: 1.5
   touch:
     control: 44px
     row: 44px
+    text: 0.875rem
+    leading: 1.5
   default: comfortable
   coarse-pointer: touch
+typography-coarse-pointer:
+  2xs: 0.75rem
+  xs: 0.8125rem
+  sm: 0.875rem
+  mono: 0.875rem
+  ui: 0.9375rem
+  lg: 1.0625rem
+  xl: 1.3125rem
+  2xl: 1.6875rem
 breakpoint: 768px
 ---

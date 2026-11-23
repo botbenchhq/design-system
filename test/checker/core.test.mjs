@@ -42,6 +42,30 @@ test("an off-scale padding fails, and a spacing token or zero passes", () => {
   assert.match(report.findings[0].fix, /var\(--ds-space-md\)/);
 });
 
+test("a font size written by hand fails in px, rem and em, on a step of the scale or off it, and a type size token passes", () => {
+  const { status, report } = checkJson(["css/font-size.css"]);
+  assert.equal(status, 1);
+  const sizes = report.findings.filter((finding) => finding.rule === "off-scale-font-size");
+  assert.deepEqual(brief(sizes), [2, 5, 8, 11, 14].map((line) => `css/font-size.css:${line} off-scale-font-size`));
+  // A step of the scale written by hand is named as one, in px and in rem alike, with the token to write.
+  assert.match(sizes[0].message, /font-size uses 14px, a step of the type scale written by hand/);
+  assert.equal(sizes[0].fix, "Write the token: var(--ds-text-ui)");
+  assert.match(sizes[1].message, /font-size uses 0\.875rem, a step of the type scale written by hand/);
+  assert.equal(sizes[1].fix, "Write the token: var(--ds-text-ui)");
+  // An off-scale size names the nearest step, with a rem compared in pixels: 15px is nearer 14px than 16px, 0.9rem is 14.4px.
+  assert.match(sizes[2].message, /font-size uses 15px, which is not on the type scale/);
+  assert.match(sizes[2].fix, /Nearest: var\(--ds-text-(?:ui|lg)\)/);
+  assert.match(sizes[3].fix, /Nearest: var\(--ds-text-ui\)/);
+  assert.match(sizes[4].message, /font-size uses 0\.93em/);
+});
+
+test("the new spacing and radius steps pass as tokens, and 6px written by hand is named as a step", () => {
+  const { report } = checkJson(["css/font-size.css"]);
+  const others = report.findings.filter((finding) => finding.rule !== "off-scale-font-size");
+  assert.deepEqual(brief(others), ["css/font-size.css:26 off-scale-spacing"]);
+  assert.equal(others[0].fix, "Write the token: var(--ds-space-xs-sm)");
+});
+
 test("a gradient built only from tokens still fails", () => {
   const { status, report } = checkJson(["css/gradient.css"]);
   assert.equal(status, 1);

@@ -40,13 +40,13 @@
   }
 
   .ds-button-group--attached > :first-child {
-    border-start-start-radius: var(--ds-radius-md);
-    border-end-start-radius: var(--ds-radius-md);
+    border-start-start-radius: var(--ds-radius-sm);
+    border-end-start-radius: var(--ds-radius-sm);
   }
 
   .ds-button-group--attached > :last-child {
-    border-start-end-radius: var(--ds-radius-md);
-    border-end-end-radius: var(--ds-radius-md);
+    border-start-end-radius: var(--ds-radius-sm);
+    border-end-end-radius: var(--ds-radius-sm);
   }
 
   /* Each button after the first gives up its leading border, so two borders never sit side by side. */

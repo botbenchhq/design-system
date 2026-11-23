@@ -730,7 +730,7 @@
     {
       "name": "avatar",
       "title": "Avatar",
-      "purpose": "A small square mark for a person or an agent, holding initials, an icon or an image, with the name beside it.",
+      "purpose": "A small round mark for a person or an agent, holding initials, an icon or an image, with the name beside it.",
       "status": "draft",
       "whenToUse": [
         "To say who did something or who something belongs to: the author of a message, the actor of an event, the owner of a task.",
@@ -755,7 +755,7 @@
         },
         {
           "name": "image",
-          "use": "An img with the class ds-avatar__mark in place of the span. It needs an alt attribute, width and height. The picture is cropped to the square."
+          "use": "An img with the class ds-avatar__mark in place of the span. It needs an alt attribute, width and height. The picture is cropped to the circle."
         }
       ],
       "sizes": [
@@ -1303,7 +1303,7 @@
         {
           "name": "small",
           "class": "ds-button--small",
-          "use": "28px tall at every density, for dense rows and toolbars. On a coarse pointer it is drawn the same and its pointer target is 44px tall."
+          "use": "28px tall at every density, with its label at 13px, for dense rows and toolbars. On a coarse pointer it is drawn the same and its pointer target is 44px tall."
         },
         {
           "name": "large",
@@ -1629,7 +1629,7 @@
       ],
       "accessibility": [
         "Use a section with aria-labelledby pointing at ds-card__title when the card has a title, so it is a named region. Give each card on a view a different title. Use a div for a card with no title.",
-        "ds-card__title is a heading. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2. In a queue or a list every title takes the same level. The class sets the size, so the level changes nothing on screen. It is drawn at the size of body text whatever its level.",
+        "ds-card__title is a heading. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2. In a queue or a list every title takes the same level. The class sets the size, so the level changes nothing on screen. It is drawn at the title size, 16px, whatever its level.",
         "The header holds at most one action, in ds-card__action: a small quiet button or a link with the same classes. It is never primary. When several cards carry the same words, add an aria-label that starts with those words and names the card.",
         "The header is as tall as a row, 44px on a coarse pointer, so the small button's padded pointer target stays inside it there.",
         "A card is not focusable and takes no press. To make something pressable, put a link or a button inside it.",
@@ -2298,7 +2298,7 @@
         "The component needs no script. The app sets disabled, aria-busy and aria-describedby, and swaps Send for Stop.",
         "The block. Inside the form, a div with ds-composer__box holds the textarea and then a div with ds-composer__bar. The block is shown by its raised fill and only the faint border, and its edge takes the focus colour while the textarea has focus, beside the textarea's own ring. The textarea has no visible label in the block: give it an aria-label, such as Describe a task. A placeholder may repeat it, never replace it. The reason and the error lines go after the block, inside the form.",
         "The bar holds, in this order: Add context, a ds-composer__controls with the chips, the dictation button when there is one, and Send or Stop. Only the chips give way when the line is short: a chip's text is cut with an ellipsis, and Add context, dictation and Send keep their size and their line at 320px.",
-        "Add context is a button with ds-button ds-icon-button, the plus icon and aria-label=\"Add context\", with aria-haspopup=\"dialog\". Inside the bar it is drawn round, with its tonal fill and no border until it is hovered or pressed. It opens the Add context sheet with showModal(), or with command=\"show-modal\" and commandfor naming the sheet. It is the sheet at every width: a bottom sheet on a phone, a side panel from 768px.",
+        "Add context is a button with ds-button ds-icon-button, the plus icon and aria-label=\"Add context\", with aria-haspopup=\"dialog\". Inside the bar it has its tonal fill and no border until it is hovered or pressed, and Send, or Stop in its place, is the one pill among the buttons. It opens the Add context sheet with showModal(), or with command=\"show-modal\" and commandfor naming the sheet. It is the sheet at every width: a bottom sheet on a phone, a side panel from 768px.",
         "The model chip is a button with ds-button ds-button--quiet ds-button--small ds-composer__chip and aria-haspopup=\"dialog\", holding a ds-composer__value and nothing else, so it is as short as its words. The value holds a ds-visually-hidden span that says what the chip sets, the value, and an optional ds-composer__qualifier in the quieter colour: Model: Sonnet, Medium effort is read out, Sonnet Medium is shown. A press opens the same sheet straight on the model's view. The model cannot be removed, so the chip has no remove button.",
         "A required value that is missing, such as the repository: the app shows one prompt chip in place of the model chip, so the row holds one chip and keeps one line at 320px. It is a button with ds-button ds-button--small ds-composer__chip, so it has a border where the model chip has none, with the setting's name, read out as what to do: Repository is shown, and a ds-visually-hidden Choose a before it makes the name Choose a repository. The reason line says it in full. It sets disabled on Send, writes the reason in ds-composer__reason, and points aria-describedby on Send and on the chip at it. A press opens the sheet on that setting's view. Once the value is set the app removes the chip or sets hidden on it, removes the disabled attribute and the reason, and shows the model chip again. The value then shows only in the sheet, where the model also stays a row throughout. The example with data-state=\"required\" shows this state.",
         "The Add context sheet is a ds-sheet holding ds-context-list rows: Repository, Model, Mode, Review, each with its current value. Attachment actions, such as attaching a file, would be a group of rows above them. A row opens the setting's view in the same sheet, a ds-option-picker for that setting. The app swaps the sheet's header and body in place: it puts a Back button (a quiet ds-icon-button with chevron-left and aria-label=\"Back to Add context\") before the title, a ds-cluster ds-gap-xs holding both, changes the title's text to the setting's name, replaces the rows with the option picker, whose legend is visually hidden because the title says the same, and moves focus to the checked option. Choosing an option sets the value at once. Back puts the rows back with the new value and moves focus to the row that was pressed. Close and Escape close the sheet from either view, and the browser returns focus to the button that opened it. The view has no primary button of its own.",
@@ -6108,7 +6108,7 @@
         {
           "name": "compact",
           "class": "ds-page-header--compact",
-          "use": "The title at 16px with a 12px description, for a dense screen. Pair it with a small button. A plain h2 is drawn larger than this title, so under a compact header head sections with h3 or with component titles, which are no larger than it."
+          "use": "The title at 16px with a 13px description, for a dense screen. Pair it with a small button. A plain h2 is drawn larger than this title, so under a compact header head sections with h3 or with component titles, which are no larger than it."
         }
       ],
       "sizes": [],
@@ -6418,7 +6418,7 @@
       "accessibility": [
         "The block is a div with aria-live=\"polite\" and aria-atomic=\"true\". Keep it in the page on every screen and change only what it holds, so a screen reader announces the new sentence when the count changes without moving focus.",
         "While approvals wait, it holds one link, ds-pending-tray__link, to the queue. The link text is the whole sentence: the count in ds-pending-tray__count, then approval waiting or approvals waiting. Never show the count alone.",
-        "The filled box around the count is decoration. The sentence carries the meaning, so the count is never colour alone.",
+        "The filled pill around the count is decoration. The sentence carries the meaning, so the count is never colour alone.",
         "When nothing waits, either leave the block empty, which hides the tray and keeps the live region, or show ds-pending-tray__text reading No approvals waiting. Use the same quiet text while the count is loading and when it could not be read, and say which in words.",
         "The link is reached with Tab and followed with Enter. The app sets the count, the wording and the link's href, and nothing else."
       ],

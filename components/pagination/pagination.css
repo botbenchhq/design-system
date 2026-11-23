@@ -24,6 +24,7 @@
     color: var(--ds-color-muted);
     text-align: center;
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-pagination__previous {
@@ -53,7 +54,7 @@
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-color: transparent;
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     font-variant-numeric: tabular-nums;
     transition-property: background-color, border-color, color;
     transition-duration: var(--ds-duration-fast);

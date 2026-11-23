@@ -29,7 +29,7 @@
     height: var(--ds-space-xl);
     padding-inline: var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-semibold);

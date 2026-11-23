@@ -45,7 +45,7 @@
     top: 50%;
     inset-inline: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2);
     height: var(--ds-space-xs);
-    border-radius: var(--ds-radius-full);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border-strong);
     translate: 0 -50%;
   }
@@ -57,7 +57,7 @@
     appearance: none;
     width: 100%;
     height: var(--ds-size-control);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: transparent;
     cursor: pointer;
   }

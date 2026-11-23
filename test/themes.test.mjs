@@ -26,7 +26,7 @@ const theme = (light, dark, header = "/* A test theme. */") =>
   `${header}\n@layer ds.theme {\n  :root { ${light} }\n  [data-theme="dark"] { ${dark} }\n  @media (prefers-color-scheme: dark) {\n    [data-theme="auto"] { ${dark} }\n  }\n}\n`;
 
 test("a theme that sets a name the vocabulary does not have fails the build, naming the theme and the name", () => {
-  const run = buildWithTheme((css) => css.replace("--ds-radius-md: 22px;", "--ds-radius-md: 22px;\n    --ds-color-brand: #F59E0B;"));
+  const run = buildWithTheme((css) => css.replace("--ds-color-accent: #1C1C1E;", "--ds-color-accent: #1C1C1E;\n    --ds-color-brand: #F59E0B;"));
   assert.throws(run, /themes\/botbench\.css: --ds-color-brand is not a token\. A theme can change a value and cannot add a name\./);
 });
 
@@ -64,9 +64,9 @@ test("resolved values are the theme's where it sets one and the default theme's 
   assert.equal(small.tokens.light["--ds-color-surface"], defaults.light["--ds-color-surface"]);
   assert.equal(small.tokens.dark["--ds-color-surface"], defaults.dark["--ds-color-surface"]);
   assert.equal(small.tokens.dark["--ds-shadow-overlay"], defaults.dark["--ds-shadow-overlay"]);
-  // Botbench sets its radii and no shadow, so the shadow comes from the default theme.
-  assert.equal(botbench.tokens.light["--ds-radius-sm"], "10px");
-  assert.equal(botbench.tokens.light["--ds-radius-md"], "22px");
+  // Botbench sets no radius and no shadow, so both come from the default theme.
+  assert.equal(botbench.tokens.light["--ds-radius-sm"], "6px");
+  assert.equal(botbench.tokens.light["--ds-radius-md"], "10px");
   assert.equal(botbench.tokens.dark["--ds-shadow-overlay"], defaults.dark["--ds-shadow-overlay"]);
   assert.equal(botbench.tokens.light["--ds-shadow-overlay"], defaults.light["--ds-shadow-overlay"]);
 });
@@ -119,13 +119,16 @@ test("each theme has a DESIGN.md token block and a token data file holding its r
   assert.match(block, /^---\nversion: alpha\nname: Design system, botbench theme\n/);
   assert.match(block, /\ncolors:\n {2}accent: "#1C1C1E"\n/);
   assert.match(block, /\ncolors-dark:\n {2}accent: "#F5F5F7"\n/);
-  assert.match(block, /\nrounded:\n {2}sm: 10px\n {2}md: 22px\n/);
+  assert.match(block, /\nrounded:\n {2}xs: 4px\n {2}sm: 6px\n {2}md: 10px\n {2}lg: 14px\n {2}full: 9999px\n/);
+  assert.match(block, /\n {2}ui:\n {4}fontFamily: "system-ui"\n {4}fontSize: 0\.875rem\n {4}fontWeight: 400\n {4}lineHeight: 1\.5\n/);
   const data = JSON.parse(read("themes/botbench.tokens.json"));
   assert.deepEqual(Object.keys(data), Object.keys(JSON.parse(read("tokens.json"))));
   assert.equal(data.color.surface.$value.hex, "#f2f2f7");
   assert.equal(data.color.surface.$extensions["design-system"].dark.hex, "#161618");
   assert.equal(data.color.approval.$extensions["design-system"].dark.hex, "#fbbf24");
-  assert.deepEqual(data.radius.md.$value, { value: 22, unit: "px" });
+  assert.deepEqual(data.radius, JSON.parse(read("tokens.json")).radius);
+  assert.deepEqual(data.text, JSON.parse(read("tokens.json")).text);
+  assert.deepEqual(data.font.ui.$value.slice(0, 2), ["system-ui", "-apple-system"]);
   assert.deepEqual(data.shadow.overlay, JSON.parse(read("tokens.json")).shadow.overlay);
 });
 
@@ -262,10 +265,36 @@ test("a status set that gives two states one icon, or names a tone that is not a
 
 test("a theme that sets a density token, or holds a density block, fails and is named", () => {
   const sized = theme("--ds-color-accent: #222222;\n    --ds-size-control: 40px;", "--ds-color-accent: #EEEEEE;");
-  assert.throws(() => parseTheme("tall", sized, defaults), /themes\/tall\.css: a theme cannot set the density, and --ds-size-control is one of its two tokens/);
+  assert.throws(() => parseTheme("tall", sized, defaults), /themes\/tall\.css: a theme cannot set the density, and --ds-size-control is one of its tokens/);
   const block = theme("--ds-color-accent: #222222;", "--ds-color-accent: #EEEEEE;").replace(/\}\s*$/, '  [data-ds-density="compact"] {\n    --ds-size-row: 24px;\n  }\n}\n');
   assert.throws(() => parseTheme("dense", block, defaults), /themes\/dense\.css: a theme cannot set the density/);
+  // The body size is a density token too, so a theme cannot set it either.
+  const body = theme("--ds-text-ui: 1rem;", "--ds-color-accent: #EEEEEE;");
+  assert.throws(() => parseTheme("large", body, defaults), /themes\/large\.css: a theme cannot set the density, and --ds-text-ui is one of its tokens/);
   // The Botbench theme leaves the density alone, and its controls are the default theme's.
   assert.deepEqual(botbench.tokens.density, defaults.density);
+  assert.deepEqual(botbench.tokens.coarse, defaults.coarse);
   assert.equal(botbench.tokens.light["--ds-size-control"], "36px");
+});
+
+test("a theme sets no type size, line height, tracking or radius: the build fails, naming the theme and the token, and the Botbench theme sets none", () => {
+  const cases = {
+    "--ds-text-lg: 17px": /themes\/sized\.css: a theme cannot set a type size, and --ds-text-lg is one/,
+    "--ds-leading-lg: 1.4": /themes\/sized\.css: a theme cannot set a line height, and --ds-leading-lg is one/,
+    "--ds-tracking-lg: 0em": /themes\/sized\.css: a theme cannot set a tracking, and --ds-tracking-lg is one/,
+    "--ds-radius-md: 22px": /themes\/sized\.css: a theme cannot set a radius, and --ds-radius-md is one\. The type scale and the radius scale are the same under every theme/,
+  };
+  for (const [declaration, message] of Object.entries(cases)) {
+    assert.throws(() => parseTheme("sized", theme(`--ds-color-accent: #222222; ${declaration};`, "--ds-color-accent: #EEEEEE;"), defaults), message, declaration);
+  }
+  assert.throws(buildWithTheme((css) => css.replace("--ds-color-accent: #1C1C1E;", "--ds-color-accent: #1C1C1E;\n    --ds-radius-md: 22px;")), /themes\/botbench\.css: a theme cannot set a radius/);
+  // What the theme does set: colours and the two font stacks, and nothing else.
+  const own = [...Object.keys(botbench.own.light), ...Object.keys(botbench.own.dark)];
+  assert.deepEqual([...new Set(own.map((name) => name.match(/^--ds-([a-z]+)/)[1]))].sort(), ["color", "font"]);
+  for (const name of Object.keys(defaults.light).filter((token) => /^--ds-(?:text|leading|tracking|radius|space|size)-/.test(token))) {
+    assert.equal(botbench.tokens.light[name], defaults.light[name], name);
+  }
+  assert.doesNotMatch(read("themes/botbench.css").replace(/\/\*[\s\S]*?\*\//g, ""), /--ds-(?:text|leading|tracking|radius)-/);
+  // Its header no longer describes pills or its own sizes.
+  assert.doesNotMatch(source, /22px|pill-shaped|ui 15px/);
 });

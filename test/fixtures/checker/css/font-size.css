@@ -1,0 +1,33 @@
+.a {
+  font-size: 14px;
+}
+.b {
+  font-size: 0.875rem;
+}
+.c {
+  font-size: 15px;
+}
+.d {
+  font-size: 0.9rem;
+}
+.e {
+  font-size: 0.93em;
+}
+.f {
+  font-size: var(--ds-text-ui);
+}
+.g {
+  font-size: inherit;
+}
+.h {
+  font-size: calc(var(--ds-text-sm) * 2);
+}
+.i {
+  padding: 6px;
+}
+.j {
+  padding: var(--ds-space-xs-sm) var(--ds-space-3xl);
+}
+.k {
+  border-radius: var(--ds-radius-lg);
+}

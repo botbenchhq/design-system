@@ -1,5 +1,5 @@
 /*
- * Avatar: a small square mark for a person or an agent, with the name beside it.
+ * Avatar: a small round mark for a person or an agent, with the name beside it.
  * The mark holds initials, an icon or an image. It is decoration next to the name, which carries the identity.
  */
 
@@ -13,7 +13,7 @@
     vertical-align: middle;
   }
 
-  /* A square with the small radius, on a flat surface. On an img it crops the picture to the square. */
+  /* A circle on a flat surface. On an img it crops the picture to the circle. */
   .ds-avatar__mark {
     display: inline-flex;
     flex: none;
@@ -22,7 +22,7 @@
     width: var(--ds-space-2xl);
     height: var(--ds-space-2xl);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-sunken);
     color: var(--ds-color-on-surface);
     font-size: var(--ds-text-xs);

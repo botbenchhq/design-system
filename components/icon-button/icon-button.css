@@ -35,14 +35,12 @@
     width: var(--ds-size-control-sm);
     min-width: var(--ds-size-control-sm);
     min-height: var(--ds-size-control-sm);
-    border-radius: var(--ds-radius-sm);
   }
 
   .ds-icon-button--xsmall {
     width: var(--ds-size-control-xs);
     min-width: var(--ds-size-control-xs);
     min-height: var(--ds-size-control-xs);
-    border-radius: var(--ds-radius-sm);
   }
 
   .ds-icon-button--small[aria-pressed="true"]::after {

@@ -41,8 +41,8 @@
 
   .ds-tab-bar__icon {
     flex: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
   }
 
   /* One line. A label too long for its column is cut with an ellipsis. */

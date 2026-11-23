@@ -22,9 +22,10 @@
   .ds-message__label {
     flex: none;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-2xs);
     font-weight: var(--ds-weight-medium);
     line-height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
+    letter-spacing: var(--ds-tracking-2xs);
   }
 
   .ds-message__tool {
@@ -194,6 +195,7 @@
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     line-height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-message--session-start > .ds-message__body,

@@ -71,6 +71,8 @@
     overflow-y: auto;
     background-color: var(--ds-color-surface-raised);
     box-shadow: var(--ds-shadow-overlay);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* Open while the input says its list is expanded, or while the message is shown in place of the list. */

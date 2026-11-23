@@ -60,51 +60,72 @@ colors-dark:
   tainted: "#E39C77"
   tainted-subtle: "#311E14"
 typography:
+  2xs:
+    fontFamily: "IBM Plex Sans"
+    fontSize: 0.6875rem
+    fontWeight: 500
+    lineHeight: 1.273
+    letterSpacing: 0.02em
   xs:
     fontFamily: "IBM Plex Sans"
-    fontSize: 12px
+    fontSize: 0.75rem
     fontWeight: 400
-    lineHeight: 1.4
+    lineHeight: 1.333
+  sm:
+    fontFamily: "IBM Plex Sans"
+    fontSize: 0.8125rem
+    fontWeight: 400
+    lineHeight: 1.385
   mono:
     fontFamily: "IBM Plex Mono"
-    fontSize: 13px
+    fontSize: 0.8125rem
     fontWeight: 400
     lineHeight: 1.5
   ui:
     fontFamily: "IBM Plex Sans"
-    fontSize: 14px
+    fontSize: 0.875rem
     fontWeight: 400
-    lineHeight: 1.4
+    lineHeight: 1.5
   lg:
     fontFamily: "IBM Plex Sans"
-    fontSize: 16px
-    fontWeight: 400
-    lineHeight: 1.4
+    fontSize: 1rem
+    fontWeight: 600
+    lineHeight: 1.375
+    letterSpacing: -0.01em
   xl:
     fontFamily: "IBM Plex Sans"
-    fontSize: 20px
-    fontWeight: 400
-    lineHeight: 1.25
+    fontSize: 1.25rem
+    fontWeight: 600
+    lineHeight: 1.3
+    letterSpacing: -0.015em
   2xl:
     fontFamily: "IBM Plex Sans"
-    fontSize: 24px
-    fontWeight: 400
-    lineHeight: 1.2
+    fontSize: 1.625rem
+    fontWeight: 600
+    lineHeight: 1.154
+    letterSpacing: -0.02em
 fontWeights:
   normal: 400
   medium: 500
   semibold: 600
 rounded:
-  sm: 4px
-  md: 8px
+  xs: 4px
+  sm: 6px
+  md: 10px
+  lg: 14px
   full: 9999px
 spacing:
+  2xs: 2px
   xs: 4px
+  xs-sm: 6px
   sm: 8px
   md: 12px
   lg: 16px
+  lg-xl: 20px
   xl: 24px
   2xl: 32px
+  3xl: 40px
+  4xl: 64px
 borderWidth: 1px
 elevation:
   overlay: "0 8px 24px 0 rgb(0 0 0 / 0.16)"
@@ -138,13 +159,28 @@ density:
   compact:
     control: 28px
     row: 32px
+    text: 0.8125rem
+    leading: 1.385
   comfortable:
     control: 36px
     row: 36px
+    text: 0.875rem
+    leading: 1.5
   touch:
     control: 44px
     row: 44px
+    text: 0.875rem
+    leading: 1.5
   default: comfortable
   coarse-pointer: touch
+typography-coarse-pointer:
+  2xs: 0.75rem
+  xs: 0.8125rem
+  sm: 0.875rem
+  mono: 0.875rem
+  ui: 0.9375rem
+  lg: 1.0625rem
+  xl: 1.3125rem
+  2xl: 1.6875rem
 breakpoint: 768px
 ---

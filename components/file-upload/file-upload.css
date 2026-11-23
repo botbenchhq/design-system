@@ -27,7 +27,7 @@
     border-width: var(--ds-border-width);
     border-style: dashed;
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     color: transparent;
     cursor: pointer;
   }
