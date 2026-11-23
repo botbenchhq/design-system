@@ -1,13 +1,13 @@
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { createServer } from "node:http";
-import { tmpdir } from "node:os";
 import { extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 import { expect, test } from "@playwright/test";
 import { verifyVendored } from "../../checker/vendor.mjs";
+import { tempDir } from "../helpers.mjs";
 
 const repoRoot = fileURLToPath(new URL("../..", import.meta.url));
 const dist = join(repoRoot, "dist");
@@ -139,7 +139,7 @@ test("without a theme, a page with no data-theme is light and drawn in the light
 });
 
 test("after a sync the hash manifest covers every theme file, the copy verifies, and the vendored theme loads", async ({ page }) => {
-  vendored = join(mkdtempSync(join(tmpdir(), "design-system-")), "vendor", "design-system");
+  vendored = join(tempDir(), "vendor", "design-system");
   const result = spawnSync(process.execPath, [join(repoRoot, "scripts", "sync.mjs"), "--to", vendored], { encoding: "utf8" });
   expect(result.status).toBe(0);
   const { files } = JSON.parse(readFileSync(join(vendored, "hashes.json"), "utf8"));

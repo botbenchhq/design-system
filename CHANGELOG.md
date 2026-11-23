@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.11.3
+
+The tests remove the temporary folders they make. Each test run used to leave hundreds of `design-system-*` folders in the system's temporary directory, and over two days they reached about 18 GB on the maintainer's Mac. `tempDir()` in `test/helpers.mjs` now removes every folder it made when the test process exits, and the theme test uses it. Nothing in `dist/` changed except `VERSION`; apps need do nothing.
+
 ## 0.11.2
 
 Every pull request and every push to `main` now runs CI (`.github/workflows/ci.yml`): the build and a check that the committed `dist/` matches it, `npm audit`, `npm test`, a check that `CHANGELOG.md` has a section for the version, the WebKit and Firefox Playwright projects, a gitleaks scan of the whole history and CodeQL. Every action is pinned to a commit hash. The Chrome screenshot suite still runs on the maintainer's Mac only, because its baselines come from that Chrome and its fonts. When a change to `main` raises the version, `.github/workflows/release.yml` tags `vX.Y.Z` and publishes a GitHub Release whose notes are that version's section here; 0.11.2 is the first version tagged. Dependabot proposes weekly grouped minor and patch updates for npm and GitHub Actions after a 14-day cooldown. The repository gains `CONTRIBUTING.md`, `SECURITY.md` (private vulnerability reporting), `CODE_OF_CONDUCT.md`, issue and pull request templates, `.gitleaks.toml` and `rulesets/main.json`. Nothing in `dist/` changed except `VERSION`; apps need do nothing.

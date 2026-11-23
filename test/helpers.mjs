@@ -1,12 +1,20 @@
-import { cpSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 export const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 
+// Every folder made here is removed when the test process exits, pass or fail, so runs do not fill the disk.
+const made = new Set();
+process.once("exit", () => {
+  for (const dir of made) rmSync(dir, { recursive: true, force: true });
+});
+
 export function tempDir() {
-  return mkdtempSync(join(tmpdir(), "design-system-"));
+  const dir = mkdtempSync(join(tmpdir(), "design-system-"));
+  made.add(dir);
+  return dir;
 }
 
 // A private copy of the build sources, so a test can edit them.
