@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.11.4
+
+Two fixes reported by the first consumer. The checker's waiver parser now also strips an HTML comment closed with `--!>` from a waiver's reason, so `<!-- ds-waive rule: --!>` is reported as `waiver-without-reason` as it should be; this also closes CodeQL's `js/bad-tag-filter` alert on `checker/waivers.mjs`, which every vendored copy carried (#32). A long unbroken branch name, path or merge command inside `ds-review-decision__result` no longer widens the page at phone width: the result's children are held to its width and long words wrap (#34). An app that wrapped the result's content to work around it can drop the wrapper. A consumer only needs to sync.
+
 ## 0.11.3
 
 The tests remove the temporary folders they make. Each test run used to leave hundreds of `design-system-*` folders in the system's temporary directory, and over two days they reached about 18 GB on the maintainer's Mac. `tempDir()` in `test/helpers.mjs` now removes every folder it made when the test process exits, and the theme test uses it. Nothing in `dist/` changed except `VERSION`; apps need do nothing.
