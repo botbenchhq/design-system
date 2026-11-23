@@ -1,0 +1,222 @@
+<div data-example="default" data-title="A long output, capped, with an error line" data-state="default" data-reason="The output scrolls inside a box of capped height, so a run of thousands of lines leaves the page short. Long lines wrap. Each error line is tinted, carries an icon and starts with a hidden word for a screen reader, so it is never marked by colour alone.">
+  <figure class="ds-log-viewer">
+    <figcaption class="ds-log-viewer__header">
+      <code class="ds-log-viewer__command">npm test</code>
+      <span class="ds-log-viewer__meta">Failed, exit code 1 · 4.3 s</span>
+    </figcaption>
+    <div class="ds-log-viewer__body" id="log-viewer-default-body" tabindex="0" role="group" aria-label="Output of npm test">
+      <ol class="ds-log-viewer__lines">
+      <li class="ds-log-viewer__line">&gt; acme-api@2.4.0 test</li>
+      <li class="ds-log-viewer__line">&gt; vitest run</li>
+      <li class="ds-log-viewer__line"></li>
+      <li class="ds-log-viewer__line"> RUN  v3.2.4 /srv/workspaces/acme-api</li>
+      <li class="ds-log-viewer__line"></li>
+      <li class="ds-log-viewer__line"> ✓ src/auth/token.test.ts (12 tests) 41ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/auth/cookie.test.ts (8 tests) 22ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/billing/invoice.test.ts (19 tests) 88ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/billing/tax.test.ts (6 tests) 12ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/webhooks/verify.test.ts (9 tests) 31ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/webhooks/retry.test.ts (7 tests) 1204ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/users/profile.test.ts (14 tests) 57ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/users/invite.test.ts (5 tests) 19ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/search/index.test.ts (11 tests) 140ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/search/query.test.ts (23 tests) 66ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/jobs/queue.test.ts (10 tests) 302ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/jobs/schedule.test.ts (4 tests) 9ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/http/router.test.ts (17 tests) 48ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/http/errors.test.ts (6 tests) 11ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/db/migrate.test.ts (3 tests) 812ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/db/pool.test.ts (5 tests) 27ms</li>
+      <li class="ds-log-viewer__line"> ❯ src/session/verify.test.ts (6 tests | 1 failed) 18ms</li>
+      <li class="ds-log-viewer__line">   × verify &gt; rejects a session older than the TTL</li>
+      <li class="ds-log-viewer__line"></li>
+      <li class="ds-log-viewer__line">⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯</li>
+      <li class="ds-log-viewer__line"></li>
+      <li class="ds-log-viewer__line ds-log-viewer__line--error"><span class="ds-visually-hidden">Error: </span> FAIL  src/session/verify.test.ts &gt; verify &gt; rejects a session older than the TTL</li>
+      <li class="ds-log-viewer__line ds-log-viewer__line--error"><span class="ds-visually-hidden">Error: </span>AssertionError: expected [Function] to throw an error</li>
+      <li class="ds-log-viewer__line"></li>
+      <li class="ds-log-viewer__line"> ❯ src/session/verify.test.ts:31:52</li>
+      <li class="ds-log-viewer__line">     29|   it("rejects a session older than the TTL", () =&gt; {</li>
+      <li class="ds-log-viewer__line">     30|     const token = sign({ user: "maya@acme.dev", issuedAt: NOW - 1801 * 1000 });</li>
+      <li class="ds-log-viewer__line">     31|     expect(() =&gt; verify(token, NOW)).toThrow(SessionExpired);</li>
+      <li class="ds-log-viewer__line">       |                                                    ^</li>
+      <li class="ds-log-viewer__line">     32|   });</li>
+      <li class="ds-log-viewer__line"></li>
+      <li class="ds-log-viewer__line"> Test Files  1 failed | 16 passed (17)</li>
+      <li class="ds-log-viewer__line">      Tests  1 failed | 145 passed (146)</li>
+      <li class="ds-log-viewer__line">   Start at  09:58:12</li>
+      <li class="ds-log-viewer__line">   Duration  4.31s (transform 612ms, setup 0ms, collect 2.10s, tests 2.87s)</li>
+      </ol>
+    </div>
+    <div class="ds-log-viewer__footer">
+      <button type="button" class="ds-button ds-button--quiet ds-button--small ds-log-viewer__toggle" aria-expanded="false" aria-controls="log-viewer-default-body">Show all 40 lines</button>
+    </div>
+  </figure>
+</div>
+
+<div data-example="short" data-title="A short output, as text, with nothing under it">
+  <figure class="ds-log-viewer">
+    <figcaption class="ds-log-viewer__header">
+      <code class="ds-log-viewer__command">npm run lint</code>
+      <span class="ds-log-viewer__meta">Passed · 3.9 s</span>
+    </figcaption>
+    <pre class="ds-log-viewer__body" tabindex="0" role="group" aria-label="Output of npm run lint">&gt; acme-api@2.4.0 lint
+&gt; eslint . --max-warnings 0
+
+Linted 214 files in 3.8s. No problems found.</pre>
+  </figure>
+</div>
+
+<div data-example="focus-visible" data-title="Keyboard focus on the body" data-state="focus-visible">
+  <figure class="ds-log-viewer">
+    <figcaption class="ds-log-viewer__header">
+      <code class="ds-log-viewer__command">npm run typecheck</code>
+      <span class="ds-log-viewer__meta">Passed · 6.1 s</span>
+    </figcaption>
+    <pre class="ds-log-viewer__body" tabindex="0" role="group" aria-label="Output of npm run typecheck">&gt; acme-api@2.4.0 typecheck
+&gt; tsc --noEmit
+
+Checked 214 files. No errors.</pre>
+  </figure>
+</div>
+
+<div data-example="running" data-title="Still running, following new lines" data-state="running">
+  <figure class="ds-log-viewer">
+    <figcaption class="ds-log-viewer__header">
+      <code class="ds-log-viewer__command">docker build -t acme-api:test .</code>
+      <span class="ds-log-viewer__meta">Running · 48 s</span>
+    </figcaption>
+    <ds-transcript>
+      <div class="ds-log-viewer__body" tabindex="0" role="log" aria-live="off" aria-label="Output of docker build, still running" data-ds-scroller>
+        <ol class="ds-log-viewer__lines">
+          <li class="ds-log-viewer__line">Building the image acme-api:test</li>
+          <li class="ds-log-viewer__line">Step 1/9 : FROM node:24-slim</li>
+          <li class="ds-log-viewer__line"> ---&gt; 3f1c9a2b7d44</li>
+          <li class="ds-log-viewer__line">Step 2/9 : WORKDIR /app</li>
+          <li class="ds-log-viewer__line"> ---&gt; Using cache</li>
+          <li class="ds-log-viewer__line">Step 3/9 : COPY package.json package-lock.json ./</li>
+          <li class="ds-log-viewer__line"> ---&gt; Using cache</li>
+          <li class="ds-log-viewer__line">Step 4/9 : RUN npm ci --omit=dev</li>
+          <li class="ds-log-viewer__line"> ---&gt; Running in 8e21f0c4a9b3</li>
+          <li class="ds-log-viewer__line">added 412 packages, and audited 413 packages in 21s</li>
+          <li class="ds-log-viewer__line">found 0 vulnerabilities</li>
+          <li class="ds-log-viewer__line">Step 5/9 : COPY . .</li>
+          <li class="ds-log-viewer__line"> ---&gt; 51d0aa83e6f2</li>
+          <li class="ds-log-viewer__line">Step 6/9 : RUN npm run build</li>
+          <li class="ds-log-viewer__line"> ---&gt; Running in c03b7e5d1f88</li>
+          <li class="ds-log-viewer__line">&gt; acme-api@2.4.0 build</li>
+          <li class="ds-log-viewer__line">&gt; tsc -p tsconfig.build.json</li>
+          <li class="ds-log-viewer__line">Compiled 214 files in 9.2s</li>
+          <li class="ds-log-viewer__line"> ---&gt; 7a92c4e0d1b5</li>
+          <li class="ds-log-viewer__line">Step 7/9 : RUN npm prune --omit=dev</li>
+          <li class="ds-log-viewer__line"> ---&gt; Running in 2d4e8f1a6c07</li>
+          <li class="ds-log-viewer__line">removed 96 packages in 3s</li>
+          <li class="ds-log-viewer__line"> ---&gt; 0b3f7d9e2a18</li>
+          <li class="ds-log-viewer__line">Step 8/9 : EXPOSE 8080</li>
+          <li class="ds-log-viewer__line"> ---&gt; Running in 5c1a9e3f7b26</li>
+          <li class="ds-log-viewer__line"> ---&gt; 9e4d2b8a1f03</li>
+          <li class="ds-log-viewer__line">Step 9/9 : CMD ["node", "dist/server.js"]</li>
+          <li class="ds-log-viewer__line"> ---&gt; Running in 4f8b1c6d2e95</li>
+          <li class="ds-log-viewer__line"> ---&gt; 6d0e3a7c9b41</li>
+        </ol>
+      </div>
+      <div class="ds-jump-to-latest" data-ds-jump>
+        <button type="button" class="ds-jump-to-latest__button"><span class="ds-jump-to-latest__count" data-ds-count="{count} new lines" data-ds-count-one="1 new line">12 new lines</span> Jump to latest</button>
+      </div>
+    </ds-transcript>
+  </figure>
+</div>
+
+<div data-example="expanded" data-title="Every line shown, after Show all" data-state="expanded">
+  <figure class="ds-log-viewer">
+    <figcaption class="ds-log-viewer__header">
+      <code class="ds-log-viewer__command">npm test</code>
+      <span class="ds-log-viewer__meta">Failed, exit code 1 · 4.3 s</span>
+    </figcaption>
+    <div class="ds-log-viewer__body" id="log-viewer-expanded-body" tabindex="0" role="group" aria-label="Output of npm test">
+      <ol class="ds-log-viewer__lines">
+      <li class="ds-log-viewer__line">&gt; acme-api@2.4.0 test</li>
+      <li class="ds-log-viewer__line">&gt; vitest run</li>
+      <li class="ds-log-viewer__line"></li>
+      <li class="ds-log-viewer__line"> RUN  v3.2.4 /srv/workspaces/acme-api</li>
+      <li class="ds-log-viewer__line"></li>
+      <li class="ds-log-viewer__line"> ✓ src/auth/token.test.ts (12 tests) 41ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/auth/cookie.test.ts (8 tests) 22ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/billing/invoice.test.ts (19 tests) 88ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/billing/tax.test.ts (6 tests) 12ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/webhooks/verify.test.ts (9 tests) 31ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/webhooks/retry.test.ts (7 tests) 1204ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/users/profile.test.ts (14 tests) 57ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/users/invite.test.ts (5 tests) 19ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/search/index.test.ts (11 tests) 140ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/search/query.test.ts (23 tests) 66ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/jobs/queue.test.ts (10 tests) 302ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/jobs/schedule.test.ts (4 tests) 9ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/http/router.test.ts (17 tests) 48ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/http/errors.test.ts (6 tests) 11ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/db/migrate.test.ts (3 tests) 812ms</li>
+      <li class="ds-log-viewer__line"> ✓ src/db/pool.test.ts (5 tests) 27ms</li>
+      <li class="ds-log-viewer__line"> ❯ src/session/verify.test.ts (6 tests | 1 failed) 18ms</li>
+      <li class="ds-log-viewer__line">   × verify &gt; rejects a session older than the TTL</li>
+      <li class="ds-log-viewer__line"></li>
+      <li class="ds-log-viewer__line">⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯</li>
+      <li class="ds-log-viewer__line"></li>
+      <li class="ds-log-viewer__line ds-log-viewer__line--error"><span class="ds-visually-hidden">Error: </span> FAIL  src/session/verify.test.ts &gt; verify &gt; rejects a session older than the TTL</li>
+      <li class="ds-log-viewer__line ds-log-viewer__line--error"><span class="ds-visually-hidden">Error: </span>AssertionError: expected [Function] to throw an error</li>
+      <li class="ds-log-viewer__line"></li>
+      <li class="ds-log-viewer__line"> ❯ src/session/verify.test.ts:31:52</li>
+      <li class="ds-log-viewer__line">     29|   it("rejects a session older than the TTL", () =&gt; {</li>
+      <li class="ds-log-viewer__line">     30|     const token = sign({ user: "maya@acme.dev", issuedAt: NOW - 1801 * 1000 });</li>
+      <li class="ds-log-viewer__line">     31|     expect(() =&gt; verify(token, NOW)).toThrow(SessionExpired);</li>
+      <li class="ds-log-viewer__line">       |                                                    ^</li>
+      <li class="ds-log-viewer__line">     32|   });</li>
+      <li class="ds-log-viewer__line"></li>
+      <li class="ds-log-viewer__line"> Test Files  1 failed | 16 passed (17)</li>
+      <li class="ds-log-viewer__line">      Tests  1 failed | 145 passed (146)</li>
+      <li class="ds-log-viewer__line">   Start at  09:58:12</li>
+      <li class="ds-log-viewer__line">   Duration  4.31s (transform 612ms, setup 0ms, collect 2.10s, tests 2.87s)</li>
+      </ol>
+    </div>
+    <div class="ds-log-viewer__footer">
+      <button type="button" class="ds-button ds-button--quiet ds-button--small ds-log-viewer__toggle" aria-expanded="true" aria-controls="log-viewer-expanded-body">Show less</button>
+    </div>
+  </figure>
+</div>
+
+<div data-example="cut-short" data-title="Only the end was kept">
+  <figure class="ds-log-viewer">
+    <figcaption class="ds-log-viewer__header">
+      <code class="ds-log-viewer__command">npm run test:e2e</code>
+      <span class="ds-log-viewer__meta">Timed out after 10 min</span>
+    </figcaption>
+    <pre class="ds-log-viewer__body" tabindex="0" role="group" aria-label="Output of npm run test:e2e, last lines">  ✓ checkout › pays with a saved card (4.2s)
+  ✓ checkout › shows the receipt (1.9s)
+  … checkout › refunds a payment
+
+Stopped by Botbench after 10 min.</pre>
+    <div class="ds-log-viewer__footer">
+      <p class="ds-log-viewer__note">The first 3,112 lines were not kept. These are the last lines, up to 64 KB.</p>
+    </div>
+  </figure>
+</div>
+
+<div data-example="uncapped" data-title="The whole output in the page" data-dont="review" data-reason="A code block grows with its output, so a test run of a few thousand lines makes the page thousands of pixels tall on a phone, and everything after it is out of reach. Use the log viewer, which caps its height and scrolls by itself.">
+  <figure class="ds-code-block">
+    <figcaption class="ds-code-block__caption">npm test</figcaption>
+    <pre class="ds-code-block__body">&gt; acme-api@2.4.0 test
+&gt; vitest run
+
+ RUN  v3.2.4 /srv/workspaces/acme-api
+
+ ✓ src/auth/token.test.ts (12 tests) 41ms
+ ✓ src/auth/cookie.test.ts (8 tests) 22ms
+ ✓ src/billing/invoice.test.ts (19 tests) 88ms
+ ✓ src/billing/tax.test.ts (6 tests) 12ms
+ ✓ src/webhooks/verify.test.ts (9 tests) 31ms
+ ✓ src/webhooks/retry.test.ts (7 tests) 1204ms
+ ✓ src/users/profile.test.ts (14 tests) 57ms
+ ✓ src/users/invite.test.ts (5 tests) 19ms
+ ✓ src/search/index.test.ts (11 tests) 140ms
+… 4,000 more lines</pre>
+  </figure>
+</div>

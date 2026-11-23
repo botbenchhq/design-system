@@ -739,6 +739,7 @@
       ],
       "whenNotToUse": [
         "As decoration, or in a stack of overlapping marks. Write the names, or a count such as 4 reviewers.",
+        "For who is on a task or a repository right now. Use presence.",
         "Without a name, unless the name is already written directly beside it. Then give the mark an accessible name.",
         "For a repository, a branch or a file. Use text, with an icon in a list row where it helps.",
         "For a status. Use a badge. The mark carries no tone and no status dot."
@@ -3308,7 +3309,7 @@
     {
       "name": "diff",
       "title": "Diff",
-      "purpose": "One file's change as a unified diff, with its path and how many lines were added and removed.",
+      "purpose": "One file's change as a unified diff, with its path, how many lines were added and removed, and optional line numbers.",
       "status": "draft",
       "whenToUse": [
         "To show what a task changed in one file, before the reader decides on it.",
@@ -3334,6 +3335,7 @@
         "Write each count as a sign and a number followed by a ds-diff__label span that finishes it in words, such as +7 and lines added. The label is hidden from sight and read by a screen reader.",
         "The body is a pre with tabindex=\"0\", role=\"group\" and an aria-label naming the file, so it can take focus and the arrow keys scroll it sideways. The page itself never scrolls sideways.",
         "Each line is a ds-diff__line holding a ds-diff__sign cell and a ds-diff__text cell. Use an ins element for an added line and a del element for a removed one, with the plus or minus as the sign. A context line and a hunk header are spans, with a space as the sign.",
+        "Line numbers are optional. Put two ds-diff__number cells before the sign of every line, ds-diff__number--old and then ds-diff__number--new, each with aria-hidden=\"true\". Leave a cell empty where the line has no number in that file: the old number of an added line, the new number of a removed line and both on a hunk header. Give every line both cells or no line any. Below 768px only the new number is shown, so the code keeps its width. The stylesheet makes the numbers unselectable, so copying the code leaves them behind.",
         "Never leave out the sign. The shading alone does not mark a line for someone who cannot tell the colours apart.",
         "While the diff is fetched, set aria-busy=\"true\" on the figure and put a ds-diff__note with role=\"status\" in place of the body. When it fails, use a note with role=\"alert\" that says why. The stylesheet adds the failure's icon.",
         "When a file changed with no line to show, or the diff is cut short, say so in a plain ds-diff__note."
@@ -3354,6 +3356,9 @@
         "ds-diff__line--removed",
         "ds-diff__lines",
         "ds-diff__note",
+        "ds-diff__number",
+        "ds-diff__number--new",
+        "ds-diff__number--old",
         "ds-diff__path",
         "ds-diff__removed",
         "ds-diff__sign",
@@ -3366,6 +3371,12 @@
           "state": "default",
           "reason": "Every changed line has a plus or a minus in its own column as well as its shading, the counts in the header are read out as words, and the long line scrolls inside the body while the page stays still.",
           "markup": "<figure class=\"ds-diff\">\n  <figcaption class=\"ds-diff__header\">\n    <code class=\"ds-diff__path\">src/session/verify.mjs</code>\n    <span class=\"ds-diff__counts\">\n      <span class=\"ds-diff__added\">+7<span class=\"ds-diff__label\"> lines added</span></span>\n      <span class=\"ds-diff__removed\">−3<span class=\"ds-diff__label\"> lines removed</span></span>\n    </span>\n  </figcaption>\n  <pre class=\"ds-diff__body\" tabindex=\"0\" role=\"group\" aria-label=\"Diff of src/session/verify.mjs\"><code class=\"ds-diff__lines\">\n    <span class=\"ds-diff__line ds-diff__line--hunk\"><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">@@ -38,9 +38,9 @@ import { decode } from \"./token.mjs\";</span></span>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\"></span></span>\n    <del class=\"ds-diff__line ds-diff__line--removed\"><span class=\"ds-diff__sign\">-</span><span class=\"ds-diff__text\">const SESSION_TTL_SECONDS = 1800;</span></del>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\">const SESSION_TTL_SECONDS = Number(process.env.SESSION_TTL_SECONDS ?? 1800);</span></ins>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\"></span></span>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">export function verify(token, now = Date.now()) {</span></span>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">  const session = decode(token);</span></span>\n    <del class=\"ds-diff__line ds-diff__line--removed\"><span class=\"ds-diff__sign\">-</span><span class=\"ds-diff__text\">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS) {</span></del>\n    <del class=\"ds-diff__line ds-diff__line--removed\"><span class=\"ds-diff__sign\">-</span><span class=\"ds-diff__text\">    throw new SessionExpired();</span></del>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS * 1000) {</span></ins>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\">    throw new SessionExpired(`The session for ${session.user} ended after ${SESSION_TTL_SECONDS} seconds.`);</span></ins>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">  }</span></span>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">  return session;</span></span>\n    <span class=\"ds-diff__line ds-diff__line--hunk\"><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">@@ -70,2 +70,6 @@ export function refresh(token, now = Date.now()) {</span></span>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">  return encode({ ...session, issuedAt: now });</span></span>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">}</span></span>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\"></span></ins>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\">export function remaining(token, now = Date.now()) {</span></ins>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\">  return SESSION_TTL_SECONDS * 1000 - (now - decode(token).issuedAt);</span></ins>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\">}</span></ins>\n  </code></pre>\n</figure>"
+        },
+        {
+          "id": "line-numbers",
+          "title": "With line numbers",
+          "reason": "Each line carries its number in the file before and after the change, in cells of their own. The numbers are hidden from a screen reader and left out when the code is copied. A phone shows only the new number, so the code keeps its width.",
+          "markup": "<figure class=\"ds-diff\">\n  <figcaption class=\"ds-diff__header\">\n    <code class=\"ds-diff__path\">src/session/verify.mjs</code>\n    <span class=\"ds-diff__counts\">\n      <span class=\"ds-diff__added\">+7<span class=\"ds-diff__label\"> lines added</span></span>\n      <span class=\"ds-diff__removed\">−3<span class=\"ds-diff__label\"> lines removed</span></span>\n    </span>\n  </figcaption>\n  <pre class=\"ds-diff__body\" tabindex=\"0\" role=\"group\" aria-label=\"Diff of src/session/verify.mjs, with line numbers\"><code class=\"ds-diff__lines\">\n    <span class=\"ds-diff__line ds-diff__line--hunk\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\"></span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\"></span><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">@@ -38,9 +38,9 @@ import { decode } from \"./token.mjs\";</span></span>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\">38</span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">38</span><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\"></span></span>\n    <del class=\"ds-diff__line ds-diff__line--removed\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\">39</span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\"></span><span class=\"ds-diff__sign\">-</span><span class=\"ds-diff__text\">const SESSION_TTL_SECONDS = 1800;</span></del>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\"></span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">39</span><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\">const SESSION_TTL_SECONDS = Number(process.env.SESSION_TTL_SECONDS ?? 1800);</span></ins>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\">40</span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">40</span><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\"></span></span>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\">41</span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">41</span><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">export function verify(token, now = Date.now()) {</span></span>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\">42</span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">42</span><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">  const session = decode(token);</span></span>\n    <del class=\"ds-diff__line ds-diff__line--removed\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\">43</span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\"></span><span class=\"ds-diff__sign\">-</span><span class=\"ds-diff__text\">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS) {</span></del>\n    <del class=\"ds-diff__line ds-diff__line--removed\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\">44</span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\"></span><span class=\"ds-diff__sign\">-</span><span class=\"ds-diff__text\">    throw new SessionExpired();</span></del>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\"></span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">43</span><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS * 1000) {</span></ins>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\"></span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">44</span><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\">    throw new SessionExpired(`The session for ${session.user} ended after ${SESSION_TTL_SECONDS} seconds.`);</span></ins>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\">45</span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">45</span><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">  }</span></span>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\">46</span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">46</span><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">  return session;</span></span>\n    <span class=\"ds-diff__line ds-diff__line--hunk\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\"></span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\"></span><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">@@ -70,2 +70,6 @@ export function refresh(token, now = Date.now()) {</span></span>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\">70</span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">70</span><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">  return encode({ ...session, issuedAt: now });</span></span>\n    <span class=\"ds-diff__line\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\">71</span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">71</span><span class=\"ds-diff__sign\"> </span><span class=\"ds-diff__text\">}</span></span>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\"></span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">72</span><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\"></span></ins>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\"></span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">73</span><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\">export function remaining(token, now = Date.now()) {</span></ins>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\"></span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">74</span><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\">  return SESSION_TTL_SECONDS * 1000 - (now - decode(token).issuedAt);</span></ins>\n    <ins class=\"ds-diff__line ds-diff__line--added\"><span class=\"ds-diff__number ds-diff__number--old\" aria-hidden=\"true\"></span><span class=\"ds-diff__number ds-diff__number--new\" aria-hidden=\"true\">75</span><span class=\"ds-diff__sign\">+</span><span class=\"ds-diff__text\">}</span></ins>\n  </code></pre>\n</figure>"
         },
         {
           "id": "focus-visible",
@@ -5103,6 +5114,94 @@
       ]
     },
     {
+      "name": "log-viewer",
+      "title": "Log viewer",
+      "purpose": "A command's output, however long, in a box of capped height that scrolls by itself, with long lines wrapped and error lines marked.",
+      "status": "draft",
+      "whenToUse": [
+        "For the output of a check, a setup command or a build, finished or still running, where it may run to hundreds of lines.",
+        "Behind a disclosure under a check list's row, or by itself on a run's screen.",
+        "With the error lines marked, when the app can tell them: the lines a test runner reports as failures, or the output of stderr."
+      ],
+      "whenNotToUse": [
+        "For a command, a short excerpt or a file's contents. Use the code block.",
+        "For a change to a file. Use the diff.",
+        "For an agent's transcript of messages and tool calls. Use the message and the tool call in a transcript."
+      ],
+      "variants": [],
+      "sizes": [],
+      "states": [
+        "default",
+        "focus-visible",
+        "running",
+        "expanded"
+      ],
+      "accessibility": [
+        "Use a figure. Its figcaption, ds-log-viewer__header, holds the command in a code element, ds-log-viewer__command, and ds-log-viewer__meta saying how it ended and how long it took.",
+        "The body, ds-log-viewer__body, takes tabindex=\"0\" and an aria-label naming the command, so it can take focus and the arrow keys scroll it. A finished output takes role=\"group\". It is a pre holding the output as text, or a div holding an ol, ds-log-viewer__lines, with one li, ds-log-viewer__line, per line.",
+        "The body caps its height at half the viewport on a phone and more on a wide screen, and scrolls by itself. Long lines wrap, so the page never scrolls sideways.",
+        "Mark an error line with ds-log-viewer__line--error and start it with a ds-visually-hidden span reading Error and a colon. The stylesheet tints it and draws its icon, so it is never colour alone.",
+        "For a failed command, open the body scrolled to its end, where the failure usually is. The app sets the scroll position.",
+        "Show all: when the output is longer than the box, put a quiet small button, ds-log-viewer__toggle, in ds-log-viewer__footer, with aria-expanded=\"false\", aria-controls naming the body and a label such as Show all 46 lines. Pressing it sets aria-expanded=\"true\" and the label Show less, and the stylesheet lifts the cap. Leave the footer out for a short output.",
+        "When only part of the output was kept, say so in ds-log-viewer__note inside the footer.",
+        "While the command runs, wrap the body and a jump-to-latest control in ds-transcript, and give the body role=\"log\", aria-live=\"off\" and data-ds-scroller. The body then follows new lines while the reader is at its end, and the control offers Jump to latest once they scroll up. A framework app follows by the same rule with use-transcript. Every line added is an li.",
+        "The component needs no script beyond that. The app sets aria-expanded and the toggle's label."
+      ],
+      "icons": [
+        "circle-alert"
+      ],
+      "classes": [
+        "ds-log-viewer",
+        "ds-log-viewer__body",
+        "ds-log-viewer__command",
+        "ds-log-viewer__footer",
+        "ds-log-viewer__header",
+        "ds-log-viewer__line",
+        "ds-log-viewer__line--error",
+        "ds-log-viewer__lines",
+        "ds-log-viewer__meta",
+        "ds-log-viewer__note",
+        "ds-log-viewer__toggle"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "A long output, capped, with an error line",
+          "state": "default",
+          "reason": "The output scrolls inside a box of capped height, so a run of thousands of lines leaves the page short. Long lines wrap. Each error line is tinted, carries an icon and starts with a hidden word for a screen reader, so it is never marked by colour alone.",
+          "markup": "<figure class=\"ds-log-viewer\">\n  <figcaption class=\"ds-log-viewer__header\">\n    <code class=\"ds-log-viewer__command\">npm test</code>\n    <span class=\"ds-log-viewer__meta\">Failed, exit code 1 · 4.3 s</span>\n  </figcaption>\n  <div class=\"ds-log-viewer__body\" id=\"log-viewer-default-body\" tabindex=\"0\" role=\"group\" aria-label=\"Output of npm test\">\n    <ol class=\"ds-log-viewer__lines\">\n    <li class=\"ds-log-viewer__line\">&gt; acme-api@2.4.0 test</li>\n    <li class=\"ds-log-viewer__line\">&gt; vitest run</li>\n    <li class=\"ds-log-viewer__line\"></li>\n    <li class=\"ds-log-viewer__line\"> RUN  v3.2.4 /srv/workspaces/acme-api</li>\n    <li class=\"ds-log-viewer__line\"></li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/auth/token.test.ts (12 tests) 41ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/auth/cookie.test.ts (8 tests) 22ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/billing/invoice.test.ts (19 tests) 88ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/billing/tax.test.ts (6 tests) 12ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/webhooks/verify.test.ts (9 tests) 31ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/webhooks/retry.test.ts (7 tests) 1204ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/users/profile.test.ts (14 tests) 57ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/users/invite.test.ts (5 tests) 19ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/search/index.test.ts (11 tests) 140ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/search/query.test.ts (23 tests) 66ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/jobs/queue.test.ts (10 tests) 302ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/jobs/schedule.test.ts (4 tests) 9ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/http/router.test.ts (17 tests) 48ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/http/errors.test.ts (6 tests) 11ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/db/migrate.test.ts (3 tests) 812ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/db/pool.test.ts (5 tests) 27ms</li>\n    <li class=\"ds-log-viewer__line\"> ❯ src/session/verify.test.ts (6 tests | 1 failed) 18ms</li>\n    <li class=\"ds-log-viewer__line\">   × verify &gt; rejects a session older than the TTL</li>\n    <li class=\"ds-log-viewer__line\"></li>\n    <li class=\"ds-log-viewer__line\">⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯</li>\n    <li class=\"ds-log-viewer__line\"></li>\n    <li class=\"ds-log-viewer__line ds-log-viewer__line--error\"><span class=\"ds-visually-hidden\">Error: </span> FAIL  src/session/verify.test.ts &gt; verify &gt; rejects a session older than the TTL</li>\n    <li class=\"ds-log-viewer__line ds-log-viewer__line--error\"><span class=\"ds-visually-hidden\">Error: </span>AssertionError: expected [Function] to throw an error</li>\n    <li class=\"ds-log-viewer__line\"></li>\n    <li class=\"ds-log-viewer__line\"> ❯ src/session/verify.test.ts:31:52</li>\n    <li class=\"ds-log-viewer__line\">     29|   it(\"rejects a session older than the TTL\", () =&gt; {</li>\n    <li class=\"ds-log-viewer__line\">     30|     const token = sign({ user: \"maya@acme.dev\", issuedAt: NOW - 1801 * 1000 });</li>\n    <li class=\"ds-log-viewer__line\">     31|     expect(() =&gt; verify(token, NOW)).toThrow(SessionExpired);</li>\n    <li class=\"ds-log-viewer__line\">       |                                                    ^</li>\n    <li class=\"ds-log-viewer__line\">     32|   });</li>\n    <li class=\"ds-log-viewer__line\"></li>\n    <li class=\"ds-log-viewer__line\"> Test Files  1 failed | 16 passed (17)</li>\n    <li class=\"ds-log-viewer__line\">      Tests  1 failed | 145 passed (146)</li>\n    <li class=\"ds-log-viewer__line\">   Start at  09:58:12</li>\n    <li class=\"ds-log-viewer__line\">   Duration  4.31s (transform 612ms, setup 0ms, collect 2.10s, tests 2.87s)</li>\n    </ol>\n  </div>\n  <div class=\"ds-log-viewer__footer\">\n    <button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small ds-log-viewer__toggle\" aria-expanded=\"false\" aria-controls=\"log-viewer-default-body\">Show all 40 lines</button>\n  </div>\n</figure>"
+        },
+        {
+          "id": "short",
+          "title": "A short output, as text, with nothing under it",
+          "markup": "  <figure class=\"ds-log-viewer\">\n    <figcaption class=\"ds-log-viewer__header\">\n      <code class=\"ds-log-viewer__command\">npm run lint</code>\n      <span class=\"ds-log-viewer__meta\">Passed · 3.9 s</span>\n    </figcaption>\n    <pre class=\"ds-log-viewer__body\" tabindex=\"0\" role=\"group\" aria-label=\"Output of npm run lint\">&gt; acme-api@2.4.0 lint\n&gt; eslint . --max-warnings 0\n\nLinted 214 files in 3.8s. No problems found.</pre>\n  </figure>"
+        },
+        {
+          "id": "focus-visible",
+          "title": "Keyboard focus on the body",
+          "state": "focus-visible",
+          "markup": "  <figure class=\"ds-log-viewer\">\n    <figcaption class=\"ds-log-viewer__header\">\n      <code class=\"ds-log-viewer__command\">npm run typecheck</code>\n      <span class=\"ds-log-viewer__meta\">Passed · 6.1 s</span>\n    </figcaption>\n    <pre class=\"ds-log-viewer__body\" tabindex=\"0\" role=\"group\" aria-label=\"Output of npm run typecheck\">&gt; acme-api@2.4.0 typecheck\n&gt; tsc --noEmit\n\nChecked 214 files. No errors.</pre>\n  </figure>"
+        },
+        {
+          "id": "running",
+          "title": "Still running, following new lines",
+          "state": "running",
+          "markup": "<figure class=\"ds-log-viewer\">\n  <figcaption class=\"ds-log-viewer__header\">\n    <code class=\"ds-log-viewer__command\">docker build -t acme-api:test .</code>\n    <span class=\"ds-log-viewer__meta\">Running · 48 s</span>\n  </figcaption>\n  <ds-transcript>\n    <div class=\"ds-log-viewer__body\" tabindex=\"0\" role=\"log\" aria-live=\"off\" aria-label=\"Output of docker build, still running\" data-ds-scroller>\n      <ol class=\"ds-log-viewer__lines\">\n        <li class=\"ds-log-viewer__line\">Building the image acme-api:test</li>\n        <li class=\"ds-log-viewer__line\">Step 1/9 : FROM node:24-slim</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; 3f1c9a2b7d44</li>\n        <li class=\"ds-log-viewer__line\">Step 2/9 : WORKDIR /app</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; Using cache</li>\n        <li class=\"ds-log-viewer__line\">Step 3/9 : COPY package.json package-lock.json ./</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; Using cache</li>\n        <li class=\"ds-log-viewer__line\">Step 4/9 : RUN npm ci --omit=dev</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; Running in 8e21f0c4a9b3</li>\n        <li class=\"ds-log-viewer__line\">added 412 packages, and audited 413 packages in 21s</li>\n        <li class=\"ds-log-viewer__line\">found 0 vulnerabilities</li>\n        <li class=\"ds-log-viewer__line\">Step 5/9 : COPY . .</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; 51d0aa83e6f2</li>\n        <li class=\"ds-log-viewer__line\">Step 6/9 : RUN npm run build</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; Running in c03b7e5d1f88</li>\n        <li class=\"ds-log-viewer__line\">&gt; acme-api@2.4.0 build</li>\n        <li class=\"ds-log-viewer__line\">&gt; tsc -p tsconfig.build.json</li>\n        <li class=\"ds-log-viewer__line\">Compiled 214 files in 9.2s</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; 7a92c4e0d1b5</li>\n        <li class=\"ds-log-viewer__line\">Step 7/9 : RUN npm prune --omit=dev</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; Running in 2d4e8f1a6c07</li>\n        <li class=\"ds-log-viewer__line\">removed 96 packages in 3s</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; 0b3f7d9e2a18</li>\n        <li class=\"ds-log-viewer__line\">Step 8/9 : EXPOSE 8080</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; Running in 5c1a9e3f7b26</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; 9e4d2b8a1f03</li>\n        <li class=\"ds-log-viewer__line\">Step 9/9 : CMD [\"node\", \"dist/server.js\"]</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; Running in 4f8b1c6d2e95</li>\n        <li class=\"ds-log-viewer__line\"> ---&gt; 6d0e3a7c9b41</li>\n      </ol>\n    </div>\n    <div class=\"ds-jump-to-latest\" data-ds-jump>\n      <button type=\"button\" class=\"ds-jump-to-latest__button\"><span class=\"ds-jump-to-latest__count\" data-ds-count=\"{count} new lines\" data-ds-count-one=\"1 new line\">12 new lines</span> Jump to latest</button>\n    </div>\n  </ds-transcript>\n</figure>"
+        },
+        {
+          "id": "expanded",
+          "title": "Every line shown, after Show all",
+          "state": "expanded",
+          "markup": "<figure class=\"ds-log-viewer\">\n  <figcaption class=\"ds-log-viewer__header\">\n    <code class=\"ds-log-viewer__command\">npm test</code>\n    <span class=\"ds-log-viewer__meta\">Failed, exit code 1 · 4.3 s</span>\n  </figcaption>\n  <div class=\"ds-log-viewer__body\" id=\"log-viewer-expanded-body\" tabindex=\"0\" role=\"group\" aria-label=\"Output of npm test\">\n    <ol class=\"ds-log-viewer__lines\">\n    <li class=\"ds-log-viewer__line\">&gt; acme-api@2.4.0 test</li>\n    <li class=\"ds-log-viewer__line\">&gt; vitest run</li>\n    <li class=\"ds-log-viewer__line\"></li>\n    <li class=\"ds-log-viewer__line\"> RUN  v3.2.4 /srv/workspaces/acme-api</li>\n    <li class=\"ds-log-viewer__line\"></li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/auth/token.test.ts (12 tests) 41ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/auth/cookie.test.ts (8 tests) 22ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/billing/invoice.test.ts (19 tests) 88ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/billing/tax.test.ts (6 tests) 12ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/webhooks/verify.test.ts (9 tests) 31ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/webhooks/retry.test.ts (7 tests) 1204ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/users/profile.test.ts (14 tests) 57ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/users/invite.test.ts (5 tests) 19ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/search/index.test.ts (11 tests) 140ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/search/query.test.ts (23 tests) 66ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/jobs/queue.test.ts (10 tests) 302ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/jobs/schedule.test.ts (4 tests) 9ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/http/router.test.ts (17 tests) 48ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/http/errors.test.ts (6 tests) 11ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/db/migrate.test.ts (3 tests) 812ms</li>\n    <li class=\"ds-log-viewer__line\"> ✓ src/db/pool.test.ts (5 tests) 27ms</li>\n    <li class=\"ds-log-viewer__line\"> ❯ src/session/verify.test.ts (6 tests | 1 failed) 18ms</li>\n    <li class=\"ds-log-viewer__line\">   × verify &gt; rejects a session older than the TTL</li>\n    <li class=\"ds-log-viewer__line\"></li>\n    <li class=\"ds-log-viewer__line\">⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯</li>\n    <li class=\"ds-log-viewer__line\"></li>\n    <li class=\"ds-log-viewer__line ds-log-viewer__line--error\"><span class=\"ds-visually-hidden\">Error: </span> FAIL  src/session/verify.test.ts &gt; verify &gt; rejects a session older than the TTL</li>\n    <li class=\"ds-log-viewer__line ds-log-viewer__line--error\"><span class=\"ds-visually-hidden\">Error: </span>AssertionError: expected [Function] to throw an error</li>\n    <li class=\"ds-log-viewer__line\"></li>\n    <li class=\"ds-log-viewer__line\"> ❯ src/session/verify.test.ts:31:52</li>\n    <li class=\"ds-log-viewer__line\">     29|   it(\"rejects a session older than the TTL\", () =&gt; {</li>\n    <li class=\"ds-log-viewer__line\">     30|     const token = sign({ user: \"maya@acme.dev\", issuedAt: NOW - 1801 * 1000 });</li>\n    <li class=\"ds-log-viewer__line\">     31|     expect(() =&gt; verify(token, NOW)).toThrow(SessionExpired);</li>\n    <li class=\"ds-log-viewer__line\">       |                                                    ^</li>\n    <li class=\"ds-log-viewer__line\">     32|   });</li>\n    <li class=\"ds-log-viewer__line\"></li>\n    <li class=\"ds-log-viewer__line\"> Test Files  1 failed | 16 passed (17)</li>\n    <li class=\"ds-log-viewer__line\">      Tests  1 failed | 145 passed (146)</li>\n    <li class=\"ds-log-viewer__line\">   Start at  09:58:12</li>\n    <li class=\"ds-log-viewer__line\">   Duration  4.31s (transform 612ms, setup 0ms, collect 2.10s, tests 2.87s)</li>\n    </ol>\n  </div>\n  <div class=\"ds-log-viewer__footer\">\n    <button type=\"button\" class=\"ds-button ds-button--quiet ds-button--small ds-log-viewer__toggle\" aria-expanded=\"true\" aria-controls=\"log-viewer-expanded-body\">Show less</button>\n  </div>\n</figure>"
+        },
+        {
+          "id": "cut-short",
+          "title": "Only the end was kept",
+          "markup": "  <figure class=\"ds-log-viewer\">\n    <figcaption class=\"ds-log-viewer__header\">\n      <code class=\"ds-log-viewer__command\">npm run test:e2e</code>\n      <span class=\"ds-log-viewer__meta\">Timed out after 10 min</span>\n    </figcaption>\n    <pre class=\"ds-log-viewer__body\" tabindex=\"0\" role=\"group\" aria-label=\"Output of npm run test:e2e, last lines\">  ✓ checkout › pays with a saved card (4.2s)\n  ✓ checkout › shows the receipt (1.9s)\n  … checkout › refunds a payment\n\nStopped by Botbench after 10 min.</pre>\n    <div class=\"ds-log-viewer__footer\">\n      <p class=\"ds-log-viewer__note\">The first 3,112 lines were not kept. These are the last lines, up to 64 KB.</p>\n    </div>\n  </figure>"
+        }
+      ]
+    },
+    {
       "name": "menu",
       "title": "Menu",
       "purpose": "A list of actions on one thing, opened from a button.",
@@ -6426,6 +6525,63 @@
       ]
     },
     {
+      "name": "presence",
+      "title": "Presence",
+      "purpose": "Who is on a task or a repository right now, people and agents, as a few small avatar marks with a count for the rest and a sentence saying whose work it is.",
+      "status": "draft",
+      "whenToUse": [
+        "When someone other than the reader, or another person's agent, is working on the task or the repository the reader is looking at.",
+        "Beside a task's title or in a repository's row, so the reader sees whose work it is before starting on it.",
+        "Only while someone is there. With nobody else on it, show nothing."
+      ],
+      "whenNotToUse": [
+        "To say who did something in the past. Use an avatar with the name beside it, in an activity feed or a timeline.",
+        "For the status of the work, such as Working or Needs input. Use a badge.",
+        "For a list of everyone with access. Use a list of avatars with their names."
+      ],
+      "variants": [],
+      "sizes": [],
+      "states": [
+        "default"
+      ],
+      "accessibility": [
+        "Use a div with the class ds-presence. Inside it, a ul, ds-presence__marks, with an aria-label saying where, such as On this task now. Each li holds a small avatar, ds-avatar ds-avatar--small, with its mark only.",
+        "Each mark carries the name: role=\"img\" and aria-label on the span, such as Alex Chen or Alex Chen's Claude Code. A person's mark holds initials and an agent's the terminal icon, so the two are told apart by shape.",
+        "Show at most three marks. The rest go in one last li, ds-presence__more, reading +2 and then a ds-visually-hidden span naming them, such as more: Maya Okafor's Claude Code and Codex, reviewer.",
+        "Say whose work it is in ds-presence__label, a p after the list, such as Alex Chen's Claude Code is on this task. Leave it out only where the row already says it.",
+        "The marks sit apart in a row and never overlap. There is no status dot: a mark is shown while that person or agent is on it and removed when they leave.",
+        "Presence is not focusable and takes no press. When it changes while the reader watches, say nothing: it is not worth an announcement."
+      ],
+      "icons": [
+        "terminal"
+      ],
+      "classes": [
+        "ds-presence",
+        "ds-presence__label",
+        "ds-presence__marks",
+        "ds-presence__more"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "On a task: whose agent it is",
+          "state": "default",
+          "reason": "The marks say at a glance that someone is here, and the sentence says whose work it is, which is what the reader needs before touching the task. Each mark carries its name for a screen reader, a person by initials and an agent by its icon.",
+          "markup": "<div class=\"ds-presence\">\n  <ul class=\"ds-presence__marks\" aria-label=\"On this task now\">\n    <li><span class=\"ds-avatar ds-avatar--small\"><span class=\"ds-avatar__mark\" role=\"img\" aria-label=\"Alex Chen\">AC</span></span></li>\n    <li><span class=\"ds-avatar ds-avatar--small\"><span class=\"ds-avatar__mark\" role=\"img\" aria-label=\"Alex Chen's Claude Code\"><svg class=\"ds-avatar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-terminal\"></use></svg></span></span></li>\n  </ul>\n  <p class=\"ds-presence__label\">Alex Chen's Claude Code is on this task.</p>\n</div>"
+        },
+        {
+          "id": "many",
+          "title": "On a repository: three shown, and a count for the rest",
+          "markup": "<div class=\"ds-presence\">\n  <ul class=\"ds-presence__marks\" aria-label=\"In acme/api now\">\n    <li><span class=\"ds-avatar ds-avatar--small\"><span class=\"ds-avatar__mark\" role=\"img\" aria-label=\"Alex Chen\">AC</span></span></li>\n    <li><span class=\"ds-avatar ds-avatar--small\"><span class=\"ds-avatar__mark\" role=\"img\" aria-label=\"Alex Chen's Claude Code\"><svg class=\"ds-avatar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-terminal\"></use></svg></span></span></li>\n    <li><span class=\"ds-avatar ds-avatar--small\"><span class=\"ds-avatar__mark\" role=\"img\" aria-label=\"Maya Okafor\">MO</span></span></li>\n    <li class=\"ds-presence__more\">+2<span class=\"ds-visually-hidden\"> more: Maya Okafor's Claude Code and Codex, reviewer</span></li>\n  </ul>\n  <p class=\"ds-presence__label\">5 in acme/api now</p>\n</div>"
+        },
+        {
+          "id": "marks-only",
+          "title": "The marks alone, where the row already says what they are on",
+          "markup": "<div class=\"ds-presence\">\n  <ul class=\"ds-presence__marks\" aria-label=\"On task 41 now\">\n    <li><span class=\"ds-avatar ds-avatar--small\"><span class=\"ds-avatar__mark\" role=\"img\" aria-label=\"Maya Okafor\">MO</span></span></li>\n    <li><span class=\"ds-avatar ds-avatar--small\"><span class=\"ds-avatar__mark\" role=\"img\" aria-label=\"Maya Okafor's Claude Code\"><svg class=\"ds-avatar__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-terminal\"></use></svg></span></span></li>\n  </ul>\n</div>"
+        }
+      ]
+    },
+    {
       "name": "progress",
       "title": "Progress",
       "purpose": "How far a job with a known length has got: a labelled bar on a native progress element, with the value written in words.",
@@ -6674,6 +6830,103 @@
           "title": "Keyboard focus",
           "state": "focus-visible",
           "markup": "<details class=\"ds-reasoning\">\n  <summary class=\"ds-reasoning__summary\">Plan, 4 steps</summary>\n  <div class=\"ds-reasoning__body\">\n    <p>Reproduce the expiry with a test, start the timer in loadSession, run the auth tests, then open a pull request.</p>\n  </div>\n</details>"
+        }
+      ]
+    },
+    {
+      "name": "review-decision",
+      "title": "Review decision",
+      "purpose": "The end of a task: what the checks found and what the review said, one line each, then Accept and Reject, and the result once decided.",
+      "status": "draft",
+      "whenToUse": [
+        "Once, at the end of a task's screen, when the work waits for the reader to accept or reject it.",
+        "With the checks' line and the review's line even when one has nothing to report: say that no checks are set up, or why there is no review.",
+        "Kept in place after the decision, with the result in place of the buttons."
+      ],
+      "whenNotToUse": [
+        "For an agent's request to run a tool or a command. Use the approval.",
+        "For the full results of the checks or the full review. Show them above it with the check list and a disclosure, and keep this to one line each.",
+        "On a row of a list of tasks. Put plain Accept and Reject buttons in the row, never primary, and the decision on the task's own screen.",
+        "To ask before something is lost. Reject opens a confirm dialog that asks what becomes of the branch."
+      ],
+      "variants": [],
+      "sizes": [],
+      "states": [
+        "default",
+        "busy",
+        "error",
+        "decided"
+      ],
+      "accessibility": [
+        "Use a section with aria-labelledby pointing at ds-review-decision__title, a heading such as Your decision. Its level is the one under the heading it sits beneath. The examples use h4 only because of where they sit on the gallery page.",
+        "ds-review-decision__evidence is a dl. Each ds-review-decision__line holds a dt, ds-review-decision__source, naming where the finding comes from (Checks, Review), and a dd, ds-review-decision__finding, saying it in one sentence.",
+        "The checks' finding opens with a badge from the status set, with its icon: Checks passed or Checks failed in the tone and icon of Check passed and Check failed. With no checks set up, write that, with no badge, so nothing reads as a pass.",
+        "The review's finding is the reviewer and its verdict in words, with no badge, tone or icon, followed by ds-review-decision__caveat saying it is a model's opinion, not a check. A review is never drawn as a check, and never counted with them.",
+        "ds-review-decision__actions holds Accept first, as the view's one primary action, and Reject, a plain button, at the far end. Both carry data-ds-critical and are never inside a details element. When the task's checks left files that accepting removes, Accept opens a confirm dialog naming them. Reject always opens a confirm dialog that asks whether to keep or delete the branch and says that nothing is merged or pushed.",
+        "An optional note is a field before the actions, labelled Note (optional), sent with whichever button is pressed. It is always in view, so pressing Reject moves no focus to it.",
+        "While the decision is sent, set aria-busy=\"true\" on the pressed button, change its label to Accepting or Rejecting, and disable the other. If sending fails, restore both and put an alert with role=\"alert\" before the actions, saying what was not done.",
+        "Once decided, replace ds-review-decision__actions and the note with ds-review-decision__result: a badge, Accepted or Rejected with the status set's icon and tone, then a sentence saying what became of the branch and whether anything was merged or pushed. A copy field for the merge command may follow. The pressed button goes with the actions, so move focus to the section's heading, given tabindex=\"-1\", and never let it drop to the page.",
+        "The component needs no script. The app sets aria-busy and disabled and swaps the actions for the result."
+      ],
+      "icons": [
+        "circle-alert",
+        "circle-check",
+        "thumbs-up",
+        "x"
+      ],
+      "classes": [
+        "ds-review-decision",
+        "ds-review-decision__actions",
+        "ds-review-decision__caveat",
+        "ds-review-decision__evidence",
+        "ds-review-decision__finding",
+        "ds-review-decision__line",
+        "ds-review-decision__result",
+        "ds-review-decision__source",
+        "ds-review-decision__title"
+      ],
+      "examples": [
+        {
+          "id": "default",
+          "title": "Ready to decide",
+          "state": "default",
+          "reason": "The checks and the review each get one line, so the reader sees both before the buttons. The checks carry a badge because they ran and passed. The review is the reviewer's words with no tone and no icon, and it says it is an opinion. Accept is the view's one primary action, and Reject sits at the far end of the row.",
+          "markup": "<section class=\"ds-review-decision\" aria-labelledby=\"review-decision-default-title\">\n  <h4 class=\"ds-review-decision__title\" id=\"review-decision-default-title\">Your decision on task 42</h4>\n  <dl class=\"ds-review-decision__evidence\">\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Checks</dt>\n      <dd class=\"ds-review-decision__finding\">\n        <span class=\"ds-badge ds-badge--success\"><svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-check\"></use></svg>Checks passed</span>\n        All 6 in 2 min 14 s.\n      </dd>\n    </div>\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Review</dt>\n      <dd class=\"ds-review-decision__finding\">\n        Codex, gpt-6-luna: looks right.\n        <span class=\"ds-review-decision__caveat\">A model's opinion, not a check.</span>\n      </dd>\n    </div>\n  </dl>\n  <div class=\"ds-review-decision__actions\">\n    <button type=\"button\" class=\"ds-button ds-button--primary\" data-ds-critical>Accept</button>\n    <button type=\"button\" class=\"ds-button\" data-ds-critical>Reject</button>\n  </div>\n</section>"
+        },
+        {
+          "id": "concerns",
+          "title": "A failed check and a review with concerns",
+          "markup": "<section class=\"ds-review-decision\" aria-labelledby=\"review-decision-concerns-title\">\n  <h4 class=\"ds-review-decision__title\" id=\"review-decision-concerns-title\">Your decision on task 43</h4>\n  <dl class=\"ds-review-decision__evidence\">\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Checks</dt>\n      <dd class=\"ds-review-decision__finding\">\n        <span class=\"ds-badge ds-badge--danger\"><svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-alert\"></use></svg>Checks failed</span>\n        npm run lint did not pass. The other 5 did.\n      </dd>\n    </div>\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Review</dt>\n      <dd class=\"ds-review-decision__finding\">\n        Codex, gpt-6-luna: concerns. The refresh path no longer checks the expiry.\n        <span class=\"ds-review-decision__caveat\">A model's opinion, not a check.</span>\n      </dd>\n    </div>\n  </dl>\n  <div class=\"ds-review-decision__actions\">\n    <button type=\"button\" class=\"ds-button ds-button--primary\" data-ds-critical>Accept</button>\n    <button type=\"button\" class=\"ds-button\" data-ds-critical>Reject</button>\n  </div>\n</section>"
+        },
+        {
+          "id": "no-checks",
+          "title": "No checks set up, and a note",
+          "markup": "<section class=\"ds-review-decision\" aria-labelledby=\"review-decision-no-checks-title\">\n  <h4 class=\"ds-review-decision__title\" id=\"review-decision-no-checks-title\">Your decision on task 44</h4>\n  <dl class=\"ds-review-decision__evidence\">\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Checks</dt>\n      <dd class=\"ds-review-decision__finding\">None are set up for this repository.</dd>\n    </div>\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Review</dt>\n      <dd class=\"ds-review-decision__finding\">Not reviewed: no reviewer is signed in.</dd>\n    </div>\n  </dl>\n  <div class=\"ds-field\">\n    <label class=\"ds-field__label\" for=\"review-decision-no-checks-note\">Note (optional)</label>\n    <input class=\"ds-field__control\" id=\"review-decision-no-checks-note\" type=\"text\" maxlength=\"500\" aria-describedby=\"review-decision-no-checks-note-about\">\n    <p class=\"ds-field__description\" id=\"review-decision-no-checks-note-about\">Kept with your Accept or Reject and shown in Activity.</p>\n  </div>\n  <div class=\"ds-review-decision__actions\">\n    <button type=\"button\" class=\"ds-button ds-button--primary\" data-ds-critical>Accept</button>\n    <button type=\"button\" class=\"ds-button\" data-ds-critical>Reject</button>\n  </div>\n</section>"
+        },
+        {
+          "id": "busy",
+          "title": "Sending the decision",
+          "state": "busy",
+          "markup": "<section class=\"ds-review-decision\" aria-labelledby=\"review-decision-busy-title\">\n  <h4 class=\"ds-review-decision__title\" id=\"review-decision-busy-title\">Your decision on task 45</h4>\n  <dl class=\"ds-review-decision__evidence\">\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Checks</dt>\n      <dd class=\"ds-review-decision__finding\">\n        <span class=\"ds-badge ds-badge--success\"><svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-check\"></use></svg>Checks passed</span>\n        All 6 in 2 min 14 s.\n      </dd>\n    </div>\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Review</dt>\n      <dd class=\"ds-review-decision__finding\">\n        Codex, gpt-6-luna: looks right.\n        <span class=\"ds-review-decision__caveat\">A model's opinion, not a check.</span>\n      </dd>\n    </div>\n  </dl>\n  <div class=\"ds-review-decision__actions\">\n    <button type=\"button\" class=\"ds-button ds-button--primary\" aria-busy=\"true\" data-ds-critical>Accepting</button>\n    <button type=\"button\" class=\"ds-button\" disabled data-ds-critical>Reject</button>\n  </div>\n</section>"
+        },
+        {
+          "id": "error",
+          "title": "The decision was not sent",
+          "state": "error",
+          "markup": "<section class=\"ds-review-decision\" aria-labelledby=\"review-decision-error-title\">\n  <h4 class=\"ds-review-decision__title\" id=\"review-decision-error-title\">Your decision on task 46</h4>\n  <dl class=\"ds-review-decision__evidence\">\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Checks</dt>\n      <dd class=\"ds-review-decision__finding\">\n        <span class=\"ds-badge ds-badge--success\"><svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-check\"></use></svg>Checks passed</span>\n        All 6 in 2 min 14 s.\n      </dd>\n    </div>\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Review</dt>\n      <dd class=\"ds-review-decision__finding\">\n        Codex, gpt-6-luna: looks right.\n        <span class=\"ds-review-decision__caveat\">A model's opinion, not a check.</span>\n      </dd>\n    </div>\n  </dl>\n  <div class=\"ds-alert ds-alert--danger\" role=\"alert\">\n    <div class=\"ds-alert__content\">\n      <p class=\"ds-alert__label\">Error</p>\n      <p class=\"ds-alert__body\">The task was not accepted. Botbench could not be reached. Nothing was merged or removed.</p>\n    </div>\n  </div>\n  <div class=\"ds-review-decision__actions\">\n    <button type=\"button\" class=\"ds-button ds-button--primary\" data-ds-critical>Accept</button>\n    <button type=\"button\" class=\"ds-button\" data-ds-critical>Reject</button>\n  </div>\n</section>"
+        },
+        {
+          "id": "accepted",
+          "title": "Accepted",
+          "state": "decided",
+          "reason": "Once decided, the result takes the place of the buttons, with the state's badge and a sentence on what became of the work. The lines above stay, so the reader can still see what the decision stood on.",
+          "markup": "<section class=\"ds-review-decision\" aria-labelledby=\"review-decision-accepted-title\">\n  <h4 class=\"ds-review-decision__title\" id=\"review-decision-accepted-title\">Your decision on task 47</h4>\n  <dl class=\"ds-review-decision__evidence\">\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Checks</dt>\n      <dd class=\"ds-review-decision__finding\">\n        <span class=\"ds-badge ds-badge--success\"><svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-check\"></use></svg>Checks passed</span>\n        All 6 in 2 min 14 s.\n      </dd>\n    </div>\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Review</dt>\n      <dd class=\"ds-review-decision__finding\">\n        Codex, gpt-6-luna: looks right.\n        <span class=\"ds-review-decision__caveat\">A model's opinion, not a check.</span>\n      </dd>\n    </div>\n  </dl>\n  <div class=\"ds-review-decision__result\">\n    <span class=\"ds-badge ds-badge--success\"><svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-thumbs-up\"></use></svg>Accepted</span>\n    <p>Nothing has been merged or pushed. The branch fix/session-ttl stays in the repository until you merge or delete it.</p>\n  </div>\n</section>"
+        },
+        {
+          "id": "rejected",
+          "title": "Rejected, with the branch deleted",
+          "state": "decided",
+          "markup": "<section class=\"ds-review-decision\" aria-labelledby=\"review-decision-rejected-title\">\n  <h4 class=\"ds-review-decision__title\" id=\"review-decision-rejected-title\">Your decision on task 48</h4>\n  <dl class=\"ds-review-decision__evidence\">\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Checks</dt>\n      <dd class=\"ds-review-decision__finding\">\n        <span class=\"ds-badge ds-badge--danger\"><svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-circle-alert\"></use></svg>Checks failed</span>\n        npm run lint did not pass. The other 5 did.\n      </dd>\n    </div>\n    <div class=\"ds-review-decision__line\">\n      <dt class=\"ds-review-decision__source\">Review</dt>\n      <dd class=\"ds-review-decision__finding\">\n        Codex, gpt-6-luna: concerns. The refresh path no longer checks the expiry.\n        <span class=\"ds-review-decision__caveat\">A model's opinion, not a check.</span>\n      </dd>\n    </div>\n  </dl>\n  <div class=\"ds-review-decision__result\">\n    <span class=\"ds-badge\"><svg class=\"ds-badge__icon\" aria-hidden=\"true\"><use href=\"icons.svg#ds-icon-x\"></use></svg>Rejected</span>\n    <p>Nothing has been merged or pushed. The branch and the task's copy of the project are gone.</p>\n  </div>\n</section>"
         }
       ]
     },

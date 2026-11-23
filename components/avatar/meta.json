@@ -10,6 +10,7 @@
   ],
   "whenNotToUse": [
     "As decoration, or in a stack of overlapping marks. Write the names, or a count such as 4 reviewers.",
+    "For who is on a task or a repository right now. Use presence.",
     "Without a name, unless the name is already written directly beside it. Then give the mark an accessible name.",
     "For a repository, a branch or a file. Use text, with an icon in a list row where it helps.",
     "For a status. Use a badge. The mark carries no tone and no status dot."

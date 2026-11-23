@@ -2,6 +2,10 @@
 
 Each entry says what a version of `dist/` holds. An app reads it when it syncs a newer copy.
 
+## 0.10.0
+
+**Added.** `review-decision`: the end of a task, with the checks and the review in one line each, Accept as the view's primary action and Reject, a busy and an error state, and the result once decided. The review is written as the reviewer's words with no badge or tone, and is labelled as a model's opinion, never a check. `log-viewer`: a command's output in a box of capped height that scrolls by itself (half the viewport at most on a phone), wraps long lines, marks error lines with a tint, an icon and a hidden word, offers Show all through `aria-expanded`, and follows a running command through `<ds-transcript>` and `jump-to-latest`. `presence`: who is on a task or a repository now, as up to three small avatar marks with names for assistive technology, +N for the rest, and a sentence saying whose work it is. The `diff` gains optional old and new line-number cells, `ds-diff__number--old` and `ds-diff__number--new`, which are unselectable, hidden from screen readers, and reduced to the new number below 768px; existing diff markup is unchanged. No class, token or rule was renamed or removed. A consumer only needs to sync.
+
 ## 0.9.0
 
 One new colour token, `fill` (`--ds-color-fill`, `bg-fill` in the Tailwind preset): the resting fill of a secondary control. In dark mode it is lighter than a raised card, so a secondary button on a card reads as a quiet tone and no longer as a dark hole; in light mode it is a little darker than the page. Secondary buttons rest on it, quiet buttons take it on hover, and a pressed secondary button sinks to the sunken surface. A toggle that is on keeps the sunken fill, so on and off differ by fill again. Two contrast pairs were added for it. No class or rule was renamed or removed. A consumer only needs to sync; an app component that drew its own secondary control on `surface-sunken` may want `fill` instead.

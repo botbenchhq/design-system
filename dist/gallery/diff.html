@@ -26,7 +26,7 @@
 <main data-gallery="page">
 <header>
 <h1>Diff</h1>
-<p>One file's change as a unified diff, with its path and how many lines were added and removed.</p>
+<p>One file's change as a unified diff, with its path, how many lines were added and removed, and optional line numbers.</p>
 <p data-gallery="status">Status: draft</p>
 </header>
 <section>
@@ -68,6 +68,60 @@
       <ins class="ds-diff__line ds-diff__line--added"><span class="ds-diff__sign">+</span><span class="ds-diff__text">export function remaining(token, now = Date.now()) {</span></ins>
       <ins class="ds-diff__line ds-diff__line--added"><span class="ds-diff__sign">+</span><span class="ds-diff__text">  return SESSION_TTL_SECONDS * 1000 - (now - decode(token).issuedAt);</span></ins>
       <ins class="ds-diff__line ds-diff__line--added"><span class="ds-diff__sign">+</span><span class="ds-diff__text">}</span></ins>
+    </code></pre>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="do">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> With line numbers</h3>
+<p>Each line carries its number in the file before and after the change, in cells of their own. The numbers are hidden from a screen reader and left out when the code is copied. A phone shows only the new number, so the code keeps its width.</p>
+</figcaption>
+<div data-example="line-numbers" data-title="With line numbers" data-reason="Each line carries its number in the file before and after the change, in cells of their own. The numbers are hidden from a screen reader and left out when the code is copied. A phone shows only the new number, so the code keeps its width.">
+  <figure class="ds-diff">
+    <figcaption class="ds-diff__header">
+      <code class="ds-diff__path">src/session/verify.mjs</code>
+      <span class="ds-diff__counts">
+        <span class="ds-diff__added">+7<span class="ds-diff__label"> lines added</span></span>
+        <span class="ds-diff__removed">−3<span class="ds-diff__label"> lines removed</span></span>
+      </span>
+    </figcaption>
+    <pre class="ds-diff__body" tabindex="0" role="group" aria-label="Diff of src/session/verify.mjs, with line numbers"><code class="ds-diff__lines">
+      <span class="ds-diff__line ds-diff__line--hunk"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true"></span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true"></span><span class="ds-diff__sign"> </span><span class="ds-diff__text">@@ -38,9 +38,9 @@ import { decode } from "./token.mjs";</span></span>
+      <span class="ds-diff__line"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true">38</span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">38</span><span class="ds-diff__sign"> </span><span class="ds-diff__text"></span></span>
+      <del class="ds-diff__line ds-diff__line--removed"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true">39</span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true"></span><span class="ds-diff__sign">-</span><span class="ds-diff__text">const SESSION_TTL_SECONDS = 1800;</span></del>
+      <ins class="ds-diff__line ds-diff__line--added"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true"></span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">39</span><span class="ds-diff__sign">+</span><span class="ds-diff__text">const SESSION_TTL_SECONDS = Number(process.env.SESSION_TTL_SECONDS ?? 1800);</span></ins>
+      <span class="ds-diff__line"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true">40</span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">40</span><span class="ds-diff__sign"> </span><span class="ds-diff__text"></span></span>
+      <span class="ds-diff__line"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true">41</span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">41</span><span class="ds-diff__sign"> </span><span class="ds-diff__text">export function verify(token, now = Date.now()) {</span></span>
+      <span class="ds-diff__line"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true">42</span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">42</span><span class="ds-diff__sign"> </span><span class="ds-diff__text">  const session = decode(token);</span></span>
+      <del class="ds-diff__line ds-diff__line--removed"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true">43</span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true"></span><span class="ds-diff__sign">-</span><span class="ds-diff__text">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS) {</span></del>
+      <del class="ds-diff__line ds-diff__line--removed"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true">44</span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true"></span><span class="ds-diff__sign">-</span><span class="ds-diff__text">    throw new SessionExpired();</span></del>
+      <ins class="ds-diff__line ds-diff__line--added"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true"></span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">43</span><span class="ds-diff__sign">+</span><span class="ds-diff__text">  if (now - session.issuedAt &gt; SESSION_TTL_SECONDS * 1000) {</span></ins>
+      <ins class="ds-diff__line ds-diff__line--added"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true"></span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">44</span><span class="ds-diff__sign">+</span><span class="ds-diff__text">    throw new SessionExpired(`The session for ${session.user} ended after ${SESSION_TTL_SECONDS} seconds.`);</span></ins>
+      <span class="ds-diff__line"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true">45</span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">45</span><span class="ds-diff__sign"> </span><span class="ds-diff__text">  }</span></span>
+      <span class="ds-diff__line"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true">46</span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">46</span><span class="ds-diff__sign"> </span><span class="ds-diff__text">  return session;</span></span>
+      <span class="ds-diff__line ds-diff__line--hunk"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true"></span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true"></span><span class="ds-diff__sign"> </span><span class="ds-diff__text">@@ -70,2 +70,6 @@ export function refresh(token, now = Date.now()) {</span></span>
+      <span class="ds-diff__line"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true">70</span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">70</span><span class="ds-diff__sign"> </span><span class="ds-diff__text">  return encode({ ...session, issuedAt: now });</span></span>
+      <span class="ds-diff__line"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true">71</span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">71</span><span class="ds-diff__sign"> </span><span class="ds-diff__text">}</span></span>
+      <ins class="ds-diff__line ds-diff__line--added"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true"></span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">72</span><span class="ds-diff__sign">+</span><span class="ds-diff__text"></span></ins>
+      <ins class="ds-diff__line ds-diff__line--added"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true"></span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">73</span><span class="ds-diff__sign">+</span><span class="ds-diff__text">export function remaining(token, now = Date.now()) {</span></ins>
+      <ins class="ds-diff__line ds-diff__line--added"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true"></span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">74</span><span class="ds-diff__sign">+</span><span class="ds-diff__text">  return SESSION_TTL_SECONDS * 1000 - (now - decode(token).issuedAt);</span></ins>
+      <ins class="ds-diff__line ds-diff__line--added"><span class="ds-diff__number ds-diff__number--old" aria-hidden="true"></span><span class="ds-diff__number ds-diff__number--new" aria-hidden="true">75</span><span class="ds-diff__sign">+</span><span class="ds-diff__text">}</span></ins>
+    </code></pre>
+  </figure>
+</div>
+</figure>
+<figure data-gallery="dont">
+<figcaption>
+<h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-x"></use></svg>Don't</span> Line numbers typed into the text</h3>
+<p>With the number written into the text of the line, a screen reader reads it before every line, and whoever copies the code gets the numbers too and has to strip them by hand.</p>
+<p>Caught in review, not by the checker.</p>
+</figcaption>
+<div data-example="numbers-in-text" data-title="Line numbers typed into the text" data-dont="review" data-reason="With the number written into the text of the line, a screen reader reads it before every line, and whoever copies the code gets the numbers too and has to strip them by hand.">
+  <figure class="ds-diff">
+    <pre class="ds-diff__body" tabindex="0" role="group" aria-label="Diff of src/session/verify.mjs"><code class="ds-diff__lines">
+      <del class="ds-diff__line ds-diff__line--removed"><span class="ds-diff__sign">-</span><span class="ds-diff__text">39  const SESSION_TTL_SECONDS = 1800;</span></del>
+      <ins class="ds-diff__line ds-diff__line--added"><span class="ds-diff__sign">+</span><span class="ds-diff__text">39  const SESSION_TTL_SECONDS = Number(process.env.SESSION_TTL_SECONDS ?? 1800);</span></ins>
     </code></pre>
   </figure>
 </div>
@@ -217,6 +271,7 @@
 <li>Write each count as a sign and a number followed by a ds-diff__label span that finishes it in words, such as +7 and lines added. The label is hidden from sight and read by a screen reader.</li>
 <li>The body is a pre with tabindex=&quot;0&quot;, role=&quot;group&quot; and an aria-label naming the file, so it can take focus and the arrow keys scroll it sideways. The page itself never scrolls sideways.</li>
 <li>Each line is a ds-diff__line holding a ds-diff__sign cell and a ds-diff__text cell. Use an ins element for an added line and a del element for a removed one, with the plus or minus as the sign. A context line and a hunk header are spans, with a space as the sign.</li>
+<li>Line numbers are optional. Put two ds-diff__number cells before the sign of every line, ds-diff__number--old and then ds-diff__number--new, each with aria-hidden=&quot;true&quot;. Leave a cell empty where the line has no number in that file: the old number of an added line, the new number of a removed line and both on a hunk header. Give every line both cells or no line any. Below 768px only the new number is shown, so the code keeps its width. The stylesheet makes the numbers unselectable, so copying the code leaves them behind.</li>
 <li>Never leave out the sign. The shading alone does not mark a line for someone who cannot tell the colours apart.</li>
 <li>While the diff is fetched, set aria-busy=&quot;true&quot; on the figure and put a ds-diff__note with role=&quot;status&quot; in place of the body. When it fails, use a note with role=&quot;alert&quot; that says why. The stylesheet adds the failure's icon.</li>
 <li>When a file changed with no line to show, or the diff is cut short, say so in a plain ds-diff__note.</li>
@@ -237,6 +292,9 @@
 <li><code>ds-diff__line--removed</code></li>
 <li><code>ds-diff__lines</code></li>
 <li><code>ds-diff__note</code></li>
+<li><code>ds-diff__number</code></li>
+<li><code>ds-diff__number--new</code></li>
+<li><code>ds-diff__number--old</code></li>
 <li><code>ds-diff__path</code></li>
 <li><code>ds-diff__removed</code></li>
 <li><code>ds-diff__sign</code></li>
