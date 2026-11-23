@@ -32,3 +32,10 @@ export async function openGallery(page, origin, name, { width = 1280, height = 9
   await page.goto(`${origin}/gallery/${name}.html?theme=${theme}${brand ? `&brand=${brand}` : ""}`);
   await page.evaluate(() => document.fonts.ready);
 }
+
+// Moves focus to the next control, or the one before. WebKit, like Safari with its default setting, moves Tab between
+// text fields only and Option+Tab through every control; in every other engine Tab does that.
+export async function pressTab(page, { back = false } = {}) {
+  const webkit = page.context().browser()?.browserType().name() === "webkit";
+  await page.keyboard.press(`${webkit ? "Alt+" : ""}${back ? "Shift+" : ""}Tab`);
+}

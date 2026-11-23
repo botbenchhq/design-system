@@ -1,6 +1,6 @@
 // The composer as one block: its row at phone widths, the missing required value, the Add context sheet and dictation.
 import { expect, test } from "@playwright/test";
-import { openGallery, serveDist } from "./serve.mjs";
+import { openGallery, pressTab, serveDist } from "./serve.mjs";
 
 let server;
 test.beforeAll(async () => {
@@ -87,14 +87,19 @@ test("the sheet's rows are named by the setting and its value, and a long value 
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
 });
 
-test("a setting's view has a Back control that Tab reaches and that names where it goes", async ({ page }) => {
+test("a setting's view has a Back control that Tab reaches and that names where it goes", async ({ page, browserName }) => {
   await openGallery(page, server.origin, "composer", { width: 390 });
   const view = example(page, "sheet-repository");
   await view.locator(".ds-composer").getByRole("button", { name: "Send" }).focus();
-  await page.keyboard.press("Tab");
+  await pressTab(page);
+  // WebKit and Firefox stop on an open dialog itself before its first control. Chrome goes straight to the control.
+  if (browserName !== "chromium") {
+    await expect(page.locator(":focus")).toHaveId("composer-sheet-repository");
+    await pressTab(page);
+  }
   await expect(page.locator(":focus")).toHaveAccessibleName("Back to Add context");
   await expect(view.getByRole("heading", { name: "Repository" })).toBeVisible();
-  await page.keyboard.press("Tab");
+  await pressTab(page);
   await expect(page.locator(":focus")).toHaveAccessibleName("Close Add context");
 });
 
