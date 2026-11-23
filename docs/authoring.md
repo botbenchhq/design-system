@@ -220,12 +220,12 @@ The build stops, naming the folder, when:
 ```sh
 npm run build        # regenerate dist/, including the gallery
 npm test             # build rules, and the checker over every example and component stylesheet
-npm run test:visual  # the gallery in Chrome
+npm run test:visual  # the gallery in Chrome, compared with the committed screenshots
 ```
 
 `npm test` runs the shipped checker over each example as a page of its own and over each component and pattern stylesheet. Do examples and stylesheets must produce no finding and no waiver. Each don't example with a rule id must produce that rule and nothing else. It also fails when the committed `dist/` does not match the sources, so commit the regenerated `dist/` with the folder.
 
-`npm run test:visual` opens the gallery page of each component and each pattern at 390px and 1280px, in light and dark. On the do examples it runs axe, runs the structural rules on the rendered page and, at 390px, measures every pointer target. It writes one screenshot per page, width and theme to `test/visual/screenshots/`. Look at them, then commit them: they are what the owner reviews.
+`npm run test:visual` opens the gallery page of each component and each pattern at 390px and 1280px, in light and dark. On the do examples it runs axe, runs the structural rules on the rendered page and, at 390px, measures every pointer target. It compares each page, width and theme with its screenshot in `test/visual/screenshots/` and fails when they differ. After a change you mean to make, run `npm run test:visual:update`, look at the screenshots it rewrote, then commit them: they are what the owner reviews.
 
 A component with behaviour worth proving, such as keyboard operation, adds its own test to `test/visual/gallery.spec.mjs`, as the button and the field do.
 
@@ -239,4 +239,4 @@ python3 -m http.server --directory dist
 
 - The component looks finished in all four screenshots, not merely present.
 - Every variant, size and state has an example, and the do and the don't each give a reason.
-- `npm run build`, `npm test` and `npm run test:visual` pass, and `git status` shows the regenerated `dist/` and screenshots.
+- `npm run build`, `npm test` and `npm run test:visual` pass, and `git status` shows the regenerated `dist/` and the screenshots `npm run test:visual:update` rewrote or added.

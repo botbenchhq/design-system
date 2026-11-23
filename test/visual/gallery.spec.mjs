@@ -7,7 +7,6 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 const dist = fileURLToPath(new URL("../../dist", import.meta.url));
-const screenshots = fileURLToPath(new URL("screenshots", import.meta.url));
 // Every folder with a gallery page: the components, then the page patterns.
 const index = JSON.parse(readFileSync(join(dist, "components.json"), "utf8"));
 const patterns = index.patterns.map((pattern) => pattern.name);
@@ -20,6 +19,10 @@ const DO = "[data-example]:not([data-dont])";
 // A link with no class is a link inside running text, which the target size rule exempts.
 const INTERACTIVE = 'button, a[class], input, select, textarea, summary, [role="button"], [tabindex]';
 const TOUCH = 44;
+// The components a Botbench user meets, on a phone or a desktop. Their axe and structural-rule tests at both widths and
+// their pointer-target test carry the @engines tag, which is what the WebKit and Firefox projects run from this file.
+const ENGINES = new Set(["composer", "context-list", "sheet", "option-picker", "approval", "step-group", "tool-call", "button", "dialog", "menu", "app-shell", "agent-run"]);
+const engines = (name) => (ENGINES.has(name) ? { tag: "@engines" } : {});
 
 // A state the page cannot hold by itself is forced on the controls of its example, so the screenshot shows it.
 const FORCED = { hover: ["hover"], active: ["hover", "active"], "focus-visible": ["focus-visible"], focus: ["focus", "focus-visible"] };
@@ -65,14 +68,47 @@ async function forceStates(page) {
   }
 }
 
+// The target is what the pointer hits, which a padded hit area makes larger than the control is drawn. So from the
+// centre of each control the pointer is moved out along each axis, in half pixels, for as long as it still lands on the
+// control, and the target is what it covers: 42px or more each way passes, a pixel's slack on each side of 44px.
+// Measuring the run of hits, not four fixed points, keeps the test true in WebKit, which hit-tests an anchored popover
+// a pixel or two off the box it reports.
+async function smallTargets(page) {
+  return page.evaluate(
+    ({ examples, interactive, reach }) => {
+      const run = (control, x, y, dx, dy) => {
+        let covered = 0;
+        while (covered < reach * 2 && control.contains(document.elementFromPoint(x + dx * (covered + 0.5), y + dy * (covered + 0.5)))) covered += 0.5;
+        return covered;
+      };
+      // A control that is not rendered has no target: a sidebar hidden at this width, a hidden tab panel.
+      const controls = [...document.querySelectorAll(examples)]
+        .flatMap((example) => [...example.querySelectorAll(interactive)])
+        .filter((control) => control.checkVisibility());
+      const failures = [];
+      for (const control of controls) {
+        control.scrollIntoView({ block: "center" });
+        const box = control.getBoundingClientRect();
+        const x = box.left + box.width / 2;
+        const y = box.top + box.height / 2;
+        const across = run(control, x, y, -1, 0) + run(control, x, y, 1, 0);
+        const down = run(control, x, y, 0, -1) + run(control, x, y, 0, 1);
+        if (!control.contains(document.elementFromPoint(x, y)) || across < reach * 2 || down < reach * 2) failures.push(control.outerHTML.slice(0, 120));
+      }
+      return failures;
+    },
+    { examples: DO, interactive: INTERACTIVE, reach: TOUCH / 2 - 1 },
+  );
+}
+
 for (const name of ["index", ...components]) {
   for (const width of WIDTHS) {
     for (const theme of THEMES) {
-      test(`${name} at ${width}px in ${theme}: the page is recorded as a screenshot for review`, async ({ page }) => {
+      test(`${name} at ${width}px in ${theme}: the page matches its committed screenshot`, async ({ page }) => {
         await open(page, name, { width, theme });
         expect(await page.locator("html").getAttribute("data-theme")).toBe(theme === "dark" ? "dark" : null);
         await forceStates(page);
-        await page.screenshot({ path: join(screenshots, `${name}-${width}-${theme}.png`), fullPage: true, animations: "disabled" });
+        await expect(page).toHaveScreenshot(`${name}-${width}-${theme}.png`, { fullPage: true });
       });
     }
   }
@@ -81,13 +117,13 @@ for (const name of ["index", ...components]) {
 for (const name of components) {
   for (const width of WIDTHS) {
     for (const theme of THEMES) {
-      test(`${name} at ${width}px in ${theme}: axe finds no violation in the do examples`, async ({ page }) => {
+      test(`${name} at ${width}px in ${theme}: axe finds no violation in the do examples`, engines(name), async ({ page }) => {
         await open(page, name, { width, theme });
         const { violations } = await new AxeBuilder({ page }).include(DO).analyze();
         expect(violations.map((violation) => ({ id: violation.id, nodes: violation.nodes.map((node) => node.target.join(" ")) }))).toEqual([]);
       });
 
-      test(`${name} at ${width}px in ${theme}: each do example passes the structural rules`, async ({ page }) => {
+      test(`${name} at ${width}px in ${theme}: each do example passes the structural rules`, engines(name), async ({ page }) => {
         await open(page, name, { width, theme });
         await page.addScriptTag({ path: join(dist, "check-dom.js") });
         const findings = await page.evaluate(
@@ -102,32 +138,9 @@ for (const name of components) {
     }
   }
 
-  // The target is what the pointer hits, which a padded hit area makes larger than the control is drawn.
-  // So the four edges of a 44px square centred on each control are probed for the control itself.
-  test(`${name} at 390px: every control in a do example has a pointer target of at least 44px each way`, async ({ page }) => {
+  test(`${name} at 390px: every control in a do example has a pointer target of at least 44px each way`, engines(name), async ({ page }) => {
     await open(page, name, { width: 390 });
-    const small = await page.evaluate(
-      ({ examples, interactive, reach }) => {
-        const failures = [];
-        // A control that is not rendered has no target: a sidebar hidden at this width, a hidden tab panel.
-        const controls = [...document.querySelectorAll(examples)]
-          .flatMap((example) => [...example.querySelectorAll(interactive)])
-          .filter((control) => control.checkVisibility());
-        for (const control of controls) {
-          control.scrollIntoView({ block: "center" });
-          const box = control.getBoundingClientRect();
-          const x = box.left + box.width / 2;
-          const y = box.top + box.height / 2;
-          const hit = [[x - reach, y], [x + reach, y], [x, y - reach], [x, y + reach]].every(([left, top]) =>
-            control.contains(document.elementFromPoint(left, top)),
-          );
-          if (!hit) failures.push(control.outerHTML.slice(0, 120));
-        }
-        return { checked: controls.length, failures };
-      },
-      { examples: DO, interactive: INTERACTIVE, reach: TOUCH / 2 - 1 },
-    );
-    expect(small.failures).toEqual([]);
+    expect(await smallTargets(page)).toEqual([]);
   });
 }
 
@@ -139,14 +152,14 @@ const brandSummary = JSON.parse(readFileSync(join(dist, "themes", `${BRAND}.json
 for (const name of ["index", ...BRANDED]) {
   for (const width of WIDTHS) {
     for (const theme of THEMES) {
-      test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: the page is recorded as a screenshot for review`, async ({ page }) => {
+      test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: the page matches its committed screenshot`, async ({ page }) => {
         await open(page, name, { width, theme, brand: BRAND });
         expect(await page.locator("html").getAttribute("data-theme")).toBe(theme);
         const background = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ds-color-surface").trim());
         expect(background).toBe(brandSummary.themeColor[theme]);
         await expect(page.locator('[data-gallery="bar"] nav[aria-label="Theme"] a[aria-current="true"]')).toHaveText("Botbench");
         await forceStates(page);
-        await page.screenshot({ path: join(screenshots, `${name}-${width}-${theme}-${BRAND}.png`), fullPage: true, animations: "disabled" });
+        await expect(page).toHaveScreenshot(`${name}-${width}-${theme}-${BRAND}.png`, { fullPage: true });
       });
 
       if (name === "index") continue;
@@ -176,27 +189,7 @@ for (const name of ["index", ...BRANDED]) {
 
   test(`${name} at 390px under the ${BRAND} theme: every control in a do example has a pointer target of at least 44px each way`, async ({ page }) => {
     await open(page, name, { width: 390, theme: brandSummary.defaultMode, brand: BRAND });
-    const small = await page.evaluate(
-      ({ examples, interactive, reach }) => {
-        const failures = [];
-        const controls = [...document.querySelectorAll(examples)]
-          .flatMap((example) => [...example.querySelectorAll(interactive)])
-          .filter((control) => control.checkVisibility());
-        for (const control of controls) {
-          control.scrollIntoView({ block: "center" });
-          const box = control.getBoundingClientRect();
-          const x = box.left + box.width / 2;
-          const y = box.top + box.height / 2;
-          const hit = [[x - reach, y], [x + reach, y], [x, y - reach], [x, y + reach]].every(([left, top]) =>
-            control.contains(document.elementFromPoint(left, top)),
-          );
-          if (!hit) failures.push(control.outerHTML.slice(0, 120));
-        }
-        return { checked: controls.length, failures };
-      },
-      { examples: DO, interactive: INTERACTIVE, reach: TOUCH / 2 - 1 },
-    );
-    expect(small.failures).toEqual([]);
+    expect(await smallTargets(page)).toEqual([]);
   });
 }
 

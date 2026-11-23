@@ -1,7 +1,7 @@
 // The keyboard of the menu, the context menu, the split button's menu and the listbox, from behaviors/menu.js and
 // behaviors/listbox.js, and the command palette's no-match message. Every test drives the gallery page by keyboard.
 import { expect, test } from "@playwright/test";
-import { openGallery, serveDist } from "./serve.mjs";
+import { openGallery, pressTab, serveDist } from "./serve.mjs";
 
 let server;
 test.beforeAll(async () => {
@@ -80,7 +80,7 @@ test("Tab closes the menu and focus moves on, and Escape closes it and returns f
   await openMenu(page, "menu-default");
   await expectMenu(page, "menu-default", { open: true, inMenu: true });
   await page.keyboard.press("ArrowDown");
-  await page.keyboard.press("Tab");
+  await pressTab(page);
   // The next stop after the menu's button: the button of the next example.
   await expectMenu(page, "menu-default", { open: false, inMenu: false, focus: "More actions for run 7" });
 
@@ -118,7 +118,7 @@ test("a split button's menu and a context menu take the same keys as the menu", 
   await page.keyboard.press("Home");
   await page.keyboard.press("w");
   expect((await menuState(page, "split-button-open-menu")).focus).toBe("Run again from the failed step");
-  await page.keyboard.press("Tab");
+  await pressTab(page);
   await expectMenu(page, "split-button-open-menu", { open: false, inMenu: false });
   expect((await menuState(page, "split-button-open-menu")).focus).not.toBe("More ways to run again");
 
@@ -152,7 +152,7 @@ test("a listbox moves focus and selects by keyboard, with one option or several"
   const single = "Model for this task";
   // Tab enters the listbox at its selected option.
   await page.locator("#listbox-selected-unit").focus();
-  await page.keyboard.press("Tab");
+  await pressTab(page);
   expect(await listboxState(page, single)).toEqual({ focus: "claude-sonnet-4", selected: ["claude-sonnet-4"], stops: ["claude-sonnet-4"] });
   const singleSteps = [
     ["ArrowUp", "claude-opus-4", ["claude-sonnet-4"]],

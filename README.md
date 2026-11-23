@@ -2,7 +2,7 @@
 
 A design system for apps whose interfaces are largely written by AI coding agents. It gives the agent a closed vocabulary of design tokens and components, and a checker that fails a frontend which steps outside that vocabulary. Screens come out consistent with each other and without the generic AI-generated look, and the look of every app that uses it can be changed in one place.
 
-It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.11.0. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
+It is for a developer, or a coding agent, building web frontends: plain HTML, React or another framework. Version 0.11.1. Every component is still marked `draft`, and one app uses it so far. See [Status and limits](#status-and-limits).
 
 The run timeline component under the Botbench theme, dark and light:
 
@@ -22,7 +22,7 @@ The run timeline component under the Botbench theme, dark and light:
 
 ### When it is not a fit
 
-- **You need Safari or Firefox support you can rely on.** Only Chrome is tested, and the components use recent platform features (listed under [Status and limits](#status-and-limits)).
+- **You need Safari support proven on a real iPhone, or support for older browsers.** The tests of the components Botbench uses pass in Playwright's WebKit and Firefox at phone and desktop widths, but nothing has been tried in iOS Safari itself, and the components use recent platform features. See [browser support](docs/browser-support.md).
 - **You want a typed React component library.** Components are CSS classes; the app writes the markup. Five React source files ship for the interactive pieces an app most often wires by hand, nothing more.
 - **You want an npm package.** An app copies `dist/` into its own repository with the sync script.
 - **You use Tailwind 4.** The preset is for Tailwind 3. The stylesheet works without Tailwind.
@@ -117,7 +117,7 @@ This is the composer's default example, from [`components/composer/examples.html
 
 State comes from the element itself (`disabled`, `aria-busy="true"`, `aria-invalid="true"`, or a `data-state` attribute for agent activity), never from a class a script toggles, so the same markup works from any framework.
 
-The browser tests write a screenshot of every gallery page to [`test/visual/screenshots/`](test/visual/screenshots/), one per page, width and mode. Icons do not load from a `file:` URL, so serve the folder as the quickstart does.
+[`test/visual/screenshots/`](test/visual/screenshots/) holds a screenshot of every gallery page, one per page, width and mode, and the browser tests fail when a page no longer matches its screenshot. Icons do not load from a `file:` URL, so serve the folder as the quickstart does.
 
 <details>
 <summary>The agent-run page pattern under the Botbench theme, dark (a tall full-page screenshot)</summary>
@@ -232,7 +232,9 @@ Node 24 or later. `npm install` fetches development dependencies only.
 |---|---|
 | `npm run build` | Regenerates `dist/` and prints the contrast report. Fails, naming the folder, when a component, pattern or theme breaks its contract. |
 | `npm test` | Runs the unit tests, including the checker over every example and a check that the committed `dist/` matches a fresh build. |
-| `npm run test:visual` | Runs the browser tests in the installed Google Chrome: axe, the structural rules and pointer-target checks on every gallery page at 390px and 1280px in light and dark, keyboard tests, and the screenshots. |
+| `npm run test:visual` | Runs the browser tests in the installed Google Chrome: axe, the structural rules and pointer-target checks on every gallery page at 390px and 1280px in light and dark, keyboard tests, and a comparison of every gallery page with its committed screenshot. Writes nothing to `test/visual/screenshots/`. |
+| `npm run test:visual:update` | Runs the same tests and rewrites the committed screenshots that no longer match, and writes any that are missing. Run it after a change you mean to make, look at the diff, and commit the new screenshots. |
+| `npm run test:visual:webkit`, `npm run test:visual:firefox` | Run the tests of the components Botbench uses, at 390px and 1280px, and the keyboard, theme and reflow tests in Playwright's WebKit or Firefox, after `npx playwright install webkit firefox`. No screenshots. |
 
 ### Adding a component
 
@@ -240,14 +242,13 @@ Add a folder under `components/` with its three files and run the build; nothing
 
 ## Status and limits
 
-- **Version 0.11.0.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
+- **Version 0.11.1.** [`CHANGELOG.md`](CHANGELOG.md) says what each version holds and what an app must do to upgrade. 0.6.0 renamed the prefix and shipped a codemod for it; no version since has renamed or removed a class, token or rule.
 - **Everything is `draft`.** All 103 components and 8 patterns. An app may use a draft, but it may still change.
 - **One consumer.** Botbench is the only app that uses it so far.
-- **Chrome only.** The browser tests run in Google Chrome. Nothing has been tested in Firefox, Safari or WebKit, or with a screen reader. The components rely on recent platform features: the Popover API, anchor positioning, invoker commands, `:has()` and `field-sizing`.
+- **Tested in Chrome, WebKit and Firefox, not on an iPhone.** The whole browser suite runs in Google Chrome. The tests of the components Botbench uses, at 390px and 1280px, and the keyboard, theme and reflow tests also run, and pass, in Playwright's WebKit 27.2 and Firefox 159. Neither has interest invokers, so a tooltip or hover card shows on hover and focus only. Nothing has been tried in iOS Safari or with a screen reader. The components rely on recent platform features: the Popover API, anchor positioning, invoker commands, interest invokers, `:has()` and `field-sizing`. [`docs/browser-support.md`](docs/browser-support.md) has the results per feature and component, and what still needs a real iPhone.
 
 The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five defects that 0.7.2 fixed (menu and listbox keyboard, colour scheme under a theme's default mode, reflow at 320px, wide tables, the command palette's no-match announcement), and 0.7.5 began the React source in `react/`. These of its findings are still open:
 
-- The screenshot tests do not compare against a baseline; a visual regression is caught only by a person looking.
 - The checker does not check `data-state` values, accessible names, `alt` text or whether a badge's tone matches its word.
 - The typed React layer covers the busy button, the dialog, confirm dialog and sheet, the approval card, the menu's keyboard and the transcript. Tabs, the combobox, the listbox and the command palette have no React piece: an app uses the behaviour modules or wires them by hand.
 - The audit judged the Botbench theme's identity generic (brand distinctiveness 4 out of 10). 0.8.0 replaced that theme's look and gave it a focus ring distinct from the accent; the new look has not been audited.

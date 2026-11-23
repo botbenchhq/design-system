@@ -1,6 +1,6 @@
 // The option picker by keyboard and at a phone's width: the native radios, a long path and the field an option reveals.
 import { expect, test } from "@playwright/test";
-import { openGallery, serveDist } from "./serve.mjs";
+import { openGallery, pressTab, serveDist } from "./serve.mjs";
 
 let server;
 test.beforeAll(async () => {
@@ -68,7 +68,7 @@ test("option-picker: the Enter a path field is reached by keyboard only while it
 
   // Chosen: Tab from the option goes to the field under it.
   await other.focus();
-  await page.keyboard.press("Tab");
+  await pressTab(page);
   await expect(field).toBeFocused();
 
   // Another repository chosen by arrow key: the field is hidden, and Tab from the group goes past it.
@@ -76,14 +76,14 @@ test("option-picker: the Enter a path field is reached by keyboard only while it
   await page.keyboard.press("ArrowUp");
   expect(await checked(page, "option-picker-repository")).toBe("/Users/mira/code/dotfiles");
   await expect(field).toBeHidden();
-  await page.keyboard.press("Tab");
+  await pressTab(page);
   await expect(field).not.toBeFocused();
   expect(await page.evaluate(() => document.activeElement.closest("[data-example]")?.dataset.example)).not.toBe("repository");
 
   // Chosen again: the field is back in the tab order.
-  await page.keyboard.press("Shift+Tab");
+  await pressTab(page, { back: true });
   await page.keyboard.press("ArrowDown");
   expect(await checked(page, "option-picker-repository")).toBe("other");
-  await page.keyboard.press("Tab");
+  await pressTab(page);
   await expect(field).toBeFocused();
 });
