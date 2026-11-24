@@ -5,6 +5,7 @@ import { extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { BRAND, BRANDED } from "./page-screenshots.mjs";
 
 const dist = fileURLToPath(new URL("../../dist", import.meta.url));
 // Every folder with a gallery page: the components, then the page patterns.
@@ -21,6 +22,7 @@ const INTERACTIVE = 'button, a[class], input, select, textarea, summary, [role="
 // A screen 390px wide is a phone, which has a coarse pointer, so every test in the matrix at that width runs with
 // one emulated: Playwright's hasTouch makes (pointer: coarse) match in Chrome, WebKit and Firefox, and the target
 // tests check that it does. Controls and rows are then 44px, whatever data-ds-density says. 1280px has a fine pointer.
+// The screenshot of each page is taken in page-screenshots.mjs, which starts Chrome another way for the phone width.
 const COARSE = { 390: true, 1280: false };
 // The smallest pointer target each way: the touch size on a coarse pointer, and 24px on a fine one (WCAG 2.2, 2.5.8).
 const TARGET = { 390: 44, 1280: 24 };
@@ -28,9 +30,6 @@ const TARGET = { 390: 44, 1280: 24 };
 // their pointer-target test carry the @engines tag, which is what the WebKit and Firefox projects run from this file.
 const ENGINES = new Set(["composer", "context-list", "sheet", "option-picker", "approval", "step-group", "tool-call", "button", "dialog", "menu", "app-shell", "agent-run"]);
 const engines = (name) => (ENGINES.has(name) ? { tag: "@engines" } : {});
-
-// A state the page cannot hold by itself is forced on the controls of its example, so the screenshot shows it.
-const FORCED = { hover: ["hover"], active: ["hover", "active"], "focus-visible": ["focus-visible"], focus: ["focus", "focus-visible"] };
 
 let server;
 let origin;
@@ -59,18 +58,6 @@ async function open(page, name, { width = 1280, theme = "light", brand = null } 
   await page.setViewportSize({ width, height: 900 });
   await page.goto(`${origin}/gallery/${name}.html?theme=${theme}${brand ? `&brand=${brand}` : ""}`);
   await page.evaluate(() => document.fonts.ready);
-}
-
-async function forceStates(page) {
-  const session = await page.context().newCDPSession(page);
-  await session.send("DOM.enable");
-  await session.send("CSS.enable");
-  const { root } = await session.send("DOM.getDocument");
-  for (const [state, forcedPseudoClasses] of Object.entries(FORCED)) {
-    const selector = `[data-example][data-state="${state}"] :is(${INTERACTIVE})`;
-    const { nodeIds } = await session.send("DOM.querySelectorAll", { nodeId: root.nodeId, selector });
-    for (const nodeId of nodeIds) await session.send("CSS.forcePseudoState", { nodeId, forcedPseudoClasses });
-  }
 }
 
 // The target is what the pointer hits, which a padded hit area makes larger than the control is drawn. So from the
@@ -116,17 +103,6 @@ for (const width of WIDTHS) {
   test.describe(() => {
     test.use({ hasTouch: COARSE[width] });
 
-    for (const name of ["index", ...components]) {
-      for (const theme of THEMES) {
-        test(`${name} at ${width}px in ${theme}: the page matches its committed screenshot`, async ({ page }) => {
-          await open(page, name, { width, theme });
-          expect(await page.locator("html").getAttribute("data-theme")).toBe(theme === "dark" ? "dark" : null);
-          await forceStates(page);
-          await expect(page).toHaveScreenshot(`${name}-${width}-${theme}.png`, { fullPage: true });
-        });
-      }
-    }
-
     for (const name of components) {
       for (const theme of THEMES) {
         test(`${name} at ${width}px in ${theme}: axe finds no violation in the do examples`, engines(name), async ({ page }) => {
@@ -159,28 +135,14 @@ for (const width of WIDTHS) {
 }
 
 // The pages shown again under the Botbench theme, in both modes at both widths. The rest of the matrix is the default theme's.
-const BRAND = "botbench";
-const BRANDED = ["agent-run", "app-shell", "approval", "badge", "button", "tool-call", "run-timeline", "data-table", "dialog", "alert", "diff", "review-decision", "log-viewer", "presence"];
 const brandSummary = JSON.parse(readFileSync(join(dist, "themes", `${BRAND}.json`), "utf8"));
 
 for (const width of WIDTHS) {
   test.describe(() => {
     test.use({ hasTouch: COARSE[width] });
 
-    for (const name of ["index", ...BRANDED]) {
+    for (const name of BRANDED) {
       for (const theme of THEMES) {
-        test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: the page matches its committed screenshot`, async ({ page }) => {
-          await open(page, name, { width, theme, brand: BRAND });
-          expect(await page.locator("html").getAttribute("data-theme")).toBe(theme);
-          const background = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--ds-color-surface").trim());
-          expect(background).toBe(brandSummary.themeColor[theme]);
-          await expect(page.locator('[data-gallery="bar"] nav[aria-label="Theme"] a[aria-current="true"]')).toHaveText("Botbench");
-          await forceStates(page);
-          await expect(page).toHaveScreenshot(`${name}-${width}-${theme}-${BRAND}.png`, { fullPage: true });
-        });
-
-        if (name === "index") continue;
-
         test(`${name} at ${width}px in ${theme} under the ${BRAND} theme: axe finds no violation in the do examples`, async ({ page }) => {
           await open(page, name, { width, theme, brand: BRAND });
           const { violations } = await new AxeBuilder({ page }).include(DO).analyze();
@@ -200,8 +162,6 @@ for (const width of WIDTHS) {
           expect(findings).toEqual([]);
         });
       }
-
-      if (name === "index") continue;
 
       test(`${name} at ${width}px with a ${COARSE[width] ? "coarse" : "fine"} pointer under the ${BRAND} theme: every control in a do example has a pointer target of at least ${TARGET[width]}px each way`, async ({ page }) => {
         await open(page, name, { width, theme: brandSummary.defaultMode, brand: BRAND });
