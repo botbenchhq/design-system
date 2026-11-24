@@ -145,6 +145,11 @@
       grid-template-columns: auto auto;
     }
 
+    /* Across the page a name is never broken inside a word: the line to the next station gives up its room first. */
+    .ds-run-timeline__name {
+      overflow-wrap: break-word;
+    }
+
     .ds-run-timeline__station:not(:last-child)::after {
       position: static;
       grid-row: 1;

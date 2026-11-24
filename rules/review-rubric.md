@@ -41,5 +41,5 @@ Review each screen at 390px and at 1280px, in light and in dark.
 
 22. Is each component used for the purpose `components.json` gives it, and not for one of its "when not to use" cases?
 23. Is every declared gap a real gap? Evidence: for each one, name the nearest catalogue component and say why it does not fit.
-21. Does every waiver give a reason that still holds?
-22. Would this screen sit beside the app's other screens without looking like a different product?
+24. Does every waiver give a reason that still holds?
+25. Would this screen sit beside the app's other screens without looking like a different product?

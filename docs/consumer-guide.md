@@ -532,14 +532,14 @@ With no `data-theme`, the theme's stylesheet also sets `color-scheme` for its de
 Take the browser's `theme-color` from `themes/<name>.json`, where `themeColor.light` and `themeColor.dark` are the theme's page backgrounds. An app that always shows one mode, such as Botbench in its dark default mode, ships one tag, with that mode's colour:
 
 ```html
-<meta name="theme-color" content="#121417">
+<meta name="theme-color" content="#111316">
 ```
 
 Ship two, one for each system setting, only when the app offers a choice of mode and follows the system with `data-theme="auto"`:
 
 ```html
-<meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111316" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F5F6F7" media="(prefers-color-scheme: light)">
 ```
 
 Run the accessibility scan from step 6 in both modes under the theme, as without one.

@@ -268,4 +268,4 @@ The system is maintained by [Jon Lange](https://github.com/jon-lange) alongside 
 
 Apache License 2.0. See [`LICENSE`](LICENSE).
 
-The repository and `dist/` include IBM Plex Sans and IBM Plex Mono under the SIL Open Font License 1.1, and a subset of the Lucide icons under the ISC licence (some derived from Feather, MIT). [`NOTICE`](NOTICE) lists each with its source and licence text, and both files travel with every synced copy.
+The repository and `dist/` include IBM Plex Sans, IBM Plex Mono, Inter and JetBrains Mono under the SIL Open Font License 1.1, and a subset of the Lucide icons under the ISC licence (some derived from Feather, MIT). [`NOTICE`](NOTICE) lists each with its source and licence text, and both files travel with every synced copy.

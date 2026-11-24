@@ -91,7 +91,8 @@
   code,
   kbd,
   samp {
-    font-size: 0.93em;
+    /* Never under the smallest type size, so code inside a 12px label stays 12px. */
+    font-size: max(0.93em, var(--ds-text-xs));
   }
 
   pre :where(code, kbd, samp) {

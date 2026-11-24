@@ -68,7 +68,7 @@ test("every class in base/ starts with ds-", () => {
   for (const name of classes) assert.match(name, /^\.ds-/);
 });
 
-const INLINE_CODE_SIZE = "0.93em";
+const INLINE_CODE_SIZE = "max(0.93em, var(--ds-text-xs))";
 
 test("base styles take colours, sizes and durations from tokens, and the only media-query width is 768px", () => {
   const widths = [];

@@ -58,7 +58,7 @@ const coarsePointer = (page) => page.evaluate(() => matchMedia("(pointer: coarse
 async function expectPageScreenshot(page, file, width) {
   expect(await coarsePointer(page)).toBe(COARSE[width]);
   await expect(page).toHaveScreenshot(file, { fullPage: true });
-  if (!file.startsWith("button-")) return;
+  if (!/^button-(?:390|1280)-/.test(file)) return;
   const box = await page.locator(`${DO} .ds-button--primary`).first().evaluate((button) => {
     const rect = button.getBoundingClientRect();
     return { x: Math.round(rect.left + scrollX), y: Math.round(rect.top + scrollY), height: rect.height };

@@ -145,7 +145,7 @@
 
     /*
      * The fixed heights a size variant names. They do not change with the density: 24px a tag and the smallest
-     * target of a fine pointer, 28px a chip, 32px a small control, 48px a large one.
+     * target of a fine pointer, 28px between the two, 32px a small control and a chip, 48px a large one.
      */
     --ds-size-control-xs: 24px;
     --ds-size-control-sm: 28px;
@@ -260,7 +260,7 @@
   /*
    * A finger needs the touch size, so on a coarse pointer a control and a row are 44px everywhere, a compact
    * container included, and a screen held in the hand needs larger type, so every type size is one pixel (0.0625rem)
-   * larger. Two are not: the label of a control takes the body size, 16px on a 24px line, as a phone's own controls
+   * larger. Two are not: the label of a control takes the body size, 16px, as a phone's own controls
    * have it, and the title of a view stays as it is, since a narrow screen has no room for a larger one.
    */
   @media (pointer: coarse) {

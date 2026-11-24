@@ -213,8 +213,9 @@ test("under the botbench theme the page is set in Inter and its code in JetBrain
   });
   await openPage(page, { mode: "dark", body: "<p>Run <code>npm test</code> before the review.</p>" });
   await page.evaluate(() => document.fonts.ready);
-  const families = await page.evaluate(() => [document.body, document.querySelector("code")].map((element) => getComputedStyle(element).fontFamily.split(",")[0].trim()));
-  expect(families).toEqual(["Inter", '"JetBrains Mono"']);
+  const families = await page.evaluate(() => [document.body, document.querySelector("code")].map((element) => getComputedStyle(element).fontFamily.split(",")[0].trim().replace(/^["']|["']$/g, "")));
+  // An engine may or may not quote a family of one word.
+  expect(families).toEqual(["Inter", "JetBrains Mono"]);
   expect(await page.evaluate(() => [document.fonts.check('15px "Inter"'), document.fonts.check('13px "JetBrains Mono"')])).toEqual([true, true]);
   expect(fetched.sort()).toEqual(["200 /dist/fonts/inter-latin-wght-normal.woff2", "200 /dist/fonts/jetbrains-mono-latin-wght-normal.woff2"]);
   // The default theme draws nothing in them, so it fetches neither.
