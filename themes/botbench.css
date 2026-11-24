@@ -9,8 +9,7 @@
  *
  *   type      system-ui, so an Apple device sets the app in SF Pro and SF Mono as its own apps are, Windows
  *             in Segoe UI and Android in Roboto. The sizes, line heights and tracking are the system's: a
- *             theme sets the two font stacks and no size. This theme is the one exception to the rule against
- *             system-ui in rules/never.md; an app does not set a font itself.
+ *             theme sets the two font stacks and no size, and an app sets no font family outside them.
  *   accent    one interactive colour, a blue: #7CB7FF in dark and #215BB8 in light. It fills the primary
  *             action and marks focus, selection and work under way, so accent, focus and info hold one value.
  *             They stay three tokens, so another theme can part them. It is never a status other than

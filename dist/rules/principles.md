@@ -22,7 +22,7 @@ Read the guidelines there. This file records only what this system adds to them 
 
 The guidelines govern structure and behaviour here. They do not govern appearance.
 
-- The typeface is the theme's: IBM Plex Sans with IBM Plex Mono by default, the platform's own font under the Botbench theme. Use the font tokens and never name a typeface in an app.
+- The typefaces are the theme's, set through the two font tokens: IBM Plex Sans with IBM Plex Mono by default, the platform's own font under the Botbench theme. An app does not set a font family outside them.
 - Do not use Liquid Glass, translucency, blur or vibrancy.
 - Do not copy the look of an Apple control: no replica of the iOS switch, segmented control, navigation bar or sheet. Use the catalogue component for the need.
 - Colours, radii and spacing come from the tokens, not from Apple's palettes or metrics.
