@@ -12,18 +12,29 @@
 
 @layer ds.tokens {
   :root {
+    /*
+     * The one interactive colour: the fill of the primary action, and the mark of selection and of work under
+     * way. It is never a status other than working. The focus ring and the info status may hold the same value.
+     */
     --ds-color-accent: #1A1A1A;
     /* The accent while hovered or pressed. */
     --ds-color-accent-hover: #3D3D3A;
     --ds-color-on-accent: #FAFAF9;
+    /* Four levels of surface, each with one role. The page behind everything. */
     --ds-color-surface: #FAFAF9;
+    /* A pane of the app shell: the navigation, the inspector, the tab bar. Nothing else takes it: not a card inside a card, not a decorative panel. */
+    --ds-color-surface-pane: #FDFDFC;
+    /* A card, a dialog, a sheet, a menu, and a control that rests above the page. */
     --ds-color-surface-raised: #FFFFFF;
+    /* A well: a block of code, a diff, command output, a read-only field. */
     --ds-color-surface-sunken: #F3F2EF;
     /* The resting fill of a secondary control: a quiet tone that shows on the page and on a raised card. */
     --ds-color-fill: #ECEBE7;
     --ds-color-on-surface: #171717;
     --ds-color-muted: #737373;
+    /* A hairline: the border of a card, a divider, the edge of a pane. It cannot mark a control. */
     --ds-color-border: #E5E5E5;
+    /* The edge of a control. It holds 3:1 on the page, a pane and a card. */
     --ds-color-border-strong: #8A8A86;
     --ds-color-focus: #1F5C99;
     --ds-color-success: #1E6B3A;
@@ -34,7 +45,7 @@
     --ds-color-danger-subtle: #F9E9E7;
     --ds-color-info: #1F5C99;
     --ds-color-info-subtle: #E6EEF6;
-    /* Waiting on a person's answer: needs input, needs approval. */
+    /* Waiting on a person's answer: needs input, needs approval. A small signal, never a band of background. */
     --ds-color-approval: #984369;
     --ds-color-approval-subtle: #FCE9EF;
     /* Stopped and unable to go on by itself: interrupted, rate limited. */
@@ -50,34 +61,71 @@
     --ds-font-ui: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
     --ds-font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
-    --ds-text-xs: 12px;
-    --ds-text-mono: 13px;
-    --ds-text-ui: 14px;
-    --ds-text-lg: 16px;
-    --ds-text-xl: 20px;
-    --ds-text-2xl: 24px;
+    /*
+     * Seven roles and mono, in rem, so they follow the reader's font-size setting (1rem is 16px unless the reader changed it).
+     * Each has a line height, and the three headings a tracking token. Nothing is smaller than 12px. On a coarse
+     * pointer the sizes are larger: the last block of this file.
+     */
+    /* Label: a tag, a badge, a count, a key, a table head, the tab bar. The smallest size there is. 12px, line 16px. */
+    --ds-text-xs: 0.75rem;
+    /* Metadata: a timestamp, a second line, helper and description text, the label over a group, a small button, a chip. 13px, line 18px. */
+    --ds-text-sm: 0.8125rem;
+    /* A block of code. Inline code in prose is 0.93em of the text around it, set in the base layer. 13px. */
+    --ds-text-mono: 0.8125rem;
+    /* Control: the label of a button or a tab, a row of navigation, a menu, a list or a table, a key and its value. 14px, line 20px. */
+    --ds-text-md: 0.875rem;
+    /* Body: transcript prose, a paragraph, the text of a field. 15px, line 23px. A compact container sets it to the metadata size. */
+    --ds-text-ui: 0.9375rem;
+    /* Sub-heading: the title of a card, a dialog or a section. Weight semibold, with its tracking. 16px, line 22px. */
+    --ds-text-lg: 1rem;
+    /* Heading: a section of a page, the question of a decision. Weight semibold, with its tracking. 20px, line 26px. */
+    --ds-text-xl: 1.25rem;
+    /* Title: the one title of a view. Weight semibold, with its tracking. 28px, line 34px. */
+    --ds-text-2xl: 1.75rem;
 
-    --ds-leading-xs: 1.4;
+    --ds-leading-xs: 1.333;
+    --ds-leading-sm: 1.385;
     --ds-leading-mono: 1.5;
-    --ds-leading-ui: 1.4;
-    --ds-leading-lg: 1.4;
-    --ds-leading-xl: 1.25;
-    --ds-leading-2xl: 1.2;
+    --ds-leading-md: 1.429;
+    --ds-leading-ui: 1.533;
+    --ds-leading-lg: 1.375;
+    --ds-leading-xl: 1.3;
+    --ds-leading-2xl: 1.214;
+
+    /* Letter spacing, for the three headings. Set it wherever the size of the same name is a role's text. */
+    --ds-tracking-lg: -0.01em;
+    --ds-tracking-xl: -0.015em;
+    --ds-tracking-2xl: -0.02em;
 
     --ds-weight-normal: 400;
     --ds-weight-medium: 500;
     --ds-weight-semibold: 600;
 
+    /* The scale is 4, 8, 12, 16, 24, 32 and 48px. Three steps sit between: 2px and 6px inside a small control, 20px the side of a small mark. */
+    --ds-space-2xs: 2px;
     --ds-space-xs: 4px;
+    --ds-space-xs-sm: 6px;
     --ds-space-sm: 8px;
     --ds-space-md: 12px;
     --ds-space-lg: 16px;
+    --ds-space-lg-xl: 20px;
     --ds-space-xl: 24px;
     --ds-space-2xl: 32px;
+    --ds-space-3xl: 48px;
 
-    --ds-radius-sm: 4px;
-    --ds-radius-md: 8px;
-    /* A circle or a pill. */
+    /*
+     * A box inside another takes the step under it: a row or a block inside a card or a menu takes sm, a segment
+     * inside its track takes xs.
+     */
+    /* A tag, a badge, a key, an inline mark, the box of a checkbox, a segment inside its track. */
+    --ds-radius-xs: 6px;
+    /* A control: a button, a field, a select, a toggle, a tab, the track of the segmented control, a row that takes a press. */
+    --ds-radius-sm: 10px;
+    /* A card and what is drawn like one: a code block, a message, an alert, a menu, a popover, a toast. */
+    --ds-radius-md: 12px;
+    /* A dialog, a sheet and the composer box. */
+    --ds-radius-lg: 16px;
+    /* A circle or a pill: a chip, the track of a switch, an avatar, a count, the composer's Send button. */
     --ds-radius-full: 9999px;
 
     --ds-border-width: 1px;
@@ -95,14 +143,37 @@
     --ds-z-dialog: 300;
     --ds-z-toast: 400;
 
+    /*
+     * The fixed heights a size variant names. They do not change with the density: 24px a tag and the smallest
+     * target of a fine pointer, 28px between the two, 32px a small control and a chip, 48px a large one.
+     */
+    --ds-size-control-xs: 24px;
+    --ds-size-control-sm: 28px;
+    --ds-size-control-md: 32px;
+    --ds-size-control-lg: 48px;
+    /* The height of a control of default size. A compact container and a coarse pointer set it: the blocks below. */
+    --ds-size-control: 40px;
+    /* The least height of a row in a list, a menu, a tree or a table. A compact container and a coarse pointer set it. */
+    --ds-size-row: 40px;
+    /* The smallest target on a coarse pointer, such as a finger. On a fine pointer the floor is control-xs. */
     --ds-size-touch: 44px;
+    /* A navigation or list column. */
+    --ds-size-sidebar: 260px;
+    /* A detail column beside the main one. */
+    --ds-size-inspector: 340px;
     --ds-size-column: 480px;
-    --ds-size-transcript: 720px;
+    /* The reading column: a transcript, a review, a form. */
+    --ds-size-transcript: 760px;
     /* A view of dense data, such as a table or a board, that uses the width of a desktop screen. */
     --ds-size-wide: 1200px;
 
-    /* A custom property cannot be used in a media query. Write 768px there. */
+    /*
+     * The three widths a layout changes at. A custom property cannot be used in a media query, so write the
+     * number there: 768px, where the phone layout ends, 1024px, where a second pane fits, and 1280px, a third.
+     */
     --ds-breakpoint: 768px;
+    --ds-breakpoint-lg: 1024px;
+    --ds-breakpoint-xl: 1280px;
   }
 
   [data-theme="dark"] {
@@ -110,6 +181,7 @@
     --ds-color-accent-hover: #CFCFCB;
     --ds-color-on-accent: #171717;
     --ds-color-surface: #141413;
+    --ds-color-surface-pane: #181817;
     --ds-color-surface-raised: #1C1C1A;
     --ds-color-surface-sunken: #0E0E0D;
     --ds-color-fill: #2A2A27;
@@ -143,6 +215,7 @@
       --ds-color-accent-hover: #CFCFCB;
       --ds-color-on-accent: #171717;
       --ds-color-surface: #141413;
+      --ds-color-surface-pane: #181817;
       --ds-color-surface-raised: #1C1C1A;
       --ds-color-surface-sunken: #0E0E0D;
       --ds-color-fill: #2A2A27;
@@ -168,6 +241,41 @@
       --ds-color-tainted: #E39C77;
       --ds-color-tainted-subtle: #311E14;
       --ds-shadow-overlay: 0 8px 24px 0 rgb(0 0 0 / 0.5);
+    }
+  }
+
+  /*
+   * Density: how tall a control and a row are, and how large body text is. :root holds the default, 40px for both
+   * with 15px text. data-ds-density="compact" on a container sets the four density tokens for what is inside it, for
+   * a list, a table or an inventory read with a mouse: 32px controls, 36px rows and the dense text size. It is the
+   * one value of the attribute, it sets nothing else, and a theme cannot set these tokens.
+   */
+  [data-ds-density="compact"] {
+    --ds-size-control: 32px;
+    --ds-size-row: 36px;
+    --ds-text-ui: 0.8125rem;
+    --ds-leading-ui: 1.385;
+  }
+
+  /*
+   * A finger needs the touch size, so on a coarse pointer a control and a row are 44px everywhere, a compact
+   * container included, and a screen held in the hand needs larger type, so every type size is one pixel (0.0625rem)
+   * larger. Two are not: the label of a control takes the body size, 16px, as a phone's own controls
+   * have it, and the title of a view stays as it is, since a narrow screen has no room for a larger one.
+   */
+  @media (pointer: coarse) {
+    :root,
+    [data-ds-density] {
+      --ds-size-control: 44px;
+      --ds-size-row: 44px;
+      --ds-text-xs: 0.8125rem;
+      --ds-text-sm: 0.875rem;
+      --ds-text-mono: 0.875rem;
+      --ds-text-md: 1rem;
+      --ds-text-ui: 1rem;
+      --ds-text-lg: 1.0625rem;
+      --ds-text-xl: 1.3125rem;
+      --ds-leading-ui: 1.5;
     }
   }
 }
@@ -347,7 +455,8 @@
 
 /*
  * Type for plain elements. Sizes are set on body, not on the root element, so
- * the root font size and every rem in an app stay as the browser has them.
+ * the root font size and every rem in an app stay as the browser has them. The
+ * type sizes are in rem, so they follow the size the reader chose in the browser.
  */
 
 @layer ds.base {
@@ -362,6 +471,15 @@
     overflow-wrap: break-word;
   }
 
+  /*
+   * A compact container sets the size of body text through its two tokens. A size is inherited as a length, not as
+   * the token, so the container takes the body size again from the tokens as they are inside it.
+   */
+  [data-ds-density] {
+    font-size: var(--ds-text-ui);
+    line-height: var(--ds-leading-ui);
+  }
+
   h1,
   h2,
   h3,
@@ -373,20 +491,34 @@
     font-weight: var(--ds-weight-semibold);
   }
 
+  /* A heading or a title of two lines breaks into lines of like length, not one long line and a word. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  /* Display: the one title of a page. */
   h1 {
     font-size: var(--ds-text-2xl);
     line-height: var(--ds-leading-2xl);
+    letter-spacing: var(--ds-tracking-2xl);
   }
 
-  /* The three largest sizes, each heading a step under the one before. A component that draws its own h1 keeps it above the h2 size. */
+  /* Heading, then title: each a step under the one before. A component that draws its own h1 keeps it above the h2 size. */
   h2 {
     font-size: var(--ds-text-xl);
     line-height: var(--ds-leading-xl);
+    letter-spacing: var(--ds-tracking-xl);
   }
 
   h3 {
     font-size: var(--ds-text-lg);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
   }
 
   small {
@@ -399,8 +531,27 @@
   samp,
   pre {
     font-family: var(--ds-font-mono);
+  }
+
+  /* A block of code has the mono size. */
+  pre {
     font-size: var(--ds-text-mono);
     line-height: var(--ds-leading-mono);
+  }
+
+  /*
+   * Code inside a sentence is a little under the size of the words around it, whatever that size is, because
+   * mono type reads large beside proportional type. A component that sets a size on its own code element wins.
+   */
+  code,
+  kbd,
+  samp {
+    /* Never under the smallest type size, so code inside a 12px label stays 12px. */
+    font-size: max(0.93em, var(--ds-text-xs));
+  }
+
+  pre :where(code, kbd, samp) {
+    font-size: inherit;
   }
 
   /* A link with a class is a component and draws itself. */
@@ -489,8 +640,16 @@
   }
 
   /* After the primitives, so a gap class wins over a primitive's default. */
+  .ds-gap-2xs {
+    gap: var(--ds-space-2xs);
+  }
+
   .ds-gap-xs {
     gap: var(--ds-space-xs);
+  }
+
+  .ds-gap-xs-sm {
+    gap: var(--ds-space-xs-sm);
   }
 
   .ds-gap-sm {
@@ -505,12 +664,20 @@
     gap: var(--ds-space-lg);
   }
 
+  .ds-gap-lg-xl {
+    gap: var(--ds-space-lg-xl);
+  }
+
   .ds-gap-xl {
     gap: var(--ds-space-xl);
   }
 
   .ds-gap-2xl {
     gap: var(--ds-space-2xl);
+  }
+
+  .ds-gap-3xl {
+    gap: var(--ds-space-3xl);
   }
 }
 
@@ -546,9 +713,12 @@
 }
 
 /*
- * IBM Plex Sans and IBM Plex Mono, Latin subset, served from the app's own
- * host. The URLs are relative, so fonts/ must stay beside the stylesheet.
- * The sans file is variable and covers every weight from 100 to 700.
+ * The typefaces of the themes, Latin subset, served from the app's own host. The URLs are relative, so fonts/
+ * must stay beside the stylesheet. A browser fetches a file only when a page draws text in that family, so a
+ * theme costs nothing in the families it does not use.
+ *
+ * The default theme: IBM Plex Sans, one variable file for every weight from 100 to 700, and IBM Plex Mono.
+ * The Botbench theme: Inter and JetBrains Mono, one variable file each, at the end of this file.
  */
 
 @font-face {
@@ -581,6 +751,22 @@
   font-weight: 600;
   font-display: swap;
   src: url("./fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./fonts/inter-latin-wght-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("./fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
 }
 
 /*
@@ -646,7 +832,7 @@
   .ds-activity-feed__more {
     display: flex;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     margin-inline-start: calc(var(--ds-space-md) * -1);
   }
 
@@ -661,9 +847,11 @@
     padding-bottom: var(--ds-space-xs);
     border-bottom-width: var(--ds-border-width);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
   }
 
   .ds-activity-feed__entries {
@@ -685,8 +873,9 @@
   .ds-activity-feed__time {
     color: var(--ds-color-muted);
     font-family: var(--ds-font-mono);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -848,10 +1037,10 @@
     flex: none;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-sm);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     transition-property: background-color, color;
     transition-duration: var(--ds-duration-fast);
     transition-timing-function: var(--ds-ease);
@@ -876,6 +1065,7 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -893,8 +1083,8 @@
 
   .ds-app-header__icon {
     flex: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
   }
 
   /* A row of its own under the bar. With nothing in it, it takes no space. */
@@ -986,6 +1176,10 @@
 
   .ds-approval__title {
     font-weight: var(--ds-weight-semibold);
+    font-size: var(--ds-text-lg);
+    line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   /* What would run, exactly. It wraps anywhere, so a long command never widens the page. */
@@ -1034,7 +1228,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     cursor: pointer;
@@ -1107,7 +1301,7 @@
  */
 
 @layer ds.components {
-  /* No wider than seven pointer targets, because there is no token for a chip's width. */
+  /* No wider than half the reading column, so a long name gives way and a row holds two chips. */
   .ds-attachment-chip {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto auto;
@@ -1115,11 +1309,11 @@
     column-gap: var(--ds-space-sm);
     row-gap: var(--ds-space-xs);
     min-width: 0;
-    max-width: min(100%, calc(var(--ds-size-touch) * 7));
+    max-width: min(100%, calc(var(--ds-size-column) / 2));
     padding-block: var(--ds-space-xs);
     padding-inline: var(--ds-space-sm) var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-raised);
   }
 
@@ -1156,8 +1350,9 @@
 
   .ds-attachment-chip__size {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -1166,9 +1361,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--ds-space-xl);
-    height: var(--ds-space-xl);
-    border-radius: var(--ds-radius-sm);
+    width: var(--ds-size-control-xs);
+    height: var(--ds-size-control-xs);
+    border-radius: var(--ds-radius-full);
     color: var(--ds-color-muted);
     transition-property: background-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -1176,17 +1371,19 @@
   }
 
   /*
-   * The button is drawn 24px square. This invisible box, centred on it, keeps its
-   * pointer target at the touch size both ways without making the chip larger.
+   * The button is drawn 24px square, the least a fine pointer needs. On a coarse pointer this invisible box,
+   * centred on it, keeps its pointer target at the touch size both ways without making the chip larger.
    */
-  .ds-attachment-chip__remove::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
-    translate: -50% -50%;
+  @media (pointer: coarse) {
+    .ds-attachment-chip__remove::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--ds-size-touch);
+      height: var(--ds-size-touch);
+      translate: -50% -50%;
+    }
   }
 
   .ds-attachment-chip__remove-icon {
@@ -1219,7 +1416,7 @@
     width: calc(100% - var(--ds-space-xs));
     height: var(--ds-space-xs);
     margin-bottom: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     overflow: hidden;
     background-color: var(--ds-color-border);
     color: var(--ds-color-accent);
@@ -1245,8 +1442,8 @@
     padding-inline-end: var(--ds-space-xs);
     padding-bottom: var(--ds-space-xs);
     color: var(--ds-color-danger);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -1254,7 +1451,7 @@
     content: "";
     flex: none;
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-xs) * var(--ds-leading-xs));
+    height: calc(var(--ds-text-sm) * var(--ds-leading-sm));
     background-color: currentColor;
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }
@@ -1266,7 +1463,7 @@
 }
 
 /*
- * Avatar: a small square mark for a person or an agent, with the name beside it.
+ * Avatar: a small round mark for a person or an agent, with the name beside it.
  * The mark holds initials, an icon or an image. It is decoration next to the name, which carries the identity.
  */
 
@@ -1280,7 +1477,7 @@
     vertical-align: middle;
   }
 
-  /* A square with the small radius, on a flat surface. On an img it crops the picture to the square. */
+  /* A circle on a flat surface. On an img it crops the picture to the circle. */
   .ds-avatar__mark {
     display: inline-flex;
     flex: none;
@@ -1289,7 +1486,7 @@
     width: var(--ds-space-2xl);
     height: var(--ds-space-2xl);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-sunken);
     color: var(--ds-color-on-surface);
     font-size: var(--ds-text-xs);
@@ -1343,12 +1540,13 @@
     min-height: var(--ds-space-xl);
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-surface-sunken);
     color: var(--ds-color-on-surface);
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -1420,7 +1618,7 @@
     align-items: center;
     justify-content: flex-end;
     gap: var(--ds-space-xs) var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-lg);
     border-bottom-width: var(--ds-border-width);
     background-color: var(--ds-color-info-subtle);
@@ -1475,25 +1673,27 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    width: var(--ds-space-2xl);
-    height: var(--ds-space-2xl);
+    width: var(--ds-size-control-md);
+    height: var(--ds-size-control-md);
     margin-inline-end: calc(var(--ds-space-sm) * -1);
     border-radius: var(--ds-radius-sm);
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }
 
   /*
-   * The dismiss button is drawn 32px square. This invisible box, centred on it,
+   * The dismiss button is drawn 32px square. On a coarse pointer this invisible box, centred on it,
    * keeps its pointer target at the touch size without making the banner taller.
    */
-  .ds-banner__dismiss::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
-    translate: -50% -50%;
+  @media (pointer: coarse) {
+    .ds-banner__dismiss::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--ds-size-touch);
+      height: var(--ds-size-touch);
+      translate: -50% -50%;
+    }
   }
 
   .ds-banner__icon {
@@ -1523,6 +1723,7 @@
 @layer ds.components {
   .ds-breadcrumb {
     min-width: 0;
+    font-size: var(--ds-text-md);
   }
 
   /* Pulled back by the first link's padding, so its text starts on the content's edge. */
@@ -1551,7 +1752,7 @@
 
   /* An item that holds a link never gets narrower than its chevron and a pointer target. */
   .ds-breadcrumb__item:not(:first-child, :last-child) {
-    min-width: calc(var(--ds-space-lg) + var(--ds-size-touch));
+    min-width: calc(var(--ds-space-lg) + var(--ds-size-control));
   }
 
   .ds-breadcrumb__item + .ds-breadcrumb__item::before {
@@ -1573,13 +1774,13 @@
     min-width: 0;
     padding-inline: var(--ds-space-xs);
     overflow: hidden;
-    line-height: var(--ds-size-touch);
+    line-height: var(--ds-size-control);
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .ds-breadcrumb__link {
-    min-width: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     text-align: center;
@@ -1595,7 +1796,7 @@
 
   /* Two pointer targets wide at most, on a phone. The first item and the current page keep their text. */
   .ds-breadcrumb__item:not(:first-child, :last-child) > .ds-breadcrumb__link {
-    max-width: calc(var(--ds-size-touch) * 2);
+    max-width: calc(var(--ds-size-control) * 2);
   }
 
   @media (min-width: 768px) {
@@ -1631,15 +1832,18 @@
     align-items: center;
     justify-content: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
-    padding: var(--ds-space-xs) var(--ds-space-lg);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
+    /* The block padding is what one line of the label leaves of the height, so a label of two lines keeps the same space above and below. */
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-md) * var(--ds-leading-md)) / 2 - var(--ds-border-width));
+    padding-inline: var(--ds-space-lg);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-fill);
     color: var(--ds-color-on-surface);
+    font-size: var(--ds-text-md);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-ui);
+    line-height: var(--ds-leading-md);
     text-align: center;
     transition-property: background-color, border-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -1664,23 +1868,37 @@
     color: var(--ds-color-danger);
   }
 
+  /*
+   * The sizes are fixed heights: they do not follow the density, so a small button is 32px in every container.
+   * At that height the label is the metadata size, and the icon sits 6px from it.
+   */
   .ds-button--small {
-    min-height: var(--ds-space-2xl);
+    min-height: var(--ds-size-control-md);
+    gap: var(--ds-space-xs-sm);
+    padding-block: calc((var(--ds-size-control-md) - var(--ds-text-sm) * var(--ds-leading-sm)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
-    border-radius: var(--ds-radius-sm);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+  }
+
+  /* Never shorter than a button of default size, which on a coarse pointer is the taller of the two. */
+  .ds-button--large {
+    min-height: max(var(--ds-size-control-lg), var(--ds-size-control));
   }
 
   /*
-   * The small button is drawn 32px tall. This invisible box, centred on it,
-   * keeps its pointer target at the touch size without making a dense row taller.
+   * A finger needs more than the 32px the small button is drawn with. On a coarse pointer this invisible box,
+   * centred on it, keeps its pointer target at the touch size without making a dense row taller.
    */
-  .ds-button--small::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  @media (pointer: coarse) {
+    .ds-button--small::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   .ds-button__icon {
@@ -1829,13 +2047,13 @@
   }
 
   .ds-button-group--attached > :first-child {
-    border-start-start-radius: var(--ds-radius-md);
-    border-end-start-radius: var(--ds-radius-md);
+    border-start-start-radius: var(--ds-radius-sm);
+    border-end-start-radius: var(--ds-radius-sm);
   }
 
   .ds-button-group--attached > :last-child {
-    border-start-end-radius: var(--ds-radius-md);
-    border-end-end-radius: var(--ds-radius-md);
+    border-start-end-radius: var(--ds-radius-sm);
+    border-end-end-radius: var(--ds-radius-sm);
   }
 
   /* Each button after the first gives up its leading border, so two borders never sit side by side. */
@@ -1857,16 +2075,16 @@
 
 @layer ds.components {
   /*
-   * Seven columns of one pointer target each where there is room. It fills a phone's width and stops growing after that.
-   * On a narrower screen, such as a phone zoomed in, the columns narrow to fit and each day stays 44px tall.
+   * Seven columns, each as wide as a control is tall, where there is room. It fills a phone's width and stops growing
+   * after that. On a narrower screen, such as a phone zoomed in, the columns narrow to fit and each day keeps its height.
    */
   .ds-calendar {
     display: flex;
     flex-direction: column;
     gap: var(--ds-space-sm);
     width: 100%;
-    min-width: min(calc(var(--ds-size-touch) * 7), 100%);
-    max-width: calc(var(--ds-size-touch) * 8);
+    min-width: min(calc(var(--ds-size-control) * 7), 100%);
+    max-width: calc(var(--ds-size-control) * 8);
   }
 
   .ds-calendar__header {
@@ -1896,7 +2114,7 @@
     height: var(--ds-space-2xl);
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
+    font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-xs);
     text-align: center;
   }
@@ -1908,7 +2126,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     border-radius: var(--ds-radius-sm);
     font-variant-numeric: tabular-nums;
     transition-property: background-color, color;
@@ -1927,7 +2145,7 @@
     inset: var(--ds-space-xs);
     border-width: var(--ds-border-width);
     border-color: currentColor;
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
   }
 
   @media (hover: hover) {
@@ -1968,8 +2186,8 @@
   /* The chosen day in words, under the month. */
   .ds-calendar__status {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 }
 
@@ -1994,13 +2212,21 @@
     background-color: var(--ds-color-surface-sunken);
   }
 
+  /*
+   * No border, for a card that is decoration: a panel of a summary or a specimen, set apart by its fill alone.
+   * Never a pane of the app shell, a control, or a card a reader must tell from the page in dark by its edge.
+   */
+  .ds-card--borderless {
+    border-color: transparent;
+  }
+
   /* As tall as a pointer target, so a small button's padded hit area stays inside the header. */
   .ds-card__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--ds-space-md);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding-inline: var(--ds-space-lg);
     border-bottom-width: var(--ds-border-width);
   }
@@ -2014,10 +2240,12 @@
     min-width: 0;
     margin: 0;
     padding-block: var(--ds-space-sm);
-    font-size: var(--ds-text-ui);
+    font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
-    line-height: var(--ds-leading-ui);
+    line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   /* Pulled towards the edge, so the words of a quiet button line up with the body's text. */
@@ -2159,9 +2387,9 @@
 
   .ds-check-list__duration {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     font-variant-numeric: tabular-nums;
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-sm);
     text-align: end;
     white-space: nowrap;
   }
@@ -2177,7 +2405,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     list-style: none;
@@ -2245,20 +2473,20 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     row-gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
   /* The margin centres the 20px box on the first line of the label. */
   .ds-checkbox__input {
     position: relative;
     appearance: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-lg) - var(--ds-space-xs)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-accent);
     cursor: pointer;
@@ -2267,11 +2495,11 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The box is drawn 20px square. This invisible box, centred on it, keeps its pointer target at the touch size. */
+  /* The box is drawn 20px square. This invisible box, centred on it, makes its pointer target as tall and as wide as the row is tall. */
   .ds-checkbox__input::after {
     content: "";
     position: absolute;
-    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-touch)) / 2 - var(--ds-border-width));
+    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-row)) / 2 - var(--ds-border-width));
   }
 
   .ds-checkbox__input:checked,
@@ -2304,8 +2532,8 @@
   .ds-checkbox__description {
     grid-column: 2;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-checkbox__error {
@@ -2392,8 +2620,8 @@
     padding: var(--ds-space-sm) var(--ds-space-md);
     border-bottom-width: var(--ds-border-width);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -2410,7 +2638,7 @@
 
   /* The body is given tabindex="0" in this variant, so it is a pointer target and is at least as tall as one. */
   .ds-code-block--scroll .ds-code-block__body {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     overflow-x: auto;
     white-space: pre;
     overflow-wrap: normal;
@@ -2438,6 +2666,7 @@
     text-align: end;
     white-space: nowrap;
     user-select: none;
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-code-block__text {
@@ -2521,7 +2750,7 @@
     inset-inline: 0;
     z-index: var(--ds-z-overlay);
     display: none;
-    max-height: calc(var(--ds-size-touch) * 5.5 + var(--ds-space-xs));
+    max-height: calc(var(--ds-size-row) * 5.5 + var(--ds-space-xs));
     margin-top: var(--ds-space-xs);
     padding: var(--ds-space-xs);
     border-width: var(--ds-border-width);
@@ -2530,6 +2759,8 @@
     overflow-y: auto;
     background-color: var(--ds-color-surface-raised);
     box-shadow: var(--ds-shadow-overlay);
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   /* Open while the input says its list is expanded, or while the message is shown in place of the list. */
@@ -2547,7 +2778,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     overflow-wrap: anywhere;
@@ -2625,9 +2856,11 @@
   .ds-command-palette__list {
     display: flex;
     flex-direction: column;
-    max-height: min(calc(var(--ds-size-touch) * 8), 50dvh);
+    max-height: min(calc(var(--ds-size-row) * 8), 50dvh);
     padding: var(--ds-space-xs);
     overflow-y: auto;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   .ds-command-palette__group {
@@ -2638,9 +2871,11 @@
   .ds-command-palette__label {
     padding: var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
     overflow-wrap: anywhere;
   }
 
@@ -2650,7 +2885,7 @@
     align-items: center;
     gap: var(--ds-space-sm);
     width: 100%;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     text-align: start;
@@ -2674,8 +2909,8 @@
   .ds-command-palette__shortcut {
     flex: none;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     white-space: nowrap;
   }
 
@@ -2724,7 +2959,7 @@
     inset-block: 0;
     inset-inline-start: 0;
     width: calc(var(--ds-border-width) * 2);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-accent);
   }
 
@@ -2787,41 +3022,33 @@
   }
 
   /*
-   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
-   * Without field-sizing the height is fixed at two targets and the text scrolls inside.
-   * The block padding is what centres a single line in a box one target tall.
+   * The text is the body size, which is 16px on a coarse pointer: iOS zooms the page when a smaller input takes focus.
+   * Without field-sizing the height is fixed at two controls and the text scrolls inside.
+   * The block padding is what centres a single line in a box as tall as one control.
    */
   .ds-composer__input {
     flex: 1;
     min-width: 0;
-    height: calc(var(--ds-size-touch) * 2);
-    min-height: var(--ds-size-touch);
-    max-height: calc(var(--ds-size-touch) * 4);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-lg) * var(--ds-leading-lg)) / 2 - var(--ds-border-width));
+    height: calc(var(--ds-size-control) * 2);
+    min-height: var(--ds-size-control);
+    max-height: calc(var(--ds-size-control) * 4);
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-surface-raised);
-    font-size: var(--ds-text-lg);
-    line-height: var(--ds-leading-lg);
+    font-size: var(--ds-text-ui);
+    line-height: var(--ds-leading-ui);
     resize: none;
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
 
-  /* One line tall when empty, growing with the text up to four targets, so Send is never pushed off a phone screen. */
+  /* One line tall when empty, growing with the text up to four controls tall, so Send is never pushed off a phone screen. */
   @supports (field-sizing: content) {
     .ds-composer__input {
       height: auto;
       field-sizing: content;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .ds-composer__input {
-      padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
-      font-size: var(--ds-text-ui);
-      line-height: var(--ds-leading-ui);
     }
   }
 
@@ -2852,7 +3079,7 @@
     padding: var(--ds-space-xs);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-lg);
     background-color: var(--ds-color-surface-raised);
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
@@ -2863,8 +3090,10 @@
     outline: var(--ds-border-width) solid var(--ds-color-focus);
   }
 
+  /* Inside the block, 4px from its 16px corner, the textarea takes the step under it. */
   .ds-composer__box > .ds-composer__input {
     border-color: transparent;
+    border-radius: var(--ds-radius-md);
     background-color: transparent;
   }
 
@@ -2888,15 +3117,23 @@
   }
 
   /*
-   * Add context, the first control of the bar: a round tonal button with no border at rest, inside the block's
+   * Add context, the first control of the bar: a tonal button with no border at rest, inside the block's
    * own edge. The selector is kept weak, so the button's hover, pressed and unavailable borders still show.
    */
   .ds-composer__bar > :where(:first-child) {
     border-color: transparent;
+  }
+
+  /*
+   * Send, and Stop in its place: the last button of the row or the bar, and the one pill among the system's
+   * buttons, so the action that sends is found by its shape.
+   */
+  .ds-composer__row > :where(button:last-child),
+  .ds-composer__bar > :where(button:last-child) {
     border-radius: var(--ds-radius-full);
   }
 
-  /* Two lines of chips keep 12px apart, so their 44px pointer targets do not overlap. */
+  /* Two lines of chips keep 12px apart, so on a coarse pointer their 44px pointer targets do not overlap. */
   .ds-composer__bar > .ds-composer__controls {
     flex: 1 1 auto;
     min-width: 0;
@@ -2910,7 +3147,7 @@
   .ds-composer__chip {
     flex-shrink: 0;
     max-width: 100%;
-    min-width: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
     padding-inline: var(--ds-space-sm);
   }
 
@@ -3018,6 +3255,8 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   .ds-context-list > li + li {
@@ -3031,7 +3270,7 @@
     gap: var(--ds-space-md);
     width: 100%;
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-sm) var(--ds-space-md);
     text-align: start;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
@@ -3101,7 +3340,7 @@
     content: "";
     flex: none;
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    height: calc(var(--ds-text-md) * var(--ds-leading-md));
     background-color: currentColor;
     mask: url("icons/triangle-alert.svg") center / contain no-repeat;
   }
@@ -3178,8 +3417,8 @@
    * It keeps the text colour around it, so it reads on a sunken band or a shaded row as well as on the page.
    */
   .ds-copy-button__status {
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* The status may come after the button or before it, and keeps its distance from the button either way. */
@@ -3208,15 +3447,15 @@
 
   /*
    * A value too long for the row ends in an ellipsis at rest and scrolls once it has focus.
-   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   * The mono size is under 16px, and iOS zooms the page when an input that small takes focus, so below 768px it is the sub-heading size.
    */
   .ds-copy-field__value {
     flex: 1;
     min-width: 0;
-    min-height: var(--ds-size-touch);
-    padding: var(--ds-space-sm) var(--ds-space-md);
+    min-height: var(--ds-size-control);
+    padding: 0 var(--ds-space-md);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-sunken);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-lg);
@@ -3235,8 +3474,8 @@
   .ds-copy-field__status {
     flex-basis: 100%;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-copy-field__status:not(:empty) {
@@ -3256,6 +3495,8 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   .ds-data-table__caption {
@@ -3266,13 +3507,13 @@
   }
 
   /*
-   * 12px above and below one line of text makes a row 44px tall.
-   * Text wraps between words only, so a column is never narrower than its longest word, nor than two pointer
-   * targets. Where the columns do not fit, ds-data-table__scroll around the table scrolls them sideways.
+   * The block padding is what one line of text leaves of a row's height, so a one-line row is exactly that tall.
+   * Text wraps between words only, so a column is never narrower than its longest word, nor than two controls
+   * are tall. Where the columns do not fit, ds-data-table__scroll around the table scrolls them sideways.
    */
   .ds-data-table :is(th, td) {
-    min-width: calc(var(--ds-size-touch) * 2);
-    padding: var(--ds-space-md) var(--ds-space-sm);
+    min-width: calc(var(--ds-size-control) * 2);
+    padding: calc((var(--ds-size-row) - var(--ds-text-md) * var(--ds-leading-md)) / 2) var(--ds-space-sm);
     font-weight: var(--ds-weight-normal);
     text-align: start;
     vertical-align: top;
@@ -3284,7 +3525,7 @@
     border-bottom-color: var(--ds-color-border-strong);
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
+    font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-xs);
     vertical-align: bottom;
     white-space: nowrap;
@@ -3307,14 +3548,14 @@
   }
 
   /*
-   * The cell for a row's one action. Its padding is what a small button leaves of a pointer target,
-   * so the button's words sit on the row's first line, its padded hit area fits the row,
+   * The cell for a row's one action. Its padding is what a small button leaves of a row's height,
+   * so the button's words sit on the row's first line, its padded hit area fits the row on a coarse pointer,
    * and a one-line row is no taller for having it.
    */
   .ds-data-table .ds-data-table__action {
     width: 0;
     min-width: 0;
-    padding-block: calc((var(--ds-size-touch) - var(--ds-space-2xl)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-size-control-md)) / 2);
     text-align: end;
     white-space: nowrap;
   }
@@ -3329,8 +3570,8 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-row);
     margin-inline: calc(var(--ds-space-sm) * -1);
     padding-inline: var(--ds-space-sm);
     border-radius: var(--ds-radius-sm);
@@ -3374,10 +3615,10 @@
     display: inline-flex;
     align-items: flex-start;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-row);
     margin-inline-start: calc(var(--ds-space-xs) * -1);
-    padding: var(--ds-space-md) var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
+    padding: calc((var(--ds-size-row) - var(--ds-text-md) * var(--ds-leading-md)) / 2) var(--ds-space-sm) calc((var(--ds-size-row) - var(--ds-text-md) * var(--ds-leading-md)) / 2) var(--ds-space-xs);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     text-align: start;
@@ -3389,7 +3630,7 @@
     content: "";
     flex: none;
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    height: calc(var(--ds-text-md) * var(--ds-leading-md));
     background-color: currentColor;
     mask: url("icons/chevron-right.svg") center / contain no-repeat;
   }
@@ -3458,7 +3699,7 @@
     content: "";
     flex: none;
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    height: calc(var(--ds-text-md) * var(--ds-leading-md));
     background-color: var(--ds-color-danger);
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }
@@ -3547,7 +3788,7 @@
     /* Pulled to the start, so the words of a quiet button line up with the labels above them. */
     .ds-data-table:not(.ds-data-table--scroll) tbody tr > .ds-data-table__action {
       margin-inline-start: calc(var(--ds-space-xs) * -1);
-      padding-block: calc((var(--ds-size-touch) - var(--ds-space-2xl)) / 2);
+      padding-block: calc((var(--ds-size-row) - var(--ds-size-control-md)) / 2);
       padding-inline: 0;
     }
 
@@ -3577,17 +3818,17 @@
 
 @layer ds.components {
   /*
-   * A date is short, so the control is no wider than five pointer targets, because there is no token
-   * for a control's width. Without the native appearance, iOS keeps the field's height and border.
+   * A date is short, so the control is no wider than half the reading column, and a date with a time
+   * no wider than a sidebar column. Without the native appearance, iOS keeps the field's height and border.
    */
   .ds-date-field {
     appearance: none;
-    max-width: calc(var(--ds-size-touch) * 5);
+    max-width: calc(var(--ds-size-column) / 2);
     font-variant-numeric: tabular-nums;
   }
 
   .ds-date-field[type="datetime-local"] {
-    max-width: calc(var(--ds-size-touch) * 6.5);
+    max-width: var(--ds-size-sidebar);
   }
 
   /* iOS centres the value. It starts where every other field's text starts. */
@@ -3603,7 +3844,7 @@
     margin-block: calc(var(--ds-space-md) * -1);
     margin-inline: 0 calc(var(--ds-space-md) * -1);
     padding: var(--ds-space-md);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     cursor: pointer;
   }
 
@@ -3682,7 +3923,7 @@
 
   /* A group of the code's characters, spaced so each can be read off one at a time. */
   .ds-device-code__group {
-    letter-spacing: calc(var(--ds-space-xs) / 2);
+    letter-spacing: var(--ds-space-2xs);
     white-space: nowrap;
   }
 
@@ -3694,8 +3935,8 @@
 
   .ds-device-code__note {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* The waiting line and when the code runs out. */
@@ -3726,7 +3967,7 @@
     margin: auto;
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-lg);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     box-shadow: var(--ds-shadow-overlay);
@@ -3752,7 +3993,9 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   .ds-dialog__body {
@@ -3847,6 +4090,7 @@
     font-size: var(--ds-text-mono);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-mono);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -3870,7 +4114,7 @@
 
   /* The body is given tabindex="0", so it is a pointer target and is at least as tall as one. */
   .ds-diff__body {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     padding-block: var(--ds-space-sm);
     border-radius: var(--ds-radius-md);
     overflow-x: auto;
@@ -4015,7 +4259,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-sm);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
@@ -4051,9 +4295,10 @@
     gap: var(--ds-space-sm);
     margin-inline-start: auto;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     font-weight: var(--ds-weight-normal);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -4122,7 +4367,7 @@
     align-items: flex-start;
     gap: var(--ds-space-sm);
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     counter-increment: ds-editable-list;
   }
 
@@ -4135,7 +4380,7 @@
     content: counter(ds-editable-list) ".";
     flex: none;
     min-width: var(--ds-space-xl);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     color: var(--ds-color-muted);
     font-variant-numeric: tabular-nums;
   }
@@ -4143,7 +4388,7 @@
   .ds-editable-list__text {
     flex: 1;
     min-width: 0;
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     overflow-wrap: anywhere;
   }
 
@@ -4152,7 +4397,7 @@
     display: flex;
     flex: none;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
   }
 
   /* The form a row holds while it is edited: the field, then Save and Cancel under it. */
@@ -4205,8 +4450,10 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     /* As wide as its text, so a long word must be allowed to break for it to fit. */
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   .ds-empty-state__body {
@@ -4228,6 +4475,7 @@
     font-size: var(--ds-text-ui);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-ui);
+    letter-spacing: normal;
   }
 
   .ds-empty-state--compact .ds-empty-state__action {
@@ -4256,6 +4504,8 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   /* The icon is drawn here, as tall as the title's first line, so the failure is never marked by its wording alone. */
@@ -4281,7 +4531,7 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     color: var(--ds-color-muted);
     list-style: none;
     cursor: pointer;
@@ -4347,7 +4597,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
   }
 
   /* The chosen button gains an outline, a shade and a heavier label, so the choice is not a colour alone. */
@@ -4368,8 +4618,8 @@
   /* The live region. It is in the page from the start, and takes no room until it has words. */
   .ds-feedback__confirmation {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-feedback__confirmation:empty {
@@ -4416,29 +4666,27 @@
   /* The word itself marks the field as required. Its colour only makes it quieter than the label. */
   .ds-field__required {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     font-weight: var(--ds-weight-normal);
   }
 
-  /* 16px at compact widths, because iOS zooms the page when a smaller input takes focus. */
+  /*
+   * The text is the body size, which is 16px on a coarse pointer: iOS zooms the page when a smaller input takes focus.
+   * The block padding is what one line of text leaves of the control's height, so the control is exactly that
+   * tall at every density, and the first line of a textarea sits where an input's text does.
+   */
   .ds-field__control {
     width: 100%;
-    min-height: var(--ds-size-touch);
-    padding: var(--ds-space-sm) var(--ds-space-md);
+    min-height: var(--ds-size-control);
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+    padding-inline: var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
-    font-size: var(--ds-text-lg);
-    line-height: var(--ds-leading-lg);
+    font-size: var(--ds-text-ui);
+    line-height: var(--ds-leading-ui);
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
-  }
-
-  @media (min-width: 768px) {
-    .ds-field__control {
-      font-size: var(--ds-text-ui);
-      line-height: var(--ds-leading-ui);
-    }
   }
 
   .ds-field__control[aria-invalid="true"] {
@@ -4458,8 +4706,8 @@
 
   .ds-field__description {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-field__error {
@@ -4495,7 +4743,7 @@
     position: relative;
     display: flex;
     min-width: 0;
-    min-height: calc(var(--ds-size-touch) * 2);
+    min-height: calc(var(--ds-size-control) * 2);
   }
 
   /*
@@ -4510,7 +4758,7 @@
     border-width: var(--ds-border-width);
     border-style: dashed;
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     color: transparent;
     cursor: pointer;
   }
@@ -4606,7 +4854,6 @@
     font-weight: var(--ds-weight-medium);
   }
 
-  /* 12px between rows: chips are drawn 32px tall, so the 44px targets of two rows meet and never overlap. */
   .ds-filter-chips__list {
     display: flex;
     flex-wrap: wrap;
@@ -4615,20 +4862,29 @@
     row-gap: var(--ds-space-md);
   }
 
+  /* 16px between rows on a coarse pointer, so the 44px targets of two rows never overlap, even where a row holds a small button. */
+  @media (pointer: coarse) {
+    .ds-filter-chips__list {
+      row-gap: var(--ds-space-lg);
+    }
+  }
+
   .ds-filter-chips__chip {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
     max-width: 100%;
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-space-2xl);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-sm) var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
     border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
     transition-property: background-color, border-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -4655,14 +4911,18 @@
     cursor: pointer;
   }
 
-  /* An invisible box centred on the chip, which takes the press without making the row any taller. */
-  .ds-filter-chips__input::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  /*
+   * On a coarse pointer, an invisible box centred on the chip, which takes the press without making the row any taller.
+   */
+  @media (pointer: coarse) {
+    .ds-filter-chips__input::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   /* On: a fill and a check, so the state is a shape as well as a colour. */
@@ -4776,21 +5036,22 @@
   /* One line under the title that places the item: its repository, its role, when it ran. */
   .ds-hover-card__meta {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
   }
 }
 
 /*
  * Icon button: a button that shows only an icon. It sits on the same element as the button class,
  * which draws the border, the fill, hover, pressed-down, busy and disabled, so this stylesheet must load after the button's.
- * It makes the button a square one target wide and adds the look of a toggle that is on.
+ * It makes the button a square as wide as a control is tall, gives it two smaller sizes and adds the look of a toggle that is on.
  */
 
 @layer ds.components {
   .ds-icon-button {
     flex: none;
-    width: var(--ds-size-touch);
+    width: var(--ds-size-control);
     padding: 0;
   }
 
@@ -4800,13 +5061,75 @@
     background-color: var(--ds-color-surface-sunken);
   }
 
+  /* The bar is as wide as the icon, whatever the size of the button. */
   .ds-icon-button[aria-pressed="true"]::after {
     content: "";
     position: absolute;
-    bottom: var(--ds-space-sm);
-    inset-inline: var(--ds-space-md);
+    bottom: var(--ds-space-xs);
+    inset-inline: calc((var(--ds-size-control) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
     height: calc(var(--ds-border-width) * 2);
     background-color: currentColor;
+  }
+
+  /*
+   * The sizes are fixed squares: 32px for a toolbar, 24px for an action inside a dense row. They do not follow
+   * the density. The bar of a toggle that is on sits on the lower edge, clear of the icon.
+   */
+  .ds-icon-button--small {
+    width: var(--ds-size-control-md);
+    min-width: var(--ds-size-control-md);
+    min-height: var(--ds-size-control-md);
+  }
+
+  .ds-icon-button--xsmall {
+    width: var(--ds-size-control-xs);
+    min-width: var(--ds-size-control-xs);
+    min-height: var(--ds-size-control-xs);
+  }
+
+  .ds-icon-button--small[aria-pressed="true"]::after {
+    bottom: 0;
+    inset-inline: calc((var(--ds-size-control-md) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
+  }
+
+  .ds-icon-button--xsmall[aria-pressed="true"]::after {
+    bottom: 0;
+    inset-inline: calc((var(--ds-size-control-xs) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
+  }
+
+  /*
+   * A finger needs more than a small square. On a coarse pointer this invisible box, centred on the button,
+   * keeps its pointer target at the touch size both ways without making a dense row taller.
+   */
+  @media (pointer: coarse) {
+    .ds-icon-button--small::after,
+    .ds-icon-button--xsmall::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--ds-size-touch);
+      height: var(--ds-size-touch);
+      translate: -50% -50%;
+    }
+
+    /*
+     * A toggle that is on draws its bar with the same box: the padding leaves only the bar's own area as the
+     * content box, at the middle of the button's lower edge, and the fill is clipped to it.
+     */
+    .ds-icon-button--small[aria-pressed="true"]::after {
+      inset: 50% auto auto 50%;
+      height: var(--ds-size-touch);
+      padding: calc((var(--ds-size-touch) + var(--ds-size-control-md)) / 2 - var(--ds-border-width) * 3) calc((var(--ds-size-touch) - var(--ds-space-lg)) / 2) calc((var(--ds-size-touch) - var(--ds-size-control-md)) / 2 + var(--ds-border-width));
+      background-clip: content-box;
+    }
+
+    .ds-icon-button--xsmall[aria-pressed="true"]::after {
+      inset: 50% auto auto 50%;
+      height: var(--ds-size-touch);
+      padding: calc((var(--ds-size-touch) + var(--ds-size-control-xs)) / 2 - var(--ds-border-width) * 3) calc((var(--ds-size-touch) - var(--ds-space-lg)) / 2) calc((var(--ds-size-touch) - var(--ds-size-control-xs)) / 2 + var(--ds-border-width));
+      background-clip: content-box;
+    }
   }
 
   /* After the pressed rules, so an unavailable toggle keeps its bar and loses the fill. */
@@ -4840,18 +5163,21 @@
     border-top-width: var(--ds-border-width);
   }
 
-  /* Beside: the rule moves to the panel's leading edge. There is no width token for a panel. */
+  /*
+   * Beside: the panel is a pane of the app shell, as wide as the inspector token says, on the pane surface with
+   * a hairline at its leading edge, which stays drawn in dark.
+   */
   @media (min-width: 768px) {
     .ds-inspector__layout {
       grid-template-columns: minmax(0, 1fr) auto;
     }
 
     .ds-inspector {
-      width: calc(var(--ds-size-column) * 0.6);
-      padding-top: 0;
-      padding-inline-start: var(--ds-space-xl);
+      width: var(--ds-size-inspector);
+      padding: var(--ds-space-xl);
       border-top-width: 0;
       border-inline-start-width: var(--ds-border-width);
+      background-color: var(--ds-color-surface-pane);
     }
   }
 
@@ -4863,14 +5189,16 @@
     gap: var(--ds-space-sm);
   }
 
-  /* Centred on the first line of the title beside a 44px button. */
+  /* Centred on the first line of the title beside the close button. */
   .ds-inspector__title {
     min-width: 0;
-    padding-block: var(--ds-space-md);
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-lg) * var(--ds-leading-lg)) / 2);
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   .ds-inspector__close {
@@ -4886,9 +5214,11 @@
 
   .ds-inspector__heading {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
   }
 
   /* A label column and a value column, shared by every row of the section. */
@@ -4938,7 +5268,7 @@
     height: 0;
   }
 
-  /* Drawn 32px tall, as a small button is, and it floats over rows, so it has a firm edge and no shadow. */
+  /* Drawn 32px tall, whatever the density, and it floats over rows, so it has a firm edge and no shadow. */
   .ds-jump-to-latest__button {
     position: absolute;
     bottom: var(--ds-space-xs);
@@ -4947,16 +5277,18 @@
     align-items: center;
     gap: var(--ds-space-sm);
     max-width: 100%;
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-space-2xl);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-md) var(--ds-space-lg);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-full);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
+    font-size: var(--ds-text-md);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-ui);
+    line-height: var(--ds-leading-md);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }
@@ -4971,14 +5303,18 @@
     mask: url("icons/arrow-down.svg") center / contain no-repeat;
   }
 
-  /* The pointer target: an invisible box a touch target tall, centred on the button. */
-  .ds-jump-to-latest__button::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  /*
+   * On a coarse pointer, the pointer target: an invisible box a touch target tall, centred on the button.
+   */
+  @media (pointer: coarse) {
+    .ds-jump-to-latest__button::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   /* With nothing to count, the span takes no room and the label stands alone. */
@@ -5024,7 +5360,7 @@
     min-width: var(--ds-space-xl);
     padding-inline: var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-surface-sunken);
     color: var(--ds-color-on-surface);
     font-family: var(--ds-font-mono);
@@ -5055,6 +5391,8 @@
     grid-template-columns: minmax(0, 1fr);
     gap: var(--ds-space-md);
     min-width: 0;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   .ds-key-value__item {
@@ -5065,9 +5403,11 @@
 
   .ds-key-value__label {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-normal);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
     overflow-wrap: anywhere;
   }
 
@@ -5105,9 +5445,11 @@
       align-items: baseline;
     }
 
+    /* Beside its value the label is the size of the value, not a label over it. */
     .ds-key-value__label {
-      font-size: var(--ds-text-ui);
-      line-height: var(--ds-leading-ui);
+      font-size: var(--ds-text-md);
+      font-weight: var(--ds-weight-normal);
+      line-height: var(--ds-leading-md);
     }
   }
 }
@@ -5124,8 +5466,8 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     font-weight: var(--ds-weight-medium);
     text-decoration-line: underline;
     text-decoration-thickness: var(--ds-border-width);
@@ -5187,6 +5529,8 @@
   .ds-list {
     display: flex;
     flex-direction: column;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   .ds-list__row {
@@ -5209,11 +5553,11 @@
     align-items: center;
     gap: var(--ds-space-md);
     min-width: 0;
-    padding: var(--ds-space-md) var(--ds-space-sm);
+    padding: calc((var(--ds-size-row) - var(--ds-text-md) * var(--ds-leading-md)) / 2) var(--ds-space-sm);
   }
 
   .ds-list__link {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }
 
@@ -5238,8 +5582,8 @@
 
   .ds-list__secondary {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -5249,21 +5593,22 @@
     align-items: center;
     gap: var(--ds-space-sm);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
-  /* As tall as a pointer target, so a small button's padded hit area never reaches into the next row. */
+  /* As tall as a row, so on a coarse pointer a small button's padded hit area never reaches into the next row. */
   .ds-list__action {
     display: flex;
     flex: none;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
   }
 
   /*
-   * A dense row is drawn with 4px above and below its text. A link in it is still 44px tall,
+   * A dense row is drawn with 4px above and below its text. A link in it is still as tall as a row,
    * so a dense row that navigates never has a smaller pointer target than a default one.
    */
   .ds-list--dense .ds-list__content,
@@ -5339,6 +5684,8 @@
     border-color: var(--ds-color-border-strong);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-surface-raised);
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   /* A group of options under a label. A rule sets each group off from the one before. */
@@ -5356,9 +5703,11 @@
   .ds-listbox__label {
     padding: var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
     overflow-wrap: anywhere;
   }
 
@@ -5366,7 +5715,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     cursor: pointer;
@@ -5396,9 +5745,10 @@
     flex: none;
     margin-inline-start: auto;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     font-weight: var(--ds-weight-normal);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -5478,8 +5828,9 @@
   /* How long, how many lines, how it ended: facts, in the small muted size. */
   .ds-log-viewer__meta {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
 
@@ -5488,7 +5839,7 @@
    * It holds the output as text in a pre, or a list of lines in a div. Half the viewport at most on a phone.
    */
   .ds-log-viewer__body {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     max-height: min(var(--ds-size-column), 50dvh);
     padding-block: var(--ds-space-sm);
     padding-inline: var(--ds-space-md);
@@ -5565,8 +5916,9 @@
     padding: var(--ds-space-xs) var(--ds-space-sm);
     border-top-width: var(--ds-border-width);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-log-viewer__note {
@@ -5590,7 +5942,7 @@
   .ds-menu {
     inset: auto var(--ds-space-lg) var(--ds-space-lg);
     width: fit-content;
-    min-width: calc(var(--ds-size-touch) * 5);
+    min-width: calc(var(--ds-size-column) / 2);
     max-width: min(calc(var(--ds-size-column) * 0.75), calc(100vw - var(--ds-space-lg) * 2));
     margin: 0 auto;
     padding: var(--ds-space-xs);
@@ -5600,6 +5952,8 @@
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     box-shadow: var(--ds-shadow-overlay);
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   /* Set only while open, so a closed menu stays hidden. */
@@ -5628,7 +5982,7 @@
      */
     @media not all and (min-width: 768px) {
       .ds-menu {
-        min-width: min(calc(var(--ds-size-touch) * 5), 100%);
+        min-width: min(calc(var(--ds-size-column) / 2), 100%);
         position-try-order: most-width;
       }
     }
@@ -5643,9 +5997,11 @@
   .ds-menu__label {
     padding: var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
     overflow-wrap: anywhere;
   }
 
@@ -5654,7 +6010,7 @@
     align-items: center;
     gap: var(--ds-space-sm);
     width: 100%;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     text-align: start;
@@ -5730,7 +6086,7 @@
     flex: none;
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
+    font-weight: var(--ds-weight-semibold);
     line-height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
   }
 
@@ -5782,13 +6138,13 @@
     min-width: 0;
   }
 
-  /* The summary is as tall as a pointer target, and its text sits in the middle of that height. */
+  /* The summary is as tall as a row, and its padding puts its text in the middle of that height. */
   .ds-message__summary {
     display: flex;
     align-items: baseline;
     column-gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
-    padding-block: var(--ds-space-md);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     cursor: pointer;
@@ -5899,8 +6255,9 @@
   .ds-message--usage,
   .ds-message--turn-end {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     line-height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-message--session-start > .ds-message__body,
@@ -6015,7 +6372,7 @@
     align-items: center;
     justify-content: space-between;
     column-gap: var(--ds-space-md);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
   }
 
   .ds-notification-list__heading {
@@ -6030,10 +6387,13 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   .ds-notification-list__count {
     color: var(--ds-color-muted);
+    font-variant-numeric: tabular-nums;
   }
 
   /* "Unread" and "Earlier", each above its own list. */
@@ -6041,9 +6401,11 @@
     padding: var(--ds-space-md) var(--ds-space-sm) var(--ds-space-xs);
     border-bottom-width: var(--ds-border-width);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
   }
 
   /* At compact widths a row's action sits under its text, so the text keeps the width of the row. */
@@ -6095,7 +6457,7 @@
     align-items: center;
     column-gap: var(--ds-space-md);
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding-inline: var(--ds-space-md);
   }
 
@@ -6115,7 +6477,7 @@
    * The mark is drawn before the first word, from the state, so it wraps with the text and never stands alone.
    */
   .ds-now-doing__text {
-    flex: 1 1 calc(var(--ds-size-touch) * 5);
+    flex: 1 1 calc(var(--ds-size-column) / 2);
     min-width: 0;
     padding-block: var(--ds-space-sm);
     overflow-wrap: anywhere;
@@ -6149,7 +6511,7 @@
   /* The time so far, in the interface font with figures of one width. It counts up, and is never announced. */
   .ds-now-doing__elapsed {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
@@ -6158,7 +6520,7 @@
   .ds-now-doing__link {
     display: inline-flex;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     text-decoration-line: underline;
@@ -6195,13 +6557,13 @@
 
 @layer ds.components {
   /*
-   * One joined row. A number is short, so the row is no wider than six pointer targets,
-   * because there is no token for a control's width. It is its own stacking context for the focused part below.
+   * One joined row. A number is short, so the row is no wider than half the reading column.
+   * It is its own stacking context for the focused part below.
    */
   .ds-number-field {
     display: flex;
     min-width: 0;
-    max-width: calc(var(--ds-size-touch) * 6);
+    max-width: calc(var(--ds-size-column) / 2);
     isolation: isolate;
   }
 
@@ -6241,13 +6603,13 @@
   }
 
   .ds-number-field > :first-child {
-    border-start-start-radius: var(--ds-radius-md);
-    border-end-start-radius: var(--ds-radius-md);
+    border-start-start-radius: var(--ds-radius-sm);
+    border-end-start-radius: var(--ds-radius-sm);
   }
 
   .ds-number-field > :last-child {
-    border-start-end-radius: var(--ds-radius-md);
-    border-end-end-radius: var(--ds-radius-md);
+    border-start-end-radius: var(--ds-radius-sm);
+    border-end-end-radius: var(--ds-radius-sm);
   }
 
   .ds-number-field > :not(:first-child) {
@@ -6293,8 +6655,8 @@
 
   .ds-option-picker__hint {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* One row per option. Its padding centres one line of text in a row one target tall. */
@@ -6304,8 +6666,8 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     min-width: 0;
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-md);
@@ -6320,8 +6682,8 @@
   .ds-option-picker__input {
     position: relative;
     appearance: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-lg) - var(--ds-space-xs)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -6334,11 +6696,11 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The mark is drawn 20px across. This invisible box, centred on it, gives the input itself a 44px target inside the row. */
+  /* The mark is drawn 20px across. This invisible box, centred on it, gives the input itself a target as tall as the row. */
   .ds-option-picker__input::after {
     content: "";
     position: absolute;
-    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-touch)) / 2 - var(--ds-border-width));
+    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-row)) / 2 - var(--ds-border-width));
   }
 
   .ds-option-picker__input:checked {
@@ -6393,8 +6755,8 @@
 
   .ds-option-picker__description {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -6426,8 +6788,8 @@
     display: flex;
     gap: var(--ds-space-xs);
     min-width: 0;
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -6440,7 +6802,7 @@
     content: "";
     flex: none;
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-xs) * var(--ds-leading-xs));
+    height: calc(var(--ds-text-sm) * var(--ds-leading-sm));
     background-color: currentColor;
     mask: url("icons/triangle-alert.svg") center / contain no-repeat;
   }
@@ -6536,10 +6898,10 @@
   /*
    * Mono digits a size up, spaced widely so each one can be checked against the message.
    * The start padding is half the spacing wider, which centres the gap around each digit.
-   * It is no wider than five and a half pointer targets, because there is no token for a control's width.
+   * It is no wider than half the reading column.
    */
   .ds-otp-input {
-    max-width: calc(var(--ds-size-touch) * 5.5);
+    max-width: calc(var(--ds-size-column) / 2);
     padding-inline: calc(var(--ds-space-md) + var(--ds-space-md) / 2) var(--ds-space-md);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-xl);
@@ -6577,7 +6939,9 @@
     font-size: var(--ds-text-2xl);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-2xl);
+    letter-spacing: var(--ds-tracking-2xl);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   .ds-page-header__description {
@@ -6604,11 +6968,12 @@
   .ds-page-header--compact .ds-page-header__title {
     font-size: var(--ds-text-lg);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
   }
 
   .ds-page-header--compact .ds-page-header__description {
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 }
 
@@ -6638,6 +7003,7 @@
     color: var(--ds-color-muted);
     text-align: center;
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-pagination__previous {
@@ -6658,16 +7024,18 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     color: var(--ds-color-muted);
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   .ds-pagination__page {
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-color: transparent;
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     font-variant-numeric: tabular-nums;
     transition-property: background-color, border-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -6732,11 +7100,11 @@
 
   /* The end padding keeps a long password clear of the button. */
   .ds-password-field__input {
-    padding-inline-end: calc(var(--ds-size-touch) + var(--ds-space-lg) + var(--ds-space-sm));
+    padding-inline-end: calc(var(--ds-space-2xl) * 2 + var(--ds-space-sm));
   }
 
   /*
-   * One target tall and wide enough for either word. A line at its start sets it apart from the value.
+   * As tall as the input and wide enough for either word. A line at its start sets it apart from the value.
    * It has no fill of its own, so the input's border shows through it.
    */
   .ds-password-field__toggle {
@@ -6746,11 +7114,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(var(--ds-size-touch) + var(--ds-space-lg));
-    min-height: var(--ds-size-touch);
+    width: calc(var(--ds-space-2xl) * 2);
+    min-height: var(--ds-size-control);
     border-inline-start-width: var(--ds-border-width);
-    border-start-end-radius: var(--ds-radius-md);
-    border-end-end-radius: var(--ds-radius-md);
+    border-start-end-radius: var(--ds-radius-sm);
+    border-end-end-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     font-weight: var(--ds-weight-medium);
     transition-property: color;
@@ -6809,39 +7177,43 @@
     min-width: 0;
   }
 
-  /*
-   * Drawn 32px tall so it fits a header row. The invisible box centred on it
-   * keeps its pointer target at the touch size.
-   */
+  /* Drawn 32px tall, whatever the density, so it fits a header row. */
   .ds-pending-tray__link {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-space-2xl);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-xs) var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
+    font-size: var(--ds-text-md);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-ui);
+    line-height: var(--ds-leading-md);
     transition-property: background-color, border-color;
     transition-duration: var(--ds-duration-fast);
     transition-timing-function: var(--ds-ease);
   }
 
-  .ds-pending-tray__link::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  /*
+   * A finger needs more than 32px. On a coarse pointer this invisible box, centred on the link,
+   * keeps its pointer target at the touch size.
+   */
+  @media (pointer: coarse) {
+    .ds-pending-tray__link::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
-  /* The count is the first word of the sentence. The filled box only makes it easy to find. */
+  /* The count is the first word of the sentence. The pill only makes it easy to find: the approval tone, a small signal for what waits on a person. */
   .ds-pending-tray__count {
     display: inline-flex;
     flex: none;
@@ -6850,12 +7222,13 @@
     min-width: var(--ds-space-xl);
     height: var(--ds-space-xl);
     padding-inline: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
-    background-color: var(--ds-color-accent);
-    color: var(--ds-color-on-accent);
+    border-radius: var(--ds-radius-full);
+    background-color: var(--ds-color-approval-subtle);
+    color: var(--ds-color-approval);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-mono);
     line-height: var(--ds-leading-mono);
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-pending-tray__text {
@@ -6888,7 +7261,7 @@
   .ds-popover {
     inset: auto var(--ds-space-lg) var(--ds-space-lg);
     width: fit-content;
-    min-width: calc(var(--ds-size-touch) * 5);
+    min-width: calc(var(--ds-size-column) / 2);
     max-width: min(calc(var(--ds-size-column) * 0.75), calc(100vw - var(--ds-space-lg) * 2));
     margin: 0 auto;
     padding: var(--ds-space-lg);
@@ -6985,7 +7358,7 @@
     height: var(--ds-space-xl);
     padding-inline: var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-semibold);
@@ -7036,7 +7409,7 @@
     order: 1;
     width: 100%;
     height: var(--ds-space-sm);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border);
     overflow: hidden;
     appearance: none;
@@ -7108,8 +7481,8 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     row-gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
   /*
@@ -7118,8 +7491,8 @@
   .ds-radio__input {
     position: relative;
     appearance: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-lg) - var(--ds-space-xs)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -7132,11 +7505,11 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The circle is drawn 20px across. This invisible box, centred on it, keeps its pointer target at the touch size. */
+  /* The circle is drawn 20px across. This invisible box, centred on it, makes its pointer target as tall and as wide as the row is tall. */
   .ds-radio__input::after {
     content: "";
     position: absolute;
-    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-touch)) / 2 - var(--ds-border-width));
+    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-row)) / 2 - var(--ds-border-width));
   }
 
   .ds-radio__input:checked {
@@ -7161,8 +7534,8 @@
   .ds-radio__description {
     grid-column: 2;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* The error belongs to the group, after the last option. */
@@ -7231,7 +7604,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     cursor: pointer;
   }
@@ -7296,6 +7669,10 @@
 
   .ds-review-decision__title {
     font-weight: var(--ds-weight-semibold);
+    font-size: var(--ds-text-lg);
+    line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   /* What each source says: a term column and a value column, one line each where it fits. */
@@ -7326,8 +7703,8 @@
   .ds-review-decision__caveat {
     display: block;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* Accept at the start and Reject at the far end, so a thumb aiming for one cannot land on the other. */
@@ -7397,8 +7774,9 @@
     min-width: 0;
     padding-block: var(--ds-space-xs);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
 
@@ -7437,10 +7815,13 @@
  */
 
 @layer ds.components {
+  /* The name of a station is the control size, as the label of a tab or a step is, so five stations fit a column. */
   .ds-run-timeline {
     display: flex;
     flex-direction: column;
     min-width: 0;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   /* A station that has not started, which is what a station is until the markup says otherwise. */
@@ -7459,7 +7840,7 @@
   .ds-run-timeline__station::before {
     content: "";
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    height: calc(var(--ds-text-md) * var(--ds-leading-md));
     background-color: currentColor;
     mask: url("icons/circle-dashed.svg") center / contain no-repeat;
   }
@@ -7468,7 +7849,7 @@
   .ds-run-timeline__station:not(:last-child)::after {
     content: "";
     position: absolute;
-    inset-block: calc(var(--ds-space-xs) + (var(--ds-text-ui) * var(--ds-leading-ui) + var(--ds-space-lg)) / 2) calc((var(--ds-space-lg) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-space-xs));
+    inset-block: calc(var(--ds-space-xs) + (var(--ds-text-md) * var(--ds-leading-md) + var(--ds-space-lg)) / 2) calc((var(--ds-space-lg) - var(--ds-text-md) * var(--ds-leading-md)) / 2 - var(--ds-space-xs));
     inset-inline-start: calc((var(--ds-space-lg) - var(--ds-border-width)) / 2);
     width: var(--ds-border-width);
     background-color: var(--ds-color-border-strong);
@@ -7481,8 +7862,8 @@
 
   /* The state in words, with the time it took or has taken so far. */
   .ds-run-timeline__status {
-    font-size: var(--ds-text-xs);
-    line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    font-size: var(--ds-text-sm);
+    line-height: calc(var(--ds-text-md) * var(--ds-leading-md));
     font-variant-numeric: tabular-nums;
     text-align: end;
     overflow-wrap: anywhere;
@@ -7491,6 +7872,7 @@
   /* The time, kept on one line: where the room runs out the status wraps before it, never inside it. */
   .ds-run-timeline__time {
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-run-timeline__station[data-state="done"] > .ds-run-timeline__name,
@@ -7572,19 +7954,24 @@
       grid-template-columns: auto auto;
     }
 
+    /* Across the page a name is never broken inside a word: the line to the next station gives up its room first. */
+    .ds-run-timeline__name {
+      overflow-wrap: break-word;
+    }
+
     .ds-run-timeline__station:not(:last-child)::after {
       position: static;
       grid-row: 1;
       grid-column: 3;
       width: auto;
       height: var(--ds-border-width);
-      margin-block-start: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-border-width)) / 2);
+      margin-block-start: calc((var(--ds-text-md) * var(--ds-leading-md) - var(--ds-border-width)) / 2);
     }
 
     .ds-run-timeline__status {
       grid-row: 2;
       grid-column: 2 / -1;
-      line-height: var(--ds-leading-xs);
+      line-height: var(--ds-leading-sm);
       text-align: start;
     }
   }
@@ -7642,7 +8029,7 @@
   }
 
   .ds-search-field__box:has(.ds-search-field__clear) > .ds-search-field__input {
-    padding-inline-end: var(--ds-size-touch);
+    padding-inline-end: var(--ds-size-control);
   }
 
   /* One target square at the end of the input. The cross is drawn here, and the button's name is text in the markup. */
@@ -7653,9 +8040,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
-    border-radius: var(--ds-radius-md);
+    width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
+    border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     transition-property: color;
     transition-duration: var(--ds-duration-fast);
@@ -7694,8 +8081,9 @@
   /* How many results there are, or that there are none and what to try. */
   .ds-search-field__count {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
 }
@@ -7723,7 +8111,7 @@
     grid-auto-flow: column;
     padding: var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-sunken);
   }
 
@@ -7735,15 +8123,15 @@
     }
   }
 
-  /* With the track's padding and border, the row is one target tall. The padding is narrow on a phone so five short labels fit, and a longer label wraps inside its segment. */
+  /* With the track's padding and border, the row is as tall as a control. The padding is narrow on a phone so five short labels fit, and a longer label wraps inside its segment. */
   .ds-segmented-control__option {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: var(--ds-size-touch);
-    min-height: calc(var(--ds-size-touch) - var(--ds-space-xs) * 2 - var(--ds-border-width) * 2);
-    padding: var(--ds-space-xs);
+    min-width: var(--ds-size-control);
+    min-height: calc(var(--ds-size-control) - var(--ds-space-xs) * 2 - var(--ds-border-width) * 2);
+    padding: var(--ds-space-2xs) var(--ds-space-xs);
     text-align: center;
   }
 
@@ -7761,14 +8149,15 @@
     height: 100%;
     border-width: var(--ds-border-width);
     border-color: transparent;
-    border-radius: var(--ds-radius-sm);
+    /* A segment 4px inside the track takes the step under the track's radius. */
+    border-radius: var(--ds-radius-xs);
     cursor: pointer;
     transition-property: background-color, border-color;
     transition-duration: var(--ds-duration-fast);
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The segment is drawn shorter than a target. This invisible box reaches the track's outer edge, above and below. */
+  /* The segment is drawn shorter than a control. This invisible box reaches the track's outer edge, above and below. */
   .ds-segmented-control__input::after {
     content: "";
     position: absolute;
@@ -7776,10 +8165,12 @@
     inset-inline: calc(var(--ds-border-width) * -1);
   }
 
-  /* Over the radio, and never in the way of a press on it. */
+  /* Over the radio, and never in the way of a press on it. The metadata size, so five short labels fit a phone on one line each. */
   .ds-segmented-control__label {
     position: relative;
     min-width: 0;
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
     pointer-events: none;
   }
@@ -7889,6 +8280,13 @@
     background-color: var(--ds-color-surface-raised);
   }
 
+  /* 16px between its two lines on a coarse pointer, so the 44px targets of the small buttons in them never overlap. */
+  @media (pointer: coarse) {
+    .ds-selection-basket {
+      row-gap: var(--ds-space-lg);
+    }
+  }
+
   /* The count, then "Clear selection". At compact widths this is the bar's first line. */
   .ds-selection-basket__selection {
     display: flex;
@@ -7965,6 +8363,8 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   /* At compact widths the control sits under the text and is as wide as the row. */
@@ -7984,7 +8384,7 @@
     flex-direction: column;
     gap: var(--ds-space-xs);
     min-width: 0;
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
   .ds-settings-row__label {
@@ -7994,8 +8394,8 @@
 
   .ds-settings-row__description {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -8066,7 +8466,7 @@
       align-items: flex-end;
       justify-content: center;
       min-width: calc(var(--ds-size-column) / 2);
-      min-height: var(--ds-size-touch);
+      min-height: var(--ds-size-row);
       padding-bottom: 0;
     }
 
@@ -8095,7 +8495,7 @@
     padding-bottom: env(safe-area-inset-bottom);
     border-top-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md) var(--ds-radius-md) 0 0;
+    border-radius: var(--ds-radius-lg) var(--ds-radius-lg) 0 0;
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     box-shadow: var(--ds-shadow-overlay);
@@ -8139,7 +8539,9 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   /* An optional form around the body and the footer, when the footer's button submits the body's fields. */
@@ -8230,11 +8632,13 @@
     width: fit-content;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-sm) var(--ds-space-md);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
+    font-size: var(--ds-text-md);
     font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-md);
     list-style: none;
     cursor: pointer;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
@@ -8306,19 +8710,22 @@
 @layer ds.components {
   .ds-sidebar-nav {
     display: none;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
-  /* The column is five pointer targets wide. There is no width token for a sidebar. */
+  /* The column is as wide as the sidebar token says. */
   @media (min-width: 768px) {
     .ds-sidebar-nav {
       display: flex;
       flex-direction: column;
       gap: var(--ds-space-lg);
-      width: calc(var(--ds-size-touch) * 5);
+      width: var(--ds-size-sidebar);
       min-width: 0;
       padding: var(--ds-space-md) var(--ds-space-sm);
+      /* A pane of the app shell: its own surface, and a hairline that stays drawn in dark, where the two surfaces are close. */
       border-inline-end-width: var(--ds-border-width);
-      background-color: var(--ds-color-surface);
+      background-color: var(--ds-color-surface-pane);
     }
   }
 
@@ -8332,9 +8739,11 @@
   .ds-sidebar-nav__heading {
     padding-inline: var(--ds-space-md);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
   }
 
   .ds-sidebar-nav__items {
@@ -8347,7 +8756,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-md);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
@@ -8383,8 +8792,8 @@
   .ds-sidebar-nav__note {
     padding: var(--ds-space-xs) var(--ds-space-md);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -8401,9 +8810,9 @@
     color: var(--ds-color-on-surface);
   }
 
-  /* The current item is marked by weight and by a bar at its leading edge, as well as by its shade. */
+  /* The current item is marked by weight and by a bar at its leading edge, as well as by its fill. */
   .ds-sidebar-nav__item[aria-current]:not([aria-current="false"]) {
-    background-color: var(--ds-color-surface-sunken);
+    background-color: var(--ds-color-fill);
     color: var(--ds-color-on-surface);
     font-weight: var(--ds-weight-semibold);
   }
@@ -8438,7 +8847,7 @@
     display: block;
     height: var(--ds-space-md);
     margin-block: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border);
     animation: ds-skeleton-pulse calc(var(--ds-duration-slow) * 6) var(--ds-ease) infinite alternate;
   }
@@ -8456,7 +8865,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-sm);
   }
 
@@ -8472,7 +8881,7 @@
   /* A block of content whose shape is not lines: a code block, a diff, a chart. */
   .ds-skeleton__block {
     display: block;
-    height: calc(var(--ds-size-touch) * 3);
+    height: calc(var(--ds-size-row) * 3);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-border);
     animation: ds-skeleton-pulse calc(var(--ds-duration-slow) * 6) var(--ds-ease) infinite alternate;
@@ -8497,7 +8906,7 @@
  * Slider: a native range input for a rough amount, with its label, its value in words
  * and a label at each end of the track.
  *
- * The thumb is a box one pointer target square. Only its middle is painted: the rest is a
+ * The thumb is a box as wide and as tall as a control. Only its middle is painted: the rest is a
  * transparent border, so the thumb takes a press anywhere in the square. The track is drawn
  * on the wrapper, set in from each end by that border, so the painted thumb stops exactly at its ends.
  */
@@ -8531,16 +8940,16 @@
   .ds-slider__track {
     position: relative;
     grid-column: 1 / -1;
-    margin-inline: calc((var(--ds-space-xl) - var(--ds-size-touch)) / 2);
+    margin-inline: calc((var(--ds-space-xl) - var(--ds-size-control)) / 2);
   }
 
   .ds-slider__track::before {
     content: "";
     position: absolute;
     top: 50%;
-    inset-inline: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2);
+    inset-inline: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2);
     height: var(--ds-space-xs);
-    border-radius: var(--ds-radius-full);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border-strong);
     translate: 0 -50%;
   }
@@ -8551,29 +8960,29 @@
     display: block;
     appearance: none;
     width: 100%;
-    height: var(--ds-size-touch);
-    border-radius: var(--ds-radius-md);
+    height: var(--ds-size-control);
+    border-radius: var(--ds-radius-sm);
     background-color: transparent;
     cursor: pointer;
   }
 
   .ds-slider__input::-webkit-slider-runnable-track {
-    height: var(--ds-size-touch);
+    height: var(--ds-size-control);
     background-color: transparent;
   }
 
   .ds-slider__input::-moz-range-track {
-    height: var(--ds-size-touch);
+    height: var(--ds-size-control);
     background-color: transparent;
   }
 
   .ds-slider__input::-webkit-slider-thumb {
     appearance: none;
     box-sizing: border-box;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
-    border: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2) solid transparent;
-    border-radius: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2 + var(--ds-radius-sm));
+    width: var(--ds-size-control);
+    height: var(--ds-size-control);
+    border: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2) solid transparent;
+    border-radius: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2 + var(--ds-radius-sm));
     background-color: var(--ds-color-accent);
     background-clip: padding-box;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
@@ -8581,10 +8990,10 @@
 
   .ds-slider__input::-moz-range-thumb {
     box-sizing: border-box;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
-    border: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2) solid transparent;
-    border-radius: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2 + var(--ds-radius-sm));
+    width: var(--ds-size-control);
+    height: var(--ds-size-control);
+    border: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2) solid transparent;
+    border-radius: calc((var(--ds-size-control) - var(--ds-space-xl)) / 2 + var(--ds-radius-sm));
     background-color: var(--ds-color-accent);
     background-clip: padding-box;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
@@ -8594,8 +9003,8 @@
   .ds-slider__min,
   .ds-slider__max {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-slider__max {
@@ -8650,12 +9059,12 @@
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
     max-width: 100%;
-    min-height: var(--ds-space-2xl);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-raised);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-mono);
@@ -8666,16 +9075,18 @@
   }
 
   /*
-   * The chip is drawn 32px tall. This invisible box, centred on it, keeps its
-   * pointer target at the touch size without making a row of chips taller.
+   * The chip is drawn 32px tall, whatever the density. On a coarse pointer this invisible box, centred on it,
+   * keeps its pointer target at the touch size without making a row of chips taller.
    */
-  .ds-source-chip::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  @media (pointer: coarse) {
+    .ds-source-chip::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   .ds-source-chip__icon {
@@ -8713,8 +9124,9 @@
     flex: none;
     color: var(--ds-color-muted);
     font-family: var(--ds-font-ui);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -8796,8 +9208,9 @@
 
   .ds-sparkline__text {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
 }
@@ -8872,12 +9285,12 @@
   }
 
   /*
-   * The menu button is one pointer target wide. It gives up its leading border,
+   * The menu button is as wide as a control is tall. It gives up its leading border,
    * so the main action's border is the one line between the two.
    */
   .ds-split-button__toggle {
     flex: none;
-    width: var(--ds-size-touch);
+    width: var(--ds-size-control);
     padding: 0;
     border-inline-start-width: 0;
     border-start-start-radius: 0;
@@ -8940,11 +9353,11 @@
     overflow-wrap: anywhere;
   }
 
-  /* Side by side. There is no width token for a list column, so it is a fraction of the reading column. */
+  /* Side by side. The list column is as wide as a sidebar. */
   @media (min-width: 768px) {
     .ds-split-panel {
       grid-template-rows: minmax(0, 1fr);
-      grid-template-columns: calc(var(--ds-size-column) * 0.6) minmax(0, 1fr);
+      grid-template-columns: var(--ds-size-sidebar) minmax(0, 1fr);
     }
 
     .ds-split-panel__list {
@@ -8967,9 +9380,11 @@
   }
 
   .ds-stat__label {
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
     overflow-wrap: anywhere;
   }
 
@@ -8979,13 +9394,14 @@
     font-variant-numeric: tabular-nums;
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-xl);
+    letter-spacing: var(--ds-tracking-xl);
     overflow-wrap: anywhere;
   }
 
   .ds-stat__context {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -9001,11 +9417,13 @@
     font-size: var(--ds-text-ui);
     font-weight: var(--ds-weight-normal);
     line-height: var(--ds-leading-ui);
+    letter-spacing: normal;
   }
 
   .ds-stat--inline > .ds-stat__value {
     font-size: var(--ds-text-ui);
     line-height: var(--ds-leading-ui);
+    letter-spacing: normal;
   }
 }
 
@@ -9029,8 +9447,8 @@
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: start;
     column-gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     padding-inline: var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     list-style: none;
@@ -9104,7 +9522,7 @@
   /* How long the steps took together, or have taken so far. The interface font, with figures of one width. */
   .ds-step-group__duration {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
@@ -9182,20 +9600,21 @@
     justify-content: center;
     width: var(--ds-space-xl);
     height: var(--ds-space-xl);
-    margin-block: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2);
+    margin-block: calc((var(--ds-size-row) - var(--ds-space-xl)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
     border-radius: var(--ds-radius-full);
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
   }
 
   /* The line to the next step, from under this mark to above the next one. */
   .ds-stepper__step:not(:last-child)::after {
     content: "";
     position: absolute;
-    inset-block: calc((var(--ds-size-touch) + var(--ds-space-xl)) / 2 + var(--ds-space-xs)) calc(var(--ds-space-xs) - (var(--ds-size-touch) - var(--ds-space-xl)) / 2);
+    inset-block: calc((var(--ds-size-row) + var(--ds-space-xl)) / 2 + var(--ds-space-xs)) calc(var(--ds-space-xs) - (var(--ds-size-row) - var(--ds-space-xl)) / 2);
     inset-inline-start: calc((var(--ds-space-xl) - var(--ds-border-width)) / 2);
     width: var(--ds-border-width);
     background-color: var(--ds-color-border-strong);
@@ -9208,8 +9627,8 @@
   .ds-stepper__label {
     position: relative;
     grid-column: 2;
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     overflow-wrap: anywhere;
   }
 
@@ -9227,8 +9646,8 @@
     margin-top: calc(var(--ds-space-sm) * -1);
     padding-bottom: var(--ds-space-sm);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -9291,7 +9710,7 @@
       grid-column: 3;
       width: auto;
       height: var(--ds-border-width);
-      margin-block-start: calc((var(--ds-size-touch) - var(--ds-border-width)) / 2);
+      margin-block-start: calc((var(--ds-size-row) - var(--ds-border-width)) / 2);
       margin-inline-start: var(--ds-space-xs);
     }
   }
@@ -9331,8 +9750,9 @@
   /* Figures that change often, such as elapsed time. They sit outside the status text. */
   .ds-streaming__detail {
     font-family: var(--ds-font-mono);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
   }
 
   @keyframes ds-streaming-turn {
@@ -9367,6 +9787,7 @@
   /* On the same element as ds-button: lighter, see-through and set from the start, so it reads as a prompt and not as the view's action. */
   .ds-suggestion-chips__chip {
     justify-content: flex-start;
+    border-radius: var(--ds-radius-full);
     background-color: transparent;
     font-weight: var(--ds-weight-normal);
     text-align: start;
@@ -9387,8 +9808,8 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     row-gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
   }
 
   .ds-switch__label {
@@ -9417,18 +9838,18 @@
     display: none;
   }
 
-  /* The track: one target wide and 24px tall. The margin centres it on the first line of the label. */
+  /* The track: 24px tall, and as wide as two thumbs with a gap before, between and after them. The margin centres it on the first line of the label. */
   .ds-switch__input {
     position: relative;
     grid-row: 1;
     grid-column: 3;
     appearance: none;
-    width: var(--ds-size-touch);
+    width: calc(var(--ds-space-lg) * 2 + var(--ds-border-width) * 12);
     height: var(--ds-space-xl);
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-xl)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-border-strong);
     cursor: pointer;
@@ -9444,20 +9865,20 @@
     inset-block: calc(var(--ds-border-width) * 2);
     inset-inline-start: calc(var(--ds-border-width) * 2);
     width: calc(var(--ds-space-lg) + var(--ds-border-width) * 2);
-    border-radius: calc(var(--ds-radius-sm) / 2);
+    border-radius: var(--ds-radius-full);
     background-color: currentColor;
     transition-property: inset-inline-start;
     transition-duration: var(--ds-duration-fast);
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The track is drawn 24px tall. This invisible box, centred on it, keeps its pointer target at the touch size. */
+  /* The track is drawn 24px tall. This invisible box, centred on it, makes its pointer target as tall as the row. */
   .ds-switch__input::after {
     content: "";
     position: absolute;
     top: 50%;
     inset-inline: calc(var(--ds-border-width) * -1);
-    height: var(--ds-size-touch);
+    height: var(--ds-size-row);
     translate: 0 -50%;
   }
 
@@ -9467,16 +9888,16 @@
     color: var(--ds-color-on-accent);
   }
 
-  /* The track's inner width, less the thumb and the same gap at the far end. */
+  /* Past the first thumb's place and the gap after it. */
   .ds-switch__input:checked::before {
-    inset-inline-start: calc(var(--ds-size-touch) - var(--ds-space-lg) - var(--ds-border-width) * 6);
+    inset-inline-start: calc(var(--ds-space-lg) + var(--ds-border-width) * 6);
   }
 
   .ds-switch__description {
     grid-column: 1;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-switch__error {
@@ -9547,8 +9968,9 @@
     z-index: var(--ds-z-sticky);
     display: flex;
     padding-bottom: env(safe-area-inset-bottom);
+    /* A pane of the app shell, with a hairline above it in both modes. */
     border-top-width: var(--ds-border-width);
-    background-color: var(--ds-color-surface-raised);
+    background-color: var(--ds-color-surface-pane);
   }
 
   /* Equal columns, whatever the labels hold. */
@@ -9560,8 +9982,8 @@
     align-items: center;
     justify-content: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: calc(var(--ds-size-touch) + var(--ds-space-md));
+    min-width: var(--ds-size-control);
+    min-height: calc(var(--ds-size-control) + var(--ds-space-md));
     padding: var(--ds-space-sm) var(--ds-space-xs);
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
@@ -9573,8 +9995,8 @@
 
   .ds-tab-bar__icon {
     flex: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
   }
 
   /* One line. A label too long for its column is cut with an ellipsis. */
@@ -9658,12 +10080,14 @@
     align-items: center;
     justify-content: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
+    font-size: var(--ds-text-md);
     font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-md);
     white-space: nowrap;
     transition-property: background-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -9673,7 +10097,7 @@
 
   .ds-tabs__panel {
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     border-radius: var(--ds-radius-sm);
   }
 
@@ -9722,7 +10146,7 @@
     padding-inline: var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     font-size: var(--ds-text-xs);
@@ -9731,11 +10155,13 @@
   }
 
   /*
-   * A tag with a remove button keeps 8px clear above and below, so that when tags wrap
+   * On a coarse pointer a tag with a remove button keeps 8px clear above and below, so that when tags wrap
    * the 44px pointer targets of two rows of buttons never overlap.
    */
-  .ds-tag:has(> .ds-tag__remove) {
-    margin-block: var(--ds-space-sm);
+  @media (pointer: coarse) {
+    .ds-tag:has(> .ds-tag__remove) {
+      margin-block: var(--ds-space-sm);
+    }
   }
 
   /* Drawn as tall as the tag's inside, flush with its end. The cross is drawn here, so the markup holds only the button's name. */
@@ -9748,7 +10174,7 @@
     width: calc(var(--ds-space-xl) - var(--ds-border-width) * 2);
     height: calc(var(--ds-space-xl) - var(--ds-border-width) * 2);
     margin-inline: var(--ds-space-xs) calc(var(--ds-space-sm) * -1);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     color: var(--ds-color-muted);
     transition-property: background-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -9763,15 +10189,25 @@
     mask: url("icons/x.svg") center / contain no-repeat;
   }
 
-  /* An invisible box centred on the button, which takes the press without making the tag any larger. */
+  /*
+   * An invisible box centred on the button, which takes the press without making the tag any larger:
+   * 24px square, the least a fine pointer needs, and the touch size on a coarse pointer.
+   */
   .ds-tag__remove::after {
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
+    width: var(--ds-size-control-xs);
+    height: var(--ds-size-control-xs);
     translate: -50% -50%;
+  }
+
+  @media (pointer: coarse) {
+    .ds-tag__remove::after {
+      width: var(--ds-size-touch);
+      height: var(--ds-size-touch);
+    }
   }
 
   @media (hover: hover) {
@@ -9801,7 +10237,7 @@
 @layer ds.components {
   /*
    * The box. The padding leaves room for the input's focus ring inside the border.
-   * The gap between rows keeps the 44px pointer targets of two rows of remove buttons apart.
+   * The gap between rows keeps two rows of tags apart.
    */
   .ds-tag-input {
     display: flex;
@@ -9813,7 +10249,7 @@
     padding: var(--ds-space-xs) var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
@@ -9825,24 +10261,17 @@
 
   /*
    * One target tall, and never narrower than two, so it wraps to a new row before it is too small to type in.
-   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   * The text is the body size, which is 16px on a coarse pointer: iOS zooms the page when a smaller input takes focus.
    */
   .ds-tag-input__input {
-    flex: 1 1 calc(var(--ds-size-touch) * 2);
-    min-width: calc(var(--ds-size-touch) * 2);
-    min-height: var(--ds-size-touch);
+    flex: 1 1 calc(var(--ds-size-control) * 2);
+    min-width: calc(var(--ds-size-control) * 2);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: transparent;
-    font-size: var(--ds-text-lg);
-    line-height: var(--ds-leading-lg);
-  }
-
-  @media (min-width: 768px) {
-    .ds-tag-input__input {
-      font-size: var(--ds-text-ui);
-      line-height: var(--ds-leading-ui);
-    }
+    font-size: var(--ds-text-ui);
+    line-height: var(--ds-leading-ui);
   }
 
   .ds-tag-input:has(> .ds-tag-input__input[aria-invalid="true"]) {
@@ -9865,13 +10294,13 @@
 @layer ds.components {
   /*
    * The fallback, for a browser without field-sizing: a fixed height the reader can drag taller.
-   * The height limits are multiples of the touch size because there is no token for a control's height.
+   * The height limits count in controls: three tall at rest, two at least and six at most.
    */
   .ds-textarea {
     display: block;
-    height: calc(var(--ds-size-touch) * 3);
-    min-height: calc(var(--ds-size-touch) * 2);
-    max-height: calc(var(--ds-size-touch) * 6);
+    height: calc(var(--ds-size-control) * 3);
+    min-height: calc(var(--ds-size-control) * 2);
+    max-height: calc(var(--ds-size-control) * 6);
     overflow-y: auto;
   }
 
@@ -9884,7 +10313,7 @@
     }
   }
 
-  /* The size stays at 16px at compact widths, as on every field control, so iOS does not zoom on focus. */
+  /* Below 768px the size stays the body size, as on every field control: the mono size is under 16px, and iOS zooms on focus then. */
   .ds-textarea--mono {
     font-family: var(--ds-font-mono);
   }
@@ -9948,7 +10377,7 @@
     height: calc(var(--ds-space-sm) + var(--ds-border-width));
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: calc(var(--ds-radius-sm) / 2);
+    border-radius: calc(var(--ds-radius-xs) / 2);
     background-color: var(--ds-color-surface);
   }
 
@@ -9964,8 +10393,9 @@
     flex-wrap: wrap;
     align-items: baseline;
     column-gap: var(--ds-space-sm);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-timeline__time {
@@ -10076,7 +10506,7 @@
   /* The one action: a small button. The negative margin keeps a one-line toast as short as it is without one. */
   .ds-toast__action {
     flex: none;
-    margin-block: calc(var(--ds-space-xs) * -1.5);
+    margin-block: calc(var(--ds-space-xs-sm) * -1);
   }
 
   .ds-toast--success::before {
@@ -10197,6 +10627,7 @@
     align-items: center;
     column-gap: var(--ds-space-md);
     min-width: 0;
+    font-variant-numeric: tabular-nums;
   }
 
   /* How the call ended, in words. With no status modifier it is plain text. */
@@ -10253,9 +10684,9 @@
   /* A time is not code: it is set in the interface font, with figures of one width so it does not jitter as it counts. */
   .ds-tool-call__duration {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     font-variant-numeric: tabular-nums;
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-sm);
     white-space: nowrap;
   }
 
@@ -10275,7 +10706,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     cursor: pointer;
@@ -10359,16 +10790,18 @@
   }
 
   /*
-   * The line is drawn 36px tall, so a long run of calls stays dense. This invisible box, centred on it,
-   * keeps its pointer target at the touch size, as the small button does.
+   * The line is as tall as a row, so a long run of calls stays dense. On a coarse pointer this invisible box,
+   * centred on it, keeps its pointer target at the touch size, as the small button does.
    */
-  .ds-tool-call[data-state] .ds-tool-call__summary::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: max(100%, var(--ds-size-touch));
-    translate: 0 -50%;
+  @media (pointer: coarse) {
+    .ds-tool-call[data-state] .ds-tool-call__summary::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: max(100%, var(--ds-size-touch));
+      translate: 0 -50%;
+    }
   }
 
   .ds-tool-call[data-state] .ds-tool-call__summary::before {
@@ -10512,9 +10945,11 @@
 
   .ds-tool-call__label {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
   }
 
   /*
@@ -10526,7 +10961,7 @@
     display: flex;
     flex-direction: column-reverse;
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     max-height: calc(var(--ds-size-column) / 2);
     border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-sunken);
@@ -10669,10 +11104,11 @@
     margin: 0;
     padding: var(--ds-space-xs) var(--ds-space-sm);
     border-block: var(--ds-space-xs) solid transparent;
-    border-radius: var(--ds-radius-md);
-    background-color: var(--ds-color-accent);
+    border-radius: var(--ds-radius-xs);
+    /* The text colour as a fill with the page colour on it: the accent is for an action, and a tooltip is none. */
+    background-color: var(--ds-color-on-surface);
     background-clip: padding-box;
-    color: var(--ds-color-on-accent);
+    color: var(--ds-color-surface);
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-normal);
     line-height: var(--ds-leading-xs);
@@ -10750,6 +11186,8 @@
 @layer ds.components {
   .ds-tree {
     min-width: 0;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   .ds-tree__list {
@@ -10775,7 +11213,7 @@
     align-items: center;
     gap: var(--ds-space-sm);
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-sm);
     border-radius: var(--ds-radius-sm);
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
@@ -10826,9 +11264,10 @@
   .ds-tree__meta {
     flex: none;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     font-weight: var(--ds-weight-normal);
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -10897,8 +11336,9 @@
   .ds-undo-toast__countdown {
     display: block;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
   }
 
   /* A native progress element. Its value is the time left, which the app lowers as the time runs out. */
@@ -10906,7 +11346,7 @@
     flex: none;
     width: 100%;
     height: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border);
     color: var(--ds-color-accent);
     overflow: hidden;
@@ -10961,9 +11401,9 @@
 
   .ds-usage-meter__figures {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     font-variant-numeric: tabular-nums;
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -10974,7 +11414,7 @@
     height: var(--ds-space-sm);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background: var(--ds-color-surface-sunken);
     overflow: hidden;
     appearance: none;
@@ -11164,6 +11604,7 @@
   /* The count in words, directly above the results it counts. */
   .ds-filter-results__count {
     font-weight: var(--ds-weight-medium);
+    font-variant-numeric: tabular-nums;
   }
 }
 
@@ -11258,6 +11699,7 @@
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
   }
 }
 

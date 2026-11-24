@@ -179,7 +179,7 @@
 <dt>inline</dt>
 <dd>A link inside a sentence. It takes no class: the base styles underline it, and it has the colour of the text around it.</dd>
 <dt>standalone <code>ds-link</code></dt>
-<dd>A link outside a sentence. It is 44px tall and may end with an icon, such as arrow-right.</dd>
+<dd>A link outside a sentence. It is as tall as a control and may end with an icon, such as arrow-right.</dd>
 <dt>quiet <code>ds-link--quiet</code></dt>
 <dd>With ds-link, for a minor link that should not draw the eye, such as Edit approval rules. Muted, and still underlined.</dd>
 <dt>external</dt>
@@ -190,7 +190,7 @@
 <h2>Sizes</h2>
 <dl>
 <dt>default</dt>
-<dd>A standalone link takes the text size around it and is at least 44px tall and wide. An inline link is the size of its sentence.</dd>
+<dd>A standalone link takes the text size around it and is at least as tall and as wide as a control: 40px by default and 44px on a coarse pointer. An inline link is the size of its sentence.</dd>
 </dl>
 </section>
 <section>
@@ -202,7 +202,7 @@
 <li>A link that opens a new tab says so. Put (opens in a new tab) in a ds-link__hint inside the link, which a screen reader reads and the screen does not show, and set rel=&quot;noopener&quot;.</li>
 <li>An icon inside a link is decoration and carries aria-hidden=&quot;true&quot;. The external-link icon is the visible sign of what the hint says.</li>
 <li>Tab moves to the link and Enter follows it. Space does not, which is one reason an action is a button.</li>
-<li>A standalone link has a 44px pointer target. An inline link is exempt, so do not put two of them side by side in a sentence.</li>
+<li>A standalone link has a pointer target as tall as a control, 44px on a coarse pointer. An inline link is exempt, so do not put two of them side by side in a sentence.</li>
 </ul>
 </section>
 <section>

@@ -17,7 +17,7 @@
     { "name": "one file", "use": "No multiple attribute, and the prompt reads Choose a file, or drop it here. A new file replaces the one chosen." }
   ],
   "sizes": [
-    { "name": "default", "use": "As wide as the field and at least 88px tall. The whole area is the pointer target." }
+    { "name": "default", "use": "As wide as the field and at least two controls tall: 72px by default and 88px on a coarse pointer. The whole area is the pointer target." }
   ],
   "states": ["default", "hover", "focus-visible", "dragover", "busy", "error", "disabled"],
   "accessibility": [

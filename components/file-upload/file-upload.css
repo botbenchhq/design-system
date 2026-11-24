@@ -12,7 +12,7 @@
     position: relative;
     display: flex;
     min-width: 0;
-    min-height: calc(var(--ds-size-touch) * 2);
+    min-height: calc(var(--ds-size-control) * 2);
   }
 
   /*
@@ -27,7 +27,7 @@
     border-width: var(--ds-border-width);
     border-style: dashed;
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     color: transparent;
     cursor: pointer;
   }

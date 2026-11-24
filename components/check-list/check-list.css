@@ -120,9 +120,9 @@
 
   .ds-check-list__duration {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     font-variant-numeric: tabular-nums;
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-sm);
     text-align: end;
     white-space: nowrap;
   }
@@ -138,7 +138,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     list-style: none;

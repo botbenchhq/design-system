@@ -7,19 +7,22 @@
 @layer ds.components {
   .ds-sidebar-nav {
     display: none;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
-  /* The column is five pointer targets wide. There is no width token for a sidebar. */
+  /* The column is as wide as the sidebar token says. */
   @media (min-width: 768px) {
     .ds-sidebar-nav {
       display: flex;
       flex-direction: column;
       gap: var(--ds-space-lg);
-      width: calc(var(--ds-size-touch) * 5);
+      width: var(--ds-size-sidebar);
       min-width: 0;
       padding: var(--ds-space-md) var(--ds-space-sm);
+      /* A pane of the app shell: its own surface, and a hairline that stays drawn in dark, where the two surfaces are close. */
       border-inline-end-width: var(--ds-border-width);
-      background-color: var(--ds-color-surface);
+      background-color: var(--ds-color-surface-pane);
     }
   }
 
@@ -33,9 +36,11 @@
   .ds-sidebar-nav__heading {
     padding-inline: var(--ds-space-md);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
   }
 
   .ds-sidebar-nav__items {
@@ -48,7 +53,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-md);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
@@ -84,8 +89,8 @@
   .ds-sidebar-nav__note {
     padding: var(--ds-space-xs) var(--ds-space-md);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -102,9 +107,9 @@
     color: var(--ds-color-on-surface);
   }
 
-  /* The current item is marked by weight and by a bar at its leading edge, as well as by its shade. */
+  /* The current item is marked by weight and by a bar at its leading edge, as well as by its fill. */
   .ds-sidebar-nav__item[aria-current]:not([aria-current="false"]) {
-    background-color: var(--ds-color-surface-sunken);
+    background-color: var(--ds-color-fill);
     color: var(--ds-color-on-surface);
     font-weight: var(--ds-weight-semibold);
   }

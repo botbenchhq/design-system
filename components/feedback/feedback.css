@@ -30,7 +30,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
   }
 
   /* The chosen button gains an outline, a shade and a heavier label, so the choice is not a colour alone. */
@@ -51,8 +51,8 @@
   /* The live region. It is in the page from the start, and takes no room until it has words. */
   .ds-feedback__confirmation {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-feedback__confirmation:empty {

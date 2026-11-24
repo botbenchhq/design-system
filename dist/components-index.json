@@ -122,7 +122,7 @@
     "name": "avatar",
     "kind": "component",
     "title": "Avatar",
-    "purpose": "A small square mark for a person or an agent, holding initials, an icon or an image, with the name beside it.",
+    "purpose": "A small round mark for a person or an agent, holding initials, an icon or an image, with the name beside it.",
     "status": "draft",
     "classes": [
       "ds-avatar",
@@ -190,6 +190,7 @@
     "classes": [
       "ds-button",
       "ds-button--danger",
+      "ds-button--large",
       "ds-button--primary",
       "ds-button--quiet",
       "ds-button--small",
@@ -231,6 +232,7 @@
     "status": "draft",
     "classes": [
       "ds-card",
+      "ds-card--borderless",
       "ds-card--sunken",
       "ds-card__action",
       "ds-card__body",
@@ -651,7 +653,9 @@
     "purpose": "A button that shows only an icon, for a familiar action where a text label has no room.",
     "status": "draft",
     "classes": [
-      "ds-icon-button"
+      "ds-icon-button",
+      "ds-icon-button--small",
+      "ds-icon-button--xsmall"
     ]
   },
   {

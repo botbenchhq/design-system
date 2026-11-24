@@ -68,6 +68,8 @@ test("every class in base/ starts with ds-", () => {
   for (const name of classes) assert.match(name, /^\.ds-/);
 });
 
+const INLINE_CODE_SIZE = "max(0.93em, var(--ds-text-xs))";
+
 test("base styles take colours, sizes and durations from tokens, and the only media-query width is 768px", () => {
   const widths = [];
   for (const name of baseStylesheets()) {
@@ -75,6 +77,8 @@ test("base styles take colours, sizes and durations from tokens, and the only me
     root.walkDecls((decl) => {
       const where = `${name}: ${decl.prop}: ${decl.value}`;
       assert.doesNotMatch(decl.value, /#[0-9A-Fa-f]{3,8}\b|\b(rgba?|hsla?|oklch|oklab|color-mix)\(/, where);
+      // The one length written out: code inside a sentence is a share of the text around it, which no token can say.
+      if (name === "typography.css" && decl.prop === "font-size" && decl.value === INLINE_CODE_SIZE) return;
       assert.doesNotMatch(decl.value, /\d(px|rem|em|pt|ms)\b/, where);
       // Zero is the one duration written out, for reduced motion.
       for (const duration of decl.value.match(/\b[\d.]+s\b/g) ?? []) assert.equal(duration, "0s", where);
@@ -137,7 +141,7 @@ test("every font and icon URL in dist/design-system.css resolves to a file insid
   }
 });
 
-test("the shipped fonts are IBM Plex Sans and IBM Plex Mono, each file is used, and the licence travels with them", () => {
+test("the shipped fonts are IBM Plex Sans and IBM Plex Mono for the default theme and Inter and JetBrains Mono for Botbench, each file is used and swaps in, and each licence travels with them", () => {
   const faces = [];
   postcss.parse(readFileSync(bundle, "utf8")).walkAtRules("font-face", (face) => {
     const declared = Object.fromEntries(face.nodes.map((decl) => [decl.prop, decl.value]));
@@ -145,12 +149,24 @@ test("the shipped fonts are IBM Plex Sans and IBM Plex Mono, each file is used, 
   });
   assert.deepEqual(
     faces.map(({ family, weight }) => `${family} ${weight}`),
-    ['"IBM Plex Sans" 100 700', '"IBM Plex Mono" 400', '"IBM Plex Mono" 500', '"IBM Plex Mono" 600'],
+    ['"IBM Plex Sans" 100 700', '"IBM Plex Mono" 400', '"IBM Plex Mono" 500', '"IBM Plex Mono" 600', '"Inter" 100 900', '"JetBrains Mono" 100 800'],
   );
+  postcss.parse(readFileSync(bundle, "utf8")).walkAtRules("font-face", (face) => {
+    assert.ok(face.nodes.some((decl) => decl.prop === "font-display" && decl.value === "swap"), "a font face without font-display: swap");
+  });
+  // The first family of each font token, in the default theme and in each theme, has a face here.
+  const families = new Set(faces.map(({ family }) => family));
+  for (const file of ["tokens.css", "themes/botbench.css"]) {
+    for (const [, stack] of readFileSync(join(dist, file), "utf8").matchAll(/--ds-font-(?:ui|mono): ([^;]+);/g)) {
+      assert.ok(families.has(stack.split(",")[0].trim()), `${file}: ${stack.split(",")[0]} has no font face`);
+    }
+  }
+  const notice = readFileSync(join(dist, "NOTICE"), "utf8");
+  for (const { file } of faces) assert.ok(notice.includes(file) || notice.includes(file.replace(/-\d00-normal/, "-*-normal")), `NOTICE does not list ${file}`);
   const shipped = readdirSync(join(dist, "fonts")).sort();
   assert.deepEqual(shipped.filter((name) => name.endsWith(".woff2")), faces.map((face) => face.file).sort());
   const licences = shipped.filter((name) => !name.endsWith(".woff2"));
-  assert.deepEqual(licences, ["OFL-IBM-Plex-Mono.txt", "OFL-IBM-Plex-Sans.txt"]);
+  assert.deepEqual(licences, ["OFL-IBM-Plex-Mono.txt", "OFL-IBM-Plex-Sans.txt", "OFL-Inter.txt", "OFL-JetBrains-Mono.txt"]);
   for (const name of licences) {
     assert.match(readFileSync(join(dist, "fonts", name), "utf8"), /SIL OPEN FONT LICENSE Version 1\.1/);
   }

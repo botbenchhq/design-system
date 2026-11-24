@@ -21,12 +21,12 @@
   }
 
   /*
-   * The menu button is one pointer target wide. It gives up its leading border,
+   * The menu button is as wide as a control is tall. It gives up its leading border,
    * so the main action's border is the one line between the two.
    */
   .ds-split-button__toggle {
     flex: none;
-    width: var(--ds-size-touch);
+    width: var(--ds-size-control);
     padding: 0;
     border-inline-start-width: 0;
     border-start-start-radius: 0;

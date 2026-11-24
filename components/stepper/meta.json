@@ -19,7 +19,7 @@
     { "name": "with descriptions", "use": "A span with ds-stepper__description after the name: one short fact about the step, such as 214 of 252 tests finished. No modifier class." }
   ],
   "sizes": [
-    { "name": "default", "use": "Below 768px the steps run down the page, each row at least 44px tall. At 768px and up they run across it, joined by lines." }
+    { "name": "default", "use": "Below 768px the steps run down the page, each row at least as tall as a row of a list. At 768px and up they run across it, joined by lines." }
   ],
   "states": ["default", "hover", "focus-visible", "error"],
   "accessibility": [

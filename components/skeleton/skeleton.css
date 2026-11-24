@@ -18,7 +18,7 @@
     display: block;
     height: var(--ds-space-md);
     margin-block: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border);
     animation: ds-skeleton-pulse calc(var(--ds-duration-slow) * 6) var(--ds-ease) infinite alternate;
   }
@@ -36,7 +36,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-sm);
   }
 
@@ -52,7 +52,7 @@
   /* A block of content whose shape is not lines: a code block, a diff, a chart. */
   .ds-skeleton__block {
     display: block;
-    height: calc(var(--ds-size-touch) * 3);
+    height: calc(var(--ds-size-row) * 3);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-border);
     animation: ds-skeleton-pulse calc(var(--ds-duration-slow) * 6) var(--ds-ease) infinite alternate;

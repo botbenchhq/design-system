@@ -23,7 +23,7 @@
     flex: none;
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
+    font-weight: var(--ds-weight-semibold);
     line-height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
   }
 
@@ -75,13 +75,13 @@
     min-width: 0;
   }
 
-  /* The summary is as tall as a pointer target, and its text sits in the middle of that height. */
+  /* The summary is as tall as a row, and its padding puts its text in the middle of that height. */
   .ds-message__summary {
     display: flex;
     align-items: baseline;
     column-gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
-    padding-block: var(--ds-space-md);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     cursor: pointer;
@@ -192,8 +192,9 @@
   .ds-message--usage,
   .ds-message--turn-end {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     line-height: calc(var(--ds-text-mono) * var(--ds-leading-mono));
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-message--session-start > .ds-message__body,

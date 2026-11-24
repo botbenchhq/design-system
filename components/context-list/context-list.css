@@ -9,6 +9,8 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   .ds-context-list > li + li {
@@ -22,7 +24,7 @@
     gap: var(--ds-space-md);
     width: 100%;
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-sm) var(--ds-space-md);
     text-align: start;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
@@ -92,7 +94,7 @@
     content: "";
     flex: none;
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    height: calc(var(--ds-text-md) * var(--ds-leading-md));
     background-color: currentColor;
     mask: url("icons/triangle-alert.svg") center / contain no-repeat;
   }

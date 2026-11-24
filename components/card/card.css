@@ -19,13 +19,21 @@
     background-color: var(--ds-color-surface-sunken);
   }
 
+  /*
+   * No border, for a card that is decoration: a panel of a summary or a specimen, set apart by its fill alone.
+   * Never a pane of the app shell, a control, or a card a reader must tell from the page in dark by its edge.
+   */
+  .ds-card--borderless {
+    border-color: transparent;
+  }
+
   /* As tall as a pointer target, so a small button's padded hit area stays inside the header. */
   .ds-card__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--ds-space-md);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding-inline: var(--ds-space-lg);
     border-bottom-width: var(--ds-border-width);
   }
@@ -39,10 +47,12 @@
     min-width: 0;
     margin: 0;
     padding-block: var(--ds-space-sm);
-    font-size: var(--ds-text-ui);
+    font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
-    line-height: var(--ds-leading-ui);
+    line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   /* Pulled towards the edge, so the words of a quiet button line up with the body's text. */

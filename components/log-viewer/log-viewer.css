@@ -33,8 +33,9 @@
   /* How long, how many lines, how it ended: facts, in the small muted size. */
   .ds-log-viewer__meta {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
 
@@ -43,7 +44,7 @@
    * It holds the output as text in a pre, or a list of lines in a div. Half the viewport at most on a phone.
    */
   .ds-log-viewer__body {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     max-height: min(var(--ds-size-column), 50dvh);
     padding-block: var(--ds-space-sm);
     padding-inline: var(--ds-space-md);
@@ -120,8 +121,9 @@
     padding: var(--ds-space-xs) var(--ds-space-sm);
     border-top-width: var(--ds-border-width);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-log-viewer__note {

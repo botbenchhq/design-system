@@ -7,13 +7,13 @@
 @layer ds.components {
   /*
    * The fallback, for a browser without field-sizing: a fixed height the reader can drag taller.
-   * The height limits are multiples of the touch size because there is no token for a control's height.
+   * The height limits count in controls: three tall at rest, two at least and six at most.
    */
   .ds-textarea {
     display: block;
-    height: calc(var(--ds-size-touch) * 3);
-    min-height: calc(var(--ds-size-touch) * 2);
-    max-height: calc(var(--ds-size-touch) * 6);
+    height: calc(var(--ds-size-control) * 3);
+    min-height: calc(var(--ds-size-control) * 2);
+    max-height: calc(var(--ds-size-control) * 6);
     overflow-y: auto;
   }
 
@@ -26,7 +26,7 @@
     }
   }
 
-  /* The size stays at 16px at compact widths, as on every field control, so iOS does not zoom on focus. */
+  /* Below 768px the size stays the body size, as on every field control: the mono size is under 16px, and iOS zooms on focus then. */
   .ds-textarea--mono {
     font-family: var(--ds-font-mono);
   }

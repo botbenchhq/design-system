@@ -39,6 +39,7 @@
     font-size: var(--ds-text-mono);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-mono);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -62,7 +63,7 @@
 
   /* The body is given tabindex="0", so it is a pointer target and is at least as tall as one. */
   .ds-diff__body {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     padding-block: var(--ds-space-sm);
     border-radius: var(--ds-radius-md);
     overflow-x: auto;

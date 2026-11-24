@@ -16,7 +16,7 @@ const MODES = ["light", "dark"];
 // Longer prefixes first, so --ds-border-width is not read as a colour named "border".
 const CATEGORIES = [
   "border-width", "breakpoint", "color", "duration", "ease", "font", "leading",
-  "radius", "shadow", "size", "space", "text", "weight", "z",
+  "radius", "shadow", "size", "space", "text", "tracking", "weight", "z",
 ];
 
 // The bundled stylesheet is tokens.css followed by these, in this order.
@@ -30,6 +30,11 @@ const FONT_SOURCES = {
   "ibm-plex-mono-latin-600-normal.woff2": "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2",
   "OFL-IBM-Plex-Sans.txt": "@fontsource-variable/ibm-plex-sans/LICENSE",
   "OFL-IBM-Plex-Mono.txt": "@fontsource/ibm-plex-mono/LICENSE",
+  // The Botbench theme's typefaces. Both files are variable in weight.
+  "inter-latin-wght-normal.woff2": "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
+  "jetbrains-mono-latin-wght-normal.woff2": "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2",
+  "OFL-Inter.txt": "@fontsource-variable/inter/LICENSE",
+  "OFL-JetBrains-Mono.txt": "@fontsource-variable/jetbrains-mono/LICENSE",
 };
 
 // What a symbol keeps from an icon's root element, so one drawn through <use> looks like the single file.
@@ -86,8 +91,12 @@ const UTILITIES = {
   sizing: {
     prefixes: ["w-", "h-", "size-", "min-w-", "min-h-", "max-w-", "max-h-"],
   },
-  variants: ["md"],
+  // One variant for each breakpoint: md is 768px, lg 1024px and xl 1280px.
+  variants: ["md", "lg", "xl"],
 };
+
+// The Tailwind screen each breakpoint token is, by the key of the token.
+const SCREENS = { DEFAULT: "md", lg: "lg", xl: "xl" };
 
 const withoutComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
 
@@ -113,14 +122,44 @@ function categoryOf(name) {
 
 const SELECTORS = { light: ":root", dark: '[data-theme="dark"]', auto: '[data-theme="auto"]' };
 
-// The light, dark and auto blocks of a token file, each as { name: value } or null when the file has none.
-// The dark and auto blocks must hold the same values, and every colour is six-digit hex.
+// Density: four tokens say how tall a control and a row are and how large body text is. :root holds the default.
+// data-ds-density="compact" on a container sets them for what is inside it, and one block inside
+// @media (pointer: coarse) sets them on every element, a compact container included, and makes every type size one
+// pixel larger. A theme cannot set any of them.
+export const DENSITY = {
+  attribute: "data-ds-density",
+  attributeValues: ["compact"],
+  tokens: { control: "--ds-size-control", row: "--ds-size-row", text: "--ds-text-ui", leading: "--ds-leading-ui" },
+};
+// The two of them a coarse pointer sets to the touch size. It sets the type sizes itself.
+const DENSITY_SIZES = ["--ds-size-control", "--ds-size-row"];
+// How much larger a type size is on a coarse pointer: one pixel at a 16px root. Two sizes are not: the label of a
+// control takes the body size there, and the title of a view stays as :root has it, so its block leaves it out.
+const COARSE_TEXT_STEP = 0.0625;
+const COARSE_TEXT_AS_BODY = ["--ds-text-md"];
+const COARSE_TEXT_UNCHANGED = ["--ds-text-2xl"];
+// No type size is under 12px at a 16px root.
+const SMALLEST_TEXT = 0.75;
+// The weight a type role is set in, where it is not normal: the sub-heading, the heading and the title.
+const ROLE_WEIGHTS = { lg: "semibold", xl: "semibold", "2xl": "semibold" };
+// What a theme cannot set, by category: the type scale and the radius scale are the same under every theme.
+const THEME_FIXED = { text: "a type size", leading: "a line height", tracking: "a tracking", radius: "a radius" };
+const DENSITY_SELECTORS = {
+  ...Object.fromEntries(DENSITY.attributeValues.map((density) => [density, `[${DENSITY.attribute}="${density}"]`])),
+  coarse: `:root, [${DENSITY.attribute}]`,
+};
+
+// The light, dark and auto blocks of a token file, each as { name: value } or null when the file has none, and
+// its density blocks by name. The dark and auto blocks must hold the same values, and every colour is six-digit hex.
 function parseBlocks(css, file) {
-  const blocks = { light: null, dark: null, auto: null };
+  const blocks = { light: null, dark: null, auto: null, density: {} };
   for (const [, selector, body] of withoutComments(css).matchAll(/([^{}@;]+)\{([^{}]*)\}/g)) {
-    const mode = Object.keys(SELECTORS).find((key) => SELECTORS[key] === selector.trim());
-    if (!mode) throw new Error(`Unexpected selector in ${file}: ${selector.trim()}`);
-    blocks[mode] = Object.fromEntries(declarations(body));
+    const written = selector.trim().replace(/\s+/g, " ");
+    const mode = Object.keys(SELECTORS).find((key) => SELECTORS[key] === written);
+    const density = Object.keys(DENSITY_SELECTORS).find((key) => DENSITY_SELECTORS[key] === written);
+    if (!mode && !density) throw new Error(`Unexpected selector in ${file}: ${written}`);
+    if (mode) blocks[mode] = Object.fromEntries(declarations(body));
+    else blocks.density[density] = Object.fromEntries(declarations(body));
   }
   if (JSON.stringify(blocks.dark) !== JSON.stringify(blocks.auto)) {
     throw new Error(`${file}: the [data-theme="dark"] and [data-theme="auto"] blocks must declare the same values`);
@@ -133,10 +172,64 @@ function parseBlocks(css, file) {
   return blocks;
 }
 
+// A type size in rem, as a number. Every type size is written in rem, so it follows the reader's font-size setting.
+function rem(name, value) {
+  const [, amount] = value.match(/^([\d.]+)rem$/) ?? [];
+  if (amount === undefined) throw new Error(`tokens.css: ${name} is ${value}. A type size is written in rem, so it follows the reader's font-size setting`);
+  return Number(amount);
+}
+
+// The density of tokens.css as { default, compact, "coarse-pointer" }, each holding { control, row, text, leading },
+// and everything the block for a coarse pointer sets as { name: value }. The compact block sets the four density
+// tokens and nothing else. The block for a coarse pointer sets the control and the row to the touch size, makes
+// each type size one pixel larger than :root has it (the label of a control takes the body size, and the title
+// is left out), and sets the body line height.
+function parseDensity(blocks, light) {
+  const names = Object.values(DENSITY.tokens);
+  const textNames = Object.keys(light).filter((name) => categoryOf(name).category === "text");
+  for (const name of textNames) {
+    if (rem(name, light[name]) < SMALLEST_TEXT) throw new Error(`tokens.css: ${name} is ${light[name]}. No type size is under ${SMALLEST_TEXT}rem, which is 12px unless the reader changed it`);
+  }
+  const coarseTextNames = textNames.filter((name) => !COARSE_TEXT_UNCHANGED.includes(name));
+  const expected = { ...Object.fromEntries(DENSITY.attributeValues.map((density) => [density, names])), coarse: [...DENSITY_SIZES, ...coarseTextNames, DENSITY.tokens.leading] };
+  for (const key of Object.keys(DENSITY_SELECTORS)) {
+    const block = blocks[key];
+    if (!block) throw new Error(`tokens.css: the density block ${DENSITY_SELECTORS[key]} is missing`);
+    if (!same(Object.keys(block), expected[key])) {
+      throw new Error(
+        key === "coarse"
+          ? `tokens.css: the block for a coarse pointer sets ${Object.keys(block).join(", ")}. It sets ${DENSITY_SIZES.join(" and ")}, every type size but ${COARSE_TEXT_UNCHANGED.join(", ")}, and ${DENSITY.tokens.leading}, and nothing else`
+          : `tokens.css: ${DENSITY_SELECTORS[key]} sets ${Object.keys(block).join(", ")}. A density block sets ${names.join(", ")} and nothing else`,
+      );
+    }
+  }
+  for (const name of DENSITY_SIZES) {
+    if (blocks.coarse[name] !== light["--ds-size-touch"]) throw new Error(`tokens.css: on a coarse pointer ${name} is ${blocks.coarse[name]}. It must hold the value of --ds-size-touch, ${light["--ds-size-touch"]}`);
+  }
+  const body = `${rem(DENSITY.tokens.text, light[DENSITY.tokens.text]) + COARSE_TEXT_STEP}rem`;
+  for (const name of coarseTextNames) {
+    if (COARSE_TEXT_AS_BODY.includes(name)) {
+      if (blocks.coarse[name] !== body) throw new Error(`tokens.css: on a coarse pointer ${name} is ${blocks.coarse[name]}. The label of a control is the body size there, so it must be ${body}`);
+      continue;
+    }
+    const larger = `${rem(name, light[name]) + COARSE_TEXT_STEP}rem`;
+    if (blocks.coarse[name] !== larger) throw new Error(`tokens.css: on a coarse pointer ${name} is ${blocks.coarse[name]}. A type size is one pixel larger there, so it must be ${larger}`);
+  }
+  const parts = (from) => Object.fromEntries(Object.entries(DENSITY.tokens).map(([key, name]) => [key, from[name]]));
+  return {
+    density: {
+      default: parts(light),
+      ...Object.fromEntries(DENSITY.attributeValues.map((density) => [density, parts(blocks[density])])),
+      "coarse-pointer": parts(blocks.coarse),
+    },
+    coarse: blocks.coarse,
+  };
+}
+
 export function parseTokens(css) {
-  const { light, dark } = parseBlocks(css, "tokens.css");
+  const { light, dark, density } = parseBlocks(css, "tokens.css");
   validateTheme(css, Object.keys(light));
-  return { light, dark };
+  return { light, dark, ...parseDensity(density, light) };
 }
 
 // A theme is themes/<name>.css: values for existing token names in light and dark, in the selector shape of
@@ -156,6 +249,14 @@ export function parseTheme(name, css, defaults) {
     throw new Error(`${file}: ${error.message}`);
   }
   const blocks = parseBlocks(css, file);
+  const density = Object.values(DENSITY.tokens).find((token) => [blocks.light, blocks.dark].some((block) => block && token in block));
+  if (density || Object.keys(blocks.density).length > 0) {
+    throw new Error(`${file}: a theme cannot set the density${density ? `, and ${density} is one of its tokens` : ""}. The density is the same under every theme`);
+  }
+  for (const token of [...Object.keys(blocks.light ?? {}), ...Object.keys(blocks.dark ?? {})]) {
+    const fixed = THEME_FIXED[categoryOf(token).category];
+    if (fixed) throw new Error(`${file}: a theme cannot set ${fixed}, and ${token} is one. The type scale and the radius scale are the same under every theme: a theme sets colours, the two font stacks and the shadow`);
+  }
   for (const mode of MODES) {
     if (!blocks[mode] || Object.keys(blocks[mode]).length === 0) {
       throw new Error(`${file}: the theme sets no ${mode} values. A theme sets both modes: a :root block for light, and a [data-theme="dark"] block repeated as [data-theme="auto"] inside @media (prefers-color-scheme: dark)`);
@@ -177,7 +278,7 @@ export function parseTheme(name, css, defaults) {
       blocks.dark[token] ?? blocks.light[token] ?? defaults.dark[token],
     ]),
   );
-  return { name, defaultMode: declared, own: { light: blocks.light, dark: blocks.dark }, tokens: { light, dark }, comment: css.match(/^\s*(\/\*[\s\S]*?\*\/)/)?.[1] ?? null };
+  return { name, defaultMode: declared, own: { light: blocks.light, dark: blocks.dark }, tokens: { light, dark, density: defaults.density, coarse: defaults.coarse }, comment: css.match(/^\s*(\/\*[\s\S]*?\*\/)/)?.[1] ?? null };
 }
 
 function luminance(hex) {
@@ -193,7 +294,26 @@ function contrastRatio(foreground, background) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-function checkContrast(tokens, pairs, themeName = null) {
+// A pair with a "themes" list holds for those themes only: it is checked for each of them and for no other, the
+// default theme included. A component may rely only on a pair with no list, which every theme passes.
+const pairsFor = (pairs, themeName) => pairs.filter((pair) => (pair.themes ? pair.themes.includes(themeName) : true));
+
+function checkPairs(pairs, tokenNames, themeNames) {
+  for (const pair of pairs) {
+    const where = `tokens/pairs.json: the pair ${pair.foreground} on ${pair.background}`;
+    for (const name of [pair.foreground, pair.background]) {
+      if (!tokenNames.includes(name) || categoryOf(name).category !== "color") throw new Error(`${where} names ${name}, which is not a colour token`);
+    }
+    if (!(pair.kind in MINIMUM_CONTRAST)) throw new Error(`${where} has the kind ${JSON.stringify(pair.kind)}. It is ${Object.keys(MINIMUM_CONTRAST).join(" or ")}`);
+    if (pair.themes !== undefined && (!Array.isArray(pair.themes) || pair.themes.length === 0)) throw new Error(`${where} has a "themes" that is not a list of theme names`);
+    for (const theme of pair.themes ?? []) {
+      if (!themeNames.includes(theme)) throw new Error(`${where} is for the theme ${JSON.stringify(theme)}, and themes/ has no ${theme}.css`);
+    }
+  }
+}
+
+function checkContrast(tokens, allPairs, themeName = null) {
+  const pairs = pairsFor(allPairs, themeName);
   const themes = { light: tokens.light, dark: { ...tokens.light, ...tokens.dark } };
   const report = [];
   for (const { foreground, background, kind } of pairs) {
@@ -217,6 +337,20 @@ function checkContrast(tokens, pairs, themeName = null) {
   return report;
 }
 
+// The breakpoints as { md: "768px", lg: "1024px", xl: "1280px" }: the name of the Tailwind variant and the width.
+// Each breakpoint token has a variant, and the widths rise.
+function screensOf(groups, tokens) {
+  const screens = {};
+  for (const [key, name] of Object.entries(groups.breakpoint)) {
+    if (!SCREENS[key]) throw new Error(`tokens.css: ${name} has no variant. The breakpoints are --ds-breakpoint, --ds-breakpoint-lg and --ds-breakpoint-xl`);
+    if (!/^\d+px$/.test(tokens.light[name])) throw new Error(`tokens.css: ${name} is ${tokens.light[name]}. A breakpoint is a whole number of px`);
+    screens[SCREENS[key]] = tokens.light[name];
+  }
+  const widths = Object.values(screens).map(parseFloat);
+  if (widths.some((width, at) => at > 0 && width <= widths[at - 1])) throw new Error("tokens.css: the breakpoints must rise: --ds-breakpoint, then -lg, then -xl");
+  return screens;
+}
+
 // { color: { accent: "--ds-color-accent", … }, … } in source order.
 function groupByCategory(names) {
   const groups = {};
@@ -227,20 +361,28 @@ function groupByCategory(names) {
   return groups;
 }
 
-function tailwindPreset(groups, breakpoint) {
+function tailwindPreset(groups, screens) {
   const refs = (category) =>
     Object.fromEntries(Object.entries(groups[category]).map(([key, name]) => [key, `var(${name})`]));
   const spacing = { 0: "0", ...refs("space") };
   const size = refs("size");
+  const pick = (keys) => Object.fromEntries(keys.map((key) => [key, size[key]]));
+  // The heights of a control and a row, and the widths of a column: each kind of utility takes the sizes that fit it.
+  const targets = pick(Object.keys(size).filter((key) => /^(?:control|row|touch)/.test(key)));
+  const columns = pick(["sidebar", "inspector", "column", "transcript", "wide"]);
   const theme = {
-    screens: { md: breakpoint },
+    screens,
     colors: { ...refs("color"), transparent: "transparent", current: "currentColor" },
     spacing,
     borderRadius: { none: "0", ...refs("radius") },
     borderWidth: { DEFAULT: refs("border-width").DEFAULT, 0: "0" },
     fontFamily: refs("font"),
+    // A size comes with its line height, and with its tracking where the role has one.
     fontSize: Object.fromEntries(
-      Object.keys(groups.text).map((key) => [key, [refs("text")[key], refs("leading")[key]]]),
+      Object.keys(groups.text).map((key) => [
+        key,
+        [refs("text")[key], { lineHeight: refs("leading")[key], ...(key in groups.tracking ? { letterSpacing: refs("tracking")[key] } : {}) }],
+      ]),
     ),
     fontWeight: refs("weight"),
     lineHeight: refs("leading"),
@@ -253,12 +395,12 @@ function tailwindPreset(groups, breakpoint) {
     outlineWidth: { 0: "0" },
     textUnderlineOffset: { auto: "auto", ...refs("space") },
     textDecorationThickness: { auto: "auto" },
-    width: { auto: "auto", ...spacing, touch: size.touch, full: "100%" },
-    height: { auto: "auto", ...spacing, touch: size.touch, full: "100%", screen: "100dvh" },
-    size: { auto: "auto", ...spacing, touch: size.touch, full: "100%" },
-    minWidth: { 0: "0", touch: size.touch, full: "100%" },
-    minHeight: { 0: "0", touch: size.touch, full: "100%", screen: "100dvh" },
-    maxWidth: { none: "none", column: size.column, transcript: size.transcript, wide: size.wide, full: "100%" },
+    width: { auto: "auto", ...spacing, ...targets, sidebar: size.sidebar, inspector: size.inspector, full: "100%" },
+    height: { auto: "auto", ...spacing, ...targets, full: "100%", screen: "100dvh" },
+    size: { auto: "auto", ...spacing, ...targets, full: "100%" },
+    minWidth: { 0: "0", ...targets, full: "100%" },
+    minHeight: { 0: "0", ...targets, full: "100%", screen: "100dvh" },
+    maxWidth: { none: "none", ...columns, full: "100%" },
     maxHeight: { none: "none", full: "100%", screen: "100dvh" },
   };
   const emptied = [
@@ -276,7 +418,7 @@ function tailwindPreset(groups, breakpoint) {
 const presetTypes = (preset) => {
   const shape = (value) =>
     Array.isArray(value)
-      ? `[${value.map(() => "string").join(", ")}]`
+      ? `[${value.map(shape).join(", ")}]`
       : typeof value === "string"
         ? "string"
         : `{ ${Object.entries(value).map(([key, inner]) => `${JSON.stringify(key)}: ${shape(inner)}`).join("; ")} }`;
@@ -284,7 +426,8 @@ const presetTypes = (preset) => {
   return `declare const preset: {\n  theme: {\n${keys.join("\n")}\n  };\n};\n\nexport default preset;\n`;
 };
 
-const px = (value) => ({ value: parseFloat(value), unit: "px" });
+// A length as the token data holds it. A type size is in rem and a tracking in em; every other length is in px.
+const px = (value) => ({ value: parseFloat(value), unit: value.match(/(rem|em)$/)?.[1] ?? "px" });
 
 function srgb(hex) {
   const components = [1, 3, 5].map((at) => Math.round((parseInt(hex.slice(at, at + 2), 16) / 255) * 10000) / 10000);
@@ -305,6 +448,8 @@ const DTCG = {
   color: ["color", (_, value) => srgb(value)],
   font: ["fontFamily", (_, value) => fontStack(value)],
   text: ["dimension", (_, value) => px(value)],
+  // The format's dimension has no em, so a tracking travels as the number of ems.
+  tracking: ["number", (_, value) => parseFloat(value)],
   leading: ["number", (_, value) => Number(value)],
   weight: ["fontWeight", (_, value) => Number(value)],
   space: ["dimension", (_, value) => px(value)],
@@ -327,6 +472,15 @@ function tokenData(groups, tokens) {
     for (const [key, name] of Object.entries(names)) {
       const token = { $type, $value: convert(name, tokens.light[name]) };
       if (name in tokens.dark) token.$extensions = { "design-system": { dark: convert(name, tokens.dark[name]) } };
+      // A density token's value in a compact container travels the same way.
+      const density = Object.keys(DENSITY.tokens).find((part) => DENSITY.tokens[part] === name);
+      if (density) {
+        token.$extensions = { "design-system": { density: Object.fromEntries(DENSITY.attributeValues.map((level) => [level, convert(name, tokens.density[level][density])])) } };
+      }
+      // And what a coarse pointer sets: the control, the row, each type size and the body line height.
+      if (name in tokens.coarse) {
+        token.$extensions = { "design-system": { ...token.$extensions?.["design-system"], "coarse-pointer": convert(name, tokens.coarse[name]) } };
+      }
       data[category][key] = token;
     }
   }
@@ -356,8 +510,9 @@ function designTokens(groups, tokens, name = "Design system") {
     typography[key] = {
       fontFamily: quote(fontStack(tokens.light[family])[0]),
       fontSize: tokens.light[name],
-      fontWeight: tokens.light[groups.weight.normal],
+      fontWeight: tokens.light[groups.weight[ROLE_WEIGHTS[key] ?? "normal"]],
       lineHeight: tokens.light[groups.leading[key]],
+      ...(key in groups.tracking ? { letterSpacing: tokens.light[groups.tracking[key]] } : {}),
     };
   }
   const block = {
@@ -375,7 +530,13 @@ function designTokens(groups, tokens, name = "Design system") {
     motion: { duration: values("duration"), easing: quote(tokens.light[groups.ease.DEFAULT]) },
     layers: values("z"),
     sizes: values("size"),
+    // The four density tokens by default, in a compact container and on a coarse pointer, which always wins.
+    density: tokens.density,
+    // Every type size on a coarse pointer: one pixel larger.
+    "typography-coarse-pointer": Object.fromEntries(Object.entries(groups.text).filter(([, name]) => name in tokens.coarse).map(([key, name]) => [key, tokens.coarse[name]])),
     breakpoint: tokens.light[groups.breakpoint.DEFAULT],
+    // Every width a media query may use, by the name of its Tailwind variant.
+    breakpoints: screensOf(groups, tokens),
   };
   return `---\n${yaml(block)}---\n`;
 }
@@ -448,12 +609,27 @@ function manifest(groups, tokens, classes, rules) {
     values[category] = [...new Set(names[category].flatMap((name) => [tokens.light[name], tokens.dark[name]]))]
       .filter((value) => value !== undefined);
   }
+  // A density token also holds its value in a compact container and on a coarse pointer.
+  for (const [part, name] of Object.entries(DENSITY.tokens)) {
+    const { category } = categoryOf(name);
+    values[category] = [...new Set([...values[category], ...Object.values(tokens.density).map((parts) => parts[part])])];
+  }
+  // And a type size its value on a coarse pointer.
+  const coarseText = Object.fromEntries(Object.entries(tokens.coarse).filter(([name]) => categoryOf(name).category === "text"));
+  values.text = [...new Set([...values.text, ...Object.values(coarseText)])];
   return {
     prefix: "ds",
     layers: LAYERS,
     breakpoint: tokens.light[groups.breakpoint.DEFAULT],
+    // Every width a media query may use. The first is the one above.
+    breakpoints: Object.values(screensOf(groups, tokens)),
     tokens: names,
     values,
+    // The attribute that sets the density of a container, its values, and what the four density tokens hold by
+    // default, in a compact container and on a coarse pointer.
+    density: { ...DENSITY, values: tokens.density },
+    // Every type size on a coarse pointer, where each is one pixel larger.
+    coarsePointer: { text: coarseText },
     utilities: {
       ...UTILITIES,
       spacingKeys: ["0", ...Object.keys(groups.space)],
@@ -832,10 +1008,13 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
     throw new Error(`tokens.css must declare the layer order: @layer ${LAYERS.join(", ")};`);
   }
   const tokens = parseTokens(source);
+  const themesDir = join(root, "themes");
+  const themeNames = existsSync(themesDir) ? readdirSync(themesDir).filter((file) => file.endsWith(".css")).map((file) => file.slice(0, -".css".length)) : [];
+  checkPairs(pairs, Object.keys(tokens.light), themeNames);
   const contrast = checkContrast(tokens, pairs);
   const themes = readThemes(root, tokens, pairs);
   const groups = groupByCategory(Object.keys(tokens.light));
-  const preset = tailwindPreset(groups, tokens.light[groups.breakpoint.DEFAULT]);
+  const preset = tailwindPreset(groups, screensOf(groups, tokens));
 
   const base = join(root, "base");
   const baseStyles = BASE_STYLES.map((name) => readFileSync(join(base, name), "utf8"));

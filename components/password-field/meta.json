@@ -17,7 +17,7 @@
     { "name": "input alone", "use": "The same input with no button, only where the password is pasted by a script and never typed." }
   ],
   "sizes": [
-    { "name": "default", "use": "44px tall and as wide as the field. The button is 60px wide and 44px tall." }
+    { "name": "default", "use": "As tall as a control and as wide as the field. The button is 64px wide and as tall as the input." }
   ],
   "states": ["default", "shown", "hover", "focus", "invalid", "disabled"],
   "accessibility": [

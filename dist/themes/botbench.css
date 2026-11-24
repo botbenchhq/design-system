@@ -1,26 +1,33 @@
 /*
- * Botbench: a calm, native-feeling theme. The platform's own typeface, tonal filled surfaces, pill-shaped
- * controls and a monochrome primary action.
+ * Botbench: Graphite + Glacier. Cool graphite surfaces and one interactive colour, a glacier blue, set in
+ * Inter and JetBrains Mono.
  * Default mode: dark.
  *
  * With no data-theme attribute the page is dark. data-theme="light", "dark" and "auto" work as they do
  * without the theme. Load this file after design-system.css: its rules are in the ds.theme layer, which
  * the layer order puts after ds.tokens.
  *
- *   type      system-ui, so an Apple device sets the app in SF Pro and SF Mono as its own apps are, Windows
- *             in Segoe UI and Android in Roboto. ui 15px, lg 17, xl 22, 2xl 28. This theme is the one
- *             exception to the rule against system-ui in rules/never.md; an app does not set a font itself.
- *   accent    near-white in dark and near-black in light, as a chat app's Send button. The primary action
- *             is told apart by its fill, the one solid shape on the screen. The accent is never a status.
- *   focus     a system blue, so the ring is never mistaken for the accent or a status.
- *   surfaces  neutral greys with no warm or cool cast. surface-raised is a clear step above surface, so a
- *             block reads by its fill.
- *   border    almost the colour of surface-raised, so outlines all but vanish; border-strong stays at 3:1.
- *   radius    radius-md 22px, half the 44px control height, so a button of normal size is a pill and a card
- *             or the composer is generously round. radius-sm 10px. radius-full is unchanged.
- *   status    success, warning, danger, info, approval, blocked, peer and tainted keep the values of the
- *             amber theme before 0.8.0. Approval is amber with the paused circle, warning lemon in dark and
- *             olive in light, tainted input orange. A status always carries its icon and its word.
+ *   type      Inter for the interface and JetBrains Mono for code, both variable in weight and shipped in
+ *             fonts/ beside the stylesheet, with the platform's own fonts after them in each stack for the
+ *             moment before a file arrives. The sizes, line heights and tracking are the system's: a theme
+ *             sets the two font stacks and no size, and an app sets no font family outside them.
+ *   accent    one interactive colour, a blue: #7CB7FF in dark and #215BB8 in light. It fills the primary
+ *             action and marks focus, selection and work under way, so accent, focus and info hold one value.
+ *             They stay three tokens, so another theme can part them. It is never a status other than
+ *             working. accent-hover is a step lighter in dark and a step darker in light.
+ *   surfaces  four levels of cool grey: surface is the page, surface-pane a pane of the app shell (the
+ *             navigation, the inspector, the tab bar), surface-raised a card, a dialog or a sheet, and
+ *             surface-sunken a well: a field, a diff, command output. fill is the tone of a chip, a neutral
+ *             tag and a selected row.
+ *   border    a hairline for a card, a divider and the edge of a pane, which stays drawn in dark; it cannot
+ *             mark a control. border-strong is the edge of a control and holds 3:1 on every surface.
+ *   status    five colours under the system's eight names, each always with its icon and its word. info is
+ *             the interactive blue, for working. approval is amber, a small signal for what waits on a
+ *             person and never a band of background, and warning holds the same pair. success is green, for
+ *             a check that passed and a result that was accepted. danger is red, for a failure, a refusal and
+ *             what cannot be undone. peer is teal, for another person's workbench, and tainted, input from
+ *             outside, holds the same pair. blocked is neutral: the secondary text colour on the fill.
+ *   shadow    one, larger than the default theme's, under a dialog, a sheet and a menu, in neutral black.
  */
 
 /* Generated from themes/botbench.css by npm run build. Load it after design-system.css. */
@@ -29,143 +36,140 @@
 
 @layer ds.theme {
   :root {
-    --ds-font-ui: system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    --ds-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    --ds-color-accent: #1C1C1E;
-    --ds-color-accent-hover: #3A3A3C;
+    --ds-font-ui: "Inter", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --ds-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --ds-color-accent: #215BB8;
+    --ds-color-accent-hover: #1B4C9C;
     --ds-color-on-accent: #FFFFFF;
-    --ds-color-surface: #F2F2F7;
+    --ds-color-surface: #F5F6F7;
+    --ds-color-surface-pane: #FBFBFC;
     --ds-color-surface-raised: #FFFFFF;
-    --ds-color-surface-sunken: #EDEDF1;
-    --ds-color-fill: #E9E9EE;
-    --ds-color-on-surface: #1C1C1E;
-    --ds-color-muted: #636366;
-    --ds-color-border: #E6E6EB;
-    --ds-color-border-strong: #86868B;
-    --ds-color-focus: #0066CC;
-    --ds-color-success: #037A54;
-    --ds-color-success-subtle: #DCF8E9;
-    --ds-color-warning: #736C02;
-    --ds-color-warning-subtle: #F3F2D7;
-    --ds-color-danger: #BA1C1C;
-    --ds-color-danger-subtle: #FEEBE8;
-    --ds-color-info: #2360E8;
-    --ds-color-info-subtle: #E9F0FF;
-    --ds-color-approval: #8F6202;
-    --ds-color-approval-subtle: #FEF3C7;
-    --ds-color-blocked: #6A31C4;
-    --ds-color-blocked-subtle: #F1EDFF;
-    --ds-color-peer: #03748F;
-    --ds-color-peer-subtle: #DCF5FE;
-    --ds-color-tainted: #BC4100;
-    --ds-color-tainted-subtle: #FFEBE5;
-    --ds-radius-sm: 10px;
-    --ds-radius-md: 22px;
-    --ds-text-xs: 12px;
-    --ds-text-mono: 13px;
-    --ds-text-ui: 15px;
-    --ds-text-lg: 17px;
-    --ds-text-xl: 22px;
-    --ds-text-2xl: 28px;
-    --ds-leading-ui: 1.45;
-    --ds-leading-lg: 1.4;
+    --ds-color-surface-sunken: #EEF0F2;
+    --ds-color-fill: #ECEEF1;
+    --ds-color-on-surface: #1A2028;
+    --ds-color-muted: #545E6B;
+    --ds-color-border: #DFE2E7;
+    --ds-color-border-strong: #76808E;
+    --ds-color-focus: #215BB8;
+    --ds-color-success: #146A4A;
+    --ds-color-success-subtle: #E1F3EA;
+    --ds-color-warning: #97600E;
+    --ds-color-warning-subtle: #FBF0DC;
+    --ds-color-danger: #B43E46;
+    --ds-color-danger-subtle: #FBE6E7;
+    --ds-color-info: #215BB8;
+    --ds-color-info-subtle: #E6EEFB;
+    --ds-color-approval: #97600E;
+    --ds-color-approval-subtle: #FBF0DC;
+    --ds-color-blocked: #545E6B;
+    --ds-color-blocked-subtle: #ECEEF1;
+    --ds-color-peer: #0C7187;
+    --ds-color-peer-subtle: #E0F3F6;
+    --ds-color-tainted: #0C7187;
+    --ds-color-tainted-subtle: #E0F3F6;
+    --ds-shadow-overlay: 0 16px 40px 0 rgb(0 0 0 / 0.16);
   }
 
   /* The default mode: with no data-theme attribute the page is dark. */
   :root:not([data-theme]) {
     color-scheme: dark;
-    --ds-color-accent: #F5F5F7;
-    --ds-color-accent-hover: #D8D8DC;
-    --ds-color-on-accent: #161618;
-    --ds-color-surface: #161618;
-    --ds-color-surface-raised: #212124;
-    --ds-color-surface-sunken: #0F0F10;
-    --ds-color-fill: #2C2C30;
-    --ds-color-on-surface: #F5F5F7;
-    --ds-color-muted: #A1A1A8;
-    --ds-color-border: #29292D;
-    --ds-color-border-strong: #75757C;
-    --ds-color-focus: #4C9DFF;
-    --ds-color-success: #34D399;
-    --ds-color-success-subtle: #09291D;
-    --ds-color-warning: #FDE047;
-    --ds-color-warning-subtle: #292306;
-    --ds-color-danger: #F25050;
-    --ds-color-danger-subtle: #2F1614;
-    --ds-color-info: #60A5FA;
-    --ds-color-info-subtle: #132438;
-    --ds-color-approval: #FBBF24;
-    --ds-color-approval-subtle: #2D2106;
-    --ds-color-blocked: #B285F8;
-    --ds-color-blocked-subtle: #261D35;
-    --ds-color-peer: #06B6D4;
-    --ds-color-peer-subtle: #002830;
-    --ds-color-tainted: #FB7C2E;
-    --ds-color-tainted-subtle: #341C0F;
-    --ds-shadow-overlay: 0 8px 24px 0 rgb(0 0 0 / 0.5);
+    --ds-color-accent: #7CB7FF;
+    --ds-color-accent-hover: #9AC8FF;
+    --ds-color-on-accent: #0B1522;
+    --ds-color-surface: #111316;
+    --ds-color-surface-pane: #181B20;
+    --ds-color-surface-raised: #20242B;
+    --ds-color-surface-sunken: #0B0D10;
+    --ds-color-fill: #2C3139;
+    --ds-color-on-surface: #F2F3F5;
+    --ds-color-muted: #ADB4BE;
+    --ds-color-border: #2A2F37;
+    --ds-color-border-strong: #727D8B;
+    --ds-color-focus: #7CB7FF;
+    --ds-color-success: #6ED5A4;
+    --ds-color-success-subtle: #12281F;
+    --ds-color-warning: #F2B95D;
+    --ds-color-warning-subtle: #2E2513;
+    --ds-color-danger: #FF898A;
+    --ds-color-danger-subtle: #331A1C;
+    --ds-color-info: #7CB7FF;
+    --ds-color-info-subtle: #16263A;
+    --ds-color-approval: #F2B95D;
+    --ds-color-approval-subtle: #2E2513;
+    --ds-color-blocked: #ADB4BE;
+    --ds-color-blocked-subtle: #2C3139;
+    --ds-color-peer: #60D4D4;
+    --ds-color-peer-subtle: #10292B;
+    --ds-color-tainted: #60D4D4;
+    --ds-color-tainted-subtle: #10292B;
+    --ds-shadow-overlay: 0 16px 40px 0 rgb(0 0 0 / 0.5);
   }
 
   [data-theme="dark"] {
-    --ds-color-accent: #F5F5F7;
-    --ds-color-accent-hover: #D8D8DC;
-    --ds-color-on-accent: #161618;
-    --ds-color-surface: #161618;
-    --ds-color-surface-raised: #212124;
-    --ds-color-surface-sunken: #0F0F10;
-    --ds-color-fill: #2C2C30;
-    --ds-color-on-surface: #F5F5F7;
-    --ds-color-muted: #A1A1A8;
-    --ds-color-border: #29292D;
-    --ds-color-border-strong: #75757C;
-    --ds-color-focus: #4C9DFF;
-    --ds-color-success: #34D399;
-    --ds-color-success-subtle: #09291D;
-    --ds-color-warning: #FDE047;
-    --ds-color-warning-subtle: #292306;
-    --ds-color-danger: #F25050;
-    --ds-color-danger-subtle: #2F1614;
-    --ds-color-info: #60A5FA;
-    --ds-color-info-subtle: #132438;
-    --ds-color-approval: #FBBF24;
-    --ds-color-approval-subtle: #2D2106;
-    --ds-color-blocked: #B285F8;
-    --ds-color-blocked-subtle: #261D35;
-    --ds-color-peer: #06B6D4;
-    --ds-color-peer-subtle: #002830;
-    --ds-color-tainted: #FB7C2E;
-    --ds-color-tainted-subtle: #341C0F;
+    --ds-color-accent: #7CB7FF;
+    --ds-color-accent-hover: #9AC8FF;
+    --ds-color-on-accent: #0B1522;
+    --ds-color-surface: #111316;
+    --ds-color-surface-pane: #181B20;
+    --ds-color-surface-raised: #20242B;
+    --ds-color-surface-sunken: #0B0D10;
+    --ds-color-fill: #2C3139;
+    --ds-color-on-surface: #F2F3F5;
+    --ds-color-muted: #ADB4BE;
+    --ds-color-border: #2A2F37;
+    --ds-color-border-strong: #727D8B;
+    --ds-color-focus: #7CB7FF;
+    --ds-color-success: #6ED5A4;
+    --ds-color-success-subtle: #12281F;
+    --ds-color-warning: #F2B95D;
+    --ds-color-warning-subtle: #2E2513;
+    --ds-color-danger: #FF898A;
+    --ds-color-danger-subtle: #331A1C;
+    --ds-color-info: #7CB7FF;
+    --ds-color-info-subtle: #16263A;
+    --ds-color-approval: #F2B95D;
+    --ds-color-approval-subtle: #2E2513;
+    --ds-color-blocked: #ADB4BE;
+    --ds-color-blocked-subtle: #2C3139;
+    --ds-color-peer: #60D4D4;
+    --ds-color-peer-subtle: #10292B;
+    --ds-color-tainted: #60D4D4;
+    --ds-color-tainted-subtle: #10292B;
+    --ds-shadow-overlay: 0 16px 40px 0 rgb(0 0 0 / 0.5);
   }
 
   @media (prefers-color-scheme: dark) {
     [data-theme="auto"] {
-      --ds-color-accent: #F5F5F7;
-      --ds-color-accent-hover: #D8D8DC;
-      --ds-color-on-accent: #161618;
-      --ds-color-surface: #161618;
-      --ds-color-surface-raised: #212124;
-      --ds-color-surface-sunken: #0F0F10;
-      --ds-color-fill: #2C2C30;
-      --ds-color-on-surface: #F5F5F7;
-      --ds-color-muted: #A1A1A8;
-      --ds-color-border: #29292D;
-      --ds-color-border-strong: #75757C;
-      --ds-color-focus: #4C9DFF;
-      --ds-color-success: #34D399;
-      --ds-color-success-subtle: #09291D;
-      --ds-color-warning: #FDE047;
-      --ds-color-warning-subtle: #292306;
-      --ds-color-danger: #F25050;
-      --ds-color-danger-subtle: #2F1614;
-      --ds-color-info: #60A5FA;
-      --ds-color-info-subtle: #132438;
-      --ds-color-approval: #FBBF24;
-      --ds-color-approval-subtle: #2D2106;
-      --ds-color-blocked: #B285F8;
-      --ds-color-blocked-subtle: #261D35;
-      --ds-color-peer: #06B6D4;
-      --ds-color-peer-subtle: #002830;
-      --ds-color-tainted: #FB7C2E;
-      --ds-color-tainted-subtle: #341C0F;
+      --ds-color-accent: #7CB7FF;
+      --ds-color-accent-hover: #9AC8FF;
+      --ds-color-on-accent: #0B1522;
+      --ds-color-surface: #111316;
+      --ds-color-surface-pane: #181B20;
+      --ds-color-surface-raised: #20242B;
+      --ds-color-surface-sunken: #0B0D10;
+      --ds-color-fill: #2C3139;
+      --ds-color-on-surface: #F2F3F5;
+      --ds-color-muted: #ADB4BE;
+      --ds-color-border: #2A2F37;
+      --ds-color-border-strong: #727D8B;
+      --ds-color-focus: #7CB7FF;
+      --ds-color-success: #6ED5A4;
+      --ds-color-success-subtle: #12281F;
+      --ds-color-warning: #F2B95D;
+      --ds-color-warning-subtle: #2E2513;
+      --ds-color-danger: #FF898A;
+      --ds-color-danger-subtle: #331A1C;
+      --ds-color-info: #7CB7FF;
+      --ds-color-info-subtle: #16263A;
+      --ds-color-approval: #F2B95D;
+      --ds-color-approval-subtle: #2E2513;
+      --ds-color-blocked: #ADB4BE;
+      --ds-color-blocked-subtle: #2C3139;
+      --ds-color-peer: #60D4D4;
+      --ds-color-peer-subtle: #10292B;
+      --ds-color-tainted: #60D4D4;
+      --ds-color-tainted-subtle: #10292B;
+      --ds-shadow-overlay: 0 16px 40px 0 rgb(0 0 0 / 0.5);
     }
   }
 }

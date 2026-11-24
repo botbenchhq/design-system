@@ -78,8 +78,16 @@
   }
 
   /* After the primitives, so a gap class wins over a primitive's default. */
+  .ds-gap-2xs {
+    gap: var(--ds-space-2xs);
+  }
+
   .ds-gap-xs {
     gap: var(--ds-space-xs);
+  }
+
+  .ds-gap-xs-sm {
+    gap: var(--ds-space-xs-sm);
   }
 
   .ds-gap-sm {
@@ -94,11 +102,19 @@
     gap: var(--ds-space-lg);
   }
 
+  .ds-gap-lg-xl {
+    gap: var(--ds-space-lg-xl);
+  }
+
   .ds-gap-xl {
     gap: var(--ds-space-xl);
   }
 
   .ds-gap-2xl {
     gap: var(--ds-space-2xl);
+  }
+
+  .ds-gap-3xl {
+    gap: var(--ds-space-3xl);
   }
 }

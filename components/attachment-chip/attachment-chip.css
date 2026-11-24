@@ -6,7 +6,7 @@
  */
 
 @layer ds.components {
-  /* No wider than seven pointer targets, because there is no token for a chip's width. */
+  /* No wider than half the reading column, so a long name gives way and a row holds two chips. */
   .ds-attachment-chip {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto auto;
@@ -14,11 +14,11 @@
     column-gap: var(--ds-space-sm);
     row-gap: var(--ds-space-xs);
     min-width: 0;
-    max-width: min(100%, calc(var(--ds-size-touch) * 7));
+    max-width: min(100%, calc(var(--ds-size-column) / 2));
     padding-block: var(--ds-space-xs);
     padding-inline: var(--ds-space-sm) var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-raised);
   }
 
@@ -55,8 +55,9 @@
 
   .ds-attachment-chip__size {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
@@ -65,9 +66,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--ds-space-xl);
-    height: var(--ds-space-xl);
-    border-radius: var(--ds-radius-sm);
+    width: var(--ds-size-control-xs);
+    height: var(--ds-size-control-xs);
+    border-radius: var(--ds-radius-full);
     color: var(--ds-color-muted);
     transition-property: background-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -75,17 +76,19 @@
   }
 
   /*
-   * The button is drawn 24px square. This invisible box, centred on it, keeps its
-   * pointer target at the touch size both ways without making the chip larger.
+   * The button is drawn 24px square, the least a fine pointer needs. On a coarse pointer this invisible box,
+   * centred on it, keeps its pointer target at the touch size both ways without making the chip larger.
    */
-  .ds-attachment-chip__remove::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
-    translate: -50% -50%;
+  @media (pointer: coarse) {
+    .ds-attachment-chip__remove::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--ds-size-touch);
+      height: var(--ds-size-touch);
+      translate: -50% -50%;
+    }
   }
 
   .ds-attachment-chip__remove-icon {
@@ -118,7 +121,7 @@
     width: calc(100% - var(--ds-space-xs));
     height: var(--ds-space-xs);
     margin-bottom: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     overflow: hidden;
     background-color: var(--ds-color-border);
     color: var(--ds-color-accent);
@@ -144,8 +147,8 @@
     padding-inline-end: var(--ds-space-xs);
     padding-bottom: var(--ds-space-xs);
     color: var(--ds-color-danger);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -153,7 +156,7 @@
     content: "";
     flex: none;
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-xs) * var(--ds-leading-xs));
+    height: calc(var(--ds-text-sm) * var(--ds-leading-sm));
     background-color: currentColor;
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }

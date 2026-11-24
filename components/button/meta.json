@@ -19,8 +19,9 @@
     { "name": "danger", "class": "ds-button--danger", "use": "An action that deletes or cannot be undone. The label names what is lost." }
   ],
   "sizes": [
-    { "name": "default", "use": "44px tall. Use it unless the button sits in a dense row." },
-    { "name": "small", "class": "ds-button--small", "use": "Drawn 32px tall for dense rows and toolbars. Its pointer target is still 44px." }
+    { "name": "default", "use": "40px tall by default, 32px in a container with data-ds-density=\"compact\", and 44px on every coarse pointer. Use it unless the button sits in a dense row or is the one action of a sparse screen." },
+    { "name": "small", "class": "ds-button--small", "use": "32px tall in every container, with its label at 13px, for dense rows and toolbars. On a coarse pointer it is drawn the same and its pointer target is 44px tall." },
+    { "name": "large", "class": "ds-button--large", "use": "48px tall in every container, for the one action of a sparse screen such as sign-in." }
   ],
   "states": ["default", "hover", "focus-visible", "active", "disabled", "busy"],
   "accessibility": [
@@ -35,6 +36,7 @@
   "classes": [
     "ds-button",
     "ds-button--danger",
+    "ds-button--large",
     "ds-button--primary",
     "ds-button--quiet",
     "ds-button--small",

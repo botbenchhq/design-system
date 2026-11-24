@@ -15,7 +15,6 @@
     font-weight: var(--ds-weight-medium);
   }
 
-  /* 12px between rows: chips are drawn 32px tall, so the 44px targets of two rows meet and never overlap. */
   .ds-filter-chips__list {
     display: flex;
     flex-wrap: wrap;
@@ -24,20 +23,29 @@
     row-gap: var(--ds-space-md);
   }
 
+  /* 16px between rows on a coarse pointer, so the 44px targets of two rows never overlap, even where a row holds a small button. */
+  @media (pointer: coarse) {
+    .ds-filter-chips__list {
+      row-gap: var(--ds-space-lg);
+    }
+  }
+
   .ds-filter-chips__chip {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-xs);
     max-width: 100%;
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-space-2xl);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-sm) var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
     border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
     transition-property: background-color, border-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -64,14 +72,18 @@
     cursor: pointer;
   }
 
-  /* An invisible box centred on the chip, which takes the press without making the row any taller. */
-  .ds-filter-chips__input::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  /*
+   * On a coarse pointer, an invisible box centred on the chip, which takes the press without making the row any taller.
+   */
+  @media (pointer: coarse) {
+    .ds-filter-chips__input::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   /* On: a fill and a check, so the state is a shape as well as a colour. */

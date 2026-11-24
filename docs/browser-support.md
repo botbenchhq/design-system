@@ -8,13 +8,13 @@ What works in which browser engine, from the browser tests and from probes run o
 | Playwright's WebKit | 27.2 (Playwright build 2388) | `webkit` | The tests below, at phone and desktop widths |
 | Playwright's Firefox | 159.0 (Playwright build 1572) | `firefox` | The same tests as WebKit |
 
-The tests are the gallery tests tagged `@engines` for the components a Botbench user meets, `composer`, `context-list`, `sheet`, `option-picker`, `approval`, `step-group`, `tool-call`, `button`, `dialog`, `menu`, `app-shell` and `agent-run`, and the whole of `composer-context.spec.mjs`, `option-picker.spec.mjs`, `menu.spec.mjs`, `themes.spec.mjs` and `reflow.spec.mjs`. The gallery tests are axe and the structural rules in light and dark at 390px and at 1280px, and the 44px pointer-target check at 390px. That is 249 tests in each engine:
+The tests are the gallery tests tagged `@engines` for the components a Botbench user meets, `composer`, `context-list`, `sheet`, `option-picker`, `approval`, `step-group`, `tool-call`, `button`, `dialog`, `menu`, `app-shell` and `agent-run`, and the whole of `composer-context.spec.mjs`, `option-picker.spec.mjs`, `menu.spec.mjs`, `themes.spec.mjs` and `reflow.spec.mjs`. The gallery tests are axe and the structural rules in light and dark at 390px and at 1280px, and the pointer-target check: 44px at 390px with a coarse pointer and 24px at 1280px with a fine one. Playwright's `hasTouch` emulates the coarse pointer, and `(pointer: coarse)` matches under it in Chrome 156, WebKit 27.2 and Firefox 159, which each target test asserts. That is 380 tests in each engine:
 
 | Width | Tests | WebKit 27.2 | Firefox 159 |
 |---|---|---|---|
-| 390px (phone): gallery axe, structural rules and pointer targets | 60 | 60 pass | 60 pass |
-| 1280px (desktop): gallery axe and structural rules | 48 | 48 pass | 48 pass |
-| The five spec files, mostly at 320px and 390px, the menu keyboard tests at 1280px | 138 | 138 pass | 138 pass |
+| 390px (phone, coarse pointer): gallery axe, structural rules and 44px pointer targets | 60 | 60 pass | 60 pass |
+| 1280px (desktop, fine pointer): gallery axe, structural rules and 24px pointer targets | 60 | 60 pass | 60 pass |
+| The five spec files, mostly at 320px and 390px, the menu keyboard tests at 1280px. The reflow sweep at 320px runs with a fine and with a coarse pointer, and the type scale is measured with each under both themes | 260 | 260 pass | 260 pass |
 
 The phone-width tests also pass in WebKit with Playwright's iPhone 13 emulation (touch, a mobile user agent, three device pixels to the CSS pixel). Screenshots at both widths, under the default and the Botbench theme, are compared in Chrome only.
 
@@ -37,12 +37,12 @@ Playwright's WebKit is not iOS Safari. It is WebKit built for macOS, with Playwr
 
 | Component | WebKit 27.2 |
 |---|---|
-| `composer`, `context-list`, `option-picker`, `approval`, `step-group`, `tool-call`, `button`, `app-shell`, `agent-run` | Works: axe, structural rules and 44px targets at 390px, the composer's row at 320px and 390px, dictation state, the option picker's keys and long paths |
+| `composer`, `context-list`, `option-picker`, `approval`, `step-group`, `tool-call`, `button`, `app-shell`, `agent-run` | Works: axe, structural rules, 44px targets at 390px with a coarse pointer and 24px targets at 1280px with a fine one, the composer's row at 320px and 390px, dictation state, the option picker's keys and long paths |
 | `sheet`, `dialog` | Works: opens as a modal from its command button, Back and Close are reached in order |
 | `menu`, `context-menu`, `split-button`, `listbox` | Works: every keyboard test of `menu.spec.mjs`, and an open split-button menu stays inside a 320px screen |
 | `command-palette` | Its no-match sentence is written and announced. Opening it and moving through it have not run in WebKit. |
 | `tooltip`, `hover-card` | Works with fallback. With no interest invokers the wrapper shows the text on hover and on keyboard focus, from the stylesheet alone, as the components' comments say. Lost: opening on a long press, closing on Escape, and the top layer. |
-| Themes, reflow | Works: the Botbench theme's layers and colour scheme, and no page of the gallery scrolls sideways at 320px |
+| Themes, type, reflow | Works: the Botbench theme's layers and colour scheme; each type role's size, line height and tracking at a 16px and a 20px root, one pixel larger on a coarse pointer, and 13px body text in a compact container; and no page of the gallery scrolls sideways at 320px |
 
 Firefox gives the same results.
 

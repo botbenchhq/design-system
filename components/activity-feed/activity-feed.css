@@ -18,7 +18,7 @@
   .ds-activity-feed__more {
     display: flex;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     margin-inline-start: calc(var(--ds-space-md) * -1);
   }
 
@@ -33,9 +33,11 @@
     padding-bottom: var(--ds-space-xs);
     border-bottom-width: var(--ds-border-width);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
   }
 
   .ds-activity-feed__entries {
@@ -57,8 +59,9 @@
   .ds-activity-feed__time {
     color: var(--ds-color-muted);
     font-family: var(--ds-font-mono);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 

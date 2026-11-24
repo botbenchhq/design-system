@@ -11,9 +11,11 @@
   }
 
   .ds-stat__label {
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
     overflow-wrap: anywhere;
   }
 
@@ -23,13 +25,14 @@
     font-variant-numeric: tabular-nums;
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-xl);
+    letter-spacing: var(--ds-tracking-xl);
     overflow-wrap: anywhere;
   }
 
   .ds-stat__context {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -45,10 +48,12 @@
     font-size: var(--ds-text-ui);
     font-weight: var(--ds-weight-normal);
     line-height: var(--ds-leading-ui);
+    letter-spacing: normal;
   }
 
   .ds-stat--inline > .ds-stat__value {
     font-size: var(--ds-text-ui);
     line-height: var(--ds-leading-ui);
+    letter-spacing: normal;
   }
 }

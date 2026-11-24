@@ -6,6 +6,7 @@ colors:
   accent-hover: "#3D3D3A"
   on-accent: "#FAFAF9"
   surface: "#FAFAF9"
+  surface-pane: "#FDFDFC"
   surface-raised: "#FFFFFF"
   surface-sunken: "#F3F2EF"
   fill: "#ECEBE7"
@@ -35,6 +36,7 @@ colors-dark:
   accent-hover: "#CFCFCB"
   on-accent: "#171717"
   surface: "#141413"
+  surface-pane: "#181817"
   surface-raised: "#1C1C1A"
   surface-sunken: "#0E0E0D"
   fill: "#2A2A27"
@@ -62,49 +64,68 @@ colors-dark:
 typography:
   xs:
     fontFamily: "IBM Plex Sans"
-    fontSize: 12px
+    fontSize: 0.75rem
     fontWeight: 400
-    lineHeight: 1.4
+    lineHeight: 1.333
+  sm:
+    fontFamily: "IBM Plex Sans"
+    fontSize: 0.8125rem
+    fontWeight: 400
+    lineHeight: 1.385
   mono:
     fontFamily: "IBM Plex Mono"
-    fontSize: 13px
+    fontSize: 0.8125rem
     fontWeight: 400
     lineHeight: 1.5
+  md:
+    fontFamily: "IBM Plex Sans"
+    fontSize: 0.875rem
+    fontWeight: 400
+    lineHeight: 1.429
   ui:
     fontFamily: "IBM Plex Sans"
-    fontSize: 14px
+    fontSize: 0.9375rem
     fontWeight: 400
-    lineHeight: 1.4
+    lineHeight: 1.533
   lg:
     fontFamily: "IBM Plex Sans"
-    fontSize: 16px
-    fontWeight: 400
-    lineHeight: 1.4
+    fontSize: 1rem
+    fontWeight: 600
+    lineHeight: 1.375
+    letterSpacing: -0.01em
   xl:
     fontFamily: "IBM Plex Sans"
-    fontSize: 20px
-    fontWeight: 400
-    lineHeight: 1.25
+    fontSize: 1.25rem
+    fontWeight: 600
+    lineHeight: 1.3
+    letterSpacing: -0.015em
   2xl:
     fontFamily: "IBM Plex Sans"
-    fontSize: 24px
-    fontWeight: 400
-    lineHeight: 1.2
+    fontSize: 1.75rem
+    fontWeight: 600
+    lineHeight: 1.214
+    letterSpacing: -0.02em
 fontWeights:
   normal: 400
   medium: 500
   semibold: 600
 rounded:
-  sm: 4px
-  md: 8px
+  xs: 6px
+  sm: 10px
+  md: 12px
+  lg: 16px
   full: 9999px
 spacing:
+  2xs: 2px
   xs: 4px
+  xs-sm: 6px
   sm: 8px
   md: 12px
   lg: 16px
+  lg-xl: 20px
   xl: 24px
   2xl: 32px
+  3xl: 48px
 borderWidth: 1px
 elevation:
   overlay: "0 8px 24px 0 rgb(0 0 0 / 0.16)"
@@ -122,9 +143,45 @@ layers:
   dialog: 300
   toast: 400
 sizes:
+  control-xs: 24px
+  control-sm: 28px
+  control-md: 32px
+  control-lg: 48px
+  control: 40px
+  row: 40px
   touch: 44px
+  sidebar: 260px
+  inspector: 340px
   column: 480px
-  transcript: 720px
+  transcript: 760px
   wide: 1200px
+density:
+  default:
+    control: 40px
+    row: 40px
+    text: 0.9375rem
+    leading: 1.533
+  compact:
+    control: 32px
+    row: 36px
+    text: 0.8125rem
+    leading: 1.385
+  coarse-pointer:
+    control: 44px
+    row: 44px
+    text: 1rem
+    leading: 1.5
+typography-coarse-pointer:
+  xs: 0.8125rem
+  sm: 0.875rem
+  mono: 0.875rem
+  md: 1rem
+  ui: 1rem
+  lg: 1.0625rem
+  xl: 1.3125rem
 breakpoint: 768px
+breakpoints:
+  md: 768px
+  lg: 1024px
+  xl: 1280px
 ---

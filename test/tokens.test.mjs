@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { join } from "node:path";
 import { test } from "node:test";
@@ -71,7 +71,8 @@ test("a text pair below 4.5:1 fails the build and names both tokens and the rati
 test("every listed pair passes in light and dark", () => {
   const { contrast } = build({ outDir: tempDir() });
   const pairs = JSON.parse(readFileSync(join(repoRoot, "tokens", "pairs.json"), "utf8"));
-  assert.equal(contrast.length, pairs.length * 2);
+  // A pair with a themes list is not the default theme's to pass: test/themes.test.mjs covers those.
+  assert.equal(contrast.length, pairs.filter((pair) => !pair.themes).length * 2);
   for (const row of contrast) assert.ok(row.ratio >= row.minimum, JSON.stringify(row));
 });
 
@@ -80,7 +81,8 @@ test("Tailwind emits rules for token classes and none for classes outside the vo
   assert.match(find(rules, ".bg-surface").css, /background-color: var\(--ds-color-surface\)/);
   const kept = [
     "text-on-surface", "border-border", "text-muted", "bg-accent", "font-ui", "font-mono", "text-ui",
-    "text-mono", "p-xs", "px-sm", "py-md", "gap-lg", "m-xl", "mt-2xl", "rounded-sm", "rounded-md",
+    "text-mono", "text-md", "text-sm", "p-xs", "px-sm", "py-md", "gap-lg", "m-xl", "mt-2xl", "rounded-sm", "rounded-md",
+    "p-2xs", "gap-xs-sm", "px-lg-xl", "py-3xl", "rounded-xs", "rounded-lg",
     "min-h-touch", "max-w-column", "md:max-w-transcript", "border",
   ];
   for (const name of kept) assert.ok(find(rules, selectorFor(name)), `${name} emitted no rule`);
@@ -89,10 +91,37 @@ test("Tailwind emits rules for token classes and none for classes outside the vo
   }
 });
 
-test("the only breakpoint Tailwind emits is 768px", async () => {
+test("the breakpoints are 768px, 1024px and 1280px: three tokens, three Tailwind screens, and no other width in the manifest, the token block or what Tailwind emits", async () => {
   const { css } = await buildFixture();
-  assert.deepEqual([...new Set(css.match(/@media \(min-width: [^)]+\)/g))], ["@media (min-width: 768px)"]);
-  assert.equal(JSON.parse(read("manifest.json")).breakpoint, "768px");
+  assert.deepEqual([...new Set(css.match(/@media \(min-width: [^)]+\)/g))], ["@media (min-width: 768px)", "@media (min-width: 1024px)", "@media (min-width: 1280px)"]);
+  const { light } = parseTokens(read("tokens.css"));
+  assert.deepEqual(Object.fromEntries(Object.keys(light).filter((name) => name.startsWith("--ds-breakpoint")).map((name) => [name, light[name]])), {
+    "--ds-breakpoint": "768px", "--ds-breakpoint-lg": "1024px", "--ds-breakpoint-xl": "1280px",
+  });
+  const manifest = JSON.parse(read("manifest.json"));
+  assert.equal(manifest.breakpoint, "768px");
+  assert.deepEqual(manifest.breakpoints, ["768px", "1024px", "1280px"]);
+  assert.deepEqual(manifest.utilities.variants, ["md", "lg", "xl"]);
+  const { theme } = JSON.parse(read("tailwind-preset.js").replace(/^export default /, "").replace(/;\s*$/, ""));
+  assert.deepEqual(theme.screens, { md: "768px", lg: "1024px", xl: "1280px" });
+  assert.match(read("design-tokens.md"), /\nbreakpoints:\n {2}md: 768px\n {2}lg: 1024px\n {2}xl: 1280px\n/);
+  assert.throws(buildTokens(tokensSource().replace("--ds-breakpoint-xl: 1280px;", "--ds-breakpoint-xl: 1000px;")), /the breakpoints must rise/);
+  assert.throws(buildTokens(tokensSource().replace("--ds-breakpoint-xl: 1280px;", "--ds-breakpoint-xl: 1280px;\n    --ds-breakpoint-2xl: 1536px;")), /--ds-breakpoint-2xl has no variant/);
+});
+
+test("a component changes its layout at 768px alone, a page pattern may also use 1024px and 1280px, and a container query may use any width", () => {
+  const widthsOf = (css) => [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/@media[^{]*?(?:min-|max-)?width\s*[:<>=]+\s*([\d.]+[a-z]+)/g)].map(([, width]) => width);
+  let queries = 0;
+  for (const dir of ["components", "patterns"]) {
+    const allowed = dir === "components" ? ["768px"] : ["768px", "1024px", "1280px"];
+    for (const name of readdirSync(join(repoRoot, dir)).sort()) {
+      for (const width of widthsOf(readFileSync(join(repoRoot, dir, name, `${name}.css`), "utf8"))) {
+        assert.ok(allowed.includes(width), `${dir}/${name} has a media query at ${width}. A ${dir === "components" ? "component uses 768px alone: a width past it belongs to the layout of a screen, which a pattern or an app's shell sets" : "pattern uses 768px, 1024px or 1280px"}`);
+        queries += 1;
+      }
+    }
+  }
+  assert.ok(queries > 25, `only ${queries} media queries were found`);
 });
 
 test("with preflight off a ds.components background survives and an unlayered utility overrides it", async () => {
@@ -114,15 +143,23 @@ test("a rule in Tailwind's base layer is emitted unlayered, so it overrides ds.c
   assert.equal(base.layer, undefined);
 });
 
-// Botbench's DESIGN.md front matter as it stands, with its two fontFamily values replaced.
+// The colours of the default theme, and the type, radius and spacing scales of 0.12: sizes in rem, seven roles with
+// nothing under 12px, four radii and the pill, and the spacing steps.
 const botbenchValues = {
   colors: { accent: '"#1A1A1A"', surface: '"#FAFAF9"', "on-surface": '"#171717"', border: '"#E5E5E5"', muted: '"#737373"' },
   typography: {
-    ui: { fontFamily: '"IBM Plex Sans"', fontSize: "14px", fontWeight: "400" },
-    mono: { fontFamily: '"IBM Plex Mono"', fontSize: "13px" },
+    xs: { fontSize: "0.75rem", fontWeight: "400", lineHeight: "1.333" },
+    sm: { fontSize: "0.8125rem", fontWeight: "400", lineHeight: "1.385" },
+    md: { fontSize: "0.875rem", fontWeight: "400", lineHeight: "1.429" },
+    ui: { fontFamily: '"IBM Plex Sans"', fontSize: "0.9375rem", fontWeight: "400", lineHeight: "1.533" },
+    mono: { fontFamily: '"IBM Plex Mono"', fontSize: "0.8125rem" },
+    lg: { fontSize: "1rem", fontWeight: "600", lineHeight: "1.375", letterSpacing: "-0.01em" },
+    xl: { fontSize: "1.25rem", fontWeight: "600", lineHeight: "1.3", letterSpacing: "-0.015em" },
+    "2xl": { fontSize: "1.75rem", fontWeight: "600", lineHeight: "1.214", letterSpacing: "-0.02em" },
   },
-  rounded: { sm: "4px", md: "8px" },
-  spacing: { xs: "4px", sm: "8px", md: "12px", lg: "16px", xl: "24px", "2xl": "32px" },
+  "typography-coarse-pointer": { xs: "0.8125rem", sm: "0.875rem", mono: "0.875rem", md: "1rem", ui: "1rem", lg: "1.0625rem", xl: "1.3125rem" },
+  rounded: { xs: "6px", sm: "10px", md: "12px", lg: "16px", full: "9999px" },
+  spacing: { "2xs": "2px", xs: "4px", "xs-sm": "6px", sm: "8px", md: "12px", lg: "16px", "lg-xl": "20px", xl: "24px", "2xl": "32px", "3xl": "48px" },
 };
 
 // Nested maps of scalars are all the token block uses.
@@ -146,9 +183,13 @@ function assertIncludes(actual, expected, path) {
   }
 }
 
-test("the token block reproduces every value in Botbench's DESIGN.md front matter except its two font families, which are IBM Plex Sans and IBM Plex Mono", () => {
+test("the token block holds the default theme's colours, IBM Plex Sans and IBM Plex Mono, and the type, radius and spacing scales, with no 11px role and no title size for a coarse pointer", () => {
   const [, block] = read("design-tokens.md").match(/^---\n([\s\S]*?)\n---\n/);
-  assertIncludes(parseYamlBlock(block), botbenchValues, "");
+  const parsed = parseYamlBlock(block);
+  assertIncludes(parsed, botbenchValues, "");
+  assert.deepEqual(Object.keys(parsed.typography), ["xs", "sm", "mono", "md", "ui", "lg", "xl", "2xl"]);
+  assert.deepEqual(Object.keys(parsed["typography-coarse-pointer"]), ["xs", "sm", "mono", "md", "ui", "lg", "xl"]);
+  assert.deepEqual(Object.keys(parsed.spacing), Object.keys(botbenchValues.spacing));
 });
 
 test("the token data file uses the Design Tokens Community Group format", () => {
@@ -156,19 +197,24 @@ test("the token data file uses the Design Tokens Community Group format", () => 
   assert.equal(tokens.color.accent.$type, "color");
   assert.equal(tokens.color.accent.$value.hex, "#1a1a1a");
   assert.deepEqual(tokens.space.xs, { $type: "dimension", $value: { value: 4, unit: "px" } });
+  // A type size is in rem, with its size on a coarse pointer; a tracking is a number of ems.
+  assert.deepEqual(tokens.text.xs, { $type: "dimension", $value: { value: 0.75, unit: "rem" }, $extensions: { "design-system": { "coarse-pointer": { value: 0.8125, unit: "rem" } } } });
+  assert.deepEqual(tokens.tracking, { lg: { $type: "number", $value: -0.01 }, xl: { $type: "number", $value: -0.015 }, "2xl": { $type: "number", $value: -0.02 } });
+  // The title of a view is the one size a coarse pointer leaves alone.
+  assert.deepEqual(tokens.text["2xl"], { $type: "dimension", $value: { value: 1.75, unit: "rem" } });
+  assert.deepEqual(tokens.radius.lg, { $type: "dimension", $value: { value: 16, unit: "px" } });
   assert.deepEqual(tokens.font.ui.$value, ["IBM Plex Sans", "Helvetica Neue", "Arial", "sans-serif"]);
 });
 
 test("every value in the Tailwind preset is a token reference or a neutral keyword", () => {
   const { theme } = JSON.parse(read("tailwind-preset.js").replace(/^export default /, "").replace(/;\s*$/, ""));
-  const neutral = new Set(["0", "none", "auto", "100%", "100dvh", "transparent", "currentColor", "768px"]);
+  const neutral = new Set(["0", "none", "auto", "100%", "100dvh", "transparent", "currentColor", "768px", "1024px", "1280px"]);
   const leaves = (value) => (typeof value === "string" ? [value] : Object.values(value).flatMap(leaves));
   for (const [key, scale] of Object.entries(theme)) {
     for (const leaf of leaves(scale)) {
       assert.ok(neutral.has(leaf) || /^var\(--ds-[\w-]+\)$/.test(leaf), `${key}: ${leaf}`);
     }
   }
-  assert.deepEqual(theme.screens, { md: "768px" });
   for (const key of ["animation", "keyframes", "blur", "backdropBlur", "opacity", "letterSpacing", "dropShadow"]) {
     assert.deepEqual(theme[key], {}, key);
   }
@@ -202,4 +248,469 @@ test("the wide size reaches the tokens, the Tailwind preset and its types, the t
   assert.ok(manifest.utilities.sizeKeys.includes("wide"));
   assert.ok(manifest.classes.includes("ds-container--wide"));
   assert.match(read("design-system.css"), /\.ds-container--wide \{\n\s+max-width: var\(--ds-size-wide\);/);
+});
+
+const tokensSource = () => readFileSync(join(repoRoot, "tokens", "tokens.css"), "utf8");
+const buildTokens = (css) => {
+  const root = copySources();
+  writeFileSync(join(root, "tokens", "tokens.css"), css);
+  return () => build({ root, outDir: tempDir() });
+};
+
+const DENSITY_VALUES = {
+  default: { control: "40px", row: "40px", text: "0.9375rem", leading: "1.533" },
+  compact: { control: "32px", row: "36px", text: "0.8125rem", leading: "1.385" },
+  "coarse-pointer": { control: "44px", row: "44px", text: "1rem", leading: "1.5" },
+};
+// On a coarse pointer each size is one pixel larger, the label of a control is the body size, and the title is not in the block.
+const COARSE_TEXT = {
+  "--ds-text-xs": "0.8125rem", "--ds-text-sm": "0.875rem", "--ds-text-mono": "0.875rem", "--ds-text-md": "1rem",
+  "--ds-text-ui": "1rem", "--ds-text-lg": "1.0625rem", "--ds-text-xl": "1.3125rem",
+};
+
+test("a control and a row are 40px, 32px and 36px in a compact container, which sets body text to the dense size and line height, and compact is the one value of the attribute", () => {
+  const { light, density } = parseTokens(read("tokens.css"));
+  assert.deepEqual(density, DENSITY_VALUES);
+  assert.equal(density.compact.text, light["--ds-text-sm"]);
+  assert.equal(density.compact.leading, light["--ds-leading-sm"]);
+  assert.equal(light["--ds-size-control"], "40px");
+  assert.equal(light["--ds-size-row"], "40px");
+  assert.equal(light["--ds-size-touch"], "44px");
+  const steps = ["xs", "sm", "md", "lg"].map((step) => light[`--ds-size-control-${step}`]);
+  assert.deepEqual(steps, ["24px", "28px", "32px", "48px"]);
+  assert.equal(light["--ds-size-sidebar"], "260px");
+  assert.equal(light["--ds-size-inspector"], "340px");
+  assert.equal(light["--ds-size-transcript"], "760px");
+  // No block for a comfortable or a touch container: the default is :root, and a coarse pointer does the rest.
+  assert.deepEqual([...read("tokens.css").matchAll(/\[data-ds-density="(\w+)"\]/g)].map(([, value]) => value), ["compact"]);
+});
+
+test("a coarse pointer gets 44px controls and rows on every element, a compact container included, after the block the attribute selects", () => {
+  const css = read("tokens.css").replace(/\/\*[\s\S]*?\*\//g, "");
+  const coarse = css.match(/@media \(pointer: coarse\) \{\s*:root,\s*\[data-ds-density\] \{([^}]*)\}/);
+  assert.ok(coarse, "tokens.css has no block for a coarse pointer");
+  assert.deepEqual([...coarse[1].matchAll(/(--[\w-]+):\s*([^;]+);/g)].map(([, name, value]) => [name, value]), [
+    ["--ds-size-control", "44px"],
+    ["--ds-size-row", "44px"],
+    ...Object.entries(COARSE_TEXT),
+    ["--ds-leading-ui", "1.5"],
+  ]);
+  // Each type size is one pixel larger than :root has it, written out in rem. The label of a control is the body
+  // size, 16px, and the title of a view is not in the block, so it stays 28px.
+  const { light, coarse: sizes } = parseTokens(read("tokens.css"));
+  for (const [name, value] of Object.entries(COARSE_TEXT)) {
+    assert.equal(sizes[name], value, name);
+    assert.equal(parseFloat(value) * 16, name === "--ds-text-md" ? 16 : parseFloat(light[name]) * 16 + 1, name);
+  }
+  assert.equal(sizes["--ds-text-md"], sizes["--ds-text-ui"]);
+  assert.ok(!("--ds-text-2xl" in sizes));
+  // The same specificity as the compact block, so it wins by coming last.
+  assert.ok(css.indexOf('[data-ds-density="compact"]') < coarse.index, "the compact block comes after the block for a coarse pointer");
+});
+
+test("the density reaches the manifest, the token data and the token block, for the default theme and for a theme", () => {
+  const values = DENSITY_VALUES;
+  const manifest = JSON.parse(read("manifest.json"));
+  assert.deepEqual(manifest.density, {
+    attribute: "data-ds-density",
+    attributeValues: ["compact"],
+    tokens: { control: "--ds-size-control", row: "--ds-size-row", text: "--ds-text-ui", leading: "--ds-leading-ui" },
+    values,
+  });
+  assert.deepEqual(manifest.coarsePointer, { text: COARSE_TEXT });
+  for (const value of ["0.75rem", "0.8125rem", "0.875rem", "0.9375rem", "1rem", "1.0625rem", "1.25rem", "1.3125rem", "1.75rem"]) assert.ok(manifest.values.text.includes(value), value);
+  assert.ok(!manifest.values.text.includes("0.6875rem"), "the 11px size is gone");
+  assert.deepEqual(manifest.values.leading.filter((value) => value === "1.385").length, 1);
+  for (const value of ["24px", "28px", "32px", "36px", "40px", "44px", "48px", "260px", "340px"]) assert.ok(manifest.values.size.includes(value), value);
+  for (const key of ["control", "row", "control-xs", "control-sm", "control-md", "control-lg", "touch", "sidebar", "inspector"]) {
+    assert.ok(manifest.utilities.sizeKeys.includes(key), key);
+  }
+  const px = (value) => ({ value, unit: "px" });
+  const rem = (value) => ({ value, unit: "rem" });
+  for (const file of ["tokens.json", "themes/botbench.tokens.json"]) {
+    const { size, text, leading } = JSON.parse(read(file));
+    assert.deepEqual(text.ui, { $type: "dimension", $value: rem(0.9375), $extensions: { "design-system": { density: { compact: rem(0.8125) }, "coarse-pointer": rem(1) } } }, file);
+    assert.deepEqual(leading.ui, { $type: "number", $value: 1.533, $extensions: { "design-system": { density: { compact: 1.385 }, "coarse-pointer": 1.5 } } }, file);
+    assert.deepEqual(size.control, { $type: "dimension", $value: px(40), $extensions: { "design-system": { density: { compact: px(32) }, "coarse-pointer": px(44) } } }, file);
+    assert.deepEqual(size.row.$extensions["design-system"], { density: { compact: px(36) }, "coarse-pointer": px(44) }, file);
+    assert.deepEqual(size["control-md"], { $type: "dimension", $value: px(32) }, file);
+  }
+  for (const file of ["design-tokens.md", "themes/botbench.design-tokens.md"]) {
+    const [, block] = read(file).match(/^---\n([\s\S]*?)\n---\n/);
+    const parsed = parseYamlBlock(block);
+    assert.deepEqual(parsed.density, values, file);
+    assert.equal(parsed.sizes.control, "40px", file);
+    assert.equal(parsed.sizes.sidebar, "260px", file);
+  }
+});
+
+test("the Tailwind preset has a height for a control and a row, and a width for a sidebar and an inspector", () => {
+  const { theme } = JSON.parse(read("tailwind-preset.js").replace(/^export default /, "").replace(/;\s*$/, ""));
+  for (const scale of ["width", "height", "size", "minWidth", "minHeight"]) {
+    for (const key of ["control", "row", "control-xs", "control-sm", "control-md", "control-lg", "touch"]) {
+      assert.equal(theme[scale][key], `var(--ds-size-${key})`, `${scale}.${key}`);
+    }
+  }
+  assert.equal(theme.width.sidebar, "var(--ds-size-sidebar)");
+  assert.equal(theme.maxWidth.inspector, "var(--ds-size-inspector)");
+  assert.equal(theme.maxWidth.column, "var(--ds-size-column)");
+});
+
+test("a compact block that sets another token, a coarse pointer whose control is not the touch size, and a missing compact block each fail the build", () => {
+  const source = tokensSource();
+  const compact = '[data-ds-density="compact"] {\n    --ds-size-control: 32px;';
+  assert.ok(source.includes(compact));
+  assert.throws(buildTokens(source.replace(compact, `${compact}\n    --ds-space-md: 8px;`)), /\[data-ds-density="compact"\] sets .*--ds-space-md.* A density block sets --ds-size-control, --ds-size-row, --ds-text-ui, --ds-leading-ui and nothing else/);
+  assert.throws(buildTokens(source.replace(/(\[data-ds-density\] \{\s*--ds-size-control: )44px/, "$148px")), /on a coarse pointer --ds-size-control is 48px\. It must hold the value of --ds-size-touch, 44px/);
+  assert.throws(buildTokens(source.replace(/--ds-size-touch: 44px/, "--ds-size-touch: 48px")), /It must hold the value of --ds-size-touch, 48px/);
+  assert.throws(buildTokens(source.replace(/\n {2}\[data-ds-density="compact"\] \{[^}]*\}\n/, "\n")), /the density block \[data-ds-density="compact"\] is missing/);
+  // A second value of the attribute is a selector the build does not know.
+  assert.throws(buildTokens(source.replace(compact, `[data-ds-density="touch"] {\n    --ds-size-control: 44px;\n  }\n\n  ${compact}`)), /Unexpected selector in tokens\.css: \[data-ds-density="touch"\]/);
+});
+
+test("a type size in px, one under 12px, a coarse-pointer size that is not one pixel larger, a control label that is not the body size there, and a coarse-pointer block that leaves a size out or sets the title each fail the build", () => {
+  const source = tokensSource();
+  assert.throws(buildTokens(source.replace(/(\/\* Body:[^\n]*\n\s*--ds-text-ui: )0\.9375rem/, "$115px")), /--ds-text-ui is 15px\. A type size is written in rem, so it follows the reader's font-size setting/);
+  assert.throws(buildTokens(source.replace(/(\/\* Label:[^\n]*\n\s*--ds-text-xs: )0\.75rem/, "$10.6875rem")), /--ds-text-xs is 0\.6875rem\. No type size is under 0\.75rem, which is 12px unless the reader changed it/);
+  assert.throws(buildTokens(source.replace("--ds-text-lg: 1.0625rem;", "--ds-text-lg: 1.125rem;")), /on a coarse pointer --ds-text-lg is 1\.125rem\. A type size is one pixel larger there, so it must be 1\.0625rem/);
+  assert.throws(buildTokens(source.replace("      --ds-text-md: 1rem;", "      --ds-text-md: 0.9375rem;")), /on a coarse pointer --ds-text-md is 0\.9375rem\. The label of a control is the body size there, so it must be 1rem/);
+  assert.throws(buildTokens(source.replace("      --ds-text-xs: 0.8125rem;\n", "")), /the block for a coarse pointer sets .* It sets --ds-size-control and --ds-size-row, every type size but --ds-text-2xl, and --ds-leading-ui, and nothing else/);
+  assert.throws(buildTokens(source.replace("      --ds-text-xl: 1.3125rem;\n", "      --ds-text-xl: 1.3125rem;\n      --ds-text-2xl: 1.8125rem;\n")), /the block for a coarse pointer sets .*--ds-text-2xl.* every type size but --ds-text-2xl/);
+});
+
+// The type scale as the owner approved it: the size in px at a 16px root, the line in px, the weight and the tracking.
+// Nothing is under 12px.
+const TYPE_SCALE = {
+  xs: { size: 12, line: 16 },
+  sm: { size: 13, line: 18 },
+  md: { size: 14, line: 20 },
+  ui: { size: 15, line: 23 },
+  lg: { size: 16, line: 22, weight: "semibold", tracking: "-0.01em" },
+  xl: { size: 20, line: 26, weight: "semibold", tracking: "-0.015em" },
+  "2xl": { size: 28, line: 34, weight: "semibold", tracking: "-0.02em" },
+};
+
+test("the type scale is seven roles in rem from 12px up, each with a line height that lands on its line within a twentieth of a pixel, and three with tracking", () => {
+  const { light } = parseTokens(read("tokens.css"));
+  const names = (prefix) => Object.keys(light).filter((name) => name.startsWith(prefix));
+  assert.deepEqual(names("--ds-text-"), ["xs", "sm", "mono", "md", "ui", "lg", "xl", "2xl"].map((key) => `--ds-text-${key}`));
+  assert.deepEqual(names("--ds-tracking-"), ["lg", "xl", "2xl"].map((key) => `--ds-tracking-${key}`));
+  for (const name of names("--ds-text-")) assert.ok(parseFloat(light[name]) * 16 >= 12, `${name} is under 12px`);
+  for (const [key, role] of Object.entries(TYPE_SCALE)) {
+    assert.match(light[`--ds-text-${key}`], /^[\d.]+rem$/, key);
+    assert.equal(parseFloat(light[`--ds-text-${key}`]) * 16, role.size, key);
+    assert.ok(Math.abs(role.size * Number(light[`--ds-leading-${key}`]) - role.line) < 0.05, `${key}: ${role.size * Number(light[`--ds-leading-${key}`])}px is not ${role.line}px`);
+    assert.equal(light[`--ds-tracking-${key}`], role.tracking, key);
+  }
+  assert.equal(light["--ds-text-mono"], "0.8125rem");
+  // The Tailwind preset carries the line height with each size, and the tracking with the three that have it.
+  const { theme } = JSON.parse(read("tailwind-preset.js").replace(/^export default /, "").replace(/;\s*$/, ""));
+  assert.deepEqual(theme.fontSize.md, ["var(--ds-text-md)", { lineHeight: "var(--ds-leading-md)" }]);
+  assert.deepEqual(theme.fontSize["2xl"], ["var(--ds-text-2xl)", { lineHeight: "var(--ds-leading-2xl)", letterSpacing: "var(--ds-tracking-2xl)" }]);
+  assert.equal(theme.fontSize["2xs"], undefined);
+  assert.match(read("tailwind-preset.d.ts"), /"md": \[string, \{ "lineHeight": string \}\]/);
+  const manifest = JSON.parse(read("manifest.json"));
+  assert.deepEqual(manifest.tokens.tracking, names("--ds-tracking-"));
+});
+
+// Every rule of a stylesheet outside comments, as { selectors, declarations: { property: value } }, in source order.
+function rulesOf(css) {
+  return [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(([, selectors, body]) => ({
+    selectors: selectors.split(",").map((selector) => selector.trim().replace(/\s+/g, " ")),
+    declarations: Object.fromEntries([...body.matchAll(/([\w-]+)\s*:\s*([^;]+);/g)].map(([, property, value]) => [property, value.trim()])),
+  }));
+}
+
+const sourceStylesheets = () =>
+  ["components", "patterns"].flatMap((dir) => readdirSync(join(repoRoot, dir)).sort().map((name) => ({ name, css: readFileSync(join(repoRoot, dir, name, `${name}.css`), "utf8") })));
+
+// A size used for a reason other than its role, so it takes no tracking: a mono input is 16px below 768px so iOS does
+// not zoom, a code a reader types has its own spacing, and the large spinner is sized by its font size.
+const SIZE_WITHOUT_ROLE = new Set([".ds-copy-field__value", ".ds-otp-input", ".ds-device-code__code", ".ds-spinner--large"]);
+
+test("a size with tracking is never set without it: the sub-heading, the heading and the title, in base and in every component", () => {
+  const sheets = [...sourceStylesheets(), { name: "base/typography", css: readFileSync(join(repoRoot, "base", "typography.css"), "utf8") }];
+  let tracked = 0;
+  for (const { name, css } of sheets) {
+    for (const { selectors, declarations } of rulesOf(css)) {
+      const key = declarations["font-size"]?.match(/^var\(--ds-text-(lg|xl|2xl)\)$/)?.[1];
+      if (!key || selectors.some((selector) => SIZE_WITHOUT_ROLE.has(selector))) continue;
+      assert.equal(declarations["letter-spacing"], `var(--ds-tracking-${key})`, `${name}: ${selectors.join(", ")} sets the ${key} size without its tracking`);
+      tracked += 1;
+    }
+  }
+  assert.ok(tracked >= 15, `only ${tracked} rules were found`);
+  const base = rulesOf(readFileSync(join(repoRoot, "base", "typography.css"), "utf8"));
+  const heading = (tag) => base.find((rule) => rule.selectors.length === 1 && rule.selectors[0] === tag).declarations;
+  assert.equal(heading("h1")["letter-spacing"], "var(--ds-tracking-2xl)");
+  assert.equal(heading("h2")["letter-spacing"], "var(--ds-tracking-xl)");
+  assert.equal(heading("h3")["letter-spacing"], "var(--ds-tracking-lg)");
+});
+
+// The label over a group: of a menu, a listbox, the palette, a sidebar, an inspector, a list of notifications or
+// events, the term over a value, the label of a figure and of a tool call's arguments.
+const GROUP_LABELS = [
+  ".ds-menu__label", ".ds-listbox__label", ".ds-command-palette__label", ".ds-sidebar-nav__heading", ".ds-inspector__heading",
+  ".ds-notification-list__group", ".ds-activity-feed__heading", ".ds-key-value__label", ".ds-stat__label", ".ds-tool-call__label",
+];
+
+// The role each kind of text takes, by the class that draws it. docs/authoring.md has the same table in words.
+const TEXT_ROLES = {
+  xs: [".ds-badge", ".ds-tag", ".ds-kbd", ".ds-data-table thead th", ".ds-calendar__weekday", ".ds-message__label", ".ds-tab-bar__item", ".ds-tooltip__content"],
+  sm: [
+    ".ds-button--small", ".ds-segmented-control__label", ".ds-filter-chips__chip",
+    ".ds-field__description", ".ds-settings-row__description", ".ds-checkbox__description", ".ds-radio__description", ".ds-switch__description",
+    ".ds-option-picker__description", ".ds-option-picker__hint", ".ds-stepper__description", ".ds-review-decision__caveat", ".ds-device-code__note",
+    ".ds-page-header--compact .ds-page-header__description",
+    // Metadata: a second line, a time, a duration, a count of lines.
+    ".ds-list__secondary", ".ds-list__meta", ".ds-tree__meta", ".ds-listbox__meta", ".ds-timeline__meta", ".ds-activity-feed__time",
+    ".ds-tool-call__duration", ".ds-check-list__duration", ".ds-step-group__duration", ".ds-run-status__facts", ".ds-code-block__caption",
+    // The label over a group.
+    ...GROUP_LABELS,
+  ],
+  md: [
+    ".ds-button", ".ds-tabs__tab", ".ds-list", ".ds-menu", ".ds-tree", ".ds-sidebar-nav", ".ds-data-table", ".ds-listbox", ".ds-combobox__panel",
+    ".ds-command-palette__list", ".ds-context-list", ".ds-key-value", ".ds-breadcrumb", ".ds-show-more__toggle", ".ds-jump-to-latest__button", ".ds-pending-tray__link",
+  ],
+  ui: [".ds-field__control", ".ds-composer__input", ".ds-tag-input__input"],
+  lg: [
+    ".ds-card__title", ".ds-dialog__title", ".ds-sheet__title", ".ds-settings-row__heading", ".ds-empty-state__title", ".ds-error-state__title",
+    ".ds-inspector__title", ".ds-notification-list__title", ".ds-app-header__title", ".ds-approval__title", ".ds-review-decision__title",
+    ".ds-page-header--compact .ds-page-header__title",
+  ],
+  xl: [".ds-stat__value"],
+  "2xl": [".ds-page-header__title"],
+};
+
+test("each kind of text takes its role: a button, a tab and a row the control size, metadata, helper text and group labels 13px, a table head and a tag 12px, a title lg and the title of a view 2xl", () => {
+  const rules = rulesOf(read("design-system.css"));
+  const sizeOf = (selector) => rules.find((rule) => rule.selectors.includes(selector) && rule.declarations["font-size"])?.declarations;
+  for (const [key, selectors] of Object.entries(TEXT_ROLES)) {
+    for (const selector of selectors) {
+      const declared = sizeOf(selector);
+      assert.equal(declared?.["font-size"], `var(--ds-text-${key})`, selector);
+      assert.match(declared["line-height"] ?? `var(--ds-leading-${key})`, new RegExp(`--ds-leading-${key}\\b|calc\\(|--ds-size-control`), selector);
+    }
+  }
+  // A group label is sentence case in the semibold weight with no tracking, and so is a table head. Nothing is set in capitals.
+  // A group label may be a heading element, so it sets the tracking back to none.
+  for (const selector of [...GROUP_LABELS, ".ds-data-table thead th"]) {
+    const declared = sizeOf(selector);
+    assert.equal(declared["font-weight"], "var(--ds-weight-semibold)", selector);
+    assert.equal(declared["letter-spacing"], selector.includes("thead") ? undefined : "normal", selector);
+  }
+  for (const { name, css } of [...sourceStylesheets(), { name: "base/typography", css: readFileSync(join(repoRoot, "base", "typography.css"), "utf8") }]) {
+    assert.doesNotMatch(css, /text-transform:\s*(?:uppercase|capitalize)|font-variant(?:-caps)?:\s*(?:all-)?small-caps/, name);
+  }
+  // No helper, hint or description text is the label size: on a settings screen it carries most of the words.
+  for (const { selectors, declarations } of rules) {
+    if (!selectors.some((selector) => /__(?:description|hint|help|helper|caveat)$/.test(selector)) || !declarations["font-size"]) continue;
+    assert.notEqual(declarations["font-size"], "var(--ds-text-xs)", selectors.join(", "));
+  }
+  // Body text is the size of the body role, and a compact container changes that token and nothing else in the base layer.
+  const body = rules.find((rule) => rule.selectors.includes("body") && rule.declarations["font-size"]).declarations;
+  assert.equal(body["font-size"], "var(--ds-text-ui)");
+  assert.equal(body["line-height"], "var(--ds-leading-ui)");
+});
+
+test("every duration, count and line total is set in tabular figures, and headings and titles wrap in balanced lines, never with text-wrap: pretty", () => {
+  const rules = rulesOf(read("design-system.css"));
+  const declared = (selector, property) => rules.filter((rule) => rule.selectors.includes(selector)).map((rule) => rule.declarations[property]).filter(Boolean).at(-1);
+  const tabular = [
+    ".ds-badge", ".ds-stat__value", ".ds-usage-meter__figures", ".ds-diff__counts", ".ds-diff__number", ".ds-data-table .ds-data-table__numeric",
+    ".ds-tool-call__duration", ".ds-step-group__duration", ".ds-check-list__duration", ".ds-now-doing__elapsed", ".ds-run-status__elapsed",
+    ".ds-run-status__facts", ".ds-run-timeline__time", ".ds-pagination__page", ".ds-pagination__status", ".ds-pending-tray__count",
+    ".ds-notification-list__count", ".ds-selection-basket__count", ".ds-search-field__count", ".ds-activity-feed__time", ".ds-timeline__time",
+    ".ds-list__meta", ".ds-tree__meta", ".ds-code-block__number", ".ds-undo-toast__countdown", ".ds-progress__value", ".ds-attachment-chip__size",
+  ];
+  for (const selector of tabular) assert.equal(declared(selector, "font-variant-numeric"), "tabular-nums", selector);
+  const balanced = [
+    "h1, h2, h3, h4, h5, h6", ".ds-page-header__title", ".ds-card__title", ".ds-dialog__title", ".ds-sheet__title", ".ds-settings-row__heading",
+    ".ds-empty-state__title", ".ds-error-state__title", ".ds-approval__title",
+  ];
+  for (const selector of balanced) {
+    const rule = rules.filter((candidate) => candidate.selectors.join(", ") === selector || candidate.selectors.includes(selector)).find((candidate) => candidate.declarations["text-wrap"]);
+    assert.equal(rule?.declarations["text-wrap"], "balance", selector);
+  }
+  assert.doesNotMatch(read("design-system.css"), /text-wrap:\s*pretty/);
+});
+
+test("the spacing scale is 4, 8, 12, 16, 24, 32 and 48px with 2, 6 and 20px between, and each step reaches the preset, the gap classes, the manifest and the checker's keys", () => {
+  const steps = { "2xs": "2px", xs: "4px", "xs-sm": "6px", sm: "8px", md: "12px", lg: "16px", "lg-xl": "20px", xl: "24px", "2xl": "32px", "3xl": "48px" };
+  const { light } = parseTokens(read("tokens.css"));
+  assert.deepEqual(Object.fromEntries(Object.keys(light).filter((name) => name.startsWith("--ds-space-")).map((name) => [name.slice("--ds-space-".length), light[name]])), steps);
+  const { theme } = JSON.parse(read("tailwind-preset.js").replace(/^export default /, "").replace(/;\s*$/, ""));
+  const manifest = JSON.parse(read("manifest.json"));
+  const css = read("design-system.css");
+  for (const key of Object.keys(steps)) {
+    assert.equal(theme.spacing[key], `var(--ds-space-${key})`, key);
+    assert.ok(manifest.utilities.spacingKeys.includes(key), key);
+    assert.ok(manifest.classes.includes(`ds-gap-${key}`), `ds-gap-${key}`);
+    assert.ok(css.includes(`.ds-gap-${key} {\n    gap: var(--ds-space-${key});`), `ds-gap-${key}`);
+  }
+  // Where a component wrote one of the new steps as arithmetic on another, it now names the step.
+  for (const { name, css: source } of sourceStylesheets()) {
+    assert.doesNotMatch(source, /calc\(var\(--ds-space-lg\) \+ var\(--ds-space-xs\)\)|calc\(var\(--ds-space-xs\) \/ 2\)/, name);
+  }
+  assert.match(css, /\.ds-button--small \{[^}]*\n\s+gap: var\(--ds-space-xs-sm\);/);
+  // The 40px and 64px steps are gone, with their classes and keys, and each in-between step is one a component uses.
+  assert.ok(!manifest.classes.includes("ds-gap-4xl") && !manifest.utilities.spacingKeys.includes("4xl"));
+  const used = sourceStylesheets().map(({ css: source }) => source).join("\n");
+  for (const key of ["2xs", "xs-sm", "lg-xl"]) assert.ok(used.includes(`var(--ds-space-${key})`), `no component uses --ds-space-${key}`);
+});
+
+test("every token a stylesheet names is in the vocabulary: no component, pattern, base file or the gallery uses a name that was removed", () => {
+  const known = new Set(Object.keys(parseTokens(read("tokens.css")).light));
+  const sheets = [
+    ...sourceStylesheets(),
+    ...["typography", "layout", "focus", "reset", "fonts", "visually-hidden"].map((name) => ({ name: `base/${name}`, css: readFileSync(join(repoRoot, "base", `${name}.css`), "utf8") })),
+    { name: "gallery", css: readFileSync(join(repoRoot, "gallery", "gallery.css"), "utf8") },
+  ];
+  let uses = 0;
+  for (const { name, css } of sheets) {
+    for (const [, token] of css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/var\((--ds-[\w-]+)/g)) {
+      assert.ok(known.has(token), `${name} uses ${token}, which is not a token`);
+      uses += 1;
+    }
+  }
+  assert.ok(uses > 2000, `only ${uses} uses were found`);
+});
+
+// The radius of each component, by the class that draws its corner. docs/authoring.md has the same list in words.
+const RADII = {
+  xs: [
+    ".ds-badge", ".ds-tag", ".ds-kbd", ".ds-checkbox__input", ".ds-tag__remove", ".ds-progress__bar", ".ds-usage-meter__bar", ".ds-skeleton__line",
+    // A segment 4px inside its 10px track, and a tooltip, which is a line or two of small text.
+    ".ds-segmented-control__input", ".ds-tooltip__content",
+  ],
+  sm: [
+    ".ds-button", ".ds-field__control", ".ds-tabs__tab", ".ds-segmented-control__options", ".ds-pagination__page", ".ds-copy-field__value", ".ds-tag-input", ".ds-slider__input",
+    ".ds-show-more__toggle", ".ds-search-field__clear", ".ds-jump-to-latest__button", ".ds-pending-tray__link", ".ds-file-upload__input",
+    ".ds-app-header__name", ".ds-disclosure__summary", ".ds-breadcrumb__link", ".ds-calendar__day",
+    // A row or a block inside a card or a menu takes the step under the container's 12px.
+    ".ds-menu__item", ".ds-listbox__option", ".ds-combobox__option", ".ds-command-palette__option", ".ds-sidebar-nav__item",
+    ".ds-message__code", ".ds-tool-call__code", ".ds-approval__command",
+  ],
+  md: [
+    ".ds-card", ".ds-code-block", ".ds-message", ".ds-alert", ".ds-composer__input", ".ds-composer__box > .ds-composer__input", ".ds-menu", ".ds-popover",
+    ".ds-toast", ".ds-tool-call", ".ds-approval", ".ds-diff", ".ds-log-viewer", ".ds-review-decision", ".ds-listbox",
+    ".ds-combobox__panel", ".ds-toolbar", ".ds-selection-basket", ".ds-option-picker__option", ".ds-split-panel", ".ds-device-code__entry",
+  ],
+  lg: [".ds-dialog", ".ds-composer__box"],
+  full: [
+    ".ds-filter-chips__chip", ".ds-suggestion-chips__chip", ".ds-source-chip", ".ds-attachment-chip", ".ds-attachment-chip__remove",
+    ".ds-switch__input", ".ds-switch__input::before", ".ds-avatar__mark",
+    ".ds-presence__more", ".ds-pending-tray__count", ".ds-composer__row > :where(button:last-child)", ".ds-composer__bar > :where(button:last-child)",
+  ],
+};
+
+// The pill is for the shapes the list above names. A circle is the other use of the same token: a mark that is round
+// because of what it is, not a container with rounded ends.
+const CIRCLES = [
+  ".ds-radio__input", ".ds-radio__input:checked::before", ".ds-option-picker__input", ".ds-option-picker__input:checked::before",
+  ".ds-notification-list__unread::before", ".ds-stepper__step::before",
+];
+
+test("each component's radius is the one its kind takes: 6px a tag, 10px a control, 12px a card, 16px a dialog, a sheet and the composer box, and the pill only where the list allows", () => {
+  const { light } = parseTokens(read("tokens.css"));
+  assert.deepEqual(Object.fromEntries(Object.keys(light).filter((name) => name.startsWith("--ds-radius-")).map((name) => [name.slice("--ds-radius-".length), light[name]])), {
+    xs: "6px", sm: "10px", md: "12px", lg: "16px", full: "9999px",
+  });
+  const rules = rulesOf(read("design-system.css"));
+  const radiusOf = (selector) => rules.find((rule) => rule.selectors.includes(selector) && rule.declarations["border-radius"])?.declarations["border-radius"];
+  for (const [key, selectors] of Object.entries(RADII)) {
+    for (const selector of selectors) assert.equal(radiusOf(selector), `var(--ds-radius-${key})`, selector);
+  }
+  assert.equal(radiusOf(".ds-sheet"), "var(--ds-radius-lg) var(--ds-radius-lg) 0 0");
+  // A select, a textarea, a toggle button and an icon button draw no corner of their own: they are a field or a button.
+  for (const name of ["select", "textarea", "toggle-button", "icon-button", "split-button"]) {
+    const own = rulesOf(readFileSync(join(repoRoot, "components", name, `${name}.css`), "utf8")).flatMap((rule) => Object.entries(rule.declarations)).filter(([property, value]) => /radius/.test(property) && value !== "0");
+    assert.deepEqual(own, [], name);
+  }
+  // The pill, in every component and pattern: only the classes of the list, and the circles.
+  const allowed = new Set([...RADII.full, ...CIRCLES]);
+  let pills = 0;
+  for (const { name, css } of sourceStylesheets()) {
+    for (const { selectors, declarations } of rulesOf(css)) {
+      if (!Object.entries(declarations).some(([property, value]) => /radius/.test(property) && value.includes("--ds-radius-full"))) continue;
+      for (const selector of selectors) assert.ok(allowed.has(selector), `${name}: ${selector} uses --ds-radius-full, which is for a chip, a switch, an avatar, a count and Send`);
+      pills += 1;
+    }
+  }
+  assert.ok(pills >= RADII.full.length - 1);
+  // No component writes a radius the scale does not have, and the old way to a 2px corner is gone.
+  for (const { name, css } of sourceStylesheets()) {
+    for (const { declarations } of rulesOf(css)) {
+      for (const [property, value] of Object.entries(declarations)) {
+        if (/radius/.test(property)) assert.match(value, /^(?:0|inherit|(?:var\(--ds-radius-(?:xs|sm|md|lg|full)\)|0)(?: (?:var\(--ds-radius-(?:xs|sm|md|lg|full)\)|0))*|calc\(.*\))$/, `${name}: ${property}: ${value}`);
+      }
+    }
+  }
+});
+
+// Where each use of the touch size sits in a component or pattern stylesheet: the property, the selector of its
+// rule and whether the rule is inside @media (pointer: coarse).
+function touchUses(css) {
+  const uses = [];
+  const open = [];
+  for (const [index, line] of css.replace(/\/\*[\s\S]*?\*\//g, (comment) => comment.replace(/[^\n]/g, " ")).split("\n").entries()) {
+    const text = line.trim();
+    if (text.endsWith("{")) open.push(text.slice(0, -1).trim());
+    else if (text === "}") open.pop();
+    else if (text.includes("--ds-size-touch")) {
+      uses.push({ line: index + 1, property: text.split(":")[0], selector: open.at(-1), coarse: open.includes("@media (pointer: coarse)") });
+    }
+  }
+  return uses;
+}
+
+test("a component uses the touch size only for the hit area of a pseudo-element, inside a coarse-pointer media query", () => {
+  const folders = ["components", "patterns"].flatMap((dir) => readdirSync(join(repoRoot, dir)).map((name) => join(dir, name, `${name}.css`)));
+  assert.ok(folders.length > 100);
+  const sized = /^(?:width|height|min-width|min-height|inset|inset-block|inset-inline|top|padding)$/;
+  let hitAreas = 0;
+  for (const file of folders) {
+    for (const use of touchUses(readFileSync(join(repoRoot, file), "utf8"))) {
+      const where = `${file}:${use.line}`;
+      assert.ok(use.coarse, `${where} uses --ds-size-touch outside @media (pointer: coarse). The height of a control is --ds-size-control and of a row --ds-size-row`);
+      assert.match(use.selector, /::(?:after|before)$/, `${where} uses --ds-size-touch on ${use.selector}, which is not the pseudo-element of a hit area`);
+      assert.match(use.property, sized, `${where} uses --ds-size-touch for ${use.property}`);
+      hitAreas += 1;
+    }
+  }
+  assert.ok(hitAreas >= 10, `only ${hitAreas} hit areas were found`);
+  for (const file of ["base/layout.css", "base/typography.css", "base/focus.css", "base/reset.css", "gallery/gallery.css"]) {
+    assert.doesNotMatch(readFileSync(join(repoRoot, file), "utf8"), /--ds-size-touch/, file);
+  }
+  // The check itself: a height outside the media query, and one on the control itself, are both caught.
+  assert.deepEqual(touchUses(".ds-x {\n  min-height: var(--ds-size-touch);\n}\n"), [{ line: 2, property: "min-height", selector: ".ds-x", coarse: false }]);
+  assert.equal(touchUses("@media (pointer: coarse) {\n  .ds-x::after {\n    height: var(--ds-size-touch);\n  }\n}\n")[0].coarse, true);
+});
+
+test("the new size variants are in the manifest and the component index, each with an example, and the old 44px sizes are gone from the metadata", () => {
+  const manifest = JSON.parse(read("manifest.json"));
+  const { components } = JSON.parse(read("components.json"));
+  const sizes = (name) => Object.fromEntries(components.find((component) => component.name === name).sizes.map((size) => [size.name, size.class]));
+  assert.deepEqual(sizes("button"), { default: undefined, small: "ds-button--small", large: "ds-button--large" });
+  assert.deepEqual(sizes("icon-button"), { default: undefined, small: "ds-icon-button--small", xsmall: "ds-icon-button--xsmall" });
+  for (const [name, className] of [["button", "ds-button--large"], ["icon-button", "ds-icon-button--small"], ["icon-button", "ds-icon-button--xsmall"]]) {
+    assert.ok(manifest.classes.includes(className), className);
+    const component = components.find((item) => item.name === name);
+    assert.ok(component.classes.includes(className), className);
+    assert.ok(component.examples.some((example) => example.markup.includes(className)), `${className} has no do example`);
+  }
+  const css = read("design-system.css");
+  assert.match(css, /\.ds-button--small \{\n\s+min-height: var\(--ds-size-control-md\);/);
+  assert.match(css, /\.ds-icon-button--small \{\n\s+width: var\(--ds-size-control-md\);/);
+  assert.match(css, /\.ds-button--large \{\n\s+min-height: max\(var\(--ds-size-control-lg\), var\(--ds-size-control\)\);/);
+  assert.match(css, /\.ds-icon-button--xsmall \{\n\s+width: var\(--ds-size-control-xs\);/);
+  assert.match(read("react/busy-button.tsx"), /export type ButtonSize = "default" \| "small" \| "large";/);
+  assert.match(read("react/busy-button.tsx"), /export type IconButtonSize = "default" \| "small" \| "xsmall";/);
+});
+
+test("the sidebar nav and the split panel's list column are as wide as the sidebar size, and the inspector as wide as the inspector size", () => {
+  const css = read("design-system.css");
+  assert.match(css, /\.ds-sidebar-nav \{[^}]*\n\s+width: var\(--ds-size-sidebar\);/);
+  assert.match(css, /grid-template-columns: var\(--ds-size-sidebar\) minmax\(0, 1fr\);/);
+  assert.match(css, /\.ds-inspector \{\n\s+width: var\(--ds-size-inspector\);/);
 });

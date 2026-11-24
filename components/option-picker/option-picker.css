@@ -19,8 +19,8 @@
 
   .ds-option-picker__hint {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* One row per option. Its padding centres one line of text in a row one target tall. */
@@ -30,8 +30,8 @@
     align-items: start;
     column-gap: var(--ds-space-sm);
     min-width: 0;
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-md);
@@ -46,8 +46,8 @@
   .ds-option-picker__input {
     position: relative;
     appearance: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
     margin-block: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-space-lg) - var(--ds-space-xs)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
@@ -60,11 +60,11 @@
     transition-timing-function: var(--ds-ease);
   }
 
-  /* The mark is drawn 20px across. This invisible box, centred on it, gives the input itself a 44px target inside the row. */
+  /* The mark is drawn 20px across. This invisible box, centred on it, gives the input itself a target as tall as the row. */
   .ds-option-picker__input::after {
     content: "";
     position: absolute;
-    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-touch)) / 2 - var(--ds-border-width));
+    inset: calc((var(--ds-space-lg) + var(--ds-space-xs) - var(--ds-size-row)) / 2 - var(--ds-border-width));
   }
 
   .ds-option-picker__input:checked {
@@ -119,8 +119,8 @@
 
   .ds-option-picker__description {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -152,8 +152,8 @@
     display: flex;
     gap: var(--ds-space-xs);
     min-width: 0;
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -166,7 +166,7 @@
     content: "";
     flex: none;
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-xs) * var(--ds-leading-xs));
+    height: calc(var(--ds-text-sm) * var(--ds-leading-sm));
     background-color: currentColor;
     mask: url("icons/triangle-alert.svg") center / contain no-repeat;
   }

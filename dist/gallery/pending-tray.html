@@ -177,7 +177,7 @@
 <h2>Sizes</h2>
 <dl>
 <dt>default</dt>
-<dd>The link is drawn 32px tall to fit a header row. Its pointer target is still 44px.</dd>
+<dd>The link is drawn 32px tall to fit a header row. On a coarse pointer its pointer target is 44px.</dd>
 </dl>
 </section>
 <section>
@@ -185,7 +185,7 @@
 <ul>
 <li>The block is a div with aria-live=&quot;polite&quot; and aria-atomic=&quot;true&quot;. Keep it in the page on every screen and change only what it holds, so a screen reader announces the new sentence when the count changes without moving focus.</li>
 <li>While approvals wait, it holds one link, ds-pending-tray__link, to the queue. The link text is the whole sentence: the count in ds-pending-tray__count, then approval waiting or approvals waiting. Never show the count alone.</li>
-<li>The filled box around the count is decoration. The sentence carries the meaning, so the count is never colour alone.</li>
+<li>The filled pill around the count is decoration. The sentence carries the meaning, so the count is never colour alone.</li>
 <li>When nothing waits, either leave the block empty, which hides the tray and keeps the live region, or show ds-pending-tray__text reading No approvals waiting. Use the same quiet text while the count is loading and when it could not be read, and say which in words.</li>
 <li>The link is reached with Tab and followed with Enter. The app sets the count, the wording and the link's href, and nothing else.</li>
 </ul>

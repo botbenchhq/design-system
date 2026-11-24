@@ -43,11 +43,11 @@
     overflow-wrap: anywhere;
   }
 
-  /* Side by side. There is no width token for a list column, so it is a fraction of the reading column. */
+  /* Side by side. The list column is as wide as a sidebar. */
   @media (min-width: 768px) {
     .ds-split-panel {
       grid-template-rows: minmax(0, 1fr);
-      grid-template-columns: calc(var(--ds-size-column) * 0.6) minmax(0, 1fr);
+      grid-template-columns: var(--ds-size-sidebar) minmax(0, 1fr);
     }
 
     .ds-split-panel__list {

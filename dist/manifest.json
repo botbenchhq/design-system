@@ -8,12 +8,18 @@
     "ds.components"
   ],
   "breakpoint": "768px",
+  "breakpoints": [
+    "768px",
+    "1024px",
+    "1280px"
+  ],
   "tokens": {
     "color": [
       "--ds-color-accent",
       "--ds-color-accent-hover",
       "--ds-color-on-accent",
       "--ds-color-surface",
+      "--ds-color-surface-pane",
       "--ds-color-surface-raised",
       "--ds-color-surface-sunken",
       "--ds-color-fill",
@@ -45,7 +51,9 @@
     ],
     "text": [
       "--ds-text-xs",
+      "--ds-text-sm",
       "--ds-text-mono",
+      "--ds-text-md",
       "--ds-text-ui",
       "--ds-text-lg",
       "--ds-text-xl",
@@ -53,11 +61,18 @@
     ],
     "leading": [
       "--ds-leading-xs",
+      "--ds-leading-sm",
       "--ds-leading-mono",
+      "--ds-leading-md",
       "--ds-leading-ui",
       "--ds-leading-lg",
       "--ds-leading-xl",
       "--ds-leading-2xl"
+    ],
+    "tracking": [
+      "--ds-tracking-lg",
+      "--ds-tracking-xl",
+      "--ds-tracking-2xl"
     ],
     "weight": [
       "--ds-weight-normal",
@@ -65,16 +80,22 @@
       "--ds-weight-semibold"
     ],
     "space": [
+      "--ds-space-2xs",
       "--ds-space-xs",
+      "--ds-space-xs-sm",
       "--ds-space-sm",
       "--ds-space-md",
       "--ds-space-lg",
+      "--ds-space-lg-xl",
       "--ds-space-xl",
-      "--ds-space-2xl"
+      "--ds-space-2xl",
+      "--ds-space-3xl"
     ],
     "radius": [
+      "--ds-radius-xs",
       "--ds-radius-sm",
       "--ds-radius-md",
+      "--ds-radius-lg",
       "--ds-radius-full"
     ],
     "border-width": [
@@ -98,13 +119,23 @@
       "--ds-z-toast"
     ],
     "size": [
+      "--ds-size-control-xs",
+      "--ds-size-control-sm",
+      "--ds-size-control-md",
+      "--ds-size-control-lg",
+      "--ds-size-control",
+      "--ds-size-row",
       "--ds-size-touch",
+      "--ds-size-sidebar",
+      "--ds-size-inspector",
       "--ds-size-column",
       "--ds-size-transcript",
       "--ds-size-wide"
     ],
     "breakpoint": [
-      "--ds-breakpoint"
+      "--ds-breakpoint",
+      "--ds-breakpoint-lg",
+      "--ds-breakpoint-xl"
     ]
   },
   "values": {
@@ -116,6 +147,8 @@
       "#FAFAF9",
       "#171717",
       "#141413",
+      "#FDFDFC",
+      "#181817",
       "#FFFFFF",
       "#1C1C1A",
       "#F3F2EF",
@@ -166,18 +199,30 @@
       "\"IBM Plex Mono\", ui-monospace, Menlo, monospace"
     ],
     "text": [
-      "12px",
-      "13px",
-      "14px",
-      "16px",
-      "20px",
-      "24px"
+      "0.75rem",
+      "0.8125rem",
+      "0.875rem",
+      "0.9375rem",
+      "1rem",
+      "1.25rem",
+      "1.75rem",
+      "1.0625rem",
+      "1.3125rem"
     ],
     "leading": [
-      "1.4",
+      "1.333",
+      "1.385",
       "1.5",
-      "1.25",
-      "1.2"
+      "1.429",
+      "1.533",
+      "1.375",
+      "1.3",
+      "1.214"
+    ],
+    "tracking": [
+      "-0.01em",
+      "-0.015em",
+      "-0.02em"
     ],
     "weight": [
       "400",
@@ -185,16 +230,22 @@
       "600"
     ],
     "space": [
+      "2px",
       "4px",
+      "6px",
       "8px",
       "12px",
       "16px",
+      "20px",
       "24px",
-      "32px"
+      "32px",
+      "48px"
     ],
     "radius": [
-      "4px",
-      "8px",
+      "6px",
+      "10px",
+      "12px",
+      "16px",
       "9999px"
     ],
     "border-width": [
@@ -219,14 +270,67 @@
       "400"
     ],
     "size": [
+      "24px",
+      "28px",
+      "32px",
+      "48px",
+      "40px",
       "44px",
+      "260px",
+      "340px",
       "480px",
-      "720px",
-      "1200px"
+      "760px",
+      "1200px",
+      "36px"
     ],
     "breakpoint": [
-      "768px"
+      "768px",
+      "1024px",
+      "1280px"
     ]
+  },
+  "density": {
+    "attribute": "data-ds-density",
+    "attributeValues": [
+      "compact"
+    ],
+    "tokens": {
+      "control": "--ds-size-control",
+      "row": "--ds-size-row",
+      "text": "--ds-text-ui",
+      "leading": "--ds-leading-ui"
+    },
+    "values": {
+      "default": {
+        "control": "40px",
+        "row": "40px",
+        "text": "0.9375rem",
+        "leading": "1.533"
+      },
+      "compact": {
+        "control": "32px",
+        "row": "36px",
+        "text": "0.8125rem",
+        "leading": "1.385"
+      },
+      "coarse-pointer": {
+        "control": "44px",
+        "row": "44px",
+        "text": "1rem",
+        "leading": "1.5"
+      }
+    }
+  },
+  "coarsePointer": {
+    "text": {
+      "--ds-text-xs": "0.8125rem",
+      "--ds-text-sm": "0.875rem",
+      "--ds-text-mono": "0.875rem",
+      "--ds-text-md": "1rem",
+      "--ds-text-ui": "1rem",
+      "--ds-text-lg": "1.0625rem",
+      "--ds-text-xl": "1.3125rem"
+    }
   },
   "utilities": {
     "layout": {
@@ -308,19 +412,33 @@
       ]
     },
     "variants": [
-      "md"
+      "md",
+      "lg",
+      "xl"
     ],
     "spacingKeys": [
       "0",
+      "2xs",
       "xs",
+      "xs-sm",
       "sm",
       "md",
       "lg",
+      "lg-xl",
       "xl",
-      "2xl"
+      "2xl",
+      "3xl"
     ],
     "sizeKeys": [
+      "control-xs",
+      "control-sm",
+      "control-md",
+      "control-lg",
+      "control",
+      "row",
       "touch",
+      "sidebar",
+      "inspector",
       "column",
       "transcript",
       "wide",
@@ -425,6 +543,7 @@
     "ds-breadcrumb__list",
     "ds-button",
     "ds-button--danger",
+    "ds-button--large",
     "ds-button--primary",
     "ds-button--quiet",
     "ds-button--small",
@@ -439,6 +558,7 @@
     "ds-calendar__title",
     "ds-calendar__weekday",
     "ds-card",
+    "ds-card--borderless",
     "ds-card--sunken",
     "ds-card__action",
     "ds-card__body",
@@ -629,11 +749,15 @@
     "ds-filter-results__bar",
     "ds-filter-results__count",
     "ds-gap-2xl",
+    "ds-gap-2xs",
+    "ds-gap-3xl",
     "ds-gap-lg",
+    "ds-gap-lg-xl",
     "ds-gap-md",
     "ds-gap-sm",
     "ds-gap-xl",
     "ds-gap-xs",
+    "ds-gap-xs-sm",
     "ds-grid",
     "ds-grid-2",
     "ds-grid-3",
@@ -643,6 +767,8 @@
     "ds-hover-card__card",
     "ds-hover-card__meta",
     "ds-icon-button",
+    "ds-icon-button--small",
+    "ds-icon-button--xsmall",
     "ds-inspector",
     "ds-inspector__close",
     "ds-inspector__fact",

@@ -53,6 +53,10 @@
 
   .ds-approval__title {
     font-weight: var(--ds-weight-semibold);
+    font-size: var(--ds-text-lg);
+    line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
+    text-wrap: balance;
   }
 
   /* What would run, exactly. It wraps anywhere, so a long command never widens the page. */
@@ -101,7 +105,7 @@
     display: flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     cursor: pointer;

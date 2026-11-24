@@ -30,10 +30,10 @@
     flex: none;
     align-items: center;
     gap: var(--ds-space-xs);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-sm);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     transition-property: background-color, color;
     transition-duration: var(--ds-duration-fast);
     transition-timing-function: var(--ds-ease);
@@ -58,6 +58,7 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -75,8 +76,8 @@
 
   .ds-app-header__icon {
     flex: none;
-    width: calc(var(--ds-space-lg) + var(--ds-space-xs));
-    height: calc(var(--ds-space-lg) + var(--ds-space-xs));
+    width: var(--ds-space-lg-xl);
+    height: var(--ds-space-lg-xl);
   }
 
   /* A row of its own under the bar. With nothing in it, it takes no space. */

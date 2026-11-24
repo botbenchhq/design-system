@@ -20,7 +20,7 @@
     { "name": "flat", "use": "One ds-sidebar-nav__items list directly in the nav, with no section and no heading. Use it for five destinations or fewer." }
   ],
   "sizes": [
-    { "name": "default", "use": "220px wide, with each item 44px tall. Shown only at 768px and up." }
+    { "name": "default", "use": "260px wide, the sidebar size, with each item as tall as a row: 40px by default and 44px on a coarse pointer. Shown only at 768px and up." }
   ],
   "states": ["default", "current", "hover", "focus-visible", "active"],
   "accessibility": [

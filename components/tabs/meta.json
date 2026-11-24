@@ -16,7 +16,7 @@
   ],
   "variants": [],
   "sizes": [
-    { "name": "default", "use": "Each tab is 44px tall and as wide as its label, at least 44px. A row wider than its container scrolls sideways inside itself, at any width." }
+    { "name": "default", "use": "Each tab is as tall as a control, 40px by default and 44px on a coarse pointer, and as wide as its label, at least as wide as it is tall. A row wider than its container scrolls sideways inside itself, at any width." }
   ],
   "states": ["default", "selected", "hover", "focus-visible", "active", "loading", "empty", "error"],
   "accessibility": [

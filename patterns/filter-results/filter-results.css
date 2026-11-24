@@ -27,5 +27,6 @@
   /* The count in words, directly above the results it counts. */
   .ds-filter-results__count {
     font-weight: var(--ds-weight-medium);
+    font-variant-numeric: tabular-nums;
   }
 }

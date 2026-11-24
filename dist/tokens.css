@@ -12,18 +12,29 @@
 
 @layer ds.tokens {
   :root {
+    /*
+     * The one interactive colour: the fill of the primary action, and the mark of selection and of work under
+     * way. It is never a status other than working. The focus ring and the info status may hold the same value.
+     */
     --ds-color-accent: #1A1A1A;
     /* The accent while hovered or pressed. */
     --ds-color-accent-hover: #3D3D3A;
     --ds-color-on-accent: #FAFAF9;
+    /* Four levels of surface, each with one role. The page behind everything. */
     --ds-color-surface: #FAFAF9;
+    /* A pane of the app shell: the navigation, the inspector, the tab bar. Nothing else takes it: not a card inside a card, not a decorative panel. */
+    --ds-color-surface-pane: #FDFDFC;
+    /* A card, a dialog, a sheet, a menu, and a control that rests above the page. */
     --ds-color-surface-raised: #FFFFFF;
+    /* A well: a block of code, a diff, command output, a read-only field. */
     --ds-color-surface-sunken: #F3F2EF;
     /* The resting fill of a secondary control: a quiet tone that shows on the page and on a raised card. */
     --ds-color-fill: #ECEBE7;
     --ds-color-on-surface: #171717;
     --ds-color-muted: #737373;
+    /* A hairline: the border of a card, a divider, the edge of a pane. It cannot mark a control. */
     --ds-color-border: #E5E5E5;
+    /* The edge of a control. It holds 3:1 on the page, a pane and a card. */
     --ds-color-border-strong: #8A8A86;
     --ds-color-focus: #1F5C99;
     --ds-color-success: #1E6B3A;
@@ -34,7 +45,7 @@
     --ds-color-danger-subtle: #F9E9E7;
     --ds-color-info: #1F5C99;
     --ds-color-info-subtle: #E6EEF6;
-    /* Waiting on a person's answer: needs input, needs approval. */
+    /* Waiting on a person's answer: needs input, needs approval. A small signal, never a band of background. */
     --ds-color-approval: #984369;
     --ds-color-approval-subtle: #FCE9EF;
     /* Stopped and unable to go on by itself: interrupted, rate limited. */
@@ -50,34 +61,71 @@
     --ds-font-ui: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
     --ds-font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
-    --ds-text-xs: 12px;
-    --ds-text-mono: 13px;
-    --ds-text-ui: 14px;
-    --ds-text-lg: 16px;
-    --ds-text-xl: 20px;
-    --ds-text-2xl: 24px;
+    /*
+     * Seven roles and mono, in rem, so they follow the reader's font-size setting (1rem is 16px unless the reader changed it).
+     * Each has a line height, and the three headings a tracking token. Nothing is smaller than 12px. On a coarse
+     * pointer the sizes are larger: the last block of this file.
+     */
+    /* Label: a tag, a badge, a count, a key, a table head, the tab bar. The smallest size there is. 12px, line 16px. */
+    --ds-text-xs: 0.75rem;
+    /* Metadata: a timestamp, a second line, helper and description text, the label over a group, a small button, a chip. 13px, line 18px. */
+    --ds-text-sm: 0.8125rem;
+    /* A block of code. Inline code in prose is 0.93em of the text around it, set in the base layer. 13px. */
+    --ds-text-mono: 0.8125rem;
+    /* Control: the label of a button or a tab, a row of navigation, a menu, a list or a table, a key and its value. 14px, line 20px. */
+    --ds-text-md: 0.875rem;
+    /* Body: transcript prose, a paragraph, the text of a field. 15px, line 23px. A compact container sets it to the metadata size. */
+    --ds-text-ui: 0.9375rem;
+    /* Sub-heading: the title of a card, a dialog or a section. Weight semibold, with its tracking. 16px, line 22px. */
+    --ds-text-lg: 1rem;
+    /* Heading: a section of a page, the question of a decision. Weight semibold, with its tracking. 20px, line 26px. */
+    --ds-text-xl: 1.25rem;
+    /* Title: the one title of a view. Weight semibold, with its tracking. 28px, line 34px. */
+    --ds-text-2xl: 1.75rem;
 
-    --ds-leading-xs: 1.4;
+    --ds-leading-xs: 1.333;
+    --ds-leading-sm: 1.385;
     --ds-leading-mono: 1.5;
-    --ds-leading-ui: 1.4;
-    --ds-leading-lg: 1.4;
-    --ds-leading-xl: 1.25;
-    --ds-leading-2xl: 1.2;
+    --ds-leading-md: 1.429;
+    --ds-leading-ui: 1.533;
+    --ds-leading-lg: 1.375;
+    --ds-leading-xl: 1.3;
+    --ds-leading-2xl: 1.214;
+
+    /* Letter spacing, for the three headings. Set it wherever the size of the same name is a role's text. */
+    --ds-tracking-lg: -0.01em;
+    --ds-tracking-xl: -0.015em;
+    --ds-tracking-2xl: -0.02em;
 
     --ds-weight-normal: 400;
     --ds-weight-medium: 500;
     --ds-weight-semibold: 600;
 
+    /* The scale is 4, 8, 12, 16, 24, 32 and 48px. Three steps sit between: 2px and 6px inside a small control, 20px the side of a small mark. */
+    --ds-space-2xs: 2px;
     --ds-space-xs: 4px;
+    --ds-space-xs-sm: 6px;
     --ds-space-sm: 8px;
     --ds-space-md: 12px;
     --ds-space-lg: 16px;
+    --ds-space-lg-xl: 20px;
     --ds-space-xl: 24px;
     --ds-space-2xl: 32px;
+    --ds-space-3xl: 48px;
 
-    --ds-radius-sm: 4px;
-    --ds-radius-md: 8px;
-    /* A circle or a pill. */
+    /*
+     * A box inside another takes the step under it: a row or a block inside a card or a menu takes sm, a segment
+     * inside its track takes xs.
+     */
+    /* A tag, a badge, a key, an inline mark, the box of a checkbox, a segment inside its track. */
+    --ds-radius-xs: 6px;
+    /* A control: a button, a field, a select, a toggle, a tab, the track of the segmented control, a row that takes a press. */
+    --ds-radius-sm: 10px;
+    /* A card and what is drawn like one: a code block, a message, an alert, a menu, a popover, a toast. */
+    --ds-radius-md: 12px;
+    /* A dialog, a sheet and the composer box. */
+    --ds-radius-lg: 16px;
+    /* A circle or a pill: a chip, the track of a switch, an avatar, a count, the composer's Send button. */
     --ds-radius-full: 9999px;
 
     --ds-border-width: 1px;
@@ -95,14 +143,37 @@
     --ds-z-dialog: 300;
     --ds-z-toast: 400;
 
+    /*
+     * The fixed heights a size variant names. They do not change with the density: 24px a tag and the smallest
+     * target of a fine pointer, 28px between the two, 32px a small control and a chip, 48px a large one.
+     */
+    --ds-size-control-xs: 24px;
+    --ds-size-control-sm: 28px;
+    --ds-size-control-md: 32px;
+    --ds-size-control-lg: 48px;
+    /* The height of a control of default size. A compact container and a coarse pointer set it: the blocks below. */
+    --ds-size-control: 40px;
+    /* The least height of a row in a list, a menu, a tree or a table. A compact container and a coarse pointer set it. */
+    --ds-size-row: 40px;
+    /* The smallest target on a coarse pointer, such as a finger. On a fine pointer the floor is control-xs. */
     --ds-size-touch: 44px;
+    /* A navigation or list column. */
+    --ds-size-sidebar: 260px;
+    /* A detail column beside the main one. */
+    --ds-size-inspector: 340px;
     --ds-size-column: 480px;
-    --ds-size-transcript: 720px;
+    /* The reading column: a transcript, a review, a form. */
+    --ds-size-transcript: 760px;
     /* A view of dense data, such as a table or a board, that uses the width of a desktop screen. */
     --ds-size-wide: 1200px;
 
-    /* A custom property cannot be used in a media query. Write 768px there. */
+    /*
+     * The three widths a layout changes at. A custom property cannot be used in a media query, so write the
+     * number there: 768px, where the phone layout ends, 1024px, where a second pane fits, and 1280px, a third.
+     */
     --ds-breakpoint: 768px;
+    --ds-breakpoint-lg: 1024px;
+    --ds-breakpoint-xl: 1280px;
   }
 
   [data-theme="dark"] {
@@ -110,6 +181,7 @@
     --ds-color-accent-hover: #CFCFCB;
     --ds-color-on-accent: #171717;
     --ds-color-surface: #141413;
+    --ds-color-surface-pane: #181817;
     --ds-color-surface-raised: #1C1C1A;
     --ds-color-surface-sunken: #0E0E0D;
     --ds-color-fill: #2A2A27;
@@ -143,6 +215,7 @@
       --ds-color-accent-hover: #CFCFCB;
       --ds-color-on-accent: #171717;
       --ds-color-surface: #141413;
+      --ds-color-surface-pane: #181817;
       --ds-color-surface-raised: #1C1C1A;
       --ds-color-surface-sunken: #0E0E0D;
       --ds-color-fill: #2A2A27;
@@ -168,6 +241,41 @@
       --ds-color-tainted: #E39C77;
       --ds-color-tainted-subtle: #311E14;
       --ds-shadow-overlay: 0 8px 24px 0 rgb(0 0 0 / 0.5);
+    }
+  }
+
+  /*
+   * Density: how tall a control and a row are, and how large body text is. :root holds the default, 40px for both
+   * with 15px text. data-ds-density="compact" on a container sets the four density tokens for what is inside it, for
+   * a list, a table or an inventory read with a mouse: 32px controls, 36px rows and the dense text size. It is the
+   * one value of the attribute, it sets nothing else, and a theme cannot set these tokens.
+   */
+  [data-ds-density="compact"] {
+    --ds-size-control: 32px;
+    --ds-size-row: 36px;
+    --ds-text-ui: 0.8125rem;
+    --ds-leading-ui: 1.385;
+  }
+
+  /*
+   * A finger needs the touch size, so on a coarse pointer a control and a row are 44px everywhere, a compact
+   * container included, and a screen held in the hand needs larger type, so every type size is one pixel (0.0625rem)
+   * larger. Two are not: the label of a control takes the body size, 16px, as a phone's own controls
+   * have it, and the title of a view stays as it is, since a narrow screen has no room for a larger one.
+   */
+  @media (pointer: coarse) {
+    :root,
+    [data-ds-density] {
+      --ds-size-control: 44px;
+      --ds-size-row: 44px;
+      --ds-text-xs: 0.8125rem;
+      --ds-text-sm: 0.875rem;
+      --ds-text-mono: 0.875rem;
+      --ds-text-md: 1rem;
+      --ds-text-ui: 1rem;
+      --ds-text-lg: 1.0625rem;
+      --ds-text-xl: 1.3125rem;
+      --ds-leading-ui: 1.5;
     }
   }
 }

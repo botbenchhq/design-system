@@ -15,7 +15,7 @@
   ],
   "variants": [],
   "sizes": [
-    { "name": "default", "use": "44px tall and as wide as its container, with the button at its natural width. Limit the width on the container." }
+    { "name": "default", "use": "As tall as a control, 40px by default and 44px on a coarse pointer, and as wide as its container, with the button at its natural width. Limit the width on the container." }
   ],
   "states": ["default", "focus", "copied", "error"],
   "accessibility": [

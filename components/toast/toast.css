@@ -73,7 +73,7 @@
   /* The one action: a small button. The negative margin keeps a one-line toast as short as it is without one. */
   .ds-toast__action {
     flex: none;
-    margin-block: calc(var(--ds-space-xs) * -1.5);
+    margin-block: calc(var(--ds-space-xs-sm) * -1);
   }
 
   .ds-toast--success::before {

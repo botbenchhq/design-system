@@ -8,17 +8,17 @@
 
 @layer ds.components {
   /*
-   * A date is short, so the control is no wider than five pointer targets, because there is no token
-   * for a control's width. Without the native appearance, iOS keeps the field's height and border.
+   * A date is short, so the control is no wider than half the reading column, and a date with a time
+   * no wider than a sidebar column. Without the native appearance, iOS keeps the field's height and border.
    */
   .ds-date-field {
     appearance: none;
-    max-width: calc(var(--ds-size-touch) * 5);
+    max-width: calc(var(--ds-size-column) / 2);
     font-variant-numeric: tabular-nums;
   }
 
   .ds-date-field[type="datetime-local"] {
-    max-width: calc(var(--ds-size-touch) * 6.5);
+    max-width: var(--ds-size-sidebar);
   }
 
   /* iOS centres the value. It starts where every other field's text starts. */
@@ -34,7 +34,7 @@
     margin-block: calc(var(--ds-space-md) * -1);
     margin-inline: 0 calc(var(--ds-space-md) * -1);
     padding: var(--ds-space-md);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     cursor: pointer;
   }
 

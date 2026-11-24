@@ -7,13 +7,13 @@
 
 @layer ds.components {
   /*
-   * One joined row. A number is short, so the row is no wider than six pointer targets,
-   * because there is no token for a control's width. It is its own stacking context for the focused part below.
+   * One joined row. A number is short, so the row is no wider than half the reading column.
+   * It is its own stacking context for the focused part below.
    */
   .ds-number-field {
     display: flex;
     min-width: 0;
-    max-width: calc(var(--ds-size-touch) * 6);
+    max-width: calc(var(--ds-size-column) / 2);
     isolation: isolate;
   }
 
@@ -53,13 +53,13 @@
   }
 
   .ds-number-field > :first-child {
-    border-start-start-radius: var(--ds-radius-md);
-    border-end-start-radius: var(--ds-radius-md);
+    border-start-start-radius: var(--ds-radius-sm);
+    border-end-start-radius: var(--ds-radius-sm);
   }
 
   .ds-number-field > :last-child {
-    border-start-end-radius: var(--ds-radius-md);
-    border-end-end-radius: var(--ds-radius-md);
+    border-start-end-radius: var(--ds-radius-sm);
+    border-end-end-radius: var(--ds-radius-sm);
   }
 
   .ds-number-field > :not(:first-child) {

@@ -18,8 +18,8 @@
     { "name": "on", "use": "aria-pressed=\"true\". A stronger border, a sunken fill and a bar under the label." }
   ],
   "sizes": [
-    { "name": "default", "use": "44px tall." },
-    { "name": "small", "class": "ds-button--small", "use": "The button component's small size: drawn 32px tall for a toolbar, with a 44px pointer target. Lay small toggles out with ds-cluster ds-gap-md, so the targets of two wrapped rows do not overlap." }
+    { "name": "default", "use": "As tall as a control: 40px by default and 44px on a coarse pointer." },
+    { "name": "small", "class": "ds-button--small", "use": "The button component's small size: drawn 32px tall for a toolbar, with a 44px pointer target on a coarse pointer. Lay small toggles out with ds-cluster ds-gap-lg, so the targets of two wrapped rows do not overlap." }
   ],
   "states": ["default", "pressed", "hover", "focus-visible", "active", "disabled"],
   "accessibility": [

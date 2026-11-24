@@ -11,15 +11,18 @@
     align-items: center;
     justify-content: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-size-touch);
-    padding: var(--ds-space-xs) var(--ds-space-lg);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control);
+    /* The block padding is what one line of the label leaves of the height, so a label of two lines keeps the same space above and below. */
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-md) * var(--ds-leading-md)) / 2 - var(--ds-border-width));
+    padding-inline: var(--ds-space-lg);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-fill);
     color: var(--ds-color-on-surface);
+    font-size: var(--ds-text-md);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-ui);
+    line-height: var(--ds-leading-md);
     text-align: center;
     transition-property: background-color, border-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -44,23 +47,37 @@
     color: var(--ds-color-danger);
   }
 
+  /*
+   * The sizes are fixed heights: they do not follow the density, so a small button is 32px in every container.
+   * At that height the label is the metadata size, and the icon sits 6px from it.
+   */
   .ds-button--small {
-    min-height: var(--ds-space-2xl);
+    min-height: var(--ds-size-control-md);
+    gap: var(--ds-space-xs-sm);
+    padding-block: calc((var(--ds-size-control-md) - var(--ds-text-sm) * var(--ds-leading-sm)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
-    border-radius: var(--ds-radius-sm);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+  }
+
+  /* Never shorter than a button of default size, which on a coarse pointer is the taller of the two. */
+  .ds-button--large {
+    min-height: max(var(--ds-size-control-lg), var(--ds-size-control));
   }
 
   /*
-   * The small button is drawn 32px tall. This invisible box, centred on it,
-   * keeps its pointer target at the touch size without making a dense row taller.
+   * A finger needs more than the 32px the small button is drawn with. On a coarse pointer this invisible box,
+   * centred on it, keeps its pointer target at the touch size without making a dense row taller.
    */
-  .ds-button--small::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  @media (pointer: coarse) {
+    .ds-button--small::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
   .ds-button__icon {

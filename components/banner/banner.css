@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: flex-end;
     gap: var(--ds-space-xs) var(--ds-space-sm);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding: var(--ds-space-xs) var(--ds-space-lg);
     border-bottom-width: var(--ds-border-width);
     background-color: var(--ds-color-info-subtle);
@@ -66,25 +66,27 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    width: var(--ds-space-2xl);
-    height: var(--ds-space-2xl);
+    width: var(--ds-size-control-md);
+    height: var(--ds-size-control-md);
     margin-inline-end: calc(var(--ds-space-sm) * -1);
     border-radius: var(--ds-radius-sm);
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }
 
   /*
-   * The dismiss button is drawn 32px square. This invisible box, centred on it,
+   * The dismiss button is drawn 32px square. On a coarse pointer this invisible box, centred on it,
    * keeps its pointer target at the touch size without making the banner taller.
    */
-  .ds-banner__dismiss::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: var(--ds-size-touch);
-    height: var(--ds-size-touch);
-    translate: -50% -50%;
+  @media (pointer: coarse) {
+    .ds-banner__dismiss::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: var(--ds-size-touch);
+      height: var(--ds-size-touch);
+      translate: -50% -50%;
+    }
   }
 
   .ds-banner__icon {

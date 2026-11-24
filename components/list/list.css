@@ -7,6 +7,8 @@
   .ds-list {
     display: flex;
     flex-direction: column;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   .ds-list__row {
@@ -29,11 +31,11 @@
     align-items: center;
     gap: var(--ds-space-md);
     min-width: 0;
-    padding: var(--ds-space-md) var(--ds-space-sm);
+    padding: calc((var(--ds-size-row) - var(--ds-text-md) * var(--ds-leading-md)) / 2) var(--ds-space-sm);
   }
 
   .ds-list__link {
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     transition: background-color var(--ds-duration-fast) var(--ds-ease);
   }
 
@@ -58,8 +60,8 @@
 
   .ds-list__secondary {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -69,21 +71,22 @@
     align-items: center;
     gap: var(--ds-space-sm);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
 
-  /* As tall as a pointer target, so a small button's padded hit area never reaches into the next row. */
+  /* As tall as a row, so on a coarse pointer a small button's padded hit area never reaches into the next row. */
   .ds-list__action {
     display: flex;
     flex: none;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
   }
 
   /*
-   * A dense row is drawn with 4px above and below its text. A link in it is still 44px tall,
+   * A dense row is drawn with 4px above and below its text. A link in it is still as tall as a row,
    * so a dense row that navigates never has a smaller pointer target than a default one.
    */
   .ds-list--dense .ds-list__content,

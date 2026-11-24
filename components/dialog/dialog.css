@@ -17,7 +17,7 @@
     margin: auto;
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-lg);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     box-shadow: var(--ds-shadow-overlay);
@@ -43,7 +43,9 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   .ds-dialog__body {

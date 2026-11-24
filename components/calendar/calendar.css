@@ -6,16 +6,16 @@
 
 @layer ds.components {
   /*
-   * Seven columns of one pointer target each where there is room. It fills a phone's width and stops growing after that.
-   * On a narrower screen, such as a phone zoomed in, the columns narrow to fit and each day stays 44px tall.
+   * Seven columns, each as wide as a control is tall, where there is room. It fills a phone's width and stops growing
+   * after that. On a narrower screen, such as a phone zoomed in, the columns narrow to fit and each day keeps its height.
    */
   .ds-calendar {
     display: flex;
     flex-direction: column;
     gap: var(--ds-space-sm);
     width: 100%;
-    min-width: min(calc(var(--ds-size-touch) * 7), 100%);
-    max-width: calc(var(--ds-size-touch) * 8);
+    min-width: min(calc(var(--ds-size-control) * 7), 100%);
+    max-width: calc(var(--ds-size-control) * 8);
   }
 
   .ds-calendar__header {
@@ -45,7 +45,7 @@
     height: var(--ds-space-2xl);
     color: var(--ds-color-muted);
     font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-medium);
+    font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-xs);
     text-align: center;
   }
@@ -57,7 +57,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     border-radius: var(--ds-radius-sm);
     font-variant-numeric: tabular-nums;
     transition-property: background-color, color;
@@ -76,7 +76,7 @@
     inset: var(--ds-space-xs);
     border-width: var(--ds-border-width);
     border-color: currentColor;
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
   }
 
   @media (hover: hover) {
@@ -117,7 +117,7 @@
   /* The chosen day in words, under the month. */
   .ds-calendar__status {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 }

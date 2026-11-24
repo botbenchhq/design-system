@@ -7,6 +7,7 @@
 @layer ds.components {
   .ds-breadcrumb {
     min-width: 0;
+    font-size: var(--ds-text-md);
   }
 
   /* Pulled back by the first link's padding, so its text starts on the content's edge. */
@@ -35,7 +36,7 @@
 
   /* An item that holds a link never gets narrower than its chevron and a pointer target. */
   .ds-breadcrumb__item:not(:first-child, :last-child) {
-    min-width: calc(var(--ds-space-lg) + var(--ds-size-touch));
+    min-width: calc(var(--ds-space-lg) + var(--ds-size-control));
   }
 
   .ds-breadcrumb__item + .ds-breadcrumb__item::before {
@@ -57,13 +58,13 @@
     min-width: 0;
     padding-inline: var(--ds-space-xs);
     overflow: hidden;
-    line-height: var(--ds-size-touch);
+    line-height: var(--ds-size-control);
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .ds-breadcrumb__link {
-    min-width: var(--ds-size-touch);
+    min-width: var(--ds-size-control);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
     text-align: center;
@@ -79,7 +80,7 @@
 
   /* Two pointer targets wide at most, on a phone. The first item and the current page keep their text. */
   .ds-breadcrumb__item:not(:first-child, :last-child) > .ds-breadcrumb__link {
-    max-width: calc(var(--ds-size-touch) * 2);
+    max-width: calc(var(--ds-size-control) * 2);
   }
 
   @media (min-width: 768px) {

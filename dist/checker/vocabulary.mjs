@@ -22,7 +22,8 @@ export function loadVocabulary(manifestPath) {
 
   return {
     classPrefix: `${manifest.prefix}-`,
-    breakpoint: manifest.breakpoint,
+    // Every width a media query may use. A manifest from before 0.12 has one.
+    breakpoints: manifest.breakpoints ?? [manifest.breakpoint],
     tokens: manifest.tokens,
     tokenNames: new Set(Object.values(manifest.tokens).flat()),
     tokenValues,
@@ -59,14 +60,25 @@ export function nearestName(name, candidates) {
   return best === null ? null : best.candidate;
 }
 
-// The token in a category whose default value is numerically closest, as a var() reference.
+// A token's default value as a number: a length in pixels, with a rem taken as 16px, and anything else as written.
+function amountOf(value) {
+  const [, amount, unit] = String(value).match(/^(-?[\d.]+)(rem)?/) ?? [];
+  return amount === undefined ? NaN : Number(amount) * (unit ? 16 : 1);
+}
+
+// The token in a category whose default value is numerically closest, as a var() reference. A length is compared in pixels.
 export function nearestNumericToken(vocabulary, category, amount) {
   let best = null;
   for (const name of vocabulary.tokens[category] ?? []) {
-    const distance = Math.abs(parseFloat(vocabulary.tokenValues.get(name)) - amount);
+    const distance = Math.abs(amountOf(vocabulary.tokenValues.get(name)) - amount);
     if (!Number.isNaN(distance) && (best === null || distance < best.distance)) best = { name, distance };
   }
   return best === null ? null : `var(${best.name})`;
+}
+
+// Whether an amount is exactly the default value of a token in a category.
+export function isTokenAmount(vocabulary, category, amount) {
+  return (vocabulary.tokens[category] ?? []).some((name) => amountOf(vocabulary.tokenValues.get(name)) === amount);
 }
 
 function rgbOf(text) {

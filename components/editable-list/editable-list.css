@@ -24,7 +24,7 @@
     align-items: flex-start;
     gap: var(--ds-space-sm);
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     counter-increment: ds-editable-list;
   }
 
@@ -37,7 +37,7 @@
     content: counter(ds-editable-list) ".";
     flex: none;
     min-width: var(--ds-space-xl);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     color: var(--ds-color-muted);
     font-variant-numeric: tabular-nums;
   }
@@ -45,7 +45,7 @@
   .ds-editable-list__text {
     flex: 1;
     min-width: 0;
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     overflow-wrap: anywhere;
   }
 
@@ -54,7 +54,7 @@
     display: flex;
     flex: none;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
   }
 
   /* The form a row holds while it is edited: the field, then Save and Cancel under it. */

@@ -16,7 +16,7 @@
   ],
   "variants": [],
   "sizes": [
-    { "name": "default", "use": "Each summary is at least 44px tall and as wide as the set, with a rule between sections and above and below the set." }
+    { "name": "default", "use": "Each summary is at least as tall as a row, 40px by default and 44px on a coarse pointer, and as wide as the set, with a rule between sections and above and below the set." }
   ],
   "states": ["default", "open", "hover", "focus-visible", "active"],
   "accessibility": [

@@ -17,7 +17,7 @@
     padding-bottom: env(safe-area-inset-bottom);
     border-top-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md) var(--ds-radius-md) 0 0;
+    border-radius: var(--ds-radius-lg) var(--ds-radius-lg) 0 0;
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     box-shadow: var(--ds-shadow-overlay);
@@ -61,7 +61,9 @@
     font-size: var(--ds-text-lg);
     font-weight: var(--ds-weight-semibold);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
     overflow-wrap: anywhere;
+    text-wrap: balance;
   }
 
   /* An optional form around the body and the footer, when the footer's button submits the body's fields. */

@@ -33,10 +33,13 @@ Review each screen at 390px and at 1280px, in light and in dark.
 16. Is every piece of information reachable without hover?
 17. Does the shadow token appear only on overlays?
 18. Does the navigation list only screens that exist?
+19. Is the interactive colour used only for the primary action, focus, selection and active work? Evidence: name anything else drawn in it.
+20. Is amber only a small mark on what waits on a person, never a band or the fill of a panel?
+21. Is all text 12px or larger, with group labels in sentence case?
 
 ## Fit with the system
 
-19. Is each component used for the purpose `components.json` gives it, and not for one of its "when not to use" cases?
-20. Is every declared gap a real gap? Evidence: for each one, name the nearest catalogue component and say why it does not fit.
-21. Does every waiver give a reason that still holds?
-22. Would this screen sit beside the app's other screens without looking like a different product?
+22. Is each component used for the purpose `components.json` gives it, and not for one of its "when not to use" cases?
+23. Is every declared gap a real gap? Evidence: for each one, name the nearest catalogue component and say why it does not fit.
+24. Does every waiver give a reason that still holds?
+25. Would this screen sit beside the app's other screens without looking like a different product?

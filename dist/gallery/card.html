@@ -93,6 +93,18 @@
   </section>
 </div>
 </figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Borderless: a decorative panel set apart by its fill alone</h3>
+</figcaption>
+<div data-example="borderless" data-title="Borderless: a decorative panel set apart by its fill alone">
+  <div class="ds-card ds-card--borderless">
+    <div class="ds-card__body">
+      <p>4 tasks finished since yesterday. Nothing in this panel needs an answer.</p>
+    </div>
+  </div>
+</div>
+</figure>
 <figure data-gallery="do">
 <figcaption>
 <h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Two different sections, each laid out by what it holds</h3>
@@ -215,6 +227,8 @@
 <dl>
 <dt>bordered</dt>
 <dd>The default, with no modifier class. A 1px border on the raised surface.</dd>
+<dt>borderless <code>ds-card--borderless</code></dt>
+<dd>The raised surface with no border, for a decorative panel only: a summary or a specimen that is set apart by its fill and loses nothing if the fill is missed. In dark the raised surface is a small step from the page, so never use it for a section a reader has to find, for a pane of the app shell, or for anything that takes a press.</dd>
 <dt>sunken <code>ds-card--sunken</code></dt>
 <dd>A background shift with no border. Keep quiet, muted text out of it: the muted colour does not reach 4.5:1 on the sunken surface in the light theme.</dd>
 </dl>
@@ -223,9 +237,9 @@
 <h2>Accessibility</h2>
 <ul>
 <li>Use a section with aria-labelledby pointing at ds-card__title when the card has a title, so it is a named region. Give each card on a view a different title. Use a div for a card with no title.</li>
-<li>ds-card__title is a heading. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2. In a queue or a list every title takes the same level. The class sets the size, so the level changes nothing on screen. It is drawn at the size of body text whatever its level.</li>
+<li>ds-card__title is a heading. Its level is the one under the heading it sits beneath: h2 directly under the view's h1, h3 inside a section headed by an h2. In a queue or a list every title takes the same level. The class sets the size, so the level changes nothing on screen. It is drawn at the title size, 16px, whatever its level.</li>
 <li>The header holds at most one action, in ds-card__action: a small quiet button or a link with the same classes. It is never primary. When several cards carry the same words, add an aria-label that starts with those words and names the card.</li>
-<li>The header is 44px tall, so the small button's padded pointer target stays inside it.</li>
+<li>The header is as tall as a row, 44px on a coarse pointer, so the small button's padded pointer target stays inside it there.</li>
 <li>A card is not focusable and takes no press. To make something pressable, put a link or a button inside it.</li>
 <li>The card needs no script.</li>
 </ul>
@@ -234,6 +248,7 @@
 <h2>Classes</h2>
 <ul>
 <li><code>ds-card</code></li>
+<li><code>ds-card--borderless</code></li>
 <li><code>ds-card--sunken</code></li>
 <li><code>ds-card__action</code></li>
 <li><code>ds-card__body</code></li>

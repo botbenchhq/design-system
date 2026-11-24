@@ -33,7 +33,7 @@
   [data-gallery="bar"] a {
     display: inline-flex;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-control);
     padding-inline: var(--ds-space-sm);
     font-weight: var(--ds-weight-medium);
   }
@@ -70,6 +70,7 @@
     margin-bottom: var(--ds-space-md);
     font-size: var(--ds-text-lg);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
   }
 
   [data-gallery="status"],
@@ -200,7 +201,7 @@
     display: inline-flex;
     align-items: center;
     min-width: var(--ds-size-column);
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     font-weight: var(--ds-weight-medium);
     text-decoration-line: underline;
     text-underline-offset: var(--ds-space-xs);

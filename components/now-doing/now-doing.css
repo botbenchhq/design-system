@@ -11,7 +11,7 @@
     align-items: center;
     column-gap: var(--ds-space-md);
     min-width: 0;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     padding-inline: var(--ds-space-md);
   }
 
@@ -31,7 +31,7 @@
    * The mark is drawn before the first word, from the state, so it wraps with the text and never stands alone.
    */
   .ds-now-doing__text {
-    flex: 1 1 calc(var(--ds-size-touch) * 5);
+    flex: 1 1 calc(var(--ds-size-column) / 2);
     min-width: 0;
     padding-block: var(--ds-space-sm);
     overflow-wrap: anywhere;
@@ -65,7 +65,7 @@
   /* The time so far, in the interface font with figures of one width. It counts up, and is never announced. */
   .ds-now-doing__elapsed {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
@@ -74,7 +74,7 @@
   .ds-now-doing__link {
     display: inline-flex;
     align-items: center;
-    min-height: var(--ds-size-touch);
+    min-height: var(--ds-size-row);
     border-radius: var(--ds-radius-sm);
     font-weight: var(--ds-weight-medium);
     text-decoration-line: underline;

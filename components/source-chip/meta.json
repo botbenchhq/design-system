@@ -19,7 +19,7 @@
     { "name": "commit", "use": "The git-commit-horizontal icon and the short hash in ds-source-chip__end, after a ds-visually-hidden span reading Commit." }
   ],
   "sizes": [
-    { "name": "default", "use": "Drawn 32px tall. Its pointer target is 44px tall through a padded hit area." }
+    { "name": "default", "use": "Drawn 32px tall at every density. On a coarse pointer its pointer target is 44px tall through a padded hit area." }
   ],
   "states": ["default", "hover", "focus-visible", "active"],
   "accessibility": [
@@ -28,7 +28,7 @@
     "Split a path at its last slash, with no white space between the two spans: the start part ends in an ellipsis when room runs out, and the end part, the file name, stays whole until the chip is narrower than the name.",
     "Write a line range in words, such as line 118 or lines 42–58, in ds-source-chip__detail.",
     "The icon alone does not say the kind to a screen reader. A path and a host say it themselves. For a commit, start the text with a ds-visually-hidden span reading Commit.",
-    "Several chips are li elements of a ul with the class ds-source-chip__list, so a screen reader announces how many there are. Its 12px gap keeps the 44px pointer targets of two rows apart. Outside that list, leave at least 12px above and below a chip.",
+    "Several chips are li elements of a ul with the class ds-source-chip__list, so a screen reader announces how many there are. On a coarse pointer its 12px gap keeps the 44px pointer targets of two rows apart. Outside that list, leave at least 12px above and below a chip.",
     "Tab reaches each chip and Enter follows it. The component needs no script."
   ],
   "icons": ["external-link", "file", "git-commit-horizontal"],

@@ -106,7 +106,7 @@ What the two modules do, a framework app does in its own components:
 | `approval.tsx` | `Approval`, the approval card, with Allow and Decline as busy buttons. |
 | `use-transcript.ts` | `useTranscript`, which follows a transcript as `behaviors/transcript.js` does. |
 
-`react/busy-button.tsx` is `BusyButton`, a button with the system's classes and a busy state. It takes `variant` (`primary`, `secondary`, `quiet` or `danger`), `size` (`default` or `small`), an optional `icon` name with `spriteHref` for where the app serves `icons.svg`, and every attribute of a native button. It is `type="button"` unless given another type, and takes a `ref`. While `busy` is true it sets `aria-busy="true"` and ignores presses from the pointer and the keyboard. It stays enabled, so focus stays on it. What it says while busy depends on its label:
+`react/busy-button.tsx` is `BusyButton`, a button with the system's classes and a busy state. It takes `variant` (`primary`, `secondary`, `quiet` or `danger`), `size` (`default`, `small` or `large`, and `default`, `small` or `xsmall` for an icon-only button), an optional `icon` name with `spriteHref` for where the app serves `icons.svg`, and every attribute of a native button. It is `type="button"` unless given another type, and takes a `ref`. While `busy` is true it sets `aria-busy="true"` and ignores presses from the pointer and the keyboard. It stays enabled, so focus stays on it. What it says while busy depends on its label:
 
 - With words as children, it shows `busyLabel` in place of them.
 - With an `icon` and an `aria-label` and no children, it is an icon button: it carries `ds-icon-button`, and while busy `busyLabel` becomes its name and no words are shown.
@@ -232,7 +232,7 @@ The app's CSS entry is then only this:
 @tailwind utilities;
 ```
 
-The preset replaces every Tailwind scale with token names. In screen markup, utilities are for layout, spacing and sizing only: `flex`, `gap-md`, `p-lg`, `w-full`, `md:grid-cols-2`. A colour, border, radius, shadow or type utility is a finding. `md:` is the only variant, at 768px.
+The preset replaces every Tailwind scale with token names. In screen markup, utilities are for layout, spacing and sizing only: `flex`, `gap-md`, `p-lg`, `w-full`, `md:grid-cols-2`. A colour, border, radius, shadow or type utility is a finding. The variants are the three breakpoints and no other: `md:` at 768px, `lg:` at 1024px and `xl:` at 1280px.
 
 ## 3. Add the config file and the gaps file
 
@@ -485,7 +485,7 @@ node vendor/design-system/migrate-prefix.mjs .
 
 ## 12. Themes
 
-A theme changes the values of the system's tokens and nothing else: colours, radii, any token. It cannot add a token name, so every component, utility and check works the same under it. The copy holds each theme in `themes/`. The system ships one, `botbench`.
+A theme changes the values of the system's tokens and nothing else: its colours, its two font stacks and its shadow. It cannot add a token name, and it cannot set a type size, a line height, a tracking, a radius or the density, so every component, utility and check works the same under it and a button has the same shape in every app. The copy holds each theme in `themes/`. The system ships one, `botbench`.
 
 | File | Holds |
 |---|---|
@@ -532,14 +532,14 @@ With no `data-theme`, the theme's stylesheet also sets `color-scheme` for its de
 Take the browser's `theme-color` from `themes/<name>.json`, where `themeColor.light` and `themeColor.dark` are the theme's page backgrounds. An app that always shows one mode, such as Botbench in its dark default mode, ships one tag, with that mode's colour:
 
 ```html
-<meta name="theme-color" content="#121417">
+<meta name="theme-color" content="#111316">
 ```
 
 Ship two, one for each system setting, only when the app offers a choice of mode and follows the system with `data-theme="auto"`:
 
 ```html
-<meta name="theme-color" content="#121417" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111316" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F5F6F7" media="(prefers-color-scheme: light)">
 ```
 
 Run the accessibility scan from step 6 in both modes under the theme, as without one.
@@ -551,9 +551,37 @@ A theme is written in the design system's repo, never in an app. Add `themes/<na
 The build stops, naming the theme, when:
 
 - it sets a name that is not a token;
+- it sets `--ds-size-control`, `--ds-size-row`, `--ds-text-ui` or `--ds-leading-ui`, or holds a block for `data-ds-density`: the density is the same under every theme;
+- it sets a type size, a line height, a tracking or a radius: those scales are the same under every theme;
 - it has no light values or no dark values, or its dark and auto blocks differ;
 - it sets a colour for light alone that the default theme sets for both modes, since that value would then apply in dark as well;
 - a colour is not six-digit hex, or the default mode is not light or dark;
-- a pair in `tokens/pairs.json` falls below its minimum in either mode, with the theme's values where it sets them and the default values where it does not. The message names the theme, the pair, the mode and the ratio.
+- a pair in `tokens/pairs.json` falls below its minimum in either mode, with the theme's values where it sets them and the default values where it does not. The message names the theme, the pair, the mode and the ratio. A pair with a `themes` list is checked for the themes it names and no other: it records what one theme holds beyond the rest, and a component relies only on a pair with no list.
 
 The build then writes the four files above for the theme into `dist/themes/`. Sync copies them into the app and records their hashes in `hashes.json`, like every other file.
+
+## 13. Density, type and breakpoints
+
+A control of default size and a row take their height from two tokens, `--ds-size-control` and `--ds-size-row`, and body text takes its size and line height from `--ds-text-ui` and `--ds-leading-ui`. By default a control and a row are 40px tall and body text is 15px on a 23px line. `data-ds-density` on a container has one value, `compact`, for a list, a table or an inventory of work read with a mouse:
+
+| | Control | Row | Body text | For |
+|---|---|---|---|---|
+| The default, with no attribute | 40px | 40px | 15px on a 23px line | Everything on a screen with a mouse or a trackpad |
+| `data-ds-density="compact"` | 32px | 36px | 13px on an 18px line | A list, a table or a toolbar with many rows or controls |
+| A coarse pointer, whatever the attribute says | 44px | 44px | 16px on a 24px line | A phone, a tablet |
+
+```html
+<section data-ds-density="compact">
+  <button type="button" class="ds-button">Rerun checks</button>
+</section>
+```
+
+On a coarse pointer, such as a phone, every control and row is 44px and each type size is one pixel larger, so an app sets nothing for a phone. Two sizes differ: the label of a control is the body size there, 16px, and the title of a view stays 28px. A pointer target is never smaller than 44px each way there, and never smaller than 24px on a fine pointer: the 44px rule is for coarse pointers. Do not set a height on a system control to undo either.
+
+Type is seven sizes, none under 12px: 12px for a tag, a count or a table head, 13px for metadata, helper text and the label over a group, 14px for the label of a button or a tab and for a row, 15px for body text, and 16, 20 and 28px for a sub-heading, a heading and the title of a view. They are in rem: a reader who set a larger font size in the browser gets every size larger in proportion, and an app that sets a font size on the root element changes every size with it. Write no size by hand, and never set a label in capitals.
+
+A size variant is a fixed height in every container: `ds-button--small` is 32px and `ds-button--large` 48px, `ds-icon-button--small` 32px square and `ds-icon-button--xsmall` 24px square. On a coarse pointer each is drawn the same and takes a press on a 44px area around it, so leave 12px or more between two small icon buttons.
+
+A layout changes at three widths: 768px, where the phone layout ends, 1024px, where a second pane fits, and 1280px, where a third does. A media query in the app's CSS writes one of those numbers, and the checker's `off-breakpoint` rule reports any other. With the Tailwind preset the variants are `md:`, `lg:` and `xl:`. A container query may use any width. The system's components change at 768px alone, so the panes of a screen are the app's to arrange: judge each layout by the width it leaves the main column.
+
+`manifest.json` lists the density values under `density`, the coarse-pointer type sizes under `coarsePointer` and the widths under `breakpoints`; `tokens.json` carries them on the four density tokens and each type size, and `design-tokens.md` under `density`, `typography-coarse-pointer` and `breakpoints`. With the Tailwind preset, `h-control`, `min-h-row` and `w-sidebar` read the same tokens.

@@ -35,32 +35,46 @@ const overflow = (page) =>
     return { scroll: root.scrollWidth - root.clientWidth, past };
   });
 
-for (const name of pages) {
-  test(`${name} at ${NARROW}px: the page has no horizontal scroll`, async ({ page }) => {
-    await openGallery(page, server.origin, name, { width: NARROW });
-    const { scroll, past } = await overflow(page);
-    expect(scroll, past.join("\n")).toBe(0);
+// A screen this narrow is a desktop window zoomed in, with a fine pointer, or a phone zoomed in, with a coarse one,
+// where every control is the touch size. Playwright's hasTouch makes (pointer: coarse) match in each engine.
+for (const pointer of ["fine", "coarse"]) {
+  test.describe(() => {
+    test.use({ hasTouch: pointer === "coarse" });
+
+    for (const name of pages) {
+      test(`${name} at ${NARROW}px with a ${pointer} pointer: the page has no horizontal scroll`, async ({ page }) => {
+        await openGallery(page, server.origin, name, { width: NARROW });
+        expect(await page.evaluate(() => matchMedia("(pointer: coarse)").matches)).toBe(pointer === "coarse");
+        const { scroll, past } = await overflow(page);
+        expect(scroll, past.join("\n")).toBe(0);
+      });
+    }
   });
 }
 
-test(`the calendar at ${NARROW}px shows all seven columns and both month buttons, with days still 44px tall`, async ({ page }) => {
-  await openGallery(page, server.origin, "calendar", { width: NARROW });
-  const calendar = page.locator('[data-example="default"] .ds-calendar');
-  const layout = await calendar.evaluate((element) => {
-    const edge = document.documentElement.clientWidth;
-    const headers = [...element.querySelectorAll("thead th")].map((th) => th.getBoundingClientRect());
-    const buttons = [...element.querySelectorAll(".ds-calendar__header button")].map((button) => button.getBoundingClientRect());
-    const days = [...element.querySelectorAll(".ds-calendar__day")].map((day) => day.getBoundingClientRect().height);
-    return { edge, columns: headers.length, lastColumn: headers.at(-1).right, buttons: buttons.map((box) => [box.left, box.right]), shortest: Math.min(...days) };
+test.describe(() => {
+  test.use({ hasTouch: true });
+
+  test(`the calendar at ${NARROW}px with a coarse pointer shows all seven columns and both month buttons, with days still 44px tall`, async ({ page }) => {
+    await openGallery(page, server.origin, "calendar", { width: NARROW });
+    expect(await page.evaluate(() => matchMedia("(pointer: coarse)").matches)).toBe(true);
+    const calendar = page.locator('[data-example="default"] .ds-calendar');
+    const layout = await calendar.evaluate((element) => {
+      const edge = document.documentElement.clientWidth;
+      const headers = [...element.querySelectorAll("thead th")].map((th) => th.getBoundingClientRect());
+      const buttons = [...element.querySelectorAll(".ds-calendar__header button")].map((button) => button.getBoundingClientRect());
+      const days = [...element.querySelectorAll(".ds-calendar__day")].map((day) => day.getBoundingClientRect().height);
+      return { edge, columns: headers.length, lastColumn: headers.at(-1).right, buttons: buttons.map((box) => [box.left, box.right]), shortest: Math.min(...days) };
+    });
+    expect(layout.columns).toBe(7);
+    expect(layout.lastColumn).toBeLessThanOrEqual(layout.edge);
+    expect(layout.buttons).toHaveLength(2);
+    for (const [left, right] of layout.buttons) {
+      expect(left).toBeGreaterThanOrEqual(0);
+      expect(right).toBeLessThanOrEqual(layout.edge);
+    }
+    expect(layout.shortest).toBeGreaterThanOrEqual(TOUCH);
   });
-  expect(layout.columns).toBe(7);
-  expect(layout.lastColumn).toBeLessThanOrEqual(layout.edge);
-  expect(layout.buttons).toHaveLength(2);
-  for (const [left, right] of layout.buttons) {
-    expect(left).toBeGreaterThanOrEqual(0);
-    expect(right).toBeLessThanOrEqual(layout.edge);
-  }
-  expect(layout.shortest).toBeGreaterThanOrEqual(TOUCH);
 });
 
 test(`an open split-button menu stays inside a ${NARROW}px screen, drawn open in the gallery and opened on a page of its own`, async ({ page }) => {

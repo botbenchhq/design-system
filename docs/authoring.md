@@ -34,14 +34,67 @@ Nothing else needs editing. `npm run build` reads every folder and adds the comp
 - Every rule is inside `@layer ds.components`.
 - Class names are `ds-<name>` for the block, `ds-<name>__part` for an element inside it and `ds-<name>--variant` for a variant or size. A stylesheet defines no class outside its own name.
 - One element may carry the classes of two components when one composes the other. A textarea and a select are the control of a field, so each sits on the same element as `ds-field__control` and adds to it. The build bundles component stylesheets in alphabetical order of folder name, and such a pair relies on that order: the component that adds must sort after the one it builds on.
-- Values are tokens: `var(--ds-…)` for every colour, font, type size, spacing, radius, shadow, duration and layer. Do not write a raw colour or length where a token exists, and do not declare a custom property. A calculation on a token is allowed, such as `calc(var(--ds-border-width) * 2)`.
+- Values are tokens: `var(--ds-…)` for every colour, font, type size, line height, tracking, spacing, radius, shadow, duration and layer. Do not write a raw colour or length where a token exists, and do not declare a custom property. A calculation on a token is allowed, such as `calc(var(--ds-border-width) * 2)`, but not to reach a value the scale already has: write `var(--ds-space-lg-xl)`, not `calc(var(--ds-space-lg) + var(--ds-space-xs))`.
 - No gradient, blur, backdrop filter, blend mode or text clipped to a background.
-- The only width in a media query is 768px, written as the number: `@media (min-width: 768px)`. Style the compact layout first.
+- The only width in a component's media query is 768px, written as the number: `@media (min-width: 768px)`. Style the compact layout first. The system has two more breakpoints, 1024px and 1280px, where a second and a third pane fit: they are for the layout of a screen, so only a page pattern uses them, and a test fails on a component that does. A container query may use any width, since it measures the room the component has, not the screen.
 - Do not restyle the focus ring. The base layer draws one ring for every focusable element.
 - Put hover styles inside `@media (hover: hover)`, so a touch screen does not keep them after a tap.
 - A transition names its properties and takes its duration and easing from tokens. Anything that animates on its own stops under `@media (prefers-reduced-motion: reduce)`.
 - Text inherits `overflow-wrap: break-word` from the base layer, so a long unbroken word breaks inside a block. That is not enough for an element that is only as wide as its text, or for text that is a flex item beside an icon: give those `overflow-wrap: anywhere` as well, as `ds-alert__body` and `ds-field__error` do. A browser test puts a 90-character path in the places a message lands and fails when the page scrolls sideways at 390px.
 - An icon the stylesheet draws itself is a mask over `currentColor`, from a single icon file: `mask: url("icons/loader.svg") center / contain no-repeat`. The path is relative to `dist/design-system.css`.
+
+### Colour
+
+- There is one interactive colour, `--ds-color-accent`. It is used for the primary action, focus, selection and active work, and never for a status that is not "working". The focus ring (`--ds-color-focus`) and the working status (`--ds-color-info`) are tokens of their own, which a theme may give the same value: the Botbench theme does. A tooltip, a count or a finished step is none of the four, so it takes another token.
+- A surface is one of four levels, each with one role: `--ds-color-surface` is the page, `--ds-color-surface-pane` a pane of the app shell (the sidebar nav, the inspector, the tab bar, and nothing else, which a test checks), `--ds-color-surface-raised` a card, a dialog, a sheet or a control that rests above the page, and `--ds-color-surface-sunken` a well: a block of code, a diff, command output, a read-only field. `--ds-color-fill` is the tone of a secondary control, a chip and a selected row.
+- `--ds-color-border` is a hairline, for a card, a divider and the edge of a pane. A pane keeps its hairline in both modes, since in dark the page and the pane are a small step apart. `--ds-color-border-strong` is the edge of a control and holds 3:1; the hairline cannot mark a control.
+- The approval tone is a small signal for what waits on a person: a mark, a badge, a count. It is never the fill of a band or a whole panel.
+- A text and background combination a component draws has a pair in `tokens/pairs.json` with no `themes` list, so every theme passes it. Secondary text (`--ds-color-muted`) has such a pair on the page, a pane and a card only: keep it off the sunken surface, the fill and the tints.
+
+### Type
+
+Text takes one of seven roles. A role is a size token with the line height of the same name, and the three headings have a tracking token and a weight as well. The sizes are in rem, so they follow the font size the reader chose in the browser: the pixels below are at the usual 16px root. Nothing is under 12px, and the build fails on a type token that is.
+
+| Role | Tokens | Size, line | Weight, tracking | Use it for |
+|---|---|---|---|---|
+| Label | `--ds-text-xs`, `--ds-leading-xs` | 12px, 16px | normal; semibold for a table head | A badge, a tag, a key, a count, a table head, the tab bar, a tooltip. The smallest size there is. |
+| Metadata | `--ds-text-sm`, `--ds-leading-sm` | 13px, 18px | normal; semibold for the label over a group | A timestamp, a duration, the second line of a row. Helper text: the description of a field, a settings row, a checkbox, a radio, a switch or an option, a hint, a caveat. The label over a group: in a menu, a listbox, a sidebar or an inspector, the term over a value, the label of a figure. A small button, a chip, and an option of the segmented control. |
+| Control | `--ds-text-md`, `--ds-leading-md` | 14px, 20px | normal; medium for a button and a tab | The label of a button or a tab, a row of a list, a menu, a tree, a sidebar or a table, a breadcrumb, a key with its value. |
+| Body | `--ds-text-ui`, `--ds-leading-ui` | 15px, 23px | normal | Prose in a transcript, a paragraph, the text of a field. It is what `body` sets, so most text sets no size. |
+| Sub-heading | `--ds-text-lg`, `--ds-leading-lg`, `--ds-tracking-lg` | 16px, 22px | semibold, -0.01em | The title of a card, a dialog, a sheet, an approval, an empty state or a section of settings. |
+| Heading | `--ds-text-xl`, `--ds-leading-xl`, `--ds-tracking-xl` | 20px, 26px | semibold, -0.015em | The heading of a section of a page, and the value of a stat. |
+| Title | `--ds-text-2xl`, `--ds-leading-2xl`, `--ds-tracking-2xl` | 28px, 34px | semibold, -0.02em | The one title of a view. One on a screen. |
+
+- Set the size, the line height and, where the role has one, the tracking together. A test fails when a rule sets `--ds-text-lg`, `-xl` or `-2xl` without the tracking of the same name.
+- The label over a group is in sentence case, 13px semibold, with no tracking and never in capitals: a test fails on `text-transform: uppercase`. Such a label may be a heading element, which has a tracking of its own in the base layer, so its rule sets `letter-spacing: normal`.
+- Helper text is the metadata role, never the label role: on a settings screen it carries most of the words. A test fails when a class ending in `__description`, `__hint` or `__caveat` takes `--ds-text-xs`.
+- On a coarse pointer each size is one pixel larger, which the tokens do by themselves. Two are not: the label of a control (`--ds-text-md`) is the body size there, 16px, and the title of a view stays 28px.
+- The text of a form control is the body role. That is 16px on a coarse pointer, which is what keeps iOS from zooming when the control takes focus; a control in the mono size uses `--ds-text-lg` below 768px for the same reason and takes no tracking. `ds-field__control` and `ds-copy-field__value` are the patterns.
+- `--ds-text-mono` is the size of a block of code. Code inside a sentence is `0.93em` of the text around it, which the base layer sets on `code`, `kbd` and `samp`: a component sets a size on a code element only when it is a block or a line of its own.
+- A compact container (`data-ds-density="compact"`) sets `--ds-text-ui` and `--ds-leading-ui` to the metadata size and line height, so body text inside it is 13px on an 18px line. The control role does not change there. Work a height out from the tokens of the role the text takes, never from the numbers.
+- Every number a reader compares or that changes in place is set in tabular figures, `font-variant-numeric: tabular-nums`: a duration, an elapsed time, a count, a line total, a numeric table cell, a page number.
+- A title or a heading that may wrap takes `text-wrap: balance`. Do not use `pretty`, which Firefox does not have.
+
+### Spacing
+
+The scale is `--ds-space-xs` (4px), `-sm` (8), `-md` (12), `-lg` (16), `-xl` (24), `-2xl` (32) and `-3xl` (48). Three steps sit between, because components need them: `-2xs` (2px) and `-xs-sm` (6px) are gaps inside a small control, and `-lg-xl` (20px) is the side of a small mark such as a checkbox. Each step is also a `ds-gap-` class and a key of the Tailwind preset (`gap-xs-sm`, `p-3xl`).
+
+### Radius
+
+The radius says what kind of thing a box is, so take it from this list, not from what looks right beside its neighbour:
+
+| Token | Value | For |
+|---|---|---|
+| `--ds-radius-xs` | 6px | A badge, a tag, a key, the box of a checkbox, the bar of a meter or of a progress, a tooltip, a segment inside the track of the segmented control. |
+| `--ds-radius-sm` | 10px | A control: a button of any size, a field, a select, a textarea, an icon button, a toggle, a tab, a page number, the track of the segmented control, a row that takes a press. |
+| `--ds-radius-md` | 12px | A card and what is drawn like one: a code block, a diff, a message, an alert, a menu, a listbox, a popover, a toast, a tool call, an approval. |
+| `--ds-radius-lg` | 16px | A dialog, a sheet and the composer box. |
+| `--ds-radius-full` | a pill | A chip (filter, suggestion, source, attachment), the track and thumb of a switch, an avatar, a count, and Send in the composer. |
+
+- A box inside another takes the step under it. A row or a block inside a card or a menu is `sm`, the textarea inside the composer box is `md`, a segment inside its track is `xs`, the mark inside a calendar day is `xs`.
+- The pill is for the shapes in the last row only. A circle is the other use of the same token, for a mark that is round because of what it is: a radio and its dot, an unread dot, the number of a step. A test lists both and fails on any other use.
+- A box that runs edge to edge has no radius: a banner, a row between two rules, the sheet at its lower edge.
+- A textarea is a field, 10px, which leaves the resize grip clear of the corner.
 
 ### State
 
@@ -66,26 +119,49 @@ No component relies on a `style` attribute. The apps' content security policies 
 
 ### Pointer targets
 
-Every control is at least 44px in both directions, which is `var(--ds-size-touch)`. Set it as `min-height` and `min-width`.
+A pointer target is at least 44px in both directions on a coarse pointer, such as a finger, and at least 24px on a fine one, such as a mouse (WCAG 2.2, 2.5.8). Three tokens carry this, and a component never writes the numbers:
 
-A control drawn smaller, for a dense row or a toolbar, reaches 44px through a padded hit area: an invisible box centred on the control that takes the press without adding height to the row. `ds-button--small` is the pattern.
+| Token | Use it for | Value |
+|---|---|---|
+| `--ds-size-control` | The height of a control of default size, and the side of a square one. Set it as `min-height` and `min-width`. | 40px by default, 32px in a compact container, 44px on every coarse pointer |
+| `--ds-size-row` | The least height of a row in a list, a menu, a tree or a table. | 40px by default, 36px in a compact container, 44px on every coarse pointer |
+| `--ds-size-touch` | The hit area of a control drawn smaller, on a coarse pointer only. | 44px |
+
+The first two are 40px unless something sets them. `data-ds-density="compact"` on a container, the attribute's one value, makes them 32px and 36px and sets body text to the metadata size, through `--ds-text-ui` and `--ds-leading-ui`. Under `@media (pointer: coarse)` both are 44px everywhere, whatever the attribute says, and the type is larger. The blocks that do this are in `tokens/tokens.css`; a component only reads the tokens, and a theme cannot set them.
+
+One line of text is centred in a control or a row by block padding worked out from the same token, never by a fixed padding that only fits one height:
+
+```css
+.ds-field__control {
+  min-height: var(--ds-size-control);
+  padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+}
+```
+
+A size variant is a fixed height that does not follow the container: `--ds-size-control-xs` (24px, a tag and the smallest target of a fine pointer), `-sm` (28px), `-md` (32px, a small control) and `-lg` (48px, a large one). A small button sets its label in the metadata role, with the padding worked out from `--ds-text-sm` and `--ds-leading-sm`. Nothing interactive is smaller than 24px in either direction. A control drawn smaller than the touch size reaches 44px on a coarse pointer through a padded hit area: an invisible box centred on the control that takes the press without adding height to the row. It is written inside `@media (pointer: coarse)`, which is the only place a component uses `--ds-size-touch`, and a test checks that. `ds-button--small` is the pattern.
 
 ```css
 .ds-button { position: relative; }
 
-.ds-button--small::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  inset-inline: 0;
-  height: var(--ds-size-touch);
-  translate: 0 -50%;
+.ds-button--small { min-height: var(--ds-size-control-md); }
+
+@media (pointer: coarse) {
+  .ds-button--small::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: var(--ds-size-touch);
+    translate: 0 -50%;
+  }
 }
 ```
 
+A width is a size token too: `--ds-size-sidebar` for a navigation or list column, `--ds-size-inspector` for a detail column beside the main one, `--ds-size-column`, `--ds-size-transcript` and `--ds-size-wide`. Do not multiply a control's height to make a width.
+
 A link inside running text is exempt. In markup that is a link with no class.
 
-The browser test measures the target, not the drawn box. It checks that the four edges of a 44px square centred on each control land on that control.
+The browser test measures the target, not the drawn box: how far the pointer can move from the centre of each control, along each axis, and still land on it. It asks for 44px with a coarse pointer at 390px and for 24px with a fine pointer at 1280px.
 
 ### Status is never colour alone
 
@@ -163,11 +239,11 @@ In the gallery a pattern has a page of its own, listed after the components on t
 
 ## Themes
 
-A component never knows which theme is loaded. It takes every value from a token, so a theme in `themes/` restyles it by changing token values, and the component needs nothing for it. Do not test for a theme in a stylesheet, and do not add a token for one component.
+A component never knows which theme is loaded. It takes every value from a token, so a theme in `themes/` restyles it by changing token values, and the component needs nothing for it. A theme sets colours, the two font stacks and the shadow. It cannot set a type size, a line height, a tracking, a radius or a density token: those scales are the same under every theme, and the build fails, naming the token, when a theme sets one. Do not test for a theme in a stylesheet, and do not add a token for one component.
 
-A theme is `themes/<name>.css`: values for existing token names in light and dark, in the selector shape of `tokens/tokens.css`, inside `@layer ds.theme`. "Default mode: dark" in its first comment makes a page with no `data-theme` dark. The build checks that it adds no name, sets both modes and passes every pair in `tokens/pairs.json` in both modes, then writes its stylesheet, its token block, its token data and its summary to `dist/themes/`. `docs/consumer-guide.md` has the full list of checks.
+A theme is `themes/<name>.css`: values for existing token names in light and dark, in the selector shape of `tokens/tokens.css`, inside `@layer ds.theme`. "Default mode: dark" in its first comment makes a page with no `data-theme` dark. The build checks that it adds no name, sets no size or radius, sets both modes and passes every pair in `tokens/pairs.json` in both modes, then writes its stylesheet, its token block, its token data and its summary to `dist/themes/`. `docs/consumer-guide.md` has the full list of checks.
 
-A new status colour is a token, added to `tokens/tokens.css` with its pairs in `tokens/pairs.json`, and then given a value in every theme, since the build checks each theme against every pair.
+A new status colour is a token, added to `tokens/tokens.css` with its pairs in `tokens/pairs.json`, and then given a value in every theme, since the build checks each theme against every pair. A pair may carry a `themes` list, such as `"themes": ["botbench"]`: the build then checks it for those themes and no other. It records a combination one theme holds and another does not, for that theme's app to use in its own components. A component of the system relies only on a pair with no list.
 
 The gallery loads a theme with `?brand=<name>`, beside `?theme=dark` for the mode, and the bar has a link for each. `npm run test:visual` screenshots a fixed list of pages under the Botbench theme, in light and dark at both widths, and runs axe, the structural rules and the pointer-target check on them.
 
@@ -225,7 +301,7 @@ npm run test:visual  # the gallery in Chrome, compared with the committed screen
 
 `npm test` runs the shipped checker over each example as a page of its own and over each component and pattern stylesheet. Do examples and stylesheets must produce no finding and no waiver. Each don't example with a rule id must produce that rule and nothing else. It also fails when the committed `dist/` does not match the sources, so commit the regenerated `dist/` with the folder.
 
-`npm run test:visual` opens the gallery page of each component and each pattern at 390px and 1280px, in light and dark. On the do examples it runs axe, runs the structural rules on the rendered page and, at 390px, measures every pointer target. It compares each page, width and theme with its screenshot in `test/visual/screenshots/` and fails when they differ. After a change you mean to make, run `npm run test:visual:update`, look at the screenshots it rewrote, then commit them: they are what the owner reviews.
+`npm run test:visual` opens the gallery page of each component and each pattern at 390px and 1280px, in light and dark. The 390px pages are opened with a coarse pointer, as a phone has, and the 1280px pages with a fine one, and each screenshot is taken at the sizes of its pointer: controls 44px tall at 390px and 40px at 1280px. On the do examples it runs axe, runs the structural rules on the rendered page and measures every pointer target: 44px at 390px and 24px at 1280px. It compares each page, width and theme with its screenshot in `test/visual/screenshots/` and fails when they differ. After a change you mean to make, run `npm run test:visual:update`, look at the screenshots it rewrote, then commit them: they are what the owner reviews.
 
 A component with behaviour worth proving, such as keyboard operation, adds its own test to `test/visual/gallery.spec.mjs`, as the button and the field do.
 

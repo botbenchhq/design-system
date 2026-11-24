@@ -33,7 +33,7 @@
     order: 1;
     width: 100%;
     height: var(--ds-space-sm);
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-border);
     overflow: hidden;
     appearance: none;

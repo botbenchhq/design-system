@@ -25,19 +25,28 @@ Why: they say nothing about the content and push it down the page. Leave the sur
 **Raw colours.**
 Why: a colour outside the tokens breaks the dark theme and the contrast guarantees. Use a colour token. Caught by `raw-color`.
 
+**The interactive colour as a status or as decoration.**
+Why: there is one interactive colour, the accent token. It is used for the primary action, focus, selection and active work, and never for a status that is not "working". Spent on a heading, an icon or a finished step, it stops saying where to press. Take it from a component that already draws one of those four, and give every other status its own tone. Caught in review; the raw colour by `raw-color`.
+
+**Amber as a background.**
+Why: the approval tone is a small signal for what waits on a person: a mark, a `badge`, a count. As a band or the fill of a whole panel it turns routine work into an alarm, and the one decision that waits is lost in it. Keep the surface neutral and let the mark carry the tone. Caught in review.
+
 **Colour as the only signal.**
 Why: some readers cannot tell the colours apart, and a colour alone does not say what it means. Add words or an icon to every status, error and required marker. Caught in review.
 
 ## Type
 
-**Inter, Roboto, Geist or system-ui named as the typeface in an app.**
-Why: they are the defaults every generated interface reaches for. The typeface comes from the font tokens: IBM Plex Sans with IBM Plex Mono by default, and the platform's own font where a theme chooses it, as the Botbench theme does. Caught by `raw-font-family`, and a font utility by `visual-utility`.
+**A font family set outside the font tokens.**
+Why: a theme sets the typefaces, through the font token for interface text and the one for mono text, so every screen of an app is set in the same two and a change of theme changes them all. An app does not set a font family itself, in a stylesheet or with a utility. Caught by `raw-font-family`, and a font utility by `visual-utility`.
 
 **Centred body text wider than the reading column.**
 Why: each line starts in a different place, so long centred text is hard to read. Align body text to the start and centre only a short line. Caught by `centred-body-text`.
 
+**Text under 12px.**
+Why: nothing smaller can be read by everyone, on every screen. The smallest type size is 12px, for a tag, a count or a table head; metadata is 13px. Never scale text down with a calculation or a share of the size around it to fit a row: cut the words. A hand-written size is caught by `off-scale-font-size`, and the build of the system fails on a type token under 12px.
+
 **Off-scale sizes.**
-Why: a size outside the scales makes screens drift apart by a pixel at a time. Use the spacing, type and radius tokens. Caught by `off-scale-spacing`, `off-scale-font-size`, `off-scale-radius`, `off-scale-utility` and `arbitrary-value`.
+Why: a size outside the scales makes screens drift apart by a pixel at a time, and a type size written in px ignores the font size the reader chose. Use the spacing, type and radius tokens, and write no length by hand, even one equal to a step. Caught by `off-scale-spacing`, `off-scale-font-size`, `off-scale-radius`, `off-scale-utility` and `arbitrary-value`.
 
 ## Layout and emphasis
 

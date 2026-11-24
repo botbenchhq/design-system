@@ -34,20 +34,21 @@
     justify-content: center;
     width: var(--ds-space-xl);
     height: var(--ds-space-xl);
-    margin-block: calc((var(--ds-size-touch) - var(--ds-space-xl)) / 2);
+    margin-block: calc((var(--ds-size-row) - var(--ds-space-xl)) / 2);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
     border-radius: var(--ds-radius-full);
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-medium);
     line-height: var(--ds-leading-xs);
+    font-variant-numeric: tabular-nums;
   }
 
   /* The line to the next step, from under this mark to above the next one. */
   .ds-stepper__step:not(:last-child)::after {
     content: "";
     position: absolute;
-    inset-block: calc((var(--ds-size-touch) + var(--ds-space-xl)) / 2 + var(--ds-space-xs)) calc(var(--ds-space-xs) - (var(--ds-size-touch) - var(--ds-space-xl)) / 2);
+    inset-block: calc((var(--ds-size-row) + var(--ds-space-xl)) / 2 + var(--ds-space-xs)) calc(var(--ds-space-xs) - (var(--ds-size-row) - var(--ds-space-xl)) / 2);
     inset-inline-start: calc((var(--ds-space-xl) - var(--ds-border-width)) / 2);
     width: var(--ds-border-width);
     background-color: var(--ds-color-border-strong);
@@ -60,8 +61,8 @@
   .ds-stepper__label {
     position: relative;
     grid-column: 2;
-    min-height: var(--ds-size-touch);
-    padding-block: calc((var(--ds-size-touch) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
+    min-height: var(--ds-size-row);
+    padding-block: calc((var(--ds-size-row) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2);
     overflow-wrap: anywhere;
   }
 
@@ -79,8 +80,8 @@
     margin-top: calc(var(--ds-space-sm) * -1);
     padding-bottom: var(--ds-space-sm);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -143,7 +144,7 @@
       grid-column: 3;
       width: auto;
       height: var(--ds-border-width);
-      margin-block-start: calc((var(--ds-size-touch) - var(--ds-border-width)) / 2);
+      margin-block-start: calc((var(--ds-size-row) - var(--ds-border-width)) / 2);
       margin-inline-start: var(--ds-space-xs);
     }
   }

@@ -2,114 +2,135 @@
 version: alpha
 name: Design system, botbench theme
 colors:
-  accent: "#1C1C1E"
-  accent-hover: "#3A3A3C"
+  accent: "#215BB8"
+  accent-hover: "#1B4C9C"
   on-accent: "#FFFFFF"
-  surface: "#F2F2F7"
+  surface: "#F5F6F7"
+  surface-pane: "#FBFBFC"
   surface-raised: "#FFFFFF"
-  surface-sunken: "#EDEDF1"
-  fill: "#E9E9EE"
-  on-surface: "#1C1C1E"
-  muted: "#636366"
-  border: "#E6E6EB"
-  border-strong: "#86868B"
-  focus: "#0066CC"
-  success: "#037A54"
-  success-subtle: "#DCF8E9"
-  warning: "#736C02"
-  warning-subtle: "#F3F2D7"
-  danger: "#BA1C1C"
-  danger-subtle: "#FEEBE8"
-  info: "#2360E8"
-  info-subtle: "#E9F0FF"
-  approval: "#8F6202"
-  approval-subtle: "#FEF3C7"
-  blocked: "#6A31C4"
-  blocked-subtle: "#F1EDFF"
-  peer: "#03748F"
-  peer-subtle: "#DCF5FE"
-  tainted: "#BC4100"
-  tainted-subtle: "#FFEBE5"
+  surface-sunken: "#EEF0F2"
+  fill: "#ECEEF1"
+  on-surface: "#1A2028"
+  muted: "#545E6B"
+  border: "#DFE2E7"
+  border-strong: "#76808E"
+  focus: "#215BB8"
+  success: "#146A4A"
+  success-subtle: "#E1F3EA"
+  warning: "#97600E"
+  warning-subtle: "#FBF0DC"
+  danger: "#B43E46"
+  danger-subtle: "#FBE6E7"
+  info: "#215BB8"
+  info-subtle: "#E6EEFB"
+  approval: "#97600E"
+  approval-subtle: "#FBF0DC"
+  blocked: "#545E6B"
+  blocked-subtle: "#ECEEF1"
+  peer: "#0C7187"
+  peer-subtle: "#E0F3F6"
+  tainted: "#0C7187"
+  tainted-subtle: "#E0F3F6"
 colors-dark:
-  accent: "#F5F5F7"
-  accent-hover: "#D8D8DC"
-  on-accent: "#161618"
-  surface: "#161618"
-  surface-raised: "#212124"
-  surface-sunken: "#0F0F10"
-  fill: "#2C2C30"
-  on-surface: "#F5F5F7"
-  muted: "#A1A1A8"
-  border: "#29292D"
-  border-strong: "#75757C"
-  focus: "#4C9DFF"
-  success: "#34D399"
-  success-subtle: "#09291D"
-  warning: "#FDE047"
-  warning-subtle: "#292306"
-  danger: "#F25050"
-  danger-subtle: "#2F1614"
-  info: "#60A5FA"
-  info-subtle: "#132438"
-  approval: "#FBBF24"
-  approval-subtle: "#2D2106"
-  blocked: "#B285F8"
-  blocked-subtle: "#261D35"
-  peer: "#06B6D4"
-  peer-subtle: "#002830"
-  tainted: "#FB7C2E"
-  tainted-subtle: "#341C0F"
+  accent: "#7CB7FF"
+  accent-hover: "#9AC8FF"
+  on-accent: "#0B1522"
+  surface: "#111316"
+  surface-pane: "#181B20"
+  surface-raised: "#20242B"
+  surface-sunken: "#0B0D10"
+  fill: "#2C3139"
+  on-surface: "#F2F3F5"
+  muted: "#ADB4BE"
+  border: "#2A2F37"
+  border-strong: "#727D8B"
+  focus: "#7CB7FF"
+  success: "#6ED5A4"
+  success-subtle: "#12281F"
+  warning: "#F2B95D"
+  warning-subtle: "#2E2513"
+  danger: "#FF898A"
+  danger-subtle: "#331A1C"
+  info: "#7CB7FF"
+  info-subtle: "#16263A"
+  approval: "#F2B95D"
+  approval-subtle: "#2E2513"
+  blocked: "#ADB4BE"
+  blocked-subtle: "#2C3139"
+  peer: "#60D4D4"
+  peer-subtle: "#10292B"
+  tainted: "#60D4D4"
+  tainted-subtle: "#10292B"
 typography:
   xs:
-    fontFamily: "system-ui"
-    fontSize: 12px
+    fontFamily: "Inter"
+    fontSize: 0.75rem
     fontWeight: 400
-    lineHeight: 1.4
+    lineHeight: 1.333
+  sm:
+    fontFamily: "Inter"
+    fontSize: 0.8125rem
+    fontWeight: 400
+    lineHeight: 1.385
   mono:
-    fontFamily: "ui-monospace"
-    fontSize: 13px
+    fontFamily: "JetBrains Mono"
+    fontSize: 0.8125rem
     fontWeight: 400
     lineHeight: 1.5
+  md:
+    fontFamily: "Inter"
+    fontSize: 0.875rem
+    fontWeight: 400
+    lineHeight: 1.429
   ui:
-    fontFamily: "system-ui"
-    fontSize: 15px
+    fontFamily: "Inter"
+    fontSize: 0.9375rem
     fontWeight: 400
-    lineHeight: 1.45
+    lineHeight: 1.533
   lg:
-    fontFamily: "system-ui"
-    fontSize: 17px
-    fontWeight: 400
-    lineHeight: 1.4
+    fontFamily: "Inter"
+    fontSize: 1rem
+    fontWeight: 600
+    lineHeight: 1.375
+    letterSpacing: -0.01em
   xl:
-    fontFamily: "system-ui"
-    fontSize: 22px
-    fontWeight: 400
-    lineHeight: 1.25
+    fontFamily: "Inter"
+    fontSize: 1.25rem
+    fontWeight: 600
+    lineHeight: 1.3
+    letterSpacing: -0.015em
   2xl:
-    fontFamily: "system-ui"
-    fontSize: 28px
-    fontWeight: 400
-    lineHeight: 1.2
+    fontFamily: "Inter"
+    fontSize: 1.75rem
+    fontWeight: 600
+    lineHeight: 1.214
+    letterSpacing: -0.02em
 fontWeights:
   normal: 400
   medium: 500
   semibold: 600
 rounded:
+  xs: 6px
   sm: 10px
-  md: 22px
+  md: 12px
+  lg: 16px
   full: 9999px
 spacing:
+  2xs: 2px
   xs: 4px
+  xs-sm: 6px
   sm: 8px
   md: 12px
   lg: 16px
+  lg-xl: 20px
   xl: 24px
   2xl: 32px
+  3xl: 48px
 borderWidth: 1px
 elevation:
-  overlay: "0 8px 24px 0 rgb(0 0 0 / 0.16)"
+  overlay: "0 16px 40px 0 rgb(0 0 0 / 0.16)"
 elevation-dark:
-  overlay: "0 8px 24px 0 rgb(0 0 0 / 0.5)"
+  overlay: "0 16px 40px 0 rgb(0 0 0 / 0.5)"
 motion:
   duration:
     fast: 100ms
@@ -122,9 +143,45 @@ layers:
   dialog: 300
   toast: 400
 sizes:
+  control-xs: 24px
+  control-sm: 28px
+  control-md: 32px
+  control-lg: 48px
+  control: 40px
+  row: 40px
   touch: 44px
+  sidebar: 260px
+  inspector: 340px
   column: 480px
-  transcript: 720px
+  transcript: 760px
   wide: 1200px
+density:
+  default:
+    control: 40px
+    row: 40px
+    text: 0.9375rem
+    leading: 1.533
+  compact:
+    control: 32px
+    row: 36px
+    text: 0.8125rem
+    leading: 1.385
+  coarse-pointer:
+    control: 44px
+    row: 44px
+    text: 1rem
+    leading: 1.5
+typography-coarse-pointer:
+  xs: 0.8125rem
+  sm: 0.875rem
+  mono: 0.875rem
+  md: 1rem
+  ui: 1rem
+  lg: 1.0625rem
+  xl: 1.3125rem
 breakpoint: 768px
+breakpoints:
+  md: 768px
+  lg: 1024px
+  xl: 1280px
 ---

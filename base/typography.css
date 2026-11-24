@@ -1,6 +1,7 @@
 /*
  * Type for plain elements. Sizes are set on body, not on the root element, so
- * the root font size and every rem in an app stay as the browser has them.
+ * the root font size and every rem in an app stay as the browser has them. The
+ * type sizes are in rem, so they follow the size the reader chose in the browser.
  */
 
 @layer ds.base {
@@ -15,6 +16,15 @@
     overflow-wrap: break-word;
   }
 
+  /*
+   * A compact container sets the size of body text through its two tokens. A size is inherited as a length, not as
+   * the token, so the container takes the body size again from the tokens as they are inside it.
+   */
+  [data-ds-density] {
+    font-size: var(--ds-text-ui);
+    line-height: var(--ds-leading-ui);
+  }
+
   h1,
   h2,
   h3,
@@ -26,20 +36,34 @@
     font-weight: var(--ds-weight-semibold);
   }
 
+  /* A heading or a title of two lines breaks into lines of like length, not one long line and a word. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  /* Display: the one title of a page. */
   h1 {
     font-size: var(--ds-text-2xl);
     line-height: var(--ds-leading-2xl);
+    letter-spacing: var(--ds-tracking-2xl);
   }
 
-  /* The three largest sizes, each heading a step under the one before. A component that draws its own h1 keeps it above the h2 size. */
+  /* Heading, then title: each a step under the one before. A component that draws its own h1 keeps it above the h2 size. */
   h2 {
     font-size: var(--ds-text-xl);
     line-height: var(--ds-leading-xl);
+    letter-spacing: var(--ds-tracking-xl);
   }
 
   h3 {
     font-size: var(--ds-text-lg);
     line-height: var(--ds-leading-lg);
+    letter-spacing: var(--ds-tracking-lg);
   }
 
   small {
@@ -52,8 +76,27 @@
   samp,
   pre {
     font-family: var(--ds-font-mono);
+  }
+
+  /* A block of code has the mono size. */
+  pre {
     font-size: var(--ds-text-mono);
     line-height: var(--ds-leading-mono);
+  }
+
+  /*
+   * Code inside a sentence is a little under the size of the words around it, whatever that size is, because
+   * mono type reads large beside proportional type. A component that sets a size on its own code element wins.
+   */
+  code,
+  kbd,
+  samp {
+    /* Never under the smallest type size, so code inside a 12px label stays 12px. */
+    font-size: max(0.93em, var(--ds-text-xs));
+  }
+
+  pre :where(code, kbd, samp) {
+    font-size: inherit;
   }
 
   /* A link with a class is a component and draws itself. */

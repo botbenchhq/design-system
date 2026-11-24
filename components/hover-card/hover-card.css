@@ -57,7 +57,8 @@
   /* One line under the title that places the item: its repository, its role, when it ran. */
   .ds-hover-card__meta {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
+    font-variant-numeric: tabular-nums;
   }
 }

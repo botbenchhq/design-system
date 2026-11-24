@@ -9,10 +9,10 @@
   /*
    * Mono digits a size up, spaced widely so each one can be checked against the message.
    * The start padding is half the spacing wider, which centres the gap around each digit.
-   * It is no wider than five and a half pointer targets, because there is no token for a control's width.
+   * It is no wider than half the reading column.
    */
   .ds-otp-input {
-    max-width: calc(var(--ds-size-touch) * 5.5);
+    max-width: calc(var(--ds-size-column) / 2);
     padding-inline: calc(var(--ds-space-md) + var(--ds-space-md) / 2) var(--ds-space-md);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-xl);

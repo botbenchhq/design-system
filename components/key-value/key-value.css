@@ -9,6 +9,8 @@
     grid-template-columns: minmax(0, 1fr);
     gap: var(--ds-space-md);
     min-width: 0;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   .ds-key-value__item {
@@ -19,9 +21,11 @@
 
   .ds-key-value__label {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    font-weight: var(--ds-weight-normal);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
     overflow-wrap: anywhere;
   }
 
@@ -59,9 +63,11 @@
       align-items: baseline;
     }
 
+    /* Beside its value the label is the size of the value, not a label over it. */
     .ds-key-value__label {
-      font-size: var(--ds-text-ui);
-      line-height: var(--ds-leading-ui);
+      font-size: var(--ds-text-md);
+      font-weight: var(--ds-weight-normal);
+      line-height: var(--ds-leading-md);
     }
   }
 }

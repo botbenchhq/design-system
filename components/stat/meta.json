@@ -16,7 +16,7 @@
     "For a status. Use a badge."
   ],
   "variants": [
-    { "name": "default", "use": "Label, value and context one above the other. The value is 20px, one size above body text." },
+    { "name": "default", "use": "Label, value and context one above the other. The value is 20px, two sizes above body text." },
     { "name": "inline", "class": "ds-stat--inline", "use": "Label, value and context on one line at body size, wrapping when there is no room." }
   ],
   "sizes": [],

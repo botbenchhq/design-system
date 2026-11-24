@@ -42,6 +42,30 @@ test("an off-scale padding fails, and a spacing token or zero passes", () => {
   assert.match(report.findings[0].fix, /var\(--ds-space-md\)/);
 });
 
+test("a font size written by hand fails in px, rem and em, on a step of the scale or off it, and a type size token passes", () => {
+  const { status, report } = checkJson(["css/font-size.css"]);
+  assert.equal(status, 1);
+  const sizes = report.findings.filter((finding) => finding.rule === "off-scale-font-size");
+  assert.deepEqual(brief(sizes), [2, 5, 8, 11, 14].map((line) => `css/font-size.css:${line} off-scale-font-size`));
+  // A step of the scale written by hand is named as one, in px and in rem alike, with the token to write.
+  assert.match(sizes[0].message, /font-size uses 14px, a step of the type scale written by hand/);
+  assert.equal(sizes[0].fix, "Write the token: var(--ds-text-md)");
+  assert.match(sizes[1].message, /font-size uses 0\.875rem, a step of the type scale written by hand/);
+  assert.equal(sizes[1].fix, "Write the token: var(--ds-text-md)");
+  // An off-scale size names the nearest step, with a rem compared in pixels: 17px is nearest 16px, 0.9rem is 14.4px.
+  assert.match(sizes[2].message, /font-size uses 17px, which is not on the type scale/);
+  assert.match(sizes[2].fix, /Nearest: var\(--ds-text-lg\)/);
+  assert.match(sizes[3].fix, /Nearest: var\(--ds-text-md\)/);
+  assert.match(sizes[4].message, /font-size uses 0\.93em/);
+});
+
+test("the new spacing and radius steps pass as tokens, and 6px written by hand is named as a step", () => {
+  const { report } = checkJson(["css/font-size.css"]);
+  const others = report.findings.filter((finding) => finding.rule !== "off-scale-font-size");
+  assert.deepEqual(brief(others), ["css/font-size.css:26 off-scale-spacing"]);
+  assert.equal(others[0].fix, "Write the token: var(--ds-space-xs-sm)");
+});
+
 test("a gradient built only from tokens still fails", () => {
   const { status, report } = checkJson(["css/gradient.css"]);
   assert.equal(status, 1);
@@ -54,11 +78,21 @@ test("a backdrop filter built only from tokens still fails", () => {
   assert.deepEqual(brief(report.findings), ["css/backdrop.css:2 banned-backdrop-filter"]);
 });
 
-test("a media query at 900px fails and one at 768px passes", () => {
+test("a media query at 768px, 1024px or 1280px passes, any other width fails and is told the three, and a container query may use any width", () => {
   const { status, report } = checkJson(["css/breakpoint.css"]);
   assert.equal(status, 1);
-  assert.deepEqual(brief(report.findings), ["css/breakpoint.css:1 off-breakpoint"]);
-  assert.match(report.findings[0].fix, /768px/);
+  // 900px, 1279px written as a max-width, and both ends of a range that are not a breakpoint. The container query at 600px passes.
+  assert.deepEqual(brief(report.findings), [1, 21, 26, 26].map((line) => `css/breakpoint.css:${line} off-breakpoint`));
+  assert.match(report.findings[0].message, /uses the width 900px/);
+  assert.equal(report.findings[0].fix, "Write the query at a breakpoint: 768px, 1024px, 1280px. A container query may use any width.");
+  assert.deepEqual(report.findings.map((finding) => finding.message.match(/width (\S+)\./)[1]), ["900px", "1279px", "1100px", "767px"]);
+});
+
+test("a screen may use the md:, lg: and xl: variants, one for each breakpoint, and no other", () => {
+  const { report } = checkJson(["markup/breakpoint-variants.html"]);
+  assert.deepEqual(brief(report.findings), ["markup/breakpoint-variants.html:3 unlisted-variant"]);
+  assert.match(report.findings[0].message, /2xl:/);
+  assert.match(report.findings[0].fix, /md:, lg:, xl:/);
 });
 
 test("two arbitrary Tailwind values in a TSX file are two findings", () => {

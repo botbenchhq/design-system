@@ -17,7 +17,7 @@
   "sizes": [],
   "states": ["default", "open", "running", "awaiting-approval", "failed"],
   "accessibility": [
-    "Use a native details element with the class on it, in an li of the transcript. Its first child is a summary with ds-step-group__summary, and after it comes an ol with ds-step-group__steps. Enter and Space open and close the summary, and it is 44px tall.",
+    "Use a native details element with the class on it, in an li of the transcript. Its first child is a summary with ds-step-group__summary, and after it comes an ol with ds-step-group__steps. Enter and Space open and close the summary, and it is as tall as a row: 40px by default and 44px on a coarse pointer.",
     "ds-step-group__title is a sentence the app writes from the steps inside, as counts by kind in plain words: Ran 4 commands, edited 2 files. Past tense for what was done, the same verbs as the rows. While steps are still arriving, end it with so far. rules/content.md has the wording.",
     "A step that failed, a step that is running and a step that waits for approval are each said in words inside the title, in a span with ds-step-group__callout and data-state=\"failed\", data-state=\"running\" or data-state=\"awaiting-approval\": 1 command failed, Running, Awaiting your approval. The stylesheet draws the icon from data-state. Never leave a failure or a pending approval to be found in a count.",
     "ds-step-group__duration is how long the steps took together, with its unit. While the group is still running use a time that counts up and is not announced: the ds-elapsed element from behaviors/elapsed.js, or a span with aria-live=\"off\".",

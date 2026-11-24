@@ -18,7 +18,11 @@ export function Misuse({ busy }: { busy: boolean }) {
       {/* @ts-expect-error an unknown variant */}
       <BusyButton variant="ghost">Send</BusyButton>
       {/* @ts-expect-error an unknown size */}
-      <BusyButton size="large">Send</BusyButton>
+      <BusyButton size="huge">Send</BusyButton>
+      {/* @ts-expect-error the smallest size is for an icon-only button */}
+      <BusyButton size="xsmall">Send</BusyButton>
+      {/* @ts-expect-error an icon-only button has no large size */}
+      <BusyButton icon="copy" aria-label="Copy branch name" size="large" />
       {/* @ts-expect-error a button needs a label */}
       <BusyButton />
     </>

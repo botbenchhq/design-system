@@ -11,39 +11,43 @@
     min-width: 0;
   }
 
-  /*
-   * Drawn 32px tall so it fits a header row. The invisible box centred on it
-   * keeps its pointer target at the touch size.
-   */
+  /* Drawn 32px tall, whatever the density, so it fits a header row. */
   .ds-pending-tray__link {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: var(--ds-space-sm);
-    min-width: var(--ds-size-touch);
-    min-height: var(--ds-space-2xl);
+    min-width: var(--ds-size-control);
+    min-height: var(--ds-size-control-md);
     padding-inline: var(--ds-space-xs) var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
+    font-size: var(--ds-text-md);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-ui);
+    line-height: var(--ds-leading-md);
     transition-property: background-color, border-color;
     transition-duration: var(--ds-duration-fast);
     transition-timing-function: var(--ds-ease);
   }
 
-  .ds-pending-tray__link::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    inset-inline: 0;
-    height: var(--ds-size-touch);
-    translate: 0 -50%;
+  /*
+   * A finger needs more than 32px. On a coarse pointer this invisible box, centred on the link,
+   * keeps its pointer target at the touch size.
+   */
+  @media (pointer: coarse) {
+    .ds-pending-tray__link::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: var(--ds-size-touch);
+      translate: 0 -50%;
+    }
   }
 
-  /* The count is the first word of the sentence. The filled box only makes it easy to find. */
+  /* The count is the first word of the sentence. The pill only makes it easy to find: the approval tone, a small signal for what waits on a person. */
   .ds-pending-tray__count {
     display: inline-flex;
     flex: none;
@@ -52,12 +56,13 @@
     min-width: var(--ds-space-xl);
     height: var(--ds-space-xl);
     padding-inline: var(--ds-space-xs);
-    border-radius: var(--ds-radius-sm);
-    background-color: var(--ds-color-accent);
-    color: var(--ds-color-on-accent);
+    border-radius: var(--ds-radius-full);
+    background-color: var(--ds-color-approval-subtle);
+    color: var(--ds-color-approval);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-mono);
     line-height: var(--ds-leading-mono);
+    font-variant-numeric: tabular-nums;
   }
 
   .ds-pending-tray__text {

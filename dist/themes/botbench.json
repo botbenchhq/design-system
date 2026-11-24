@@ -2,7 +2,7 @@
   "name": "botbench",
   "defaultMode": "dark",
   "themeColor": {
-    "light": "#F2F2F7",
-    "dark": "#161618"
+    "light": "#F5F6F7",
+    "dark": "#111316"
   }
 }

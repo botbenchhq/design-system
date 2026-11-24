@@ -13,7 +13,10 @@
 import type { ComponentPropsWithRef, MouseEvent, ReactNode } from "react";
 
 export type ButtonVariant = "primary" | "secondary" | "quiet" | "danger";
-export type ButtonSize = "default" | "small";
+/** The sizes of a button with words. Small and large are fixed heights; the default is shorter in a compact container and taller on a coarse pointer. */
+export type ButtonSize = "default" | "small" | "large";
+/** The sizes of an icon-only button: xsmall is for the one action inside a dense row. */
+export type IconButtonSize = "default" | "small" | "xsmall";
 type Pressed = boolean | "true" | "false" | "mixed";
 
 // A button that can be busy says what is happening while it is.
@@ -22,6 +25,7 @@ type BusyState = { busy: true; busyLabel: string } | { busy?: false; busyLabel?:
 /** A label in words, which busyLabel replaces while busy. */
 type WordsLabel = BusyState & {
   children: ReactNode;
+  size?: ButtonSize;
   /** The name of an icon in the sprite, such as "plus". */
   icon?: string;
   "aria-label"?: string;
@@ -31,6 +35,7 @@ type WordsLabel = BusyState & {
 /** An icon and an aria-label, with no children, that is never busy. */
 type IconOnly = {
   children?: null;
+  size?: IconButtonSize;
   icon: string;
   "aria-label": string;
   "aria-pressed"?: Pressed;
@@ -41,6 +46,7 @@ type IconOnly = {
 /** An icon and an aria-label, with no children, that can be busy. While busy, busyLabel is the name. */
 type IconAction = {
   children?: null;
+  size?: IconButtonSize;
   icon: string;
   "aria-label": string;
   "aria-pressed"?: never;
@@ -51,6 +57,7 @@ type IconAction = {
 /** An icon-only toggle. Its name stays the same while busy, so it takes no busyLabel. */
 type IconToggle = {
   children?: null;
+  size?: IconButtonSize;
   icon: string;
   "aria-label": string;
   "aria-pressed": Pressed;
@@ -60,7 +67,6 @@ type IconToggle = {
 
 export type BusyButtonProps = Omit<ComponentPropsWithRef<"button">, "children" | "aria-busy" | "aria-label" | "aria-pressed"> & {
   variant?: ButtonVariant;
-  size?: ButtonSize;
   /** Where the app serves the sprite. */
   spriteHref?: string;
 } & (WordsLabel | IconOnly | IconAction | IconToggle);
@@ -72,7 +78,9 @@ const VARIANT_CLASS: Record<ButtonVariant, string> = {
   quiet: "ds-button--quiet",
   danger: "ds-button--danger",
 };
-const SIZE_CLASS: Record<ButtonSize, string> = { default: "", small: "ds-button--small" };
+const SIZE_CLASS: Record<ButtonSize | IconButtonSize, string> = { default: "", small: "ds-button--small", large: "ds-button--large", xsmall: "" };
+// An icon-only button takes its size from the icon button's own classes, never from ds-button--small.
+const ICON_SIZE_CLASS: Record<ButtonSize | IconButtonSize, string> = { default: "", small: "ds-icon-button--small", xsmall: "ds-icon-button--xsmall", large: "" };
 
 export function BusyButton({
   variant = "secondary",
@@ -91,7 +99,7 @@ export function BusyButton({
 }: BusyButtonProps) {
   // No words of its own: the name lives in aria-label in every state.
   const iconOnly = icon !== undefined && (children === undefined || children === null);
-  const classes = [...new Set(["ds-button", VARIANT_CLASS[variant], SIZE_CLASS[size], iconOnly ? "ds-icon-button" : "", ...(className ?? "").split(/\s+/)])]
+  const classes = [...new Set(["ds-button", VARIANT_CLASS[variant], iconOnly ? "ds-icon-button" : SIZE_CLASS[size], iconOnly ? ICON_SIZE_CLASS[size] : "", ...(className ?? "").split(/\s+/)])]
     .filter(Boolean)
     .join(" ");
 
