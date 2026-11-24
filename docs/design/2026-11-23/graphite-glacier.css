@@ -1,0 +1,381 @@
+/*
+ * Graphite + Glacier: the reference stylesheet of the mock-ups, as it stood on 23 November 2026.
+ *
+ * This file is a reference for docs/design/2026-11-23-graphite-glacier-visual-specification.md. It is not
+ * design-system source: nothing is built from it, its names do not start with ds-, and it is not checked by the
+ * build or the checker. Read it to see exactly what the mock-ups drew.
+ *
+ * Direction A is the one that was chosen: the .v2{...} block is dark, .v2.dir-a{...} and .v2.dir-a.light{...}
+ * complete it. Directions B and C (.dir-b, .dir-c) were not chosen; their blocks are left in so the file is the
+ * one the mock-ups used.
+ *
+ * Several designers appended rules, and some later rules correct earlier ones. Appendix A of the specification
+ * lists which rules to collapse before any of this becomes design-system source.
+ */
+/* Botbench redesign, iteration 2, final refinement. Direction A (Graphite + Glacier) is the approved one; the .dir-b and
+   .dir-c blocks are the two rejected directions, kept only so their boards still draw. The root carries .v2 plus .dir-a
+   and .light for light mode; .m is the phone root.
+   Spacing 4/8/12/16/24/32/48. Body 15px, navigation 14, metadata 13 and 12 (nothing smaller), section 20, title 28.
+   Controls 40px (44 on .m). Radii: 12 cards, 10 controls, 16 dialogs and sheets, 6 tags, pill for chips.
+   Surfaces step canvas < surface < raised < fill. A pane always has a boundary: the navigation's edge, the inspector's
+   edge and the phone bar are a hairline (--seam, which is --line in every direction and both modes). A card is
+   bordered the same way unless it is .card.plain, the decorative case: a card that already differs from what it lies
+   on by a surface step has no border in dark (in light, white on near-white still needs the hairline). --line is the
+   calm hairline inside one surface; --edge is a control's edge and holds 3:1. No gradient, blur, glow or decorative shadow. */
+.v2{--canvas:#111316;--surface:#181B20;--raised:#20242B;--sunken:#0B0D10;--fill:#2C3139;--line:#2A2F37;--edge:#727D8B;--text:#F2F3F5;--text2:#ADB4BE;
+--act:#7CB7FF;--on-act:#0B1522;--act-bg:#16263A;--peer:#60D4D4;--peer-bg:#10292B;--attn:#F2B95D;--attn-bg:#2E2513;--ok:#6ED5A4;--ok-bg:#12281F;--err:#FF898A;--err-bg:#331A1C;
+--font:system-ui,-apple-system,"Segoe UI",sans-serif;--head:var(--font);--head-w:650;--head-track:-.018em;--ctl:40px;--shadow:0 16px 40px rgb(0 0 0 / .5);
+--seam:var(--line);--pad:20px;
+box-sizing:border-box;display:flex;position:relative;overflow:hidden;font:400 15px/23px var(--font);color:var(--text);background:var(--canvas)}
+.v2.dir-a{--head-w:680;--head-track:-.022em}
+.v2.dir-a.light{--canvas:#F5F6F7;--surface:#FBFBFC;--raised:#FFFFFF;--sunken:#EEF0F2;--fill:#ECEEF1;--line:#DFE2E7;--edge:#76808E;--text:#1A2028;--text2:#545E6B;
+--act:#215BB8;--on-act:#FFFFFF;--act-bg:#E6EEFB;--peer:#0C7187;--peer-bg:#E0F3F6;--attn:#97600E;--attn-bg:#FBF0DC;--ok:#146A4A;--ok-bg:#E1F3EA;--err:#B43E46;--err-bg:#FBE6E7;--shadow:0 16px 40px rgb(26 32 40 / .16);--seam:var(--line)}
+.v2.dir-b{--canvas:#151311;--surface:#1C1A17;--raised:#26231F;--sunken:#0F0E0C;--fill:#2F2B26;--line:#322E28;--edge:#7A7166;--text:#F4F1EC;--text2:#B8AFA3;
+--act:#A9BDF0;--on-act:#141A2B;--act-bg:#1E2536;--peer:#6CCFC7;--peer-bg:#122A28;--attn:#E9B866;--attn-bg:#2F2613;--ok:#8CCB9B;--ok-bg:#16281B;--err:#F0908A;--err-bg:#331C1A;
+--head:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,ui-serif,serif;--head-w:600;--head-track:-.012em}
+.v2.dir-b.light{--canvas:#FAF8F4;--surface:#FFFFFF;--raised:#FFFFFF;--sunken:#F1EDE6;--fill:#F1EDE6;--line:#E2DCD2;--edge:#8E8577;--text:#221E19;--text2:#655C50;
+--act:#2F4FA3;--on-act:#FFFFFF;--act-bg:#E8ECF8;--peer:#0E6F68;--peer-bg:#DFF2EF;--attn:#8F5B0C;--attn-bg:#F8EDD8;--ok:#1F6B3A;--ok-bg:#E2F1E4;--err:#AE3B33;--err-bg:#F9E5E2;--shadow:0 16px 40px rgb(34 30 25 / .16)}
+.v2.dir-c{--canvas:#0F1014;--surface:#17181F;--raised:#21232D;--sunken:#0A0B0E;--fill:#2B2D39;--line:#2B2D3A;--edge:#6A6E84;--text:#F5F5F8;--text2:#ABAFC0;
+--act:#B9A8FF;--on-act:#150F2E;--act-bg:#221D3D;--peer:#5FD3D6;--peer-bg:#0F2A2C;--attn:#F5BC5A;--attn-bg:#302612;--ok:#70D8A2;--ok-bg:#11291E;--err:#FF8C8E;--err-bg:#341A1D;
+--head-w:750;--head-track:-.028em}
+.v2.dir-c.light{--canvas:#F7F7FA;--surface:#FFFFFF;--raised:#FFFFFF;--sunken:#EFEFF5;--fill:#EFEFF5;--line:#DEDEE8;--edge:#84869A;--text:#17171F;--text2:#585B6E;
+--act:#5B3FD0;--on-act:#FFFFFF;--act-bg:#ECE8FB;--peer:#0C7187;--peer-bg:#E0F3F6;--attn:#96600C;--attn-bg:#FBF0DC;--ok:#146A4A;--ok-bg:#E1F3EA;--err:#B43E46;--err-bg:#FBE6E7;--shadow:0 16px 40px rgb(23 23 31 / .16)}
+.v2.m{--ctl:44px;--pad:16px;flex-direction:column;font-size:16px;line-height:24px}
+.v2 *{box-sizing:border-box}
+.v2 h1,.v2 h2,.v2 h3,.v2 p,.v2 ul,.v2 ol{margin:0;padding:0;list-style:none}
+.v2 a{color:inherit;text-decoration:none}
+.v2 code,.v2 .mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.9em}
+.v2 .num{font-variant-numeric:tabular-nums}
+.v2 .t-meta code,.v2 .t-meta .mono,.v2 .t-micro code{font-size:1em}
+/* type: one rhythm. Title 28/34, heading 20/26, sub-heading 16/22, then body 15/23, navigation 14/20, metadata 13/18. */
+.v2 .t-title{font:var(--head-w) 26px/32px var(--head);letter-spacing:var(--head-track);text-wrap:balance}
+.v2 .t-h{font:600 19px/26px var(--head);letter-spacing:-.01em;text-wrap:balance}
+.v2 .t-sub{font-size:16px;line-height:24px;font-weight:600}
+.v2 .t-nav{font-size:14px;line-height:20px}
+.v2 .t-meta{font-size:13px;line-height:18px;color:var(--text2)}
+.v2 .t-micro{font-size:12px;line-height:16px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--text2)}
+.v2 .dim{color:var(--text2)}.v2 .b{font-weight:600}
+.v2.dir-a .t-title{font-size:28px;line-height:34px}
+.v2.dir-a .t-h{font-size:20px;line-height:26px;font-weight:650;letter-spacing:-.014em}
+.v2.dir-a .t-sub{line-height:22px;font-weight:620;letter-spacing:-.006em}
+.v2.dir-a .t-micro{font-size:13px;line-height:18px;letter-spacing:0;text-transform:none}
+.v2.dir-c .t-title{font-size:28px;line-height:32px}
+.v2.m .t-title,.v2.m.dir-a .t-title{font-size:24px;line-height:30px}
+/* layout */
+.v2 .nav{width:264px;flex:none;display:flex;flex-direction:column;background:var(--surface);border-right:1px solid var(--seam)}
+.v2 .main{flex:1;min-width:0;min-height:0;display:flex;flex-direction:column}
+.v2 .insp{width:340px;flex:none;display:flex;flex-direction:column;gap:24px;padding:24px;background:var(--surface);border-left:1px solid var(--seam);overflow:hidden}
+.v2 .top{height:56px;flex:none;display:flex;align-items:center;gap:12px;padding:0 24px;border-bottom:1px solid var(--line)}
+.v2.dir-a .top{border-bottom-color:transparent}
+.v2 .page{flex:1;min-height:0;overflow:hidden;padding:32px;display:flex;flex-direction:column;gap:32px}
+.v2.dir-a .top+.page{padding-top:16px}
+.v2.m .page,.v2.m.dir-a .top+.page{padding:16px;gap:24px}
+.v2 .col{width:100%;max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
+.v2 .wide{width:100%;max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:32px}
+.v2 .x{display:flex;align-items:center;gap:8px}.v2 .x12{display:flex;align-items:center;gap:12px}.v2 .x16{display:flex;align-items:center;gap:16px}
+.v2 .y{display:flex;flex-direction:column;gap:8px}.v2 .y0{display:flex;flex-direction:column}.v2 .y4{display:flex;flex-direction:column;gap:4px}.v2 .y6{display:flex;flex-direction:column;gap:6px}.v2 .y12{display:flex;flex-direction:column;gap:12px}.v2 .y16{display:flex;flex-direction:column;gap:16px}.v2 .y24{display:flex;flex-direction:column;gap:24px}
+.v2 .grow{flex:1;min-width:0}.v2 .end{margin-left:auto}.v2 .between{justify-content:space-between}.v2 .wrap{flex-wrap:wrap}.v2 .top-a{align-items:flex-start}.v2 .r{text-align:right}
+.v2 .clip{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.v2 .g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.v2 .g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.v2 .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+/* unequal columns: g21 is two thirds and one third, g12 the reverse, g32 three fifths and two fifths, g211 a half and two quarters */
+.v2 .g21{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px}.v2 .g12{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:16px}
+.v2 .g32{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:16px}.v2 .g23{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:16px}
+.v2 .g211{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:16px}.v2 .g112{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,2fr);gap:16px}
+.v2 .prose{max-width:68ch}
+.v2 .hr{height:1px;background:var(--line);flex:none}
+/* helpers: a focus ring drawn as it is in the product, text for screen readers only, a path that may break anywhere */
+.v2 .focus,.v2 a:focus-visible,.v2 button:focus-visible,.v2 input:focus-visible,.v2 textarea:focus-visible,.v2 select:focus-visible,.v2 [tabindex]:focus-visible{outline:2px solid var(--act);outline-offset:2px}
+.v2 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.v2 .path{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.9em;overflow-wrap:anywhere;word-break:break-word;min-width:0}
+.v2 .t-meta .path,.v2 .t-meta.path{font-size:1em}
+/* navigation */
+.v2 .brand{height:56px;flex:none;display:flex;align-items:center;gap:10px;padding:0 16px;font:650 16px/1 var(--head);letter-spacing:-.012em;color:var(--text)}
+/* the mark: two brackets that meet at a seam, in the colour of the text beside it. The two-tone mark is for app icons only. */
+.v2 .logo{width:20px;height:20px;flex:none;display:block;fill:currentColor}
+.v2 span.logo{border-radius:6px;background:var(--act)}
+.v2 .nav-sec{padding:16px 16px 4px}
+.v2 .nav-a{height:36px;display:flex;align-items:center;gap:10px;margin:0 8px;padding:0 8px;border-radius:10px;font-size:14px;line-height:20px;color:var(--text2)}
+.v2 .nav-a.on{background:var(--fill);color:var(--text);font-weight:600}
+.v2 .nav-a .count{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:9999px;background:var(--attn-bg);color:var(--attn);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+/* the one open item, named in full under the navigation: it wraps, it is never cut */
+.v2 .nav-open{display:flex;align-items:flex-start;gap:10px;margin:0 8px;padding:8px;border-radius:10px;background:var(--fill);font-size:14px;line-height:20px;font-weight:600;color:var(--text)}
+.v2 .nav-open>.dot,.v2 .nav-open>.ring{margin-top:6px}.v2 .nav-open>.ring{margin-top:5px}.v2 .nav-open>.ic{margin-top:3px}
+.v2 .nav-open .t-meta{font-weight:400}
+.v2 .nav-foot{margin-top:auto;padding:12px 16px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
+/* controls */
+.v2 .btn{height:var(--ctl);padding:0 16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--edge);border-radius:10px;background:transparent;color:var(--text);font:500 14px/1 var(--font);white-space:nowrap}
+.v2.m .btn{font-size:16px}
+.v2 .btn.pri{background:var(--act);border-color:var(--act);color:var(--on-act);font-weight:600}
+.v2 .btn.ghost{border-color:transparent;color:var(--text2)}
+.v2 .btn.soft{border-color:transparent;background:var(--fill)}
+.v2 .btn.danger{border-color:var(--err);color:var(--err)}
+.v2 .btn.danger.fill{background:var(--err);color:var(--canvas);font-weight:600}
+.v2 .btn.sm{height:32px;padding:0 12px;border-radius:10px;font-size:13px}
+.v2.m .btn.sm{font-size:14px}
+.v2 .btn.icon{width:var(--ctl);padding:0}.v2 .btn.icon.sm{width:32px}
+.v2 .btn.pill{border-radius:9999px}.v2 .btn.full{width:100%}
+.v2 .btn.flush{margin-left:-12px}.v2 .mtop>.btn.icon:first-child{margin-left:-12px}
+/* a control that cannot be used now: no edge, no accent, and the reason is written beside it */
+.v2 .btn:disabled,.v2 .btn.off,.v2 .btn[aria-disabled="true"]{color:var(--text2);border-color:transparent;background:var(--fill);font-weight:500;cursor:not-allowed}
+.v2 .kbd{font:500 12px/18px ui-monospace,Menlo,monospace;border:1px solid currentColor;border-radius:6px;padding:0 5px;opacity:.75}
+.v2 .in{height:var(--ctl);width:100%;border:1px solid var(--edge);border-radius:10px;background:var(--sunken);color:var(--text);padding:0 12px;font:inherit;font-size:15px}
+.v2 textarea.in{height:auto;min-height:88px;padding:10px 12px;line-height:22px;resize:none;display:block}
+.v2 .in::placeholder,.v2 .composer textarea::placeholder,.v2 .composer input::placeholder{color:var(--text2);opacity:1}
+.v2.m .in{font-size:16px}
+.v2 .lab{display:block;font-size:13px;line-height:18px;font-weight:600;margin-bottom:6px}
+.v2 .pick{height:var(--ctl);border:1px solid var(--edge);border-radius:10px;background:transparent;color:var(--text);padding:0 12px;display:flex;align-items:center;justify-content:space-between;gap:12px;font:inherit;font-size:14px;min-width:200px}
+.v2 .chip{height:28px;padding:0 10px;display:inline-flex;align-items:center;gap:6px;border-radius:9999px;background:var(--fill);font-size:13px;line-height:1;white-space:nowrap;border:0;color:var(--text);font-family:inherit}
+/* a row that is a button: the row's look, a button's behaviour */
+.v2 .row-btn{appearance:none;-webkit-appearance:none;border:0;margin:0;background:none;color:inherit;font:inherit;text-align:left;width:100%;cursor:pointer}
+.v2 button.item{appearance:none;-webkit-appearance:none;border-left:0;border-right:0;border-bottom:0;margin:0;background:none;color:inherit;font:inherit;text-align:left;width:100%}
+.v2 .seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--fill);gap:2px}
+.v2 .seg.full{display:flex}.v2 .seg.full>*{flex:1}
+.v2 .seg>span,.v2 .seg>button,.v2 .seg>a{appearance:none;-webkit-appearance:none;height:32px;margin:0;padding:0 12px;display:flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:7px;background:transparent;font:inherit;font-size:13px;line-height:1;color:var(--text2);white-space:nowrap}
+.v2 .seg>.on,.v2 .seg>[aria-pressed="true"],.v2 .seg>[aria-selected="true"],.v2 .seg>[aria-checked="true"]{background:var(--raised);color:var(--text);font-weight:600}
+.v2.dir-a.light .seg>.on,.v2.dir-a.light .seg>[aria-pressed="true"],.v2.dir-a.light .seg>[aria-selected="true"],.v2.dir-a.light .seg>[aria-checked="true"]{outline:1px solid var(--line);outline-offset:-1px}
+.v2.m .seg>span,.v2.m .seg>button,.v2.m .seg>a{height:44px;font-size:14px}
+.v2 .tabs{display:flex;gap:24px;border-bottom:1px solid var(--line)}
+.v2 .tabs a{height:40px;display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text2);border-bottom:2px solid transparent;margin-bottom:-1px}
+.v2 .tabs a.on{color:var(--text);font-weight:600;border-bottom-color:var(--act)}
+/* status: a word, its colour and its mark */
+.v2 .tag{height:24px;padding:0 8px;display:inline-flex;align-items:center;gap:6px;border-radius:6px;font-size:12px;line-height:1;font-weight:600;white-space:nowrap;background:var(--fill);color:var(--text)}
+.v2 .tag.run{background:var(--act-bg);color:var(--act)}.v2 .tag.ok{background:var(--ok-bg);color:var(--ok)}.v2 .tag.attn{background:var(--attn-bg);color:var(--attn)}.v2 .tag.err{background:var(--err-bg);color:var(--err)}.v2 .tag.peer{background:var(--peer-bg);color:var(--peer)}
+.v2 .tag.line{background:transparent;box-shadow:inset 0 0 0 1px var(--line);color:var(--text2);font-weight:500}
+/* a signal is lighter than a tag: a mark and a word with no fill. It names whose move it is on a decision surface. */
+.v2 .signal{display:inline-flex;align-items:center;gap:6px;font-size:13px;line-height:18px;font-weight:600;color:var(--text2);white-space:nowrap}
+.v2 .signal.attn{color:var(--attn)}.v2 .signal.err{color:var(--err)}.v2 .signal.ok{color:var(--ok)}.v2 .signal.run{color:var(--act)}.v2 .signal.peer{color:var(--peer)}
+.v2 .dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
+.v2 .ring{width:10px;height:10px;border-radius:50%;border:2px solid currentColor;flex:none}
+.v2 .ic{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.v2 .ic.sm{width:14px;height:14px}.v2 .ic.lg{width:24px;height:24px}
+.v2 .c-act{color:var(--act)}.v2 .c-ok{color:var(--ok)}.v2 .c-attn{color:var(--attn)}.v2 .c-err{color:var(--err)}.v2 .c-peer{color:var(--peer)}
+/* done is not verified: a finished step is a neutral tick; green is kept for a check that passed or a result that was accepted */
+.v2 .c-done{color:var(--text2)}
+.v2 .done{width:18px;height:18px;border-radius:50%;background:var(--fill);color:var(--text);display:inline-flex;align-items:center;justify-content:center;flex:none}
+.v2 .done .ic{width:12px;height:12px;stroke-width:2}
+/* surfaces */
+.v2 .card{background:var(--raised);border:1px solid var(--seam);border-radius:12px;padding:20px}
+/* decorative only: never on a card that is a link, a button or a choice */
+.v2 .card.plain{border-color:transparent}
+.v2.dir-a.light .card.plain{border-color:var(--line)}
+.v2 .card.flat{background:transparent;border-color:var(--line)}
+.v2.dir-b .card.flat,.v2.dir-c .card.flat{background:var(--surface)}
+.v2 .card .card{background:var(--surface)}.v2 .card .card.flat{background:transparent}
+.v2 .card.tight{padding:16px}.v2 .card.none{padding:0;overflow:hidden}
+.v2 .head{display:flex;align-items:center;gap:12px;padding:16px 16px 12px}.v2 .head.tight{padding:12px 16px}.v2 .head.top-a{align-items:flex-start}
+.v2 .pad{padding:0 16px 16px}
+/* a card that is one of several choices, and the chosen one: a heavier edge and a tick, not colour alone */
+.v2 .card.on,.v2 .item.on{position:relative}
+.v2 .card.on{outline:2px solid var(--act);outline-offset:-2px}
+.v2 .card.on::after,.v2 .item.on::after{content:"";position:absolute;top:14px;right:14px;width:11px;height:6px;border-left:2px solid var(--act);border-bottom:2px solid var(--act);transform:rotate(-45deg)}
+.v2 .item.on{background:var(--fill);padding-right:44px}.v2 .item.on::after{top:50%;margin-top:-6px;right:18px}
+.v2 .item{min-height:48px;display:flex;align-items:center;gap:12px;padding:8px 16px;border-top:1px solid var(--line)}
+.v2 .item:first-child{border-top:0}
+.v2 .item.sel{background:var(--fill)}
+.v2 .item.tall{min-height:56px}.v2 .item.short{min-height:40px}
+.v2 .nav .item{min-height:40px;padding:6px 16px;border-top:0;font-size:14px;line-height:20px}
+.v2 .you{align-self:flex-end;max-width:560px;background:var(--fill);border-radius:12px;padding:12px 16px}
+.v2.m .you{max-width:300px}
+.v2 .diff{font:13px/20px ui-monospace,Menlo,monospace;background:var(--sunken);padding:8px 0;border-top:1px solid var(--line)}
+.v2 .diff div{padding:0 16px;white-space:pre}
+.v2 .diff .add{background:var(--ok-bg);color:var(--ok)}.v2 .diff .del{background:var(--err-bg);color:var(--err)}.v2 .diff .ctx{color:var(--text2)}
+.v2 .out{font:13px/20px ui-monospace,Menlo,monospace;background:var(--sunken);border-radius:8px;padding:12px 16px;white-space:pre;color:var(--text2);overflow:hidden}
+.v2 .out.wrap{white-space:pre-wrap;overflow-wrap:anywhere}
+.v2 .kv{display:flex;justify-content:space-between;gap:16px;font-size:14px;line-height:20px;padding:8px 0;border-top:1px solid var(--line)}
+.v2 .kv:first-child{border-top:0}.v2 .kv span:first-child{color:var(--text2)}
+/* evidence: what kind of claim it is, and whether it is about this revision. The label says who is speaking:
+   .src.check is a check Botbench ran (filled), .src is a statement (outlined), .src.unv is nothing verified (dashed). */
+.v2 .src{height:20px;padding:0 6px;display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:6px;font-size:12px;line-height:1;font-weight:500;color:var(--text2);white-space:nowrap;flex:none}
+.v2 .src.check{background:var(--fill);border-color:var(--fill);color:var(--text);font-weight:600}
+.v2 .src.unv{border-style:dashed;border-color:var(--edge)}
+.v2 .ev{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-top:1px solid var(--line)}
+.v2 .ev:first-child{border-top:0}
+.v2 .ev.stack{flex-direction:column;gap:6px}.v2 .ev.stack>*{max-width:100%}
+/* the decision surface: calm by default, louder only as the consequence grows.
+   1 routine review: .decide, neutral, with a neutral .signal. 2 approval that blocks an agent: the same surface with
+   .signal.attn, the one small attention mark. 3 elevated risk: .decide.risk, the first level with an attention edge and
+   tint. 4 destructive: .decide.destroy or .dialog.destroy, a heavier edge and a .band that says in words and with a
+   mark that it cannot be undone. 5 security refusal: .decide.refused, quiet, nothing to answer. */
+.v2 .decide{--pad:20px;background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:var(--pad);display:flex;flex-direction:column;gap:16px}
+.v2 .decide.risk{border-color:var(--attn);background:var(--attn-bg)}
+.v2 .decide.destroy,.v2 .dialog.destroy,.v2 .sheet.destroy{border:2px solid var(--err);overflow:hidden}
+.v2 .band{display:flex;align-items:center;gap:8px;margin:calc(-1 * var(--pad)) calc(-1 * var(--pad)) 0;padding:10px var(--pad);background:var(--err-bg);color:var(--err);border-bottom:1px solid var(--err);font-size:14px;line-height:20px;font-weight:600}
+.v2 .band .t-meta{color:var(--text);font-weight:400}
+.v2 .decide.refused{background:transparent}
+.v2.dir-b .decide.refused,.v2.dir-c .decide.refused{background:var(--surface)}
+.v2 .decide .acts{display:flex;gap:8px}
+.v2 .acts.split{justify-content:space-between}
+/* progress along a run or a task */
+.v2 .track{display:flex;align-items:center}
+.v2 .stop{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);white-space:nowrap}
+.v2 .stop b{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none}
+.v2.dir-a .stop b{border-color:var(--edge)}
+.v2 .stop.done{color:var(--text)}.v2 .stop.done b{background:var(--ok);border-color:var(--ok);color:var(--canvas)}
+.v2.dir-a .stop.done b{background:var(--text2);border-color:var(--text2);color:var(--canvas)}
+.v2 .stop.ok{color:var(--text)}.v2 .stop.ok b,.v2.dir-a .stop.ok b{background:var(--ok);border-color:var(--ok);color:var(--canvas)}
+.v2 .stop.now{color:var(--text);font-weight:600}.v2 .stop.now b,.v2.dir-a .stop.now b{border-color:var(--act)}
+.v2 .stop.wait{color:var(--text);font-weight:600}.v2 .stop.wait b,.v2.dir-a .stop.wait b{border-color:var(--attn);background:var(--attn-bg)}
+.v2 .rail{flex:1;height:2px;min-width:16px;margin:0 8px;background:var(--line)}.v2 .rail.done{background:var(--ok)}
+.v2.dir-a .rail.done{background:var(--text2)}.v2 .rail.ok,.v2.dir-a .rail.ok{background:var(--ok)}
+/* the same steps top to bottom, each with a line of explanation, for an inspector or a phone */
+.v2 .track.v{flex-direction:column;align-items:stretch;gap:12px}
+.v2 .track.v>li{position:relative;display:flex;flex-direction:column;gap:4px}
+.v2 .track.v>li>.t-meta{padding-left:28px}
+.v2 .track.v>li:not(:last-child)::before{content:"";position:absolute;left:9px;top:24px;bottom:-10px;width:2px;background:var(--line)}
+.v2 .bar{height:6px;border-radius:9999px;background:var(--fill);overflow:hidden}.v2 .bar i{display:block;height:100%;border-radius:9999px;background:var(--act)}
+/* people and agents */
+.v2 .av{width:28px;height:28px;border-radius:50%;background:var(--fill);color:var(--text);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none}
+.v2 .av.peer{background:var(--peer-bg);color:var(--peer)}.v2 .av.act{background:var(--act-bg);color:var(--act)}.v2 .av.sm{width:22px;height:22px;font-size:12px}
+.v2 .theirs{border:1px solid var(--peer);background:var(--peer-bg);border-radius:12px;padding:12px 16px}
+/* composer: the box is a real field; the frame is the control's edge */
+.v2 .composer{border:1px solid var(--edge);border-radius:16px;background:var(--raised);padding:12px;display:flex;flex-direction:column;gap:12px}
+.v2 .composer .box{min-height:48px;padding:4px;color:var(--text2);font-size:16px;line-height:24px}
+.v2 .composer textarea,.v2 .composer input[type="text"]{appearance:none;-webkit-appearance:none;display:block;width:100%;min-height:48px;margin:0;padding:4px;border:0;border-radius:6px;background:transparent;color:var(--text);font:inherit;font-size:16px;line-height:24px;resize:none}
+.v2 .composer input[type="text"]{min-height:0;height:32px}
+/* settings, tables */
+.v2 .set{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:16px 0;border-top:1px solid var(--line)}
+.v2 .set:first-child{border-top:0}.v2 .set .txt{max-width:60ch;display:flex;flex-direction:column;gap:2px}
+.v2.m .set{flex-direction:column;align-items:stretch;gap:12px}
+.v2 .tbl{width:100%;border-collapse:collapse;font-size:14px;line-height:20px}
+.v2 .tbl th{text-align:left;font-size:12px;line-height:16px;font-weight:600;color:var(--text2);padding:8px 12px;border-bottom:1px solid var(--line)}
+.v2 .tbl td{padding:12px;border-bottom:1px solid var(--line)}.v2 .tbl .r{text-align:right;font-variant-numeric:tabular-nums}
+.v2 .tbl th code,.v2 .tbl th .mono{font-size:1em}
+/* overlays, phone */
+.v2 .scrim{position:absolute;inset:0;background:rgb(0 0 0 / .55);display:flex;align-items:center;justify-content:center}
+.v2 .scrim.bottom{align-items:flex-end}
+.v2 .dialog{--pad:24px;width:520px;background:var(--raised);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:var(--pad);display:flex;flex-direction:column;gap:16px}
+.v2 .sheet{--pad:16px;width:100%;background:var(--raised);border-radius:16px 16px 0 0;box-shadow:var(--shadow);padding:8px 16px 24px;display:flex;flex-direction:column;gap:16px}
+.v2 .grab{width:36px;height:4px;border-radius:9999px;background:var(--edge);align-self:center}
+.v2 .mbar{height:60px;flex:none;display:flex;border-top:1px solid var(--seam);background:var(--surface)}
+.v2 .mbar a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;color:var(--text2)}
+.v2 .mbar a.on{color:var(--act);font-weight:600}
+.v2 .mtop{height:56px;flex:none;display:flex;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid var(--line)}
+.v2 .sticky-act{flex:none;padding:12px 16px;background:var(--surface);border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+/* .planned is not used inside the application frame any more (it read as a task's state); the notes beside a board carry it */
+.v2 .planned{border:1px dashed var(--edge);border-radius:8px;padding:4px 8px;font-size:12px;line-height:16px;font-weight:600;color:var(--text2)}
+/* specimen boards */
+.v2 .sw{height:64px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:flex-end;padding:8px 10px;font:500 12px/16px ui-monospace,Menlo,monospace}
+.v2 .box-n{border:1px solid var(--line);border-radius:12px;padding:12px 16px;background:var(--raised);font-size:14px;line-height:20px;text-align:center}
+.v2 .arrow{height:2px;flex:1;min-width:24px;background:var(--edge);position:relative}
+.v2 .arrow::after{content:"";position:absolute;right:0;top:-4px;border-left:8px solid var(--edge);border-top:5px solid transparent;border-bottom:5px solid transparent}
+/* stage 2 (failure, working, chat, compare, peer, settings boards). .push sends a block to the foot of its column;
+   .quiet-zone is the destructive way out, set apart from recovery by a hairline and never the next thing the eye meets. */
+.v2 .push{margin-top:auto}
+.v2 .quiet-zone{padding-top:16px;border-top:1px solid var(--line)}
+.v2 .f2{flex:2}
+.v2 .btn.flush-r{margin-right:-16px}
+/* Stop is not steering: it has its own row under a hairline, with the one line that says what stopping does */
+.v2 .stop-row{padding-top:12px;border-top:1px solid var(--line)}
+.v2 .sticky-act .stop-row{padding-top:8px}
+/* stage 2, the review screens (every rule here starts rv-). Four kinds of claim, told apart by shape as well as word:
+   a check Botbench ran is a filled label, a tick and a result tag; a model's review is a person-shaped row (the
+   reviewer's avatar and name, its verdict as plain words, never a tick or a result tag); the working agent's own
+   statement is a quotation behind a rule; what nothing verified sits in a dashed card with dashed labels.
+   .rv-result is the verification result, the first thing on the screen; its mark is green only when a check passed
+   on the commit under review. */
+.v2 .rv-result{display:flex;align-items:center;gap:16px;padding:20px 20px 16px}
+.v2 .rv-mark{width:40px;height:40px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:var(--ok-bg);color:var(--ok)}
+.v2 .rv-mark.attn{background:var(--attn-bg);color:var(--attn)}
+.v2 .rv-mark.none{background:transparent;color:var(--text2);border:1px dashed var(--edge)}
+.v2 .ev.rv{display:grid;grid-template-columns:104px minmax(0,1fr) auto;column-gap:12px;align-items:start;padding:12px 20px}
+.v2 .ev.rv>.src{justify-self:start;margin-top:2px}
+.v2 .rv-quote{border-left:2px solid var(--edge);padding-left:12px}
+.v2 .rv-pts{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+.v2 .rv-pts li{position:relative;padding-left:14px;font-size:13px;line-height:18px;color:var(--text2)}
+.v2 .rv-pts li::before{content:"";position:absolute;left:2px;top:8px;width:4px;height:4px;border-radius:50%;background:var(--edge)}
+.v2 .card.rv-unv{background:transparent;border:1px dashed var(--edge)}
+.v2 .rv-head{display:flex;align-items:center;gap:12px;padding:14px 20px 10px}
+.v2 .rv-disc{display:flex;align-items:center;gap:12px;min-height:48px;padding:8px 20px;border-top:1px solid var(--line)}
+/* why Accept is not offered: one line, where the button would have been */
+.v2 .rv-why{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;border-radius:10px;background:var(--fill);font-size:13px;line-height:18px;color:var(--text)}
+.v2 .rv-why .ic{margin-top:2px}
+/* between 768 and 1279px: the navigation is a rail of icons, the decision keeps its own column */
+.v2 .nav.rv-slim{width:64px;align-items:center}
+.v2 .nav.rv-slim .brand{padding:0;justify-content:center}
+.v2 .nav.rv-slim .nav-a{width:44px;height:44px;margin:0 0 4px;padding:0;justify-content:center;position:relative}
+.v2 .nav.rv-slim .nav-a .count{position:absolute;top:2px;right:0;margin:0;min-width:18px;height:18px;padding:0 5px}
+.v2 .nav.rv-slim .nav-foot{padding:12px 0;justify-content:center;width:100%}
+.v2 .insp.rv-mid{width:312px;padding:16px;gap:16px}
+.v2 .nowrap{white-space:nowrap}
+.v2 .col.fill,.v2 .wide.fill{flex:1;min-height:0}
+/* stage 2, Home and Work (appended). In a one-line row the title keeps the room and the metadata yields first:
+   .q-t takes what it needs and grows, .q-m shrinks a thousand times sooner. .k is the kind of ask, named in words at
+   the head of a metadata line. A .in may hold a mark and a bare input. .tbl.fix has fixed columns so a cell can cut
+   its text; .tbl.dense is the compact row Work uses. */
+.v2 .q-t{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.v2 .q-m{flex:0 1000 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.v2 .t-meta .k{color:var(--text);font-weight:600}
+.v2 .in.x{display:flex;align-items:center;gap:8px}
+.v2 .in>input{flex:1;min-width:0;height:100%;margin:0;padding:0;border:0;outline:0;background:transparent;color:inherit;font:inherit}
+.v2 .in>input::placeholder{color:var(--text2);opacity:1}
+.v2 .tbl.fix{table-layout:fixed}
+.v2 .tbl.dense td{padding:8px 12px}
+.v2 .tbl td.clip{max-width:0}
+.v2 .tbl tbody tr:last-child>*{border-bottom:0}
+/* the last row of every table has no hairline under it, header cell and data cells alike (the one rule above);
+   only Work's fixed table cuts a cell's text */
+.v2 .tbl:not(.fix) td.clip{max-width:none}
+.v2 .gap24{gap:24px}
+.v2 .composer.row{flex-direction:row;align-items:center}
+.v2 .composer.row input[type="text"]{width:auto;flex:1;min-width:0}
+/* a card that fills its grid cell: the body takes the room, the foot sits on the floor of the card */
+.v2 .g3.grow>.card,.v2 .g2.grow>.card{display:flex;flex-direction:column}
+.v2 .card>.quiet-zone{padding-top:12px}
+/* a screen that is one composition: the column sits in the middle of the page, not at its top */
+.v2 .page.center{justify-content:center}
+.v2 .col.mid{max-width:920px;margin-top:0;margin-bottom:0}
+.v2 .w96{width:96px}
+.v2 .composer.big{padding:16px;gap:12px}
+.v2 .composer.big textarea{min-height:120px}
+.v2 .composer .quiet-zone{padding-top:12px}
+.v2 a.card{display:flex}
+.v2 .dim .b,.v2 p.dim>.b{color:var(--text)}
+.v2 .composer.big textarea{min-height:168px}
+.v2 .who{width:40px;flex:none}.v2 .mt2{margin-top:2px}
+.v2 .arrow.short{flex:none;width:24px;min-width:24px}
+.v2 .card>.set:first-child{padding-top:0}.v2 .card>.set:last-child{padding-bottom:0}
+.v2 .fixed{flex:none}
+/* a one-line queue row at fifty: the title takes only its own width and the metadata follows it, left-aligned, and is cut first */
+.v2 .q-t.fit{flex-grow:0}
+.v2 .q-m.fill{flex-grow:1}
+.v2 .card.rows{padding:4px 20px}
+/* the two rules above on .card>.set are withdrawn (they reached setting rows in other cards); .set.bare is the one to use */
+.v2 .card>.set:first-child{padding-top:16px}.v2 .card>.set:last-child{padding-bottom:16px}
+.v2 .set.bare,.v2 .card>.set.bare:first-child,.v2 .card>.set.bare:last-child{padding:0;border-top:0}
+.v2 .gap2{gap:2px}
+.v2 .minw0{min-width:0}
+.v2 .gap12{gap:12px}
+/* rv-: the claim row where the column is narrow (two panes, or a phone): a slimmer label column, tighter sides */
+.v2 .ev.rv.mid{grid-template-columns:92px minmax(0,1fr) auto;padding:10px 16px}
+.v2 .rv-result.mid,.v2.m .rv-result{padding:16px 16px 12px;gap:12px}
+.v2 .rv-head.mid,.v2.m .rv-head{padding:12px 16px 10px}
+.v2 .rv-disc.mid,.v2.m .rv-disc{padding:8px 16px}
+.v2.m .ev.stack{padding:12px 16px}
+.v2 .bullet{width:5px;height:5px;margin-top:8px}
+.v2 .box-n.left{text-align:left}
+.v2 .card.tight.y6{gap:6px}
+.v2 .card .box-n{background:var(--surface)}
+.v2 .stat{font:650 26px/32px var(--head);letter-spacing:-.02em}
+.v2 .tbl th[scope="row"]{font-size:14px;line-height:20px;font-weight:400;color:var(--text);padding:12px;text-align:left}
+/* the Outside text mark keeps its shape on the peer's own tint, where its fill would vanish */
+.v2 .theirs .tag.peer{box-shadow:inset 0 0 0 1px var(--peer)}
+/* w-: the last boards (Settings: execution environments and workbench identity; the 768 and 1280 layouts; the widths
+   reference). .w-one is a one-pane root below 1024px that is not the phone root: a column, desktop type and controls.
+   .sheet.w-dock is the decision sheet drawn open at the foot of that pane, in the flow, so nothing lies hidden under it.
+   .w-cmds is a short list of commands, one to a line, that may break anywhere. .w-frame and .w-pane are the schematic
+   layouts of the widths board, drawn to scale. */
+.v2.w-one{flex-direction:column}
+.v2 .sheet.w-dock{flex:none;padding:8px 24px 20px;gap:12px;border-top:1px solid var(--line)}
+.v2 .w-cmds{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.v2 .w-cmds li{max-width:100%;padding:2px 8px;border-radius:6px;background:var(--sunken);font:13px/20px ui-monospace,"SF Mono",Menlo,monospace;overflow-wrap:anywhere}
+.v2 .diff.w-wrap div{white-space:pre-wrap;overflow-wrap:anywhere}
+.v2 .w-frame{flex:none;display:flex;overflow:hidden;border:1px solid var(--edge);border-radius:10px;background:var(--canvas)}
+.v2 .w-frame.w-col{flex-direction:column}
+.v2 .w-pane{min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center;font-size:12px;line-height:16px;color:var(--text2)}
+.v2 .w-pane.w-main{flex:1;color:var(--text)}
+.v2 .w-pane.w-side{flex:none;background:var(--surface)}
+.v2 .w-pane.w-left{border-right:1px solid var(--line)}.v2 .w-pane.w-right{border-left:1px solid var(--line)}
+.v2 .w-pane.w-bar{flex:none;background:var(--surface);border-bottom:1px solid var(--line)}
+.v2 .w-pane.w-foot{flex:none;background:var(--surface);border-top:1px solid var(--line)}
+.v2 .w-pane.w-up{flex:none;background:var(--raised);border:1px solid var(--line);border-bottom:0;border-radius:10px 10px 0 0}
+.v2 code.w-same{font-size:1em}
