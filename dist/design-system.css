@@ -133,23 +133,27 @@
     --ds-z-dialog: 300;
     --ds-z-toast: 400;
 
-    /* The fixed heights a size variant names, such as a small button. They do not change with the density. */
+    /*
+     * The fixed heights a size variant names. They do not change with the density: 24px a tag and the smallest
+     * target of a fine pointer, 28px a chip, 32px a small control, 48px a large one.
+     */
     --ds-size-control-xs: 24px;
     --ds-size-control-sm: 28px;
     --ds-size-control-md: 32px;
-    --ds-size-control-lg: 40px;
-    /* The height of a control of default size, at the density of its container. The density blocks below set it. */
-    --ds-size-control: 36px;
-    /* The least height of a row in a list, a menu, a tree or a table, at the density of its container. */
-    --ds-size-row: 36px;
+    --ds-size-control-lg: 48px;
+    /* The height of a control of default size. A compact container and a coarse pointer set it: the blocks below. */
+    --ds-size-control: 40px;
+    /* The least height of a row in a list, a menu, a tree or a table. A compact container and a coarse pointer set it. */
+    --ds-size-row: 40px;
     /* The smallest target on a coarse pointer, such as a finger. On a fine pointer the floor is control-xs. */
     --ds-size-touch: 44px;
     /* A navigation or list column. */
     --ds-size-sidebar: 260px;
     /* A detail column beside the main one. */
-    --ds-size-inspector: 360px;
+    --ds-size-inspector: 340px;
     --ds-size-column: 480px;
-    --ds-size-transcript: 720px;
+    /* The reading column: a transcript, a review, a form. */
+    --ds-size-transcript: 760px;
     /* A view of dense data, such as a table or a board, that uses the width of a desktop screen. */
     --ds-size-wide: 1200px;
 
@@ -224,34 +228,21 @@
   }
 
   /*
-   * Density: how tall a control and a row are, and how large body text is. data-ds-density on any element sets it
-   * for what is inside. Comfortable is the default. Each block sets the four density tokens and nothing else, and
-   * a theme cannot set them. Compact gives body text the dense size and line height.
+   * Density: how tall a control and a row are, and how large body text is. :root holds the default, 40px for both
+   * with 15px text. data-ds-density="compact" on a container sets the four density tokens for what is inside it, for
+   * a list, a table or an inventory read with a mouse: 32px controls, 36px rows and the dense text size. It is the
+   * one value of the attribute, it sets nothing else, and a theme cannot set these tokens.
    */
   [data-ds-density="compact"] {
-    --ds-size-control: 28px;
-    --ds-size-row: 32px;
+    --ds-size-control: 32px;
+    --ds-size-row: 36px;
     --ds-text-ui: 0.8125rem;
     --ds-leading-ui: 1.385;
   }
 
-  [data-ds-density="comfortable"] {
-    --ds-size-control: 36px;
-    --ds-size-row: 36px;
-    --ds-text-ui: 0.875rem;
-    --ds-leading-ui: 1.5;
-  }
-
-  [data-ds-density="touch"] {
-    --ds-size-control: 44px;
-    --ds-size-row: 44px;
-    --ds-text-ui: 0.875rem;
-    --ds-leading-ui: 1.5;
-  }
-
   /*
-   * A finger needs the touch size, so on a coarse pointer the touch density applies everywhere, whatever the
-   * attribute says, and a screen held in the hand needs larger type, so every type size is one pixel (0.0625rem) larger.
+   * A finger needs the touch size, so on a coarse pointer a control and a row are 44px everywhere, a compact
+   * container included, and a screen held in the hand needs larger type, so every type size is one pixel (0.0625rem) larger.
    */
   @media (pointer: coarse) {
     :root,
@@ -463,8 +454,8 @@
   }
 
   /*
-   * A density sets the size of body text through its two tokens. A size is inherited as a length, not as the
-   * token, so the container takes the body size again from the tokens as they are inside it.
+   * A compact container sets the size of body text through its two tokens. A size is inherited as a length, not as
+   * the token, so the container takes the body size again from the tokens as they are inside it.
    */
   [data-ds-density] {
     font-size: var(--ds-text-ui);
@@ -1841,13 +1832,13 @@
   }
 
   /*
-   * The sizes are fixed heights: they do not follow the density, so a small button is 28px in every container.
+   * The sizes are fixed heights: they do not follow the density, so a small button is 32px in every container.
    * At that height the label is the dense size, and the icon sits 6px from it.
    */
   .ds-button--small {
-    min-height: var(--ds-size-control-sm);
+    min-height: var(--ds-size-control-md);
     gap: var(--ds-space-xs-sm);
-    padding-block: calc((var(--ds-size-control-sm) - var(--ds-text-sm) * var(--ds-leading-sm)) / 2 - var(--ds-border-width));
+    padding-block: calc((var(--ds-size-control-md) - var(--ds-text-sm) * var(--ds-leading-sm)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
     font-size: var(--ds-text-sm);
     line-height: var(--ds-leading-sm);
@@ -1859,7 +1850,7 @@
   }
 
   /*
-   * A finger needs more than the 28px the small button is drawn with. On a coarse pointer this invisible box,
+   * A finger needs more than the 32px the small button is drawn with. On a coarse pointer this invisible box,
    * centred on it, keeps its pointer target at the touch size without making a dense row taller.
    */
   @media (pointer: coarse) {
@@ -3528,7 +3519,7 @@
   .ds-data-table .ds-data-table__action {
     width: 0;
     min-width: 0;
-    padding-block: calc((var(--ds-size-row) - var(--ds-size-control-sm)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-size-control-md)) / 2);
     text-align: end;
     white-space: nowrap;
   }
@@ -3761,7 +3752,7 @@
     /* Pulled to the start, so the words of a quiet button line up with the labels above them. */
     .ds-data-table:not(.ds-data-table--scroll) tbody tr > .ds-data-table__action {
       margin-inline-start: calc(var(--ds-space-xs) * -1);
-      padding-block: calc((var(--ds-size-row) - var(--ds-size-control-sm)) / 2);
+      padding-block: calc((var(--ds-size-row) - var(--ds-size-control-md)) / 2);
       padding-inline: 0;
     }
 
@@ -5051,13 +5042,13 @@
   }
 
   /*
-   * The sizes are fixed squares: 28px for a toolbar, 24px for an action inside a dense row. They do not follow
+   * The sizes are fixed squares: 32px for a toolbar, 24px for an action inside a dense row. They do not follow
    * the density. The bar of a toggle that is on sits on the lower edge, clear of the icon.
    */
   .ds-icon-button--small {
-    width: var(--ds-size-control-sm);
-    min-width: var(--ds-size-control-sm);
-    min-height: var(--ds-size-control-sm);
+    width: var(--ds-size-control-md);
+    min-width: var(--ds-size-control-md);
+    min-height: var(--ds-size-control-md);
   }
 
   .ds-icon-button--xsmall {
@@ -5068,7 +5059,7 @@
 
   .ds-icon-button--small[aria-pressed="true"]::after {
     bottom: 0;
-    inset-inline: calc((var(--ds-size-control-sm) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
+    inset-inline: calc((var(--ds-size-control-md) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
   }
 
   .ds-icon-button--xsmall[aria-pressed="true"]::after {
@@ -5099,7 +5090,7 @@
     .ds-icon-button--small[aria-pressed="true"]::after {
       inset: 50% auto auto 50%;
       height: var(--ds-size-touch);
-      padding: calc((var(--ds-size-touch) + var(--ds-size-control-sm)) / 2 - var(--ds-border-width) * 3) calc((var(--ds-size-touch) - var(--ds-space-lg)) / 2) calc((var(--ds-size-touch) - var(--ds-size-control-sm)) / 2 + var(--ds-border-width));
+      padding: calc((var(--ds-size-touch) + var(--ds-size-control-md)) / 2 - var(--ds-border-width) * 3) calc((var(--ds-size-touch) - var(--ds-space-lg)) / 2) calc((var(--ds-size-touch) - var(--ds-size-control-md)) / 2 + var(--ds-border-width));
       background-clip: content-box;
     }
 

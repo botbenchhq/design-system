@@ -19,7 +19,7 @@
     { "name": "icon only", "use": "ds-button ds-button--quiet ds-icon-button with the copy icon and an aria-label, for a dense row or a table cell. It is a square of default size, or ds-icon-button--small or ds-icon-button--xsmall where the row is dense." }
   ],
   "sizes": [
-    { "name": "default", "use": "The labelled button is the small button: 28px tall, with a 44px pointer target on a coarse pointer. The icon-only button is as tall as a control: 36px by default and 44px on a coarse pointer." }
+    { "name": "default", "use": "The labelled button is the small button: 32px tall, with a 44px pointer target on a coarse pointer. The icon-only button is as tall as a control: 40px by default and 44px on a coarse pointer." }
   ],
   "states": ["default", "hover", "focus-visible", "copied", "error", "disabled"],
   "accessibility": [

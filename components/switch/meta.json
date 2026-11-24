@@ -24,7 +24,7 @@
     "A description is a p with ds-switch__description, linked from the input with aria-describedby.",
     "The component needs no script to move. The app listens for the change event and saves the setting. If saving fails, it sets the checked property back and adds a p with ds-switch__error and role=\"alert\", linked through aria-describedby, saying which state the setting is in and what to do.",
     "Set the disabled attribute when the setting cannot be changed, and say why in the description.",
-    "Tab reaches the switch and Space toggles it. The track is drawn 44px by 24px and its pointer target is as tall as the row, 36px by default and 44px on a coarse pointer; a press on the label toggles it too."
+    "Tab reaches the switch and Space toggles it. The track is drawn 44px by 24px and its pointer target is as tall as the row, 40px by default and 44px on a coarse pointer; a press on the label toggles it too."
   ],
   "icons": ["circle-alert"],
   "classes": [

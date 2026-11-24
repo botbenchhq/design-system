@@ -19,7 +19,7 @@
     { "name": "scroll", "class": "ds-toolbar--scroll", "use": "One row that scrolls sideways inside the toolbar, where a second row would push the content down. Put the controls used most first." }
   ],
   "sizes": [
-    { "name": "default", "use": "Each control is as tall as a control of default size, 36px by default and 44px on a coarse pointer, and an icon button a square of that height. The toolbar is as wide as its controls and never wider than its container." }
+    { "name": "default", "use": "Each control is as tall as a control of default size, 40px by default and 44px on a coarse pointer, and an icon button a square of that height. The toolbar is as wide as its controls and never wider than its container." }
   ],
   "states": ["default", "pressed", "hover", "focus-visible", "disabled"],
   "accessibility": [

@@ -146,33 +146,31 @@ sizes:
   control-xs: 24px
   control-sm: 28px
   control-md: 32px
-  control-lg: 40px
-  control: 36px
-  row: 36px
+  control-lg: 48px
+  control: 40px
+  row: 40px
   touch: 44px
   sidebar: 260px
-  inspector: 360px
+  inspector: 340px
   column: 480px
-  transcript: 720px
+  transcript: 760px
   wide: 1200px
 density:
+  default:
+    control: 40px
+    row: 40px
+    text: 0.875rem
+    leading: 1.5
   compact:
-    control: 28px
-    row: 32px
+    control: 32px
+    row: 36px
     text: 0.8125rem
     leading: 1.385
-  comfortable:
-    control: 36px
-    row: 36px
-    text: 0.875rem
-    leading: 1.5
-  touch:
+  coarse-pointer:
     control: 44px
     row: 44px
-    text: 0.875rem
+    text: 0.9375rem
     leading: 1.5
-  default: comfortable
-  coarse-pointer: touch
 typography-coarse-pointer:
   2xs: 0.75rem
   xs: 0.8125rem

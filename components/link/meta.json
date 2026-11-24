@@ -22,7 +22,7 @@
     { "name": "external", "use": "Not a class but a pattern, for a link with target=\"_blank\": end it with a ds-link__icon showing external-link and a ds-link__hint holding (opens in a new tab). It works in an inline, a standalone and a quiet link." }
   ],
   "sizes": [
-    { "name": "default", "use": "A standalone link takes the text size around it and is at least as tall and as wide as a control: 36px by default and 44px on a coarse pointer. An inline link is the size of its sentence." }
+    { "name": "default", "use": "A standalone link takes the text size around it and is at least as tall and as wide as a control: 40px by default and 44px on a coarse pointer. An inline link is the size of its sentence." }
   ],
   "states": ["default", "hover", "focus-visible", "active"],
   "accessibility": [

@@ -530,7 +530,7 @@ src/webhooks/retry.ts</pre>
 <section>
 <h2>Accessibility</h2>
 <ul>
-<li>Use a native details element with the class on it, in an li of the transcript. Its first child is a summary with ds-step-group__summary, and after it comes an ol with ds-step-group__steps. Enter and Space open and close the summary, and it is as tall as a row: 36px by default and 44px on a coarse pointer.</li>
+<li>Use a native details element with the class on it, in an li of the transcript. Its first child is a summary with ds-step-group__summary, and after it comes an ol with ds-step-group__steps. Enter and Space open and close the summary, and it is as tall as a row: 40px by default and 44px on a coarse pointer.</li>
 <li>ds-step-group__title is a sentence the app writes from the steps inside, as counts by kind in plain words: Ran 4 commands, edited 2 files. Past tense for what was done, the same verbs as the rows. While steps are still arriving, end it with so far. rules/content.md has the wording.</li>
 <li>A step that failed, a step that is running and a step that waits for approval are each said in words inside the title, in a span with ds-step-group__callout and data-state=&quot;failed&quot;, data-state=&quot;running&quot; or data-state=&quot;awaiting-approval&quot;: 1 command failed, Running, Awaiting your approval. The stylesheet draws the icon from data-state. Never leave a failure or a pending approval to be found in a count.</li>
 <li>ds-step-group__duration is how long the steps took together, with its unit. While the group is still running use a time that counts up and is not announced: the ds-elapsed element from behaviors/elapsed.js, or a span with aria-live=&quot;off&quot;.</li>

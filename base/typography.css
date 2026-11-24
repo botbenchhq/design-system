@@ -17,8 +17,8 @@
   }
 
   /*
-   * A density sets the size of body text through its two tokens. A size is inherited as a length, not as the
-   * token, so the container takes the body size again from the tokens as they are inside it.
+   * A compact container sets the size of body text through its two tokens. A size is inherited as a length, not as
+   * the token, so the container takes the body size again from the tokens as they are inside it.
    */
   [data-ds-density] {
     font-size: var(--ds-text-ui);

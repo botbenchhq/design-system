@@ -71,7 +71,7 @@
   .ds-data-table .ds-data-table__action {
     width: 0;
     min-width: 0;
-    padding-block: calc((var(--ds-size-row) - var(--ds-size-control-sm)) / 2);
+    padding-block: calc((var(--ds-size-row) - var(--ds-size-control-md)) / 2);
     text-align: end;
     white-space: nowrap;
   }
@@ -304,7 +304,7 @@
     /* Pulled to the start, so the words of a quiet button line up with the labels above them. */
     .ds-data-table:not(.ds-data-table--scroll) tbody tr > .ds-data-table__action {
       margin-inline-start: calc(var(--ds-space-xs) * -1);
-      padding-block: calc((var(--ds-size-row) - var(--ds-size-control-sm)) / 2);
+      padding-block: calc((var(--ds-size-row) - var(--ds-size-control-md)) / 2);
       padding-inline: 0;
     }
 

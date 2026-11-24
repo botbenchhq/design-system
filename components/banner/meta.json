@@ -21,7 +21,7 @@
     { "name": "danger", "class": "ds-banner--danger", "use": "Something has failed and work is blocked until it is fixed. Set role=\"alert\"." }
   ],
   "sizes": [
-    { "name": "default", "use": "At least as tall as a row, 36px by default and 44px on a coarse pointer, and as wide as its container. The text wraps, and on a narrow screen the action and the dismiss button move below it." }
+    { "name": "default", "use": "At least as tall as a row, 40px by default and 44px on a coarse pointer, and as wide as its container. The text wraps, and on a narrow screen the action and the dismiss button move below it." }
   ],
   "states": ["default", "hover", "focus-visible", "active", "busy"],
   "accessibility": [

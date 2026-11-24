@@ -19,7 +19,7 @@
     { "name": "named steps", "use": "Each step has a name, written in the output and repeated in aria-valuetext on the input." }
   ],
   "sizes": [
-    { "name": "default", "use": "As wide as its container and as tall as a control: 36px by default and 44px on a coarse pointer. The thumb is drawn 24px square inside a pointer target of that size." }
+    { "name": "default", "use": "As wide as its container and as tall as a control: 40px by default and 44px on a coarse pointer. The thumb is drawn 24px square inside a pointer target of that size." }
   ],
   "states": ["default", "hover", "focus-visible", "active", "disabled"],
   "accessibility": [

@@ -18,7 +18,7 @@
     { "name": "list", "use": "A button with the classes ds-button, ds-button--quiet and ds-show-more__all after a ds-list, reading Show all 24 tasks. The app adds the rows when it is pressed." }
   ],
   "sizes": [
-    { "name": "default", "use": "The control is as tall as a control of default size, 36px by default and 44px on a coarse pointer, as wide as its text, and starts at the content's leading edge." }
+    { "name": "default", "use": "The control is as tall as a control of default size, 40px by default and 44px on a coarse pointer, as wide as its text, and starts at the content's leading edge." }
   ],
   "states": ["default", "open", "hover", "focus-visible", "active", "loading", "error"],
   "accessibility": [

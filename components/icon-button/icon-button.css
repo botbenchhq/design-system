@@ -28,13 +28,13 @@
   }
 
   /*
-   * The sizes are fixed squares: 28px for a toolbar, 24px for an action inside a dense row. They do not follow
+   * The sizes are fixed squares: 32px for a toolbar, 24px for an action inside a dense row. They do not follow
    * the density. The bar of a toggle that is on sits on the lower edge, clear of the icon.
    */
   .ds-icon-button--small {
-    width: var(--ds-size-control-sm);
-    min-width: var(--ds-size-control-sm);
-    min-height: var(--ds-size-control-sm);
+    width: var(--ds-size-control-md);
+    min-width: var(--ds-size-control-md);
+    min-height: var(--ds-size-control-md);
   }
 
   .ds-icon-button--xsmall {
@@ -45,7 +45,7 @@
 
   .ds-icon-button--small[aria-pressed="true"]::after {
     bottom: 0;
-    inset-inline: calc((var(--ds-size-control-sm) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
+    inset-inline: calc((var(--ds-size-control-md) - var(--ds-space-lg)) / 2 - var(--ds-border-width));
   }
 
   .ds-icon-button--xsmall[aria-pressed="true"]::after {
@@ -76,7 +76,7 @@
     .ds-icon-button--small[aria-pressed="true"]::after {
       inset: 50% auto auto 50%;
       height: var(--ds-size-touch);
-      padding: calc((var(--ds-size-touch) + var(--ds-size-control-sm)) / 2 - var(--ds-border-width) * 3) calc((var(--ds-size-touch) - var(--ds-space-lg)) / 2) calc((var(--ds-size-touch) - var(--ds-size-control-sm)) / 2 + var(--ds-border-width));
+      padding: calc((var(--ds-size-touch) + var(--ds-size-control-md)) / 2 - var(--ds-border-width) * 3) calc((var(--ds-size-touch) - var(--ds-space-lg)) / 2) calc((var(--ds-size-touch) - var(--ds-size-control-md)) / 2 + var(--ds-border-width));
       background-clip: content-box;
     }
 

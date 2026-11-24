@@ -274,7 +274,7 @@ test("a theme that sets a density token, or holds a density block, fails and is 
   // The Botbench theme leaves the density alone, and its controls are the default theme's.
   assert.deepEqual(botbench.tokens.density, defaults.density);
   assert.deepEqual(botbench.tokens.coarse, defaults.coarse);
-  assert.equal(botbench.tokens.light["--ds-size-control"], "36px");
+  assert.equal(botbench.tokens.light["--ds-size-control"], "40px");
 });
 
 test("a theme sets no type size, line height, tracking or radius: the build fails, naming the theme and the token, and the Botbench theme sets none", () => {

@@ -13,7 +13,7 @@
 import type { ComponentPropsWithRef, MouseEvent, ReactNode } from "react";
 
 export type ButtonVariant = "primary" | "secondary" | "quiet" | "danger";
-/** The sizes of a button with words. Small and large are fixed heights; the default follows the density. */
+/** The sizes of a button with words. Small and large are fixed heights; the default is shorter in a compact container and taller on a coarse pointer. */
 export type ButtonSize = "default" | "small" | "large";
 /** The sizes of an icon-only button: xsmall is for the one action inside a dense row. */
 export type IconButtonSize = "default" | "small" | "xsmall";

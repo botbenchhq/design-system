@@ -17,7 +17,7 @@
     { "name": "mono", "class": "ds-textarea--mono", "use": "Commands, code and prompts where spacing and punctuation matter. Set spellcheck=\"false\" with it." }
   ],
   "sizes": [
-    { "name": "default", "use": "As wide as the field, two controls tall when empty, growing with its content to six and scrolling after that. Where the browser cannot grow it, it is three controls tall and the reader can drag it taller. A control is 36px by default and 44px on a coarse pointer." }
+    { "name": "default", "use": "As wide as the field, two controls tall when empty, growing with its content to six and scrolling after that. Where the browser cannot grow it, it is three controls tall and the reader can drag it taller. A control is 40px by default and 44px on a coarse pointer." }
   ],
   "states": ["default", "focus", "invalid", "disabled", "read-only"],
   "accessibility": [

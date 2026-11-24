@@ -20,7 +20,7 @@ const DO = "[data-example]:not([data-dont])";
 const INTERACTIVE = 'button, a[class], input, select, textarea, summary, [role="button"], [tabindex]';
 // A screen 390px wide is a phone, which has a coarse pointer, so every test in the matrix at that width runs with
 // one emulated: Playwright's hasTouch makes (pointer: coarse) match in Chrome, WebKit and Firefox, and the target
-// tests check that it does. The touch density then applies, whatever data-ds-density says. 1280px has a fine pointer.
+// tests check that it does. Controls and rows are then 44px, whatever data-ds-density says. 1280px has a fine pointer.
 const COARSE = { 390: true, 1280: false };
 // The smallest pointer target each way: the touch size on a coarse pointer, and 24px on a fine one (WCAG 2.2, 2.5.8).
 const TARGET = { 390: 44, 1280: 24 };
@@ -246,28 +246,28 @@ async function pressAbove(page, button, distance) {
   return button.getAttribute("data-pressed");
 }
 
-test("on a fine pointer a control is 28px, 36px or 44px tall by the density of its container, the small button 28px and the large 40px, and the small button takes no press 20px above its centre", async ({ page }) => {
+test("on a fine pointer a control is 40px tall and 32px in a compact container, the small button 32px and the large 48px, and the small button takes no press 20px above its centre", async ({ page }) => {
   await open(page, "button");
   expect(await coarsePointer(page)).toBe(false);
-  expect(await buttonHeights(page, "density")).toEqual({ Compact: 28, Comfortable: 36, Touch: 44 });
-  expect(await buttonHeights(page, "sizes")).toEqual({ "Open pull request": 36, "Copy path": 28, Dismiss: 28 });
-  expect(await buttonHeights(page, "large")).toEqual({ "Sign in with GitHub": 40, "Use a device code": 40 });
+  expect(await buttonHeights(page, "density")).toEqual({ Default: 40, Compact: 32 });
+  expect(await buttonHeights(page, "sizes")).toEqual({ "Open pull request": 40, "Copy path": 32, Dismiss: 32 });
+  expect(await buttonHeights(page, "large")).toEqual({ "Sign in with GitHub": 48, "Use a device code": 48 });
   expect(await pressAbove(page, page.locator('[data-example="sizes"] .ds-button--small').first(), 20)).toBe(null);
   await open(page, "icon-button");
-  expect(await page.locator('[data-example="named"] .ds-icon-button').first().evaluate((button) => [button.offsetWidth, button.offsetHeight])).toEqual([36, 36]);
-  expect(await page.locator('[data-example="small"] .ds-icon-button').first().evaluate((button) => [button.offsetWidth, button.offsetHeight])).toEqual([28, 28]);
+  expect(await page.locator('[data-example="named"] .ds-icon-button').first().evaluate((button) => [button.offsetWidth, button.offsetHeight])).toEqual([40, 40]);
+  expect(await page.locator('[data-example="small"] .ds-icon-button').first().evaluate((button) => [button.offsetWidth, button.offsetHeight])).toEqual([32, 32]);
   expect(await page.locator('[data-example="xsmall"] .ds-icon-button').evaluate((button) => [button.offsetWidth, button.offsetHeight])).toEqual([24, 24]);
 });
 
 test.describe(() => {
   test.use({ hasTouch: true });
 
-  test("on a coarse pointer a control is 44px tall at every density, the small button is still drawn 28px and takes a press 20px above its centre, and the large one is no shorter than the default", async ({ page }) => {
+  test("on a coarse pointer a control is 44px tall, in a compact container too, the small button is still drawn 32px and takes a press 20px above its centre, and the large one is 48px", async ({ page }) => {
     await open(page, "button", { width: 390 });
     expect(await coarsePointer(page)).toBe(true);
-    expect(await buttonHeights(page, "density")).toEqual({ Compact: 44, Comfortable: 44, Touch: 44 });
-    expect(await buttonHeights(page, "sizes")).toEqual({ "Open pull request": 44, "Copy path": 28, Dismiss: 28 });
-    expect(await buttonHeights(page, "large")).toEqual({ "Sign in with GitHub": 44, "Use a device code": 44 });
+    expect(await buttonHeights(page, "density")).toEqual({ Default: 44, Compact: 44 });
+    expect(await buttonHeights(page, "sizes")).toEqual({ "Open pull request": 44, "Copy path": 32, Dismiss: 32 });
+    expect(await buttonHeights(page, "large")).toEqual({ "Sign in with GitHub": 48, "Use a device code": 48 });
     expect(await pressAbove(page, page.locator('[data-example="sizes"] .ds-button--small').first(), 20)).toBe("");
     await open(page, "icon-button", { width: 390 });
     const xsmall = page.locator('[data-example="xsmall"] .ds-icon-button');

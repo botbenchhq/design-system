@@ -268,14 +268,15 @@
       "24px",
       "28px",
       "32px",
+      "48px",
       "40px",
-      "36px",
       "44px",
       "260px",
-      "360px",
+      "340px",
       "480px",
-      "720px",
-      "1200px"
+      "760px",
+      "1200px",
+      "36px"
     ],
     "breakpoint": [
       "768px"
@@ -283,8 +284,9 @@
   },
   "density": {
     "attribute": "data-ds-density",
-    "default": "comfortable",
-    "coarsePointer": "touch",
+    "attributeValues": [
+      "compact"
+    ],
     "tokens": {
       "control": "--ds-size-control",
       "row": "--ds-size-row",
@@ -292,22 +294,22 @@
       "leading": "--ds-leading-ui"
     },
     "values": {
-      "compact": {
-        "control": "28px",
-        "row": "32px",
-        "text": "0.8125rem",
-        "leading": "1.385"
-      },
-      "comfortable": {
-        "control": "36px",
-        "row": "36px",
+      "default": {
+        "control": "40px",
+        "row": "40px",
         "text": "0.875rem",
         "leading": "1.5"
       },
-      "touch": {
+      "compact": {
+        "control": "32px",
+        "row": "36px",
+        "text": "0.8125rem",
+        "leading": "1.385"
+      },
+      "coarse-pointer": {
         "control": "44px",
         "row": "44px",
-        "text": "0.875rem",
+        "text": "0.9375rem",
         "leading": "1.5"
       }
     }

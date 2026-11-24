@@ -113,17 +113,16 @@ function categoryOf(name) {
 
 const SELECTORS = { light: ":root", dark: '[data-theme="dark"]', auto: '[data-theme="auto"]' };
 
-// Density: data-ds-density on a container sets how tall a control and a row inside it are and how large body text
-// is, through these four tokens. tokens.css holds one block for each density, and one inside @media (pointer: coarse)
-// that gives every element the touch density, whatever the attribute says, and makes every type size one pixel
-// larger. A theme cannot set any of them.
+// Density: four tokens say how tall a control and a row are and how large body text is. :root holds the default.
+// data-ds-density="compact" on a container sets them for what is inside it, and one block inside
+// @media (pointer: coarse) sets them on every element, a compact container included, and makes every type size one
+// pixel larger. A theme cannot set any of them.
 export const DENSITY = {
   attribute: "data-ds-density",
-  default: "comfortable",
-  coarsePointer: "touch",
+  attributeValues: ["compact"],
   tokens: { control: "--ds-size-control", row: "--ds-size-row", text: "--ds-text-ui", leading: "--ds-leading-ui" },
 };
-// The two of them a coarse pointer takes from the touch density. It sets the type sizes itself.
+// The two of them a coarse pointer sets to the touch size. It sets the type sizes itself.
 const DENSITY_SIZES = ["--ds-size-control", "--ds-size-row"];
 // How much larger every type size is on a coarse pointer: one pixel at a 16px root.
 const COARSE_TEXT_STEP = 0.0625;
@@ -131,9 +130,8 @@ const COARSE_TEXT_STEP = 0.0625;
 const ROLE_WEIGHTS = { "2xs": "medium", lg: "semibold", xl: "semibold", "2xl": "semibold" };
 // What a theme cannot set, by category: the type scale and the radius scale are the same under every theme.
 const THEME_FIXED = { text: "a type size", leading: "a line height", tracking: "a tracking", radius: "a radius" };
-const DENSITIES = ["compact", "comfortable", "touch"];
 const DENSITY_SELECTORS = {
-  ...Object.fromEntries(DENSITIES.map((density) => [density, `[${DENSITY.attribute}="${density}"]`])),
+  ...Object.fromEntries(DENSITY.attributeValues.map((density) => [density, `[${DENSITY.attribute}="${density}"]`])),
   coarse: `:root, [${DENSITY.attribute}]`,
 };
 
@@ -167,15 +165,15 @@ function rem(name, value) {
   return Number(amount);
 }
 
-// The density blocks of tokens.css as { compact: { control, row, text, leading }, comfortable: …, touch: … }, and the
-// type sizes of a coarse pointer as { name: value }. Each density block sets the four density tokens and nothing else,
-// comfortable is what :root holds and touch is the touch size. The block for a coarse pointer repeats the two sizes
-// of touch, makes every type size one pixel larger than :root has it, and puts the body line height back.
+// The density of tokens.css as { default, compact, "coarse-pointer" }, each holding { control, row, text, leading },
+// and everything the block for a coarse pointer sets as { name: value }. The compact block sets the four density
+// tokens and nothing else. The block for a coarse pointer sets the control and the row to the touch size, makes
+// every type size one pixel larger than :root has it, and sets the body line height.
 function parseDensity(blocks, light) {
   const names = Object.values(DENSITY.tokens);
   const textNames = Object.keys(light).filter((name) => categoryOf(name).category === "text");
   for (const name of textNames) rem(name, light[name]);
-  const expected = { ...Object.fromEntries(DENSITIES.map((density) => [density, names])), coarse: [...DENSITY_SIZES, ...textNames, DENSITY.tokens.leading] };
+  const expected = { ...Object.fromEntries(DENSITY.attributeValues.map((density) => [density, names])), coarse: [...DENSITY_SIZES, ...textNames, DENSITY.tokens.leading] };
   for (const key of Object.keys(DENSITY_SELECTORS)) {
     const block = blocks[key];
     if (!block) throw new Error(`tokens.css: the density block ${DENSITY_SELECTORS[key]} is missing`);
@@ -187,20 +185,21 @@ function parseDensity(blocks, light) {
       );
     }
   }
-  const equal = (a, b, among = names) => among.every((name) => a[name] === b[name]);
-  if (!equal(blocks[DENSITY.default], light)) throw new Error(`tokens.css: the ${DENSITY.default} density is the default, so its block must hold the values of :root`);
-  if (!equal(blocks.coarse, blocks[DENSITY.coarsePointer], DENSITY_SIZES)) throw new Error(`tokens.css: the block for a coarse pointer must hold the values of the ${DENSITY.coarsePointer} density`);
-  if (DENSITY_SIZES.some((name) => blocks.touch[name] !== light["--ds-size-touch"])) throw new Error("tokens.css: the touch density must hold the value of --ds-size-touch");
+  for (const name of DENSITY_SIZES) {
+    if (blocks.coarse[name] !== light["--ds-size-touch"]) throw new Error(`tokens.css: on a coarse pointer ${name} is ${blocks.coarse[name]}. It must hold the value of --ds-size-touch, ${light["--ds-size-touch"]}`);
+  }
   for (const name of textNames) {
     const larger = `${rem(name, light[name]) + COARSE_TEXT_STEP}rem`;
     if (blocks.coarse[name] !== larger) throw new Error(`tokens.css: on a coarse pointer ${name} is ${blocks.coarse[name]}. Every type size is one pixel larger there, so it must be ${larger}`);
   }
-  if (blocks.coarse[DENSITY.tokens.leading] !== light[DENSITY.tokens.leading]) throw new Error(`tokens.css: the block for a coarse pointer must hold the ${DENSITY.tokens.leading} of :root`);
+  const parts = (from) => Object.fromEntries(Object.entries(DENSITY.tokens).map(([key, name]) => [key, from[name]]));
   return {
-    density: Object.fromEntries(
-      DENSITIES.map((density) => [density, Object.fromEntries(Object.entries(DENSITY.tokens).map(([key, name]) => [key, blocks[density][name]]))]),
-    ),
-    coarse: Object.fromEntries(textNames.map((name) => [name, blocks.coarse[name]])),
+    density: {
+      default: parts(light),
+      ...Object.fromEntries(DENSITY.attributeValues.map((density) => [density, parts(blocks[density])])),
+      "coarse-pointer": parts(blocks.coarse),
+    },
+    coarse: blocks.coarse,
   };
 }
 
@@ -417,12 +416,12 @@ function tokenData(groups, tokens) {
     for (const [key, name] of Object.entries(names)) {
       const token = { $type, $value: convert(name, tokens.light[name]) };
       if (name in tokens.dark) token.$extensions = { "design-system": { dark: convert(name, tokens.dark[name]) } };
-      // A density token's value under each density travels the same way.
+      // A density token's value in a compact container travels the same way.
       const density = Object.keys(DENSITY.tokens).find((part) => DENSITY.tokens[part] === name);
       if (density) {
-        token.$extensions = { "design-system": { density: Object.fromEntries(Object.entries(tokens.density).map(([level, parts]) => [level, convert(name, parts[density])])) } };
+        token.$extensions = { "design-system": { density: Object.fromEntries(DENSITY.attributeValues.map((level) => [level, convert(name, tokens.density[level][density])])) } };
       }
-      // And a type size's value on a coarse pointer.
+      // And what a coarse pointer sets: the control, the row, each type size and the body line height.
       if (name in tokens.coarse) {
         token.$extensions = { "design-system": { ...token.$extensions?.["design-system"], "coarse-pointer": convert(name, tokens.coarse[name]) } };
       }
@@ -475,10 +474,10 @@ function designTokens(groups, tokens, name = "Design system") {
     motion: { duration: values("duration"), easing: quote(tokens.light[groups.ease.DEFAULT]) },
     layers: values("z"),
     sizes: values("size"),
-    // What sizes.control and sizes.row are under each data-ds-density. A coarse pointer always gets one of them.
-    density: { ...tokens.density, default: DENSITY.default, "coarse-pointer": DENSITY.coarsePointer },
+    // The four density tokens by default, in a compact container and on a coarse pointer, which always wins.
+    density: tokens.density,
     // Every type size on a coarse pointer: one pixel larger.
-    "typography-coarse-pointer": Object.fromEntries(Object.entries(groups.text).map(([key, name]) => [key, tokens.coarse[name]])),
+    "typography-coarse-pointer": Object.fromEntries(Object.entries(groups.text).filter(([, name]) => name in tokens.coarse).map(([key, name]) => [key, tokens.coarse[name]])),
     breakpoint: tokens.light[groups.breakpoint.DEFAULT],
   };
   return `---\n${yaml(block)}---\n`;
@@ -552,23 +551,25 @@ function manifest(groups, tokens, classes, rules) {
     values[category] = [...new Set(names[category].flatMap((name) => [tokens.light[name], tokens.dark[name]]))]
       .filter((value) => value !== undefined);
   }
-  // A density token also holds its value under each density.
+  // A density token also holds its value in a compact container and on a coarse pointer.
   for (const [part, name] of Object.entries(DENSITY.tokens)) {
     const { category } = categoryOf(name);
     values[category] = [...new Set([...values[category], ...Object.values(tokens.density).map((parts) => parts[part])])];
   }
   // And a type size its value on a coarse pointer.
-  values.text = [...new Set([...values.text, ...Object.values(tokens.coarse)])];
+  const coarseText = Object.fromEntries(Object.entries(tokens.coarse).filter(([name]) => categoryOf(name).category === "text"));
+  values.text = [...new Set([...values.text, ...Object.values(coarseText)])];
   return {
     prefix: "ds",
     layers: LAYERS,
     breakpoint: tokens.light[groups.breakpoint.DEFAULT],
     tokens: names,
     values,
-    // The attribute that sets the density of a container, and what its two tokens hold under each value.
+    // The attribute that sets the density of a container, its values, and what the four density tokens hold by
+    // default, in a compact container and on a coarse pointer.
     density: { ...DENSITY, values: tokens.density },
     // Every type size on a coarse pointer, where each is one pixel larger.
-    coarsePointer: { text: tokens.coarse },
+    coarsePointer: { text: coarseText },
     utilities: {
       ...UTILITIES,
       spacingKeys: ["0", ...Object.keys(groups.space)],

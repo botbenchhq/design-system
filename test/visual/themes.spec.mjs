@@ -95,9 +95,7 @@ const TYPE_BODY = `
 <small id="caption">2 minutes ago</small>
 <ul class="ds-list"><li class="ds-list__row"><span class="ds-list__content" id="row">fix/session-refresh</span></li></ul>
 <table class="ds-data-table"><thead><tr><th id="micro">Duration</th></tr></thead><tbody><tr><td id="cell">42 s</td></tr></tbody></table>
-<div data-ds-density="compact"><p id="compact">Compact text</p><button type="button" class="ds-button" id="compact-button">Retry</button>
-  <div data-ds-density="comfortable"><p id="nested">Comfortable again</p></div>
-</div>`;
+<div data-ds-density="compact"><p id="compact">Compact text</p><button type="button" class="ds-button" id="compact-button">Retry</button></div>`;
 
 // Each role's size and line in px at a 16px root, and its tracking in em, as the owner approved them.
 const ROLES = {
@@ -160,15 +158,13 @@ for (const stylesheets of [["design-system.css"], ["design-system.css", "themes/
       expect(measured.code.size).toBeCloseTo(17.5 * 0.93, 1);
     });
 
-    test("a compact container sets body text to the dense 13px on an 18px line, a control inside it too, and a comfortable one inside it sets it back", async ({ page }) => {
+    test("a compact container sets body text to the dense 13px on an 18px line, and a control inside it is 32px tall", async ({ page }) => {
       await openPage(page, { mode: "light", stylesheets, body: TYPE_BODY });
       const measured = await measureType(page);
       expect(measured.compact.size).toBe(13);
       expect(Math.abs(measured.compact.line - 18)).toBeLessThan(0.1);
       expect(measured["compact-button"].size).toBe(13);
-      expect(await page.locator("#compact-button").evaluate((element) => element.getBoundingClientRect().height)).toBe(28);
-      expect(measured.nested.size).toBe(14);
-      expect(measured.nested.line).toBe(21);
+      expect(await page.locator("#compact-button").evaluate((element) => element.getBoundingClientRect().height)).toBe(32);
       // Outside the container nothing changed.
       expect(measured.body.size).toBe(14);
     });
@@ -186,7 +182,6 @@ for (const stylesheets of [["design-system.css"], ["design-system.css", "themes/
       expect(measured.compact.size).toBe(15);
       expect(measured.compact.line).toBe(22.5);
       expect(measured["compact-button"].size).toBe(15);
-      expect(measured.nested.size).toBe(15);
     });
   });
 }

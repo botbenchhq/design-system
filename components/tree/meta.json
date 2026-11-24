@@ -20,7 +20,7 @@
     { "name": "outline", "use": "The same markup without the icons, for the sections of a document or a plan." }
   ],
   "sizes": [
-    { "name": "default", "use": "Every row is at least as tall as a row of a list: 36px by default and 44px on a coarse pointer. Each level is set in 20px behind a rule." }
+    { "name": "default", "use": "Every row is at least as tall as a row of a list: 40px by default and 44px on a coarse pointer. Each level is set in 20px behind a rule." }
   ],
   "states": ["default", "open", "current", "hover", "focus-visible", "empty", "loading", "error"],
   "accessibility": [

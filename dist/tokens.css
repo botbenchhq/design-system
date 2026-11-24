@@ -133,23 +133,27 @@
     --ds-z-dialog: 300;
     --ds-z-toast: 400;
 
-    /* The fixed heights a size variant names, such as a small button. They do not change with the density. */
+    /*
+     * The fixed heights a size variant names. They do not change with the density: 24px a tag and the smallest
+     * target of a fine pointer, 28px a chip, 32px a small control, 48px a large one.
+     */
     --ds-size-control-xs: 24px;
     --ds-size-control-sm: 28px;
     --ds-size-control-md: 32px;
-    --ds-size-control-lg: 40px;
-    /* The height of a control of default size, at the density of its container. The density blocks below set it. */
-    --ds-size-control: 36px;
-    /* The least height of a row in a list, a menu, a tree or a table, at the density of its container. */
-    --ds-size-row: 36px;
+    --ds-size-control-lg: 48px;
+    /* The height of a control of default size. A compact container and a coarse pointer set it: the blocks below. */
+    --ds-size-control: 40px;
+    /* The least height of a row in a list, a menu, a tree or a table. A compact container and a coarse pointer set it. */
+    --ds-size-row: 40px;
     /* The smallest target on a coarse pointer, such as a finger. On a fine pointer the floor is control-xs. */
     --ds-size-touch: 44px;
     /* A navigation or list column. */
     --ds-size-sidebar: 260px;
     /* A detail column beside the main one. */
-    --ds-size-inspector: 360px;
+    --ds-size-inspector: 340px;
     --ds-size-column: 480px;
-    --ds-size-transcript: 720px;
+    /* The reading column: a transcript, a review, a form. */
+    --ds-size-transcript: 760px;
     /* A view of dense data, such as a table or a board, that uses the width of a desktop screen. */
     --ds-size-wide: 1200px;
 
@@ -224,34 +228,21 @@
   }
 
   /*
-   * Density: how tall a control and a row are, and how large body text is. data-ds-density on any element sets it
-   * for what is inside. Comfortable is the default. Each block sets the four density tokens and nothing else, and
-   * a theme cannot set them. Compact gives body text the dense size and line height.
+   * Density: how tall a control and a row are, and how large body text is. :root holds the default, 40px for both
+   * with 15px text. data-ds-density="compact" on a container sets the four density tokens for what is inside it, for
+   * a list, a table or an inventory read with a mouse: 32px controls, 36px rows and the dense text size. It is the
+   * one value of the attribute, it sets nothing else, and a theme cannot set these tokens.
    */
   [data-ds-density="compact"] {
-    --ds-size-control: 28px;
-    --ds-size-row: 32px;
+    --ds-size-control: 32px;
+    --ds-size-row: 36px;
     --ds-text-ui: 0.8125rem;
     --ds-leading-ui: 1.385;
   }
 
-  [data-ds-density="comfortable"] {
-    --ds-size-control: 36px;
-    --ds-size-row: 36px;
-    --ds-text-ui: 0.875rem;
-    --ds-leading-ui: 1.5;
-  }
-
-  [data-ds-density="touch"] {
-    --ds-size-control: 44px;
-    --ds-size-row: 44px;
-    --ds-text-ui: 0.875rem;
-    --ds-leading-ui: 1.5;
-  }
-
   /*
-   * A finger needs the touch size, so on a coarse pointer the touch density applies everywhere, whatever the
-   * attribute says, and a screen held in the hand needs larger type, so every type size is one pixel (0.0625rem) larger.
+   * A finger needs the touch size, so on a coarse pointer a control and a row are 44px everywhere, a compact
+   * container included, and a screen held in the hand needs larger type, so every type size is one pixel (0.0625rem) larger.
    */
   @media (pointer: coarse) {
     :root,

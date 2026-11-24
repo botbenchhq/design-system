@@ -225,32 +225,33 @@ const buildTokens = (css) => {
 };
 
 const DENSITY_VALUES = {
-  compact: { control: "28px", row: "32px", text: "0.8125rem", leading: "1.385" },
-  comfortable: { control: "36px", row: "36px", text: "0.875rem", leading: "1.5" },
-  touch: { control: "44px", row: "44px", text: "0.875rem", leading: "1.5" },
+  default: { control: "40px", row: "40px", text: "0.875rem", leading: "1.5" },
+  compact: { control: "32px", row: "36px", text: "0.8125rem", leading: "1.385" },
+  "coarse-pointer": { control: "44px", row: "44px", text: "0.9375rem", leading: "1.5" },
 };
 const COARSE_TEXT = {
   "--ds-text-2xs": "0.75rem", "--ds-text-xs": "0.8125rem", "--ds-text-sm": "0.875rem", "--ds-text-mono": "0.875rem",
   "--ds-text-ui": "0.9375rem", "--ds-text-lg": "1.0625rem", "--ds-text-xl": "1.3125rem", "--ds-text-2xl": "1.6875rem",
 };
 
-test("the density tokens are 28px, 36px and 44px for a control and 32px, 36px and 44px for a row, compact sets body text to the dense size and line height, and comfortable is the default", () => {
+test("a control and a row are 40px, 32px and 36px in a compact container, which sets body text to the dense size and line height, and compact is the one value of the attribute", () => {
   const { light, density } = parseTokens(read("tokens.css"));
   assert.deepEqual(density, DENSITY_VALUES);
   assert.equal(density.compact.text, light["--ds-text-sm"]);
   assert.equal(density.compact.leading, light["--ds-leading-sm"]);
-  assert.equal(light["--ds-text-ui"], density.comfortable.text);
-  assert.equal(light["--ds-leading-ui"], density.comfortable.leading);
-  assert.equal(light["--ds-size-control"], density.comfortable.control);
-  assert.equal(light["--ds-size-row"], density.comfortable.row);
+  assert.equal(light["--ds-size-control"], "40px");
+  assert.equal(light["--ds-size-row"], "40px");
   assert.equal(light["--ds-size-touch"], "44px");
   const steps = ["xs", "sm", "md", "lg"].map((step) => light[`--ds-size-control-${step}`]);
-  assert.deepEqual(steps, ["24px", "28px", "32px", "40px"]);
+  assert.deepEqual(steps, ["24px", "28px", "32px", "48px"]);
   assert.equal(light["--ds-size-sidebar"], "260px");
-  assert.equal(light["--ds-size-inspector"], "360px");
+  assert.equal(light["--ds-size-inspector"], "340px");
+  assert.equal(light["--ds-size-transcript"], "760px");
+  // No block for a comfortable or a touch container: the default is :root, and a coarse pointer does the rest.
+  assert.deepEqual([...read("tokens.css").matchAll(/\[data-ds-density="(\w+)"\]/g)].map(([, value]) => value), ["compact"]);
 });
 
-test("a coarse pointer gets the touch density on every element, after the blocks an attribute selects", () => {
+test("a coarse pointer gets 44px controls and rows on every element, a compact container included, after the block the attribute selects", () => {
   const css = read("tokens.css").replace(/\/\*[\s\S]*?\*\//g, "");
   const coarse = css.match(/@media \(pointer: coarse\) \{\s*:root,\s*\[data-ds-density\] \{([^}]*)\}/);
   assert.ok(coarse, "tokens.css has no block for a coarse pointer");
@@ -262,12 +263,12 @@ test("a coarse pointer gets the touch density on every element, after the blocks
   ]);
   // Each type size is one pixel larger than :root has it, written out in rem.
   const { light, coarse: sizes } = parseTokens(read("tokens.css"));
-  assert.deepEqual(sizes, COARSE_TEXT);
-  for (const [name, value] of Object.entries(sizes)) assert.equal(parseFloat(value) * 16, parseFloat(light[name]) * 16 + 1, name);
-  // The same specificity as one density block, so it wins by coming last.
-  for (const density of ["compact", "comfortable", "touch"]) {
-    assert.ok(css.indexOf(`[data-ds-density="${density}"]`) < coarse.index, `${density} comes after the block for a coarse pointer`);
+  for (const [name, value] of Object.entries(COARSE_TEXT)) {
+    assert.equal(sizes[name], value, name);
+    assert.equal(parseFloat(value) * 16, parseFloat(light[name]) * 16 + 1, name);
   }
+  // The same specificity as the compact block, so it wins by coming last.
+  assert.ok(css.indexOf('[data-ds-density="compact"]') < coarse.index, "the compact block comes after the block for a coarse pointer");
 });
 
 test("the density reaches the manifest, the token data and the token block, for the default theme and for a theme", () => {
@@ -275,15 +276,14 @@ test("the density reaches the manifest, the token data and the token block, for 
   const manifest = JSON.parse(read("manifest.json"));
   assert.deepEqual(manifest.density, {
     attribute: "data-ds-density",
-    default: "comfortable",
-    coarsePointer: "touch",
+    attributeValues: ["compact"],
     tokens: { control: "--ds-size-control", row: "--ds-size-row", text: "--ds-text-ui", leading: "--ds-leading-ui" },
     values,
   });
   assert.deepEqual(manifest.coarsePointer, { text: COARSE_TEXT });
   for (const value of ["0.6875rem", "0.75rem", "0.8125rem", "0.875rem", "0.9375rem", "1rem", "1.0625rem", "1.25rem", "1.3125rem", "1.625rem", "1.6875rem"]) assert.ok(manifest.values.text.includes(value), value);
   assert.deepEqual(manifest.values.leading.filter((value) => value === "1.385").length, 1);
-  for (const value of ["24px", "28px", "32px", "36px", "40px", "44px", "260px", "360px"]) assert.ok(manifest.values.size.includes(value), value);
+  for (const value of ["24px", "28px", "32px", "36px", "40px", "44px", "48px", "260px", "340px"]) assert.ok(manifest.values.size.includes(value), value);
   for (const key of ["control", "row", "control-xs", "control-sm", "control-md", "control-lg", "touch", "sidebar", "inspector"]) {
     assert.ok(manifest.utilities.sizeKeys.includes(key), key);
   }
@@ -291,17 +291,17 @@ test("the density reaches the manifest, the token data and the token block, for 
   const rem = (value) => ({ value, unit: "rem" });
   for (const file of ["tokens.json", "themes/botbench.tokens.json"]) {
     const { size, text, leading } = JSON.parse(read(file));
-    assert.deepEqual(text.ui, { $type: "dimension", $value: rem(0.875), $extensions: { "design-system": { density: { compact: rem(0.8125), comfortable: rem(0.875), touch: rem(0.875) }, "coarse-pointer": rem(0.9375) } } }, file);
-    assert.deepEqual(leading.ui, { $type: "number", $value: 1.5, $extensions: { "design-system": { density: { compact: 1.385, comfortable: 1.5, touch: 1.5 } } } }, file);
-    assert.deepEqual(size.control, { $type: "dimension", $value: px(36), $extensions: { "design-system": { density: { compact: px(28), comfortable: px(36), touch: px(44) } } } }, file);
-    assert.deepEqual(size.row.$extensions["design-system"].density, { compact: px(32), comfortable: px(36), touch: px(44) }, file);
-    assert.deepEqual(size["control-sm"], { $type: "dimension", $value: px(28) }, file);
+    assert.deepEqual(text.ui, { $type: "dimension", $value: rem(0.875), $extensions: { "design-system": { density: { compact: rem(0.8125) }, "coarse-pointer": rem(0.9375) } } }, file);
+    assert.deepEqual(leading.ui, { $type: "number", $value: 1.5, $extensions: { "design-system": { density: { compact: 1.385 }, "coarse-pointer": 1.5 } } }, file);
+    assert.deepEqual(size.control, { $type: "dimension", $value: px(40), $extensions: { "design-system": { density: { compact: px(32) }, "coarse-pointer": px(44) } } }, file);
+    assert.deepEqual(size.row.$extensions["design-system"], { density: { compact: px(36) }, "coarse-pointer": px(44) }, file);
+    assert.deepEqual(size["control-md"], { $type: "dimension", $value: px(32) }, file);
   }
   for (const file of ["design-tokens.md", "themes/botbench.design-tokens.md"]) {
     const [, block] = read(file).match(/^---\n([\s\S]*?)\n---\n/);
     const parsed = parseYamlBlock(block);
-    assert.deepEqual(parsed.density, { ...values, default: "comfortable", "coarse-pointer": "touch" }, file);
-    assert.equal(parsed.sizes.control, "36px", file);
+    assert.deepEqual(parsed.density, values, file);
+    assert.equal(parsed.sizes.control, "40px", file);
     assert.equal(parsed.sizes.sidebar, "260px", file);
   }
 });
@@ -318,15 +318,16 @@ test("the Tailwind preset has a height for a control and a row, and a width for 
   assert.equal(theme.maxWidth.column, "var(--ds-size-column)");
 });
 
-test("a density block that sets another token, a comfortable density that is not the default, and a touch density that is not the touch size each fail the build", () => {
+test("a compact block that sets another token, a coarse pointer whose control is not the touch size, and a missing compact block each fail the build", () => {
   const source = tokensSource();
-  const compact = '[data-ds-density="compact"] {\n    --ds-size-control: 28px;';
+  const compact = '[data-ds-density="compact"] {\n    --ds-size-control: 32px;';
   assert.ok(source.includes(compact));
   assert.throws(buildTokens(source.replace(compact, `${compact}\n    --ds-space-md: 8px;`)), /\[data-ds-density="compact"\] sets .*--ds-space-md.* A density block sets --ds-size-control, --ds-size-row, --ds-text-ui, --ds-leading-ui and nothing else/);
-  assert.throws(buildTokens(source.replace(/(\[data-ds-density="comfortable"\] \{\s*--ds-size-control: )36px/, "$140px")), /the comfortable density is the default, so its block must hold the values of :root/);
-  assert.throws(buildTokens(source.replace(/(\[data-ds-density="touch"\] \{\s*--ds-size-control: )44px/, "$148px")), /the block for a coarse pointer must hold the values of the touch density/);
-  assert.throws(buildTokens(source.replace(/--ds-size-touch: 44px/, "--ds-size-touch: 48px")), /the touch density must hold the value of --ds-size-touch/);
-  assert.throws(buildTokens(source.replace(/\n {2}\[data-ds-density="touch"\] \{[^}]*\}\n/, "\n")), /the density block \[data-ds-density="touch"\] is missing/);
+  assert.throws(buildTokens(source.replace(/(\[data-ds-density\] \{\s*--ds-size-control: )44px/, "$148px")), /on a coarse pointer --ds-size-control is 48px\. It must hold the value of --ds-size-touch, 44px/);
+  assert.throws(buildTokens(source.replace(/--ds-size-touch: 44px/, "--ds-size-touch: 48px")), /It must hold the value of --ds-size-touch, 48px/);
+  assert.throws(buildTokens(source.replace(/\n {2}\[data-ds-density="compact"\] \{[^}]*\}\n/, "\n")), /the density block \[data-ds-density="compact"\] is missing/);
+  // A second value of the attribute is a selector the build does not know.
+  assert.throws(buildTokens(source.replace(compact, `[data-ds-density="touch"] {\n    --ds-size-control: 44px;\n  }\n\n  ${compact}`)), /Unexpected selector in tokens\.css: \[data-ds-density="touch"\]/);
 });
 
 test("a type size in px, a coarse-pointer size that is not one pixel larger, and a coarse-pointer block that leaves a size out each fail the build", () => {
@@ -614,7 +615,8 @@ test("the new size variants are in the manifest and the component index, each wi
     assert.ok(component.examples.some((example) => example.markup.includes(className)), `${className} has no do example`);
   }
   const css = read("design-system.css");
-  assert.match(css, /\.ds-button--small \{\n\s+min-height: var\(--ds-size-control-sm\);/);
+  assert.match(css, /\.ds-button--small \{\n\s+min-height: var\(--ds-size-control-md\);/);
+  assert.match(css, /\.ds-icon-button--small \{\n\s+width: var\(--ds-size-control-md\);/);
   assert.match(css, /\.ds-button--large \{\n\s+min-height: max\(var\(--ds-size-control-lg\), var\(--ds-size-control\)\);/);
   assert.match(css, /\.ds-icon-button--xsmall \{\n\s+width: var\(--ds-size-control-xs\);/);
   assert.match(read("react/busy-button.tsx"), /export type ButtonSize = "default" \| "small" \| "large";/);

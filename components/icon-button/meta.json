@@ -18,9 +18,9 @@
     { "name": "quiet", "class": "ds-button--quiet", "use": "ds-button ds-button--quiet ds-icon-button. No border until it is hovered or pressed, for a row or a toolbar that holds several." }
   ],
   "sizes": [
-    { "name": "default", "use": "A square as tall as a control at the density of its container: 36px by default, 28px where data-ds-density is compact, and 44px where it is touch and on every coarse pointer. The icon is 16px at every size." },
-    { "name": "small", "class": "ds-icon-button--small", "use": "28px square at every density, for a toolbar. On a coarse pointer it is drawn the same and its pointer target is 44px square, so keep 16px or more between two of them. Do not add ds-button--small to an icon button." },
-    { "name": "xsmall", "class": "ds-icon-button--xsmall", "use": "24px square at every density, the smallest target a fine pointer allows, for the one action inside a dense row. On a coarse pointer its pointer target is 44px square, so a row holds one." }
+    { "name": "default", "use": "A square as tall as a control: 40px by default, 32px in a container with data-ds-density=\"compact\", and 44px on every coarse pointer. The icon is 16px at every size." },
+    { "name": "small", "class": "ds-icon-button--small", "use": "32px square in every container, for a toolbar. On a coarse pointer it is drawn the same and its pointer target is 44px square, so keep 12px or more between two of them. Do not add ds-button--small to an icon button." },
+    { "name": "xsmall", "class": "ds-icon-button--xsmall", "use": "24px square in every container, the smallest target a fine pointer allows, for the one action inside a dense row. On a coarse pointer its pointer target is 44px square, so a row holds one." }
   ],
   "states": ["default", "hover", "focus-visible", "active", "pressed", "disabled", "busy"],
   "accessibility": [
