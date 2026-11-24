@@ -1,6 +1,6 @@
 # ADR 0001: A headless library for the React layer: Base UI
 
-Date: 2026-11-23. Status: proposed, for the owner to accept. This record changes no source, installs nothing and edits no rule. It says what the pull requests that follow would do. The app's side of the same decision, with the comparison of libraries and every source, is Botbench's `docs/adr/0011-a-headless-library-for-interactive-primitives.md`.
+Date: 2026-11-23. Status: accepted for the headless library, by the owner's instruction to proceed, relayed to this session on 2026-11-23; proposed for the other client dependencies named under "Other client dependencies". This record changes no source, installs nothing and edits no rule. It says what the pull requests that follow would do. The app's side of the same decision, with the comparison of libraries and every source, is Botbench's `docs/adr/0011-a-headless-library-for-interactive-primitives.md`.
 
 ## Context
 
@@ -68,7 +68,7 @@ None is edited by this record. Each is changed in the pull request that adds `me
 |---|---|---|
 | `AGENTS.md`, component styles | "Component styles key off native state and ARIA attributes, never off a class a script would toggle. No component uses an inline `style` attribute." | "Component styles key off native state and ARIA attributes, and, for a component the React layer renders through Base UI, off the state attributes the library sets (`data-open`, `data-closed`, `data-starting-style`, `data-ending-style`, `data-side`, `data-highlighted`), never off a class a script would toggle. No example and no file of the system writes an inline `style` attribute; a popup the library places carries one the library wrote." |
 | `AGENTS.md`, `data-state` | "A component whose state has no native or ARIA form takes it from a `data-state` attribute the app sets, with the values listed in its metadata" | Unchanged, with one sentence after it: "The library's state attributes above are the one other kind, and a component's metadata lists the ones its stylesheet uses." |
-| `AGENTS.md`, `react/` | "Each file depends on React and on the other files there only, renders the component's classes and ARIA exactly as its `examples.html` does, never a class of its own or an inline style" | "Each file depends on React, on `@base-ui/react` where its head comment says so, and on the other files there only. It renders the component's classes, roles and ARIA as the example marked for the React layer in its `examples.html` does, which a test compares, and writes no class of its own and no `style` prop." |
+| `AGENTS.md`, `react/` | "Each file depends on React and on the other files there only, renders the component's classes and ARIA exactly as its `examples.html` does, never a class of its own or an inline style" | "Each file depends on React, on a client dependency named in ADR 0001 where its head comment says so, and on the other files there only. It renders the component's classes, roles and ARIA as the example marked for the React layer in its `examples.html` does, which a test compares, and writes no class of its own and no `style` prop." |
 | `AGENTS.md`, `react/` | "Add a file only for a pattern an app has been seen to write by hand" | "Add a file only for a pattern an app has been seen to write by hand, or for a component in the order of work of ADR 0001." This is a change to the rule, not a reading of it: the hover card, the context menu, the combobox and the toast are in the order because the owner decided the list, not because Botbench writes them by hand today. |
 | `docs/authoring.md`, State | Open: `[open]`, `:popover-open` | Open: `[open]`, `:popover-open`, and `[data-open]` when the React layer renders it. A new row, "Entering and leaving, React layer": `[data-starting-style]`, `[data-ending-style]`. |
 | `docs/authoring.md`, No inline style | "No component relies on a `style` attribute. The apps' content security policies block it." | The same, and: "A popup placed by Base UI is given its position by the library through the element's style, from script; the system's own files still write none." Added only after Botbench's policy test passes. |
@@ -80,9 +80,26 @@ None is edited by this record. Each is changed in the pull request that adds `me
   2. `dist/manifest.json`: the range, written by the build from `package.json`'s development dependency, so there is one place it is typed.
   3. The head comment of each file that needs it, where it says "It needs React 19" today.
 - The app declares it. For Botbench that is `web/package.json`, with its lockfile; a test to be added there compares its range with the manifest's.
-- `package.json` here gains `@base-ui/react` under `devDependencies`. The sentence in `AGENTS.md` would read: "No runtime dependencies. Development dependencies are for tests (React, Base UI and esbuild only build a test fixture) and for `npm run vendor` … The build never reads `node_modules`." And of `react/`: "Each file depends on React, on `@base-ui/react` where its head comment says so, and on the other files there only."
+- `package.json` here gains `@base-ui/react` under `devDependencies`. The "No runtime dependencies" line of `AGENTS.md` is replaced by: "No runtime dependencies in the stylesheet, the tokens, the checker, the behaviour modules or the build. A file in `react/` may import a client dependency that is a row in the table of Botbench's ADR 0011 and is named in `docs/adr/0001`; the app installs it. Development dependencies are for tests (React, those client dependencies and esbuild only build a test fixture) and for `npm run vendor`, which copies font and icon files from `node_modules` into `base/`. The build never reads `node_modules`." The same wording is in Botbench's ADR 0011.
 - `NOTICE`, under "Development tools", gains Base UI (MIT, Copyright (c) 2019 Material-UI SAS). Nothing of it is copied into `dist/`.
 - The range moves here first. A Base UI release is taken by raising the development dependency, running the three engines, and releasing the system; the app follows with its next sync.
+
+## Other client dependencies
+
+The owner widened the rule on 2026-11-23: a small number of client dependencies are allowed where they make the interface clearly better and would be done worse by hand, each a row in the table of Botbench's ADR 0011. That record evaluates the candidates with their sources. What it means here, for each one it proposes or declines:
+
+| Candidate | Botbench ADR 0011 says | What it would touch here, when its work starts |
+|---|---|---|
+| `@tanstack/react-virtual` | Adopt when the transcript is virtualised | `use-transcript.ts`, or a `transcript.tsx` beside it. `behaviors/transcript.js` stays unvirtualised. |
+| A syntax highlighter (`sugar-high` first) | Adopt when code blocks and the diff are rebuilt | A `code-block.tsx`. Token colours become tokens of the system, with pairs in `tokens/pairs.json`; no theme from the library is used. |
+| `diff` | Adopt when the diff is rebuilt | A `diff.tsx`. The diff component's CSS and examples gain the word-level marks first, as plain markup. |
+| `motion` | Do not adopt now | Nothing. Motion stays in CSS, with the library's exit states. |
+| `cmdk` | Do not adopt | Nothing. A React command palette is the library's dialog and autocomplete. |
+| `lucide-react` | Do not adopt | Nothing. Icons stay in the sprite built from `lucide-static`. |
+| A typeface | Do not adopt now; the owner's call | Nothing new: IBM Plex Sans and Mono are already in `base/fonts/`, and a theme chooses whether to use them. |
+| shadcn/ui | A reference for structure, not a dependency | Nothing is copied. If a file ever is, it goes in `NOTICE`. |
+
+Each one that is adopted is named in this record by an amendment in the pull request that adds its file, with the same rules as a Base UI file: the system's props, the system's classes, no styling from the library.
 
 ## What happens to `behaviors/`
 
