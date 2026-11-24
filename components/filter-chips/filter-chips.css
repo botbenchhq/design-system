@@ -44,6 +44,8 @@
     border-radius: var(--ds-radius-full);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
     transition-property: background-color, border-color, color;
     transition-duration: var(--ds-duration-fast);

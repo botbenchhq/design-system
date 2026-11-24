@@ -40,7 +40,9 @@
     padding-inline: var(--ds-space-md);
     border-radius: var(--ds-radius-sm);
     color: var(--ds-color-muted);
+    font-size: var(--ds-text-md);
     font-weight: var(--ds-weight-medium);
+    line-height: var(--ds-leading-md);
     white-space: nowrap;
     transition-property: background-color, color;
     transition-duration: var(--ds-duration-fast);

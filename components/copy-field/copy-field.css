@@ -14,7 +14,7 @@
 
   /*
    * A value too long for the row ends in an ellipsis at rest and scrolls once it has focus.
-   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   * The mono size is under 16px, and iOS zooms the page when an input that small takes focus, so below 768px it is the sub-heading size.
    */
   .ds-copy-field__value {
     flex: 1;
@@ -41,8 +41,8 @@
   .ds-copy-field__status {
     flex-basis: 100%;
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   .ds-copy-field__status:not(:empty) {

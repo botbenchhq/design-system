@@ -93,7 +93,7 @@
   /* How long the steps took together, or have taken so far. The interface font, with figures of one width. */
   .ds-step-group__duration {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     font-variant-numeric: tabular-nums;
     white-space: nowrap;

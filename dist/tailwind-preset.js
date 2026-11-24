@@ -46,8 +46,7 @@ export default {
       "lg-xl": "var(--ds-space-lg-xl)",
       "xl": "var(--ds-space-xl)",
       "2xl": "var(--ds-space-2xl)",
-      "3xl": "var(--ds-space-3xl)",
-      "4xl": "var(--ds-space-4xl)"
+      "3xl": "var(--ds-space-3xl)"
     },
     "borderRadius": {
       "none": "0",
@@ -66,13 +65,6 @@ export default {
       "mono": "var(--ds-font-mono)"
     },
     "fontSize": {
-      "2xs": [
-        "var(--ds-text-2xs)",
-        {
-          "lineHeight": "var(--ds-leading-2xs)",
-          "letterSpacing": "var(--ds-tracking-2xs)"
-        }
-      ],
       "xs": [
         "var(--ds-text-xs)",
         {
@@ -89,6 +81,12 @@ export default {
         "var(--ds-text-mono)",
         {
           "lineHeight": "var(--ds-leading-mono)"
+        }
+      ],
+      "md": [
+        "var(--ds-text-md)",
+        {
+          "lineHeight": "var(--ds-leading-md)"
         }
       ],
       "ui": [
@@ -125,10 +123,10 @@ export default {
       "semibold": "var(--ds-weight-semibold)"
     },
     "lineHeight": {
-      "2xs": "var(--ds-leading-2xs)",
       "xs": "var(--ds-leading-xs)",
       "sm": "var(--ds-leading-sm)",
       "mono": "var(--ds-leading-mono)",
+      "md": "var(--ds-leading-md)",
       "ui": "var(--ds-leading-ui)",
       "lg": "var(--ds-leading-lg)",
       "xl": "var(--ds-leading-xl)",
@@ -168,8 +166,7 @@ export default {
       "lg-xl": "var(--ds-space-lg-xl)",
       "xl": "var(--ds-space-xl)",
       "2xl": "var(--ds-space-2xl)",
-      "3xl": "var(--ds-space-3xl)",
-      "4xl": "var(--ds-space-4xl)"
+      "3xl": "var(--ds-space-3xl)"
     },
     "outlineWidth": {
       "0": "0"
@@ -185,8 +182,7 @@ export default {
       "lg-xl": "var(--ds-space-lg-xl)",
       "xl": "var(--ds-space-xl)",
       "2xl": "var(--ds-space-2xl)",
-      "3xl": "var(--ds-space-3xl)",
-      "4xl": "var(--ds-space-4xl)"
+      "3xl": "var(--ds-space-3xl)"
     },
     "textDecorationThickness": {
       "auto": "auto"
@@ -204,7 +200,6 @@ export default {
       "xl": "var(--ds-space-xl)",
       "2xl": "var(--ds-space-2xl)",
       "3xl": "var(--ds-space-3xl)",
-      "4xl": "var(--ds-space-4xl)",
       "control-xs": "var(--ds-size-control-xs)",
       "control-sm": "var(--ds-size-control-sm)",
       "control-md": "var(--ds-size-control-md)",
@@ -229,7 +224,6 @@ export default {
       "xl": "var(--ds-space-xl)",
       "2xl": "var(--ds-space-2xl)",
       "3xl": "var(--ds-space-3xl)",
-      "4xl": "var(--ds-space-4xl)",
       "control-xs": "var(--ds-size-control-xs)",
       "control-sm": "var(--ds-size-control-sm)",
       "control-md": "var(--ds-size-control-md)",
@@ -253,7 +247,6 @@ export default {
       "xl": "var(--ds-space-xl)",
       "2xl": "var(--ds-space-2xl)",
       "3xl": "var(--ds-space-3xl)",
-      "4xl": "var(--ds-space-4xl)",
       "control-xs": "var(--ds-size-control-xs)",
       "control-sm": "var(--ds-size-control-sm)",
       "control-md": "var(--ds-size-control-md)",

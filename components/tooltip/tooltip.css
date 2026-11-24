@@ -28,7 +28,7 @@
     margin: 0;
     padding: var(--ds-space-xs) var(--ds-space-sm);
     border-block: var(--ds-space-xs) solid transparent;
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-xs);
     background-color: var(--ds-color-accent);
     background-clip: padding-box;
     color: var(--ds-color-on-accent);

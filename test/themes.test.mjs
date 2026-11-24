@@ -65,8 +65,8 @@ test("resolved values are the theme's where it sets one and the default theme's 
   assert.equal(small.tokens.dark["--ds-color-surface"], defaults.dark["--ds-color-surface"]);
   assert.equal(small.tokens.dark["--ds-shadow-overlay"], defaults.dark["--ds-shadow-overlay"]);
   // Botbench sets no radius and no shadow, so both come from the default theme.
-  assert.equal(botbench.tokens.light["--ds-radius-sm"], "6px");
-  assert.equal(botbench.tokens.light["--ds-radius-md"], "10px");
+  assert.equal(botbench.tokens.light["--ds-radius-sm"], "10px");
+  assert.equal(botbench.tokens.light["--ds-radius-md"], "12px");
   assert.equal(botbench.tokens.dark["--ds-shadow-overlay"], defaults.dark["--ds-shadow-overlay"]);
   assert.equal(botbench.tokens.light["--ds-shadow-overlay"], defaults.light["--ds-shadow-overlay"]);
 });
@@ -119,8 +119,8 @@ test("each theme has a DESIGN.md token block and a token data file holding its r
   assert.match(block, /^---\nversion: alpha\nname: Design system, botbench theme\n/);
   assert.match(block, /\ncolors:\n {2}accent: "#1C1C1E"\n/);
   assert.match(block, /\ncolors-dark:\n {2}accent: "#F5F5F7"\n/);
-  assert.match(block, /\nrounded:\n {2}xs: 4px\n {2}sm: 6px\n {2}md: 10px\n {2}lg: 14px\n {2}full: 9999px\n/);
-  assert.match(block, /\n {2}ui:\n {4}fontFamily: "system-ui"\n {4}fontSize: 0\.875rem\n {4}fontWeight: 400\n {4}lineHeight: 1\.5\n/);
+  assert.match(block, /\nrounded:\n {2}xs: 6px\n {2}sm: 10px\n {2}md: 12px\n {2}lg: 16px\n {2}full: 9999px\n/);
+  assert.match(block, /\n {2}ui:\n {4}fontFamily: "system-ui"\n {4}fontSize: 0\.9375rem\n {4}fontWeight: 400\n {4}lineHeight: 1\.533\n/);
   const data = JSON.parse(read("themes/botbench.tokens.json"));
   assert.deepEqual(Object.keys(data), Object.keys(JSON.parse(read("tokens.json"))));
   assert.equal(data.color.surface.$value.hex, "#f2f2f7");

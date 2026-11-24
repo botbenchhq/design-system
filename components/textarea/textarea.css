@@ -26,7 +26,7 @@
     }
   }
 
-  /* The size stays at 16px at compact widths, as on every field control, so iOS does not zoom on focus. */
+  /* Below 768px the size stays the body size, as on every field control: the mono size is under 16px, and iOS zooms on focus then. */
   .ds-textarea--mono {
     font-family: var(--ds-font-mono);
   }

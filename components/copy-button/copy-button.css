@@ -17,8 +17,8 @@
    * It keeps the text colour around it, so it reads on a sunken band or a shaded row as well as on the page.
    */
   .ds-copy-button__status {
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
   }
 
   /* The status may come after the button or before it, and keeps its distance from the button either way. */

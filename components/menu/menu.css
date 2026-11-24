@@ -22,8 +22,8 @@
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
     box-shadow: var(--ds-shadow-overlay);
-    font-size: var(--ds-text-sm);
-    line-height: var(--ds-leading-sm);
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   /* Set only while open, so a closed menu stays hidden. */
@@ -67,10 +67,11 @@
   .ds-menu__label {
     padding: var(--ds-space-sm) var(--ds-space-md) var(--ds-space-xs);
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-2xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-2xs);
-    letter-spacing: var(--ds-tracking-2xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
     overflow-wrap: anywhere;
   }
 

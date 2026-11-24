@@ -38,7 +38,7 @@
   }
 
   /*
-   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   * The text is the body size, which is 16px on a coarse pointer: iOS zooms the page when a smaller input takes focus.
    * Without field-sizing the height is fixed at two controls and the text scrolls inside.
    * The block padding is what centres a single line in a box as tall as one control.
    */
@@ -48,14 +48,14 @@
     height: calc(var(--ds-size-control) * 2);
     min-height: var(--ds-size-control);
     max-height: calc(var(--ds-size-control) * 4);
-    padding-block: calc((var(--ds-size-control) - var(--ds-text-lg) * var(--ds-leading-lg)) / 2 - var(--ds-border-width));
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
     border-radius: var(--ds-radius-md);
     background-color: var(--ds-color-surface-raised);
-    font-size: var(--ds-text-lg);
-    line-height: var(--ds-leading-lg);
+    font-size: var(--ds-text-ui);
+    line-height: var(--ds-leading-ui);
     resize: none;
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
@@ -65,14 +65,6 @@
     .ds-composer__input {
       height: auto;
       field-sizing: content;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .ds-composer__input {
-      padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
-      font-size: var(--ds-text-ui);
-      line-height: var(--ds-leading-ui);
     }
   }
 
@@ -103,7 +95,7 @@
     padding: var(--ds-space-xs);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-lg);
     background-color: var(--ds-color-surface-raised);
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
   }
@@ -114,10 +106,10 @@
     outline: var(--ds-border-width) solid var(--ds-color-focus);
   }
 
-  /* Inside the block, a corner is the block's radius less the padding between them. */
+  /* Inside the block, 4px from its 16px corner, the textarea takes the step under it. */
   .ds-composer__box > .ds-composer__input {
     border-color: transparent;
-    border-radius: var(--ds-radius-sm);
+    border-radius: var(--ds-radius-md);
     background-color: transparent;
   }
 

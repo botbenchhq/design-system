@@ -152,8 +152,8 @@
     display: flex;
     gap: var(--ds-space-xs);
     min-width: 0;
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -166,7 +166,7 @@
     content: "";
     flex: none;
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-xs) * var(--ds-leading-xs));
+    height: calc(var(--ds-text-sm) * var(--ds-leading-sm));
     background-color: currentColor;
     mask: url("icons/triangle-alert.svg") center / contain no-repeat;
   }

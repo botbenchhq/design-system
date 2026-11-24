@@ -48,6 +48,8 @@
     min-width: var(--ds-size-control);
     min-height: var(--ds-size-control);
     color: var(--ds-color-muted);
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   .ds-pagination__page {

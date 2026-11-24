@@ -119,9 +119,9 @@
   /* A time is not code: it is set in the interface font, with figures of one width so it does not jitter as it counts. */
   .ds-tool-call__duration {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     font-variant-numeric: tabular-nums;
-    line-height: var(--ds-leading-xs);
+    line-height: var(--ds-leading-sm);
     white-space: nowrap;
   }
 
@@ -225,7 +225,7 @@
   }
 
   /*
-   * The line is drawn 36px tall, so a long run of calls stays dense. On a coarse pointer this invisible box,
+   * The line is as tall as a row, so a long run of calls stays dense. On a coarse pointer this invisible box,
    * centred on it, keeps its pointer target at the touch size, as the small button does.
    */
   @media (pointer: coarse) {
@@ -380,10 +380,11 @@
 
   .ds-tool-call__label {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-2xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-2xs);
-    letter-spacing: var(--ds-tracking-2xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
   }
 
   /*

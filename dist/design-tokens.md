@@ -60,12 +60,6 @@ colors-dark:
   tainted: "#E39C77"
   tainted-subtle: "#311E14"
 typography:
-  2xs:
-    fontFamily: "IBM Plex Sans"
-    fontSize: 0.6875rem
-    fontWeight: 500
-    lineHeight: 1.273
-    letterSpacing: 0.02em
   xs:
     fontFamily: "IBM Plex Sans"
     fontSize: 0.75rem
@@ -81,11 +75,16 @@ typography:
     fontSize: 0.8125rem
     fontWeight: 400
     lineHeight: 1.5
-  ui:
+  md:
     fontFamily: "IBM Plex Sans"
     fontSize: 0.875rem
     fontWeight: 400
-    lineHeight: 1.5
+    lineHeight: 1.429
+  ui:
+    fontFamily: "IBM Plex Sans"
+    fontSize: 0.9375rem
+    fontWeight: 400
+    lineHeight: 1.533
   lg:
     fontFamily: "IBM Plex Sans"
     fontSize: 1rem
@@ -100,19 +99,19 @@ typography:
     letterSpacing: -0.015em
   2xl:
     fontFamily: "IBM Plex Sans"
-    fontSize: 1.625rem
+    fontSize: 1.75rem
     fontWeight: 600
-    lineHeight: 1.154
+    lineHeight: 1.214
     letterSpacing: -0.02em
 fontWeights:
   normal: 400
   medium: 500
   semibold: 600
 rounded:
-  xs: 4px
-  sm: 6px
-  md: 10px
-  lg: 14px
+  xs: 6px
+  sm: 10px
+  md: 12px
+  lg: 16px
   full: 9999px
 spacing:
   2xs: 2px
@@ -124,8 +123,7 @@ spacing:
   lg-xl: 20px
   xl: 24px
   2xl: 32px
-  3xl: 40px
-  4xl: 64px
+  3xl: 48px
 borderWidth: 1px
 elevation:
   overlay: "0 8px 24px 0 rgb(0 0 0 / 0.16)"
@@ -159,8 +157,8 @@ density:
   default:
     control: 40px
     row: 40px
-    text: 0.875rem
-    leading: 1.5
+    text: 0.9375rem
+    leading: 1.533
   compact:
     control: 32px
     row: 36px
@@ -169,16 +167,15 @@ density:
   coarse-pointer:
     control: 44px
     row: 44px
-    text: 0.9375rem
+    text: 1rem
     leading: 1.5
 typography-coarse-pointer:
-  2xs: 0.75rem
   xs: 0.8125rem
   sm: 0.875rem
   mono: 0.875rem
-  ui: 0.9375rem
+  md: 1rem
+  ui: 1rem
   lg: 1.0625rem
   xl: 1.3125rem
-  2xl: 1.6875rem
 breakpoint: 768px
 ---

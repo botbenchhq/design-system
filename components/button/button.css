@@ -14,14 +14,15 @@
     min-width: var(--ds-size-control);
     min-height: var(--ds-size-control);
     /* The block padding is what one line of the label leaves of the height, so a label of two lines keeps the same space above and below. */
-    padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-md) * var(--ds-leading-md)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-lg);
     border-width: var(--ds-border-width);
     border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-fill);
     color: var(--ds-color-on-surface);
+    font-size: var(--ds-text-md);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-ui);
+    line-height: var(--ds-leading-md);
     text-align: center;
     transition-property: background-color, border-color, color;
     transition-duration: var(--ds-duration-fast);
@@ -48,7 +49,7 @@
 
   /*
    * The sizes are fixed heights: they do not follow the density, so a small button is 32px in every container.
-   * At that height the label is the dense size, and the icon sits 6px from it.
+   * At that height the label is the metadata size, and the icon sits 6px from it.
    */
   .ds-button--small {
     min-height: var(--ds-size-control-md);

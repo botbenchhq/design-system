@@ -52,37 +52,36 @@
 
     /*
      * Seven roles and mono, in rem, so they follow the reader's font-size setting (1rem is 16px unless the reader changed it).
-     * Each has a line height, and the four with tracking a tracking token. On a coarse pointer each is one pixel larger:
-     * the last block of this file.
+     * Each has a line height, and the three headings a tracking token. Nothing is smaller than 12px. On a coarse
+     * pointer the sizes are larger: the last block of this file.
      */
-    /* Micro: a meta label, a table head. Weight medium, with its tracking. 11px, line 14px. */
-    --ds-text-2xs: 0.6875rem;
-    /* Caption: a badge, a timestamp. 12px, line 16px. */
+    /* Label: a tag, a badge, a count, a key, a table head, the tab bar. The smallest size there is. 12px, line 16px. */
     --ds-text-xs: 0.75rem;
-    /* Dense: a row of a list, a menu, a tree, a sidebar or a table, and helper and description text. 13px, line 18px. */
+    /* Metadata: a timestamp, a second line, helper and description text, the label over a group, a small button, a chip. 13px, line 18px. */
     --ds-text-sm: 0.8125rem;
     /* A block of code. Inline code in prose is 0.93em of the text around it, set in the base layer. 13px. */
     --ds-text-mono: 0.8125rem;
-    /* Body: transcript prose, a control's label. 14px, line 21px. A compact container sets it to the dense size. */
-    --ds-text-ui: 0.875rem;
-    /* Title: of a card, a dialog or a section. Weight semibold, with its tracking. 16px, line 22px. */
+    /* Control: the label of a button or a tab, a row of navigation, a menu, a list or a table, a key and its value. 14px, line 20px. */
+    --ds-text-md: 0.875rem;
+    /* Body: transcript prose, a paragraph, the text of a field. 15px, line 23px. A compact container sets it to the metadata size. */
+    --ds-text-ui: 0.9375rem;
+    /* Sub-heading: the title of a card, a dialog or a section. Weight semibold, with its tracking. 16px, line 22px. */
     --ds-text-lg: 1rem;
-    /* Heading: a section of a page. Weight semibold, with its tracking. 20px, line 26px. */
+    /* Heading: a section of a page, the question of a decision. Weight semibold, with its tracking. 20px, line 26px. */
     --ds-text-xl: 1.25rem;
-    /* Display: the one title of a page. Weight semibold, with its tracking. 26px, line 30px. */
-    --ds-text-2xl: 1.625rem;
+    /* Title: the one title of a view. Weight semibold, with its tracking. 28px, line 34px. */
+    --ds-text-2xl: 1.75rem;
 
-    --ds-leading-2xs: 1.273;
     --ds-leading-xs: 1.333;
     --ds-leading-sm: 1.385;
     --ds-leading-mono: 1.5;
-    --ds-leading-ui: 1.5;
+    --ds-leading-md: 1.429;
+    --ds-leading-ui: 1.533;
     --ds-leading-lg: 1.375;
     --ds-leading-xl: 1.3;
-    --ds-leading-2xl: 1.154;
+    --ds-leading-2xl: 1.214;
 
-    /* Letter spacing, for the four roles that have it. Set it wherever the size of the same name is a role's text. */
-    --ds-tracking-2xs: 0.02em;
+    /* Letter spacing, for the three headings. Set it wherever the size of the same name is a role's text. */
     --ds-tracking-lg: -0.01em;
     --ds-tracking-xl: -0.015em;
     --ds-tracking-2xl: -0.02em;
@@ -91,6 +90,7 @@
     --ds-weight-medium: 500;
     --ds-weight-semibold: 600;
 
+    /* The scale is 4, 8, 12, 16, 24, 32 and 48px. Three steps sit between: 2px and 6px inside a small control, 20px the side of a small mark. */
     --ds-space-2xs: 2px;
     --ds-space-xs: 4px;
     --ds-space-xs-sm: 6px;
@@ -100,22 +100,21 @@
     --ds-space-lg-xl: 20px;
     --ds-space-xl: 24px;
     --ds-space-2xl: 32px;
-    --ds-space-3xl: 40px;
-    --ds-space-4xl: 64px;
+    --ds-space-3xl: 48px;
 
     /*
-     * An inner radius is the outer one minus the padding between them, and never below xs: an item 4px inside
-     * a menu takes sm, a block inside a dialog takes md.
+     * A box inside another takes the step under it: a row or a block inside a card or a menu takes sm, a segment
+     * inside its track takes xs.
      */
-    /* A badge, a tag, a key, the box of a checkbox. */
-    --ds-radius-xs: 4px;
-    /* A control: a button, a field, a select, a toggle, a tab. */
-    --ds-radius-sm: 6px;
-    /* A container: a card, a code block, a message, an alert, the composer box, a menu, a popover, a tooltip, a toast. */
-    --ds-radius-md: 10px;
-    /* A dialog or a sheet. */
-    --ds-radius-lg: 14px;
-    /* A circle or a pill: a chip, the segmented control, the track of a switch, an avatar, a count, the composer's Send button. */
+    /* A tag, a badge, a key, an inline mark, the box of a checkbox, a segment inside its track. */
+    --ds-radius-xs: 6px;
+    /* A control: a button, a field, a select, a toggle, a tab, the track of the segmented control, a row that takes a press. */
+    --ds-radius-sm: 10px;
+    /* A card and what is drawn like one: a code block, a message, an alert, a menu, a popover, a toast. */
+    --ds-radius-md: 12px;
+    /* A dialog, a sheet and the composer box. */
+    --ds-radius-lg: 16px;
+    /* A circle or a pill: a chip, the track of a switch, an avatar, a count, the composer's Send button. */
     --ds-radius-full: 9999px;
 
     --ds-border-width: 1px;
@@ -242,21 +241,22 @@
 
   /*
    * A finger needs the touch size, so on a coarse pointer a control and a row are 44px everywhere, a compact
-   * container included, and a screen held in the hand needs larger type, so every type size is one pixel (0.0625rem) larger.
+   * container included, and a screen held in the hand needs larger type, so every type size is one pixel (0.0625rem)
+   * larger. Two are not: the label of a control takes the body size, 16px on a 24px line, as a phone's own controls
+   * have it, and the title of a view stays as it is, since a narrow screen has no room for a larger one.
    */
   @media (pointer: coarse) {
     :root,
     [data-ds-density] {
       --ds-size-control: 44px;
       --ds-size-row: 44px;
-      --ds-text-2xs: 0.75rem;
       --ds-text-xs: 0.8125rem;
       --ds-text-sm: 0.875rem;
       --ds-text-mono: 0.875rem;
-      --ds-text-ui: 0.9375rem;
+      --ds-text-md: 1rem;
+      --ds-text-ui: 1rem;
       --ds-text-lg: 1.0625rem;
       --ds-text-xl: 1.3125rem;
-      --ds-text-2xl: 1.6875rem;
       --ds-leading-ui: 1.5;
     }
   }

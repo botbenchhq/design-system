@@ -21,35 +21,27 @@
   /* The word itself marks the field as required. Its colour only makes it quieter than the label. */
   .ds-field__required {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     font-weight: var(--ds-weight-normal);
   }
 
   /*
-   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   * The text is the body size, which is 16px on a coarse pointer: iOS zooms the page when a smaller input takes focus.
    * The block padding is what one line of text leaves of the control's height, so the control is exactly that
    * tall at every density, and the first line of a textarea sits where an input's text does.
    */
   .ds-field__control {
     width: 100%;
     min-height: var(--ds-size-control);
-    padding-block: calc((var(--ds-size-control) - var(--ds-text-lg) * var(--ds-leading-lg)) / 2 - var(--ds-border-width));
+    padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
     padding-inline: var(--ds-space-md);
     border-width: var(--ds-border-width);
     border-color: var(--ds-color-border-strong);
     border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
-    font-size: var(--ds-text-lg);
-    line-height: var(--ds-leading-lg);
+    font-size: var(--ds-text-ui);
+    line-height: var(--ds-leading-ui);
     transition: border-color var(--ds-duration-fast) var(--ds-ease);
-  }
-
-  @media (min-width: 768px) {
-    .ds-field__control {
-      padding-block: calc((var(--ds-size-control) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-border-width));
-      font-size: var(--ds-text-ui);
-      line-height: var(--ds-leading-ui);
-    }
   }
 
   .ds-field__control[aria-invalid="true"] {

@@ -7,6 +7,7 @@
 @layer ds.components {
   .ds-breadcrumb {
     min-width: 0;
+    font-size: var(--ds-text-md);
   }
 
   /* Pulled back by the first link's padding, so its text starts on the content's edge. */

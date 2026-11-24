@@ -117,8 +117,4 @@
   .ds-gap-3xl {
     gap: var(--ds-space-3xl);
   }
-
-  .ds-gap-4xl {
-    gap: var(--ds-space-4xl);
-  }
 }

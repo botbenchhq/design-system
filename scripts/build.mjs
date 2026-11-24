@@ -124,10 +124,15 @@ export const DENSITY = {
 };
 // The two of them a coarse pointer sets to the touch size. It sets the type sizes itself.
 const DENSITY_SIZES = ["--ds-size-control", "--ds-size-row"];
-// How much larger every type size is on a coarse pointer: one pixel at a 16px root.
+// How much larger a type size is on a coarse pointer: one pixel at a 16px root. Two sizes are not: the label of a
+// control takes the body size there, and the title of a view stays as :root has it, so its block leaves it out.
 const COARSE_TEXT_STEP = 0.0625;
-// The weight a type role is set in, where it is not normal: the micro label, the title, the heading and the display.
-const ROLE_WEIGHTS = { "2xs": "medium", lg: "semibold", xl: "semibold", "2xl": "semibold" };
+const COARSE_TEXT_AS_BODY = ["--ds-text-md"];
+const COARSE_TEXT_UNCHANGED = ["--ds-text-2xl"];
+// No type size is under 12px at a 16px root.
+const SMALLEST_TEXT = 0.75;
+// The weight a type role is set in, where it is not normal: the sub-heading, the heading and the title.
+const ROLE_WEIGHTS = { lg: "semibold", xl: "semibold", "2xl": "semibold" };
 // What a theme cannot set, by category: the type scale and the radius scale are the same under every theme.
 const THEME_FIXED = { text: "a type size", leading: "a line height", tracking: "a tracking", radius: "a radius" };
 const DENSITY_SELECTORS = {
@@ -168,19 +173,23 @@ function rem(name, value) {
 // The density of tokens.css as { default, compact, "coarse-pointer" }, each holding { control, row, text, leading },
 // and everything the block for a coarse pointer sets as { name: value }. The compact block sets the four density
 // tokens and nothing else. The block for a coarse pointer sets the control and the row to the touch size, makes
-// every type size one pixel larger than :root has it, and sets the body line height.
+// each type size one pixel larger than :root has it (the label of a control takes the body size, and the title
+// is left out), and sets the body line height.
 function parseDensity(blocks, light) {
   const names = Object.values(DENSITY.tokens);
   const textNames = Object.keys(light).filter((name) => categoryOf(name).category === "text");
-  for (const name of textNames) rem(name, light[name]);
-  const expected = { ...Object.fromEntries(DENSITY.attributeValues.map((density) => [density, names])), coarse: [...DENSITY_SIZES, ...textNames, DENSITY.tokens.leading] };
+  for (const name of textNames) {
+    if (rem(name, light[name]) < SMALLEST_TEXT) throw new Error(`tokens.css: ${name} is ${light[name]}. No type size is under ${SMALLEST_TEXT}rem, which is 12px unless the reader changed it`);
+  }
+  const coarseTextNames = textNames.filter((name) => !COARSE_TEXT_UNCHANGED.includes(name));
+  const expected = { ...Object.fromEntries(DENSITY.attributeValues.map((density) => [density, names])), coarse: [...DENSITY_SIZES, ...coarseTextNames, DENSITY.tokens.leading] };
   for (const key of Object.keys(DENSITY_SELECTORS)) {
     const block = blocks[key];
     if (!block) throw new Error(`tokens.css: the density block ${DENSITY_SELECTORS[key]} is missing`);
     if (!same(Object.keys(block), expected[key])) {
       throw new Error(
         key === "coarse"
-          ? `tokens.css: the block for a coarse pointer sets ${Object.keys(block).join(", ")}. It sets ${DENSITY_SIZES.join(" and ")}, every type size and ${DENSITY.tokens.leading}, and nothing else`
+          ? `tokens.css: the block for a coarse pointer sets ${Object.keys(block).join(", ")}. It sets ${DENSITY_SIZES.join(" and ")}, every type size but ${COARSE_TEXT_UNCHANGED.join(", ")}, and ${DENSITY.tokens.leading}, and nothing else`
           : `tokens.css: ${DENSITY_SELECTORS[key]} sets ${Object.keys(block).join(", ")}. A density block sets ${names.join(", ")} and nothing else`,
       );
     }
@@ -188,9 +197,14 @@ function parseDensity(blocks, light) {
   for (const name of DENSITY_SIZES) {
     if (blocks.coarse[name] !== light["--ds-size-touch"]) throw new Error(`tokens.css: on a coarse pointer ${name} is ${blocks.coarse[name]}. It must hold the value of --ds-size-touch, ${light["--ds-size-touch"]}`);
   }
-  for (const name of textNames) {
+  const body = `${rem(DENSITY.tokens.text, light[DENSITY.tokens.text]) + COARSE_TEXT_STEP}rem`;
+  for (const name of coarseTextNames) {
+    if (COARSE_TEXT_AS_BODY.includes(name)) {
+      if (blocks.coarse[name] !== body) throw new Error(`tokens.css: on a coarse pointer ${name} is ${blocks.coarse[name]}. The label of a control is the body size there, so it must be ${body}`);
+      continue;
+    }
     const larger = `${rem(name, light[name]) + COARSE_TEXT_STEP}rem`;
-    if (blocks.coarse[name] !== larger) throw new Error(`tokens.css: on a coarse pointer ${name} is ${blocks.coarse[name]}. Every type size is one pixel larger there, so it must be ${larger}`);
+    if (blocks.coarse[name] !== larger) throw new Error(`tokens.css: on a coarse pointer ${name} is ${blocks.coarse[name]}. A type size is one pixel larger there, so it must be ${larger}`);
   }
   const parts = (from) => Object.fromEntries(Object.entries(DENSITY.tokens).map(([key, name]) => [key, from[name]]));
   return {

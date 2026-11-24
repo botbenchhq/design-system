@@ -50,7 +50,7 @@
 
   /* The state in words, with the time it took or has taken so far. */
   .ds-run-timeline__status {
-    font-size: var(--ds-text-xs);
+    font-size: var(--ds-text-sm);
     line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
     font-variant-numeric: tabular-nums;
     text-align: end;
@@ -154,7 +154,7 @@
     .ds-run-timeline__status {
       grid-row: 2;
       grid-column: 2 / -1;
-      line-height: var(--ds-leading-xs);
+      line-height: var(--ds-leading-sm);
       text-align: start;
     }
   }

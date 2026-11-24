@@ -32,8 +32,8 @@
   /* Figures that change often, such as elapsed time. They sit outside the status text. */
   .ds-streaming__detail {
     font-family: var(--ds-font-mono);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     font-variant-numeric: tabular-nums;
   }
 

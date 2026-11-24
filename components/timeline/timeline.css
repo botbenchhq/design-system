@@ -65,8 +65,8 @@
     flex-wrap: wrap;
     align-items: baseline;
     column-gap: var(--ds-space-sm);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     font-variant-numeric: tabular-nums;
   }
 

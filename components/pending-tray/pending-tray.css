@@ -24,8 +24,9 @@
     border-color: var(--ds-color-border-strong);
     border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
+    font-size: var(--ds-text-md);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-ui);
+    line-height: var(--ds-leading-md);
     transition-property: background-color, border-color;
     transition-duration: var(--ds-duration-fast);
     transition-timing-function: var(--ds-ease);

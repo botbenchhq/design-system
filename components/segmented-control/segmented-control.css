@@ -21,7 +21,7 @@
     grid-auto-flow: column;
     padding: var(--ds-space-xs);
     border-width: var(--ds-border-width);
-    border-radius: var(--ds-radius-full);
+    border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-sunken);
   }
 
@@ -59,7 +59,8 @@
     height: 100%;
     border-width: var(--ds-border-width);
     border-color: transparent;
-    border-radius: var(--ds-radius-full);
+    /* A segment 4px inside the track takes the step under the track's radius. */
+    border-radius: var(--ds-radius-xs);
     cursor: pointer;
     transition-property: background-color, border-color;
     transition-duration: var(--ds-duration-fast);
@@ -74,7 +75,7 @@
     inset-inline: calc(var(--ds-border-width) * -1);
   }
 
-  /* Over the radio, and never in the way of a press on it. The dense size, so five short labels fit a phone on one line each. */
+  /* Over the radio, and never in the way of a press on it. The metadata size, so five short labels fit a phone on one line each. */
   .ds-segmented-control__label {
     position: relative;
     min-width: 0;

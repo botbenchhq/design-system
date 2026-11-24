@@ -30,8 +30,9 @@
     border-radius: var(--ds-radius-sm);
     background-color: var(--ds-color-surface-raised);
     color: var(--ds-color-on-surface);
+    font-size: var(--ds-text-md);
     font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-ui);
+    line-height: var(--ds-leading-md);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
     transition: background-color var(--ds-duration-fast) var(--ds-ease);

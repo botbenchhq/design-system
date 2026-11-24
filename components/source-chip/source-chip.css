@@ -74,8 +74,8 @@
     flex: none;
     color: var(--ds-color-muted);
     font-family: var(--ds-font-ui);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }

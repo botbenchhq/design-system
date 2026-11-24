@@ -69,10 +69,11 @@
 
   .ds-inspector__heading {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-2xs);
-    font-weight: var(--ds-weight-medium);
-    line-height: var(--ds-leading-2xs);
-    letter-spacing: var(--ds-tracking-2xs);
+    font-size: var(--ds-text-sm);
+    font-weight: var(--ds-weight-semibold);
+    line-height: var(--ds-leading-sm);
+    /* The label may be a heading element, which has a tracking of its own. A label has none. */
+    letter-spacing: normal;
   }
 
   /* A label column and a value column, shared by every row of the section. */

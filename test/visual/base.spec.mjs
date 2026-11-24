@@ -120,10 +120,10 @@ test("a bare page renders IBM Plex Sans and IBM Plex Mono from the shipped files
   expect(fonts).toContain("200 /fonts/ibm-plex-sans-latin-wght-normal.woff2");
   expect(fonts).toContain("200 /fonts/ibm-plex-mono-latin-400-normal.woff2");
 
-  expect(await computed(page, "body", "font-size")).toBe("14px");
+  expect(await computed(page, "body", "font-size")).toBe("15px");
   expect(await computed(page, "body", "color")).toBe("rgb(23, 23, 23)");
   expect(await computed(page, "body", "background-color")).toBe("rgb(250, 250, 249)");
-  expect(await computed(page, "h1", "font-size")).toBe("26px");
+  expect(await computed(page, "h1", "font-size")).toBe("28px");
   expect(await computed(page, "h1", "font-weight")).toBe("600");
 });
 
@@ -144,7 +144,7 @@ test("layout spacing comes from the spacing tokens", async ({ page }) => {
   expect(await computed(page, "#stack", "row-gap")).toBe("12px");
   expect(await computed(page, "#cluster", "column-gap")).toBe("24px");
   expect(await computed(page, ".ds-container", "padding-left")).toBe("16px");
-  expect(await computed(page, ".ds-container", "max-width")).toBe("720px");
+  expect(await computed(page, ".ds-container", "max-width")).toBe("760px");
   // The reset's border defaults: adding a width alone draws a solid line in the border colour.
   expect(await computed(page, "#first", "border-top-width")).toBe("0px");
   expect(await computed(page, "#first", "border-top-style")).toBe("solid");
@@ -224,7 +224,7 @@ for (const width of [390, 1280]) {
     await page.goto(`${origin}/long-words`);
     const size = async (selector) => parseFloat(await computed(page, selector, "font-size"));
     const [h1, h2, h3, body] = [await size("#plain-h1"), await size("#plain-h2"), await size("#plain-h3"), await size("body")];
-    expect([h1, h2, h3]).toEqual([26, 20, 16]);
+    expect([h1, h2, h3]).toEqual([28, 20, 16]);
     expect(h3).toBeGreaterThan(body);
     expect(await size(".ds-page-header__title")).toBeGreaterThan(h2);
     expect(await size(".ds-page-header__title")).toBe(h1);

@@ -55,8 +55,8 @@
 
   .ds-attachment-chip__size {
     color: var(--ds-color-muted);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
@@ -147,8 +147,8 @@
     padding-inline-end: var(--ds-space-xs);
     padding-bottom: var(--ds-space-xs);
     color: var(--ds-color-danger);
-    font-size: var(--ds-text-xs);
-    line-height: var(--ds-leading-xs);
+    font-size: var(--ds-text-sm);
+    line-height: var(--ds-leading-sm);
     overflow-wrap: anywhere;
   }
 
@@ -156,7 +156,7 @@
     content: "";
     flex: none;
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-xs) * var(--ds-leading-xs));
+    height: calc(var(--ds-text-sm) * var(--ds-leading-sm));
     background-color: currentColor;
     mask: url("icons/circle-alert.svg") center / contain no-repeat;
   }

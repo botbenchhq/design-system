@@ -31,7 +31,7 @@
 
   /*
    * One target tall, and never narrower than two, so it wraps to a new row before it is too small to type in.
-   * 16px at compact widths, because iOS zooms the page when a smaller input takes focus.
+   * The text is the body size, which is 16px on a coarse pointer: iOS zooms the page when a smaller input takes focus.
    */
   .ds-tag-input__input {
     flex: 1 1 calc(var(--ds-size-control) * 2);
@@ -40,15 +40,8 @@
     padding-inline: var(--ds-space-xs);
     border-radius: var(--ds-radius-xs);
     background-color: transparent;
-    font-size: var(--ds-text-lg);
-    line-height: var(--ds-leading-lg);
-  }
-
-  @media (min-width: 768px) {
-    .ds-tag-input__input {
-      font-size: var(--ds-text-ui);
-      line-height: var(--ds-leading-ui);
-    }
+    font-size: var(--ds-text-ui);
+    line-height: var(--ds-leading-ui);
   }
 
   .ds-tag-input:has(> .ds-tag-input__input[aria-invalid="true"]) {

@@ -123,7 +123,7 @@ test("the wide container is as wide as its token at 1280px, and as wide as the s
   const desktop = await measure();
   expect(desktop.token).toBe(1200);
   expect(desktop.wide).toBe(desktop.token);
-  expect(desktop.standard).toBe(720);
+  expect(desktop.standard).toBe(760);
   await openGallery(page, server.origin, "data-table", { width: 390 });
   const phone = await measure();
   expect(phone.wide).toBe(phone.standard);
