@@ -6,10 +6,13 @@
  */
 
 @layer ds.components {
+  /* The name of a station is the control size, as the label of a tab or a step is, so five stations fit a column. */
   .ds-run-timeline {
     display: flex;
     flex-direction: column;
     min-width: 0;
+    font-size: var(--ds-text-md);
+    line-height: var(--ds-leading-md);
   }
 
   /* A station that has not started, which is what a station is until the markup says otherwise. */
@@ -28,7 +31,7 @@
   .ds-run-timeline__station::before {
     content: "";
     width: var(--ds-space-lg);
-    height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    height: calc(var(--ds-text-md) * var(--ds-leading-md));
     background-color: currentColor;
     mask: url("icons/circle-dashed.svg") center / contain no-repeat;
   }
@@ -37,7 +40,7 @@
   .ds-run-timeline__station:not(:last-child)::after {
     content: "";
     position: absolute;
-    inset-block: calc(var(--ds-space-xs) + (var(--ds-text-ui) * var(--ds-leading-ui) + var(--ds-space-lg)) / 2) calc((var(--ds-space-lg) - var(--ds-text-ui) * var(--ds-leading-ui)) / 2 - var(--ds-space-xs));
+    inset-block: calc(var(--ds-space-xs) + (var(--ds-text-md) * var(--ds-leading-md) + var(--ds-space-lg)) / 2) calc((var(--ds-space-lg) - var(--ds-text-md) * var(--ds-leading-md)) / 2 - var(--ds-space-xs));
     inset-inline-start: calc((var(--ds-space-lg) - var(--ds-border-width)) / 2);
     width: var(--ds-border-width);
     background-color: var(--ds-color-border-strong);
@@ -51,7 +54,7 @@
   /* The state in words, with the time it took or has taken so far. */
   .ds-run-timeline__status {
     font-size: var(--ds-text-sm);
-    line-height: calc(var(--ds-text-ui) * var(--ds-leading-ui));
+    line-height: calc(var(--ds-text-md) * var(--ds-leading-md));
     font-variant-numeric: tabular-nums;
     text-align: end;
     overflow-wrap: anywhere;
@@ -148,7 +151,7 @@
       grid-column: 3;
       width: auto;
       height: var(--ds-border-width);
-      margin-block-start: calc((var(--ds-text-ui) * var(--ds-leading-ui) - var(--ds-border-width)) / 2);
+      margin-block-start: calc((var(--ds-text-md) * var(--ds-leading-md) - var(--ds-border-width)) / 2);
     }
 
     .ds-run-timeline__status {

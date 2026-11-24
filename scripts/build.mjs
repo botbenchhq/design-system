@@ -30,6 +30,11 @@ const FONT_SOURCES = {
   "ibm-plex-mono-latin-600-normal.woff2": "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2",
   "OFL-IBM-Plex-Sans.txt": "@fontsource-variable/ibm-plex-sans/LICENSE",
   "OFL-IBM-Plex-Mono.txt": "@fontsource/ibm-plex-mono/LICENSE",
+  // The Botbench theme's typefaces. Both files are variable in weight.
+  "inter-latin-wght-normal.woff2": "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
+  "jetbrains-mono-latin-wght-normal.woff2": "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2",
+  "OFL-Inter.txt": "@fontsource-variable/inter/LICENSE",
+  "OFL-JetBrains-Mono.txt": "@fontsource-variable/jetbrains-mono/LICENSE",
 };
 
 // What a symbol keeps from an icon's root element, so one drawn through <use> looks like the single file.

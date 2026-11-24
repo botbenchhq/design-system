@@ -120,7 +120,7 @@ test("each theme has a DESIGN.md token block and a token data file holding its r
   assert.match(block, /\ncolors:\n {2}accent: "#215BB8"\n/);
   assert.match(block, /\ncolors-dark:\n {2}accent: "#7CB7FF"\n/);
   assert.match(block, /\nrounded:\n {2}xs: 6px\n {2}sm: 10px\n {2}md: 12px\n {2}lg: 16px\n {2}full: 9999px\n/);
-  assert.match(block, /\n {2}ui:\n {4}fontFamily: "system-ui"\n {4}fontSize: 0\.9375rem\n {4}fontWeight: 400\n {4}lineHeight: 1\.533\n/);
+  assert.match(block, /\n {2}ui:\n {4}fontFamily: "Inter"\n {4}fontSize: 0\.9375rem\n {4}fontWeight: 400\n {4}lineHeight: 1\.533\n/);
   const data = JSON.parse(read("themes/botbench.tokens.json"));
   assert.deepEqual(Object.keys(data), Object.keys(JSON.parse(read("tokens.json"))));
   assert.equal(data.color.surface.$value.hex, "#f5f6f7");
@@ -128,7 +128,10 @@ test("each theme has a DESIGN.md token block and a token data file holding its r
   assert.equal(data.color.approval.$extensions["design-system"].dark.hex, "#f2b95d");
   assert.deepEqual(data.radius, JSON.parse(read("tokens.json")).radius);
   assert.deepEqual(data.text, JSON.parse(read("tokens.json")).text);
-  assert.deepEqual(data.font.ui.$value.slice(0, 2), ["system-ui", "-apple-system"]);
+  assert.deepEqual(data.font.ui.$value.slice(0, 2), ["Inter", "system-ui"]);
+  assert.deepEqual(data.font.mono.$value.slice(0, 2), ["JetBrains Mono", "ui-monospace"]);
+  // The default theme keeps IBM Plex.
+  assert.deepEqual(JSON.parse(read("tokens.json")).font.ui.$value[0], "IBM Plex Sans");
   assert.deepEqual(data.shadow.overlay.$value.blur, { value: 40, unit: "px" });
   assert.deepEqual(data.shadow.overlay.$value.color.components, [0, 0, 0]);
 });

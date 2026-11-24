@@ -8,6 +8,14 @@ The source for every item is section 5 of the [visual specification](../design/2
 
 Nothing below is built. No class, variant or example for any of it is in 0.12.0.
 
+## What changed after this was briefed
+
+While 0.12.0 was being built the owner decided that Botbench's interface will be built on shadcn/ui on Tailwind, themed to the approved direction. A spike in Botbench is proving it and is to be recorded there as ADR 0012, which supersedes the choice of Base UI in Botbench's ADR 0011 and in this repository's proposed ADR 0001 (pull request 41, not merged). This plan was written before that and has to be read with it:
+
+- **The hand-built component layer is expected to be retired screen by screen**, as each Botbench screen moves to shadcn. No `ds-` component gets further polish beyond what a change of the scale breaks. The tables below are then a record of what the direction needs, not a queue of `ds-` components to write: each item is built where the screen that needs it is built.
+- **The design system's lasting role is the tokens, the theme and the product-specific composites.** The tokens and the Botbench theme of 0.12.0 are the source the shadcn theme is built from: the sizes, the type roles, the radii, the four surfaces, the interactive blue, the status colours, the contrast pairs and the three breakpoints. The composites are the things no general library has: the evidence row with its four kinds of claim, the decision surface and its five levels, the queue row, the track.
+- **What stays to be decided** when ADR 0012 lands: which of the checks here (the contrast gate, the checker's rules, the closed class vocabulary) still apply to a screen built from shadcn components, and how the Tailwind preset and the rules files change for it. Nothing in 0.12.0 anticipates that.
+
 ## New components
 
 | Component | What it is | Specification | Notes for the build |

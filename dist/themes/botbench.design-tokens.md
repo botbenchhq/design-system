@@ -63,44 +63,44 @@ colors-dark:
   tainted-subtle: "#10292B"
 typography:
   xs:
-    fontFamily: "system-ui"
+    fontFamily: "Inter"
     fontSize: 0.75rem
     fontWeight: 400
     lineHeight: 1.333
   sm:
-    fontFamily: "system-ui"
+    fontFamily: "Inter"
     fontSize: 0.8125rem
     fontWeight: 400
     lineHeight: 1.385
   mono:
-    fontFamily: "ui-monospace"
+    fontFamily: "JetBrains Mono"
     fontSize: 0.8125rem
     fontWeight: 400
     lineHeight: 1.5
   md:
-    fontFamily: "system-ui"
+    fontFamily: "Inter"
     fontSize: 0.875rem
     fontWeight: 400
     lineHeight: 1.429
   ui:
-    fontFamily: "system-ui"
+    fontFamily: "Inter"
     fontSize: 0.9375rem
     fontWeight: 400
     lineHeight: 1.533
   lg:
-    fontFamily: "system-ui"
+    fontFamily: "Inter"
     fontSize: 1rem
     fontWeight: 600
     lineHeight: 1.375
     letterSpacing: -0.01em
   xl:
-    fontFamily: "system-ui"
+    fontFamily: "Inter"
     fontSize: 1.25rem
     fontWeight: 600
     lineHeight: 1.3
     letterSpacing: -0.015em
   2xl:
-    fontFamily: "system-ui"
+    fontFamily: "Inter"
     fontSize: 1.75rem
     fontWeight: 600
     lineHeight: 1.214

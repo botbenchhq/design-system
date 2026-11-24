@@ -730,6 +730,7 @@
     "ui": {
       "$type": "fontFamily",
       "$value": [
+        "Inter",
         "system-ui",
         "-apple-system",
         "Segoe UI",
@@ -741,6 +742,7 @@
     "mono": {
       "$type": "fontFamily",
       "$value": [
+        "JetBrains Mono",
         "ui-monospace",
         "SF Mono",
         "Menlo",

@@ -1,15 +1,16 @@
 /*
- * Botbench: Graphite + Glacier. Cool graphite surfaces and one interactive colour, a glacier blue, on the
- * platform's own typeface.
+ * Botbench: Graphite + Glacier. Cool graphite surfaces and one interactive colour, a glacier blue, set in
+ * Inter and JetBrains Mono.
  * Default mode: dark.
  *
  * With no data-theme attribute the page is dark. data-theme="light", "dark" and "auto" work as they do
  * without the theme. Load this file after design-system.css: its rules are in the ds.theme layer, which
  * the layer order puts after ds.tokens.
  *
- *   type      system-ui, so an Apple device sets the app in SF Pro and SF Mono as its own apps are, Windows
- *             in Segoe UI and Android in Roboto. The sizes, line heights and tracking are the system's: a
- *             theme sets the two font stacks and no size, and an app sets no font family outside them.
+ *   type      Inter for the interface and JetBrains Mono for code, both variable in weight and shipped in
+ *             fonts/ beside the stylesheet, with the platform's own fonts after them in each stack for the
+ *             moment before a file arrives. The sizes, line heights and tracking are the system's: a theme
+ *             sets the two font stacks and no size, and an app sets no font family outside them.
  *   accent    one interactive colour, a blue: #7CB7FF in dark and #215BB8 in light. It fills the primary
  *             action and marks focus, selection and work under way, so accent, focus and info hold one value.
  *             They stay three tokens, so another theme can part them. It is never a status other than
@@ -31,8 +32,8 @@
 
 @layer ds.theme {
   :root {
-    --ds-font-ui: system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    --ds-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --ds-font-ui: "Inter", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --ds-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     --ds-color-accent: #215BB8;
     --ds-color-accent-hover: #1B4C9C;
     --ds-color-on-accent: #FFFFFF;

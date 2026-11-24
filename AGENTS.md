@@ -45,7 +45,7 @@ This repo is a shared design system. Apps copy `dist/` into their own repo and u
 - The build copies `LICENSE` and `NOTICE` into `dist/`, so a vendored copy carries them.
 - The version is the `version` in `package.json`, which the build writes to `dist/VERSION`. A release raises it and adds an entry to `CHANGELOG.md`.
 - A structural rule is a function over a document tree in `checker/rules/`. It takes the tree and an options object, which holds the app's class prefix when one is known. It must run unchanged on a parsed HTML file and in a browser, so it uses only the tree helpers in `checker/rules/tree.mjs`, never `node:` modules or the DOM. The build joins the files listed in `DOM_BUNDLE` in `scripts/build.mjs` into `dist/check-dom.js`: add a new rule file to that list, and keep top-level names unique across those files.
-- No runtime dependencies in the stylesheet, the tokens, the checker, the behaviour modules or the build. A file in `react/` may import a client dependency that is a row in the table of Botbench's ADR 0011 and is named in `docs/adr/0001`; the app installs it. Development dependencies are for tests (React, those client dependencies and esbuild only build a test fixture) and for `npm run vendor`, which copies font and icon files from `node_modules` into `base/`. The build never reads `node_modules`.
+- No runtime dependencies. Development dependencies are for tests (React and esbuild only build a test fixture) and for `npm run vendor`, which copies font and icon files from `node_modules` into `base/`. The build never reads `node_modules`.
 - Node 24, ES modules. Tests use `node --test`.
 
 ## Commands

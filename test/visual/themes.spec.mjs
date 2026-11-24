@@ -206,6 +206,24 @@ for (const stylesheets of [["design-system.css"], ["design-system.css", "themes/
   });
 }
 
+test("under the botbench theme the page is set in Inter and its code in JetBrains Mono, from the shipped files, and without the theme neither file is fetched", async ({ page }) => {
+  const fetched = [];
+  page.on("response", (response) => {
+    if (response.url().endsWith(".woff2")) fetched.push(`${response.status()} ${new URL(response.url()).pathname}`);
+  });
+  await openPage(page, { mode: "dark", body: "<p>Run <code>npm test</code> before the review.</p>" });
+  await page.evaluate(() => document.fonts.ready);
+  const families = await page.evaluate(() => [document.body, document.querySelector("code")].map((element) => getComputedStyle(element).fontFamily.split(",")[0].trim()));
+  expect(families).toEqual(["Inter", '"JetBrains Mono"']);
+  expect(await page.evaluate(() => [document.fonts.check('15px "Inter"'), document.fonts.check('13px "JetBrains Mono"')])).toEqual([true, true]);
+  expect(fetched.sort()).toEqual(["200 /dist/fonts/inter-latin-wght-normal.woff2", "200 /dist/fonts/jetbrains-mono-latin-wght-normal.woff2"]);
+  // The default theme draws nothing in them, so it fetches neither.
+  fetched.length = 0;
+  await openPage(page, { mode: "light", stylesheets: ["design-system.css"], body: "<p>Run <code>npm test</code> before the review.</p>" });
+  await page.evaluate(() => document.fonts.ready);
+  expect(fetched.filter((file) => /inter|jetbrains/.test(file))).toEqual([]);
+});
+
 test("the theme's layer comes after ds.tokens whatever order the files load in, and unlayered app CSS still wins over both", async ({ page }) => {
   await openPage(page, { mode: "dark", stylesheets: ["themes/botbench.css", "design-system.css"] });
   expect(hex((await read(page)).body)).toBe("#111316");

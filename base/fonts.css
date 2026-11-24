@@ -1,7 +1,10 @@
 /*
- * IBM Plex Sans and IBM Plex Mono, Latin subset, served from the app's own
- * host. The URLs are relative, so fonts/ must stay beside the stylesheet.
- * The sans file is variable and covers every weight from 100 to 700.
+ * The typefaces of the themes, Latin subset, served from the app's own host. The URLs are relative, so fonts/
+ * must stay beside the stylesheet. A browser fetches a file only when a page draws text in that family, so a
+ * theme costs nothing in the families it does not use.
+ *
+ * The default theme: IBM Plex Sans, one variable file for every weight from 100 to 700, and IBM Plex Mono.
+ * The Botbench theme: Inter and JetBrains Mono, one variable file each, at the end of this file.
  */
 
 @font-face {
@@ -34,4 +37,20 @@
   font-weight: 600;
   font-display: swap;
   src: url("./fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./fonts/inter-latin-wght-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("./fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
 }
