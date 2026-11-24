@@ -31,6 +31,7 @@ These change a component that exists. 0.12.0 left them out because each changes 
 | `field`, `textarea`, `select`, `search-field` | Every input rests on the sunken surface. Today the control rests on the raised surface and is sunken only when read-only, so read-only needs another sign. | 5.7 |
 | `badge` | An outline tag ("Passed on a1b2c3d", "Expected from the task"), and the signal: a mark and a word with no fill, outside the status set, at the head of a decision surface or a queue item only. Draw the outline as a border, not a shadow. | 3.17, 5.7 |
 | `card` | A flat card (no fill, a hairline) and a dashed card. Whether the plain card is the default is the owner's open question 4 of the specification: 0.12.0 has `ds-card--borderless` for a decorative panel only. | 3.19, 5.7 |
+| `badge`, the status set | "Ready for review" is drawn in the success tone today. In A it waits on a person, so it takes the approval tone, and green is kept for a check that passed and a result that was accepted. The set changes in `badge` and in the six components that draw it, together. | 2.1, 4.2 |
 | `approval` | The elevated level tints the whole card and takes the approval tokens; today one line is tinted in the warning tokens. Under the Botbench theme the two pairs now hold the same values. | 5.2 |
 | `confirm-dialog` | The band that says "Cannot be undone" and the 2px edge in the danger colour. | 5.2 |
 | `segmented-control` | A track on the fill colour with no border, and a hairline outline on the chosen segment in light. 0.12.0 changed its radius only. | 5.7 |
