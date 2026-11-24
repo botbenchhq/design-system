@@ -15,10 +15,10 @@ No setting switches a rule off. The one exception to a rule is an inline waiver:
 | `raw-shadow` | A shadow is written by hand. | Use the overlay shadow token on an overlay, and no shadow elsewhere. |
 | `raw-z-index` | A layer number is not on the layering scale. | Use a layering token. |
 | `raw-duration` | A transition or animation time is not a duration token. | Use a duration token. |
-| `off-scale-spacing` | A margin, padding, gap or inset is a length written by hand, not a spacing token. | Use a spacing token: 2, 4, 6, 8, 12, 16, 20, 24, 32, 40 or 64px. The finding names the nearest one. |
-| `off-scale-font-size` | A font size is a length written by hand, in px, rem or em. A size equal to a step, such as `14px` or `0.875rem`, is reported too, because only the token follows the reader's font size, a coarse pointer and the density. | Use a type size token. The finding names the nearest one, with a rem compared at 16px. |
-| `off-scale-radius` | A corner radius is a length written by hand, not a radius token. | Use a radius token: 4px for a badge, 6px for a control, 10px for a container, 14px for a dialog or a sheet. |
-| `off-breakpoint` | A media query uses a width other than the one breakpoint. | Write the query at 768px. Style the compact layout first. |
+| `off-scale-spacing` | A margin, padding, gap or inset is a length written by hand, not a spacing token. | Use a spacing token: 4, 8, 12, 16, 24, 32 or 48px, or one of the steps between, 2, 6 and 20px. The finding names the nearest one. |
+| `off-scale-font-size` | A font size is a length written by hand, in px, rem or em. A size equal to a step, such as `14px` or `0.875rem`, is reported too, because only the token follows the reader's font size, a coarse pointer and the density. | Use a type size token: 12, 13, 14, 15, 16, 20 or 28px at a 16px root, and nothing under 12px. The finding names the nearest one, with a rem compared at 16px. |
+| `off-scale-radius` | A corner radius is a length written by hand, not a radius token. | Use a radius token: 6px for a tag, 10px for a control, 12px for a card, 16px for a dialog or a sheet. |
+| `off-breakpoint` | A media query uses a width that is not one of the three breakpoints. | Write the query at 768px, 1024px or 1280px. Style the compact layout first. A container query may use any width. |
 | `banned-gradient` | A gradient is used. | Use a flat colour token. |
 | `banned-backdrop-filter` | A backdrop filter is used. | Use an opaque surface colour token. |
 | `banned-blur` | A blur filter is used. | Remove the blur. |
@@ -33,7 +33,7 @@ No setting switches a rule off. The one exception to a rule is an inline waiver:
 | `dynamic-class` | A system class name is built at run time, so it cannot be checked. | Write each class name in full, for example in a lookup table from value to class. |
 | `visual-utility` | A colour, border, radius, shadow or type utility is used in a screen. | Use a catalogue component, or declare an app-local component in the gaps file. |
 | `unlisted-class` | A class is neither a system class, a declared app-local class nor an allowed utility. | Use a catalogue component, or declare an app-local component in the gaps file. |
-| `unlisted-variant` | A utility carries a variant, such as a hover or dark variant, that screens may not use. | Remove the variant. Screens may use the breakpoint variant only. States belong to components. |
+| `unlisted-variant` | A utility carries a variant, such as a hover or dark variant, that screens may not use. | Remove the variant. Screens may use the three breakpoint variants only, `md:` at 768px, `lg:` at 1024px and `xl:` at 1280px. States belong to components. |
 | `off-scale-utility` | A spacing or sizing utility uses a value that is not on the scale. | Use a key the finding lists. |
 | `arbitrary-value` | A utility holds an arbitrary value in square brackets. | Use a utility on the token scale, or a catalogue component. |
 | `undeclared-app-class` | A class with the app's prefix is not listed in the gaps file. | Use a catalogue component, or record the gap in the gaps file. |

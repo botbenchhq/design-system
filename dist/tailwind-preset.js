@@ -1,7 +1,9 @@
 export default {
   "theme": {
     "screens": {
-      "md": "768px"
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px"
     },
     "colors": {
       "accent": "var(--ds-color-accent)",

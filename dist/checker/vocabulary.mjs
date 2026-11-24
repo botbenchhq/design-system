@@ -22,7 +22,8 @@ export function loadVocabulary(manifestPath) {
 
   return {
     classPrefix: `${manifest.prefix}-`,
-    breakpoint: manifest.breakpoint,
+    // Every width a media query may use. A manifest from before 0.12 has one.
+    breakpoints: manifest.breakpoints ?? [manifest.breakpoint],
     tokens: manifest.tokens,
     tokenNames: new Set(Object.values(manifest.tokens).flat()),
     tokenValues,

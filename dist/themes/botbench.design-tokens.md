@@ -180,4 +180,8 @@ typography-coarse-pointer:
   lg: 1.0625rem
   xl: 1.3125rem
 breakpoint: 768px
+breakpoints:
+  md: 768px
+  lg: 1024px
+  xl: 1280px
 ---

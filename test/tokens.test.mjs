@@ -91,10 +91,37 @@ test("Tailwind emits rules for token classes and none for classes outside the vo
   }
 });
 
-test("the only breakpoint Tailwind emits is 768px", async () => {
+test("the breakpoints are 768px, 1024px and 1280px: three tokens, three Tailwind screens, and no other width in the manifest, the token block or what Tailwind emits", async () => {
   const { css } = await buildFixture();
-  assert.deepEqual([...new Set(css.match(/@media \(min-width: [^)]+\)/g))], ["@media (min-width: 768px)"]);
-  assert.equal(JSON.parse(read("manifest.json")).breakpoint, "768px");
+  assert.deepEqual([...new Set(css.match(/@media \(min-width: [^)]+\)/g))], ["@media (min-width: 768px)", "@media (min-width: 1024px)", "@media (min-width: 1280px)"]);
+  const { light } = parseTokens(read("tokens.css"));
+  assert.deepEqual(Object.fromEntries(Object.keys(light).filter((name) => name.startsWith("--ds-breakpoint")).map((name) => [name, light[name]])), {
+    "--ds-breakpoint": "768px", "--ds-breakpoint-lg": "1024px", "--ds-breakpoint-xl": "1280px",
+  });
+  const manifest = JSON.parse(read("manifest.json"));
+  assert.equal(manifest.breakpoint, "768px");
+  assert.deepEqual(manifest.breakpoints, ["768px", "1024px", "1280px"]);
+  assert.deepEqual(manifest.utilities.variants, ["md", "lg", "xl"]);
+  const { theme } = JSON.parse(read("tailwind-preset.js").replace(/^export default /, "").replace(/;\s*$/, ""));
+  assert.deepEqual(theme.screens, { md: "768px", lg: "1024px", xl: "1280px" });
+  assert.match(read("design-tokens.md"), /\nbreakpoints:\n {2}md: 768px\n {2}lg: 1024px\n {2}xl: 1280px\n/);
+  assert.throws(buildTokens(tokensSource().replace("--ds-breakpoint-xl: 1280px;", "--ds-breakpoint-xl: 1000px;")), /the breakpoints must rise/);
+  assert.throws(buildTokens(tokensSource().replace("--ds-breakpoint-xl: 1280px;", "--ds-breakpoint-xl: 1280px;\n    --ds-breakpoint-2xl: 1536px;")), /--ds-breakpoint-2xl has no variant/);
+});
+
+test("a component changes its layout at 768px alone, a page pattern may also use 1024px and 1280px, and a container query may use any width", () => {
+  const widthsOf = (css) => [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/@media[^{]*?(?:min-|max-)?width\s*[:<>=]+\s*([\d.]+[a-z]+)/g)].map(([, width]) => width);
+  let queries = 0;
+  for (const dir of ["components", "patterns"]) {
+    const allowed = dir === "components" ? ["768px"] : ["768px", "1024px", "1280px"];
+    for (const name of readdirSync(join(repoRoot, dir)).sort()) {
+      for (const width of widthsOf(readFileSync(join(repoRoot, dir, name, `${name}.css`), "utf8"))) {
+        assert.ok(allowed.includes(width), `${dir}/${name} has a media query at ${width}. A ${dir === "components" ? "component uses 768px alone: a width past it belongs to the layout of a screen, which a pattern or an app's shell sets" : "pattern uses 768px, 1024px or 1280px"}`);
+        queries += 1;
+      }
+    }
+  }
+  assert.ok(queries > 25, `only ${queries} media queries were found`);
 });
 
 test("with preflight off a ds.components background survives and an unlayered utility overrides it", async () => {
@@ -181,14 +208,13 @@ test("the token data file uses the Design Tokens Community Group format", () => 
 
 test("every value in the Tailwind preset is a token reference or a neutral keyword", () => {
   const { theme } = JSON.parse(read("tailwind-preset.js").replace(/^export default /, "").replace(/;\s*$/, ""));
-  const neutral = new Set(["0", "none", "auto", "100%", "100dvh", "transparent", "currentColor", "768px"]);
+  const neutral = new Set(["0", "none", "auto", "100%", "100dvh", "transparent", "currentColor", "768px", "1024px", "1280px"]);
   const leaves = (value) => (typeof value === "string" ? [value] : Object.values(value).flatMap(leaves));
   for (const [key, scale] of Object.entries(theme)) {
     for (const leaf of leaves(scale)) {
       assert.ok(neutral.has(leaf) || /^var\(--ds-[\w-]+\)$/.test(leaf), `${key}: ${leaf}`);
     }
   }
-  assert.deepEqual(theme.screens, { md: "768px" });
   for (const key of ["animation", "keyframes", "blur", "backdropBlur", "opacity", "letterSpacing", "dropShadow"]) {
     assert.deepEqual(theme[key], {}, key);
   }

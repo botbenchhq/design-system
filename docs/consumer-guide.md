@@ -232,7 +232,7 @@ The app's CSS entry is then only this:
 @tailwind utilities;
 ```
 
-The preset replaces every Tailwind scale with token names. In screen markup, utilities are for layout, spacing and sizing only: `flex`, `gap-md`, `p-lg`, `w-full`, `md:grid-cols-2`. A colour, border, radius, shadow or type utility is a finding. `md:` is the only variant, at 768px.
+The preset replaces every Tailwind scale with token names. In screen markup, utilities are for layout, spacing and sizing only: `flex`, `gap-md`, `p-lg`, `w-full`, `md:grid-cols-2`. A colour, border, radius, shadow or type utility is a finding. The variants are the three breakpoints and no other: `md:` at 768px, `lg:` at 1024px and `xl:` at 1280px.
 
 ## 3. Add the config file and the gaps file
 
@@ -551,24 +551,24 @@ A theme is written in the design system's repo, never in an app. Add `themes/<na
 The build stops, naming the theme, when:
 
 - it sets a name that is not a token;
-- it sets `--ds-size-control`, `--ds-size-row`, `--ds-text-ui` or `--ds-leading-ui`, or holds a density block: the density is the same under every theme;
+- it sets `--ds-size-control`, `--ds-size-row`, `--ds-text-ui` or `--ds-leading-ui`, or holds a block for `data-ds-density`: the density is the same under every theme;
 - it sets a type size, a line height, a tracking or a radius: those scales are the same under every theme;
 - it has no light values or no dark values, or its dark and auto blocks differ;
 - it sets a colour for light alone that the default theme sets for both modes, since that value would then apply in dark as well;
 - a colour is not six-digit hex, or the default mode is not light or dark;
-- a pair in `tokens/pairs.json` falls below its minimum in either mode, with the theme's values where it sets them and the default values where it does not. The message names the theme, the pair, the mode and the ratio.
+- a pair in `tokens/pairs.json` falls below its minimum in either mode, with the theme's values where it sets them and the default values where it does not. The message names the theme, the pair, the mode and the ratio. A pair with a `themes` list is checked for the themes it names and no other: it records what one theme holds beyond the rest, and a component relies only on a pair with no list.
 
 The build then writes the four files above for the theme into `dist/themes/`. Sync copies them into the app and records their hashes in `hashes.json`, like every other file.
 
-## 13. Density
+## 13. Density, type and breakpoints
 
-A control of default size and a row take their height from two tokens, `--ds-size-control` and `--ds-size-row`, body text takes its size and line height from `--ds-text-ui` and `--ds-leading-ui`, and the app chooses the density of any part of a screen with `data-ds-density` on a container:
+A control of default size and a row take their height from two tokens, `--ds-size-control` and `--ds-size-row`, and body text takes its size and line height from `--ds-text-ui` and `--ds-leading-ui`. By default a control and a row are 40px tall and body text is 15px on a 23px line. `data-ds-density` on a container has one value, `compact`, for a list, a table or an inventory of work read with a mouse:
 
-| `data-ds-density` | Control | Row | Body text | For |
+| | Control | Row | Body text | For |
 |---|---|---|---|---|
-| `compact` | 28px | 32px | 13px on an 18px line | A board, a table or a toolbar with many controls |
-| `comfortable`, the default | 36px | 36px | 14px on a 21px line | Everything else on a screen with a mouse or a trackpad |
-| `touch` | 44px | 44px | 14px on a 21px line | A kiosk or another screen pressed with a finger that reports a fine pointer |
+| The default, with no attribute | 40px | 40px | 15px on a 23px line | Everything on a screen with a mouse or a trackpad |
+| `data-ds-density="compact"` | 32px | 36px | 13px on an 18px line | A list, a table or a toolbar with many rows or controls |
+| A coarse pointer, whatever the attribute says | 44px | 44px | 16px on a 24px line | A phone, a tablet |
 
 ```html
 <section data-ds-density="compact">
@@ -576,8 +576,12 @@ A control of default size and a row take their height from two tokens, `--ds-siz
 </section>
 ```
 
-On a coarse pointer, such as a phone, every control and row is the touch size and every type size is one pixel larger (body text 15px), whatever the attribute says, so an app sets nothing for a phone. The type sizes are in rem: a reader who set a larger font size in the browser gets every size larger in proportion, and an app that sets a font size on the root element changes every size with it. A pointer target is never smaller than 44px each way there, and never smaller than 24px on a fine pointer. Do not set a height on a system control to undo either.
+On a coarse pointer, such as a phone, every control and row is 44px and each type size is one pixel larger, so an app sets nothing for a phone. Two sizes differ: the label of a control is the body size there, 16px, and the title of a view stays 28px. A pointer target is never smaller than 44px each way there, and never smaller than 24px on a fine pointer: the 44px rule is for coarse pointers. Do not set a height on a system control to undo either.
 
-A size variant is a fixed height at every density: `ds-button--small` is 28px and `ds-button--large` 40px, `ds-icon-button--small` 28px square and `ds-icon-button--xsmall` 24px square. On a coarse pointer each is drawn the same and takes a press on a 44px area around it, so leave 16px or more between two small icon buttons.
+Type is seven sizes, none under 12px: 12px for a tag, a count or a table head, 13px for metadata, helper text and the label over a group, 14px for the label of a button or a tab and for a row, 15px for body text, and 16, 20 and 28px for a sub-heading, a heading and the title of a view. They are in rem: a reader who set a larger font size in the browser gets every size larger in proportion, and an app that sets a font size on the root element changes every size with it. Write no size by hand, and never set a label in capitals.
 
-`manifest.json` lists the values under `density` and the coarse-pointer type sizes under `coarsePointer`, `tokens.json` under the four density tokens and each type size, and `design-tokens.md` under `density` and `typography-coarse-pointer`. With the Tailwind preset, `h-control`, `min-h-row` and `w-sidebar` read the same tokens.
+A size variant is a fixed height in every container: `ds-button--small` is 32px and `ds-button--large` 48px, `ds-icon-button--small` 32px square and `ds-icon-button--xsmall` 24px square. On a coarse pointer each is drawn the same and takes a press on a 44px area around it, so leave 12px or more between two small icon buttons.
+
+A layout changes at three widths: 768px, where the phone layout ends, 1024px, where a second pane fits, and 1280px, where a third does. A media query in the app's CSS writes one of those numbers, and the checker's `off-breakpoint` rule reports any other. With the Tailwind preset the variants are `md:`, `lg:` and `xl:`. A container query may use any width. The system's components change at 768px alone, so the panes of a screen are the app's to arrange: judge each layout by the width it leaves the main column.
+
+`manifest.json` lists the density values under `density`, the coarse-pointer type sizes under `coarsePointer` and the widths under `breakpoints`; `tokens.json` carries them on the four density tokens and each type size, and `design-tokens.md` under `density`, `typography-coarse-pointer` and `breakpoints`. With the Tailwind preset, `h-control`, `min-h-row` and `w-sidebar` read the same tokens.

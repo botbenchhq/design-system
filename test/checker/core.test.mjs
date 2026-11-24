@@ -78,11 +78,21 @@ test("a backdrop filter built only from tokens still fails", () => {
   assert.deepEqual(brief(report.findings), ["css/backdrop.css:2 banned-backdrop-filter"]);
 });
 
-test("a media query at 900px fails and one at 768px passes", () => {
+test("a media query at 768px, 1024px or 1280px passes, any other width fails and is told the three, and a container query may use any width", () => {
   const { status, report } = checkJson(["css/breakpoint.css"]);
   assert.equal(status, 1);
-  assert.deepEqual(brief(report.findings), ["css/breakpoint.css:1 off-breakpoint"]);
-  assert.match(report.findings[0].fix, /768px/);
+  // 900px, 1279px written as a max-width, and both ends of a range that are not a breakpoint. The container query at 600px passes.
+  assert.deepEqual(brief(report.findings), [1, 21, 26, 26].map((line) => `css/breakpoint.css:${line} off-breakpoint`));
+  assert.match(report.findings[0].message, /uses the width 900px/);
+  assert.equal(report.findings[0].fix, "Write the query at a breakpoint: 768px, 1024px, 1280px. A container query may use any width.");
+  assert.deepEqual(report.findings.map((finding) => finding.message.match(/width (\S+)\./)[1]), ["900px", "1279px", "1100px", "767px"]);
+});
+
+test("a screen may use the md:, lg: and xl: variants, one for each breakpoint, and no other", () => {
+  const { report } = checkJson(["markup/breakpoint-variants.html"]);
+  assert.deepEqual(brief(report.findings), ["markup/breakpoint-variants.html:3 unlisted-variant"]);
+  assert.match(report.findings[0].message, /2xl:/);
+  assert.match(report.findings[0].fix, /md:, lg:, xl:/);
 });
 
 test("two arbitrary Tailwind values in a TSX file are two findings", () => {

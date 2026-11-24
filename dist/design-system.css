@@ -167,8 +167,13 @@
     /* A view of dense data, such as a table or a board, that uses the width of a desktop screen. */
     --ds-size-wide: 1200px;
 
-    /* A custom property cannot be used in a media query. Write 768px there. */
+    /*
+     * The three widths a layout changes at. A custom property cannot be used in a media query, so write the
+     * number there: 768px, where the phone layout ends, 1024px, where a second pane fits, and 1280px, a third.
+     */
     --ds-breakpoint: 768px;
+    --ds-breakpoint-lg: 1024px;
+    --ds-breakpoint-xl: 1280px;
   }
 
   [data-theme="dark"] {

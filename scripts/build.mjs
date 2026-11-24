@@ -86,8 +86,12 @@ const UTILITIES = {
   sizing: {
     prefixes: ["w-", "h-", "size-", "min-w-", "min-h-", "max-w-", "max-h-"],
   },
-  variants: ["md"],
+  // One variant for each breakpoint: md is 768px, lg 1024px and xl 1280px.
+  variants: ["md", "lg", "xl"],
 };
+
+// The Tailwind screen each breakpoint token is, by the key of the token.
+const SCREENS = { DEFAULT: "md", lg: "lg", xl: "xl" };
 
 const withoutComments = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "");
 
@@ -328,6 +332,20 @@ function checkContrast(tokens, allPairs, themeName = null) {
   return report;
 }
 
+// The breakpoints as { md: "768px", lg: "1024px", xl: "1280px" }: the name of the Tailwind variant and the width.
+// Each breakpoint token has a variant, and the widths rise.
+function screensOf(groups, tokens) {
+  const screens = {};
+  for (const [key, name] of Object.entries(groups.breakpoint)) {
+    if (!SCREENS[key]) throw new Error(`tokens.css: ${name} has no variant. The breakpoints are --ds-breakpoint, --ds-breakpoint-lg and --ds-breakpoint-xl`);
+    if (!/^\d+px$/.test(tokens.light[name])) throw new Error(`tokens.css: ${name} is ${tokens.light[name]}. A breakpoint is a whole number of px`);
+    screens[SCREENS[key]] = tokens.light[name];
+  }
+  const widths = Object.values(screens).map(parseFloat);
+  if (widths.some((width, at) => at > 0 && width <= widths[at - 1])) throw new Error("tokens.css: the breakpoints must rise: --ds-breakpoint, then -lg, then -xl");
+  return screens;
+}
+
 // { color: { accent: "--ds-color-accent", … }, … } in source order.
 function groupByCategory(names) {
   const groups = {};
@@ -338,7 +356,7 @@ function groupByCategory(names) {
   return groups;
 }
 
-function tailwindPreset(groups, breakpoint) {
+function tailwindPreset(groups, screens) {
   const refs = (category) =>
     Object.fromEntries(Object.entries(groups[category]).map(([key, name]) => [key, `var(${name})`]));
   const spacing = { 0: "0", ...refs("space") };
@@ -348,7 +366,7 @@ function tailwindPreset(groups, breakpoint) {
   const targets = pick(Object.keys(size).filter((key) => /^(?:control|row|touch)/.test(key)));
   const columns = pick(["sidebar", "inspector", "column", "transcript", "wide"]);
   const theme = {
-    screens: { md: breakpoint },
+    screens,
     colors: { ...refs("color"), transparent: "transparent", current: "currentColor" },
     spacing,
     borderRadius: { none: "0", ...refs("radius") },
@@ -512,6 +530,8 @@ function designTokens(groups, tokens, name = "Design system") {
     // Every type size on a coarse pointer: one pixel larger.
     "typography-coarse-pointer": Object.fromEntries(Object.entries(groups.text).filter(([, name]) => name in tokens.coarse).map(([key, name]) => [key, tokens.coarse[name]])),
     breakpoint: tokens.light[groups.breakpoint.DEFAULT],
+    // Every width a media query may use, by the name of its Tailwind variant.
+    breakpoints: screensOf(groups, tokens),
   };
   return `---\n${yaml(block)}---\n`;
 }
@@ -596,6 +616,8 @@ function manifest(groups, tokens, classes, rules) {
     prefix: "ds",
     layers: LAYERS,
     breakpoint: tokens.light[groups.breakpoint.DEFAULT],
+    // Every width a media query may use. The first is the one above.
+    breakpoints: Object.values(screensOf(groups, tokens)),
     tokens: names,
     values,
     // The attribute that sets the density of a container, its values, and what the four density tokens hold by
@@ -987,7 +1009,7 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
   const contrast = checkContrast(tokens, pairs);
   const themes = readThemes(root, tokens, pairs);
   const groups = groupByCategory(Object.keys(tokens.light));
-  const preset = tailwindPreset(groups, tokens.light[groups.breakpoint.DEFAULT]);
+  const preset = tailwindPreset(groups, screensOf(groups, tokens));
 
   const base = join(root, "base");
   const baseStyles = BASE_STYLES.map((name) => readFileSync(join(base, name), "utf8"));

@@ -16,7 +16,7 @@ The run timeline component under the Botbench theme, dark and light:
 - **Change the brand once.** A theme can set the value of any of the system's tokens, colours, radii and fonts among them. An app links the theme's stylesheet, and when the theme changes here, the app picks it up with its next sync, with no change to its own markup. Fonts and icons also live here and arrive the same way.
 - **A checker that fails the test run.** The checker scans an app's CSS, HTML, JSX, TSX and class names in script, and a second copy of the structural rules runs on rendered pages from the app's end-to-end tests. Its 41 rules cover, among others, raw colours, off-scale sizes, unknown classes, gradients and blur, more than one primary action in a view, nested cards, badge clutter, emoji as icons and stock phrases. It exits 1 on findings, so it runs in the app's own test command.
 - **Plain CSS classes on ordinary HTML.** A component is class names such as `ds-button ds-button--primary` on native elements. It works from React, another framework or none. There is no runtime dependency; seven optional script modules cover the few components that need behaviour.
-- **The build checks accessibility.** The build fails when a text pair is below 4.5:1 or a border or focus pair below 3:1, in light and dark, for every theme. Pointer targets are at least 44px in both directions on a coarse pointer and 24px on a fine one, with three densities for the controls and rows in between. Tabs, combobox, command palette, menu and listbox have keyboard behaviour, and every transition stops when the reader asks for reduced motion. The browser tests run axe on every gallery page.
+- **The build checks accessibility.** The build fails when a text pair is below 4.5:1 or a border or focus pair below 3:1, in light and dark, for every theme. Pointer targets are at least 44px in both directions on a coarse pointer and 24px on a fine one, with controls 40px tall by default and a compact density for lists and tables. Tabs, combobox, command palette, menu and listbox have keyboard behaviour, and every transition stops when the reader asks for reduced motion. The browser tests run axe on every gallery page.
 - **Made for agent-built interfaces.** Agents read one short rules file ([`rules/core.md`](rules/core.md), under 2,400 characters), choose from a machine-readable index of every component, and copy the example markup. The catalogue has components for transcripts, tool calls, approvals, step groups, run timelines and long runs, and a page pattern for the screen of one agent run.
 - **Evidence.** In a [blind-build trial](docs/trial-report.md) two agents that had never seen this repository each built three screens from a synced copy of version 0.3.0 alone; all six passed the static scan, the rendered rules and axe with no findings, waivers or declared gaps. An [independent audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 approved it with conditions, scoring it between 3 and 7 out of 10 on ten dimensions; what it criticised is summarised under [Status and limits](#status-and-limits).
 
@@ -195,12 +195,12 @@ A theme is one hand-written file, [`themes/<name>.css`](themes/botbench.css), th
 
 The build stops, naming the theme, when it:
 
-- sets a name that is not one of the 92 tokens, or sets a type size, a line height, a tracking, a radius or a density token;
+- sets a name that is not one of the 93 tokens, or sets a type size, a line height, a tracking, a radius or a density token;
 - lacks light or dark values, or its dark and `auto` blocks differ;
 - uses a colour that is not six-digit hex;
-- fails any of the 55 foreground and background pairs in [`tokens/pairs.json`](tokens/pairs.json) in either mode: 4.5:1 for text, 3:1 for borders and focus rings.
+- fails any of the foreground and background pairs in [`tokens/pairs.json`](tokens/pairs.json) in either mode: 4.5:1 for text, 3:1 for borders and focus rings. There are 85 for every theme, and 14 more that name the one theme they are checked for.
 
-A theme may declare a default mode. Botbench, the worked example and the one theme shipped, is dark by default. It sets the platform's own typeface, neutral grey surfaces a clear step apart, a near-white primary action in dark and near-black in light, a blue focus ring, and its own colours for each status. The type scale and the radius scale are the system's under every theme. The header of [`themes/botbench.css`](themes/botbench.css) explains each choice.
+A theme may declare a default mode. Botbench, the worked example and the one theme shipped, is dark by default. Its look is Graphite + Glacier: the platform's own typeface, four levels of cool grey surface, and one interactive colour, a blue, for the primary action, focus, selection and active work. Five status colours sit under the system's eight status names, and amber is kept as a small signal for what waits on a person. The type scale and the radius scale are the system's under every theme. The header of [`themes/botbench.css`](themes/botbench.css) explains each choice.
 
 To change the look of every app: edit the theme here, run `npm run build`, and each app runs its sync. The build writes four files per theme to `dist/themes/`: the stylesheet, the theme's name and default mode with the `theme-color` of each mode, a token block for an app's `DESIGN.md`, and the tokens as data. "[Themes](docs/consumer-guide.md#12-themes)" in the consumer guide has the details.
 
@@ -251,9 +251,9 @@ The [audit](docs/audits/2026-11-22-independent-audit.md) of 0.7.0 found five def
 
 - The checker does not check `data-state` values, accessible names, `alt` text or whether a badge's tone matches its word.
 - The typed React layer covers the busy button, the dialog, confirm dialog and sheet, the approval card, the menu's keyboard and the transcript. Tabs, the combobox, the listbox and the command palette have no React piece: an app uses the behaviour modules or wires them by hand.
-- The audit judged the Botbench theme's identity generic (brand distinctiveness 4 out of 10). 0.8.0 replaced that theme's look and gave it a focus ring distinct from the accent; the new look has not been audited.
+- The audit judged the Botbench theme's identity generic (brand distinctiveness 4 out of 10). 0.12.0 replaced that theme's look with Graphite + Glacier, in which the accent and the focus ring share one blue; the new look has not been audited.
 - Sizes are built with `calc()` on tokens in places, which the checker does not limit.
-- The stylesheet is one 338 KB file (about 63 KB compressed) with no way to load part of it.
+- The stylesheet is one 357 KB file (about 68 KB compressed) with no way to load part of it.
 
 ## Help and contributing
 

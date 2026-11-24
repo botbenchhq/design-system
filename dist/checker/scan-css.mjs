@@ -79,8 +79,8 @@ export function scanCss(text, { file, vocabulary, appPrefix, gapClasses, lineOff
         ...params.matchAll(/([\d.]+[a-z]+)\s*[<>]=?\s*(?:device-)?width\b/gi),
       ];
       for (const [, width] of widths) {
-        if (width !== vocabulary.breakpoint) {
-          add(line, "off-breakpoint", `A media query uses the width ${width}.`, `The one breakpoint is ${vocabulary.breakpoint}.`);
+        if (!vocabulary.breakpoints.includes(width)) {
+          add(line, "off-breakpoint", `A media query uses the width ${width}.`, `Write the query at a breakpoint: ${vocabulary.breakpoints.join(", ")}. A container query may use any width.`);
         }
       }
     }

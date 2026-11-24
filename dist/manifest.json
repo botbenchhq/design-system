@@ -8,6 +8,11 @@
     "ds.components"
   ],
   "breakpoint": "768px",
+  "breakpoints": [
+    "768px",
+    "1024px",
+    "1280px"
+  ],
   "tokens": {
     "color": [
       "--ds-color-accent",
@@ -128,7 +133,9 @@
       "--ds-size-wide"
     ],
     "breakpoint": [
-      "--ds-breakpoint"
+      "--ds-breakpoint",
+      "--ds-breakpoint-lg",
+      "--ds-breakpoint-xl"
     ]
   },
   "values": {
@@ -277,7 +284,9 @@
       "36px"
     ],
     "breakpoint": [
-      "768px"
+      "768px",
+      "1024px",
+      "1280px"
     ]
   },
   "density": {
@@ -403,7 +412,9 @@
       ]
     },
     "variants": [
-      "md"
+      "md",
+      "lg",
+      "xl"
     ],
     "spacingKeys": [
       "0",
