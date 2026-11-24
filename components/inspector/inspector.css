@@ -21,7 +21,10 @@
     border-top-width: var(--ds-border-width);
   }
 
-  /* Beside: the rule moves to the panel's leading edge, and the panel is as wide as the inspector token says. */
+  /*
+   * Beside: the panel is a pane of the app shell, as wide as the inspector token says, on the pane surface with
+   * a hairline at its leading edge, which stays drawn in dark.
+   */
   @media (min-width: 768px) {
     .ds-inspector__layout {
       grid-template-columns: minmax(0, 1fr) auto;
@@ -29,10 +32,10 @@
 
     .ds-inspector {
       width: var(--ds-size-inspector);
-      padding-top: 0;
-      padding-inline-start: var(--ds-space-xl);
+      padding: var(--ds-space-xl);
       border-top-width: 0;
       border-inline-start-width: var(--ds-border-width);
+      background-color: var(--ds-color-surface-pane);
     }
   }
 

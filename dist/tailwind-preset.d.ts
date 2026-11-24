@@ -1,7 +1,7 @@
 declare const preset: {
   theme: {
     screens: { "md": string };
-    colors: { "accent": string; "accent-hover": string; "on-accent": string; "surface": string; "surface-raised": string; "surface-sunken": string; "fill": string; "on-surface": string; "muted": string; "border": string; "border-strong": string; "focus": string; "success": string; "success-subtle": string; "warning": string; "warning-subtle": string; "danger": string; "danger-subtle": string; "info": string; "info-subtle": string; "approval": string; "approval-subtle": string; "blocked": string; "blocked-subtle": string; "peer": string; "peer-subtle": string; "tainted": string; "tainted-subtle": string; "transparent": string; "current": string };
+    colors: { "accent": string; "accent-hover": string; "on-accent": string; "surface": string; "surface-pane": string; "surface-raised": string; "surface-sunken": string; "fill": string; "on-surface": string; "muted": string; "border": string; "border-strong": string; "focus": string; "success": string; "success-subtle": string; "warning": string; "warning-subtle": string; "danger": string; "danger-subtle": string; "info": string; "info-subtle": string; "approval": string; "approval-subtle": string; "blocked": string; "blocked-subtle": string; "peer": string; "peer-subtle": string; "tainted": string; "tainted-subtle": string; "transparent": string; "current": string };
     spacing: { "0": string; "2xs": string; "xs": string; "xs-sm": string; "sm": string; "md": string; "lg": string; "lg-xl": string; "xl": string; "2xl": string; "3xl": string };
     borderRadius: { "none": string; "xs": string; "sm": string; "md": string; "lg": string; "full": string };
     borderWidth: { "0": string; "DEFAULT": string };

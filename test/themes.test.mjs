@@ -26,7 +26,7 @@ const theme = (light, dark, header = "/* A test theme. */") =>
   `${header}\n@layer ds.theme {\n  :root { ${light} }\n  [data-theme="dark"] { ${dark} }\n  @media (prefers-color-scheme: dark) {\n    [data-theme="auto"] { ${dark} }\n  }\n}\n`;
 
 test("a theme that sets a name the vocabulary does not have fails the build, naming the theme and the name", () => {
-  const run = buildWithTheme((css) => css.replace("--ds-color-accent: #1C1C1E;", "--ds-color-accent: #1C1C1E;\n    --ds-color-brand: #F59E0B;"));
+  const run = buildWithTheme((css) => css.replace("--ds-color-accent: #215BB8;", "--ds-color-accent: #215BB8;\n    --ds-color-brand: #F59E0B;"));
   assert.throws(run, /themes\/botbench\.css: --ds-color-brand is not a token\. A theme can change a value and cannot add a name\./);
 });
 
@@ -52,7 +52,7 @@ test("a theme colour that is not six-digit hex fails", () => {
 });
 
 test("a theme pair below its minimum fails the build, naming the theme, the pair, the mode and the ratio", () => {
-  const run = buildWithTheme((css) => css.replace("--ds-color-accent: #1C1C1E;", "--ds-color-accent: #D97706;"));
+  const run = buildWithTheme((css) => css.replace("--ds-color-accent: #215BB8;", "--ds-color-accent: #D97706;"));
   assert.throws(run, /In the botbench theme, --ds-color-on-accent on --ds-color-accent is 3\.19:1 in light mode, below 4\.5:1/);
 });
 
@@ -64,11 +64,11 @@ test("resolved values are the theme's where it sets one and the default theme's 
   assert.equal(small.tokens.light["--ds-color-surface"], defaults.light["--ds-color-surface"]);
   assert.equal(small.tokens.dark["--ds-color-surface"], defaults.dark["--ds-color-surface"]);
   assert.equal(small.tokens.dark["--ds-shadow-overlay"], defaults.dark["--ds-shadow-overlay"]);
-  // Botbench sets no radius and no shadow, so both come from the default theme.
+  // Botbench sets no radius, so it comes from the default theme. It sets the one shadow, larger, in neutral black in both modes.
   assert.equal(botbench.tokens.light["--ds-radius-sm"], "10px");
   assert.equal(botbench.tokens.light["--ds-radius-md"], "12px");
-  assert.equal(botbench.tokens.dark["--ds-shadow-overlay"], defaults.dark["--ds-shadow-overlay"]);
-  assert.equal(botbench.tokens.light["--ds-shadow-overlay"], defaults.light["--ds-shadow-overlay"]);
+  assert.equal(botbench.tokens.dark["--ds-shadow-overlay"], "0 16px 40px 0 rgb(0 0 0 / 0.5)");
+  assert.equal(botbench.tokens.light["--ds-shadow-overlay"], "0 16px 40px 0 rgb(0 0 0 / 0.16)");
 });
 
 test("the default mode is read from the theme's first comment, and anything but light or dark fails", () => {
@@ -110,31 +110,35 @@ test("each theme has a summary with its default mode and the page background of 
   assert.deepEqual(JSON.parse(read("themes/botbench.json")), {
     name: "botbench",
     defaultMode: "dark",
-    themeColor: { light: "#F2F2F7", dark: "#161618" },
+    themeColor: { light: "#F5F6F7", dark: "#111316" },
   });
 });
 
 test("each theme has a DESIGN.md token block and a token data file holding its resolved values", () => {
   const block = read("themes/botbench.design-tokens.md");
   assert.match(block, /^---\nversion: alpha\nname: Design system, botbench theme\n/);
-  assert.match(block, /\ncolors:\n {2}accent: "#1C1C1E"\n/);
-  assert.match(block, /\ncolors-dark:\n {2}accent: "#F5F5F7"\n/);
+  assert.match(block, /\ncolors:\n {2}accent: "#215BB8"\n/);
+  assert.match(block, /\ncolors-dark:\n {2}accent: "#7CB7FF"\n/);
   assert.match(block, /\nrounded:\n {2}xs: 6px\n {2}sm: 10px\n {2}md: 12px\n {2}lg: 16px\n {2}full: 9999px\n/);
   assert.match(block, /\n {2}ui:\n {4}fontFamily: "system-ui"\n {4}fontSize: 0\.9375rem\n {4}fontWeight: 400\n {4}lineHeight: 1\.533\n/);
   const data = JSON.parse(read("themes/botbench.tokens.json"));
   assert.deepEqual(Object.keys(data), Object.keys(JSON.parse(read("tokens.json"))));
-  assert.equal(data.color.surface.$value.hex, "#f2f2f7");
-  assert.equal(data.color.surface.$extensions["design-system"].dark.hex, "#161618");
-  assert.equal(data.color.approval.$extensions["design-system"].dark.hex, "#fbbf24");
+  assert.equal(data.color.surface.$value.hex, "#f5f6f7");
+  assert.equal(data.color.surface.$extensions["design-system"].dark.hex, "#111316");
+  assert.equal(data.color.approval.$extensions["design-system"].dark.hex, "#f2b95d");
   assert.deepEqual(data.radius, JSON.parse(read("tokens.json")).radius);
   assert.deepEqual(data.text, JSON.parse(read("tokens.json")).text);
   assert.deepEqual(data.font.ui.$value.slice(0, 2), ["system-ui", "-apple-system"]);
-  assert.deepEqual(data.shadow.overlay, JSON.parse(read("tokens.json")).shadow.overlay);
+  assert.deepEqual(data.shadow.overlay.$value.blur, { value: 40, unit: "px" });
+  assert.deepEqual(data.shadow.overlay.$value.color.components, [0, 0, 0]);
 });
 
 test("the Tailwind preset is the same with and without a theme, because its values are custom property references", () => {
   const root = copySources();
   rmSync(join(root, "themes"), { recursive: true });
+  // A pair that holds for one theme goes with the theme.
+  const pairsFile = join(root, "tokens", "pairs.json");
+  writeFileSync(pairsFile, JSON.stringify(JSON.parse(readFileSync(pairsFile, "utf8")).filter((pair) => !pair.themes)));
   const without = tempDir();
   const { files } = build({ root, outDir: without });
   assert.ok(!files.some((name) => name.startsWith("themes/")));
@@ -287,14 +291,105 @@ test("a theme sets no type size, line height, tracking or radius: the build fail
   for (const [declaration, message] of Object.entries(cases)) {
     assert.throws(() => parseTheme("sized", theme(`--ds-color-accent: #222222; ${declaration};`, "--ds-color-accent: #EEEEEE;"), defaults), message, declaration);
   }
-  assert.throws(buildWithTheme((css) => css.replace("--ds-color-accent: #1C1C1E;", "--ds-color-accent: #1C1C1E;\n    --ds-radius-md: 22px;")), /themes\/botbench\.css: a theme cannot set a radius/);
-  // What the theme does set: colours and the two font stacks, and nothing else.
+  assert.throws(buildWithTheme((css) => css.replace("--ds-color-accent: #215BB8;", "--ds-color-accent: #215BB8;\n    --ds-radius-md: 22px;")), /themes\/botbench\.css: a theme cannot set a radius/);
+  // What the theme does set: colours, the two font stacks and the shadow, and nothing else.
   const own = [...Object.keys(botbench.own.light), ...Object.keys(botbench.own.dark)];
-  assert.deepEqual([...new Set(own.map((name) => name.match(/^--ds-([a-z]+)/)[1]))].sort(), ["color", "font"]);
+  assert.deepEqual([...new Set(own.map((name) => name.match(/^--ds-([a-z]+)/)[1]))].sort(), ["color", "font", "shadow"]);
   for (const name of Object.keys(defaults.light).filter((token) => /^--ds-(?:text|leading|tracking|radius|space|size)-/.test(token))) {
     assert.equal(botbench.tokens.light[name], defaults.light[name], name);
   }
   assert.doesNotMatch(read("themes/botbench.css").replace(/\/\*[\s\S]*?\*\//g, ""), /--ds-(?:text|leading|tracking|radius)-/);
   // Its header no longer describes pills or its own sizes.
   assert.doesNotMatch(source, /22px|pill-shaped|ui 15px/);
+});
+
+// Graphite + Glacier, as the owner approved it: the value of each role in light and in dark.
+const GRAPHITE_GLACIER = {
+  accent: ["#215BB8", "#7CB7FF"], "on-accent": ["#FFFFFF", "#0B1522"], focus: ["#215BB8", "#7CB7FF"], info: ["#215BB8", "#7CB7FF"], "info-subtle": ["#E6EEFB", "#16263A"],
+  surface: ["#F5F6F7", "#111316"], "surface-pane": ["#FBFBFC", "#181B20"], "surface-raised": ["#FFFFFF", "#20242B"], "surface-sunken": ["#EEF0F2", "#0B0D10"],
+  fill: ["#ECEEF1", "#2C3139"], border: ["#DFE2E7", "#2A2F37"], "border-strong": ["#76808E", "#727D8B"], "on-surface": ["#1A2028", "#F2F3F5"], muted: ["#545E6B", "#ADB4BE"],
+  peer: ["#0C7187", "#60D4D4"], "peer-subtle": ["#E0F3F6", "#10292B"], approval: ["#97600E", "#F2B95D"], "approval-subtle": ["#FBF0DC", "#2E2513"],
+  success: ["#146A4A", "#6ED5A4"], "success-subtle": ["#E1F3EA", "#12281F"], danger: ["#B43E46", "#FF898A"], "danger-subtle": ["#FBE6E7", "#331A1C"],
+};
+
+test("the Botbench theme holds the Graphite + Glacier values: one interactive blue for accent, focus and working, and five status colours under the eight names", () => {
+  for (const [key, [light, dark]] of Object.entries(GRAPHITE_GLACIER)) {
+    assert.equal(botbench.tokens.light[`--ds-color-${key}`], light, `${key} in light`);
+    assert.equal(botbench.tokens.dark[`--ds-color-${key}`], dark, `${key} in dark`);
+  }
+  for (const mode of ["light", "dark"]) {
+    const value = (key) => botbench.tokens[mode][`--ds-color-${key}`];
+    // One interactive colour, under three names a later theme can part.
+    assert.equal(value("focus"), value("accent"), mode);
+    assert.equal(value("info"), value("accent"), mode);
+    assert.notEqual(value("accent-hover"), value("accent"), mode);
+    // Warning is the attention pair, blocked the secondary text on the fill, and outside input the peer pair.
+    assert.deepEqual([value("warning"), value("warning-subtle")], [value("approval"), value("approval-subtle")], mode);
+    assert.deepEqual([value("blocked"), value("blocked-subtle")], [value("muted"), value("fill")], mode);
+    assert.deepEqual([value("tainted"), value("tainted-subtle")], [value("peer"), value("peer-subtle")], mode);
+    // Five status colours, no more, and none of them the interactive one but info.
+    const hues = new Set(["success", "warning", "danger", "info", "approval", "blocked", "peer", "tainted"].map(value));
+    assert.equal(hues.size, 6, `${mode}: ${[...hues].join(", ")}`);
+    for (const key of ["success", "warning", "danger", "approval", "blocked", "peer", "tainted"]) assert.notEqual(value(key), value("accent"), `${key} in ${mode}`);
+  }
+  // The eight status names are all still tokens.
+  for (const key of ["success", "warning", "danger", "info", "approval", "blocked", "peer", "tainted"]) {
+    assert.ok(`--ds-color-${key}` in defaults.light && `--ds-color-${key}-subtle` in defaults.light, key);
+  }
+});
+
+test("the pane surface is a token of every theme, between the page and a card, with its text, status and edge pairs", () => {
+  const luminance = (hex) => [1, 3, 5].reduce((sum, at, index) => sum + [0.2126, 0.7152, 0.0722][index] * (parseInt(hex.slice(at, at + 2), 16) / 255) ** 2.2, 0);
+  for (const [name, tokens] of [["default", defaults], ["botbench", botbench.tokens]]) {
+    for (const mode of ["light", "dark"]) {
+      const values = { ...tokens.light, ...(mode === "dark" ? tokens.dark : {}) };
+      const [page, pane, raised] = ["surface", "surface-pane", "surface-raised"].map((key) => luminance(values[`--ds-color-${key}`]));
+      assert.ok(page < pane && pane < raised, `${name} ${mode}: the pane is not between the page and a card`);
+      assert.notEqual(values["--ds-color-border"], values["--ds-color-surface-pane"], `${name} ${mode}: the hairline on a pane would not be drawn`);
+    }
+  }
+  const pairs = JSON.parse(readFileSync(join(repoRoot, "tokens", "pairs.json"), "utf8"));
+  const on = (background) => pairs.filter((pair) => pair.background === background && !pair.themes).map((pair) => `${pair.foreground.slice("--ds-color-".length)} ${pair.kind}`);
+  for (const foreground of ["on-surface text", "muted text", "accent text", "success text", "warning text", "danger text", "info text", "approval text", "blocked text", "peer text", "tainted text", "border-strong ui", "focus ui"]) {
+    assert.ok(on("--ds-color-surface-pane").includes(foreground), `${foreground} on the pane surface has no pair`);
+  }
+  const css = read("design-system.css");
+  for (const selector of [".ds-sidebar-nav", ".ds-inspector", ".ds-tab-bar"]) {
+    assert.match(css, new RegExp(`\\${selector} \\{[^}]*background-color: var\\(--ds-color-surface-pane\\);`), selector);
+  }
+  // And nothing else takes it: a pane is the one role of the token.
+  const users = [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/([^{}]+)\{[^{}]*var\(--ds-color-surface-pane\)[^{}]*\}/g)].map(([, selector]) => selector.trim());
+  assert.deepEqual(users.sort(), [".ds-inspector", ".ds-sidebar-nav", ".ds-tab-bar"]);
+});
+
+test("a pair with a themes list is checked for those themes and no other, and the build fails when it names a theme that is not there or when the theme fails it", () => {
+  const pairs = JSON.parse(readFileSync(join(repoRoot, "tokens", "pairs.json"), "utf8"));
+  const scoped = pairs.filter((pair) => pair.themes);
+  assert.ok(scoped.length >= 10);
+  for (const pair of scoped) assert.deepEqual(pair.themes, ["botbench"]);
+  const result = build({ outDir: tempDir() });
+  const key = (row) => `${row.foreground} on ${row.background} ${row.kind}`;
+  const inDefault = new Set(result.contrast.map(key));
+  const inBotbench = new Set(result.themes.find((item) => item.name === "botbench").contrast.map(key));
+  for (const pair of scoped) {
+    assert.ok(!inDefault.has(key(pair)), `${key(pair)} is checked for the default theme`);
+    assert.ok(inBotbench.has(key(pair)), `${key(pair)} is not checked for the botbench theme`);
+  }
+  assert.equal(result.contrast.length, (pairs.length - scoped.length) * 2);
+  assert.equal(inBotbench.size, pairs.length);
+  // What the direction needs beyond the default theme: secondary text on a well, on the fill and on a tint, and a control's edge on the fill and on two tints.
+  for (const wanted of ["--ds-color-muted on --ds-color-surface-sunken text", "--ds-color-muted on --ds-color-fill text", "--ds-color-muted on --ds-color-approval-subtle text", "--ds-color-border-strong on --ds-color-fill ui", "--ds-color-border-strong on --ds-color-approval-subtle ui", "--ds-color-border-strong on --ds-color-peer-subtle ui"]) {
+    assert.ok(scoped.some((pair) => key(pair) === wanted), wanted);
+  }
+  const withPairs = (change) => {
+    const root = copySources();
+    writeFileSync(join(root, "tokens", "pairs.json"), JSON.stringify(change(pairs)));
+    return () => build({ root, outDir: tempDir() });
+  };
+  assert.throws(withPairs((all) => [...all, { foreground: "--ds-color-muted", background: "--ds-color-fill", kind: "text", themes: ["amber"] }]), /tokens\/pairs\.json: the pair --ds-color-muted on --ds-color-fill is for the theme "amber", and themes\/ has no amber\.css/);
+  assert.throws(withPairs((all) => [...all, { foreground: "--ds-color-border", background: "--ds-color-surface", kind: "ui", themes: ["botbench"] }]), /In the botbench theme, --ds-color-border on --ds-color-surface is 1\.\d\d:1 in light mode, below 3:1/);
+  assert.throws(withPairs((all) => [...all, { foreground: "--ds-color-ink", background: "--ds-color-surface", kind: "text" }]), /names --ds-color-ink, which is not a colour token/);
+  assert.throws(withPairs((all) => [...all, { foreground: "--ds-color-muted", background: "--ds-color-surface", kind: "body" }]), /has the kind "body"\. It is text or ui/);
+  // The same pair with no list would fail the default theme, which is why it has one.
+  assert.throws(withPairs((all) => all.map((pair) => (pair.themes ? { foreground: pair.foreground, background: pair.background, kind: pair.kind } : pair))), /--ds-color-muted on --ds-color-surface-sunken is 4\.24:1 in the light theme, below 4\.5:1/);
 });

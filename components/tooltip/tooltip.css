@@ -29,9 +29,10 @@
     padding: var(--ds-space-xs) var(--ds-space-sm);
     border-block: var(--ds-space-xs) solid transparent;
     border-radius: var(--ds-radius-xs);
-    background-color: var(--ds-color-accent);
+    /* The text colour as a fill with the page colour on it: the accent is for an action, and a tooltip is none. */
+    background-color: var(--ds-color-on-surface);
     background-clip: padding-box;
-    color: var(--ds-color-on-accent);
+    color: var(--ds-color-surface);
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-normal);
     line-height: var(--ds-leading-xs);

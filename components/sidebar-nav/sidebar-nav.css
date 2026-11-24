@@ -20,8 +20,9 @@
       width: var(--ds-size-sidebar);
       min-width: 0;
       padding: var(--ds-space-md) var(--ds-space-sm);
+      /* A pane of the app shell: its own surface, and a hairline that stays drawn in dark, where the two surfaces are close. */
       border-inline-end-width: var(--ds-border-width);
-      background-color: var(--ds-color-surface);
+      background-color: var(--ds-color-surface-pane);
     }
   }
 
@@ -106,9 +107,9 @@
     color: var(--ds-color-on-surface);
   }
 
-  /* The current item is marked by weight and by a bar at its leading edge, as well as by its shade. */
+  /* The current item is marked by weight and by a bar at its leading edge, as well as by its fill. */
   .ds-sidebar-nav__item[aria-current]:not([aria-current="false"]) {
-    background-color: var(--ds-color-surface-sunken);
+    background-color: var(--ds-color-fill);
     color: var(--ds-color-on-surface);
     font-weight: var(--ds-weight-semibold);
   }

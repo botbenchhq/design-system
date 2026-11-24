@@ -1618,6 +1618,11 @@
           "use": "The default, with no modifier class. A 1px border on the raised surface."
         },
         {
+          "name": "borderless",
+          "class": "ds-card--borderless",
+          "use": "The raised surface with no border, for a decorative panel only: a summary or a specimen that is set apart by its fill and loses nothing if the fill is missed. In dark the raised surface is a small step from the page, so never use it for a section a reader has to find, for a pane of the app shell, or for anything that takes a press."
+        },
+        {
           "name": "sunken",
           "class": "ds-card--sunken",
           "use": "A background shift with no border. Keep quiet, muted text out of it: the muted colour does not reach 4.5:1 on the sunken surface in the light theme."
@@ -1638,6 +1643,7 @@
       "icons": [],
       "classes": [
         "ds-card",
+        "ds-card--borderless",
         "ds-card--sunken",
         "ds-card__action",
         "ds-card__body",
@@ -1661,6 +1667,11 @@
           "id": "sunken",
           "title": "Sunken: a background shift in place of the border",
           "markup": "<section class=\"ds-card ds-card--sunken\" aria-labelledby=\"card-sunken-title\">\n  <div class=\"ds-card__header\">\n    <h2 class=\"ds-card__title\" id=\"card-sunken-title\">Setup command</h2>\n  </div>\n  <div class=\"ds-card__body\">\n    <p>Runs once in each new worktree, before the agent starts.</p>\n    <p><code>npm ci &amp;&amp; npm run db:migrate</code></p>\n  </div>\n</section>"
+        },
+        {
+          "id": "borderless",
+          "title": "Borderless: a decorative panel set apart by its fill alone",
+          "markup": "<div class=\"ds-card ds-card--borderless\">\n  <div class=\"ds-card__body\">\n    <p>4 tasks finished since yesterday. Nothing in this panel needs an answer.</p>\n  </div>\n</div>"
         },
         {
           "id": "on-the-page",

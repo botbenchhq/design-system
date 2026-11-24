@@ -8,6 +8,7 @@ export default {
       "accent-hover": "var(--ds-color-accent-hover)",
       "on-accent": "var(--ds-color-on-accent)",
       "surface": "var(--ds-color-surface)",
+      "surface-pane": "var(--ds-color-surface-pane)",
       "surface-raised": "var(--ds-color-surface-raised)",
       "surface-sunken": "var(--ds-color-surface-sunken)",
       "fill": "var(--ds-color-fill)",

@@ -93,6 +93,18 @@
   </section>
 </div>
 </figure>
+<figure data-gallery="specimen">
+<figcaption>
+<h3>Borderless: a decorative panel set apart by its fill alone</h3>
+</figcaption>
+<div data-example="borderless" data-title="Borderless: a decorative panel set apart by its fill alone">
+  <div class="ds-card ds-card--borderless">
+    <div class="ds-card__body">
+      <p>4 tasks finished since yesterday. Nothing in this panel needs an answer.</p>
+    </div>
+  </div>
+</div>
+</figure>
 <figure data-gallery="do">
 <figcaption>
 <h3><span data-gallery="verdict"><svg aria-hidden="true"><use href="../icons.svg#ds-icon-check"></use></svg>Do</span> Two different sections, each laid out by what it holds</h3>
@@ -215,6 +227,8 @@
 <dl>
 <dt>bordered</dt>
 <dd>The default, with no modifier class. A 1px border on the raised surface.</dd>
+<dt>borderless <code>ds-card--borderless</code></dt>
+<dd>The raised surface with no border, for a decorative panel only: a summary or a specimen that is set apart by its fill and loses nothing if the fill is missed. In dark the raised surface is a small step from the page, so never use it for a section a reader has to find, for a pane of the app shell, or for anything that takes a press.</dd>
 <dt>sunken <code>ds-card--sunken</code></dt>
 <dd>A background shift with no border. Keep quiet, muted text out of it: the muted colour does not reach 4.5:1 on the sunken surface in the light theme.</dd>
 </dl>
@@ -234,6 +248,7 @@
 <h2>Classes</h2>
 <ul>
 <li><code>ds-card</code></li>
+<li><code>ds-card--borderless</code></li>
 <li><code>ds-card--sunken</code></li>
 <li><code>ds-card__action</code></li>
 <li><code>ds-card__body</code></li>

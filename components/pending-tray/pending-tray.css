@@ -47,7 +47,7 @@
     }
   }
 
-  /* The count is the first word of the sentence. The filled pill only makes it easy to find. */
+  /* The count is the first word of the sentence. The pill only makes it easy to find: the approval tone, a small signal for what waits on a person. */
   .ds-pending-tray__count {
     display: inline-flex;
     flex: none;
@@ -57,8 +57,8 @@
     height: var(--ds-space-xl);
     padding-inline: var(--ds-space-xs);
     border-radius: var(--ds-radius-full);
-    background-color: var(--ds-color-accent);
-    color: var(--ds-color-on-accent);
+    background-color: var(--ds-color-approval-subtle);
+    color: var(--ds-color-approval);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-mono);
     line-height: var(--ds-leading-mono);

@@ -12,18 +12,29 @@
 
 @layer ds.tokens {
   :root {
+    /*
+     * The one interactive colour: the fill of the primary action, and the mark of selection and of work under
+     * way. It is never a status other than working. The focus ring and the info status may hold the same value.
+     */
     --ds-color-accent: #1A1A1A;
     /* The accent while hovered or pressed. */
     --ds-color-accent-hover: #3D3D3A;
     --ds-color-on-accent: #FAFAF9;
+    /* Four levels of surface, each with one role. The page behind everything. */
     --ds-color-surface: #FAFAF9;
+    /* A pane of the app shell: the navigation, the inspector, the tab bar. Nothing else takes it: not a card inside a card, not a decorative panel. */
+    --ds-color-surface-pane: #FDFDFC;
+    /* A card, a dialog, a sheet, a menu, and a control that rests above the page. */
     --ds-color-surface-raised: #FFFFFF;
+    /* A well: a block of code, a diff, command output, a read-only field. */
     --ds-color-surface-sunken: #F3F2EF;
     /* The resting fill of a secondary control: a quiet tone that shows on the page and on a raised card. */
     --ds-color-fill: #ECEBE7;
     --ds-color-on-surface: #171717;
     --ds-color-muted: #737373;
+    /* A hairline: the border of a card, a divider, the edge of a pane. It cannot mark a control. */
     --ds-color-border: #E5E5E5;
+    /* The edge of a control. It holds 3:1 on the page, a pane and a card. */
     --ds-color-border-strong: #8A8A86;
     --ds-color-focus: #1F5C99;
     --ds-color-success: #1E6B3A;
@@ -34,7 +45,7 @@
     --ds-color-danger-subtle: #F9E9E7;
     --ds-color-info: #1F5C99;
     --ds-color-info-subtle: #E6EEF6;
-    /* Waiting on a person's answer: needs input, needs approval. */
+    /* Waiting on a person's answer: needs input, needs approval. A small signal, never a band of background. */
     --ds-color-approval: #984369;
     --ds-color-approval-subtle: #FCE9EF;
     /* Stopped and unable to go on by itself: interrupted, rate limited. */
@@ -165,6 +176,7 @@
     --ds-color-accent-hover: #CFCFCB;
     --ds-color-on-accent: #171717;
     --ds-color-surface: #141413;
+    --ds-color-surface-pane: #181817;
     --ds-color-surface-raised: #1C1C1A;
     --ds-color-surface-sunken: #0E0E0D;
     --ds-color-fill: #2A2A27;
@@ -198,6 +210,7 @@
       --ds-color-accent-hover: #CFCFCB;
       --ds-color-on-accent: #171717;
       --ds-color-surface: #141413;
+      --ds-color-surface-pane: #181817;
       --ds-color-surface-raised: #1C1C1A;
       --ds-color-surface-sunken: #0E0E0D;
       --ds-color-fill: #2A2A27;
@@ -2172,6 +2185,14 @@
   .ds-card--sunken {
     border-color: transparent;
     background-color: var(--ds-color-surface-sunken);
+  }
+
+  /*
+   * No border, for a card that is decoration: a panel of a summary or a specimen, set apart by its fill alone.
+   * Never a pane of the app shell, a control, or a card a reader must tell from the page in dark by its edge.
+   */
+  .ds-card--borderless {
+    border-color: transparent;
   }
 
   /* As tall as a pointer target, so a small button's padded hit area stays inside the header. */
@@ -5117,7 +5138,10 @@
     border-top-width: var(--ds-border-width);
   }
 
-  /* Beside: the rule moves to the panel's leading edge, and the panel is as wide as the inspector token says. */
+  /*
+   * Beside: the panel is a pane of the app shell, as wide as the inspector token says, on the pane surface with
+   * a hairline at its leading edge, which stays drawn in dark.
+   */
   @media (min-width: 768px) {
     .ds-inspector__layout {
       grid-template-columns: minmax(0, 1fr) auto;
@@ -5125,10 +5149,10 @@
 
     .ds-inspector {
       width: var(--ds-size-inspector);
-      padding-top: 0;
-      padding-inline-start: var(--ds-space-xl);
+      padding: var(--ds-space-xl);
       border-top-width: 0;
       border-inline-start-width: var(--ds-border-width);
+      background-color: var(--ds-color-surface-pane);
     }
   }
 
@@ -7164,7 +7188,7 @@
     }
   }
 
-  /* The count is the first word of the sentence. The filled pill only makes it easy to find. */
+  /* The count is the first word of the sentence. The pill only makes it easy to find: the approval tone, a small signal for what waits on a person. */
   .ds-pending-tray__count {
     display: inline-flex;
     flex: none;
@@ -7174,8 +7198,8 @@
     height: var(--ds-space-xl);
     padding-inline: var(--ds-space-xs);
     border-radius: var(--ds-radius-full);
-    background-color: var(--ds-color-accent);
-    color: var(--ds-color-on-accent);
+    background-color: var(--ds-color-approval-subtle);
+    color: var(--ds-color-approval);
     font-family: var(--ds-font-mono);
     font-size: var(--ds-text-mono);
     line-height: var(--ds-leading-mono);
@@ -8666,8 +8690,9 @@
       width: var(--ds-size-sidebar);
       min-width: 0;
       padding: var(--ds-space-md) var(--ds-space-sm);
+      /* A pane of the app shell: its own surface, and a hairline that stays drawn in dark, where the two surfaces are close. */
       border-inline-end-width: var(--ds-border-width);
-      background-color: var(--ds-color-surface);
+      background-color: var(--ds-color-surface-pane);
     }
   }
 
@@ -8752,9 +8777,9 @@
     color: var(--ds-color-on-surface);
   }
 
-  /* The current item is marked by weight and by a bar at its leading edge, as well as by its shade. */
+  /* The current item is marked by weight and by a bar at its leading edge, as well as by its fill. */
   .ds-sidebar-nav__item[aria-current]:not([aria-current="false"]) {
-    background-color: var(--ds-color-surface-sunken);
+    background-color: var(--ds-color-fill);
     color: var(--ds-color-on-surface);
     font-weight: var(--ds-weight-semibold);
   }
@@ -9910,8 +9935,9 @@
     z-index: var(--ds-z-sticky);
     display: flex;
     padding-bottom: env(safe-area-inset-bottom);
+    /* A pane of the app shell, with a hairline above it in both modes. */
     border-top-width: var(--ds-border-width);
-    background-color: var(--ds-color-surface-raised);
+    background-color: var(--ds-color-surface-pane);
   }
 
   /* Equal columns, whatever the labels hold. */
@@ -11046,9 +11072,10 @@
     padding: var(--ds-space-xs) var(--ds-space-sm);
     border-block: var(--ds-space-xs) solid transparent;
     border-radius: var(--ds-radius-xs);
-    background-color: var(--ds-color-accent);
+    /* The text colour as a fill with the page colour on it: the accent is for an action, and a tooltip is none. */
+    background-color: var(--ds-color-on-surface);
     background-clip: padding-box;
-    color: var(--ds-color-on-accent);
+    color: var(--ds-color-surface);
     font-size: var(--ds-text-xs);
     font-weight: var(--ds-weight-normal);
     line-height: var(--ds-leading-xs);

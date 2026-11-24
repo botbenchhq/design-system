@@ -15,8 +15,9 @@
     z-index: var(--ds-z-sticky);
     display: flex;
     padding-bottom: env(safe-area-inset-bottom);
+    /* A pane of the app shell, with a hairline above it in both modes. */
     border-top-width: var(--ds-border-width);
-    background-color: var(--ds-color-surface-raised);
+    background-color: var(--ds-color-surface-pane);
   }
 
   /* Equal columns, whatever the labels hold. */

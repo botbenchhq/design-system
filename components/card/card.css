@@ -19,6 +19,14 @@
     background-color: var(--ds-color-surface-sunken);
   }
 
+  /*
+   * No border, for a card that is decoration: a panel of a summary or a specimen, set apart by its fill alone.
+   * Never a pane of the app shell, a control, or a card a reader must tell from the page in dark by its edge.
+   */
+  .ds-card--borderless {
+    border-color: transparent;
+  }
+
   /* As tall as a pointer target, so a small button's padded hit area stays inside the header. */
   .ds-card__header {
     display: flex;

@@ -76,9 +76,9 @@ test("loaded after design-system.css, the theme's values win over the default to
 
   await openPage(page, { mode: "light" });
   const after = await read(page);
-  expect(after.surface).toBe("#F2F2F7");
-  expect(hex(after.body)).toBe("#F2F2F7");
-  expect(hex(after.button)).toBe("#1C1C1E");
+  expect(after.surface).toBe("#F5F6F7");
+  expect(hex(after.body)).toBe("#F5F6F7");
+  expect(hex(after.button)).toBe("#215BB8");
   expect(hex(after.buttonText)).toBe("#FFFFFF");
   // The radius scale is the system's under every theme: a button is a control, 10px.
   expect(after.radius).toBe("10px");
@@ -208,8 +208,8 @@ for (const stylesheets of [["design-system.css"], ["design-system.css", "themes/
 
 test("the theme's layer comes after ds.tokens whatever order the files load in, and unlayered app CSS still wins over both", async ({ page }) => {
   await openPage(page, { mode: "dark", stylesheets: ["themes/botbench.css", "design-system.css"] });
-  expect(hex((await read(page)).body)).toBe("#161618");
-  expect(hex((await read(page)).button)).toBe("#F5F5F7");
+  expect(hex((await read(page)).body)).toBe("#111316");
+  expect(hex((await read(page)).button)).toBe("#7CB7FF");
   // A test page may carry a style element. An app sets no token itself; this only shows where unlayered CSS falls.
   await openPage(page, { mode: "dark", extra: "\n<style>:root { --ds-color-surface: #000000; }</style>" });
   expect(hex((await read(page)).body)).toBe("#000000");
@@ -217,12 +217,12 @@ test("the theme's layer comes after ds.tokens whatever order the files load in, 
 
 // The colour scheme native controls and scrollbars are drawn in follows the mode on screen.
 const cases = [
-  { mode: null, colorScheme: "light", expected: "#161618", scheme: "dark", reason: "the theme's default mode is dark" },
-  { mode: null, colorScheme: "dark", expected: "#161618", scheme: "dark", reason: "the default mode does not follow the system" },
-  { mode: "light", colorScheme: "dark", expected: "#F2F2F7", scheme: "light", reason: "light is set outright" },
-  { mode: "dark", colorScheme: "light", expected: "#161618", scheme: "dark", reason: "dark is set outright" },
-  { mode: "auto", colorScheme: "light", expected: "#F2F2F7", scheme: "light dark", reason: "auto follows a light system" },
-  { mode: "auto", colorScheme: "dark", expected: "#161618", scheme: "light dark", reason: "auto follows a dark system" },
+  { mode: null, colorScheme: "light", expected: "#111316", scheme: "dark", reason: "the theme's default mode is dark" },
+  { mode: null, colorScheme: "dark", expected: "#111316", scheme: "dark", reason: "the default mode does not follow the system" },
+  { mode: "light", colorScheme: "dark", expected: "#F5F6F7", scheme: "light", reason: "light is set outright" },
+  { mode: "dark", colorScheme: "light", expected: "#111316", scheme: "dark", reason: "dark is set outright" },
+  { mode: "auto", colorScheme: "light", expected: "#F5F6F7", scheme: "light dark", reason: "auto follows a light system" },
+  { mode: "auto", colorScheme: "dark", expected: "#111316", scheme: "light dark", reason: "auto follows a dark system" },
 ];
 
 for (const { mode, colorScheme, expected, scheme, reason } of cases) {
@@ -231,7 +231,7 @@ for (const { mode, colorScheme, expected, scheme, reason } of cases) {
     const { body, scheme: drawn } = await read(page);
     expect(hex(body)).toBe(expected);
     expect(drawn).toBe(scheme);
-    expect(summary.themeColor[expected === "#161618" ? "dark" : "light"]).toBe(expected);
+    expect(summary.themeColor[expected === "#111316" ? "dark" : "light"]).toBe(expected);
   });
 }
 
@@ -252,7 +252,7 @@ test("with no data-theme the dark default mode matches data-theme dark in every 
   const dark = await all();
   await openPage(page);
   expect(await all()).toEqual(dark);
-  expect(dark["--ds-shadow-overlay"]).toBe("0 8px 24px 0 rgb(0 0 0 / 0.5)");
+  expect(dark["--ds-shadow-overlay"]).toBe("0 16px 40px 0 rgb(0 0 0 / 0.5)");
 });
 
 test("without a theme, a page with no data-theme is light and drawn in the light colour scheme, as before", async ({ page }) => {
@@ -273,8 +273,8 @@ test("after a sync the hash manifest covers every theme file, the copy verifies,
   expect(verifyVendored(vendored)).toEqual([]);
 
   await openPage(page, { from: "vendor" });
-  expect(hex((await read(page)).body)).toBe("#161618");
+  expect(hex((await read(page)).body)).toBe("#111316");
 
-  writeFileSync(join(vendored, "themes/botbench.css"), readFileSync(join(vendored, "themes/botbench.css"), "utf8").replace("#161618", "#000000"));
+  writeFileSync(join(vendored, "themes/botbench.css"), readFileSync(join(vendored, "themes/botbench.css"), "utf8").replace("#111316", "#000000"));
   expect(verifyVendored(vendored).map((finding) => finding.file)).toEqual([join(vendored, "themes/botbench.css")]);
 });

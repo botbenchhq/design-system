@@ -232,6 +232,7 @@
     "status": "draft",
     "classes": [
       "ds-card",
+      "ds-card--borderless",
       "ds-card--sunken",
       "ds-card__action",
       "ds-card__body",

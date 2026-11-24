@@ -12,18 +12,29 @@
 
 @layer ds.tokens {
   :root {
+    /*
+     * The one interactive colour: the fill of the primary action, and the mark of selection and of work under
+     * way. It is never a status other than working. The focus ring and the info status may hold the same value.
+     */
     --ds-color-accent: #1A1A1A;
     /* The accent while hovered or pressed. */
     --ds-color-accent-hover: #3D3D3A;
     --ds-color-on-accent: #FAFAF9;
+    /* Four levels of surface, each with one role. The page behind everything. */
     --ds-color-surface: #FAFAF9;
+    /* A pane of the app shell: the navigation, the inspector, the tab bar. Nothing else takes it: not a card inside a card, not a decorative panel. */
+    --ds-color-surface-pane: #FDFDFC;
+    /* A card, a dialog, a sheet, a menu, and a control that rests above the page. */
     --ds-color-surface-raised: #FFFFFF;
+    /* A well: a block of code, a diff, command output, a read-only field. */
     --ds-color-surface-sunken: #F3F2EF;
     /* The resting fill of a secondary control: a quiet tone that shows on the page and on a raised card. */
     --ds-color-fill: #ECEBE7;
     --ds-color-on-surface: #171717;
     --ds-color-muted: #737373;
+    /* A hairline: the border of a card, a divider, the edge of a pane. It cannot mark a control. */
     --ds-color-border: #E5E5E5;
+    /* The edge of a control. It holds 3:1 on the page, a pane and a card. */
     --ds-color-border-strong: #8A8A86;
     --ds-color-focus: #1F5C99;
     --ds-color-success: #1E6B3A;
@@ -34,7 +45,7 @@
     --ds-color-danger-subtle: #F9E9E7;
     --ds-color-info: #1F5C99;
     --ds-color-info-subtle: #E6EEF6;
-    /* Waiting on a person's answer: needs input, needs approval. */
+    /* Waiting on a person's answer: needs input, needs approval. A small signal, never a band of background. */
     --ds-color-approval: #984369;
     --ds-color-approval-subtle: #FCE9EF;
     /* Stopped and unable to go on by itself: interrupted, rate limited. */
@@ -165,6 +176,7 @@
     --ds-color-accent-hover: #CFCFCB;
     --ds-color-on-accent: #171717;
     --ds-color-surface: #141413;
+    --ds-color-surface-pane: #181817;
     --ds-color-surface-raised: #1C1C1A;
     --ds-color-surface-sunken: #0E0E0D;
     --ds-color-fill: #2A2A27;
@@ -198,6 +210,7 @@
       --ds-color-accent-hover: #CFCFCB;
       --ds-color-on-accent: #171717;
       --ds-color-surface: #141413;
+      --ds-color-surface-pane: #181817;
       --ds-color-surface-raised: #1C1C1A;
       --ds-color-surface-sunken: #0E0E0D;
       --ds-color-fill: #2A2A27;

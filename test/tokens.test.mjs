@@ -71,7 +71,8 @@ test("a text pair below 4.5:1 fails the build and names both tokens and the rati
 test("every listed pair passes in light and dark", () => {
   const { contrast } = build({ outDir: tempDir() });
   const pairs = JSON.parse(readFileSync(join(repoRoot, "tokens", "pairs.json"), "utf8"));
-  assert.equal(contrast.length, pairs.length * 2);
+  // A pair with a themes list is not the default theme's to pass: test/themes.test.mjs covers those.
+  assert.equal(contrast.length, pairs.filter((pair) => !pair.themes).length * 2);
   for (const row of contrast) assert.ok(row.ratio >= row.minimum, JSON.stringify(row));
 });
 

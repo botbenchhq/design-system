@@ -18,6 +18,7 @@
   ],
   "variants": [
     { "name": "bordered", "use": "The default, with no modifier class. A 1px border on the raised surface." },
+    { "name": "borderless", "class": "ds-card--borderless", "use": "The raised surface with no border, for a decorative panel only: a summary or a specimen that is set apart by its fill and loses nothing if the fill is missed. In dark the raised surface is a small step from the page, so never use it for a section a reader has to find, for a pane of the app shell, or for anything that takes a press." },
     { "name": "sunken", "class": "ds-card--sunken", "use": "A background shift with no border. Keep quiet, muted text out of it: the muted colour does not reach 4.5:1 on the sunken surface in the light theme." }
   ],
   "sizes": [],
@@ -33,6 +34,7 @@
   "icons": [],
   "classes": [
     "ds-card",
+    "ds-card--borderless",
     "ds-card--sunken",
     "ds-card__action",
     "ds-card__body",

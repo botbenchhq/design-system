@@ -285,7 +285,26 @@ function contrastRatio(foreground, background) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-function checkContrast(tokens, pairs, themeName = null) {
+// A pair with a "themes" list holds for those themes only: it is checked for each of them and for no other, the
+// default theme included. A component may rely only on a pair with no list, which every theme passes.
+const pairsFor = (pairs, themeName) => pairs.filter((pair) => (pair.themes ? pair.themes.includes(themeName) : true));
+
+function checkPairs(pairs, tokenNames, themeNames) {
+  for (const pair of pairs) {
+    const where = `tokens/pairs.json: the pair ${pair.foreground} on ${pair.background}`;
+    for (const name of [pair.foreground, pair.background]) {
+      if (!tokenNames.includes(name) || categoryOf(name).category !== "color") throw new Error(`${where} names ${name}, which is not a colour token`);
+    }
+    if (!(pair.kind in MINIMUM_CONTRAST)) throw new Error(`${where} has the kind ${JSON.stringify(pair.kind)}. It is ${Object.keys(MINIMUM_CONTRAST).join(" or ")}`);
+    if (pair.themes !== undefined && (!Array.isArray(pair.themes) || pair.themes.length === 0)) throw new Error(`${where} has a "themes" that is not a list of theme names`);
+    for (const theme of pair.themes ?? []) {
+      if (!themeNames.includes(theme)) throw new Error(`${where} is for the theme ${JSON.stringify(theme)}, and themes/ has no ${theme}.css`);
+    }
+  }
+}
+
+function checkContrast(tokens, allPairs, themeName = null) {
+  const pairs = pairsFor(allPairs, themeName);
   const themes = { light: tokens.light, dark: { ...tokens.light, ...tokens.dark } };
   const report = [];
   for (const { foreground, background, kind } of pairs) {
@@ -962,6 +981,9 @@ export function build({ root = repoRoot, outDir = join(root, "dist") } = {}) {
     throw new Error(`tokens.css must declare the layer order: @layer ${LAYERS.join(", ")};`);
   }
   const tokens = parseTokens(source);
+  const themesDir = join(root, "themes");
+  const themeNames = existsSync(themesDir) ? readdirSync(themesDir).filter((file) => file.endsWith(".css")).map((file) => file.slice(0, -".css".length)) : [];
+  checkPairs(pairs, Object.keys(tokens.light), themeNames);
   const contrast = checkContrast(tokens, pairs);
   const themes = readThemes(root, tokens, pairs);
   const groups = groupByCategory(Object.keys(tokens.light));
