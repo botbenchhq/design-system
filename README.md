@@ -218,6 +218,7 @@ To change the look of every app: edit the theme here, run `npm run build`, and e
 | `checker/` | The static scan and the structural rules. No dependencies. |
 | `rules/` | Eight files agents read: `core.md` first, then principles, disclosure, the never list, content, choosing a component, checker rules and the review rubric. |
 | `gallery/`, `hooks/`, `scripts/` | The gallery's own CSS and script, the optional Claude Code hook, and the build, sync and codemod scripts. |
+| `storytelling/` | An opt-in companion for public-facing work: marketing pages, READMEs, scenes, cards and films. Method, motion, gates, a pinned skill registry and two agent skills. Source only, not in `dist/`. |
 | `docs/` | The consumer guide, the authoring contract, the trial report, the audit and the plans. |
 | `test/` | Unit and browser tests, fixtures and the committed screenshots. |
 | `dist/` | Generated and committed. This is what an app copies. |
