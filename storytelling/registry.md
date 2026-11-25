@@ -64,7 +64,7 @@ cp -R /tmp/<repo>/<path to skill> .claude/skills/
 | Living Canvas | `git clone https://github.com/shouvik12/living-canvas ~/.claude/skills/living-canvas` | repository root |
 | marketingskills | `npx skills add coreyhaines31/marketingskills --skill product-marketing copywriting cro` | `skills/<name>/` |
 | landing-page-guru | `npx skills add Pageree/landing-page-guru-skill` | `skills/landing-page-guru-skill/` |
-| product-showcase | `/plugin marketplace add jezweb/claude-skills`, then install the frontend plugin | `plugins/frontend/skills/product-showcase/` |
+| product-showcase | `/plugin marketplace add jezweb/claude-skills`, then `/plugin install frontend@jezweb-skills` | `plugins/frontend/skills/product-showcase/` |
 | Taste, frontend-design | Read at the pin; not installed | `skills/taste-skill/`, `skills/frontend-design/` |
 
 ## Overrides of upstream defaults
